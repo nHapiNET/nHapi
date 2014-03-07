@@ -9,3 +9,14 @@ E:\Projects\nhapi\NHapi20\ModelGenerator\bin\Debug\TestApiCore.pdb
 E:\Projects\nhapi\NHapi20\ModelGenerator\obj\Debug\ResolveAssemblyReference.cache
 E:\Projects\nhapi\NHapi20\ModelGenerator\obj\Debug\ModelGenerator.exe
 E:\Projects\nhapi\NHapi20\ModelGenerator\obj\Debug\ModelGenerator.pdb
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\ModelGenerator\obj\Debug\ModelGenerator.pdb
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\ModelGenerator\bin\Debug\ModelGenerator.exe.config
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\ModelGenerator\bin\Debug\ModelGenerator.exe
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\ModelGenerator\bin\Debug\ModelGenerator.pdb
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\ModelGenerator\bin\Debug\NHapi.Base.dll
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\ModelGenerator\bin\Debug\TestApiCore.dll
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\ModelGenerator\bin\Debug\NHapi.Base.pdb
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\ModelGenerator\bin\Debug\NHapi.Base.xml
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\ModelGenerator\bin\Debug\TestApiCore.pdb
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\ModelGenerator\obj\Debug\ModelGenerator.csprojResolveAssemblyReference.cache
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\ModelGenerator\obj\Debug\ModelGenerator.exe

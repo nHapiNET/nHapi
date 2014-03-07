@@ -9,3 +9,14 @@ E:\Projects\nhapi\NHapi20\NHapi.Model.V22_ZSegments\bin\Debug\NHapi.Model.V22.xm
 E:\Projects\nhapi\NHapi20\NHapi.Model.V22_ZSegments\obj\Debug\ResolveAssemblyReference.cache
 E:\Projects\nhapi\NHapi20\NHapi.Model.V22_ZSegments\obj\Debug\NHapi.Model.V22_ZSegments.dll
 E:\Projects\nhapi\NHapi20\NHapi.Model.V22_ZSegments\obj\Debug\NHapi.Model.V22_ZSegments.pdb
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22_ZSegments\bin\Debug\NHapi.Model.V22_ZSegments.dll
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22_ZSegments\bin\Debug\NHapi.Model.V22_ZSegments.pdb
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22_ZSegments\bin\Debug\NHapi.Base.dll
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22_ZSegments\bin\Debug\NHapi.Model.V22.dll
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22_ZSegments\bin\Debug\NHapi.Base.pdb
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22_ZSegments\bin\Debug\NHapi.Base.xml
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22_ZSegments\bin\Debug\NHapi.Model.V22.pdb
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22_ZSegments\bin\Debug\NHapi.Model.V22.xml
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22_ZSegments\obj\Debug\NHapi.Model.V22_ZSegments.csprojResolveAssemblyReference.cache
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22_ZSegments\obj\Debug\NHapi.Model.V22_ZSegments.dll
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22_ZSegments\obj\Debug\NHapi.Model.V22_ZSegments.pdb

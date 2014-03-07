@@ -7,3 +7,12 @@ E:\Projects\nhapi\NHapi20\NHapi.Model.V22\obj\Debug\ResolveAssemblyReference.cac
 E:\Projects\nhapi\NHapi20\NHapi.Model.V22\obj\Debug\NHapi.Model.V22.dll
 E:\Projects\nhapi\NHapi20\NHapi.Model.V22\obj\Debug\NHapi.Model.V22.pdb
 E:\Projects\nhapi\NHapi20\NHapi.Model.V22\bin\Debug\NHapi.Model.V22.XML
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22\bin\Debug\NHapi.Model.V22.XML
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22\bin\Debug\NHapi.Model.V22.dll
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22\bin\Debug\NHapi.Model.V22.pdb
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22\bin\Debug\NHapi.Base.dll
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22\bin\Debug\NHapi.Base.pdb
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22\bin\Debug\NHapi.Base.xml
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22\obj\Debug\NHapi.Model.V22.csprojResolveAssemblyReference.cache
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22\obj\Debug\NHapi.Model.V22.dll
+C:\Users\CHAD\Source\Repos\nhapi\NHapi20\NHapi.Model.V22\obj\Debug\NHapi.Model.V22.pdb
