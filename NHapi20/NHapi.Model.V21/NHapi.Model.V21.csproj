@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4B3417BA-0090-4FA0-B04B-BB19563FC11C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NHapi.Model.V21</RootNamespace>
+    <AssemblyName>NHapi.Model.V21</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Properties\NHapi.snk</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\NHapi.Model.V21.XML</DocumentationFile>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Constants.cs" />
+    <Compile Include="Datatype\AD.cs" />
+    <Compile Include="Datatype\CE.cs" />
+    <Compile Include="Datatype\CK.cs" />
+    <Compile Include="Datatype\CM.cs" />
+    <Compile Include="Datatype\CN.cs" />
+    <Compile Include="Datatype\CQ.cs" />
+    <Compile Include="Datatype\DT.cs" />
+    <Compile Include="Datatype\FT.cs" />
+    <Compile Include="Datatype\ID.cs" />
+    <Compile Include="Datatype\IS.cs" />
+    <Compile Include="Datatype\NM.cs" />
+    <Compile Include="Datatype\PN.cs" />
+    <Compile Include="Datatype\SI.cs" />
+    <Compile Include="Datatype\ST.cs" />
+    <Compile Include="Datatype\TM.cs" />
+    <Compile Include="Datatype\TN.cs" />
+    <Compile Include="Datatype\TS.cs" />
+    <Compile Include="Datatype\TX.cs" />
+    <Compile Include="Group\ADT_A17_PATIENT.cs" />
+    <Compile Include="Group\ARD_A19_QUERY_RESPONSE.cs" />
+    <Compile Include="Group\BAR_P01_VISIT.cs" />
+    <Compile Include="Group\BAR_P02_PATIENT.cs" />
+    <Compile Include="Group\ORM_O01_ORDER.cs" />
+    <Compile Include="Group\ORM_O01_ORDER_DETAIL.cs" />
+    <Compile Include="Group\ORM_O01_PATIENT.cs" />
+    <Compile Include="Group\ORR_O02_ORDER.cs" />
+    <Compile Include="Group\ORR_O02_ORDER_DETAIL.cs" />
+    <Compile Include="Group\ORR_O02_PATIENT.cs" />
+    <Compile Include="Group\ORU_R01_OBSERVATION.cs" />
+    <Compile Include="Group\ORU_R01_ORDER_OBSERVATION.cs" />
+    <Compile Include="Group\ORU_R01_PATIENT.cs" />
+    <Compile Include="Group\ORU_R01_PATIENT_RESULT.cs" />
+    <Compile Include="Group\ORU_R03_OBSERVATION.cs" />
+    <Compile Include="Group\ORU_R03_ORDER_OBSERVATION.cs" />
+    <Compile Include="Group\ORU_R03_PATIENT.cs" />
+    <Compile Include="Group\ORU_R03_PATIENT_RESULT.cs" />
+    <Compile Include="Message\ADT_A01.cs" />
+    <Compile Include="Message\ADT_A02.cs" />
+    <Compile Include="Message\ADT_A03.cs" />
+    <Compile Include="Message\ADT_A04.cs" />
+    <Compile Include="Message\ADT_A05.cs" />
+    <Compile Include="Message\ADT_A06.cs" />
+    <Compile Include="Message\ADT_A07.cs" />
+    <Compile Include="Message\ADT_A08.cs" />
+    <Compile Include="Message\ADT_A09.cs" />
+    <Compile Include="Message\ADT_A10.cs" />
+    <Compile Include="Message\ADT_A11.cs" />
+    <Compile Include="Message\ADT_A12.cs" />
+    <Compile Include="Message\ADT_A13.cs" />
+    <Compile Include="Message\ADT_A14.cs" />
+    <Compile Include="Message\ADT_A15.cs" />
+    <Compile Include="Message\ADT_A16.cs" />
+    <Compile Include="Message\ADT_A17.cs" />
+    <Compile Include="Message\ADT_A18.cs" />
+    <Compile Include="Message\ADT_A20.cs" />
+    <Compile Include="Message\ADT_A21.cs" />
+    <Compile Include="Message\ADT_A22.cs" />
+    <Compile Include="Message\ADT_A23.cs" />
+    <Compile Include="Message\ADT_A24.cs" />
+    <Compile Include="Message\ARD_A19.cs" />
+    <Compile Include="Message\BAR_P01.cs" />
+    <Compile Include="Message\BAR_P02.cs" />
+    <Compile Include="Message\DFT_P03.cs" />
+    <Compile Include="Message\DSR_Q01.cs" />
+    <Compile Include="Message\DSR_Q03.cs" />
+    <Compile Include="Message\MCF_Q02.cs" />
+    <Compile Include="Message\ORM_O01.cs" />
+    <Compile Include="Message\ORR_O02.cs" />
+    <Compile Include="Message\ORU_R01.cs" />
+    <Compile Include="Message\ORU_R03.cs" />
+    <Compile Include="Message\QRY_A19.cs" />
+    <Compile Include="Message\QRY_Q01.cs" />
+    <Compile Include="Message\QRY_Q02.cs" />
+    <Compile Include="Message\UDM_Q05.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Segment\ACC.cs" />
+    <Compile Include="Segment\ADD.cs" />
+    <Compile Include="Segment\BHS.cs" />
+    <Compile Include="Segment\BLG.cs" />
+    <Compile Include="Segment\BTS.cs" />
+    <Compile Include="Segment\DG1.cs" />
+    <Compile Include="Segment\DSC.cs" />
+    <Compile Include="Segment\DSP.cs" />
+    <Compile Include="Segment\ERR.cs" />
+    <Compile Include="Segment\EVN.cs" />
+    <Compile Include="Segment\FHS.cs" />
+    <Compile Include="Segment\FT1.cs" />
+    <Compile Include="Segment\FTS.cs" />
+    <Compile Include="Segment\GT1.cs" />
+    <Compile Include="Segment\IN1.cs" />
+    <Compile Include="Segment\IN3.cs" />
+    <Compile Include="Segment\MRG.cs" />
+    <Compile Include="Segment\MSA.cs" />
+    <Compile Include="Segment\MSH.cs" />
+    <Compile Include="Segment\NCK.cs" />
+    <Compile Include="Segment\NK1.cs" />
+    <Compile Include="Segment\NPU.cs" />
+    <Compile Include="Segment\NSC.cs" />
+    <Compile Include="Segment\NST.cs" />
+    <Compile Include="Segment\NTE.cs" />
+    <Compile Include="Segment\OBR.cs" />
+    <Compile Include="Segment\OBX.cs" />
+    <Compile Include="Segment\ORC.cs" />
+    <Compile Include="Segment\ORO.cs" />
+    <Compile Include="Segment\PD1.cs" />
+    <Compile Include="Segment\PID.cs" />
+    <Compile Include="Segment\PR1.cs" />
+    <Compile Include="Segment\PV1.cs" />
+    <Compile Include="Segment\PV2.cs" />
+    <Compile Include="Segment\QRD.cs" />
+    <Compile Include="Segment\QRF.cs" />
+    <Compile Include="Segment\RX1.cs" />
+    <Compile Include="Segment\UB1.cs" />
+    <Compile Include="Segment\URD.cs" />
+    <Compile Include="Segment\URS.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\nHapi.Base\NHapi.Base.csproj">
+      <Project>{5A080123-0597-46C3-AE78-2007EFB0DD68}</Project>
+      <Name>NHapi.Base</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EventMapping\EventMap.properties" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\NHapi.snk" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

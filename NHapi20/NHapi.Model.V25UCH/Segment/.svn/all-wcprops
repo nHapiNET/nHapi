@@ -1,0 +1,923 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/nhapi/!svn/ver/166/NHapi20/NHapi.Model.V25UCH/Segment
+END
+DG1.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/DG1.cs
+END
+QAK.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/QAK.cs
+END
+AIS.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/AIS.cs
+END
+CTI.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/CTI.cs
+END
+CM0.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/CM0.cs
+END
+PD1.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/PD1.cs
+END
+PCR.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/PCR.cs
+END
+RQD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/RQD.cs
+END
+IN2.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/IN2.cs
+END
+BPX.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/BPX.cs
+END
+FAC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/FAC.cs
+END
+ROL.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/ROL.cs
+END
+BTX.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/BTX.cs
+END
+OM4.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/OM4.cs
+END
+BLC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/BLC.cs
+END
+PR1.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/PR1.cs
+END
+PDA.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/PDA.cs
+END
+TQ1.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/TQ1.cs
+END
+PV1.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/PV1.cs
+END
+Hxx.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/Hxx.cs
+END
+ECR.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/ECR.cs
+END
+URS.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/URS.cs
+END
+CTD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/CTD.cs
+END
+NCK.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/NCK.cs
+END
+BHS.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/BHS.cs
+END
+SCH.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/SCH.cs
+END
+GOL.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/GOL.cs
+END
+PRA.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/PRA.cs
+END
+APR.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/APR.cs
+END
+NSC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/NSC.cs
+END
+CSP.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/CSP.cs
+END
+UB1.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/UB1.cs
+END
+OBX.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/OBX.cs
+END
+BTS.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/BTS.cs
+END
+EVN.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/EVN.cs
+END
+RXC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/RXC.cs
+END
+SFT.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/SFT.cs
+END
+OM7.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/OM7.cs
+END
+MFA.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/MFA.cs
+END
+SAC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/SAC.cs
+END
+TCD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/TCD.cs
+END
+RDF.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/RDF.cs
+END
+MFI.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/MFI.cs
+END
+LDP.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/LDP.cs
+END
+ORC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/ORC.cs
+END
+PRD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/PRD.cs
+END
+ODS.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/ODS.cs
+END
+ERQ.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/ERQ.cs
+END
+RF1.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/RF1.cs
+END
+CSS.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/CSS.cs
+END
+NK1.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/NK1.cs
+END
+PSH.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/PSH.cs
+END
+EQU.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/EQU.cs
+END
+OM2.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/OM2.cs
+END
+AIL.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/AIL.cs
+END
+QID.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/QID.cs
+END
+ISD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/ISD.cs
+END
+CM1.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/CM1.cs
+END
+EQP.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/EQP.cs
+END
+NTE.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/NTE.cs
+END
+PES.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/PES.cs
+END
+MSH.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/MSH.cs
+END
+GP1.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/GP1.cs
+END
+ED.cs
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/ED.cs
+END
+AUT.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/AUT.cs
+END
+IN3.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/IN3.cs
+END
+RXA.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/RXA.cs
+END
+URD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/URD.cs
+END
+GT1.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/GT1.cs
+END
+OM5.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/OM5.cs
+END
+AIG.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/AIG.cs
+END
+NPU.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/NPU.cs
+END
+CDM.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/CDM.cs
+END
+SPR.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/SPR.cs
+END
+ABS.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/ABS.cs
+END
+DB1.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/DB1.cs
+END
+TQ2.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/TQ2.cs
+END
+PV2.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/PV2.cs
+END
+IPC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/IPC.cs
+END
+PRB.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/PRB.cs
+END
+RCP.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/RCP.cs
+END
+MRG.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/MRG.cs
+END
+UB2.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/UB2.cs
+END
+RDT.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/RDT.cs
+END
+AFF.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/AFF.cs
+END
+RXD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/RXD.cs
+END
+SPM.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/SPM.cs
+END
+NST.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/NST.cs
+END
+BLG.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/BLG.cs
+END
+ZL7.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/ZL7.cs
+END
+AL1.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/AL1.cs
+END
+SID.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/SID.cs
+END
+BPO.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/BPO.cs
+END
+FHS.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/FHS.cs
+END
+NDS.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/NDS.cs
+END
+ODT.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/ODT.cs
+END
+IN1.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/166/NHapi20/NHapi.Model.V25UCH/Segment/IN1.cs
+END
+QRF.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/QRF.cs
+END
+ERR.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/ERR.cs
+END
+RGS.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/RGS.cs
+END
+FTS.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/FTS.cs
+END
+INV.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/INV.cs
+END
+TXA.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/TXA.cs
+END
+OM3.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/OM3.cs
+END
+RXG.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/RXG.cs
+END
+LCH.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/LCH.cs
+END
+IAM.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/IAM.cs
+END
+MFE.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/MFE.cs
+END
+RXO.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/RXO.cs
+END
+PID.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/PID.cs
+END
+EDU.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/EDU.cs
+END
+IIM.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/IIM.cs
+END
+MSA.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/MSA.cs
+END
+CM2.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/CM2.cs
+END
+CNS.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/CNS.cs
+END
+ARQ.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/ARQ.cs
+END
+DSP.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/DSP.cs
+END
+ORG.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/ORG.cs
+END
+ADD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/ADD.cs
+END
+GP2.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/GP2.cs
+END
+VAR.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/VAR.cs
+END
+LRL.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/LRL.cs
+END
+FT1.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/FT1.cs
+END
+QRI.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/QRI.cs
+END
+PTH.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/PTH.cs
+END
+ECD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/ECD.cs
+END
+OM6.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/OM6.cs
+END
+LCC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/LCC.cs
+END
+RQ1.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/RQ1.cs
+END
+PDC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/PDC.cs
+END
+CER.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/CER.cs
+END
+AIP.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/AIP.cs
+END
+DSC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/DSC.cs
+END
+TCC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/TCC.cs
+END
+RXR.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/RXR.cs
+END
+DRG.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/DRG.cs
+END
+LOC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/LOC.cs
+END
+EQL.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/EQL.cs
+END
+OBR.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/OBR.cs
+END
+PEO.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/PEO.cs
+END
+QPD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/QPD.cs
+END
+PRC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/PRC.cs
+END
+QRD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/QRD.cs
+END
+ACC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/ACC.cs
+END
+RMI.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/RMI.cs
+END
+CSR.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/CSR.cs
+END
+OM1.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/OM1.cs
+END
+STF.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/STF.cs
+END
+RXE.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/RXE.cs
+END
+CON1.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/CON1.cs
+END
+OVR.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/OVR.cs
+END
+LAN.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/LAN.cs
+END
+VTQ.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.Model.V25UCH/Segment/VTQ.cs
+END

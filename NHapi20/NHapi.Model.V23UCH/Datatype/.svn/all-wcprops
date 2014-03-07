@@ -1,0 +1,521 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype
+END
+PL.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/PL.cs
+END
+DLN.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/DLN.cs
+END
+VH.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/VH.cs
+END
+RP.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/RP.cs
+END
+PT.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/PT.cs
+END
+QSC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/QSC.cs
+END
+ST.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/ST.cs
+END
+CM_PCF.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_PCF.cs
+END
+CM_PI.cs
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_PI.cs
+END
+FC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/FC.cs
+END
+XCN.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/XCN.cs
+END
+CM_RI.cs
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_RI.cs
+END
+CM_DIN.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_DIN.cs
+END
+TX.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/TX.cs
+END
+CM_LA1.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_LA1.cs
+END
+CM_NDL.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_NDL.cs
+END
+CK.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CK.cs
+END
+CM_MOC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_MOC.cs
+END
+PPN.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/PPN.cs
+END
+JCC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/JCC.cs
+END
+CM_PEN.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_PEN.cs
+END
+CM_DTN.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_DTN.cs
+END
+XON.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/XON.cs
+END
+CM_MSG.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_MSG.cs
+END
+XPN.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/XPN.cs
+END
+CM_PLN.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_PLN.cs
+END
+CM_CCD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_CCD.cs
+END
+CM_CSU.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_CSU.cs
+END
+XTN.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/XTN.cs
+END
+MO.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/MO.cs
+END
+IS.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/IS.cs
+END
+CM_UVC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_UVC.cs
+END
+CM_DDI.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_DDI.cs
+END
+CM_WVI.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_WVI.cs
+END
+CM_CCP.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_CCP.cs
+END
+CM_OCD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_OCD.cs
+END
+TS.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/TS.cs
+END
+CF.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CF.cs
+END
+CM_FSC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_FSC.cs
+END
+CN.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CN.cs
+END
+CM_RMC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_RMC.cs
+END
+CM_ABS_RANGE.cs
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_ABS_RANGE.cs
+END
+CM_PTA.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_PTA.cs
+END
+CM_OSD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_OSD.cs
+END
+DR.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/DR.cs
+END
+CM_SPD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_SPD.cs
+END
+CM_MDV.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_MDV.cs
+END
+CM_RANGE.cs
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_RANGE.cs
+END
+XAD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/XAD.cs
+END
+CM_OSP.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_OSP.cs
+END
+SN.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/SN.cs
+END
+TN.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/TN.cs
+END
+CM_DLD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_DLD.cs
+END
+CM_AS.cs
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_AS.cs
+END
+CE.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CE.cs
+END
+CM_CD_ELECTRODE.cs
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_CD_ELECTRODE.cs
+END
+MA.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/MA.cs
+END
+EI.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/EI.cs
+END
+CM_AUI.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_AUI.cs
+END
+NA.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/NA.cs
+END
+CM_DLT.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_DLT.cs
+END
+CQ.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CQ.cs
+END
+CM_PIP.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_PIP.cs
+END
+CM_RFR.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_RFR.cs
+END
+NM.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/NM.cs
+END
+RI.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/RI.cs
+END
+SI.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/SI.cs
+END
+CM_PRL.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_PRL.cs
+END
+TM.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/TM.cs
+END
+CM_ELD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_ELD.cs
+END
+CM_SPS.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_SPS.cs
+END
+AD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/AD.cs
+END
+TQ.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/TQ.cs
+END
+CD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CD.cs
+END
+ED.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/ED.cs
+END
+QIP.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/QIP.cs
+END
+HD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/HD.cs
+END
+SCV.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/SCV.cs
+END
+ID.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/ID.cs
+END
+CM_EIP.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_EIP.cs
+END
+CP.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CP.cs
+END
+CM_VR.cs
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CM_VR.cs
+END
+DT.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/DT.cs
+END
+RCD.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/RCD.cs
+END
+FT.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/FT.cs
+END
+CX.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/nhapi/!svn/ver/152/NHapi20/NHapi.Model.V23UCH/Datatype/CX.cs
+END

@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHapi.Base", "nHapi.Base\NHapi.Base.csproj", "{5A080123-0597-46C3-AE78-2007EFB0DD68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelGenerator", "ModelGenerator\ModelGenerator.csproj", "{EBB8E9C9-7FF2-49C4-96EF-C5B87E4C2617}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A080123-0597-46C3-AE78-2007EFB0DD68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A080123-0597-46C3-AE78-2007EFB0DD68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A080123-0597-46C3-AE78-2007EFB0DD68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A080123-0597-46C3-AE78-2007EFB0DD68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBB8E9C9-7FF2-49C4-96EF-C5B87E4C2617}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBB8E9C9-7FF2-49C4-96EF-C5B87E4C2617}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBB8E9C9-7FF2-49C4-96EF-C5B87E4C2617}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBB8E9C9-7FF2-49C4-96EF-C5B87E4C2617}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

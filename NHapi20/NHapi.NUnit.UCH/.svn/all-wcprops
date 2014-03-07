@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svnroot/nhapi/!svn/ver/175/NHapi20/NHapi.NUnit.UCH
+END
+App.config
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/nhapi/!svn/ver/175/NHapi20/NHapi.NUnit.UCH/App.config
+END
+NHapi.NUnit.UCH.csproj
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/nhapi/!svn/ver/175/NHapi20/NHapi.NUnit.UCH/NHapi.NUnit.UCH.csproj
+END
+TestParsingWithMessageStructure.cs
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/nhapi/!svn/ver/162/NHapi20/NHapi.NUnit.UCH/TestParsingWithMessageStructure.cs
+END

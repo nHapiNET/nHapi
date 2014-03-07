@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/nhapi/!svn/ver/143/NHapi20/NHapi.Base/Model/Primitive
+END
+IS.cs
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/nhapi/!svn/ver/54/NHapi20/NHapi.Base/Model/Primitive/IS.cs
+END
+TSComponentOne.cs
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/nhapi/!svn/ver/54/NHapi20/NHapi.Base/Model/Primitive/TSComponentOne.cs
+END
+ID.cs
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/nhapi/!svn/ver/54/NHapi20/NHapi.Base/Model/Primitive/ID.cs
+END
+CommonTS.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/nhapi/!svn/ver/143/NHapi20/NHapi.Base/Model/Primitive/CommonTS.cs
+END
+CommonDT.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/nhapi/!svn/ver/143/NHapi20/NHapi.Base/Model/Primitive/CommonDT.cs
+END
+TM.cs
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/nhapi/!svn/ver/54/NHapi20/NHapi.Base/Model/Primitive/TM.cs
+END
+DT.cs
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/nhapi/!svn/ver/54/NHapi20/NHapi.Base/Model/Primitive/DT.cs
+END
+CommonTM.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/nhapi/!svn/ver/143/NHapi20/NHapi.Base/Model/Primitive/CommonTM.cs
+END

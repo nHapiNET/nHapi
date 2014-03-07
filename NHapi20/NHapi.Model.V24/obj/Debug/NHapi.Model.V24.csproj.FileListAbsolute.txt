@@ -1,0 +1,9 @@
+E:\Projects\nhapi\NHapi20\NHapi.Model.V24\bin\Debug\NHapi.Model.V24.XML
+E:\Projects\nhapi\NHapi20\NHapi.Model.V24\bin\Debug\NHapi.Model.V24.dll
+E:\Projects\nhapi\NHapi20\NHapi.Model.V24\bin\Debug\NHapi.Model.V24.pdb
+E:\Projects\nhapi\NHapi20\NHapi.Model.V24\bin\Debug\NHapi.Base.dll
+E:\Projects\nhapi\NHapi20\NHapi.Model.V24\bin\Debug\NHapi.Base.pdb
+E:\Projects\nhapi\NHapi20\NHapi.Model.V24\bin\Debug\NHapi.Base.xml
+E:\Projects\nhapi\NHapi20\NHapi.Model.V24\obj\Debug\ResolveAssemblyReference.cache
+E:\Projects\nhapi\NHapi20\NHapi.Model.V24\obj\Debug\NHapi.Model.V24.dll
+E:\Projects\nhapi\NHapi20\NHapi.Model.V24\obj\Debug\NHapi.Model.V24.pdb

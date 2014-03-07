@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
+  <TopNode>[0-1002]E:\Projects\nhapi\NHapi20\NHapi.NUnit.Additional\bin\Debug\NHapi.NUnit.Additional.dll</TopNode>
+  <SelectedNode>[0-1001]NHapi.NUnit.Additional.CustomZSegmentTest.ParseADT_A08</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1002]E:\Projects\nhapi\NHapi20\NHapi.NUnit.Additional\bin\Debug\NHapi.NUnit.Additional.dll" Expanded="true" />
+    <Node UniqueName="[0-1003]NHapi" Expanded="true" />
+    <Node UniqueName="[0-1004]NHapi.NUnit" Expanded="true" />
+    <Node UniqueName="[0-1005]NHapi.NUnit.Additional" Expanded="true" />
+    <Node UniqueName="[0-1000]NHapi.NUnit.Additional.CustomZSegmentTest" Expanded="true" />
+  </Nodes>
+</VisualState>

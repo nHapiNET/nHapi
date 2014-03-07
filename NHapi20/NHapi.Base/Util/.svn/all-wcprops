@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svnroot/nhapi/!svn/ver/143/NHapi20/NHapi.Base/Util
+END
+MessageIterator.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/nhapi/!svn/ver/143/NHapi20/NHapi.Base/Util/MessageIterator.cs
+END
+FilterIterator.cs
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/nhapi/!svn/ver/54/NHapi20/NHapi.Base/Util/FilterIterator.cs
+END
+MessageNavigator.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/nhapi/!svn/ver/54/NHapi20/NHapi.Base/Util/MessageNavigator.cs
+END
+Terser.cs
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/nhapi/!svn/ver/143/NHapi20/NHapi.Base/Util/Terser.cs
+END
+DeepCopy.cs
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/nhapi/!svn/ver/54/NHapi20/NHapi.Base/Util/DeepCopy.cs
+END
+SegmentFinder.cs
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/nhapi/!svn/ver/143/NHapi20/NHapi.Base/Util/SegmentFinder.cs
+END

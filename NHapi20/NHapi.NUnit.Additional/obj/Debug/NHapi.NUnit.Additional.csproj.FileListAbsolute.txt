@@ -1,0 +1,16 @@
+E:\Projects\nhapi\NHapi20\NHapi.NUnit.Additional\obj\Debug\ResolveAssemblyReference.cache
+E:\Projects\nhapi\NHapi20\NHapi.NUnit.Additional\obj\Debug\NHapi.NUnit.Additional.dll
+E:\Projects\nhapi\NHapi20\NHapi.NUnit.Additional\bin\Debug\NHapi.NUnit.Additional.dll.config
+E:\Projects\nhapi\NHapi20\NHapi.NUnit.Additional\bin\Debug\NHapi.NUnit.Additional.dll
+E:\Projects\nhapi\NHapi20\NHapi.NUnit.Additional\bin\Debug\NHapi.NUnit.Additional.pdb
+E:\Projects\nhapi\NHapi20\NHapi.NUnit.Additional\bin\Debug\NHapi.Base.dll
+E:\Projects\nhapi\NHapi20\NHapi.NUnit.Additional\bin\Debug\NHapi.Model.V22.dll
+E:\Projects\nhapi\NHapi20\NHapi.NUnit.Additional\bin\Debug\NHapi.Model.V22_ZSegments.dll
+E:\Projects\nhapi\NHapi20\NHapi.NUnit.Additional\bin\Debug\nunit.framework.dll
+E:\Projects\nhapi\NHapi20\NHapi.NUnit.Additional\bin\Debug\NHapi.Base.pdb
+E:\Projects\nhapi\NHapi20\NHapi.NUnit.Additional\bin\Debug\NHapi.Base.xml
+E:\Projects\nhapi\NHapi20\NHapi.NUnit.Additional\bin\Debug\NHapi.Model.V22.pdb
+E:\Projects\nhapi\NHapi20\NHapi.NUnit.Additional\bin\Debug\NHapi.Model.V22.xml
+E:\Projects\nhapi\NHapi20\NHapi.NUnit.Additional\bin\Debug\NHapi.Model.V22_ZSegments.pdb
+E:\Projects\nhapi\NHapi20\NHapi.NUnit.Additional\bin\Debug\nunit.framework.xml
+E:\Projects\nhapi\NHapi20\NHapi.NUnit.Additional\obj\Debug\NHapi.NUnit.Additional.pdb

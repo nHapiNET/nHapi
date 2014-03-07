@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svnroot/nhapi/!svn/ver/185/NHapi20/NHapi.Base
+END
+UnknownValueException.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/nhapi/!svn/ver/54/NHapi20/NHapi.Base/UnknownValueException.cs
+END
+SQLException.cs
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/nhapi/!svn/ver/54/NHapi20/NHapi.Base/SQLException.cs
+END
+app.config
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/nhapi/!svn/ver/160/NHapi20/NHapi.Base/app.config
+END
+EventMapper.cs
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/nhapi/!svn/ver/77/NHapi20/NHapi.Base/EventMapper.cs
+END
+PackageManager.cs
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/nhapi/!svn/ver/177/NHapi20/NHapi.Base/PackageManager.cs
+END
+TableRepository.cs
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/nhapi/!svn/ver/54/NHapi20/NHapi.Base/TableRepository.cs
+END
+UndefinedTableException.cs
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/nhapi/!svn/ver/54/NHapi20/NHapi.Base/UndefinedTableException.cs
+END
+ConfigurationSettings.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/nhapi/!svn/ver/82/NHapi20/NHapi.Base/ConfigurationSettings.cs
+END
+LookupException.cs
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/nhapi/!svn/ver/54/NHapi20/NHapi.Base/LookupException.cs
+END
+NormativeDatabase.cs
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/nhapi/!svn/ver/143/NHapi20/NHapi.Base/NormativeDatabase.cs
+END
+DataTypeException.cs
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/nhapi/!svn/ver/54/NHapi20/NHapi.Base/DataTypeException.cs
+END
+DBTableRepository.cs
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/nhapi/!svn/ver/143/NHapi20/NHapi.Base/DBTableRepository.cs
+END
+SupportClass.cs
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/nhapi/!svn/ver/54/NHapi20/NHapi.Base/SupportClass.cs
+END
+NHapi.Base.csproj
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/nhapi/!svn/ver/164/NHapi20/NHapi.Base/NHapi.Base.csproj
+END
+Hl7Package.cs
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/nhapi/!svn/ver/161/NHapi20/NHapi.Base/Hl7Package.cs
+END
+HL7Exception.cs
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/nhapi/!svn/ver/143/NHapi20/NHapi.Base/HL7Exception.cs
+END
