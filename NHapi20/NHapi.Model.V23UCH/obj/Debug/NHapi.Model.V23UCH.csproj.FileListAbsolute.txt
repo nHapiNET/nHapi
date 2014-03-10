@@ -1,9 +1,0 @@
-E:\Projects\nhapi\NHapi20\NHapi.Model.V23UCH\bin\Debug\NHapi.Model.V23UCH.XML
-E:\Projects\nhapi\NHapi20\NHapi.Model.V23UCH\bin\Debug\NHapi.Model.V23UCH.dll
-E:\Projects\nhapi\NHapi20\NHapi.Model.V23UCH\bin\Debug\NHapi.Model.V23UCH.pdb
-E:\Projects\nhapi\NHapi20\NHapi.Model.V23UCH\bin\Debug\NHapi.Base.dll
-E:\Projects\nhapi\NHapi20\NHapi.Model.V23UCH\bin\Debug\NHapi.Base.pdb
-E:\Projects\nhapi\NHapi20\NHapi.Model.V23UCH\bin\Debug\NHapi.Base.xml
-E:\Projects\nhapi\NHapi20\NHapi.Model.V23UCH\obj\Debug\ResolveAssemblyReference.cache
-E:\Projects\nhapi\NHapi20\NHapi.Model.V23UCH\obj\Debug\NHapi.Model.V23UCH.dll
-E:\Projects\nhapi\NHapi20\NHapi.Model.V23UCH\obj\Debug\NHapi.Model.V23UCH.pdb
