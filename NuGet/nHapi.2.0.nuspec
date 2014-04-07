@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>nHapi</id>
+        <version>2.0</version>
+        <authors>Chad Chenoweth,Duane Edwards</authors>
+        <licenseUrl>http://www.mozilla.org/MPL/2.0/</licenseUrl>
+        <projectUrl>https://nhapi.codeplex.com</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>NHapi is a port of the original project HAPI.
+
+NHapi allows Microsoft .NET developers to easily use an HL7 2.x object model. This object model allows for parsing and encoding HL7 2.x data to/from Pipe Delimited or XML formats. A very handy program for use in the health care industry.
+
+This project is NOT affiliated with the HL7 organization. This software just conforms to the HL7 2.x specifications.</description>
+    </metadata>
+    <files>
+        <file src="NHapi.Base.dll" target="lib\NHapi.Base.dll" />
+        <file src="NHapi.Model.V21.dll" target="lib\NHapi.Model.V21.dll" />
+        <file src="NHapi.Model.V22.dll" target="lib\NHapi.Model.V22.dll" />
+        <file src="NHapi.Model.V23.dll" target="lib\NHapi.Model.V23.dll" />
+        <file src="NHapi.Model.V231.dll" target="lib\NHapi.Model.V231.dll" />
+        <file src="NHapi.Model.V24.dll" target="lib\NHapi.Model.V24.dll" />
+        <file src="NHapi.Model.V25.dll" target="lib\NHapi.Model.V25.dll" />
+    </files>
+</package>
