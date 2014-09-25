@@ -10,6 +10,7 @@
 //
 
 using System;
+using System.Text;
 using System.Xml;
 using System.Xml.Schema;
 
@@ -3849,7 +3850,7 @@ namespace NHapi.Base
             //Returns the nextToken wo delimiters
             private System.String nextToken(char[] delimiters)
             {
-                string token = "";
+                StringBuilder token = new StringBuilder();
                 long pos = this.currentPos;
 
                 //skip possible delimiters
@@ -3864,12 +3865,12 @@ namespace NHapi.Base
                 //getting the token
                 while (System.Array.IndexOf(delimiters, this.chars[this.currentPos]) == -1)
                 {
-                    token += this.chars[this.currentPos];
+                    token.Append(this.chars[this.currentPos]);
                     //the last one is not a delimiter
                     if (++this.currentPos == this.chars.Length)
                         break;
                 }
-                return token;
+                return token.ToString();
             }
 
 
