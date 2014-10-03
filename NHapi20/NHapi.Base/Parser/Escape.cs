@@ -133,6 +133,12 @@ namespace NHapi.Base.Parser
         /// <returns></returns>
         public static System.String unescape(System.String text, EncodingCharacters encChars)
         {
+            // is there an escape character in the text at all?
+            if (text.IndexOf(encChars.EscapeCharacter) == -1)
+            {
+                return text;
+            }
+
             System.Text.StringBuilder result = new System.Text.StringBuilder();
             int textLength = text.Length;
             System.Collections.Hashtable esc = getEscapeSequences(encChars);
