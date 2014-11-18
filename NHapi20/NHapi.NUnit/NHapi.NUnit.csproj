@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTypeUtilTests.cs" />
     <Compile Include="DateTypeTest23.cs" />
     <Compile Include="DateTypeTest231.cs" />
     <Compile Include="DateTypeTest24.cs" />

@@ -36,31 +36,20 @@ namespace NHapi.Base.Model
         /// </summary>
         public static int LocalGMTOffset
         {
-            get
-            {
-                int offSet;
-                System.Globalization.GregorianCalendar currentTime = new System.Globalization.GregorianCalendar();
-                int gmtOffSet = SupportClass.CalendarManager.manager.Get(currentTime, SupportClass.CalendarManager.ZONE_OFFSET);
+            get { return GetGMTOffset(TimeZoneInfo.Local, DateTime.Now); }
+        }
 
-                int offSetSignInt;
-                if (gmtOffSet < 0)
-                {
-                    offSetSignInt = -1;
-                }
-                else
-                {
-                    offSetSignInt = 1;
-                }
-                //get the absolute value of the gmtOffSet
-                int absGmtOffSet = System.Math.Abs(gmtOffSet);
-                int gmtOffSetHours = absGmtOffSet / (3600 * 1000);
-                int gmtOffSetMin = (absGmtOffSet / 60000) % (60);
-                //return the offset value HL7 format
-                offSet = ((gmtOffSetHours * 100) + gmtOffSetMin) * offSetSignInt;
-                return offSet;
-            }
+        /// <summary>
+        /// This method will return a signed four digit integer indicating the
+        /// GMT offset for the given TimeZoneInfo when applied to the given DateTime.
+        /// This is the HL7 Offset format in integer representation.
+        /// </summary>
+        public static int GetGMTOffset(TimeZoneInfo timeZone, DateTime time)
+        {
+            var gmtOffSet = timeZone.GetUtcOffset(time);
 
-
+            //return the offset value HL7 format
+            return gmtOffSet.Hours * 100 + gmtOffSet.Minutes;
         }
 
         /// <summary>
