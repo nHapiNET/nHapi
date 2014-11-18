@@ -145,9 +145,6 @@ namespace NHapi.Base.Model.Primitive
             {
                 try
                 {
-                    System.Globalization.GregorianCalendar cal = new System.Globalization.GregorianCalendar();
-                    SupportClass.CalendarManager.manager.Clear(cal);
-
                     //ensure that the year field is four digits long
                     if (System.Convert.ToString(value).Length != 4)
                     {
@@ -155,10 +152,11 @@ namespace NHapi.Base.Model.Primitive
                         DataTypeException e = new DataTypeException(msg);
                         throw e;
                     }
+
+                    System.Globalization.GregorianCalendar cal = new System.Globalization.GregorianCalendar();
+
                     //check is input year is valid
-                    //GregorianCalendar cal = new GregorianCalendar(yr,0,1);
-                    SupportClass.CalendarManager.manager.Set(cal, value, 0, 1);
-                    SupportClass.CalendarManager.manager.GetDateTime(cal); //for error detection
+                    new DateTime(value, 1, 1, cal);
                     year = value;
                     month = 0;
                     day = 0;
@@ -244,8 +242,6 @@ namespace NHapi.Base.Model.Primitive
         {
             try
             {
-                System.Globalization.GregorianCalendar cal = new System.Globalization.GregorianCalendar();
-                SupportClass.CalendarManager.manager.Clear(cal);
                 //ensure that the year field is four digits long
                 if (System.Convert.ToString(yr).Length != 4)
                 {
@@ -253,10 +249,11 @@ namespace NHapi.Base.Model.Primitive
                     DataTypeException e = new DataTypeException(msg);
                     throw e;
                 }
+
+                System.Globalization.GregorianCalendar cal = new System.Globalization.GregorianCalendar();
+
                 //validate the input month
-                //GregorianCalendar cal = new GregorianCalendar(yr,(mnth-1),1);
-                SupportClass.CalendarManager.manager.Set(cal, yr, (mnth - 1), 1);
-                SupportClass.CalendarManager.manager.GetDateTime(cal); //for error detection
+                new DateTime(yr, mnth, 1, cal);
                 year = yr;
                 month = mnth;
                 day = 0;
@@ -280,8 +277,6 @@ namespace NHapi.Base.Model.Primitive
         {
             try
             {
-                System.Globalization.GregorianCalendar cal = new System.Globalization.GregorianCalendar();
-                SupportClass.CalendarManager.manager.Clear(cal);
                 //ensure that the year field is four digits long
                 if (System.Convert.ToString(yr).Length != 4)
                 {
@@ -289,9 +284,11 @@ namespace NHapi.Base.Model.Primitive
                     DataTypeException e = new DataTypeException(msg);
                     throw e;
                 }
+
+                System.Globalization.GregorianCalendar cal = new System.Globalization.GregorianCalendar();
+
                 //validate the input month/day combination
-                SupportClass.CalendarManager.manager.Set(cal, yr, (mnth - 1), dy);
-                SupportClass.CalendarManager.manager.GetDateTime(cal); //for error detection
+                new DateTime(yr, mnth, dy, cal);
                 year = yr;
                 month = mnth;
                 day = dy;
