@@ -132,26 +132,30 @@ namespace NHapi.Base.Model
             {
                 //get unqualified class name
                 IPrimitive obx2 = (IPrimitive)segment.GetField(2, 0);
-                Varies v = (Varies)segment.GetField(5, 0);
 
-                if (obx2.Value == null)
+                foreach (IType repetition in segment.GetField(5))
                 {
-                    if (v.Data != null)
+                    Varies v = (Varies)repetition;
+
+                    if (obx2.Value == null)
                     {
-                        if (!(v.Data is IPrimitive) || ((IPrimitive)v.Data).Value != null)
+                        if (v.Data != null)
                         {
-                            throw new HL7Exception("OBX-5 is valued, but OBX-2 is not.  A datatype for OBX-5 must be specified using OBX-2.", HL7Exception.REQUIRED_FIELD_MISSING);
+                            if (!(v.Data is IPrimitive) || ((IPrimitive)v.Data).Value != null)
+                            {
+                                throw new HL7Exception("OBX-5 is valued, but OBX-2 is not.  A datatype for OBX-5 must be specified using OBX-2.", HL7Exception.REQUIRED_FIELD_MISSING);
+                            }
                         }
                     }
-                }
-                else
-                {
-                    //set class
-                    System.Type c = factory.GetTypeClass(obx2.Value, segment.Message.Version);
-                    //                Class c = NHapi.Base.Parser.ParserBase.findClass(obx2.getValue(), 
-                    //                                                segment.getMessage().getVersion(), 
-                    //                                                "datatype");
-                    v.Data = (IType)c.GetConstructor(new System.Type[] { typeof(IMessage) }).Invoke(new System.Object[] { v.Message });
+                    else
+                    {
+                        //set class
+                        System.Type c = factory.GetTypeClass(obx2.Value, segment.Message.Version);
+                        //                Class c = NHapi.Base.Parser.ParserBase.findClass(obx2.getValue(), 
+                        //                                                segment.getMessage().getVersion(), 
+                        //                                                "datatype");
+                        v.Data = (IType)c.GetConstructor(new System.Type[] { typeof(IMessage) }).Invoke(new System.Object[] { v.Message });
+                    }
                 }
             }
             catch (HL7Exception e)
