@@ -16,9 +16,22 @@ namespace NHapi.NUnit
 PID|1||1711114||Appt^Test||19720501||||||||||||001020006
 ORC|||||F
 OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
-OBX|1|FT|||This\.br\is\.br\A Test||||||F
-";
+OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 		}
+
+		[Test]
+		public void TestOBR5RepeatingValuesMessage()
+		{
+			var parser = new PipeParser();
+			var oru = new ORU_R01();
+			oru = (ORU_R01)parser.Parse(GetMessage());
+
+			foreach (var obs in oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION().OBX.GetObservationValue())
+			{
+				Assert.IsTrue(obs.Data is FT);
+			}
+		}
+
 		[Test]
 		public void TestSpecialCharacterEncoding()
 		{
@@ -29,10 +42,7 @@ OBX|1|FT|||This\.br\is\.br\A Test||||||F
 			FT data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
 			Assert.AreEqual(@"This\.br\is\.br\A Test",data.Value);
 		}
-
 		
-
-
 		[Test]
 		public void TestSpecialCharacterEntry()
 		{
