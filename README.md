@@ -1,5 +1,5 @@
 # nHapi
-NHapi is a port of the original project HAPI.
+NHapi is a port of the original project [HAPI](http://hl7api.sourceforge.net/).
 
 NHapi allows Microsoft .NET developers to easily use an HL7 2.x object model. This object model allows for parsing and encoding HL7 2.x data to/from Pipe Delimited or XML formats. A very handy program for use in the health care industry.
 
@@ -20,7 +20,7 @@ NHapi currently targets version 3.5 of the .NET Framework
 
 ##Getting Started
 
-The easiest way to get started using nHapi is to use the NuGet package 'nHapi':
+The easiest way to get started using nHapi is to use the [NuGet package 'nHapi'](https://www.nuget.org/packages/nHapi/):
 
 Using the package manager console withing visual studio, simply run the following command:
 
