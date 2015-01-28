@@ -50,6 +50,7 @@ namespace NHapi.Base.Model
             }
 
             _type = t;
+            _length = length;
             _required = required;
             _maxReps = maxReps;
             if (constructorArgs != null)
