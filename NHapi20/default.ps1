@@ -1,6 +1,11 @@
 Task Default -depends Build
 
-Task Build {
+Task Clean {
+	Remove-Item *.nupkg
+	Remove-Item ..\NuGet\*.dll
+}
+
+Task Build -depends Clean {
 	Write-Host "Building Hl7Models.sln" -ForegroundColor Green
 	Exec { msbuild "Hl7Models.sln" /t:Build /p:Configuration=Release /v:quiet} 
 }
