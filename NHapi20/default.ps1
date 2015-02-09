@@ -9,4 +9,5 @@ Task Deploy -depends Build {
 	Remove-Item ..\NuGet\*.dll
 	Copy-Item .\NHapi.NUnit\bin\Release\*.dll ..\NuGet
 	Exec { .nuget\nuget pack ..\NuGet\nHapi.v2.nuspec }
+	Exec { .nuget\nuget push *.nupkg }
 }
