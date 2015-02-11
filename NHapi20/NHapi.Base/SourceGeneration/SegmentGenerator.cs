@@ -24,6 +24,8 @@
 /// 
 /// </summary>
 using System;
+using System.Data.OleDb;
+using System.Linq;
 using NHapi.Base;
 using NHapi.Base.Log;
 
@@ -140,7 +142,7 @@ namespace NHapi.Base.SourceGeneration
                     System.Text.StringBuilder sql = new System.Text.StringBuilder();
                     sql.Append("SELECT HL7SegmentDataElements.seg_code, HL7SegmentDataElements.seq_no, ");
                     sql.Append("HL7SegmentDataElements.repetitional, HL7SegmentDataElements.repetitions, ");
-                    sql.Append("HL7DataElements.description, HL7DataElements.length, HL7DataElements.table_id, ");
+                    sql.Append("HL7DataElements.description, HL7DataElements.length_old, HL7DataElements.table_id, ");
                     sql.Append("HL7SegmentDataElements.req_opt, HL7Segments.description, HL7DataElements.data_structure ");
                     sql.Append("FROM HL7Versions RIGHT JOIN (HL7Segments INNER JOIN (HL7DataElements INNER JOIN HL7SegmentDataElements ");
                     sql.Append("ON (HL7DataElements.version_id = HL7SegmentDataElements.version_id) ");
@@ -179,9 +181,12 @@ namespace NHapi.Base.SourceGeneration
                             }
                         }
                         se.desc = System.Convert.ToString(rs[5 - 1]);
-                        if (!rs.IsDBNull(6 - 1))
-                            se.length = Convert.ToInt32(rs.GetValue(6 - 1));
-                        se.table = Convert.ToInt32(rs.GetValue(7 - 1));
+	                    if (!rs.IsDBNull(6 - 1))
+	                    {
+		                    se.length = DetermineLength(rs);
+	                    }
+
+	                    se.table = Convert.ToInt32(rs.GetValue(7 - 1));
                         se.opt = System.Convert.ToString(rs[8 - 1]);
                         se.type = System.Convert.ToString(rs[10 - 1]);
                         //shorten CE_x to CE
@@ -481,7 +486,21 @@ namespace NHapi.Base.SourceGeneration
             return source.ToString();
         }
 
-        /// <summary>
+	    private static int DetermineLength(OleDbDataReader rs)
+	    {
+		    string length = rs.GetValue(6 - 1) as string;
+		    if (!string.IsNullOrEmpty(length) && length.Contains(".."))
+		    {
+			    length = length.Split(new[] {".."}, StringSplitOptions.None).Last();
+		    }
+		    if (length == "." || string.IsNullOrEmpty(length))
+		    {
+			    length = "0";
+		    }
+		    return Convert.ToInt32(length);
+	    }
+
+	    /// <summary>
         /// Main class
         /// </summary>
         /// <param name="args"></param>
