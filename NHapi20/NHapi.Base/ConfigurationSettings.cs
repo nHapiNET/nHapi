@@ -1,38 +1,37 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Configuration;
 
 namespace NHapi.Base
 {
-    public class ConfigurationSettings
-    {
-        public static bool UseFactory
-        {
-            get
-            {
-                bool useFactory = false;
-                string useFactoryFromConfig = System.Configuration.ConfigurationManager.AppSettings["UseFactory"];
-                if(useFactoryFromConfig !=null && useFactoryFromConfig.Length>0)
-                {
-                    useFactory = Convert.ToBoolean(useFactoryFromConfig);
-                }
-                return useFactory;
-            }
-        }
+	public class ConfigurationSettings
+	{
+		public static bool UseFactory
+		{
+			get
+			{
+				bool useFactory = false;
+				string useFactoryFromConfig = ConfigurationManager.AppSettings["UseFactory"];
+				if (useFactoryFromConfig != null && useFactoryFromConfig.Length > 0)
+				{
+					useFactory = Convert.ToBoolean(useFactoryFromConfig);
+				}
+				return useFactory;
+			}
+		}
 
-        public static string ConnectionString
-        {
-            get
-            {
-                string conn = "";
-                string connFromConfig = System.Configuration.ConfigurationManager.AppSettings["ConnectionString"];
-                if (connFromConfig != null && connFromConfig.Length > 0)
-                {
-                    conn = connFromConfig;
-                }
-                return conn;
-            }
-        }
-    }
+		private static string _connectionString = string.Empty;
+		public static string ConnectionString
+		{
+			get
+			{
+				string connFromConfig = ConfigurationManager.AppSettings["ConnectionString"];
+				if (string.IsNullOrEmpty(_connectionString) && !string.IsNullOrEmpty(connFromConfig))
+				{
+					_connectionString = connFromConfig;
+				}
+				return _connectionString;
+			}
+			set { _connectionString = value; }
+		}
+	}
 }
