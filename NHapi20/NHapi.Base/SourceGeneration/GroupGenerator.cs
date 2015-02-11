@@ -75,8 +75,11 @@ namespace NHapi.Base.SourceGeneration
             }
             System.IO.FileInfo targetDir = SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Group");
 
-            GroupDef group = getGroupDef(structures, groupName, baseDirectory, version, message);
-            using (System.IO.StreamWriter out_Renamed = new System.IO.StreamWriter(targetDir.FullName + "/" + group.Name + ".cs"))
+			  // some group names are troublesome and have "/" which will cause problems when writing files
+			  groupName = groupName.Replace("/", "_");
+			  GroupDef group = getGroupDef(structures, groupName, baseDirectory, version, message);
+	        
+            using (System.IO.StreamWriter out_Renamed = new System.IO.StreamWriter(targetDir.FullName + @"\" + group.Name + ".cs"))
             {
                 out_Renamed.Write(makePreamble(group, version));
                 out_Renamed.Write(makeConstructor(group, version));
