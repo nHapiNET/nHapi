@@ -20,6 +20,7 @@
 /// </summary>
 using System;
 using System.Data;
+using System.Diagnostics;
 using NHapi.Base.Log;
 
 namespace NHapi.Base
@@ -70,23 +71,29 @@ namespace NHapi.Base
             {
                 lock (this)
                 {
-                    try
-                    {
-                        if (_conn.State != ConnectionState.Open)
-                            _conn.Open();
-                    }
-                    catch (Exception)
-                    {
-                        _conn = new System.Data.OleDb.OleDbConnection(_connectionString);
-                        _conn.Open();
-                    }
-                    return _conn;
+	                OpenConnectionIfNeeded();
+	                return _conn;
                 }
             }
 
         }
 
-        public void OpenNewConnection(string conn)
+		 [DebuggerHidden]
+	    private void OpenConnectionIfNeeded()
+	    {
+		    try
+		    {
+			    if (_conn.State != ConnectionState.Open)
+				    _conn.Open();
+		    }
+		    catch (Exception)
+		    {
+			    _conn = new System.Data.OleDb.OleDbConnection(_connectionString);
+			    _conn.Open();
+		    }
+	    }
+
+	    public void OpenNewConnection(string conn)
         {
             lock (this)
             {
