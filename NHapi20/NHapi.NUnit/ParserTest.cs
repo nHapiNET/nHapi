@@ -1,4 +1,7 @@
 using System;
+using System.IO;
+using NHapi.Base.Model;
+using NHapi.Base.Util;
 using NHapi.Model.V231;
 using NHapi.Model.V231.Datatype;
 using NHapi.Model.V231.Message;
@@ -145,6 +148,35 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 			string data = fields[5];
 
 			Assert.AreEqual(@"Th\T\is\.br\is\.br\A T\F\est\E\", data);
+		}
+
+		[Test]
+		public void UnEscapesData()
+		{
+			// Arrange
+			const string content = @"MSH|^~\&|TestSys|432^testsys practice|TEST||201402171537||MDM^T02|121906|P|2.3.1||||||||
+OBX|1|TX|PROBLEM FOCUSED^PROBLEM FOCUSED^test|1|\T\#39;Thirty days have September,\X000d\April\X0A\June,\X0A\and November.\X0A\When short February is done,\E\X0A\E\all the rest have\T\nbsp;31.\T\#39";
+
+			var parser = new PipeParser();
+			var msg = parser.Parse(content);
+			
+
+			// Act
+			var segment = msg.GetStructure("OBX") as ISegment;
+			var idx = Terser.getIndices("OBX-5");
+			var segmentData = Terser.Get(segment, idx[0], idx[1], idx[2], idx[3]);
+
+			// Assert
+			
+			// verify that data was properly unescaped by NHapi	
+			// \E\X0A\E\ should be escaped to \X0A\
+			// \X0A\ should be unescaped to \n
+			// \X000d\ should be unescaped to \r
+			// \t\ should be unescaped to &
+
+
+			const string expectedResult = "&#39;Thirty days have September,\rApril\nJune,\nand November.\nWhen short February is done,\\X0A\\all the rest have&nbsp;31.&#39";
+			Assert.AreEqual(expectedResult, segmentData);
 		}
 	}
 }
