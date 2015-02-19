@@ -18,16 +18,20 @@ Task BuildModels {
     Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath=. /Version=2.3.1 /ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Checkouts\duane\nHapi_superclean\nhapi\NHapi20\hl7_72_HQ.mdb;"}
     Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath=. /Version=2.4 /ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Checkouts\duane\nHapi_superclean\nhapi\NHapi20\hl7_72_HQ.mdb;"}
     Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath=. /Version=2.5 /ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Checkouts\duane\nHapi_superclean\nhapi\NHapi20\hl7_72_HQ.mdb;"}
-    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath=. /Version=2.6 /ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Checkouts\duane\nHapi_superclean\nhapi\NHapi20\hl7_72_HQ.mdb;"}
-    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath=. /Version=2.7 /ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Checkouts\duane\nHapi_superclean\nhapi\NHapi20\hl7_72_HQ.mdb;"}
-    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath=. /Version=2.7.1 /ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Checkouts\duane\nHapi_superclean\nhapi\NHapi20\hl7_72_HQ.mdb;"}
-    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath=. /Version=2.8 /ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Checkouts\duane\nHapi_superclean\nhapi\NHapi20\hl7_72_HQ.mdb;"}
-    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath=. /Version=2.8.1 /ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Checkouts\duane\nHapi_superclean\nhapi\NHapi20\hl7_72_HQ.mdb;"}
+    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath=. /Version=2.5.1 /ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Checkouts\duane\nHapi_superclean\nhapi\NHapi20\hl7_72_HQ.mdb;"}
+#    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath=. /Version=2.6 /ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Checkouts\duane\nHapi_superclean\nhapi\NHapi20\hl7_72_HQ.mdb;"}
+#    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath=. /Version=2.7 /ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Checkouts\duane\nHapi_superclean\nhapi\NHapi20\hl7_72_HQ.mdb;"}
+#    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath=. /Version=2.7.1 /ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Checkouts\duane\nHapi_superclean\nhapi\NHapi20\hl7_72_HQ.mdb;"}
+#    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath=. /Version=2.8 /ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Checkouts\duane\nHapi_superclean\nhapi\NHapi20\hl7_72_HQ.mdb;"}
+#    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath=. /Version=2.8.1 /ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Checkouts\duane\nHapi_superclean\nhapi\NHapi20\hl7_72_HQ.mdb;"}
 }
 
-Task Deploy -depends Build {
+Task Package -depends Build {
 	Remove-Item ..\NuGet\*.dll
 	Copy-Item .\NHapi.NUnit\bin\Release\*.dll ..\NuGet
 	Exec { .nuget\nuget pack ..\NuGet\nHapi.v2.nuspec }
+}
+
+Task Deploy -depends Package {
 	Exec { .nuget\nuget push *.nupkg }
 }
