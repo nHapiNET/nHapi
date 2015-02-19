@@ -102,6 +102,10 @@
       <Project>{C5DE87CB-F026-4EB3-9CE8-5017BF3FB5CC}</Project>
       <Name>NHapi.Model.V24</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NHapi.Model.V251\NHapi.Model.V251.csproj">
+      <Project>{616c84ef-be12-47a8-a524-d8230d572163}</Project>
+      <Name>NHapi.Model.V251</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NHapi.Model.V25\NHapi.Model.V25.csproj">
       <Project>{BE6CDFAD-560E-44CC-B23B-87252DD4392C}</Project>
       <Name>NHapi.Model.V25</Name>
