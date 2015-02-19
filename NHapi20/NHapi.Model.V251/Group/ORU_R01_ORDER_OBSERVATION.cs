@@ -37,7 +37,7 @@ public class ORU_R01_ORDER_OBSERVATION : AbstractGroup {
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(ORU_R01_TIMING_QTY), true, false);
 	      this.add(typeof(CTD), false, false);
-	      this.add(typeof(ORU_R01_OBSERVATION), true, false);
+          this.add(typeof(ORU_R01_OBSERVATION), false, true);
 	      this.add(typeof(FT1), false, true);
 	      this.add(typeof(CTI), false, true);
 	      this.add(typeof(ORU_R01_SPECIMEN), true, false);
