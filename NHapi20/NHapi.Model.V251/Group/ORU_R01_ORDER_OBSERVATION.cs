@@ -16,12 +16,12 @@ namespace NHapi.Model.V251.Group
 ///<li>0: ORC (Common Order) optional </li>
 ///<li>1: OBR (Observation Request) </li>
 ///<li>2: NTE (Notes and Comments) optional repeating</li>
-///<li>3: ORU_R01_TIMING_QTY (a Group object) </li>
+///<li>3: ORU_R01_TIMING_QTY (a Group object) optional repeating</li>
 ///<li>4: CTD (Contact Data) optional </li>
-///<li>5: ORU_R01_OBSERVATION (a Group object) </li>
+///<li>5: ORU_R01_OBSERVATION (a Group object) optional repeating</li>
 ///<li>6: FT1 (Financial Transaction) optional repeating</li>
 ///<li>7: CTI (Clinical Trial Identification) optional repeating</li>
-///<li>8: ORU_R01_SPECIMEN (a Group object) </li>
+///<li>8: ORU_R01_SPECIMEN (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -35,12 +35,12 @@ public class ORU_R01_ORDER_OBSERVATION : AbstractGroup {
 	      this.add(typeof(ORC), false, false);
 	      this.add(typeof(OBR), true, false);
 	      this.add(typeof(NTE), false, true);
-	      this.add(typeof(ORU_R01_TIMING_QTY), true, false);
+	      this.add(typeof(ORU_R01_TIMING_QTY), false, true);
 	      this.add(typeof(CTD), false, false);
-	      this.add(typeof(ORU_R01_OBSERVATION), true, false);
+	      this.add(typeof(ORU_R01_OBSERVATION), false, true);
 	      this.add(typeof(FT1), false, true);
 	      this.add(typeof(CTI), false, true);
-	      this.add(typeof(ORU_R01_SPECIMEN), true, false);
+	      this.add(typeof(ORU_R01_SPECIMEN), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating ORU_R01_ORDER_OBSERVATION - this is probably a bug in the source code generator.", e);
 	   }
@@ -120,10 +120,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns ORU_R01_TIMING_QTY (a Group object) - creates it if necessary
+	/// Returns  first repetition of ORU_R01_TIMING_QTY (a Group object) - creates it if necessary
 	///</summary>
-	public ORU_R01_TIMING_QTY TIMING_QTY { 
-get{
+	public ORU_R01_TIMING_QTY GetTIMING_QTY() {
 	   ORU_R01_TIMING_QTY ret = null;
 	   try {
 	      ret = (ORU_R01_TIMING_QTY)this.GetStructure("TIMING_QTY");
@@ -133,7 +132,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of ORU_R01_TIMING_QTY
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public ORU_R01_TIMING_QTY GetTIMING_QTY(int rep) { 
+	   return (ORU_R01_TIMING_QTY)this.GetStructure("TIMING_QTY", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of ORU_R01_TIMING_QTY 
+	 */ 
+	public int TIMING_QTYRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING_QTY").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns CTD (Contact Data) - creates it if necessary
@@ -152,10 +177,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns ORU_R01_OBSERVATION (a Group object) - creates it if necessary
+	/// Returns  first repetition of ORU_R01_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
-	public ORU_R01_OBSERVATION OBSERVATION { 
-get{
+	public ORU_R01_OBSERVATION GetOBSERVATION() {
 	   ORU_R01_OBSERVATION ret = null;
 	   try {
 	      ret = (ORU_R01_OBSERVATION)this.GetStructure("OBSERVATION");
@@ -165,7 +189,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of ORU_R01_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public ORU_R01_OBSERVATION GetOBSERVATION(int rep) { 
+	   return (ORU_R01_OBSERVATION)this.GetStructure("OBSERVATION", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of ORU_R01_OBSERVATION 
+	 */ 
+	public int OBSERVATIONRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns  first repetition of FT1 (Financial Transaction) - creates it if necessary
@@ -250,10 +300,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns ORU_R01_SPECIMEN (a Group object) - creates it if necessary
+	/// Returns  first repetition of ORU_R01_SPECIMEN (a Group object) - creates it if necessary
 	///</summary>
-	public ORU_R01_SPECIMEN SPECIMEN { 
-get{
+	public ORU_R01_SPECIMEN GetSPECIMEN() {
 	   ORU_R01_SPECIMEN ret = null;
 	   try {
 	      ret = (ORU_R01_SPECIMEN)this.GetStructure("SPECIMEN");
@@ -263,7 +312,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of ORU_R01_SPECIMEN
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public ORU_R01_SPECIMEN GetSPECIMEN(int rep) { 
+	   return (ORU_R01_SPECIMEN)this.GetStructure("SPECIMEN", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of ORU_R01_SPECIMEN 
+	 */ 
+	public int SPECIMENRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("SPECIMEN").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }
