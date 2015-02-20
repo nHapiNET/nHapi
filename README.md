@@ -10,7 +10,7 @@ This project is **NOT** affiliated with the HL7 organization. This software just
 **Key Benefits**
 
 - Easy object model  
-- Microsoft .NET 3.5 library that conforms to HL7 2.1, 2.2, 2.3, 2.3.1, 2.4, and 2.5 specifications  
+- Microsoft .NET 3.5 library that conforms to HL7 2.1, 2.2, 2.3, 2.3.1, 2.4, and 2.5, 2.5.1 specifications  
 - Can take a pipe delimited or XML formated HL7 2.x message and build the C# object model for use in code  
 - Can take the C# HL7 object model and produce pipe delimited or XML formatted HL7  
 - FREE! (You can't beat that price) and open source  
