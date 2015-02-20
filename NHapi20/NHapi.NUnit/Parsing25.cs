@@ -1,12 +1,7 @@
-using System;
-using System.Collections;
-using System.Text;
 using NHapi.Base.Model;
 using NHapi.Base.Parser;
-using NHapi.Base;
-using NHapi.Model.V25;
 using NHapi.Model.V25.Message;
-using NHapi.Model.V25.Segment;
+using NHapi.Model.V251.Datatype;
 using NUnit.Framework;
 
 namespace NHapi.NUnit
@@ -48,8 +43,5 @@ PV1|1";
 			string[] data = msg.Split('|');
 			Assert.AreEqual("ADT^A28^ADT_A05", data[8]);
 		}
-
-
 	}
-
 }
