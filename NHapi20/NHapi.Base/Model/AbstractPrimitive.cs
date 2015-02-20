@@ -58,16 +58,21 @@ namespace NHapi.Base.Model
 
                     if (context != null)
                     {
-                        IPrimitiveTypeRule[] rules = context.getPrimitiveRules(version, TypeName, this);
+	                    IPrimitiveTypeRule[] rules = context.getPrimitiveRules(version, TypeName, this);
 
-                        for (int i = 0; i < rules.Length; i++)
-                        {
-                            value = rules[i].correct(value);
-                            if (!rules[i].test(value))
-                            {
-                                throw new DataTypeException("Failed validation rule: " + rules[i].Description);
-                            }
-                        }
+	                    foreach (IPrimitiveTypeRule rule in rules)
+	                    {
+		                    value = rule.correct(value);
+		                    if (!rule.test(value))
+		                    {
+			                    string validationFailureMessage = "Failed validation rule: " + rule.Description;
+			                    if (!string.IsNullOrEmpty(rule.SectionReference))
+			                    {
+				                    validationFailureMessage += Environment.NewLine + "Reason: " + rule.SectionReference;
+			                    }
+			                    throw new DataTypeException(validationFailureMessage);
+		                    }
+	                    }
                     }
                 }
 

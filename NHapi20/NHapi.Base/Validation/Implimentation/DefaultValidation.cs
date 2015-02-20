@@ -19,7 +19,7 @@
 /// this file under either the MPL or the GPL. 
 /// </summary>
 using System;
-using NHapi.Base.validation;
+
 namespace NHapi.Base.validation.impl
 {
 
@@ -46,28 +46,34 @@ namespace NHapi.Base.validation.impl
             PrimitiveRuleBindings.Add(new RuleBinding("*", "FT", size32000));
             PrimitiveRuleBindings.Add(new RuleBinding("*", "ID", size200));
             PrimitiveRuleBindings.Add(new RuleBinding("*", "IS", size200));
-
-            IRule nonNegativeInteger = new RegexPrimitiveRule("\\d*", "");
-            PrimitiveRuleBindings.Add(new RuleBinding("*", "SI", nonNegativeInteger));
-
-            IRule number = new RegexPrimitiveRule("(\\+|\\-)?\\d*\\.?\\d*", "");
-            PrimitiveRuleBindings.Add(new RuleBinding("*", "NM", number));
-
-            //IRule telephoneNumber = new RegexPrimitiveRule("(\\d{1,2} )?(\\(\\d{3}\\))?\\d{3}-\\d{4}(X\\d{1,5})?(B\\d{1,5})?(C.*)?", "Version 2.4 Section 2.9.45");
-            //PrimitiveRuleBindings.Add(new RuleBinding("*", "TN", telephoneNumber));
-
-            System.String datePattern = "(\\d{4}([01]\\d(\\d{2})?)?)?"; //YYYY[MM[DD]]
-            IRule date = new RegexPrimitiveRule(datePattern, "Version 2.5 Section 2.16.24");
-            PrimitiveRuleBindings.Add(new RuleBinding("*", "DT", date));
-
-            System.String timePattern = "([012]\\d([0-5]\\d([0-5]\\d(\\.\\d(\\d(\\d(\\d)?)?)?)?)?)?)?([\\+\\-]\\d{4})?";
-            IRule time = new RegexPrimitiveRule(timePattern, "Version 2.5 Section 2.16.79");
-            PrimitiveRuleBindings.Add(new RuleBinding("*", "TM", time));
-
-            System.String datetimePattern = "(\\d{4}([01]\\d(\\d{2}([012]\\d([0-5]\\d([0-5]\\d(\\.\\d(\\d(\\d(\\d)?)?)?)?)?)?)?)?)?)?([\\+\\-]\\d{4})?";
-            IRule datetime = new RegexPrimitiveRule(datetimePattern, "Version 2.5 Section 2.16.25");
-            PrimitiveRuleBindings.Add(new RuleBinding("*", "TSComponentOne", datetime));
-            PrimitiveRuleBindings.Add(new RuleBinding("*", "DTM", datetime));
         }
     }
+
+	 public class StrictValidation : DefaultValidation
+	 {
+		 public StrictValidation()
+		 {
+			 IRule nonNegativeInteger = new RegexPrimitiveRule(@"^\d*$", "SI Fields should contain non-negative integers");
+			 PrimitiveRuleBindings.Add(new RuleBinding("*", "SI", nonNegativeInteger));
+
+			 IRule number = new RegexPrimitiveRule(@"^(\+|\-)?\d*\.?\d*$", "NM Fields should only contain numbers / decimals");
+			 PrimitiveRuleBindings.Add(new RuleBinding("*", "NM", number));
+
+			 //IRule telephoneNumber = new RegexPrimitiveRule("(\\d{1,2} )?(\\(\\d{3}\\))?\\d{3}-\\d{4}(X\\d{1,5})?(B\\d{1,5})?(C.*)?", "Version 2.4 Section 2.9.45");
+			 //PrimitiveRuleBindings.Add(new RuleBinding("*", "TN", telephoneNumber));
+
+			 String datePattern = "(\\d{4}([01]\\d(\\d{2})?)?)?"; //YYYY[MM[DD]]
+			 IRule date = new RegexPrimitiveRule(datePattern, "Version 2.5 Section 2.16.24");
+			 PrimitiveRuleBindings.Add(new RuleBinding("*", "DT", date));
+
+			 String timePattern = "([012]\\d([0-5]\\d([0-5]\\d(\\.\\d(\\d(\\d(\\d)?)?)?)?)?)?)?([\\+\\-]\\d{4})?";
+			 IRule time = new RegexPrimitiveRule(timePattern, "Version 2.5 Section 2.16.79");
+			 PrimitiveRuleBindings.Add(new RuleBinding("*", "TM", time));
+
+			 String datetimePattern = "(\\d{4}([01]\\d(\\d{2}([012]\\d([0-5]\\d([0-5]\\d(\\.\\d(\\d(\\d(\\d)?)?)?)?)?)?)?)?)?)?([\\+\\-]\\d{4})?";
+			 IRule datetime = new RegexPrimitiveRule(datetimePattern, "Version 2.5 Section 2.16.25");
+			 PrimitiveRuleBindings.Add(new RuleBinding("*", "TSComponentOne", datetime));
+			 PrimitiveRuleBindings.Add(new RuleBinding("*", "DTM", datetime));
+		 }
+	 }
 }
