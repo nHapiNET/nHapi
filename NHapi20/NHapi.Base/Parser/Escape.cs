@@ -213,6 +213,7 @@ namespace NHapi.Base.Parser
                 seqs[seq.ToString()] = System.Convert.ToString(values[i]);
             }
             seqs["\\X000d\\"] = System.Convert.ToString('\r');
+            seqs["\\X0A\\"] = System.Convert.ToString('\n');
             return seqs;
         }
 
