@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace NHapi.Base
@@ -21,7 +22,8 @@ namespace NHapi.Base
                 System.Reflection.Assembly assembly = null;
                 try
                 {
-                    assembly = System.Reflection.Assembly.Load(package.PackageName);
+	                var assemblyToLoad = RemoveTrailingDot(package);
+	                assembly = System.Reflection.Assembly.Load(assemblyToLoad);
                 }
                 catch (System.IO.FileNotFoundException)
                 {
@@ -36,7 +38,20 @@ namespace NHapi.Base
                 _map[package.Version] = structures;
             }
         }
-        #endregion
+
+	    private static string RemoveTrailingDot(Hl7Package package)
+	    {
+		    string assemblyString = package.PackageName;
+		    char lastChar = assemblyString.LastOrDefault();
+		    bool trailingDot = lastChar != null && lastChar.ToString() == ".";
+		    if (trailingDot)
+		    {
+			    assemblyString = assemblyString.Substring(0, assemblyString.Length - 1);
+		    }
+		    return assemblyString;
+	    }
+
+	    #endregion
 
         #region Properties
         public static EventMapper Instance
