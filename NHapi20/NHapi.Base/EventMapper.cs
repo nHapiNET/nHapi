@@ -49,7 +49,7 @@ namespace NHapi.Base
 		{
 			string assemblyString = package.PackageName;
 			char lastChar = assemblyString.LastOrDefault();
-			bool trailingDot = lastChar != null && lastChar.ToString() == ".";
+			bool trailingDot = lastChar != default(char) && lastChar.ToString() == ".";
 			if (trailingDot)
 			{
 				assemblyString = assemblyString.Substring(0, assemblyString.Length - 1);
