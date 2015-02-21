@@ -212,8 +212,10 @@ namespace NHapi.Base.Parser
                 seq.Append(ec.EscapeCharacter);
                 seqs[seq.ToString()] = System.Convert.ToString(values[i]);
             }
-            seqs["\\X000d\\"] = System.Convert.ToString('\r');
-            seqs["\\X0A\\"] = System.Convert.ToString('\n');
+			   // \\x....\\ denotes hexadecimal escaping
+			   // Convert the .... hexadecimal values into decimal, which map to ascii characters
+            seqs["\\X000d\\"] = System.Convert.ToString('\r'); // 00 > null, 0D > CR
+            seqs["\\X0A\\"] = System.Convert.ToString('\n'); // 0A > LF
             return seqs;
         }
 
