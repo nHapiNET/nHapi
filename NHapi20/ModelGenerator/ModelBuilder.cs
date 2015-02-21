@@ -39,7 +39,7 @@ namespace ModelGenerator
 			{
 				ConfigurationSettings.ConnectionString = ConnectionString;
 			}
-			
+
 			Console.WriteLine("Using Database:{0}", NormativeDatabase.Instance.Connection.ConnectionString);
 			Console.WriteLine("Base Path:{0}", BasePath);
 
