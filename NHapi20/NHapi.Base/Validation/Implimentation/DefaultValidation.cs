@@ -62,15 +62,15 @@ namespace NHapi.Base.validation.impl
 			 //IRule telephoneNumber = new RegexPrimitiveRule("(\\d{1,2} )?(\\(\\d{3}\\))?\\d{3}-\\d{4}(X\\d{1,5})?(B\\d{1,5})?(C.*)?", "Version 2.4 Section 2.9.45");
 			 //PrimitiveRuleBindings.Add(new RuleBinding("*", "TN", telephoneNumber));
 
-			 String datePattern = "(\\d{4}([01]\\d(\\d{2})?)?)?"; //YYYY[MM[DD]]
+			 String datePattern = @"^(\d{4}([01]\d(\d{2})?)?)?$"; //YYYY[MM[DD]]
 			 IRule date = new RegexPrimitiveRule(datePattern, "Version 2.5 Section 2.16.24");
 			 PrimitiveRuleBindings.Add(new RuleBinding("*", "DT", date));
 
-			 String timePattern = "([012]\\d([0-5]\\d([0-5]\\d(\\.\\d(\\d(\\d(\\d)?)?)?)?)?)?)?([\\+\\-]\\d{4})?";
+			 String timePattern = @"([012]\d([0-5]\d([0-5]\d(\.\d(\d(\d(\d)?)?)?)?)?)?)?([\+\-]\d{4})?";
 			 IRule time = new RegexPrimitiveRule(timePattern, "Version 2.5 Section 2.16.79");
 			 PrimitiveRuleBindings.Add(new RuleBinding("*", "TM", time));
 
-			 String datetimePattern = "(\\d{4}([01]\\d(\\d{2}([012]\\d([0-5]\\d([0-5]\\d(\\.\\d(\\d(\\d(\\d)?)?)?)?)?)?)?)?)?)?([\\+\\-]\\d{4})?";
+			 String datetimePattern = @"(\d{4}([01]\d(\d{2}([012]\d([0-5]\d([0-5]\d(\.\d(\d(\d(\d)?)?)?)?)?)?)?)?)?)?([\+\-]\d{4})?";
 			 IRule datetime = new RegexPrimitiveRule(datetimePattern, "Version 2.5 Section 2.16.25");
 			 PrimitiveRuleBindings.Add(new RuleBinding("*", "TSComponentOne", datetime));
 			 PrimitiveRuleBindings.Add(new RuleBinding("*", "DTM", datetime));
