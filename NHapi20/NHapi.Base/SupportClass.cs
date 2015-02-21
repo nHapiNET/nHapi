@@ -3835,6 +3835,13 @@ namespace NHapi.Base
 			/// <returns>The string value of the token</returns>
 			public String NextToken()
 			{
+				if (cache_HasNextToken)
+				{
+					currentPos = cache_NextTokenPosition;
+					cache_HasNextToken = false;
+					return cache_NextToken;
+				}
+				
 				return NextToken(delimiters);
 			}
 
@@ -3888,6 +3895,9 @@ namespace NHapi.Base
 				return token.ToString();
 			}
 
+			private bool cache_HasNextToken = false;
+			private string cache_NextToken = null;
+			private long cache_NextTokenPosition = 0;
 
 			/// <summary>
 			/// Determines if there are more tokens to return from the source string
@@ -3901,25 +3911,24 @@ namespace NHapi.Base
 				{
 					return false;
 				}
-				else
-				{
-					//keeping the current pos
-					long pos = currentPos;
+				//keeping the current pos
+				long pos = currentPos;
 
-					try
-					{
-						NextToken();
-					}
-					catch (ArgumentOutOfRangeException)
-					{
-						return false;
-					}
-					finally
-					{
-						currentPos = pos;
-					}
-					return true;
+				try
+				{
+					cache_NextToken = NextToken();
+					cache_NextTokenPosition = currentPos;
+					cache_HasNextToken = true;
 				}
+				catch (ArgumentOutOfRangeException)
+				{
+					return false;
+				}
+				finally
+				{
+					currentPos = pos;
+				}
+				return true;
 			}
 
 			/// <summary>
