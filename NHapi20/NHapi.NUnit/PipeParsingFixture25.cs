@@ -14,7 +14,7 @@ namespace NHapi.NUnit
 		[Test]
 		public void TestAdtA28MappingFromHl7()
 		{
-			string hl7Data=@"MSH|^~\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||ADT^A28^ADT_A05|1|P|2.5|
+			string hl7Data = @"MSH|^~\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||ADT^A28^ADT_A05|1|P|2.5|
 EVN|
 PID|1|12345
 PV1|1";
@@ -22,7 +22,7 @@ PV1|1";
 			IMessage msg = parser.Parse(hl7Data);
 
 			Assert.IsNotNull(msg, "Message should not be null");
-			ADT_A05 a05 = (ADT_A05)msg;
+			ADT_A05 a05 = (ADT_A05) msg;
 
 			Assert.AreEqual("A28", a05.MSH.MessageType.TriggerEvent.Value);
 			Assert.AreEqual("1", a05.PID.SetIDPID.Value);

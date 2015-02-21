@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace NHapi.NUnit
 {
 	[TestFixture]
-	public	class ParserTest
+	public class ParserTest
 	{
 		public string GetMessage()
 		{
@@ -25,7 +25,7 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 		{
 			var parser = new PipeParser();
 			var oru = new ORU_R01();
-			oru = (ORU_R01)parser.Parse(GetMessage());
+			oru = (ORU_R01) parser.Parse(GetMessage());
 
 			foreach (var obs in oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION().OBX.GetObservationValue())
 			{
@@ -38,12 +38,12 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 		{
 			PipeParser parser = new PipeParser();
 			ORU_R01 oru = new ORU_R01();
-			oru = (ORU_R01)parser.Parse(GetMessage());
-			
-			FT data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
-			Assert.AreEqual(@"This\.br\is\.br\A Test",data.Value);
+			oru = (ORU_R01) parser.Parse(GetMessage());
+
+			FT data = (FT) oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
+			Assert.AreEqual(@"This\.br\is\.br\A Test", data.Value);
 		}
-		
+
 		[Test]
 		public void TestSpecialCharacterEntry()
 		{
@@ -53,23 +53,22 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 			oru.MSH.MessageType.TriggerEvent.Value = "R01";
 			oru.MSH.EncodingCharacters.Value = @"^~\&";
 			oru.MSH.VersionID.VersionID.Value = "2.3.1";
-			oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType.Value  = "FT";
+			oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType.Value = "FT";
 			oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBR.SetIDOBR.Value = "1";
-			NHapi.Base.Model.Varies v = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0);
+			NHapi.Base.Model.Varies v =
+				oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0);
 			ST text = new ST(oru);
 			text.Value = @"This\.br\is\.br\A Test";
 			v.Data = text;
 
-			
+
 			string encodedData = parser.Encode(oru);
 			Console.WriteLine(encodedData);
 			NHapi.Base.Model.IMessage msg = parser.Parse(encodedData);
 			Console.WriteLine(msg.GetStructureName());
-			oru = (ORU_R01)msg;
-			FT data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
+			oru = (ORU_R01) msg;
+			FT data = (FT) oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
 			Assert.AreEqual(@"This\.br\is\.br\A Test", data.Value);
-			
-			
 		}
 
 		[Test]
@@ -83,7 +82,8 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 			oru.MSH.VersionID.VersionID.Value = "2.3.1";
 			oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType.Value = "FT";
 			oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBR.SetIDOBR.Value = "1";
-			NHapi.Base.Model.Varies v = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0);
+			NHapi.Base.Model.Varies v =
+				oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0);
 			ST text = new ST(oru);
 			text.Value = @"This\.br\is\.br\A Test~";
 			v.Data = text;
@@ -91,8 +91,8 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 
 			string encodedData = parser.Encode(oru);
 			NHapi.Base.Model.IMessage msg = parser.Parse(encodedData);
-			oru = (ORU_R01)msg;
-			FT data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
+			oru = (ORU_R01) msg;
+			FT data = (FT) oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
 			Assert.AreEqual(@"This\.br\is\.br\A Test~", data.Value);
 		}
 
@@ -107,7 +107,8 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 			oru.MSH.VersionID.VersionID.Value = "2.3.1";
 			oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType.Value = "FT";
 			oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBR.SetIDOBR.Value = "1";
-			NHapi.Base.Model.Varies v = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0);
+			NHapi.Base.Model.Varies v =
+				oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0);
 			ST text = new ST(oru);
 			text.Value = @"Th&is\.br\is\.br\A T|e\H\st\";
 			v.Data = text;
@@ -116,8 +117,8 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 			string encodedData = parser.Encode(oru);
 			Console.WriteLine(encodedData);
 			NHapi.Base.Model.IMessage msg = parser.Parse(encodedData);
-			oru = (ORU_R01)msg;
-			FT data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
+			oru = (ORU_R01) msg;
+			FT data = (FT) oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
 			Assert.AreEqual(@"Th&is\.br\is\.br\A T|e\H\st\", data.Value);
 		}
 
@@ -132,14 +133,15 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 			oru.MSH.VersionID.VersionID.Value = "2.3.1";
 			oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType.Value = "FT";
 			oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBR.SetIDOBR.Value = "1";
-			NHapi.Base.Model.Varies v = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0);
+			NHapi.Base.Model.Varies v =
+				oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0);
 			ST text = new ST(oru);
 			text.Value = @"Th&is\.br\is\.br\A T|est\";
 			v.Data = text;
 
 
 			string encodedData = parser.Encode(oru);
-			
+
 			//Console.WriteLine(encodedData);
 			string[] segs = encodedData.Split('\r');
 			string[] fields = segs[2].Split('|');
@@ -157,7 +159,7 @@ OBX|1|TX|PROBLEM FOCUSED^PROBLEM FOCUSED^test|1|\T\#39;Thirty days have Septembe
 
 			var parser = new PipeParser();
 			var msg = parser.Parse(content);
-			
+
 
 			// Act
 			var segment = msg.GetStructure("OBX") as ISegment;
@@ -165,7 +167,7 @@ OBX|1|TX|PROBLEM FOCUSED^PROBLEM FOCUSED^test|1|\T\#39;Thirty days have Septembe
 			var segmentData = Terser.Get(segment, idx[0], idx[1], idx[2], idx[3]);
 
 			// Assert
-			
+
 			// verify that data was properly unescaped by NHapi	
 			// \E\X0A\E\ should be escaped to \X0A\
 			// \X0A\ should be unescaped to \n
@@ -173,7 +175,8 @@ OBX|1|TX|PROBLEM FOCUSED^PROBLEM FOCUSED^test|1|\T\#39;Thirty days have Septembe
 			// \t\ should be unescaped to &
 
 
-			const string expectedResult = "&#39;Thirty days have September,\rApril\nJune,\nand November.\nWhen short February is done,\\X0A\\all the rest have&nbsp;31.&#39";
+			const string expectedResult =
+				"&#39;Thirty days have September,\rApril\nJune,\nand November.\nWhen short February is done,\\X0A\\all the rest have&nbsp;31.&#39";
 			Assert.AreEqual(expectedResult, segmentData);
 		}
 	}

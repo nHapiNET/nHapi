@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace NHapi.NUnit
 {
-	class PipeParsingFixture251
+	internal class PipeParsingFixture251
 	{
 		public string GetMessage()
 		{
@@ -23,13 +23,14 @@ OBX|3|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 		{
 			var parser = new PipeParser();
 			var oru = new ORU_R01();
-			oru = (ORU_R01)parser.Parse(GetMessage());
+			oru = (ORU_R01) parser.Parse(GetMessage());
 
 			int expectedObservationCount = 3;
 			int parsedObservations = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBSERVATIONRepetitionsUsed;
 			bool parsedCorrectNumberOfObservations = parsedObservations == expectedObservationCount;
-			Assert.IsTrue(parsedCorrectNumberOfObservations, string.Format("Expected 3 OBX repetitions used for this segment, found {0}", parsedObservations));
-			
+			Assert.IsTrue(parsedCorrectNumberOfObservations,
+				string.Format("Expected 3 OBX repetitions used for this segment, found {0}", parsedObservations));
+
 			foreach (var obs in oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION().OBX.GetObservationValue())
 			{
 				Assert.IsTrue(obs.Data is FT);

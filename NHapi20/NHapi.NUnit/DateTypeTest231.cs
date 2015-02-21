@@ -17,8 +17,8 @@ namespace NHapi.NUnit
 			DateTime checkDate = DateTime.Now;
 			PipeParser parser = new PipeParser();
 			ADT_A01 a01 = new ADT_A01();
-            a01.PV1.AdmitDateTime.TimeOfAnEvent.Set(checkDate, "yyyyMMdd");
-            Assert.AreEqual(a01.PV1.AdmitDateTime.TimeOfAnEvent.Value, checkDate.ToString("yyyyMMdd"));
+			a01.PV1.AdmitDateTime.TimeOfAnEvent.Set(checkDate, "yyyyMMdd");
+			Assert.AreEqual(a01.PV1.AdmitDateTime.TimeOfAnEvent.Value, checkDate.ToString("yyyyMMdd"));
 		}
 
 		[Test]
@@ -38,7 +38,7 @@ namespace NHapi.NUnit
 			ack.MSH.DateTimeOfMessage.TimeOfAnEvent.SetLongDateWithSecond(checkDate);
 			Assert.AreEqual(ack.MSH.DateTimeOfMessage.TimeOfAnEvent.Value, checkDate.ToString("yyyyMMddHHmmss"));
 		}
-		
+
 		[Test]
 		public void ConvertToLongDateWithFractionOfSecond()
 		{
@@ -47,7 +47,7 @@ namespace NHapi.NUnit
 			ack.MSH.DateTimeOfMessage.TimeOfAnEvent.SetLongDateWithFractionOfSecond(checkDate);
 			Assert.AreEqual(ack.MSH.DateTimeOfMessage.TimeOfAnEvent.Value, checkDate.ToString("yyyyMMddHHmmss.FFFF"));
 		}
-		
+
 		[Test]
 		public void ConvertToShortDate()
 		{
@@ -63,7 +63,7 @@ namespace NHapi.NUnit
 			DateTime checkDate = DateTime.Now;
 			ACK ack = new ACK();
 			ack.MSH.DateTimeOfMessage.TimeOfAnEvent.SetShortDate(checkDate);
-			
+
 			DateTime checkDate2 = ack.MSH.DateTimeOfMessage.TimeOfAnEvent.GetAsDate();
 
 			Assert.AreEqual(checkDate.ToShortDateString(), checkDate2.ToShortDateString());
@@ -75,7 +75,7 @@ namespace NHapi.NUnit
 			DateTime checkDate = DateTime.Now;
 			ACK ack = new ACK();
 			ack.MSH.DateTimeOfMessage.TimeOfAnEvent.SetLongDate(checkDate);
-			
+
 			DateTime checkDate2 = ack.MSH.DateTimeOfMessage.TimeOfAnEvent.GetAsDate();
 
 			Assert.AreEqual(checkDate.ToLongDateString(), checkDate2.ToLongDateString());

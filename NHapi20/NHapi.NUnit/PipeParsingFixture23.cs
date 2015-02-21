@@ -6,7 +6,6 @@ using NUnit.Framework;
 
 namespace NHapi.NUnit
 {
-
 	[TestFixture]
 	public class PipeParsingFixture23
 	{
@@ -26,44 +25,44 @@ QRD|20060228155525|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||";
 			Assert.AreEqual("38923", qryR02.QRD.GetWhoSubjectFilter(0).IDNumber.Value);
 		}
 
-        [Test]
-        public void CreateBlankMessage()
-        {
-            ADT_A01 a01 = new ADT_A01();
-            DateTime birthDate = new DateTime(1980, 4, 1);
-            a01.MSH.SendingApplication.UniversalID.Value = "ThisOne";
-            a01.MSH.ReceivingApplication.UniversalID.Value = "COHIE";
-            a01.PID.PatientIDExternalID.ID.Value = "123456";
-            a01.PV1.AttendingDoctor.FamilyName.Value = "Jones";
-            a01.PV1.AttendingDoctor.GivenName.Value = "Mike";
-            a01.PID.DateOfBirth.TimeOfAnEvent.SetShortDate(birthDate);
+		[Test]
+		public void CreateBlankMessage()
+		{
+			ADT_A01 a01 = new ADT_A01();
+			DateTime birthDate = new DateTime(1980, 4, 1);
+			a01.MSH.SendingApplication.UniversalID.Value = "ThisOne";
+			a01.MSH.ReceivingApplication.UniversalID.Value = "COHIE";
+			a01.PID.PatientIDExternalID.ID.Value = "123456";
+			a01.PV1.AttendingDoctor.FamilyName.Value = "Jones";
+			a01.PV1.AttendingDoctor.GivenName.Value = "Mike";
+			a01.PID.DateOfBirth.TimeOfAnEvent.SetShortDate(birthDate);
 
-            PipeParser parser = new PipeParser();
+			PipeParser parser = new PipeParser();
 
-            string pipeMessage = parser.Encode(a01);
+			string pipeMessage = parser.Encode(a01);
 
-            Assert.IsNotNull(pipeMessage);
+			Assert.IsNotNull(pipeMessage);
 
-            IMessage test = parser.Parse(pipeMessage);
-            ADT_A01 a01Test = test as ADT_A01;
-            Assert.IsNotNull(a01Test);
+			IMessage test = parser.Parse(pipeMessage);
+			ADT_A01 a01Test = test as ADT_A01;
+			Assert.IsNotNull(a01Test);
 
-            Assert.AreEqual(a01Test.MSH.ReceivingApplication.UniversalID.Value, "COHIE");
-            Assert.AreEqual(a01Test.PID.PatientIDExternalID.ID.Value, "123456");
+			Assert.AreEqual(a01Test.MSH.ReceivingApplication.UniversalID.Value, "COHIE");
+			Assert.AreEqual(a01Test.PID.PatientIDExternalID.ID.Value, "123456");
 
-            Assert.AreEqual(a01Test.PID.DateOfBirth.TimeOfAnEvent.GetAsDate().ToShortDateString(), birthDate.ToShortDateString());
+			Assert.AreEqual(a01Test.PID.DateOfBirth.TimeOfAnEvent.GetAsDate().ToShortDateString(), birthDate.ToShortDateString());
 
-            Assert.AreEqual(a01Test.PV1.AttendingDoctor.FamilyName.Value, "Jones");
-            Assert.AreEqual(a01Test.MSH.MessageType.MessageType.Value, "ADT");
-            Assert.AreEqual(a01Test.MSH.MessageType.TriggerEvent.Value, "A01");
-            
-        }
+			Assert.AreEqual(a01Test.PV1.AttendingDoctor.FamilyName.Value, "Jones");
+			Assert.AreEqual(a01Test.MSH.MessageType.MessageType.Value, "ADT");
+			Assert.AreEqual(a01Test.MSH.MessageType.TriggerEvent.Value, "A01");
+		}
 
-		
+
 		[Test]
 		public void ParseORFR04()
 		{
-			string message = @"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3|
+			string message =
+				@"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3|
 MSA|AA|123456789|
 QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
 QRF||20050101000000||
@@ -77,15 +76,16 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
 
 			ORF_R04 orfR04 = m as ORF_R04;
 			Assert.IsNotNull(orfR04);
-			Assert.AreEqual("12", orfR04.GetQUERY_RESPONSE().GetORDER().GetOBSERVATION().OBX.GetObservationValue()[0].Data.ToString());
-
+			Assert.AreEqual("12",
+				orfR04.GetQUERY_RESPONSE().GetORDER().GetOBSERVATION().OBX.GetObservationValue()[0].Data.ToString());
 		}
 
 
 		[Test]
 		public void ParseORFR04ToXML()
 		{
-			string message = @"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3|
+			string message =
+				@"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3|
 MSA|AA|123456789|
 QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
 QRF||20050101000000||
@@ -106,7 +106,7 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
 			string recoveredMessage = xmlParser.Encode(orfR04);
 
 			Assert.IsNotNull(recoveredMessage);
-			Assert.IsFalse(string.Empty.Equals(recoveredMessage));            
+			Assert.IsFalse(string.Empty.Equals(recoveredMessage));
 		}
 
 		[Test]
@@ -114,7 +114,7 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
 		{
 			string message = GetQRYR02XML();
 
-            XMLParser xmlParser = new DefaultXMLParser();
+			XMLParser xmlParser = new DefaultXMLParser();
 			IMessage m = xmlParser.Parse(message);
 
 			QRY_R02 qryR02 = m as QRY_R02;
@@ -126,14 +126,15 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
 			string pipeOutput = pipeParser.Encode(qryR02);
 
 			Assert.IsNotNull(pipeOutput);
-            Assert.IsFalse(string.Empty.Equals(pipeOutput));
+			Assert.IsFalse(string.Empty.Equals(pipeOutput));
 		}
 
 
 		[Test]
 		public void ParseORFR04ToXmlNoOCR()
 		{
-			string message = @"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3|
+			string message =
+				@"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3|
 MSA|AA|123456789|
 QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
 QRF||20050101000000||
@@ -154,13 +155,13 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
 			string recoveredMessage = xmlParser.Encode(orfR04);
 
 			Assert.IsNotNull(recoveredMessage);
-			Assert.IsFalse(recoveredMessage.IndexOf("ORC")>-1, "Returned message added ORC segment.");
+			Assert.IsFalse(recoveredMessage.IndexOf("ORC") > -1, "Returned message added ORC segment.");
 		}
 
-        [Test]
-        public void TestOBXDataTypes()
-        {
-            string message = @"MSH|^~\&|EPIC|AIDI|||20070921152053|ITFCOHIEIN|ORF^R04|297|P|2.3|||
+		[Test]
+		public void TestOBXDataTypes()
+		{
+			string message = @"MSH|^~\&|EPIC|AIDI|||20070921152053|ITFCOHIEIN|ORF^R04|297|P|2.3|||
 MSA|CA|1
 QRD|20060725141358|R|||||10^RD|1130851^^^^MRN|RES|||
 QRF|||||||||
@@ -181,24 +182,24 @@ OBX|13|DT|5315037^Start Date^Start Collection Dat^ABC||18APR06||||||F|||20060419
 QAK||OK||1|1|0
 ";
 
-            PipeParser parser = new PipeParser();
+			PipeParser parser = new PipeParser();
 
-            IMessage m = parser.Parse(message);
+			IMessage m = parser.Parse(message);
 
-            ORF_R04 orfR04 = m as ORF_R04;
+			ORF_R04 orfR04 = m as ORF_R04;
 
-            Assert.IsNotNull(orfR04);
+			Assert.IsNotNull(orfR04);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+			XMLParser xmlParser = new DefaultXMLParser();
 
-            string recoveredMessage = xmlParser.Encode(orfR04);
-
-        }
+			string recoveredMessage = xmlParser.Encode(orfR04);
+		}
 
 		[Test]
 		public void ParseORFR04ToXmlNoNTE()
 		{
-			string message = @"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3|
+			string message =
+				@"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3|
 MSA|AA|123456789|
 QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
 QRF||20050101000000||
@@ -219,10 +220,10 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
 			string recoveredMessage = xmlParser.Encode(orfR04);
 
 			Assert.IsNotNull(recoveredMessage);
-			Assert.IsFalse(recoveredMessage.IndexOf("NTE")>-1, "Returned message added ORC segment.");
+			Assert.IsFalse(recoveredMessage.IndexOf("NTE") > -1, "Returned message added ORC segment.");
 		}
 
-		private static string GetQRYR02XML() 
+		private static string GetQRYR02XML()
 		{
 			return @"<QRY_R02 xmlns=""urn:hl7-org:v2xml"">
   <MSH>
