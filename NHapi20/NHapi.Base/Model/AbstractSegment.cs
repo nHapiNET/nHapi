@@ -23,6 +23,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -184,12 +185,14 @@ namespace NHapi.Base.Model
 		private IType createNewType(int field)
 		{
 			int number = field - 1;
-			Type c = (Type) _items[number].FieldType;
+			Type c = _items[number].FieldType;
+
+			var description = _items[number].Description;
 
 			IType newType = null;
 			try
 			{
-				Object[] args = getArgs(number);
+				Object[] args = getArgs(number, description);
 				Type[] argClasses = new Type[args.Length];
 				for (int i = 0; i < args.Length; i++)
 				{
@@ -230,7 +233,7 @@ namespace NHapi.Base.Model
 		}
 
 		//defaults to {this.getMessage}
-		private Object[] getArgs(int fieldNum)
+		private object[] getArgs(int fieldNum, string description)
 		{
 			Object[] result = null;
 
@@ -242,6 +245,13 @@ namespace NHapi.Base.Model
 			else
 			{
 				result = new Object[] {Message};
+			}
+
+			bool appendDescription = !string.IsNullOrEmpty(description);
+			if (appendDescription)
+			{
+				Array.Resize(ref result, result.Length + 1);
+				result[result.Length - 1] = description;
 			}
 
 			return result;

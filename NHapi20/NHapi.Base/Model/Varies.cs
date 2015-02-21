@@ -22,7 +22,6 @@
 
 using System;
 using NHapi.Base.Util;
-using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Log;
 
@@ -97,10 +96,18 @@ namespace NHapi.Base.Model
 			get { return message; }
 		}
 
+		/// <returns> the description of what this Type represents
+		/// </returns>
+		public virtual string Description
+		{
+			get { return description; }
+		}
+
 		private static readonly IHapiLog log;
 
 		private IType data;
 		private IMessage message;
+		private string description;
 
 		/// <summary> Creates new Varies. 
 		/// 
@@ -111,6 +118,19 @@ namespace NHapi.Base.Model
 		{
 			data = new GenericPrimitive(message);
 			this.message = message;
+		}
+
+		/// <summary> Creates new Varies. 
+		/// 
+		/// </summary>
+		/// <param name="message">message to which this type belongs
+		/// <param name="description">description of what this Type represents
+		/// </param>
+		public Varies(IMessage message, string description)
+		{
+			data = new GenericPrimitive(message);
+			this.message = message;
+			this.description = description;
 		}
 
 		/// <summary> Sets the data type of field 5 in the given OBX segment to the value of OBX-2.  The argument 
@@ -141,12 +161,8 @@ namespace NHapi.Base.Model
 					}
 					else
 					{
-						//set class
 						Type c = factory.GetTypeClass(obx2.Value, segment.Message.Version);
-						//                Class c = NHapi.Base.Parser.ParserBase.findClass(obx2.getValue(), 
-						//                                                segment.getMessage().getVersion(), 
-						//                                                "datatype");
-						v.Data = (IType) c.GetConstructor(new Type[] {typeof (IMessage)}).Invoke(new Object[] {v.Message});
+						v.Data = (IType) c.GetConstructor(new [] {typeof (IMessage), typeof(String)}).Invoke(new Object[] {v.Message, v.Description});
 					}
 				}
 			}

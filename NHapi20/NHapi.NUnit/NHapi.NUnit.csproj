@@ -79,6 +79,7 @@
     <Compile Include="PipeParsingFixture231.cs" />
     <Compile Include="PipeParsingFixture24.cs" />
     <Compile Include="PipeParsingFixture251.cs" />
+    <Compile Include="PipeParsingORM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test23Orc.cs" />
     <Compile Include="TestMSH3.cs" />
