@@ -18,42 +18,42 @@
 /// If you do not delete the provisions above, a recipient may use your version of 
 /// this file under either the MPL or the GPL. 
 /// </summary>
+
 using System;
+
 namespace NHapi.Base
 {
+	/// <summary> Represents a technical problem accessing table values in the normative database.  This  
+	/// exception is thrown when the database values can not be accessed, and is distinct from 
+	/// an UnknownValueException, which is thrown when the values can be accessed and a 
+	/// given value is unknown.  
+	/// 
+	/// </summary>
+	/// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+	/// </author>
+	[Serializable]
+	public class LookupException : Exception
+	{
+		/// <summary> Constructs an <code>LookupException</code> with the specified detail message.
+		/// 
+		/// </summary>
+		/// <param name="message">
+		/// </param>
+		public LookupException(String message)
+			: base(message)
+		{
+		}
 
-    /// <summary> Represents a technical problem accessing table values in the normative database.  This  
-    /// exception is thrown when the database values can not be accessed, and is distinct from 
-    /// an UnknownValueException, which is thrown when the values can be accessed and a 
-    /// given value is unknown.  
-    /// 
-    /// </summary>
-    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
-    /// </author>
-    [Serializable]
-    public class LookupException : Exception
-    {
-
-        /// <summary> Constructs an <code>LookupException</code> with the specified detail message.
-        /// 
-        /// </summary>
-        /// <param name="message">
-        /// </param>
-        public LookupException(String message)
-            : base(message)
-        {
-        }
-
-        /// <summary> Constructs an <code>LookupException</code> with the specified detail message and cause
-        /// 
-        /// </summary>
-        /// <param name="message">
-        /// </param>
-        /// <param name="cause">
-        /// </param>
-        public LookupException(String message, Exception cause)
-            : base(message, cause)
-        {
-        }
-    }
+		/// <summary> Constructs an <code>LookupException</code> with the specified detail message and cause
+		/// 
+		/// </summary>
+		/// <param name="message">
+		/// </param>
+		/// <param name="cause">
+		/// </param>
+		public LookupException(String message, Exception cause)
+			: base(message, cause)
+		{
+		}
+	}
 }

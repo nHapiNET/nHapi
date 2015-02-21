@@ -35,111 +35,111 @@
 /// 
 /// These changes are distributed under the same terms as the original (above). 
 /// </summary>
+
 using System;
 using System.Collections;
 
 namespace NHapi.Base.Util
 {
-    /// <summary>
-    /// Filter iterator class
-    /// </summary>
-    public class FilterIterator : IEnumerator
-    {
-        private IPredicate predicate;
-        private IEnumerator iter;
-        private Object nextObject;
-        private bool nextObjectSet = false;
+	/// <summary>
+	/// Filter iterator class
+	/// </summary>
+	public class FilterIterator : IEnumerator
+	{
+		private IPredicate predicate;
+		private IEnumerator iter;
+		private Object nextObject;
+		private bool nextObjectSet = false;
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="iter"></param>
-        /// <param name="predicate"></param>
-        public FilterIterator(IEnumerator iter, IPredicate predicate)
-        {
-            this.iter = iter;
-            this.predicate = predicate;
-        }
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="iter"></param>
+		/// <param name="predicate"></param>
+		public FilterIterator(IEnumerator iter, IPredicate predicate)
+		{
+			this.iter = iter;
+			this.predicate = predicate;
+		}
 
-        /// <summary>
-        /// The current item
-        /// </summary>
-        public virtual Object Current
-        {
-            get
-            {
-                if (!nextObjectSet)
-                {
-                    if (!setNextObject())
-                    {
-                        throw new ArgumentOutOfRangeException();
-                    }
-                }
-                nextObjectSet = false;
-                return nextObject;
-            }
-
-        }
-
+		/// <summary>
+		/// The current item
+		/// </summary>
+		public virtual Object Current
+		{
+			get
+			{
+				if (!nextObjectSet)
+				{
+					if (!setNextObject())
+					{
+						throw new ArgumentOutOfRangeException();
+					}
+				}
+				nextObjectSet = false;
+				return nextObject;
+			}
+		}
 
 
-        /// <summary>
-        /// Move next
-        /// </summary>
-        /// <returns></returns>
-        public virtual bool MoveNext()
-        {
-            if (nextObjectSet)
-            {
-                return true;
-            }
-            else
-            {
-                return setNextObject();
-            }
-        }
+		/// <summary>
+		/// Move next
+		/// </summary>
+		/// <returns></returns>
+		public virtual bool MoveNext()
+		{
+			if (nextObjectSet)
+			{
+				return true;
+			}
+			else
+			{
+				return setNextObject();
+			}
+		}
 
-        /// <summary> Set nextObject to the next object. If there are no more
-        /// objects then return false. Otherwise, return true.
-        /// </summary>
-        private bool setNextObject()
-        {
-            while (iter.MoveNext())
-            {
-                Object object_Renamed = iter.Current;
-                if (predicate.evaluate(object_Renamed))
-                {
-                    nextObject = object_Renamed;
-                    nextObjectSet = true;
-                    return true;
-                }
-            }
-            return false;
-        }
+		/// <summary> Set nextObject to the next object. If there are no more
+		/// objects then return false. Otherwise, return true.
+		/// </summary>
+		private bool setNextObject()
+		{
+			while (iter.MoveNext())
+			{
+				Object object_Renamed = iter.Current;
+				if (predicate.evaluate(object_Renamed))
+				{
+					nextObject = object_Renamed;
+					nextObjectSet = true;
+					return true;
+				}
+			}
+			return false;
+		}
 
-        /// <summary>Throws UnsupportedOperationException </summary>
-        public virtual void remove()
-        {
-            throw new NotSupportedException();
-        }
+		/// <summary>Throws UnsupportedOperationException </summary>
+		public virtual void remove()
+		{
+			throw new NotSupportedException();
+		}
 
-        /// <summary>
-        /// IPredicate interface
-        /// </summary>
-        public interface IPredicate
-        {
-            /// <summary>
-            /// Evaluate the object
-            /// </summary>
-            /// <param name="obj"></param>
-            /// <returns></returns>
-            bool evaluate(Object obj);
-        }
-        /// <summary>
-        /// Reset
-        /// </summary>
-        virtual public void Reset()
-        {
-        }
-    }
+		/// <summary>
+		/// IPredicate interface
+		/// </summary>
+		public interface IPredicate
+		{
+			/// <summary>
+			/// Evaluate the object
+			/// </summary>
+			/// <param name="obj"></param>
+			/// <returns></returns>
+			bool evaluate(Object obj);
+		}
+
+		/// <summary>
+		/// Reset
+		/// </summary>
+		public virtual void Reset()
+		{
+		}
+	}
 }

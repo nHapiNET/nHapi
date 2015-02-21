@@ -9,93 +9,97 @@ using System.Text;
 
 namespace NHapi.Base
 {
-    class EventMapper
-    {
-        private Hashtable _map = new Hashtable();
-        private static readonly EventMapper _instance = new EventMapper();
+	internal class EventMapper
+	{
+		private Hashtable _map = new Hashtable();
+		private static readonly EventMapper _instance = new EventMapper();
 
-        #region Constructors
-        static EventMapper()
-        { }
+		#region Constructors
 
-        private EventMapper()
-        {
-            IList<Hl7Package> packages = PackageManager.Instance.GetAllPackages();
-            foreach (Hl7Package package in packages)
-            {
-                Assembly assembly = null;
-                try
-                {
-	                var assemblyToLoad = RemoveTrailingDot(package);
-	                assembly = Assembly.Load(assemblyToLoad);
-                }
-                catch (FileNotFoundException)
-                {
-                    //Just skip, this assembly is not used
-                }
+		static EventMapper()
+		{
+		}
 
-                NameValueCollection structures = new NameValueCollection();
-                if (assembly != null)
-                {
-                    structures = GetAssemblyEventMapping(assembly, package);
-                }
-                _map[package.Version] = structures;
-            }
-        }
+		private EventMapper()
+		{
+			IList<Hl7Package> packages = PackageManager.Instance.GetAllPackages();
+			foreach (Hl7Package package in packages)
+			{
+				Assembly assembly = null;
+				try
+				{
+					var assemblyToLoad = RemoveTrailingDot(package);
+					assembly = Assembly.Load(assemblyToLoad);
+				}
+				catch (FileNotFoundException)
+				{
+					//Just skip, this assembly is not used
+				}
 
-	    private static string RemoveTrailingDot(Hl7Package package)
-	    {
-		    string assemblyString = package.PackageName;
-		    char lastChar = assemblyString.LastOrDefault();
-		    bool trailingDot = lastChar != null && lastChar.ToString() == ".";
-		    if (trailingDot)
-		    {
-			    assemblyString = assemblyString.Substring(0, assemblyString.Length - 1);
-		    }
-		    return assemblyString;
-	    }
+				NameValueCollection structures = new NameValueCollection();
+				if (assembly != null)
+				{
+					structures = GetAssemblyEventMapping(assembly, package);
+				}
+				_map[package.Version] = structures;
+			}
+		}
 
-	    #endregion
+		private static string RemoveTrailingDot(Hl7Package package)
+		{
+			string assemblyString = package.PackageName;
+			char lastChar = assemblyString.LastOrDefault();
+			bool trailingDot = lastChar != null && lastChar.ToString() == ".";
+			if (trailingDot)
+			{
+				assemblyString = assemblyString.Substring(0, assemblyString.Length - 1);
+			}
+			return assemblyString;
+		}
 
-        #region Properties
-        public static EventMapper Instance
-        {
-            get { return _instance; }
-        }
+		#endregion
 
-        public Hashtable Maps
-        {
-            get { return _map; }
-        }
-        #endregion
+		#region Properties
 
-        #region Methods
-        private NameValueCollection GetAssemblyEventMapping(Assembly assembly, Hl7Package package)
-        {
-            NameValueCollection structures = new NameValueCollection();
-            using (Stream inResource = assembly.GetManifestResourceStream(package.EventMappingResourceName))
-            {
-                if (inResource != null)
-                {
-                    using (StreamReader sr = new StreamReader(inResource))
-                    {
-                        string line = sr.ReadLine();
-                        while (line != null)
-                        {
-                            if ((line.Length > 0) && ('#' != line[0]))
-                            {
-                                string[] lineElements = line.Split(' ', '\t');
-                                structures.Add(lineElements[0], lineElements[1]);
-                            }
-                            line = sr.ReadLine();
+		public static EventMapper Instance
+		{
+			get { return _instance; }
+		}
 
-                        }
-                    }
-                }
-            }
-            return structures;
-        }
-        #endregion
+		public Hashtable Maps
+		{
+			get { return _map; }
+		}
 
-    }
+		#endregion
+
+		#region Methods
+
+		private NameValueCollection GetAssemblyEventMapping(Assembly assembly, Hl7Package package)
+		{
+			NameValueCollection structures = new NameValueCollection();
+			using (Stream inResource = assembly.GetManifestResourceStream(package.EventMappingResourceName))
+			{
+				if (inResource != null)
+				{
+					using (StreamReader sr = new StreamReader(inResource))
+					{
+						string line = sr.ReadLine();
+						while (line != null)
+						{
+							if ((line.Length > 0) && ('#' != line[0]))
+							{
+								string[] lineElements = line.Split(' ', '\t');
+								structures.Add(lineElements[0], lineElements[1]);
+							}
+							line = sr.ReadLine();
+						}
+					}
+				}
+			}
+			return structures;
+		}
+
+		#endregion
+	}
 }

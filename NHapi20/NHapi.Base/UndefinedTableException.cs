@@ -18,20 +18,20 @@
 /// If you do not delete the provisions above, a recipient may use your version of 
 /// this file under either the MPL or the GPL. 
 /// </summary>
+
 using System;
+
 namespace NHapi.Base
 {
-
-    /// <summary> Thrown when a lookup table is not known to a TableRepository. </summary>
-    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
-    /// </author>
-    [Serializable]
-    public class UndefinedTableException : UnknownValueException
-    {
-
-        public UndefinedTableException(String message)
-            : base(message)
-        {
-        }
-    }
+	/// <summary> Thrown when a lookup table is not known to a TableRepository. </summary>
+	/// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+	/// </author>
+	[Serializable]
+	public class UndefinedTableException : UnknownValueException
+	{
+		public UndefinedTableException(String message)
+			: base(message)
+		{
+		}
+	}
 }

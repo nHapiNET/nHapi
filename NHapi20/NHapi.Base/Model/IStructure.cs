@@ -18,38 +18,32 @@
 /// If you do not delete the provisions above, a recipient may use your version of 
 /// this file under either the MPL or the GPL. 
 /// </summary>
+
 using System;
+
 namespace NHapi.Base.Model
 {
+	/// <summary> Part of an HL7 message: either a segment or group.  There are certain methods (e.g. Group.get())
+	/// that will always return either a segment or a group.  This interface allows methods like this
+	/// to declare a return type of Structure instead of Object.  
+	/// </summary>
+	/// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+	/// </author>
+	public interface IStructure
+	{
+		/// <summary> Returns the Message object to which this structure belongs.  This should normally be set at
+		/// construction time.  A Structure can only belong to a single Message.  This is primarily 
+		/// to avoid a situation where intended changes in one message cause unintended changes 
+		/// in another that shares one of the same Structure objects.  
+		/// </summary>
+		IMessage Message { get; }
 
-    /// <summary> Part of an HL7 message: either a segment or group.  There are certain methods (e.g. Group.get())
-    /// that will always return either a segment or a group.  This interface allows methods like this
-    /// to declare a return type of Structure instead of Object.  
-    /// </summary>
-    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
-    /// </author>
-    public interface IStructure
-    {
-        /// <summary> Returns the Message object to which this structure belongs.  This should normally be set at
-        /// construction time.  A Structure can only belong to a single Message.  This is primarily 
-        /// to avoid a situation where intended changes in one message cause unintended changes 
-        /// in another that shares one of the same Structure objects.  
-        /// </summary>
-        IMessage Message
-        {
-            get;
+		/// <summary> Returns the parent group within which this structure exists (may be root 
+		/// message group).  
+		/// </summary>
+		IGroup ParentStructure { get; }
 
-        }
-        /// <summary> Returns the parent group within which this structure exists (may be root 
-        /// message group).  
-        /// </summary>
-        IGroup ParentStructure
-        {
-            get;
-
-        }
-
-        /// <summary> Returns the structure's name. </summary>
-        String GetStructureName();
-    }
+		/// <summary> Returns the structure's name. </summary>
+		String GetStructureName();
+	}
 }

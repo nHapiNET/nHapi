@@ -18,30 +18,29 @@
 /// If you do not delete the provisions above, a recipient may use your version of 
 /// this file under either the MPL or the GPL. 
 /// </summary>
+
 using System;
 using NHapi.Base.Model;
 
 namespace NHapi.Base.validation
 {
-
-    /// <summary> A validation rule that applies to a fully populated message object.  Message rules 
-    /// may be called (depending on runtime configuration) just after an inbound message
-    /// is parsed, or just before an outbound message is encoded.  
-    /// </summary>
-    /// <author>  Bryan Tripp 
-    /// </author>
-    public interface IMessageRule : IRule
-    {
-
-        /// <summary> Tests the given (fully populated) message against the criteria 
-        /// defined by this rule class.  
-        /// </summary>
-        /// <returns> a list of exceptions indicating points at which the given 
-        /// message failed to validate (empty if validation succeeds; may 
-        /// not be a complete list as testing may be aborted after failure).  
-        /// The list should be empty if this rule is evaluated against a type 
-        /// of message to which it doesn't apply.  
-        /// </returns>
-        ValidationException[] test(IMessage msg);
-    }
+	/// <summary> A validation rule that applies to a fully populated message object.  Message rules 
+	/// may be called (depending on runtime configuration) just after an inbound message
+	/// is parsed, or just before an outbound message is encoded.  
+	/// </summary>
+	/// <author>  Bryan Tripp 
+	/// </author>
+	public interface IMessageRule : IRule
+	{
+		/// <summary> Tests the given (fully populated) message against the criteria 
+		/// defined by this rule class.  
+		/// </summary>
+		/// <returns> a list of exceptions indicating points at which the given 
+		/// message failed to validate (empty if validation succeeds; may 
+		/// not be a complete list as testing may be aborted after failure).  
+		/// The list should be empty if this rule is evaluated against a type 
+		/// of message to which it doesn't apply.  
+		/// </returns>
+		ValidationException[] test(IMessage msg);
+	}
 }

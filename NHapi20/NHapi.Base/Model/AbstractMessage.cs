@@ -18,6 +18,7 @@
 /// If you do not delete the provisions above, a recipient may use your version of 
 /// this file under either the MPL or the GPL. 
 */
+
 using System;
 using System.Text;
 using NHapi.Base.Parser;
@@ -26,89 +27,77 @@ using System.Text.RegularExpressions;
 
 namespace NHapi.Base.Model
 {
+	/// <summary> A default implementation of Message. </summary>
+	/// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+	/// </author>
+	public abstract class AbstractMessage : AbstractGroup, IMessage
+	{
+		/// <summary> Returns this Message object - this is an implementation of the 
+		/// abstract method in AbstractGroup.  
+		/// </summary>
+		public override IMessage Message
+		{
+			get { return this; }
+		}
 
-    /// <summary> A default implementation of Message. </summary>
-    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
-    /// </author>
-    public abstract class AbstractMessage : AbstractGroup, IMessage
-    {
-        /// <summary> Returns this Message object - this is an implementation of the 
-        /// abstract method in AbstractGroup.  
-        /// </summary>
-        override public IMessage Message
-        {
-            get
-            {
-                return this;
-            }
+		/// <summary> Returns the version number.  This default implementation inspects 
+		/// this.GetClass().getName().  This should be overridden if you are putting
+		/// a custom message definition in your own package, or it will default.  
+		/// </summary>
+		/// <returns>s 2.4 if not obvious from package name
+		/// </returns>
+		public virtual String Version
+		{
+			get
+			{
+				String version = null;
 
-        }
-        /// <summary> Returns the version number.  This default implementation inspects 
-        /// this.GetClass().getName().  This should be overridden if you are putting
-        /// a custom message definition in your own package, or it will default.  
-        /// </summary>
-        /// <returns>s 2.4 if not obvious from package name
-        /// </returns>
-        virtual public String Version
-        {
-            get
-            {
-                String version = null;
+				// TODO: Revisit.
 
-                // TODO: Revisit.
+				Regex p = new Regex("\\.(V2[0-9][0-9]?)\\.");
+				Match m = p.Match(GetType().FullName);
+				if (m.Success)
+				{
+					String verFolder = m.Groups[1].Value;
+					if (verFolder.Length > 0)
+					{
+						char[] chars = verFolder.ToCharArray();
+						StringBuilder buf = new StringBuilder();
+						for (int i = 1; i < chars.Length; i++)
+						{
+							//start at 1 to avoid the 'v'
+							buf.Append(chars[i]);
+							if (i < chars.Length - 1)
+								buf.Append('.');
+						}
+						version = buf.ToString();
+					}
+				}
 
-                Regex p = new Regex("\\.(V2[0-9][0-9]?)\\.");
-                Match m = p.Match(GetType().FullName);
-                if (m.Success)
-                {
-                    String verFolder = m.Groups[1].Value;
-                    if (verFolder.Length > 0)
-                    {
-                        char[] chars = verFolder.ToCharArray();
-                        StringBuilder buf = new StringBuilder();
-                        for (int i = 1; i < chars.Length; i++)
-                        {
-                            //start at 1 to avoid the 'v'
-                            buf.Append(chars[i]);
-                            if (i < chars.Length - 1)
-                                buf.Append('.');
-                        }
-                        version = buf.ToString();
-                    }
-                }
+				if (version == null)
+					version = "2.4";
 
-                if (version == null)
-                    version = "2.4";
+				return version;
+			}
+		}
 
-                return version;
-            }
+		/// <summary>
+		/// The validation contect 
+		/// </summary>
+		public virtual IValidationContext ValidationContext
+		{
+			get { return myContext; }
 
-        }
+			set { myContext = value; }
+		}
 
-        /// <summary>
-        /// The validation contect 
-        /// </summary>
-        virtual public IValidationContext ValidationContext
-        {
-            get
-            {
-                return myContext;
-            }
+		private IValidationContext myContext;
 
-            set
-            {
-                myContext = value;
-            }
-
-        }
-
-        private IValidationContext myContext;
-
-        /// <param name="theFactory">factory for model classes (e.g. group, segment) for this message 
-        /// </param>
-        public AbstractMessage(IModelClassFactory theFactory)
-            : base(theFactory)
-        {
-        }
-    }
+		/// <param name="theFactory">factory for model classes (e.g. group, segment) for this message 
+		/// </param>
+		public AbstractMessage(IModelClassFactory theFactory)
+			: base(theFactory)
+		{
+		}
+	}
 }

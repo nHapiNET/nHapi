@@ -20,6 +20,7 @@ namespace NHapi.Base
 		}
 
 		private static string _connectionString = string.Empty;
+
 		public static string ConnectionString
 		{
 			get

@@ -24,83 +24,76 @@
 /// this file under either the MPL or the GPL.
 /// 
 /// </summary>
+
 using System;
 using NHapi.Base.Model;
 
 namespace NHapi.Base.Model.Primitive
 {
+	/// <summary> This class contains functionality used by the ID class
+	/// in the version 2.3.0, 2.3.1, 2.4, and 2.5 packages
+	/// 
+	/// Note: The class description below has been excerpted from the Hl7 2.4 documentation. Sectional
+	/// references made below also refer to the same documentation.
+	/// 
+	/// The value of such a field follows the formatting rules for an ST field except
+	/// that it is drawn from a table of legal values. There shall be an HL7 table number
+	/// associated with ID data types. An example of an ID field is OBR-25-result status.
+	/// This data type should be used only for HL7 tables (see Section 2.7.6, "Table").
+	/// The reverse is not true, since in some circumstances it is more appropriate to use
+	/// the CE data type for HL7 tables.
+	/// 
+	/// </summary>
+	/// <author>  <a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a>
+	/// </author>
+	/// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
+	/// </author>
+	/// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/08 00:28:25 $ by $Author: bryan_tripp $
+	/// </version>
+	public abstract class ID : AbstractPrimitive
+	{
+		/// <returns> number of HL7 table from which values should be drawn (defaults to 0) 
+		/// </returns>
+		public virtual int Table
+		{
+			get { return myTable; }
 
-    /// <summary> This class contains functionality used by the ID class
-    /// in the version 2.3.0, 2.3.1, 2.4, and 2.5 packages
-    /// 
-    /// Note: The class description below has been excerpted from the Hl7 2.4 documentation. Sectional
-    /// references made below also refer to the same documentation.
-    /// 
-    /// The value of such a field follows the formatting rules for an ST field except
-    /// that it is drawn from a table of legal values. There shall be an HL7 table number
-    /// associated with ID data types. An example of an ID field is OBR-25-result status.
-    /// This data type should be used only for HL7 tables (see Section 2.7.6, "Table").
-    /// The reverse is not true, since in some circumstances it is more appropriate to use
-    /// the CE data type for HL7 tables.
-    /// 
-    /// </summary>
-    /// <author>  <a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a>
-    /// </author>
-    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
-    /// </author>
-    /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/08 00:28:25 $ by $Author: bryan_tripp $
-    /// </version>
-    public abstract class ID : AbstractPrimitive
-    {
-        /// <returns> number of HL7 table from which values should be drawn (defaults to 0) 
-        /// </returns>
-        virtual public int Table
-        {
-            get
-            {
-                return myTable;
-            }
+			set { myTable = value; }
+		}
 
-            set
-            {
-                myTable = value;
-            }
+		private int myTable = 0;
 
-        }
-
-        private int myTable = 0;
-
-        /// <param name="theMessage">message to which this Type belongs
-        /// </param>
-        public ID(IMessage theMessage)
-            : base(theMessage)
-        {
-        }
+		/// <param name="theMessage">message to which this Type belongs
+		/// </param>
+		public ID(IMessage theMessage)
+			: base(theMessage)
+		{
+		}
 
 
-        public ID(IMessage theMessage, string description)
-            : base(theMessage, description)
-        {
-        }
+		public ID(IMessage theMessage, string description)
+			: base(theMessage, description)
+		{
+		}
 
-        /// <param name="theMessage">message to which this Type belongs
-        /// </param>
-        /// <param name="theTable">HL7 table from which values are to be drawn 
-        /// </param>
-        public ID(IMessage theMessage, int theTable)
-            : base(theMessage)
-        {
-            myTable = theTable;
-        }
+		/// <param name="theMessage">message to which this Type belongs
+		/// </param>
+		/// <param name="theTable">HL7 table from which values are to be drawn 
+		/// </param>
+		public ID(IMessage theMessage, int theTable)
+			: base(theMessage)
+		{
+			myTable = theTable;
+		}
 
-        /// <param name="theMessage">message to which this Type belongs
-        /// </param>
-        /// <param name="theTable">HL7 table from which values are to be drawn 
-        /// </param>
-        public ID(IMessage message, int theTable, string description)
-            : base(message, description)
-        {
-            myTable = theTable;
-        }
-    }
+		/// <param name="theMessage">message to which this Type belongs
+		/// </param>
+		/// <param name="theTable">HL7 table from which values are to be drawn 
+		/// </param>
+		public ID(IMessage message, int theTable, string description)
+			: base(message, description)
+		{
+			myTable = theTable;
+		}
+	}
 }

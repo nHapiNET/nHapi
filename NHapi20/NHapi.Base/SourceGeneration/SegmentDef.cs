@@ -19,101 +19,89 @@
 /// If you do not delete the provisions above, a recipient may use your version of 
 /// this file under either the MPL or the GPL. 
 /// </summary>
+
 using System;
+
 namespace NHapi.Base.SourceGeneration
 {
+	/// <summary> Information about a message segment used in the creation of 
+	/// source code for a Group class.  SegmentDef is a slight misnomer because this 
+	/// also includes group start/end indicators, with group names.  
+	/// 
+	/// </summary>
+	/// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+	/// </author>
+	public class SegmentDef : IStructureDef
+	{
+		/// <returns> name of segment 
+		/// </returns>
+		public virtual String Name
+		{
+			get
+			{
+				String result = name;
+				if (result != null && result.Equals("?"))
+				{
+					result = "GenericSegment";
+				}
+				return result;
+			}
+		}
 
-    /// <summary> Information about a message segment used in the creation of 
-    /// source code for a Group class.  SegmentDef is a slight misnomer because this 
-    /// also includes group start/end indicators, with group names.  
-    /// 
-    /// </summary>
-    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
-    /// </author>
-    public class SegmentDef : IStructureDef
-    {
-        /// <returns> name of segment 
-        /// </returns>
-        virtual public String Name
-        {
-            get
-            {
-                String result = name;
-                if (result != null && result.Equals("?"))
-                {
-                    result = "GenericSegment";
-                }
-                return result;
-            }
+		/// <returns> name of group, if this is not really a segment but a group start indicator 
+		/// </returns>
+		public virtual String GroupName
+		{
+			get { return groupName; }
+		}
 
-        }
-        /// <returns> name of group, if this is not really a segment but a group start indicator 
-        /// </returns>
-        virtual public String GroupName
-        {
-            get
-            {
-                return groupName;
-            }
+		/// <summary> Returns true if this structure is required in the Group.  </summary>
+		public virtual bool Required
+		{
+			get { return required; }
+		}
 
-        }
-        /// <summary> Returns true if this structure is required in the Group.  </summary>
-        virtual public bool Required
-        {
-            get
-            {
-                return required;
-            }
+		/// <summary> Returns true if this structure can repeat in the Group.  </summary>
+		public virtual bool Repeating
+		{
+			get { return repeating; }
+		}
 
-        }
-        /// <summary> Returns true if this structure can repeat in the Group.  </summary>
-        virtual public bool Repeating
-        {
-            get
-            {
-                return repeating;
-            }
+		/// <summary> Returns a text description of the structure.</summary>
+		public virtual String Description
+		{
+			get { return description; }
+		}
 
-        }
-        /// <summary> Returns a text description of the structure.</summary>
-        virtual public String Description
-        {
-            get
-            {
-                return description;
-            }
+		/// <summary> Returns a list of the names of the segments that are children of this Structure.
+		/// If the structure is a Segment, a 1-element array is returned containing the segment
+		/// name.  If a Group, an array of all the segments in the Group, including those nested
+		/// in subgroups (depth first).  This method is used to support the XML SIG's convention
+		/// for deriving group names.
+		/// </summary>
+		public virtual String[] ChildSegments
+		{
+			get
+			{
+				String[] result = new String[] {Name};
+				return result;
+			}
+		}
 
-        }
-        /// <summary> Returns a list of the names of the segments that are children of this Structure.
-        /// If the structure is a Segment, a 1-element array is returned containing the segment
-        /// name.  If a Group, an array of all the segments in the Group, including those nested
-        /// in subgroups (depth first).  This method is used to support the XML SIG's convention
-        /// for deriving group names.
-        /// </summary>
-        virtual public String[] ChildSegments
-        {
-            get
-            {
-                String[] result = new String[] { Name };
-                return result;
-            }
+		private String name;
+		private String groupName;
+		private String description;
+		private bool required;
+		private bool repeating;
 
-        }
-
-        private String name;
-        private String groupName;
-        private String description;
-        private bool required;
-        private bool repeating;
-
-        /// <summary>Creates new SegmentDef </summary>
-        public SegmentDef(String name, String groupName, bool required, bool repeating, String description)
-        {
-            this.name = name;
-            this.groupName = groupName;
-            this.required = required;
-            this.repeating = repeating;
-            this.description = description;
-        }
-    }
+		/// <summary>Creates new SegmentDef </summary>
+		public SegmentDef(String name, String groupName, bool required, bool repeating, String description)
+		{
+			this.name = name;
+			this.groupName = groupName;
+			this.required = required;
+			this.repeating = repeating;
+			this.description = description;
+		}
+	}
 }

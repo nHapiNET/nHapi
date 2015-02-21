@@ -18,26 +18,26 @@
 /// If you do not delete the provisions above, a recipient may use your version of 
 /// this file under either the MPL or the GPL. 
 /// </summary>
+
 using System;
 using HL7Exception = NHapi.Base.HL7Exception;
+
 namespace NHapi.Base.Parser
 {
-
-    /// <summary> Represents a problem where a Parser does not support a particular HL7 encoding.  
-    /// Encodings include "|" (traditional) and "XML".
-    /// </summary>
-    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
-    /// </author>
-    [Serializable]
-    public class EncodingNotSupportedException : HL7Exception
-    {
-
-        /// <summary> Constructs an <code>EncodingNotSupportedException</code> with the specified detail message.</summary>
-        /// <param name="msg">the detail message.
-        /// </param>
-        public EncodingNotSupportedException(String msg)
-            : base(msg, APPLICATION_INTERNAL_ERROR)
-        {
-        }
-    }
+	/// <summary> Represents a problem where a Parser does not support a particular HL7 encoding.  
+	/// Encodings include "|" (traditional) and "XML".
+	/// </summary>
+	/// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+	/// </author>
+	[Serializable]
+	public class EncodingNotSupportedException : HL7Exception
+	{
+		/// <summary> Constructs an <code>EncodingNotSupportedException</code> with the specified detail message.</summary>
+		/// <param name="msg">the detail message.
+		/// </param>
+		public EncodingNotSupportedException(String msg)
+			: base(msg, APPLICATION_INTERNAL_ERROR)
+		{
+		}
+	}
 }

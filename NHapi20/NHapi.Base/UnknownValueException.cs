@@ -18,23 +18,24 @@
 /// If you do not delete the provisions above, a recipient may use your version of 
 /// this file under either the MPL or the GPL. 
 /// </summary>
+
 using System;
+
 namespace NHapi.Base
 {
-
-    /// <summary> Thrown when a table value can not be found by a TableRepository. </summary>
-    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
-    /// </author>
-    [Serializable]
-    public class UnknownValueException : HL7Exception
-    {
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="message"></param>
-        public UnknownValueException(String message)
-            : base(message, TABLE_VALUE_NOT_FOUND)
-        {
-        }
-    }
+	/// <summary> Thrown when a table value can not be found by a TableRepository. </summary>
+	/// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+	/// </author>
+	[Serializable]
+	public class UnknownValueException : HL7Exception
+	{
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="message"></param>
+		public UnknownValueException(String message)
+			: base(message, TABLE_VALUE_NOT_FOUND)
+		{
+		}
+	}
 }

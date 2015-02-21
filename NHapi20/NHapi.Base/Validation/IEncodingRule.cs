@@ -18,28 +18,28 @@
 /// If you do not delete the provisions above, a recipient may use your version of 
 /// this file under either the MPL or the GPL. 
 /// </summary>
+
 using System;
+
 namespace NHapi.Base.validation
 {
-
-    /// <summary> A validation rule that applies to encoded message strings.  Rules that 
-    /// apply to message content are not included in this category (they are MessageRules
-    /// and are evaluated against parsed Message object).  EncodingRules are intended 
-    /// for criteria that are specific to the encoded form of a message, e.g. "no empty 
-    /// tags in an XML message".  
-    /// </summary>
-    /// <author>  Bryan Tripp
-    /// </author>
-    public interface IEncodingRule : IRule
-    {
-
-        /// <summary> Tests the given encoded message text against the criteria 
-        /// defined by this rule class.  
-        /// </summary>
-        /// <returns> a list of exceptions indicating points at which the given 
-        /// message failed to validate (empty if validation succeeds; may 
-        /// not be a complete list as testing may be aborted after failure).  
-        /// </returns>
-        ValidationException[] test(String msg);
-    }
+	/// <summary> A validation rule that applies to encoded message strings.  Rules that 
+	/// apply to message content are not included in this category (they are MessageRules
+	/// and are evaluated against parsed Message object).  EncodingRules are intended 
+	/// for criteria that are specific to the encoded form of a message, e.g. "no empty 
+	/// tags in an XML message".  
+	/// </summary>
+	/// <author>  Bryan Tripp
+	/// </author>
+	public interface IEncodingRule : IRule
+	{
+		/// <summary> Tests the given encoded message text against the criteria 
+		/// defined by this rule class.  
+		/// </summary>
+		/// <returns> a list of exceptions indicating points at which the given 
+		/// message failed to validate (empty if validation succeeds; may 
+		/// not be a complete list as testing may be aborted after failure).  
+		/// </returns>
+		ValidationException[] test(String msg);
+	}
 }

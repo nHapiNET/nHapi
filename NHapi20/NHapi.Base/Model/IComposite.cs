@@ -18,29 +18,23 @@
 /// If you do not delete the provisions above, a recipient may use your version of 
 /// this file under either the MPL or the GPL. 
 /// </summary>
+
 using System;
+
 namespace NHapi.Base.Model
 {
+	/// <summary> <p>Represents the category of HL7 data types that contain more than one component (e.g. CE).
+	/// Implementing classes (i.e. composite data types) should initialize their components
+	/// either when they are initialized or when they are first accessed.  Only leaf values
+	/// (values of primitives) should ever be returned as null.</p>
+	/// </summary>
+	/// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+	/// </author>
+	public interface IComposite : IType
+	{
+		/// <summary> Returns an array containing the components of this field.</summary>
+		IType[] Components { get; }
 
-    /// <summary> <p>Represents the category of HL7 data types that contain more than one component (e.g. CE).
-    /// Implementing classes (i.e. composite data types) should initialize their components
-    /// either when they are initialized or when they are first accessed.  Only leaf values
-    /// (values of primitives) should ever be returned as null.</p>
-    /// </summary>
-    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
-    /// </author>
-    public interface IComposite : IType
-    {
-        /// <summary> Returns an array containing the components of this field.</summary>
-        IType[] Components
-        {
-            get;
-
-        }
-
-        IType this[int index]
-        {
-            get;
-        }
-    }
+		IType this[int index] { get; }
+	}
 }

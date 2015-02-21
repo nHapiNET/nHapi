@@ -18,36 +18,25 @@
 /// If you do not delete the provisions above, a recipient may use your version of 
 /// this file under either the MPL or the GPL. 
 /// </summary>
+
 using System;
 using NHapi.Base.validation;
 
 namespace NHapi.Base.Model
 {
+	/// <summary> Represents a complete HL7 message including all structures, segments, and fields.  </summary>
+	/// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+	/// </author>
+	public interface IMessage : IGroup
+	{
+		/// <summary> Returns the version number of the HL7 version in which this 
+		/// message structure is defined (e.g. "2.4")
+		/// </summary>
+		String Version { get; }
 
-
-    /// <summary> Represents a complete HL7 message including all structures, segments, and fields.  </summary>
-    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
-    /// </author>
-    public interface IMessage : IGroup
-    {
-        /// <summary> Returns the version number of the HL7 version in which this 
-        /// message structure is defined (e.g. "2.4")
-        /// </summary>
-        String Version
-        {
-            get;
-
-        }
-
-        /// <summary>
-        /// The validation context of the message
-        /// </summary>
-        IValidationContext ValidationContext
-        {
-            get;
-
-            set;
-
-        }
-    }
+		/// <summary>
+		/// The validation context of the message
+		/// </summary>
+		IValidationContext ValidationContext { get; set; }
+	}
 }

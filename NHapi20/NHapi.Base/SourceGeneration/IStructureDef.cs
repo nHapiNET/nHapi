@@ -18,51 +18,36 @@
 /// If you do not delete the provisions above, a recipient may use your version of 
 /// this file under either the MPL or the GPL. 
 /// </summary>
+
 using System;
+
 namespace NHapi.Base.SourceGeneration
 {
+	/// <summary> Information about a structure within a message (eg group, segment) 
+	/// that is used in creating source for a Group class. 
+	/// </summary>
+	/// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+	/// </author>
+	public interface IStructureDef
+	{
+		/// <summary> Returns the name of the structure.</summary>
+		String Name { get; }
 
-    /// <summary> Information about a structure within a message (eg group, segment) 
-    /// that is used in creating source for a Group class. 
-    /// </summary>
-    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
-    /// </author>
-    public interface IStructureDef
-    {
-        /// <summary> Returns the name of the structure.</summary>
-        String Name
-        {
-            get;
+		/// <summary> Returns a text description of the structure.</summary>
+		String Description { get; }
 
-        }
-        /// <summary> Returns a text description of the structure.</summary>
-        String Description
-        {
-            get;
+		/// <summary> Returns true if this structure is required in the Group.  </summary>
+		bool Required { get; }
 
-        }
-        /// <summary> Returns true if this structure is required in the Group.  </summary>
-        bool Required
-        {
-            get;
+		/// <summary> Returns true if this structure can repeat in the Group.  </summary>
+		bool Repeating { get; }
 
-        }
-        /// <summary> Returns true if this structure can repeat in the Group.  </summary>
-        bool Repeating
-        {
-            get;
-
-        }
-        /// <summary> Returns a list of the names of the segments that are children of this Structure.  
-        /// If the structure is a Segment, a 1-element array is returned containing the segment 
-        /// name.  If a Group, an array of all the segments in the Group, including those nested
-        /// in subgroups (depth first).  This method is used to support the XML SIG's convention 
-        /// for deriving group names. 
-        /// </summary>
-        String[] ChildSegments
-        {
-            get;
-
-        }
-    }
+		/// <summary> Returns a list of the names of the segments that are children of this Structure.  
+		/// If the structure is a Segment, a 1-element array is returned containing the segment 
+		/// name.  If a Group, an array of all the segments in the Group, including those nested
+		/// in subgroups (depth first).  This method is used to support the XML SIG's convention 
+		/// for deriving group names. 
+		/// </summary>
+		String[] ChildSegments { get; }
+	}
 }

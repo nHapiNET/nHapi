@@ -18,59 +18,59 @@
 /// If you do not delete the provisions above, a recipient may use your version of 
 /// this file under either the MPL or the GPL. 
 /// </summary>
+
 using System;
 
 namespace NHapi.Base.validation.impl
 {
+	/// <summary> A <code>ValidationContext</code> with a default set of rules initially defined.
+	/// This can be used as-is for a reasonable level of primitive type validation.   
+	/// 
+	/// </summary>
+	/// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
+	/// </author>
+	/// <version>  $Revision: 1.1 $ updated on $Date: 2005/06/14 20:13:16 $ by $Author: bryan_tripp $
+	/// </version>
+	public class DefaultValidation : ValidationContextImpl
+	{
+		public DefaultValidation()
+		{
+			IRule trim = new TrimLeadingWhitespace();
+			PrimitiveRuleBindings.Add(new RuleBinding("*", "FT", trim));
+			PrimitiveRuleBindings.Add(new RuleBinding("*", "ST", trim));
+			PrimitiveRuleBindings.Add(new RuleBinding("*", "TX", trim));
 
+			IRule size200 = new SizeRule(200);
+			IRule size32000 = new SizeRule(32000);
+			PrimitiveRuleBindings.Add(new RuleBinding("*", "FT", size32000));
+			PrimitiveRuleBindings.Add(new RuleBinding("*", "ID", size200));
+			PrimitiveRuleBindings.Add(new RuleBinding("*", "IS", size200));
+		}
+	}
 
-    /// <summary> A <code>ValidationContext</code> with a default set of rules initially defined.
-    /// This can be used as-is for a reasonable level of primitive type validation.   
-    /// 
-    /// </summary>
-    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
-    /// </author>
-    /// <version>  $Revision: 1.1 $ updated on $Date: 2005/06/14 20:13:16 $ by $Author: bryan_tripp $
-    /// </version>
-    public class DefaultValidation : ValidationContextImpl
-    {
-        public DefaultValidation()
-        {
-            IRule trim = new TrimLeadingWhitespace();
-            PrimitiveRuleBindings.Add(new RuleBinding("*", "FT", trim));
-            PrimitiveRuleBindings.Add(new RuleBinding("*", "ST", trim));
-            PrimitiveRuleBindings.Add(new RuleBinding("*", "TX", trim));
+	public class StrictValidation : DefaultValidation
+	{
+		public StrictValidation()
+		{
+			IRule nonNegativeInteger = new RegexPrimitiveRule(@"^\d*$", "SI Fields should contain non-negative integers");
+			PrimitiveRuleBindings.Add(new RuleBinding("*", "SI", nonNegativeInteger));
 
-            IRule size200 = new SizeRule(200);
-            IRule size32000 = new SizeRule(32000);
-            PrimitiveRuleBindings.Add(new RuleBinding("*", "FT", size32000));
-            PrimitiveRuleBindings.Add(new RuleBinding("*", "ID", size200));
-            PrimitiveRuleBindings.Add(new RuleBinding("*", "IS", size200));
-        }
-    }
+			IRule number = new RegexPrimitiveRule(@"^(\+|\-)?\d*\.?\d*$", "NM Fields should only contain numbers / decimals");
+			PrimitiveRuleBindings.Add(new RuleBinding("*", "NM", number));
 
-	 public class StrictValidation : DefaultValidation
-	 {
-		 public StrictValidation()
-		 {
-			 IRule nonNegativeInteger = new RegexPrimitiveRule(@"^\d*$", "SI Fields should contain non-negative integers");
-			 PrimitiveRuleBindings.Add(new RuleBinding("*", "SI", nonNegativeInteger));
+			String datePattern = @"^(\d{4}([01]\d(\d{2})?)?)?$"; //YYYY[MM[DD]]
+			IRule date = new RegexPrimitiveRule(datePattern, "Version 2.5 Section 2.16.24");
+			PrimitiveRuleBindings.Add(new RuleBinding("*", "DT", date));
 
-			 IRule number = new RegexPrimitiveRule(@"^(\+|\-)?\d*\.?\d*$", "NM Fields should only contain numbers / decimals");
-			 PrimitiveRuleBindings.Add(new RuleBinding("*", "NM", number));
+			String timePattern = @"([012]\d([0-5]\d([0-5]\d(\.\d(\d(\d(\d)?)?)?)?)?)?)?([\+\-]\d{4})?";
+			IRule time = new RegexPrimitiveRule(timePattern, "Version 2.5 Section 2.16.79");
+			PrimitiveRuleBindings.Add(new RuleBinding("*", "TM", time));
 
-			 String datePattern = @"^(\d{4}([01]\d(\d{2})?)?)?$"; //YYYY[MM[DD]]
-			 IRule date = new RegexPrimitiveRule(datePattern, "Version 2.5 Section 2.16.24");
-			 PrimitiveRuleBindings.Add(new RuleBinding("*", "DT", date));
-
-			 String timePattern = @"([012]\d([0-5]\d([0-5]\d(\.\d(\d(\d(\d)?)?)?)?)?)?)?([\+\-]\d{4})?";
-			 IRule time = new RegexPrimitiveRule(timePattern, "Version 2.5 Section 2.16.79");
-			 PrimitiveRuleBindings.Add(new RuleBinding("*", "TM", time));
-
-			 String datetimePattern = @"(\d{4}([01]\d(\d{2}([012]\d([0-5]\d([0-5]\d(\.\d(\d(\d(\d)?)?)?)?)?)?)?)?)?)?([\+\-]\d{4})?";
-			 IRule datetime = new RegexPrimitiveRule(datetimePattern, "Version 2.5 Section 2.16.25");
-			 PrimitiveRuleBindings.Add(new RuleBinding("*", "TSComponentOne", datetime));
-			 PrimitiveRuleBindings.Add(new RuleBinding("*", "DTM", datetime));
-		 }
-	 }
+			String datetimePattern =
+				@"(\d{4}([01]\d(\d{2}([012]\d([0-5]\d([0-5]\d(\.\d(\d(\d(\d)?)?)?)?)?)?)?)?)?)?([\+\-]\d{4})?";
+			IRule datetime = new RegexPrimitiveRule(datetimePattern, "Version 2.5 Section 2.16.25");
+			PrimitiveRuleBindings.Add(new RuleBinding("*", "TSComponentOne", datetime));
+			PrimitiveRuleBindings.Add(new RuleBinding("*", "DTM", datetime));
+		}
+	}
 }

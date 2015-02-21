@@ -18,73 +18,66 @@
 /// If you do not delete the provisions above, a recipient may use your version of 
 /// this file under either the MPL or the GPL. 
 /// </summary>
+
 using System;
 using NHapi.Base.validation;
 
 namespace NHapi.Base.validation.impl
 {
+	/// <summary> Checks that Primitive values conform to a certain size limit.  
+	/// 
+	/// </summary>
+	/// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
+	/// </author>
+	/// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $
+	/// </version>
+	public class SizeRule : IPrimitiveTypeRule
+	{
+		/// <seealso cref="NHapi.Base.validation.Rule.getDescription()">
+		/// </seealso>
+		public virtual String Description
+		{
+			get { return "Maxumim size <= " + myMaxChars + " characters"; }
+		}
 
-    /// <summary> Checks that Primitive values conform to a certain size limit.  
-    /// 
-    /// </summary>
-    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
-    /// </author>
-    /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $
-    /// </version>
-    public class SizeRule : IPrimitiveTypeRule
-    {
-        /// <seealso cref="NHapi.Base.validation.Rule.getDescription()">
-        /// </seealso>
-        virtual public String Description
-        {
-            get
-            {
-                return "Maxumim size <= " + myMaxChars + " characters";
-            }
+		/// <seealso cref="NHapi.Base.validation.Rule.getSectionReference()">
+		/// </seealso>
+		public virtual String SectionReference
+		{
+			get { return null; }
+		}
 
-        }
-        /// <seealso cref="NHapi.Base.validation.Rule.getSectionReference()">
-        /// </seealso>
-        virtual public String SectionReference
-        {
-            get
-            {
-                return null;
-            }
+		private int myMaxChars;
 
-        }
+		/// <param name="theMaxChars">the maximum number of characters this rule allows in a 
+		/// primitive value
+		/// </param>
+		public SizeRule(int theMaxChars)
+		{
+			myMaxChars = theMaxChars;
+		}
 
-        private int myMaxChars;
+		/// <summary> Does nothing.  If what you wanted was to trim the value to the max size, you should
+		/// make a separate rule for that.  
+		/// 
+		/// </summary>
+		/// <seealso cref="NHapi.Base.validation.PrimitiveTypeRule.correct(java.lang.String)">
+		/// </seealso>
+		public virtual String correct(String value_Renamed)
+		{
+			return value_Renamed;
+		}
 
-        /// <param name="theMaxChars">the maximum number of characters this rule allows in a 
-        /// primitive value
-        /// </param>
-        public SizeRule(int theMaxChars)
-        {
-            myMaxChars = theMaxChars;
-        }
-
-        /// <summary> Does nothing.  If what you wanted was to trim the value to the max size, you should
-        /// make a separate rule for that.  
-        /// 
-        /// </summary>
-        /// <seealso cref="NHapi.Base.validation.PrimitiveTypeRule.correct(java.lang.String)">
-        /// </seealso>
-        public virtual String correct(String value_Renamed)
-        {
-            return value_Renamed;
-        }
-
-        /// <seealso cref="NHapi.Base.validation.PrimitiveTypeRule.test(java.lang.String)">
-        /// </seealso>
-        public virtual bool test(String value_Renamed)
-        {
-            bool ok = true;
-            if (value_Renamed != null && value_Renamed.Length > myMaxChars)
-            {
-                ok = false;
-            }
-            return ok;
-        }
-    }
+		/// <seealso cref="NHapi.Base.validation.PrimitiveTypeRule.test(java.lang.String)">
+		/// </seealso>
+		public virtual bool test(String value_Renamed)
+		{
+			bool ok = true;
+			if (value_Renamed != null && value_Renamed.Length > myMaxChars)
+			{
+				ok = false;
+			}
+			return ok;
+		}
+	}
 }

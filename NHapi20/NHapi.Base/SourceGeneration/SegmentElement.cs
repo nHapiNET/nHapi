@@ -18,38 +18,38 @@
 /// If you do not delete the provisions above, a recipient may use your version of 
 /// this file under either the MPL or the GPL. 
 /// </summary>
+
 using System;
+
 namespace NHapi.Base.SourceGeneration
 {
-
-    /// <summary> A structure for storing a single data element of a segment ... </summary>
-    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
-    /// </author>
-    class SegmentElement
-    {
-
-        public int field;
-        public String rep;
-        public int repetitions;
-        public String desc;
-        public int length;
-        public int table;
-        public String opt;
-        public String type;
+	/// <summary> A structure for storing a single data element of a segment ... </summary>
+	/// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+	/// </author>
+	internal class SegmentElement
+	{
+		public int field;
+		public String rep;
+		public int repetitions;
+		public String desc;
+		public int length;
+		public int table;
+		public String opt;
+		public String type;
 
 
-        virtual public string GetDescriptionWithoutSpecialCharacters()
-        {
-            string desc = this.desc;
-            desc = desc.Replace('\n', ' ');
-            desc = desc.Replace('\"', '\'');
-            desc = desc.Replace("&", "and");
-            return desc;
-        }
+		public virtual string GetDescriptionWithoutSpecialCharacters()
+		{
+			string desc = this.desc;
+			desc = desc.Replace('\n', ' ');
+			desc = desc.Replace('\"', '\'');
+			desc = desc.Replace("&", "and");
+			return desc;
+		}
 
-        /// <summary>Creates new SegmentElement </summary>
-        public SegmentElement()
-        {
-        }
-    }
+		/// <summary>Creates new SegmentElement </summary>
+		public SegmentElement()
+		{
+		}
+	}
 }

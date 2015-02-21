@@ -19,56 +19,54 @@
 /// If you do not delete the provisions above, a recipient may use your version of 
 /// this file under either the MPL or the GPL. 
 */
+
 using System;
 
 namespace NHapi.Base
 {
+	/// <summary> Represents a problem with the validity of a data type, such as an attempt 
+	/// to set the value of a primitive type to something invalid for that type. 
+	/// </summary>
+	/// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+	/// </author>
+	[Serializable]
+	public class DataTypeException : HL7Exception
+	{
+		/// <param name="message">
+		/// </param>
+		/// <param name="errorCondition">
+		/// </param>
+		/// <param name="cause">
+		/// </param>
+		public DataTypeException(String message, int errorCondition, Exception cause)
+			: base(message, errorCondition, cause)
+		{
+		}
 
-    /// <summary> Represents a problem with the validity of a data type, such as an attempt 
-    /// to set the value of a primitive type to something invalid for that type. 
-    /// </summary>
-    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
-    /// </author>
-    [Serializable]
-    public class DataTypeException : HL7Exception
-    {
+		/// <param name="message">
+		/// </param>
+		/// <param name="errorCondition">
+		/// </param>
+		public DataTypeException(String message, int errorCondition)
+			: base(message, errorCondition)
+		{
+		}
 
-
-        /// <param name="message">
-        /// </param>
-        /// <param name="errorCondition">
-        /// </param>
-        /// <param name="cause">
-        /// </param>
-        public DataTypeException(String message, int errorCondition, Exception cause)
-            : base(message, errorCondition, cause)
-        {
-        }
-
-        /// <param name="message">
-        /// </param>
-        /// <param name="errorCondition">
-        /// </param>
-        public DataTypeException(String message, int errorCondition)
-            : base(message, errorCondition)
-        {
-        }
-
-        /// <param name="message">
-        /// </param>
-        /// <param name="cause">
-        /// </param>
-        public DataTypeException(String message, Exception cause)
-            : base(message, cause)
-        {
-        }
+		/// <param name="message">
+		/// </param>
+		/// <param name="cause">
+		/// </param>
+		public DataTypeException(String message, Exception cause)
+			: base(message, cause)
+		{
+		}
 
 
-        /// <param name="message">
-        /// </param>
-        public DataTypeException(String message)
-            : base(message)
-        {
-        }
-    }
+		/// <param name="message">
+		/// </param>
+		public DataTypeException(String message)
+			: base(message)
+		{
+		}
+	}
 }
