@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Text;
 using NHapi.Base.Model.Configuration;
 
@@ -40,14 +41,14 @@ namespace NHapi.Base
             string[] versions = new string[] { "2.2", "2.3", "2.3.1", "2.4", "2.5", "2.5.1" };
             foreach (string version in versions)
             {
-                string packageName = PackageManager.GetVersionPackageName(version);
+                string packageName = GetVersionPackageName(version);
                 _packages.Add(new Hl7Package(packageName, version));
             }
         }
 
         private void LoadAdditionalVersions()
         {
-            HL7PackageConfigurationSection configSection = System.Configuration.ConfigurationManager.GetSection("Hl7PackageCollection") as HL7PackageConfigurationSection;
+            HL7PackageConfigurationSection configSection = ConfigurationManager.GetSection("Hl7PackageCollection") as HL7PackageConfigurationSection;
             if (configSection != null)
             {
 
@@ -81,9 +82,9 @@ namespace NHapi.Base
         /// This package should have the packages datatype, segment, group, and message
         /// under it. The path ends in with a slash.
         /// </summary>
-        public static System.String GetVersionPackagePath(System.String ver)
+        public static String GetVersionPackagePath(String ver)
         {
-            System.Text.StringBuilder path = new System.Text.StringBuilder("NHapi.Model.V");
+            StringBuilder path = new StringBuilder("NHapi.Model.V");
             char[] versionChars = new char[ver.Length];
             SupportClass.GetCharsFromString(ver, 0, ver.Length, versionChars, 0);
             for (int i = 0; i < versionChars.Length; i++)
@@ -101,10 +102,10 @@ namespace NHapi.Base
         /// is identical to <code>getVersionPackagePath(...)</code> except that path
         /// separators are replaced with dots.
         /// </summary>
-        public static System.String GetVersionPackageName(System.String ver)
+        public static String GetVersionPackageName(String ver)
         {
-            System.String path = GetVersionPackagePath(ver);
-            System.String packg = path.Replace('/', '.');
+            String path = GetVersionPackagePath(ver);
+            String packg = path.Replace('/', '.');
             packg = packg.Replace('\\', '.');
             return packg;
         }

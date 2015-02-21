@@ -20,6 +20,7 @@
 /// this file under either the MPL or the GPL. 
 /// </summary>
 using System;
+using System.Text;
 using NHapi.Base.Log;
 using NHapi.Base.Util;
 using NHapi.Base.Model;
@@ -33,22 +34,22 @@ namespace NHapi.Base
     /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
     /// </author>
     [Serializable]
-    public class HL7Exception : System.Exception
+    public class HL7Exception : Exception
     {
         /// <summary> Returns the name of the segment where the error occured, if this has been set
         /// (null otherwise).
         /// </summary>
         /// <summary> Sets the name of the segment where the error occured. </summary>
-        virtual public System.String SegmentName
+        virtual public String SegmentName
         {
             get
             {
-                return this.segment;
+                return segment;
             }
 
             set
             {
-                this.segment = value;
+                segment = value;
             }
 
         }
@@ -65,12 +66,12 @@ namespace NHapi.Base
         {
             get
             {
-                return this.segmentRep;
+                return segmentRep;
             }
 
             set
             {
-                this.segmentRep = value;
+                segmentRep = value;
             }
 
         }
@@ -84,23 +85,23 @@ namespace NHapi.Base
         {
             get
             {
-                return this.fieldPosition;
+                return fieldPosition;
             }
 
             set
             {
-                this.fieldPosition = value;
+                fieldPosition = value;
             }
 
         }
         /// <summary> Overrides Throwable.getMessage() to add the field location of the problem if 
         /// available.
         /// </summary>
-        public override System.String Message
+        public override String Message
         {
             get
             {
-                System.Text.StringBuilder msg = new System.Text.StringBuilder();
+                StringBuilder msg = new StringBuilder();
                 msg.Append(base.Message);
                 if (SegmentName != null)
                 {
@@ -191,7 +192,7 @@ namespace NHapi.Base
         /// </summary>
         public const int APPLICATION_INTERNAL_ERROR = 207;
 
-        private System.String segment = null;
+        private String segment = null;
         private int segmentRep = -1;
         private int fieldPosition = -1;
         private int errCode = -1;
@@ -206,10 +207,10 @@ namespace NHapi.Base
         /// <param name="cause">The excption that caused this exception tobe thrown.
         /// </param>
         /// </summary>
-        public HL7Exception(System.String message, int errorCondition, System.Exception cause)
+        public HL7Exception(String message, int errorCondition, Exception cause)
             : base(message, cause)
         {
-            this.errCode = errorCondition;
+            errCode = errorCondition;
         }
 
         /// <summary> Creates an HL7Exception.
@@ -220,10 +221,10 @@ namespace NHapi.Base
         /// HL7Exception.UNSUPPORTED_MESSAGE_TYPE)
         /// </param>
         /// </summary>
-        public HL7Exception(System.String message, int errorCondition)
+        public HL7Exception(String message, int errorCondition)
             : base(message)
         {
-            this.errCode = errorCondition;
+            errCode = errorCondition;
         }
 
         /// <summary> Creates an HL7Exception with the code APPLICATION_INTERNAL_ERROR
@@ -231,17 +232,17 @@ namespace NHapi.Base
         /// </param>
         /// <param name="message">the error message</param>
         /// </summary>
-        public HL7Exception(System.String message, System.Exception cause)
+        public HL7Exception(String message, Exception cause)
             : base(message, cause)
         {
-            this.errCode = HL7Exception.APPLICATION_INTERNAL_ERROR;
+            errCode = APPLICATION_INTERNAL_ERROR;
         }
 
         /// <summary> Creates an HL7Exception with the code APPLICATION_INTERNAL_ERROR</summary>
-        public HL7Exception(System.String message)
+        public HL7Exception(String message)
             : base(message)
         {
-            this.errCode = HL7Exception.APPLICATION_INTERNAL_ERROR;
+            errCode = APPLICATION_INTERNAL_ERROR;
         }
 
         /// <summary> Populates the given error segment with information from this Exception.</summary>
@@ -253,23 +254,23 @@ namespace NHapi.Base
 
             int rep = errorSegment.GetField(1).Length; //append after existing reps
 
-            if (this.SegmentName != null)
-                Terser.Set(errorSegment, 1, rep, 1, 1, this.SegmentName);
+            if (SegmentName != null)
+                Terser.Set(errorSegment, 1, rep, 1, 1, SegmentName);
 
-            if (this.SegmentRepetition >= 0)
-                Terser.Set(errorSegment, 1, rep, 2, 1, System.Convert.ToString(this.SegmentRepetition));
+            if (SegmentRepetition >= 0)
+                Terser.Set(errorSegment, 1, rep, 2, 1, Convert.ToString(SegmentRepetition));
 
-            if (this.FieldPosition >= 0)
-                Terser.Set(errorSegment, 1, rep, 3, 1, System.Convert.ToString(this.FieldPosition));
+            if (FieldPosition >= 0)
+                Terser.Set(errorSegment, 1, rep, 3, 1, Convert.ToString(FieldPosition));
 
-            Terser.Set(errorSegment, 1, rep, 4, 1, System.Convert.ToString(this.errCode));
+            Terser.Set(errorSegment, 1, rep, 4, 1, Convert.ToString(errCode));
             Terser.Set(errorSegment, 1, rep, 4, 3, "hl70357");
-            Terser.Set(errorSegment, 1, rep, 4, 5, this.Message);
+            Terser.Set(errorSegment, 1, rep, 4, 5, Message);
 
             //try to get error condition text
             try
             {
-                System.String desc = TableRepository.Instance.getDescription(357, System.Convert.ToString(this.errCode));
+                String desc = TableRepository.Instance.getDescription(357, Convert.ToString(errCode));
                 Terser.Set(errorSegment, 1, rep, 4, 2, desc);
             }
             catch (LookupException e)

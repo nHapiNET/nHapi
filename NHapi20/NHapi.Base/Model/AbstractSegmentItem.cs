@@ -7,7 +7,7 @@ namespace NHapi.Base.Model
     class AbstractSegmentItem
     {
         private List<IType> _fields = new List<IType>();
-        private System.Type _type;
+        private Type _type;
         private bool _required = false;
         private int _length = 0;
         private List<object> _args = new List<object>();
@@ -25,7 +25,7 @@ namespace NHapi.Base.Model
         /// if new instances of this class are created (use null for zero-arg constructor)</param>
         /// <throws>  HL7Exception if the given class does not inherit from IType or if it cannot be instantiated. </throws>
         /// </summary>
-        public AbstractSegmentItem(System.Type t, bool required, int maxReps, int length, System.Object[] constructorArgs)
+        public AbstractSegmentItem(Type t, bool required, int maxReps, int length, Object[] constructorArgs)
             : this(t, required, maxReps, length, constructorArgs, string.Empty)
         {
         }
@@ -42,7 +42,7 @@ namespace NHapi.Base.Model
         /// if new instances of this class are created (use null for zero-arg constructor)</param>
         /// <param name="description">Description of the segment</param>
         /// <throws>  HL7Exception if the given class does not inherit from IType or if it cannot be instantiated. </throws>
-        public AbstractSegmentItem(System.Type t, bool required, int maxReps, int length, System.Object[] constructorArgs, string description)
+        public AbstractSegmentItem(Type t, bool required, int maxReps, int length, Object[] constructorArgs, string description)
         {
             if (!typeof(IType).IsAssignableFrom(t))
             {
@@ -61,7 +61,7 @@ namespace NHapi.Base.Model
         /// <summary>
         ///     The IType of this field in the segment
         /// </summary>
-        public System.Type FieldType
+        public Type FieldType
         {
             get { return _type; }
         }

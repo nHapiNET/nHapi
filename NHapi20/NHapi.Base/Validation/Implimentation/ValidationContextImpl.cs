@@ -19,6 +19,7 @@
 /// this file under either the MPL or the GPL. 
 /// </summary>
 using System;
+using System.Collections;
 using NHapi.Base.Model;
 using NHapi.Base.validation;
 
@@ -36,7 +37,7 @@ namespace NHapi.Base.validation.impl
     {
         /// <returns> a List of <code>RuleBinding</code>s for <code>PrimitiveTypeRule</code>s.    
         /// </returns>
-        virtual public System.Collections.IList PrimitiveRuleBindings
+        virtual public IList PrimitiveRuleBindings
         {
             get
             {
@@ -46,7 +47,7 @@ namespace NHapi.Base.validation.impl
         }
         /// <returns> a List of <code>RuleBinding</code>s for <code>MessageRule</code>s.    
         /// </returns>
-        virtual public System.Collections.IList MessageRuleBindings
+        virtual public IList MessageRuleBindings
         {
             get
             {
@@ -56,7 +57,7 @@ namespace NHapi.Base.validation.impl
         }
         /// <returns> a List of <code>RuleBinding</code>s for <code>EncodingRule</code>s.    
         /// </returns>
-        virtual public System.Collections.IList EncodingRuleBindings
+        virtual public IList EncodingRuleBindings
         {
             get
             {
@@ -79,26 +80,26 @@ namespace NHapi.Base.validation.impl
 
         }
 
-        private System.Collections.IList myPrimitiveRuleBindings;
-        private System.Collections.IList myMessageRuleBindings;
-        private System.Collections.IList myEncodingRuleBindings;
+        private IList myPrimitiveRuleBindings;
+        private IList myMessageRuleBindings;
+        private IList myEncodingRuleBindings;
 
         public ValidationContextImpl()
         {
-            myPrimitiveRuleBindings = new System.Collections.ArrayList(30);
-            myMessageRuleBindings = new System.Collections.ArrayList(20);
-            myEncodingRuleBindings = new System.Collections.ArrayList(10);
+            myPrimitiveRuleBindings = new ArrayList(30);
+            myMessageRuleBindings = new ArrayList(20);
+            myEncodingRuleBindings = new ArrayList(10);
         }
 
-        public virtual IPrimitiveTypeRule[] getPrimitiveRules(System.String theVersion, System.String theTypeName, IPrimitive theType)
+        public virtual IPrimitiveTypeRule[] getPrimitiveRules(String theVersion, String theTypeName, IPrimitive theType)
         {
-            System.Collections.IList active = new System.Collections.ArrayList(myPrimitiveRuleBindings.Count);
+            IList active = new ArrayList(myPrimitiveRuleBindings.Count);
             for (int i = 0; i < myPrimitiveRuleBindings.Count; i++)
             {
-                System.Object o = myPrimitiveRuleBindings[i];
+                Object o = myPrimitiveRuleBindings[i];
                 if (!(o is RuleBinding))
                 {
-                    throw new System.InvalidCastException("Item in rule binding list is not a RuleBinding");
+                    throw new InvalidCastException("Item in rule binding list is not a RuleBinding");
                 }
 
                 RuleBinding binding = (RuleBinding)o;
@@ -110,16 +111,16 @@ namespace NHapi.Base.validation.impl
             return (IPrimitiveTypeRule[])SupportClass.ICollectionSupport.ToArray(active, new IPrimitiveTypeRule[0]);
         }
 
-        public virtual IMessageRule[] getMessageRules(System.String theVersion, System.String theMessageType, System.String theTriggerEvent)
+        public virtual IMessageRule[] getMessageRules(String theVersion, String theMessageType, String theTriggerEvent)
         {
 
-            System.Collections.IList active = new System.Collections.ArrayList(myMessageRuleBindings.Count);
+            IList active = new ArrayList(myMessageRuleBindings.Count);
             for (int i = 0; i < myMessageRuleBindings.Count; i++)
             {
-                System.Object o = myMessageRuleBindings[i];
+                Object o = myMessageRuleBindings[i];
                 if (!(o is RuleBinding))
                 {
-                    throw new System.InvalidCastException("Item in rule binding list is not a RuleBinding");
+                    throw new InvalidCastException("Item in rule binding list is not a RuleBinding");
                 }
 
                 RuleBinding binding = (RuleBinding)o;
@@ -131,15 +132,15 @@ namespace NHapi.Base.validation.impl
             return (IMessageRule[])SupportClass.ICollectionSupport.ToArray(active, new IMessageRule[0]);
         }
 
-        public virtual IEncodingRule[] getEncodingRules(System.String theVersion, System.String theEncoding)
+        public virtual IEncodingRule[] getEncodingRules(String theVersion, String theEncoding)
         {
-            System.Collections.IList active = new System.Collections.ArrayList(myEncodingRuleBindings.Count);
+            IList active = new ArrayList(myEncodingRuleBindings.Count);
             for (int i = 0; i < myEncodingRuleBindings.Count; i++)
             {
-                System.Object o = myEncodingRuleBindings[i];
+                Object o = myEncodingRuleBindings[i];
                 if (!(o is RuleBinding))
                 {
-                    throw new System.InvalidCastException("Item in rule binding list is not a RuleBinding");
+                    throw new InvalidCastException("Item in rule binding list is not a RuleBinding");
                 }
 
                 RuleBinding binding = (RuleBinding)o;

@@ -35,7 +35,7 @@ namespace NHapi.Base.validation.impl
     {
         /// <seealso cref="NHapi.Base.validation.Rule.getDescription()">
         /// </seealso>
-        virtual public System.String Description
+        virtual public String Description
         {
             get
             {
@@ -45,7 +45,7 @@ namespace NHapi.Base.validation.impl
         }
         /// <seealso cref="NHapi.Base.validation.Rule.getSectionReference()">
         /// </seealso>
-        virtual public System.String SectionReference
+        virtual public String SectionReference
         {
             get
             {
@@ -70,14 +70,14 @@ namespace NHapi.Base.validation.impl
         /// </summary>
         /// <seealso cref="NHapi.Base.validation.PrimitiveTypeRule.correct(java.lang.String)">
         /// </seealso>
-        public virtual System.String correct(System.String value_Renamed)
+        public virtual String correct(String value_Renamed)
         {
             return value_Renamed;
         }
 
         /// <seealso cref="NHapi.Base.validation.PrimitiveTypeRule.test(java.lang.String)">
         /// </seealso>
-        public virtual bool test(System.String value_Renamed)
+        public virtual bool test(String value_Renamed)
         {
             bool ok = true;
             if (value_Renamed != null && value_Renamed.Length > myMaxChars)

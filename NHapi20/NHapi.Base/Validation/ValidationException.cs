@@ -26,7 +26,7 @@ namespace NHapi.Base.validation
     /// <author>  Bryan Tripp
     /// </author>
     [Serializable]
-    public class ValidationException : System.Exception
+    public class ValidationException : Exception
     {
 
         /// <summary> Creates a new instance of <code>ValidationException</code> without detail message.</summary>
@@ -38,7 +38,7 @@ namespace NHapi.Base.validation
         /// </param>
         /// <param name="cause">
         /// </param>
-        public ValidationException(System.String message, System.Exception cause)
+        public ValidationException(String message, Exception cause)
             : base(message, cause)
         {
         }
@@ -47,7 +47,7 @@ namespace NHapi.Base.validation
         /// <summary> Constructs an instance of <code>ValidationException</code> with the specified detail message.</summary>
         /// <param name="msg">the detail message.
         /// </param>
-        public ValidationException(System.String msg)
+        public ValidationException(String msg)
             : base(msg)
         {
         }

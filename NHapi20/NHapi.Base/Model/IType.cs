@@ -28,7 +28,7 @@ namespace NHapi.Base.Model
     public interface IType
     {
         /// <summary>Returns the name of the type (used in XML encoding and profile checking) </summary>
-        System.String TypeName
+        String TypeName
         {
             get;
 

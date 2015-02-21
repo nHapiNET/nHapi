@@ -24,8 +24,11 @@
 /// 
 /// </summary>
 using System;
+using System.Collections;
 using System.Data.OleDb;
+using System.IO;
 using System.Linq;
+using System.Text;
 using NHapi.Base;
 using NHapi.Base.Log;
 
@@ -41,36 +44,36 @@ namespace NHapi.Base.SourceGeneration
     /// </author>
     /// <author>  Eric Poiseau
     /// </author>
-    public class SegmentGenerator : System.Object
+    public class SegmentGenerator : Object
     {
         private static readonly IHapiLog log;
 
         /// <summary> <p>Creates skeletal source code (without correct data structure but no business
         /// logic) for all segments found in the normative database.  </p>
         /// </summary>
-        public static void makeAll(System.String baseDirectory, System.String version)
+        public static void makeAll(String baseDirectory, String version)
         {
             //make base directory
             if (!(baseDirectory.EndsWith("\\") || baseDirectory.EndsWith("/")))
             {
                 baseDirectory = baseDirectory + "/";
             }
-            System.IO.FileInfo targetDir = SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Segment");
+            FileInfo targetDir = SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Segment");
 
             //get list of data types
-            System.Data.OleDb.OleDbConnection conn = NormativeDatabase.Instance.Connection;
-            System.String sql = "SELECT seg_code, [section] from HL7Segments, HL7Versions where HL7Segments.version_id = HL7Versions.version_id AND hl7_version = '" + version + "'";
-            System.Data.OleDb.OleDbCommand temp_OleDbCommand = new System.Data.OleDb.OleDbCommand();
+            OleDbConnection conn = NormativeDatabase.Instance.Connection;
+            String sql = "SELECT seg_code, [section] from HL7Segments, HL7Versions where HL7Segments.version_id = HL7Versions.version_id AND hl7_version = '" + version + "'";
+            OleDbCommand temp_OleDbCommand = new OleDbCommand();
             temp_OleDbCommand.Connection = conn;
             temp_OleDbCommand.CommandText = sql;
-            System.Data.OleDb.OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
+            OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
 
 
-            System.Collections.ArrayList segments = new System.Collections.ArrayList();
+            ArrayList segments = new ArrayList();
             while (rs.Read())
             {
-                System.String segName = System.Convert.ToString(rs[1 - 1]);
-                if (System.Char.IsLetter(segName[0]))
+                String segName = Convert.ToString(rs[1 - 1]);
+                if (Char.IsLetter(segName[0]))
                     segments.Add(altSegName(segName));
             }
             temp_OleDbCommand.Dispose();
@@ -85,17 +88,17 @@ namespace NHapi.Base.SourceGeneration
             {
                 try
                 {
-                    System.String seg = (System.String)segments[i];
-                    System.String source = makeSegment(seg, version);
-                    using (System.IO.StreamWriter w = new System.IO.StreamWriter(targetDir.ToString() + @"\" + GetSpecialFilename(seg) + ".cs"))
+                    String seg = (String)segments[i];
+                    String source = makeSegment(seg, version);
+                    using (StreamWriter w = new StreamWriter(targetDir.ToString() + @"\" + GetSpecialFilename(seg) + ".cs"))
                     {
                         w.Write(source);
                         w.Write("}");
                     }
                 }
-                catch (System.Exception e)
+                catch (Exception e)
                 {
-                    System.Console.Error.WriteLine("Error creating source code for all segments: " + e.Message);
+                    Console.Error.WriteLine("Error creating source code for all segments: " + e.Message);
                     SupportClass.WriteStackTrace(e, Console.Error);
                 }
             }
@@ -119,27 +122,27 @@ namespace NHapi.Base.SourceGeneration
         /// <ul><li>Replacing Z.. with Z</li>
         /// <li>Replacing ??? with ???</li></ul>
         /// </summary>
-        public static System.String altSegName(System.String segmentName)
+        public static String altSegName(String segmentName)
         {
-            System.String ret = segmentName;
+            String ret = segmentName;
             if (ret.Equals("Z.."))
                 ret = "Z";
             return ret;
         }
 
         /// <summary> Returns the Java source code for a class that represents the specified segment.</summary>
-        public static System.String makeSegment(System.String name, System.String version)
+        public static String makeSegment(String name, String version)
         {
             Console.WriteLine("Making segment " + name);
-            System.Text.StringBuilder source = new System.Text.StringBuilder();
+            StringBuilder source = new StringBuilder();
             try
             {
-                System.Collections.ArrayList elements = new System.Collections.ArrayList();
+                ArrayList elements = new ArrayList();
                 SegmentElement se;
-                System.String segDesc = null;
-                using (System.Data.OleDb.OleDbConnection conn = NormativeDatabase.Instance.Connection)
+                String segDesc = null;
+                using (OleDbConnection conn = NormativeDatabase.Instance.Connection)
                 {
-                    System.Text.StringBuilder sql = new System.Text.StringBuilder();
+                    StringBuilder sql = new StringBuilder();
                     sql.Append("SELECT HL7SegmentDataElements.seg_code, HL7SegmentDataElements.seq_no, ");
                     sql.Append("HL7SegmentDataElements.repetitional, HL7SegmentDataElements.repetitions, ");
                     sql.Append("HL7DataElements.description, HL7DataElements.length_old, HL7DataElements.table_id, ");
@@ -155,19 +158,19 @@ namespace NHapi.Base.SourceGeneration
                     sql.Append("' and HL7Versions.hl7_version = '");
                     sql.Append(version);
                     sql.Append("' ORDER BY HL7SegmentDataElements.seg_code, HL7SegmentDataElements.seq_no;");
-                    System.Data.OleDb.OleDbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
-                    System.Data.OleDb.OleDbCommand temp_OleDbCommand;
+                    OleDbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
+                    OleDbCommand temp_OleDbCommand;
                     temp_OleDbCommand = stmt;
                     temp_OleDbCommand.CommandText = sql.ToString();
-                    System.Data.OleDb.OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
+                    OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
 
                     while (rs.Read())
                     {
                         if (segDesc == null)
-                            segDesc = System.Convert.ToString(rs[9 - 1]);
+                            segDesc = Convert.ToString(rs[9 - 1]);
                         se = new SegmentElement();
                         se.field = Convert.ToInt32(rs.GetValue(2 - 1));
-                        se.rep = System.Convert.ToString(rs[3 - 1]);
+                        se.rep = Convert.ToString(rs[3 - 1]);
                         if (rs.IsDBNull(4 - 1))
                             se.repetitions = 0;
                         else
@@ -180,15 +183,15 @@ namespace NHapi.Base.SourceGeneration
                                 se.repetitions = 1;
                             }
                         }
-                        se.desc = System.Convert.ToString(rs[5 - 1]);
+                        se.desc = Convert.ToString(rs[5 - 1]);
 	                    if (!rs.IsDBNull(6 - 1))
 	                    {
 		                    se.length = DetermineLength(rs);
 	                    }
 
 	                    se.table = Convert.ToInt32(rs.GetValue(7 - 1));
-                        se.opt = System.Convert.ToString(rs[8 - 1]);
-                        se.type = System.Convert.ToString(rs[10 - 1]);
+                        se.opt = Convert.ToString(rs[8 - 1]);
+                        se.type = Convert.ToString(rs[10 - 1]);
                         //shorten CE_x to CE
                         if (se.type.StartsWith("CE"))
                             se.type = "CE";
@@ -275,7 +278,7 @@ namespace NHapi.Base.SourceGeneration
                     for (int i = 0; i < elements.Count; i++)
                     {
                         se = (SegmentElement)elements[i];
-                        System.String type = SourceGenerator.getAlternateType(se.type, version);
+                        String type = SourceGenerator.getAlternateType(se.type, version);
                         source.Append("       this.add(");
                         source.Append("typeof(" + type + ")");
                         //                    if (type.equalsIgnoreCase("Varies")) {
@@ -339,7 +342,7 @@ namespace NHapi.Base.SourceGeneration
                     if (!se.desc.ToUpper().Equals("UNUSED".ToUpper()))
                     {
                         //some entries in 2.1 DB say "unused"
-                        System.String type = SourceGenerator.getAlternateType(se.type, version);
+                        String type = SourceGenerator.getAlternateType(se.type, version);
                         source.Append("\t///<summary>\r\n");
                         source.Append("\t/// Returns ");
                         if (se.repetitions != 1)
@@ -478,7 +481,7 @@ namespace NHapi.Base.SourceGeneration
 
                 source.Append("\n}");
             }
-            catch (System.Data.OleDb.OleDbException sqle)
+            catch (OleDbException sqle)
             {
                 SupportClass.WriteStackTrace(sqle, Console.Error);
             }
@@ -505,30 +508,30 @@ namespace NHapi.Base.SourceGeneration
         /// </summary>
         /// <param name="args"></param>
         [STAThread]
-        public static void Main(System.String[] args)
+        public static void Main(String[] args)
         {
             if (args.Length != 1 && args.Length != 2)
             {
-                System.Console.Out.WriteLine("Usage: SegmentGenerator target_dir [segment_name]");
-                System.Environment.Exit(1);
+                Console.Out.WriteLine("Usage: SegmentGenerator target_dir [segment_name]");
+                Environment.Exit(1);
             }
             try
             {
-                System.Type.GetType("sun.jdbc.odbc.JdbcOdbcDriver");
+                Type.GetType("sun.jdbc.odbc.JdbcOdbcDriver");
                 if (args.Length == 1)
                 {
                     makeAll(args[0], "2.4");
                 }
                 else
                 {
-                    System.String source = makeSegment(args[1], "2.4");
-                    System.IO.StreamWriter w = new System.IO.StreamWriter(new System.IO.StreamWriter(args[0] + "/" + args[1] + ".java", false, System.Text.Encoding.Default).BaseStream, new System.IO.StreamWriter(args[0] + "/" + args[1] + ".java", false, System.Text.Encoding.Default).Encoding);
+                    String source = makeSegment(args[1], "2.4");
+                    StreamWriter w = new StreamWriter(new StreamWriter(args[0] + "/" + args[1] + ".java", false, Encoding.Default).BaseStream, new StreamWriter(args[0] + "/" + args[1] + ".java", false, Encoding.Default).Encoding);
                     w.Write(source);
                     w.Flush();
                     w.Close();
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 SupportClass.WriteStackTrace(e, Console.Error);
             }

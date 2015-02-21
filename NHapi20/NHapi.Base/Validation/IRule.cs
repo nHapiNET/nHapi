@@ -56,7 +56,7 @@ namespace NHapi.Base.validation
         /// in exceptions generated if validation against the rule fails, or in a user 
         /// interface for rule configuration.   
         /// </summary>
-        System.String Description
+        String Description
         {
             get;
 
@@ -65,7 +65,7 @@ namespace NHapi.Base.validation
         /// is derived (if applicable).  Like the description, this may be used in an exception 
         /// message or configuration UI. 
         /// </summary>
-        System.String SectionReference
+        String SectionReference
         {
             get;
 

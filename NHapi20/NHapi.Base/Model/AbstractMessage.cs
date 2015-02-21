@@ -19,6 +19,7 @@
 /// this file under either the MPL or the GPL. 
 */
 using System;
+using System.Text;
 using NHapi.Base.Parser;
 using NHapi.Base.validation;
 using System.Text.RegularExpressions;
@@ -48,23 +49,23 @@ namespace NHapi.Base.Model
         /// </summary>
         /// <returns>s 2.4 if not obvious from package name
         /// </returns>
-        virtual public System.String Version
+        virtual public String Version
         {
             get
             {
-                System.String version = null;
+                String version = null;
 
                 // TODO: Revisit.
 
                 Regex p = new Regex("\\.(V2[0-9][0-9]?)\\.");
-                Match m = p.Match(this.GetType().FullName);
+                Match m = p.Match(GetType().FullName);
                 if (m.Success)
                 {
-                    System.String verFolder = m.Groups[1].Value;
+                    String verFolder = m.Groups[1].Value;
                     if (verFolder.Length > 0)
                     {
                         char[] chars = verFolder.ToCharArray();
-                        System.Text.StringBuilder buf = new System.Text.StringBuilder();
+                        StringBuilder buf = new StringBuilder();
                         for (int i = 1; i < chars.Length; i++)
                         {
                             //start at 1 to avoid the 'v'

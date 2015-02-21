@@ -20,7 +20,10 @@
 /// this file under either the MPL or the GPL. 
 /// </summary>
 using System;
+using System.Collections;
+using System.Data.OleDb;
 using System.IO;
+using System.Text;
 using NHapi.Base.Model;
 using NHapi.Base.Log;
 
@@ -35,7 +38,7 @@ namespace NHapi.Base.SourceGeneration
     /// </author>
     /// <author>  Eric Poiseau
     /// </author>
-    public class DataTypeGenerator : System.Object
+    public class DataTypeGenerator : Object
     {
         private static readonly IHapiLog log;
 
@@ -43,44 +46,44 @@ namespace NHapi.Base.SourceGeneration
         /// logic) for all data types found in the normative database.  For versions > 2.2, Primitive data types
         /// are not generated, because they are coded manually (as of HAPI 0.3).  
         /// </summary>
-        public static void makeAll(System.String baseDirectory, System.String version)
+        public static void makeAll(String baseDirectory, String version)
         {
             //make base directory
             if (!(baseDirectory.EndsWith("\\") || baseDirectory.EndsWith("/")))
             {
                 baseDirectory = baseDirectory + "/";
             }
-            System.IO.FileInfo targetDir = SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Datatype");
+            FileInfo targetDir = SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Datatype");
             SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Datatype");
             //get list of data types
-            System.Collections.ArrayList types = new System.Collections.ArrayList();
-            System.Data.OleDb.OleDbConnection conn = NormativeDatabase.Instance.Connection;
-            System.Data.OleDb.OleDbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
+            ArrayList types = new ArrayList();
+            OleDbConnection conn = NormativeDatabase.Instance.Connection;
+            OleDbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
             //get normal data types ... 
-            System.Data.OleDb.OleDbCommand temp_OleDbCommand;
+            OleDbCommand temp_OleDbCommand;
             temp_OleDbCommand = stmt;
             temp_OleDbCommand.CommandText = "select data_type_code from HL7DataTypes, HL7Versions where HL7Versions.version_id = HL7DataTypes.version_id and HL7Versions.hl7_version = '" + version + "'";
-            System.Data.OleDb.OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
+            OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
             while (rs.Read())
             {
-                types.Add(System.Convert.ToString(rs[1 - 1]));
+                types.Add(Convert.ToString(rs[1 - 1]));
             }
             rs.Close();
             //get CF, CK, CM, CN, CQ sub-types ... 
 
-            System.Data.OleDb.OleDbCommand temp_OleDbCommand2;
+            OleDbCommand temp_OleDbCommand2;
             temp_OleDbCommand2 = stmt;
             temp_OleDbCommand2.CommandText = "select data_structure from HL7DataStructures, HL7Versions where (" + "data_type_code  = 'CF' or " + "data_type_code  = 'CK' or " + "data_type_code  = 'CM' or " + "data_type_code  = 'CN' or " + "data_type_code  = 'CQ') and " + "HL7Versions.version_id = HL7DataStructures.version_id and  HL7Versions.hl7_version = '" + version + "'";
             rs = temp_OleDbCommand2.ExecuteReader();
             while (rs.Read())
             {
-                types.Add(System.Convert.ToString(rs[1 - 1]));
+                types.Add(Convert.ToString(rs[1 - 1]));
             }
 
             stmt.Dispose();
             NormativeDatabase.Instance.returnConnection(conn);
 
-            System.Console.Out.WriteLine("Generating " + types.Count + " datatypes for version " + version);
+            Console.Out.WriteLine("Generating " + types.Count + " datatypes for version " + version);
             if (types.Count == 0)
             {
                 log.Warn("No version " + version + " data types found in database " + conn.Database);
@@ -89,7 +92,7 @@ namespace NHapi.Base.SourceGeneration
             for (int i = 0; i < types.Count; i++)
             {
                 if (!((String)types[i]).Equals("*"))
-                    make(targetDir, (System.String)types[i], version);
+                    make(targetDir, (String)types[i], version);
             }
         }
 
@@ -102,17 +105,17 @@ namespace NHapi.Base.SourceGeneration
         /// </param>
         /// <param name="version">the HL7 version of the intended data type
         /// </param>
-        public static void make(System.IO.FileInfo targetDirectory, System.String dataType, System.String version)
+        public static void make(FileInfo targetDirectory, String dataType, String version)
         {
             Console.WriteLine(" Writing " + targetDirectory.FullName + dataType);
             //make sure that targetDirectory is a directory ... 
-            if (!System.IO.Directory.Exists(targetDirectory.FullName))
-                throw new System.IO.IOException("Can't create file in " + targetDirectory.ToString() + " - it is not a directory.");
+            if (!Directory.Exists(targetDirectory.FullName))
+                throw new IOException("Can't create file in " + targetDirectory.ToString() + " - it is not a directory.");
 
             //get any components for this data type
-            System.Data.OleDb.OleDbConnection conn = NormativeDatabase.Instance.Connection;
-            System.Data.OleDb.OleDbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
-            System.Text.StringBuilder sql = new System.Text.StringBuilder();
+            OleDbConnection conn = NormativeDatabase.Instance.Connection;
+            OleDbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
+            StringBuilder sql = new StringBuilder();
             //this query is adapted from the XML SIG informative document
             sql.Append("SELECT HL7DataStructures.data_structure, HL7DataStructureComponents.seq_no, HL7DataStructures.description, HL7DataStructureComponents.table_id,  ");
             sql.Append("HL7Components.description, HL7Components.table_id, HL7Components.data_type_code, HL7Components.data_structure ");
@@ -127,22 +130,22 @@ namespace NHapi.Base.SourceGeneration
             sql.Append("' AND HL7Versions.hl7_version = '");
             sql.Append(version);
             sql.Append("' ORDER BY HL7DataStructureComponents.seq_no");
-            System.Data.OleDb.OleDbCommand temp_OleDbCommand;
+            OleDbCommand temp_OleDbCommand;
             temp_OleDbCommand = stmt;
             temp_OleDbCommand.CommandText = sql.ToString();
-            System.Data.OleDb.OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
+            OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
 
-            System.Collections.ArrayList dataTypes = new System.Collections.ArrayList(20);
-            System.Collections.ArrayList descriptions = new System.Collections.ArrayList(20);
-            System.Collections.ArrayList tables = new System.Collections.ArrayList(20);
-            System.String description = null;
+            ArrayList dataTypes = new ArrayList(20);
+            ArrayList descriptions = new ArrayList(20);
+            ArrayList tables = new ArrayList(20);
+            String description = null;
             while (rs.Read())
             {
                 if (description == null)
-                    description = System.Convert.ToString(rs[3 - 1]);
+                    description = Convert.ToString(rs[3 - 1]);
 
-                System.String de = System.Convert.ToString(rs[5 - 1]);
-                System.String dt = System.Convert.ToString(rs[8 - 1]);
+                String de = Convert.ToString(rs[5 - 1]);
+                String dt = Convert.ToString(rs[8 - 1]);
                 int ta = -1;
                 if (!rs.IsDBNull(4 - 1))
                     ta = rs.GetInt32(4 - 1);
@@ -153,7 +156,7 @@ namespace NHapi.Base.SourceGeneration
                 //System.out.println("Component: " + de + "  Data Type: " + dt);  //for debugging
                 dataTypes.Add(dt);
                 descriptions.Add(de);
-                tables.Add((System.Int32)ta);
+                tables.Add((Int32)ta);
             }
             if (dataType.ToUpper().Equals("TS"))
             {
@@ -165,7 +168,7 @@ namespace NHapi.Base.SourceGeneration
             NormativeDatabase.Instance.returnConnection(conn);
 
             //if there is only one component make a Primitive, otherwise make a Composite
-            System.String source = null;
+            String source = null;
             if (dataTypes.Count == 1)
             {
                 if (dataType.Equals("FT") || dataType.Equals("ST") || dataType.Equals("TX") || dataType.Equals("NM") || dataType.Equals("SI") || dataType.Equals("TN") || dataType.Equals("GTS"))
@@ -181,14 +184,14 @@ namespace NHapi.Base.SourceGeneration
             {
                 int numComponents = dataTypes.Count;
                 //copy data into arrays ... 
-                System.String[] type = new System.String[numComponents];
-                System.String[] desc = new System.String[numComponents];
+                String[] type = new String[numComponents];
+                String[] desc = new String[numComponents];
                 int[] table = new int[numComponents];
                 for (int i = 0; i < numComponents; i++)
                 {
-                    type[i] = ((System.String)dataTypes[i]);
-                    desc[i] = ((System.String)descriptions[i]);
-                    table[i] = ((System.Int32)tables[i]);
+                    type[i] = ((String)dataTypes[i]);
+                    desc[i] = ((String)descriptions[i]);
+                    table[i] = ((Int32)tables[i]);
                 }
                 source = makeComposite(dataType, description, type, desc, table, version);
             }
@@ -203,8 +206,8 @@ namespace NHapi.Base.SourceGeneration
             //write to file ... 
             if (source != null)
             {
-                System.String targetFile = targetDirectory.ToString() + "/" + dataType + ".cs";
-                using (System.IO.StreamWriter writer = new System.IO.StreamWriter(targetFile))
+                String targetFile = targetDirectory.ToString() + "/" + dataType + ".cs";
+                using (StreamWriter writer = new StreamWriter(targetFile))
                 {
                     writer.Write(source);
                     writer.Write("}");//End namespace
@@ -217,9 +220,9 @@ namespace NHapi.Base.SourceGeneration
         /// <summary> Returns a String containing the complete source code for a Primitive HL7 data
         /// type.  Note: this method is no longer used, as all Primitives are now coded manually.  
         /// </summary>
-        private static System.String makePrimitive(System.String datatype, System.String description, System.String version)
+        private static String makePrimitive(String datatype, String description, String version)
         {
-            System.Text.StringBuilder source = new System.Text.StringBuilder();
+            StringBuilder source = new StringBuilder();
 
             source.Append("using System;\n");
             source.Append("using NHapi.Base.Model;\n");
@@ -288,9 +291,9 @@ namespace NHapi.Base.SourceGeneration
         /// dataTypes array contains the data type names (e.g. ST) of each component. 
         /// The descriptions array contains the corresponding descriptions (e.g. string).
         /// </summary>
-        private static System.String makeComposite(System.String dataType, System.String description, System.String[] dataTypes, System.String[] descriptions, int[] tables, System.String version)
+        private static String makeComposite(String dataType, String description, String[] dataTypes, String[] descriptions, int[] tables, String version)
         {
-            System.Text.StringBuilder source = new System.Text.StringBuilder();
+            StringBuilder source = new StringBuilder();
             source.Append("using System;\n");
             source.Append("using NHapi.Base.Model;\n");
             source.Append("using NHapi.Base.Log;\n");
@@ -402,7 +405,7 @@ namespace NHapi.Base.SourceGeneration
             //make type-specific accessors ... 
             for (int i = 0; i < dataTypes.Length; i++)
             {
-                System.String dtName = SourceGenerator.getAlternateType(dataTypes[i], version);
+                String dtName = SourceGenerator.getAlternateType(dataTypes[i], version);
                 source.Append("\t///<summary>\r\n");
                 source.Append("\t/// Returns ");
                 source.Append(GetDescription(descriptions[i]));
@@ -451,18 +454,18 @@ namespace NHapi.Base.SourceGeneration
 
         //test
         [STAThread]
-        public static void Main(System.String[] args)
+        public static void Main(String[] args)
         {
             //System.out.println(makePrimitive("ID", "identifier"));
             try
             {
-                System.Type.GetType("sun.jdbc.odbc.JdbcOdbcDriver");
+                Type.GetType("sun.jdbc.odbc.JdbcOdbcDriver");
                 //System.setProperty("ca.on.uhn.hl7.database.url", "jdbc:odbc:hl7v25");        
                 //make(new File("c:/testsourcegen"), args[0], args[1]);
                 //make(new File("c:/testsourcegen"), "CE_0048", "2.3");
                 makeAll("c:/testsourcegen", "2.5");
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 SupportClass.WriteStackTrace(e, Console.Error);
             }

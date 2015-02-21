@@ -35,8 +35,8 @@ namespace NHapi.Base.Parser
         /// <summary> Constructs an <code>EncodingNotSupportedException</code> with the specified detail message.</summary>
         /// <param name="msg">the detail message.
         /// </param>
-        public EncodingNotSupportedException(System.String msg)
-            : base(msg, HL7Exception.APPLICATION_INTERNAL_ERROR)
+        public EncodingNotSupportedException(String msg)
+            : base(msg, APPLICATION_INTERNAL_ERROR)
         {
         }
     }

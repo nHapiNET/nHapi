@@ -36,16 +36,18 @@
 /// These changes are distributed under the same terms as the original (above). 
 /// </summary>
 using System;
+using System.Collections;
+
 namespace NHapi.Base.Util
 {
     /// <summary>
     /// Filter iterator class
     /// </summary>
-    public class FilterIterator : System.Collections.IEnumerator
+    public class FilterIterator : IEnumerator
     {
-        private FilterIterator.IPredicate predicate;
-        private System.Collections.IEnumerator iter;
-        private System.Object nextObject;
+        private IPredicate predicate;
+        private IEnumerator iter;
+        private Object nextObject;
         private bool nextObjectSet = false;
 
         /// <summary>
@@ -53,7 +55,7 @@ namespace NHapi.Base.Util
         /// </summary>
         /// <param name="iter"></param>
         /// <param name="predicate"></param>
-        public FilterIterator(System.Collections.IEnumerator iter, FilterIterator.IPredicate predicate)
+        public FilterIterator(IEnumerator iter, IPredicate predicate)
         {
             this.iter = iter;
             this.predicate = predicate;
@@ -62,7 +64,7 @@ namespace NHapi.Base.Util
         /// <summary>
         /// The current item
         /// </summary>
-        public virtual System.Object Current
+        public virtual Object Current
         {
             get
             {
@@ -70,7 +72,7 @@ namespace NHapi.Base.Util
                 {
                     if (!setNextObject())
                     {
-                        throw new System.ArgumentOutOfRangeException();
+                        throw new ArgumentOutOfRangeException();
                     }
                 }
                 nextObjectSet = false;
@@ -104,7 +106,7 @@ namespace NHapi.Base.Util
         {
             while (iter.MoveNext())
             {
-                System.Object object_Renamed = iter.Current;
+                Object object_Renamed = iter.Current;
                 if (predicate.evaluate(object_Renamed))
                 {
                     nextObject = object_Renamed;
@@ -118,7 +120,7 @@ namespace NHapi.Base.Util
         /// <summary>Throws UnsupportedOperationException </summary>
         public virtual void remove()
         {
-            throw new System.NotSupportedException();
+            throw new NotSupportedException();
         }
 
         /// <summary>
@@ -131,7 +133,7 @@ namespace NHapi.Base.Util
             /// </summary>
             /// <param name="obj"></param>
             /// <returns></returns>
-            bool evaluate(System.Object obj);
+            bool evaluate(Object obj);
         }
         /// <summary>
         /// Reset

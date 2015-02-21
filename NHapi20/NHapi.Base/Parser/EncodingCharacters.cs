@@ -51,6 +51,8 @@
 /// 
 /// </summary>
 using System;
+using System.Text;
+
 namespace NHapi.Base.Parser
 {
 
@@ -66,7 +68,7 @@ namespace NHapi.Base.Parser
     /// 
     /// </author>
 
-    public class EncodingCharacters : System.Object, System.ICloneable
+    public class EncodingCharacters : Object, ICloneable
     {
         /// <summary> 
         /// Returns the field separator.
@@ -79,13 +81,13 @@ namespace NHapi.Base.Parser
             get
             {
 
-                return this.fieldSep;
+                return fieldSep;
             }
 
             set
             {
 
-                this.fieldSep = value;
+                fieldSep = value;
             }
 
         }
@@ -100,13 +102,13 @@ namespace NHapi.Base.Parser
             get
             {
 
-                return this.encChars[0];
+                return encChars[0];
             }
 
             set
             {
 
-                this.encChars[0] = value;
+                encChars[0] = value;
             }
 
         }
@@ -121,13 +123,13 @@ namespace NHapi.Base.Parser
             get
             {
 
-                return this.encChars[1];
+                return encChars[1];
             }
 
             set
             {
 
-                this.encChars[1] = value;
+                encChars[1] = value;
             }
 
         }
@@ -142,13 +144,13 @@ namespace NHapi.Base.Parser
             get
             {
 
-                return this.encChars[2];
+                return encChars[2];
             }
 
             set
             {
 
-                this.encChars[2] = value;
+                encChars[2] = value;
             }
 
         }
@@ -163,13 +165,13 @@ namespace NHapi.Base.Parser
             get
             {
 
-                return this.encChars[3];
+                return encChars[3];
             }
 
             set
             {
 
-                this.encChars[3] = value;
+                encChars[3] = value;
             }
 
         }
@@ -200,35 +202,35 @@ namespace NHapi.Base.Parser
         /// 
         /// </param>
 
-        public EncodingCharacters(char fieldSeparator, System.String encodingCharacters)
+        public EncodingCharacters(char fieldSeparator, String encodingCharacters)
         {
 
-            this.fieldSep = fieldSeparator;
+            fieldSep = fieldSeparator;
 
-            this.encChars = new char[4];
+            encChars = new char[4];
 
             if (encodingCharacters == null)
             {
 
-                this.encChars[0] = '^';
+                encChars[0] = '^';
 
-                this.encChars[1] = '~';
+                encChars[1] = '~';
 
-                this.encChars[2] = '\\';
+                encChars[2] = '\\';
 
-                this.encChars[3] = '&';
+                encChars[3] = '&';
             }
             else
             {
 
-                SupportClass.GetCharsFromString(encodingCharacters, 0, 4, this.encChars, 0);
+                SupportClass.GetCharsFromString(encodingCharacters, 0, 4, encChars, 0);
             }
         }
 
 
 
         public EncodingCharacters(char fieldSeparator, char componentSeparator, char repetitionSeparator, char escapeCharacter, char subcomponentSeparator)
-            : this(fieldSeparator, System.Convert.ToString(componentSeparator) + repetitionSeparator + escapeCharacter + subcomponentSeparator)
+            : this(fieldSeparator, Convert.ToString(componentSeparator) + repetitionSeparator + escapeCharacter + subcomponentSeparator)
         {
         }
 
@@ -239,17 +241,17 @@ namespace NHapi.Base.Parser
         public EncodingCharacters(EncodingCharacters other)
         {
 
-            this.fieldSep = other.FieldSeparator;
+            fieldSep = other.FieldSeparator;
 
-            this.encChars = new char[4];
+            encChars = new char[4];
 
-            this.encChars[0] = other.ComponentSeparator;
+            encChars[0] = other.ComponentSeparator;
 
-            this.encChars[1] = other.RepetitionSeparator;
+            encChars[1] = other.RepetitionSeparator;
 
-            this.encChars[2] = other.EscapeCharacter;
+            encChars[2] = other.EscapeCharacter;
 
-            this.encChars[3] = other.SubcomponentSeparator;
+            encChars[3] = other.SubcomponentSeparator;
         }
 
 
@@ -261,15 +263,15 @@ namespace NHapi.Base.Parser
         /// 
         /// </summary>
 
-        public override System.String ToString()
+        public override String ToString()
         {
 
-            System.Text.StringBuilder ret = new System.Text.StringBuilder();
+            StringBuilder ret = new StringBuilder();
 
-            for (int i = 0; i < this.encChars.Length; i++)
+            for (int i = 0; i < encChars.Length; i++)
             {
 
-                ret.Append(this.encChars[i]);
+                ret.Append(encChars[i]);
             }
 
             return ret.ToString();
@@ -277,7 +279,7 @@ namespace NHapi.Base.Parser
 
 
 
-        public virtual System.Object Clone()
+        public virtual Object Clone()
         {
 
             return new EncodingCharacters(this);
@@ -285,12 +287,12 @@ namespace NHapi.Base.Parser
 
         /// <seealso cref="java.lang.Object.equals">
         /// </seealso>
-        public override bool Equals(System.Object o)
+        public override bool Equals(Object o)
         {
             if (o is EncodingCharacters)
             {
                 EncodingCharacters other = (EncodingCharacters)o;
-                if (this.FieldSeparator == other.FieldSeparator && this.ComponentSeparator == other.ComponentSeparator && this.EscapeCharacter == other.EscapeCharacter && this.RepetitionSeparator == other.RepetitionSeparator && this.SubcomponentSeparator == other.SubcomponentSeparator)
+                if (FieldSeparator == other.FieldSeparator && ComponentSeparator == other.ComponentSeparator && EscapeCharacter == other.EscapeCharacter && RepetitionSeparator == other.RepetitionSeparator && SubcomponentSeparator == other.SubcomponentSeparator)
                 {
                     return true;
                 }
@@ -309,7 +311,7 @@ namespace NHapi.Base.Parser
         /// </seealso>
         public override int GetHashCode()
         {
-            return 7 * (int)this.ComponentSeparator * (int)this.EscapeCharacter * (int)this.FieldSeparator * (int)this.RepetitionSeparator * (int)this.SubcomponentSeparator;
+            return 7 * (int)ComponentSeparator * (int)EscapeCharacter * (int)FieldSeparator * (int)RepetitionSeparator * (int)SubcomponentSeparator;
         }
 
         /// <summary> 

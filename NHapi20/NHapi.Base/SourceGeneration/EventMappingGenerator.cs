@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.OleDb;
 using System.IO;
 using System.Text;
 
@@ -7,22 +8,22 @@ namespace NHapi.Base.SourceGeneration
 {
     public class EventMappingGenerator
     {
-        public static void makeAll(System.String baseDirectory, System.String version)
+        public static void makeAll(String baseDirectory, String version)
         {
             //make base directory
             if (!(baseDirectory.EndsWith("\\") || baseDirectory.EndsWith("/")))
             {
                 baseDirectory = baseDirectory + "/";
             }
-            System.IO.FileInfo targetDir = SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "EventMapping");
+            FileInfo targetDir = SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "EventMapping");
 
             //get list of data types
-            System.Data.OleDb.OleDbConnection conn = NormativeDatabase.Instance.Connection;
-            System.String sql = "SELECT * from HL7EventMessageTypes inner join HL7Versions on HL7EventMessageTypes.version_id = HL7Versions.version_id where HL7Versions.hl7_version = '" + version + "'";
-            System.Data.OleDb.OleDbCommand temp_OleDbCommand = new System.Data.OleDb.OleDbCommand();
+            OleDbConnection conn = NormativeDatabase.Instance.Connection;
+            String sql = "SELECT * from HL7EventMessageTypes inner join HL7Versions on HL7EventMessageTypes.version_id = HL7Versions.version_id where HL7Versions.hl7_version = '" + version + "'";
+            OleDbCommand temp_OleDbCommand = new OleDbCommand();
             temp_OleDbCommand.Connection = conn;
             temp_OleDbCommand.CommandText = sql;
-            System.Data.OleDb.OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
+            OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
 
 
             using (StreamWriter sw = new StreamWriter(targetDir.FullName + @"\EventMap.properties", false))

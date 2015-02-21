@@ -56,32 +56,32 @@ namespace NHapi.Base.Model
         {
             get
             {
-                return this.data;
+                return data;
             }
 
             set
             {
-                if (this.data != null)
+                if (data != null)
                 {
-                    if (!(this.data is IPrimitive) || ((IPrimitive)this.data).Value != null)
+                    if (!(data is IPrimitive) || ((IPrimitive)data).Value != null)
                     {
-                        DeepCopy.copy(this.data, value);
+                        DeepCopy.copy(data, value);
                     }
                 }
-                this.data = value;
+                data = value;
             }
 
         }
         /// <seealso cref="Type.getName">
         /// </seealso>
-        virtual public System.String TypeName
+        virtual public String TypeName
         {
             get
             {
-                System.String name = "*";
-                if (this.data != null)
+                String name = "*";
+                if (data != null)
                 {
-                    name = this.data.TypeName;
+                    name = data.TypeName;
                 }
                 return name;
             }
@@ -92,7 +92,7 @@ namespace NHapi.Base.Model
         {
             get
             {
-                return this.data.ExtraComponents;
+                return data.ExtraComponents;
             }
 
         }
@@ -150,11 +150,11 @@ namespace NHapi.Base.Model
                     else
                     {
                         //set class
-                        System.Type c = factory.GetTypeClass(obx2.Value, segment.Message.Version);
+                        Type c = factory.GetTypeClass(obx2.Value, segment.Message.Version);
                         //                Class c = NHapi.Base.Parser.ParserBase.findClass(obx2.getValue(), 
                         //                                                segment.getMessage().getVersion(), 
                         //                                                "datatype");
-                        v.Data = (IType)c.GetConstructor(new System.Type[] { typeof(IMessage) }).Invoke(new System.Object[] { v.Message });
+                        v.Data = (IType)c.GetConstructor(new Type[] { typeof(IMessage) }).Invoke(new Object[] { v.Message });
                     }
                 }
             }
@@ -162,7 +162,7 @@ namespace NHapi.Base.Model
             {
                 throw e;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 throw new HL7Exception(e.GetType().FullName + " trying to set data type of OBX-5", HL7Exception.APPLICATION_INTERNAL_ERROR, e);
             }

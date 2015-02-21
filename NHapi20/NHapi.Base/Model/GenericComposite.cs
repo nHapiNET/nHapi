@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+
 namespace NHapi.Base.Model
 {
 
@@ -26,7 +28,7 @@ namespace NHapi.Base.Model
 
         }
         /// <summary>Returns the name of the type (used in XML encoding and profile checking)  </summary>
-        override public System.String TypeName
+        override public String TypeName
         {
             get
             {
@@ -35,7 +37,7 @@ namespace NHapi.Base.Model
 
         }
 
-        private System.Collections.ArrayList components;
+        private ArrayList components;
         private IMessage message;
 
         /// <summary>Creates a new instance of GenericComposite </summary>
@@ -43,7 +45,7 @@ namespace NHapi.Base.Model
             : base(message)
         {
             this.message = message;
-            components = new System.Collections.ArrayList(20);
+            components = new ArrayList(20);
         }
 
         /// <summary> Returns the single component of this composite at the specified position (starting at 0) - 

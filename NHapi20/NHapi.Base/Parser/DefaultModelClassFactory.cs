@@ -4,6 +4,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using NHapi.Base;
 using NHapi.Base.Model;
 using NHapi.Base.SourceGeneration;
@@ -24,8 +25,8 @@ namespace NHapi.Base.Parser
     {
         private static readonly object _lockObject = new object();
         private static readonly IHapiLog log;
-        private const System.String CUSTOM_PACKAGES_RESOURCE_NAME_TEMPLATE = "custom_packages/{0}";
-        private static System.Collections.Hashtable packages = null;
+        private const String CUSTOM_PACKAGES_RESOURCE_NAME_TEMPLATE = "custom_packages/{0}";
+        private static Hashtable packages = null;
         private static bool _isLoadingPackages = false;
 
         /// <summary> <p>Attempts to return the message class corresponding to the given name, by 
@@ -56,9 +57,9 @@ namespace NHapi.Base.Parser
         /// </param>
         /// <returns> corresponding message subclass if found; GenericMessage otherwise
         /// </returns>
-        public virtual System.Type GetMessageClass(System.String theName, System.String theVersion, bool isExplicit)
+        public virtual Type GetMessageClass(String theName, String theVersion, bool isExplicit)
         {
-            System.Type mc = null;
+            Type mc = null;
             if (!isExplicit)
             {
                 theName = ParserBase.GetMessageStructureForEvent(theName, theVersion);
@@ -75,7 +76,7 @@ namespace NHapi.Base.Parser
         /// <param name="theName"></param>
         /// <param name="theVersion"></param>
         /// <returns></returns>
-        public virtual System.Type GetGroupClass(System.String theName, System.String theVersion)
+        public virtual Type GetGroupClass(String theName, String theVersion)
         {
             return findClass(theName, theVersion, ClassType.Group);
         }
@@ -86,7 +87,7 @@ namespace NHapi.Base.Parser
         /// <param name="theName"></param>
         /// <param name="theVersion"></param>
         /// <returns></returns>
-        public virtual System.Type GetSegmentClass(System.String theName, System.String theVersion)
+        public virtual Type GetSegmentClass(String theName, String theVersion)
         {
             return findClass(theName, theVersion, ClassType.Segment);
         }
@@ -97,7 +98,7 @@ namespace NHapi.Base.Parser
         /// <param name="theName"></param>
         /// <param name="theVersion"></param>
         /// <returns></returns>
-        public virtual System.Type GetTypeClass(System.String theName, System.String theVersion)
+        public virtual Type GetTypeClass(String theName, String theVersion)
         {
             return findClass(theName, theVersion, ClassType.Datatype);
         }
@@ -137,7 +138,7 @@ namespace NHapi.Base.Parser
         /// classes representing parts of a message are referenced explicitly in the code for the message 
         /// class, rather than being looked up (using findMessageClass() ) based on the String value of MSH-9.<p>  
         /// </summary>
-        public static List<string> PackageList(System.String version)
+        public static List<string> PackageList(String version)
         {
             //load package lists if necessary ... 
 
@@ -163,7 +164,7 @@ namespace NHapi.Base.Parser
             ///There is a bug when you start loading the hashtable, another thread can start to access the table before it finishes loading.  
             if (_isLoadingPackages)
             {
-                System.Threading.Thread.Sleep(100);
+                Thread.Sleep(100);
             }
             if (packages[version] == null)
                 throw new Exception(string.Format("Package '{0}' could not be found", version));
@@ -187,7 +188,7 @@ namespace NHapi.Base.Parser
         /// </param>
         /// <param name="type">'message', 'group', 'segment', or 'datatype'  
         /// </param>
-        private static System.Type findClass(System.String name, System.String version, ClassType type)
+        private static Type findClass(String name, String version, ClassType type)
         {
             if (ParserBase.ValidVersion(version) == false)
             {
@@ -199,32 +200,32 @@ namespace NHapi.Base.Parser
 
             //get subpackage for component type
             string typeString = type.ToString();
-            System.String subpackage = typeString.Substring(0, 1).ToUpper() + typeString.Substring(1);
+            String subpackage = typeString.Substring(0, 1).ToUpper() + typeString.Substring(1);
 
             //try to load class from each package
-            System.Type compClass = null;
+            Type compClass = null;
             int c = 0;
             while (compClass == null && c < packages.Count)
             {
                 try
                 {
-                    System.String p = packages[c];
+                    String p = packages[c];
                     if (!p.EndsWith("."))
                         p = p + ".";
-                    System.String classNameToTry = p + subpackage + "." + name;
+                    String classNameToTry = p + subpackage + "." + name;
 
                     classNameToTry = AddAssemblyName(p, classNameToTry);
                     if (log.DebugEnabled)
                     {
                         log.Debug("Trying to load: " + classNameToTry);
                     }
-                    compClass = System.Type.GetType(classNameToTry);
+                    compClass = Type.GetType(classNameToTry);
                     if (log.DebugEnabled)
                     {
                         log.Debug("Loaded: " + classNameToTry + " class: " + compClass);
                     }
                 }
-                catch (System.Exception)
+                catch (Exception)
                 {
                     /* just try next one */
                 }
@@ -239,7 +240,7 @@ namespace NHapi.Base.Parser
         /// <param name="p"></param>
         /// <param name="classNameToTry"></param>
         /// <returns>Assembly name qualified name</returns>
-        private static System.String AddAssemblyName(System.String p, System.String classNameToTry)
+        private static String AddAssemblyName(String p, String classNameToTry)
         {
             // TODO: pull this information out of the config file
             // have to add assembly name since models are broken out into separate assemblies

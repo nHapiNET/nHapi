@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace NHapi.Base
 {
 
-    [global::System.Serializable]
+    [Serializable]
     public class SQLException : Exception
     {
         //
@@ -19,8 +20,8 @@ namespace NHapi.Base
         public SQLException(string message) : base(message) { }
         public SQLException(string message, Exception inner) : base(message, inner) { }
         protected SQLException(
-          System.Runtime.Serialization.SerializationInfo info,
-          System.Runtime.Serialization.StreamingContext context)
+          SerializationInfo info,
+          StreamingContext context)
             : base(info, context) { }
     }
 }

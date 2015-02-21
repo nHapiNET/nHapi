@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Text;
 using NHapi.Base.Model;
 using NHapi.Base.Log;
 using HL7Exception = NHapi.Base.HL7Exception;
@@ -20,7 +22,7 @@ namespace NHapi.Base.Util
     /// </summary>
     /// <author>  Bryan Tripp
     /// </author>
-    public class MessageIterator : System.Collections.IEnumerator
+    public class MessageIterator : IEnumerator
     {
         /// <summary> <p>Returns the next node in the message.  Sometimes the next node is 
         /// ambiguous.  For example at the end of a repeating group, the next node 
@@ -45,47 +47,47 @@ namespace NHapi.Base.Util
         /// <li>"First descendents" means first child, or first child of the first child, 
         /// or first child of the first child of the first child, etc. </li> </ol>
         /// </summary>
-        public virtual System.Object Current
+        public virtual Object Current
         {
             get
             {
                 if (!MoveNext())
                 {
-                    throw new System.ArgumentOutOfRangeException("No more nodes in message");
+                    throw new ArgumentOutOfRangeException("No more nodes in message");
                 }
                 try
                 {
-                    this.currentStructure = next_Renamed_Field.parent.GetStructure(next_Renamed_Field.index.name, next_Renamed_Field.index.rep);
+                    currentStructure = next_Renamed_Field.parent.GetStructure(next_Renamed_Field.index.name, next_Renamed_Field.index.rep);
                 }
                 catch (HL7Exception e)
                 {
-                    throw new System.ArgumentOutOfRangeException("HL7Exception: " + e.Message);
+                    throw new ArgumentOutOfRangeException("HL7Exception: " + e.Message);
                 }
                 clearNext();
-                return this.currentStructure;
+                return currentStructure;
             }
 
         }
         /// <summary>
         /// The direction
         /// </summary>
-        virtual public System.String Direction
+        virtual public String Direction
         {
             get
             {
-                return this.direction;
+                return direction;
             }
 
             set
             {
                 clearNext();
-                this.direction = value;
+                direction = value;
             }
 
         }
 
         private IStructure currentStructure;
-        private System.String direction;
+        private String direction;
         private Position next_Renamed_Field;
         private bool handleUnexpectedSegments;
 
@@ -101,9 +103,9 @@ namespace NHapi.Base.Util
         */
 
         /// <summary>Creates a new instance of MessageIterator </summary>
-        public MessageIterator(IStructure start, System.String direction, bool handleUnexpectedSegments)
+        public MessageIterator(IStructure start, String direction, bool handleUnexpectedSegments)
         {
-            this.currentStructure = start;
+            currentStructure = start;
             this.direction = direction;
             this.handleUnexpectedSegments = handleUnexpectedSegments;
         }
@@ -160,16 +162,16 @@ namespace NHapi.Base.Util
                         }
                         else
                         {
-                            has = nextPosition(currentPosition, this.direction, this.handleUnexpectedSegments);
+                            has = nextPosition(currentPosition, direction, handleUnexpectedSegments);
                         }
                     }
                     catch (HL7Exception e)
                     {
-                        throw new System.ApplicationException("HL7Exception arising from bad index: " + e.Message);
+                        throw new ApplicationException("HL7Exception arising from bad index: " + e.Message);
                     }
                 }
             }
-            log.Debug("MessageIterator.hasNext() in direction " + this.direction + "? " + has);
+            log.Debug("MessageIterator.hasNext() in direction " + direction + "? " + has);
             return has;
         }
 
@@ -191,7 +193,7 @@ namespace NHapi.Base.Util
         /// which could be the next sibling, a new segment, or the next rep 
         /// of the parent.  See next() for details. 
         /// </summary>
-        private bool nextPosition(Position currPos, System.String direction, bool makeNewSegmentIfNeeded)
+        private bool nextPosition(Position currPos, String direction, bool makeNewSegmentIfNeeded)
         {
             bool nextExists = true;
             if (isLast(currPos))
@@ -206,7 +208,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary>Navigates from end of group </summary>
-        private bool nextFromGroupEnd(Position currPos, System.String direction, bool makeNewSegmentIfNeeded)
+        private bool nextFromGroupEnd(Position currPos, String direction, bool makeNewSegmentIfNeeded)
         {
             //assert isLast(currPos);
             bool nextExists = true;
@@ -238,7 +240,7 @@ namespace NHapi.Base.Util
                 }
                 catch (HL7Exception e)
                 {
-                    throw new System.ApplicationException("HL7Exception arising from bad index: " + e.Message);
+                    throw new ApplicationException("HL7Exception arising from bad index: " + e.Message);
                 }
             }
             else
@@ -264,7 +266,7 @@ namespace NHapi.Base.Util
         /// if the message is correct then it can't go after a required position of a 
         /// different name. 
         /// </param>
-        public static bool matchExistsAfterPosition(Position pos, System.String name, bool firstDescendentsOnly, bool upToFirstRequired)
+        public static bool matchExistsAfterPosition(Position pos, String name, bool firstDescendentsOnly, bool upToFirstRequired)
         {
             bool matchExists = false;
 
@@ -278,7 +280,7 @@ namespace NHapi.Base.Util
             //check later siblings (if any) 
             if (!matchExists)
             {
-                System.String[] siblings = pos.parent.Names;
+                String[] siblings = pos.parent.Names;
                 bool after = false;
                 for (int i = 0; i < siblings.Length && !matchExists; i++)
                 {
@@ -307,7 +309,7 @@ namespace NHapi.Base.Util
         /// <summary> Sets the next position to a new segment of the given name, within the 
         /// given group. 
         /// </summary>
-        private void newSegment(IGroup parent, System.String name)
+        private void newSegment(IGroup parent, String name)
         {
             log.Info("MessageIterator creating new segment: " + name);
             parent.addNonstandardSegment(name);
@@ -331,7 +333,7 @@ namespace NHapi.Base.Util
         /// up to the first required one.  This may be needed because in practice 
         /// some first children of groups are not required.  
         /// </param>
-        public static bool contains(IStructure s, System.String name, bool firstDescendentsOnly, bool upToFirstRequired)
+        public static bool contains(IStructure s, String name, bool firstDescendentsOnly, bool upToFirstRequired)
         {
             bool contains = false;
             if (typeof(ISegment).IsAssignableFrom(s.GetType()))
@@ -342,7 +344,7 @@ namespace NHapi.Base.Util
             else
             {
                 IGroup g = (IGroup)s;
-                System.String[] names = g.Names;
+                String[] names = g.Names;
                 for (int i = 0; i < names.Length && !contains; i++)
                 {
                     try
@@ -355,7 +357,7 @@ namespace NHapi.Base.Util
                     }
                     catch (HL7Exception e)
                     {
-                        throw new System.ApplicationException("HL7Exception due to bad index: " + e.Message);
+                        throw new ApplicationException("HL7Exception due to bad index: " + e.Message);
                     }
                 }
             }
@@ -367,7 +369,7 @@ namespace NHapi.Base.Util
         /// </summary>
         public static bool isLast(Position p)
         {
-            System.String[] names = p.parent.Names;
+            String[] names = p.parent.Names;
             return names[names.Length - 1].Equals(p.index.name);
         }
 
@@ -376,20 +378,20 @@ namespace NHapi.Base.Util
         /// </summary>
         private void nextSibling(Position pos)
         {
-            System.String[] names = pos.parent.Names;
+            String[] names = pos.parent.Names;
             int i = 0;
             for (; i < names.Length && !names[i].Equals(pos.index.name); i++)
             {
             }
-            System.String nextName = names[i + 1];
+            String nextName = names[i + 1];
 
-            this.next_Renamed_Field = new Position(pos.parent, nextName, 0);
+            next_Renamed_Field = new Position(pos.parent, nextName, 0);
         }
 
         /// <summary>Not supported </summary>
         public virtual void remove()
         {
-            throw new System.NotSupportedException("Can't remove a node from a message");
+            throw new NotSupportedException("Can't remove a node from a message");
         }
 
         private void clearNext()
@@ -403,7 +405,7 @@ namespace NHapi.Base.Util
         public static Index getIndex(IGroup parent, IStructure child)
         {
             Index index = null;
-            System.String[] names = parent.Names;
+            String[] names = parent.Names;
             for (int i = 0; i < names.Length; i++)
             {
                 if (names[i].StartsWith(child.GetStructureName()))
@@ -423,7 +425,7 @@ namespace NHapi.Base.Util
                     catch (HL7Exception e)
                     {
                         log.Error("", e);
-                        throw new System.ApplicationException("Internal HL7Exception finding structure index: " + e.Message);
+                        throw new ApplicationException("Internal HL7Exception finding structure index: " + e.Message);
                     }
                 }
             }
@@ -438,7 +440,7 @@ namespace NHapi.Base.Util
             /// <summary>
             /// The name
             /// </summary>
-            public System.String name;
+            public String name;
             /// <summary>
             /// The repetition
             /// </summary>
@@ -449,7 +451,7 @@ namespace NHapi.Base.Util
             /// </summary>
             /// <param name="name">name</param>
             /// <param name="rep">repetition</param>
-            public Index(System.String name, int rep)
+            public Index(String name, int rep)
             {
                 this.name = name;
                 this.rep = rep;
@@ -460,7 +462,7 @@ namespace NHapi.Base.Util
             /// </summary>
             /// <param name="o"></param>
             /// <returns></returns>
-            public override bool Equals(System.Object o)
+            public override bool Equals(Object o)
             {
                 bool equals = false;
                 if (o != null && o is Index)
@@ -485,9 +487,9 @@ namespace NHapi.Base.Util
             /// Override to string
             /// </summary>
             /// <returns></returns>
-            public override System.String ToString()
+            public override String ToString()
             {
-                return this.name + ":" + this.rep;
+                return name + ":" + rep;
             }
         }
 
@@ -509,10 +511,10 @@ namespace NHapi.Base.Util
             /// <param name="parent">Parent</param>
             /// <param name="name">Name</param>
             /// <param name="rep">Repetition</param>
-            public Position(IGroup parent, System.String name, int rep)
+            public Position(IGroup parent, String name, int rep)
             {
                 this.parent = parent;
-                this.index = new Index(name, rep);
+                index = new Index(name, rep);
             }
             /// <summary>
             /// The position of the element
@@ -522,7 +524,7 @@ namespace NHapi.Base.Util
             public Position(IGroup parent, Index i)
             {
                 this.parent = parent;
-                this.index = i;
+                index = i;
             }
 
             /// <summary>
@@ -530,7 +532,7 @@ namespace NHapi.Base.Util
             /// </summary>
             /// <param name="o">Object o</param>
             /// <returns>true if objects are equal</returns>
-            public override bool Equals(System.Object o)
+            public override bool Equals(Object o)
             {
                 bool equals = false;
                 if (o != null && o is Position)
@@ -555,9 +557,9 @@ namespace NHapi.Base.Util
             /// Override to string
             /// </summary>
             /// <returns></returns>
-            public override System.String ToString()
+            public override String ToString()
             {
-                System.Text.StringBuilder ret = new System.Text.StringBuilder(parent.GetStructureName());
+                StringBuilder ret = new StringBuilder(parent.GetStructureName());
                 ret.Append(":");
                 ret.Append(index.name);
                 ret.Append("(");

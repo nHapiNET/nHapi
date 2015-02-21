@@ -40,6 +40,6 @@ namespace NHapi.Base.validation
         /// message failed to validate (empty if validation succeeds; may 
         /// not be a complete list as testing may be aborted after failure).  
         /// </returns>
-        ValidationException[] test(System.String msg);
+        ValidationException[] test(String msg);
     }
 }

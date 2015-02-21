@@ -39,7 +39,7 @@ namespace NHapi.Base.validation.impl
         /// <summary>
         /// The description
         /// </summary>
-        virtual public System.String Description
+        virtual public String Description
         {
             get
             {
@@ -51,7 +51,7 @@ namespace NHapi.Base.validation.impl
         /// <summary>
         /// The section reference
         /// </summary>
-        virtual public System.String SectionReference
+        virtual public String SectionReference
         {
             get
             {
@@ -60,15 +60,15 @@ namespace NHapi.Base.validation.impl
 
         }
 
-        private System.Text.RegularExpressions.Regex myPattern;
-        private System.String mySectionReference;
+        private Regex myPattern;
+        private String mySectionReference;
 
         /// <param name="theRegex">a regular expression against which to validate primitive
         /// values 
         /// </param>
         /// <param name="theSectionReference">to be returned by <code>getSectionReference()</code>
         /// </param>
-        public RegexPrimitiveRule(System.String theRegex, System.String theSectionReference)
+        public RegexPrimitiveRule(String theRegex, String theSectionReference)
         {
             myPattern = new Regex(theRegex);
             mySectionReference = theSectionReference;
@@ -77,7 +77,7 @@ namespace NHapi.Base.validation.impl
         /// <summary> Empty string, null, and the HL7 explicit null (two double-quotes) are passed.  
         /// 
         /// </summary>
-        public virtual bool test(System.String value_Renamed)
+        public virtual bool test(String value_Renamed)
         {
             if (value_Renamed == null || value_Renamed.Equals("\"\"") || value_Renamed.Equals(""))
             {
@@ -94,7 +94,7 @@ namespace NHapi.Base.validation.impl
         /// </summary>
         /// <param name="value_Renamed"></param>
         /// <returns></returns>
-        public virtual System.String correct(System.String value_Renamed)
+        public virtual String correct(String value_Renamed)
         {
             return value_Renamed;
         }

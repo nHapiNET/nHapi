@@ -8,7 +8,7 @@ namespace NHapi.Base.SourceGeneration
     class BaseDataTypeGenerator
     {
 
-        public static void BuildBaseDataTypes(string baseDirectory, System.String version)
+        public static void BuildBaseDataTypes(string baseDirectory, String version)
         {
             string targetDir = baseDirectory + @"\" + PackageManager.GetVersionPackagePath(version) + "Datatype";
 
@@ -26,7 +26,7 @@ namespace NHapi.Base.SourceGeneration
             using (FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite))
             {
                 string source = GetClassSource(dataType, version);
-                byte[] data = System.Text.ASCIIEncoding.ASCII.GetBytes(source);
+                byte[] data = ASCIIEncoding.ASCII.GetBytes(source);
                 fs.Write(data, 0, data.Length);
             }
         }

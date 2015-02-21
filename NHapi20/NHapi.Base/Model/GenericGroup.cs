@@ -14,10 +14,10 @@ namespace NHapi.Base.Model
     public class GenericGroup : AbstractGroup
     {
 
-        private System.String name;
+        private String name;
 
         /// <summary>Creates a new instance of GenericGroup </summary>
-        public GenericGroup(IGroup parent, System.String name, IModelClassFactory factory)
+        public GenericGroup(IGroup parent, String name, IModelClassFactory factory)
             : base(parent, factory)
         {
             this.name = name;
@@ -35,9 +35,9 @@ namespace NHapi.Base.Model
         /// <summary> Returns the name specified at construction time. </summary>
         /// <seealso cref="Structure.getName()">
         /// </seealso>
-        public override System.String GetStructureName()
+        public override String GetStructureName()
         {
-            return this.name;
+            return name;
         }
     }
 }

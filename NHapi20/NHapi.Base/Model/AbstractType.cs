@@ -44,11 +44,11 @@ namespace NHapi.Base.Model
         /// <summary>
         /// Returns the name of the type (used in XML encoding and profile checking)  
         /// </summary>
-        virtual public System.String TypeName
+        virtual public String TypeName
         {
             get
             {
-                System.String longClassName = this.GetType().FullName;
+                String longClassName = GetType().FullName;
                 return longClassName.Substring(longClassName.LastIndexOf('.') + 1);
             }
 
@@ -61,7 +61,7 @@ namespace NHapi.Base.Model
         {
             get
             {
-                return this.extra;
+                return extra;
             }
 
         }

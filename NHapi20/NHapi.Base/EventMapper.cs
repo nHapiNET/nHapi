@@ -1,13 +1,17 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace NHapi.Base
 {
     class EventMapper
     {
-        private System.Collections.Hashtable _map = new System.Collections.Hashtable();
+        private Hashtable _map = new Hashtable();
         private static readonly EventMapper _instance = new EventMapper();
 
         #region Constructors
@@ -19,18 +23,18 @@ namespace NHapi.Base
             IList<Hl7Package> packages = PackageManager.Instance.GetAllPackages();
             foreach (Hl7Package package in packages)
             {
-                System.Reflection.Assembly assembly = null;
+                Assembly assembly = null;
                 try
                 {
 	                var assemblyToLoad = RemoveTrailingDot(package);
-	                assembly = System.Reflection.Assembly.Load(assemblyToLoad);
+	                assembly = Assembly.Load(assemblyToLoad);
                 }
-                catch (System.IO.FileNotFoundException)
+                catch (FileNotFoundException)
                 {
                     //Just skip, this assembly is not used
                 }
 
-                System.Collections.Specialized.NameValueCollection structures = new System.Collections.Specialized.NameValueCollection();
+                NameValueCollection structures = new NameValueCollection();
                 if (assembly != null)
                 {
                     structures = GetAssemblyEventMapping(assembly, package);
@@ -59,21 +63,21 @@ namespace NHapi.Base
             get { return _instance; }
         }
 
-        public System.Collections.Hashtable Maps
+        public Hashtable Maps
         {
             get { return _map; }
         }
         #endregion
 
         #region Methods
-        private System.Collections.Specialized.NameValueCollection GetAssemblyEventMapping(System.Reflection.Assembly assembly, Hl7Package package)
+        private NameValueCollection GetAssemblyEventMapping(Assembly assembly, Hl7Package package)
         {
-            System.Collections.Specialized.NameValueCollection structures = new System.Collections.Specialized.NameValueCollection();
-            using (System.IO.Stream inResource = assembly.GetManifestResourceStream(package.EventMappingResourceName))
+            NameValueCollection structures = new NameValueCollection();
+            using (Stream inResource = assembly.GetManifestResourceStream(package.EventMappingResourceName))
             {
                 if (inResource != null)
                 {
-                    using (System.IO.StreamReader sr = new System.IO.StreamReader(inResource))
+                    using (StreamReader sr = new StreamReader(inResource))
                     {
                         string line = sr.ReadLine();
                         while (line != null)

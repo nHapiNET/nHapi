@@ -23,6 +23,7 @@
 /// this file under either the MPL or the GPL.
 */
 using System;
+using System.Globalization;
 using NHapi.Base.Model;
 using NHapi.Base.Log;
 namespace NHapi.Base.Model.Primitive
@@ -92,11 +93,11 @@ namespace NHapi.Base.Model.Primitive
         /// time zone (using standard time zone format which is not modified for daylight savings)
         /// will be stored as a default.
         /// </summary>
-        virtual public System.String Value
+        virtual public String Value
         {
             get
             {
-                System.String value_Renamed = null;
+                String value_Renamed = null;
                 if (dt != null)
                 {
                     value_Renamed = dt.Value;
@@ -122,10 +123,10 @@ namespace NHapi.Base.Model.Primitive
                         //here we know we both have the date and just the time offset value
                         //change the offset value from an integer to a signed string
                         int offset = tm.GMTOffset;
-                        System.String offsetStr = "";
+                        String offsetStr = "";
                         if (offset > -99)
                         {
-                            offsetStr = DataTypeUtil.preAppendZeroes(System.Math.Abs(offset), 4);
+                            offsetStr = DataTypeUtil.preAppendZeroes(Math.Abs(offset), 4);
                             if (tm.GMTOffset >= 0)
                             {
                                 offsetStr = "+" + offsetStr;
@@ -153,7 +154,7 @@ namespace NHapi.Base.Model.Primitive
                         //8 characters in length
                         if (value.Length < 4)
                         {
-                            System.String msg = "The length of the TS datatype value must be at least 4 characters in length.";
+                            String msg = "The length of the TS datatype value must be at least 4 characters in length.";
                             DataTypeException e = new DataTypeException(msg);
                             throw e;
                         }
@@ -162,16 +163,16 @@ namespace NHapi.Base.Model.Primitive
                         //than 24 characters in length
                         if (value.Length > 24)
                         {
-                            System.String msg = "The length of the TS datatype value must not be more than 24 characters in length.";
+                            String msg = "The length of the TS datatype value must not be more than 24 characters in length.";
                             DataTypeException e = new DataTypeException(msg);
                             throw e;
                         }
 
                         //at this point we know that we have a value that should conform to the DT
                         //datatype and possibly a value that should conform to the TM datatype
-                        System.String dateVal = null;
-                        System.String timeVal = null;
-                        System.String timeValLessOffset = null;
+                        String dateVal = null;
+                        String timeVal = null;
+                        String timeValLessOffset = null;
                         int sp = value.IndexOf("+");
                         int sm = value.IndexOf("-");
                         int indexOfSign = -1;
@@ -239,7 +240,7 @@ namespace NHapi.Base.Model.Primitive
                             //at the very least -- must be at least 4chars in length.
                             if (timeValLessOffset.Length < 4)
                             {
-                                System.String msg = "The length of the time component for the TM datatype" + " value does not conform to the allowable format" + " YYYY[MM[DD[HHMM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ].";
+                                String msg = "The length of the time component for the TM datatype" + " value does not conform to the allowable format" + " YYYY[MM[DD[HHMM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ].";
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
                             } //end if
@@ -256,7 +257,7 @@ namespace NHapi.Base.Model.Primitive
                             //offset field in the tm object
                             if (timeVal.Length != 5)
                             {
-                                System.String msg = "The length of the GMT offset for the TM datatype value does" + " not conform to the allowable format [+/-ZZZZ]";
+                                String msg = "The length of the GMT offset for the TM datatype value does" + " not conform to the allowable format [+/-ZZZZ]";
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
                             } //end if 
@@ -266,7 +267,7 @@ namespace NHapi.Base.Model.Primitive
                             {
                                 timeVal = timeVal.Substring(1);
                             } //end if
-                            int signedOffset = System.Int32.Parse(timeVal);
+                            int signedOffset = Int32.Parse(timeVal);
                             tm.Offset = signedOffset;
                         } //end if
                     }
@@ -276,7 +277,7 @@ namespace NHapi.Base.Model.Primitive
                         throw e;
                     }
                     //end catch
-                    catch (System.Exception e)
+                    catch (Exception e)
                     {
                         throw new DataTypeException("An unexpected exception ocurred", e);
                     } //end catch
@@ -331,7 +332,7 @@ namespace NHapi.Base.Model.Primitive
                     throw e;
                 }
                 //end catch
-                catch (System.Exception e)
+                catch (Exception e)
                 {
                     throw new DataTypeException("An unexpected exception ocurred", e);
                 } //end catch
@@ -477,9 +478,9 @@ namespace NHapi.Base.Model.Primitive
         /// The stored value will be in the following
         /// format YYYY[MM[DD[HHMM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ]
         /// </summary>
-        public CommonTS(System.String val)
+        public CommonTS(String val)
         {
-            this.Value = val;
+            Value = val;
         } //end constructor
 
         /// <summary> This method takes in integer values for the year and month and day
@@ -507,7 +508,7 @@ namespace NHapi.Base.Model.Primitive
                 throw e;
             }
             //end catch
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 throw new DataTypeException("An unexpected exception ocurred", e);
             } //end catch
@@ -522,7 +523,7 @@ namespace NHapi.Base.Model.Primitive
             try
             {
                 //set the value of the date object to the input date value
-                this.setDatePrecision(yr, mnth, dy);
+                setDatePrecision(yr, mnth, dy);
                 //create new time object is there isn't one
                 if (tm == null)
                 {
@@ -537,7 +538,7 @@ namespace NHapi.Base.Model.Primitive
                 throw e;
             }
             //end catch
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 throw new DataTypeException("An unexpected exception ocurred", e);
             } //end catch
@@ -558,7 +559,7 @@ namespace NHapi.Base.Model.Primitive
             try
             {
                 //set the value of the date object to the input date value
-                this.setDatePrecision(yr, mnth, dy);
+                setDatePrecision(yr, mnth, dy);
                 //create new time object is there isn't one
                 if (tm == null)
                 {
@@ -573,7 +574,7 @@ namespace NHapi.Base.Model.Primitive
                 throw e;
             }
             //end catch
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 throw new DataTypeException("An unexpected exception ocurred", e);
             } //end catch
@@ -582,9 +583,9 @@ namespace NHapi.Base.Model.Primitive
         /// <summary> Returns a string value representing the input Gregorian Calendar object in
         /// an Hl7 TimeStamp Format.
         /// </summary>
-        public static System.String toHl7TSFormat(System.Globalization.GregorianCalendar cal)
+        public static String toHl7TSFormat(GregorianCalendar cal)
         {
-            System.String val = "";
+            String val = "";
             try
             {
                 //set the input cal object so that it can report errors
@@ -612,7 +613,7 @@ namespace NHapi.Base.Model.Primitive
                     offSetSignInt = 1;
                 }
                 //get the absolute value of the gmtOffSet
-                int absGmtOffSet = System.Math.Abs(calOffset);
+                int absGmtOffSet = Math.Abs(calOffset);
                 int gmtOffSetHours = absGmtOffSet / (3600 * 1000);
                 int gmtOffSetMin = (absGmtOffSet / 60000) % (60);
                 //reset calOffset
@@ -630,7 +631,7 @@ namespace NHapi.Base.Model.Primitive
                 throw e;
             }
             //end catch
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 throw new DataTypeException("An unexpected exception ocurred", e);
             } //end catch

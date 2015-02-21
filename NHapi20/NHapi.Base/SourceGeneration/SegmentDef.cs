@@ -34,11 +34,11 @@ namespace NHapi.Base.SourceGeneration
     {
         /// <returns> name of segment 
         /// </returns>
-        virtual public System.String Name
+        virtual public String Name
         {
             get
             {
-                System.String result = this.name;
+                String result = name;
                 if (result != null && result.Equals("?"))
                 {
                     result = "GenericSegment";
@@ -49,11 +49,11 @@ namespace NHapi.Base.SourceGeneration
         }
         /// <returns> name of group, if this is not really a segment but a group start indicator 
         /// </returns>
-        virtual public System.String GroupName
+        virtual public String GroupName
         {
             get
             {
-                return this.groupName;
+                return groupName;
             }
 
         }
@@ -62,7 +62,7 @@ namespace NHapi.Base.SourceGeneration
         {
             get
             {
-                return this.required;
+                return required;
             }
 
         }
@@ -71,16 +71,16 @@ namespace NHapi.Base.SourceGeneration
         {
             get
             {
-                return this.repeating;
+                return repeating;
             }
 
         }
         /// <summary> Returns a text description of the structure.</summary>
-        virtual public System.String Description
+        virtual public String Description
         {
             get
             {
-                return this.description;
+                return description;
             }
 
         }
@@ -90,24 +90,24 @@ namespace NHapi.Base.SourceGeneration
         /// in subgroups (depth first).  This method is used to support the XML SIG's convention
         /// for deriving group names.
         /// </summary>
-        virtual public System.String[] ChildSegments
+        virtual public String[] ChildSegments
         {
             get
             {
-                System.String[] result = new System.String[] { Name };
+                String[] result = new String[] { Name };
                 return result;
             }
 
         }
 
-        private System.String name;
-        private System.String groupName;
-        private System.String description;
+        private String name;
+        private String groupName;
+        private String description;
         private bool required;
         private bool repeating;
 
         /// <summary>Creates new SegmentDef </summary>
-        public SegmentDef(System.String name, System.String groupName, bool required, bool repeating, System.String description)
+        public SegmentDef(String name, String groupName, bool required, bool repeating, String description)
         {
             this.name = name;
             this.groupName = groupName;

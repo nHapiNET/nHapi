@@ -66,7 +66,7 @@ namespace NHapi.Base.Log
             // Instead of setting a category, we use the Verbose severity to indicate
             // the need for debugging.  This avoids the need to have a consumer of 
             // the library setup a category in the logging configuration.
-            WriteLog(message, t, System.Diagnostics.TraceLevel.Verbose);
+            WriteLog(message, t, TraceLevel.Verbose);
         }
 
         public void Error(object message)
@@ -76,7 +76,7 @@ namespace NHapi.Base.Log
 
         public void Error(object message, Exception t)
         {
-            WriteLog(message, t, System.Diagnostics.TraceLevel.Error);
+            WriteLog(message, t, TraceLevel.Error);
         }
 
         public void Fatal(object message)
@@ -86,7 +86,7 @@ namespace NHapi.Base.Log
 
         public void Fatal(object message, Exception t)
         {
-            WriteLog(message, t, System.Diagnostics.TraceLevel.Error);
+            WriteLog(message, t, TraceLevel.Error);
         }
 
         public void Info(object message)
@@ -96,7 +96,7 @@ namespace NHapi.Base.Log
 
         public void Info(object message, Exception t)
         {
-            WriteLog(message, t, System.Diagnostics.TraceLevel.Info);
+            WriteLog(message, t, TraceLevel.Info);
         }
 
         public void Trace(object message)
@@ -106,7 +106,7 @@ namespace NHapi.Base.Log
 
         public void Trace(object message, Exception t)
         {
-            WriteLog(message, t, System.Diagnostics.TraceLevel.Info);
+            WriteLog(message, t, TraceLevel.Info);
         }
 
         public void Warn(object message)
@@ -116,18 +116,18 @@ namespace NHapi.Base.Log
 
         public void Warn(object message, Exception t)
         {
-            WriteLog(message, t, System.Diagnostics.TraceLevel.Warning);
+            WriteLog(message, t, TraceLevel.Warning);
         }
 
         #endregion
 
-        private static void WriteLog(object message, Exception t, System.Diagnostics.TraceLevel severity)
+        private static void WriteLog(object message, Exception t, TraceLevel severity)
         {
             WriteLog(message, t, severity, null);
         }
 
 
-        private static void WriteLog(object message, Exception t, System.Diagnostics.TraceLevel severity, string category)
+        private static void WriteLog(object message, Exception t, TraceLevel severity, string category)
         {
            
 

@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+
 namespace NHapi.Base.Model
 {
 
@@ -23,13 +25,13 @@ namespace NHapi.Base.Model
     public class ExtraComponents
     {
 
-        private System.Collections.ArrayList comps;
+        private ArrayList comps;
         private IMessage message;
 
         /// <summary>Creates a new instance of ExtraComponents </summary>
         public ExtraComponents(IMessage message)
         {
-            this.comps = new System.Collections.ArrayList();
+            comps = new ArrayList();
             this.message = message;
         }
 
@@ -53,7 +55,7 @@ namespace NHapi.Base.Model
         public virtual Varies getComponent(int comp)
         {
             ensureComponentAndPredecessorsExist(comp);
-            return (Varies)this.comps[comp];
+            return (Varies)comps[comp];
         }
 
         /// <summary> Checks that the component at the given location exists, and that 
@@ -61,9 +63,9 @@ namespace NHapi.Base.Model
         /// </summary>
         private void ensureComponentAndPredecessorsExist(int comp)
         {
-            for (int i = this.comps.Count; i <= comp; i++)
+            for (int i = comps.Count; i <= comp; i++)
             {
-                this.comps.Add(new Varies(message));
+                comps.Add(new Varies(message));
             }
             /*ArrayList reps = (ArrayList) this.comps.get(comp);
             for (int j = reps.size(); j <= rep; j++) {

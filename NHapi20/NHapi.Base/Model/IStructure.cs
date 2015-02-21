@@ -50,6 +50,6 @@ namespace NHapi.Base.Model
         }
 
         /// <summary> Returns the structure's name. </summary>
-        System.String GetStructureName();
+        String GetStructureName();
     }
 }

@@ -15,21 +15,21 @@ namespace NHapi.Base.Model
         /// implementing class.
         /// </summary>
         /// <throws>  DataTypeException if the given value is not valid in this context. </throws>
-        override public System.String Value
+        override public String Value
         {
             get
             {
-                return this.value_Renamed;
+                return value_Renamed;
             }
 
             set
             {
-                this.value_Renamed = value;
+                value_Renamed = value;
             }
 
         }
         /// <summary>Returns the name of the type (used in XML encoding and profile checking)  </summary>
-        override public System.String TypeName
+        override public String TypeName
         {
             get
             {
@@ -39,7 +39,7 @@ namespace NHapi.Base.Model
         }
         /// <seealso cref="NHapi.Base.Model.Primitive.getVersion()">
         /// </seealso>
-        virtual public System.String Version
+        virtual public String Version
         {
             get
             {
@@ -48,7 +48,7 @@ namespace NHapi.Base.Model
 
         }
 
-        internal System.String value_Renamed = null;
+        internal String value_Renamed = null;
 
         /// <summary> Creates a new instance of GenericPrimitive </summary>
         public GenericPrimitive(IMessage message)

@@ -65,6 +65,6 @@ namespace NHapi.Base.Log
         /// <param name="msgPattern"></param>
         /// <param name="values"></param>
         /// <param name="e"></param>
-        void Debug(System.String msgPattern, System.Object[] values, System.Exception e);
+        void Debug(String msgPattern, Object[] values, Exception e);
     }
 }

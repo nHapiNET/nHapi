@@ -20,6 +20,7 @@
 /// </summary>
 using System;
 using System.Data;
+using System.Data.OleDb;
 using System.Diagnostics;
 using NHapi.Base.Log;
 
@@ -46,12 +47,12 @@ namespace NHapi.Base
     public class NormativeDatabase
     {
         /// <summary> Returns the singleton instance of NormativeDatabase.  </summary>
-        private System.Data.OleDb.OleDbConnection _conn;
+        private OleDbConnection _conn;
         public static NormativeDatabase Instance
         {
             get
             {
-                lock (typeof(NHapi.Base.NormativeDatabase))
+                lock (typeof(NormativeDatabase))
                 {
                     if (db == null)
                     {
@@ -65,7 +66,7 @@ namespace NHapi.Base
         /// <summary> Provides a Connection to the normative database. 
         /// A new connection may be created if none are available.
         /// </summary>
-        virtual public System.Data.OleDb.OleDbConnection Connection
+        virtual public OleDbConnection Connection
         {
             get
             {
@@ -88,7 +89,7 @@ namespace NHapi.Base
 		    }
 		    catch (Exception)
 		    {
-			    _conn = new System.Data.OleDb.OleDbConnection(_connectionString);
+			    _conn = new OleDbConnection(_connectionString);
 			    _conn.Open();
 		    }
 	    }
@@ -117,7 +118,7 @@ namespace NHapi.Base
         private NormativeDatabase()
         {
             _connectionString = ConfigurationSettings.ConnectionString;
-            _conn = new System.Data.OleDb.OleDbConnection(_connectionString);
+            _conn = new OleDbConnection(_connectionString);
             _conn.Open();
         }
 
@@ -125,7 +126,7 @@ namespace NHapi.Base
         /// given connection is not in fact a connection to the normative database, it is
         /// discarded. 
         /// </summary>
-        public virtual void returnConnection(System.Data.OleDb.OleDbConnection conn)
+        public virtual void returnConnection(OleDbConnection conn)
         {
             //check if this is a normative DB connection 
             _conn.Close();
@@ -133,29 +134,29 @@ namespace NHapi.Base
 
         //test
         [STAThread]
-        public static void Main(System.String[] args)
+        public static void Main(String[] args)
         {
             try
             {
-                System.Data.OleDb.OleDbConnection conn = NormativeDatabase.Instance.Connection;
-                System.Data.OleDb.OleDbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
-                System.Data.OleDb.OleDbCommand temp_OleDbCommand;
+                OleDbConnection conn = Instance.Connection;
+                OleDbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
+                OleDbCommand temp_OleDbCommand;
                 temp_OleDbCommand = stmt;
                 temp_OleDbCommand.CommandText = "select * from TableValues";
-                System.Data.OleDb.OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
+                OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
                 while (rs.Read())
                 {
-                    System.Object tabNum = rs.GetValue(1 - 1);
-                    System.Object val = rs.GetValue(3 - 1);
-                    System.Object desc = rs.GetValue(4 - 1);
-                    System.Console.Out.WriteLine("Table: " + tabNum + " Value: " + val + " Description: " + desc);
+                    Object tabNum = rs.GetValue(1 - 1);
+                    Object val = rs.GetValue(3 - 1);
+                    Object desc = rs.GetValue(4 - 1);
+                    Console.Out.WriteLine("Table: " + tabNum + " Value: " + val + " Description: " + desc);
                 }
             }
-            catch (System.Data.OleDb.OleDbException e)
+            catch (OleDbException e)
             {
                 log.Error("test msg!!", e);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 log.Error("test msg!!", e);
             }

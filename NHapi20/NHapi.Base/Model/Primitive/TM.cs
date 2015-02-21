@@ -59,11 +59,11 @@ namespace NHapi.Base.Model.Primitive
         /// <summary>      enabled for this primitive or detail setters / getters have been called, forcing further
         /// parsing.   
         /// </summary>
-        override public System.String Value
+        override public String Value
         {
             get
             {
-                System.String result = base.Value;
+                String result = base.Value;
 
                 if (myDetail != null)
                 {

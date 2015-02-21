@@ -36,7 +36,7 @@ namespace NHapi.Base.Model
         /// implementing class.
         /// </summary>
         /// <throws>  DataTypeException if the given value is not valid in this context. </throws>
-        System.String Value
+        String Value
         {
             get;
 

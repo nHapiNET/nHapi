@@ -25,6 +25,7 @@
 */
 
 using System;
+using System.Globalization;
 using NHapi.Base.Model;
 using NHapi.Base.Log;
 
@@ -56,7 +57,7 @@ namespace NHapi.Base.Model.Primitive
         /// format YYYY[MM[DD]].
         /// 
         /// </summary>
-        virtual public System.String Value
+        virtual public String Value
         {
             get
             {
@@ -79,12 +80,12 @@ namespace NHapi.Base.Model.Primitive
                             throw e;
                         }
 
-                        System.Globalization.GregorianCalendar cal = new System.Globalization.GregorianCalendar();
+                        GregorianCalendar cal = new GregorianCalendar();
 
                         if (value.Length >= 4)
                         {
                             //extract the year from the input value
-                            int yrInt = System.Int32.Parse(value.Substring(0, (4) - (0)));
+                            int yrInt = Int32.Parse(value.Substring(0, (4) - (0)));
                             //check to see if the year is valid by creating a DateTime value with the Gregorian calendar and
                             //this value.  If an error occurs then processing will stop in this try block
                             new DateTime(yrInt, 1, 1, cal);
@@ -94,7 +95,7 @@ namespace NHapi.Base.Model.Primitive
                         if (value.Length >= 6)
                         {
                             //extract the month from the input value
-                            int mnthInt = System.Int32.Parse(value.Substring(4, (6) - (4)));
+                            int mnthInt = Int32.Parse(value.Substring(4, (6) - (4)));
                             //check to see if the month is valid by creating a DateTime value with the Gregorian calendar and
                             //this value.  If an error occurs then processing will stop in this try block
                             new DateTime(year, mnthInt, 1);
@@ -104,7 +105,7 @@ namespace NHapi.Base.Model.Primitive
                         if (value.Length == 8)
                         {
                             //extract the day from the input value
-                            int dayInt = System.Int32.Parse(value.Substring(6, (8) - (6)));
+                            int dayInt = Int32.Parse(value.Substring(6, (8) - (6)));
                             //check to see if the day is valid by creating a DateTime value with the Gregorian calendar and
                             //the year/month/day combination.  If an error occurs then processing will stop
                             // in this try block
@@ -120,7 +121,7 @@ namespace NHapi.Base.Model.Primitive
                         throw e;
                     }
                     //end catch
-                    catch (System.Exception e)
+                    catch (Exception e)
                     {
                         throw new DataTypeException("An unexpected exception ocurred", e);
                     } //end catch
@@ -146,21 +147,21 @@ namespace NHapi.Base.Model.Primitive
                 try
                 {
                     //ensure that the year field is four digits long
-                    if (System.Convert.ToString(value).Length != 4)
+                    if (Convert.ToString(value).Length != 4)
                     {
-                        System.String msg = "The input year value must be four digits long";
+                        String msg = "The input year value must be four digits long";
                         DataTypeException e = new DataTypeException(msg);
                         throw e;
                     }
 
-                    System.Globalization.GregorianCalendar cal = new System.Globalization.GregorianCalendar();
+                    GregorianCalendar cal = new GregorianCalendar();
 
                     //check is input year is valid
                     new DateTime(value, 1, 1, cal);
                     year = value;
                     month = 0;
                     day = 0;
-                    value_Renamed = System.Convert.ToString(value);
+                    value_Renamed = Convert.ToString(value);
                 }
                 //end try
                 catch (DataTypeException e)
@@ -168,7 +169,7 @@ namespace NHapi.Base.Model.Primitive
                     throw e;
                 }
                 //end catch
-                catch (System.Exception e)
+                catch (Exception e)
                 {
                     throw new DataTypeException("An unexpected exception ocurred", e);
                 } //end catch
@@ -207,7 +208,7 @@ namespace NHapi.Base.Model.Primitive
 
         private static readonly IHapiLog log;
 
-        private System.String value_Renamed;
+        private String value_Renamed;
         private int year;
         private int month;
         private int day;
@@ -228,9 +229,9 @@ namespace NHapi.Base.Model.Primitive
         /// The stored value will be in the following
         /// format YYYY[MM[DD]].
         /// </summary>
-        public CommonDT(System.String val)
+        public CommonDT(String val)
         {
-            this.Value = val;
+            Value = val;
         }
 
         /// <summary> This method takes in integer values for the year and month and performs validations,
@@ -243,27 +244,27 @@ namespace NHapi.Base.Model.Primitive
             try
             {
                 //ensure that the year field is four digits long
-                if (System.Convert.ToString(yr).Length != 4)
+                if (Convert.ToString(yr).Length != 4)
                 {
-                    System.String msg = "The input year value must be four digits long";
+                    String msg = "The input year value must be four digits long";
                     DataTypeException e = new DataTypeException(msg);
                     throw e;
                 }
 
-                System.Globalization.GregorianCalendar cal = new System.Globalization.GregorianCalendar();
+                GregorianCalendar cal = new GregorianCalendar();
 
                 //validate the input month
                 new DateTime(yr, mnth, 1, cal);
                 year = yr;
                 month = mnth;
                 day = 0;
-                value_Renamed = System.Convert.ToString(yr) + DataTypeUtil.preAppendZeroes(mnth, 2);
+                value_Renamed = Convert.ToString(yr) + DataTypeUtil.preAppendZeroes(mnth, 2);
             }
             catch (DataTypeException e)
             {
                 throw e;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 throw new DataTypeException("An unexpected exception ocurred", e);
             }
@@ -278,27 +279,27 @@ namespace NHapi.Base.Model.Primitive
             try
             {
                 //ensure that the year field is four digits long
-                if (System.Convert.ToString(yr).Length != 4)
+                if (Convert.ToString(yr).Length != 4)
                 {
-                    System.String msg = "The input year value must be four digits long";
+                    String msg = "The input year value must be four digits long";
                     DataTypeException e = new DataTypeException(msg);
                     throw e;
                 }
 
-                System.Globalization.GregorianCalendar cal = new System.Globalization.GregorianCalendar();
+                GregorianCalendar cal = new GregorianCalendar();
 
                 //validate the input month/day combination
                 new DateTime(yr, mnth, dy, cal);
                 year = yr;
                 month = mnth;
                 day = dy;
-                value_Renamed = System.Convert.ToString(yr) + DataTypeUtil.preAppendZeroes(mnth, 2) + DataTypeUtil.preAppendZeroes(dy, 2);
+                value_Renamed = Convert.ToString(yr) + DataTypeUtil.preAppendZeroes(mnth, 2) + DataTypeUtil.preAppendZeroes(dy, 2);
             }
             catch (DataTypeException e)
             {
                 throw e;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 throw new DataTypeException("An unexpected exception ocurred", e);
             }
@@ -307,9 +308,9 @@ namespace NHapi.Base.Model.Primitive
         /// <summary> Returns a string value representing the input Gregorian Calendar object in
         /// an Hl7 Date Format.
         /// </summary>
-        public static System.String toHl7DTFormat(System.Globalization.GregorianCalendar cal)
+        public static String toHl7DTFormat(GregorianCalendar cal)
         {
-            System.String val = "";
+            String val = "";
             try
             {
                 //set the input cal object so that it can report errors
@@ -325,7 +326,7 @@ namespace NHapi.Base.Model.Primitive
             {
                 throw e;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 throw new DataTypeException("An unexpected exception ocurred", e);
             }

@@ -22,7 +22,7 @@
 */
 using System;
 using System.Collections.Generic;
-
+using System.Reflection;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Log;
@@ -57,7 +57,7 @@ namespace NHapi.Base.Model
         /// </param>
         public AbstractSegment(IGroup parentStructure, IModelClassFactory factory)
         {
-            this._parentStructure = parentStructure;
+            _parentStructure = parentStructure;
 
             _items = new List<AbstractSegmentItem>();
 
@@ -107,7 +107,7 @@ namespace NHapi.Base.Model
 
             if (number < 1 || number > _items.Count)
             {
-                throw new HL7Exception("Can't retrieve field " + number + " from segment " + this.GetType().FullName + " - there are only " + _items[number - 1].Fields.Count + " fields.", HL7Exception.APPLICATION_INTERNAL_ERROR);
+                throw new HL7Exception("Can't retrieve field " + number + " from segment " + GetType().FullName + " - there are only " + _items[number - 1].Fields.Count + " fields.", HL7Exception.APPLICATION_INTERNAL_ERROR);
             }
             return _items[number - 1].GetAllFieldsAsITypeArray();
 
@@ -121,7 +121,7 @@ namespace NHapi.Base.Model
             ensureEnoughFields(number);
             if (number < 1 || number > _items.Count)
             {
-                throw new HL7Exception("Can't retrieve field " + number + " from segment " + this.GetType().FullName + " - there are only " + _items.Count + " fields.", HL7Exception.APPLICATION_INTERNAL_ERROR);
+                throw new HL7Exception("Can't retrieve field " + number + " from segment " + GetType().FullName + " - there are only " + _items.Count + " fields.", HL7Exception.APPLICATION_INTERNAL_ERROR);
             }
             return _items[number - 1].Description;
         }
@@ -153,7 +153,7 @@ namespace NHapi.Base.Model
             ensureEnoughFields(number);
             if (number < 1 || number > _items.Count)
             {
-                throw new HL7Exception("Can't retrieve field " + number + " from segment " + this.GetType().FullName + " - there are only " + _items[number - 1].Fields.Count + " fields.", HL7Exception.APPLICATION_INTERNAL_ERROR);
+                throw new HL7Exception("Can't retrieve field " + number + " from segment " + GetType().FullName + " - there are only " + _items[number - 1].Fields.Count + " fields.", HL7Exception.APPLICATION_INTERNAL_ERROR);
             }
 
             int currentReps = _items[number - 1].Fields.Count;
@@ -179,13 +179,13 @@ namespace NHapi.Base.Model
         private IType createNewType(int field)
         {
             int number = field - 1;
-            System.Type c = (System.Type)this._items[number].FieldType;
+            Type c = (Type)_items[number].FieldType;
 
             IType newType = null;
             try
             {
-                System.Object[] args = getArgs(number);
-                System.Type[] argClasses = new System.Type[args.Length];
+                Object[] args = getArgs(number);
+                Type[] argClasses = new Type[args.Length];
                 for (int i = 0; i < args.Length; i++)
                 {
                     if (args[i] is IMessage)
@@ -199,19 +199,19 @@ namespace NHapi.Base.Model
                 }
                 newType = (IType)c.GetConstructor(argClasses).Invoke(args);
             }
-            catch (System.UnauthorizedAccessException iae)
+            catch (UnauthorizedAccessException iae)
             {
                 throw new HL7Exception("Can't access class " + c.FullName + " (" + iae.GetType().FullName + "): " + iae.Message, HL7Exception.APPLICATION_INTERNAL_ERROR);
             }
-            catch (System.Reflection.TargetInvocationException ite)
+            catch (TargetInvocationException ite)
             {
                 throw new HL7Exception("Can't instantiate class " + c.FullName + " (" + ite.GetType().FullName + "): " + ite.Message, HL7Exception.APPLICATION_INTERNAL_ERROR);
             }
-            catch (System.MethodAccessException nme)
+            catch (MethodAccessException nme)
             {
                 throw new HL7Exception("Can't instantiate class " + c.FullName + " (" + nme.GetType().FullName + "): " + nme.Message, HL7Exception.APPLICATION_INTERNAL_ERROR);
             }
-            catch (System.Exception ie)
+            catch (Exception ie)
             {
                 throw new HL7Exception("Can't instantiate class " + c.FullName + " (" + ie.GetType().FullName + "): " + ie.Message, HL7Exception.APPLICATION_INTERNAL_ERROR);
             }
@@ -219,18 +219,18 @@ namespace NHapi.Base.Model
         }
 
         //defaults to {this.getMessage}
-        private System.Object[] getArgs(int fieldNum)
+        private Object[] getArgs(int fieldNum)
         {
-            System.Object[] result = null;
+            Object[] result = null;
 
-            System.Object o = _items[fieldNum].Args;
-            if (o != null && o is System.Object[] && ((object[])o).Length > 0)
+            Object o = _items[fieldNum].Args;
+            if (o != null && o is Object[] && ((object[])o).Length > 0)
             {
                 result = o as object[];
             }
             else
             {
-                result = new System.Object[] { Message };
+                result = new Object[] { Message };
             }
 
             return result;
@@ -244,7 +244,7 @@ namespace NHapi.Base.Model
         {
             if (number < 1 || number > _items.Count)
             {
-                throw new HL7Exception("Can't retrieve optionality of field " + number + " from segment " + this.GetType().FullName + " - there are only " + _items[number - 1].Fields.Count + " fields.", HL7Exception.APPLICATION_INTERNAL_ERROR);
+                throw new HL7Exception("Can't retrieve optionality of field " + number + " from segment " + GetType().FullName + " - there are only " + _items[number - 1].Fields.Count + " fields.", HL7Exception.APPLICATION_INTERNAL_ERROR);
             }
 
             bool ret = false;
@@ -252,7 +252,7 @@ namespace NHapi.Base.Model
             {
                 ret = _items[number - 1].IsRequired;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 throw new HL7Exception("Can't retrieve optionality of field " + number + ": " + e.Message, HL7Exception.APPLICATION_INTERNAL_ERROR);
             }
@@ -268,7 +268,7 @@ namespace NHapi.Base.Model
         {
             if (number < 1 || number > _items.Count)
             {
-                throw new HL7Exception("Can't retrieve max length of field " + number + " from segment " + this.GetType().FullName + " - there are only " + _items[number - 1].Fields.Count + " fields.", HL7Exception.APPLICATION_INTERNAL_ERROR);
+                throw new HL7Exception("Can't retrieve max length of field " + number + " from segment " + GetType().FullName + " - there are only " + _items[number - 1].Fields.Count + " fields.", HL7Exception.APPLICATION_INTERNAL_ERROR);
             }
 
             int ret = 0;
@@ -276,7 +276,7 @@ namespace NHapi.Base.Model
             {
                 ret = _items[number - 1].Length; //fields #d from 1 to user 
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 throw new HL7Exception("Can't retrieve max length of field " + number + ": " + e.Message, HL7Exception.APPLICATION_INTERNAL_ERROR);
             }
@@ -290,7 +290,7 @@ namespace NHapi.Base.Model
         {
             if (number < 1 || number > _items.Count)
             {
-                throw new HL7Exception("Can't retrieve cardinality of field " + number + " from segment " + this.GetType().FullName + " - there are only " + _items[number - 1].Fields.Count + " fields.", HL7Exception.APPLICATION_INTERNAL_ERROR);
+                throw new HL7Exception("Can't retrieve cardinality of field " + number + " from segment " + GetType().FullName + " - there are only " + _items[number - 1].Fields.Count + " fields.", HL7Exception.APPLICATION_INTERNAL_ERROR);
             }
 
             int reps = 0;
@@ -298,7 +298,7 @@ namespace NHapi.Base.Model
             {
                 reps = _items[number - 1].MaxRepetitions; //fields #d from 1 to user
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 throw new HL7Exception("Can't retrieve max repetitions of field " + number + ": " + e.Message, HL7Exception.APPLICATION_INTERNAL_ERROR);
             }
@@ -326,7 +326,7 @@ namespace NHapi.Base.Model
         /// <throws>  HL7Exception if the given class does not inherit from Type or if it can  </throws>
         /// <summary>    not be instantiated.
         /// </summary>
-        protected internal virtual void add(System.Type c, bool required, int maxReps, int length, System.Object[] constructorArgs)
+        protected internal virtual void add(Type c, bool required, int maxReps, int length, Object[] constructorArgs)
         {
             add(c, required, maxReps, length, constructorArgs, null);
         }
@@ -340,7 +340,7 @@ namespace NHapi.Base.Model
         /// <param name="length"></param>
         /// <param name="constructorArgs"></param>
         /// <param name="description"></param>
-        protected internal virtual void add(System.Type c, bool required, int maxReps, int length, System.Object[] constructorArgs, string description)
+        protected internal virtual void add(Type c, bool required, int maxReps, int length, Object[] constructorArgs, string description)
         {
             if (!typeof(IType).IsAssignableFrom(c))
             {
@@ -357,7 +357,7 @@ namespace NHapi.Base.Model
         /// </summary>
         private void ensureEnoughFields(int fieldRequested)
         {
-            int fieldsToAdd = fieldRequested - this.NumFields();
+            int fieldsToAdd = fieldRequested - NumFields();
             if (fieldsToAdd < 0)
                 fieldsToAdd = 0;
 
@@ -365,7 +365,7 @@ namespace NHapi.Base.Model
             {
                 for (int i = 0; i < fieldsToAdd; i++)
                 {
-                    this.add(typeof(Varies), false, 0, 65536, null); //using 65536 following example of OBX-5
+                    add(typeof(Varies), false, 0, 65536, null); //using 65536 following example of OBX-5
                 }
             }
             catch (HL7Exception e)
@@ -379,13 +379,13 @@ namespace NHapi.Base.Model
         /// </summary>
         public virtual int NumFields()
         {
-            return this._items.Count;
+            return _items.Count;
         }
 
         /// <summary> Returns the class name (excluding package). </summary>
-        public virtual System.String GetStructureName()
+        public virtual String GetStructureName()
         {
-            System.String fullName = this.GetType().FullName;
+            String fullName = GetType().FullName;
             return fullName.Substring(fullName.LastIndexOf('.') + 1, (fullName.Length) - (fullName.LastIndexOf('.') + 1));
         }
 

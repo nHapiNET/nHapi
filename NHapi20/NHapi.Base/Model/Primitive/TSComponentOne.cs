@@ -23,6 +23,8 @@
 /// this file under either the MPL or the GPL.
 /// </summary>
 using System;
+using System.Globalization;
+using System.Threading;
 using NHapi.Base.Model;
 
 namespace NHapi.Base.Model.Primitive
@@ -60,11 +62,11 @@ namespace NHapi.Base.Model.Primitive
         /// <summary>      enabled for this primitive or detail setters / getters have been called, forcing further
         /// parsing.   
         /// </summary>
-        override public System.String Value
+        override public String Value
         {
             get
             {
-                System.String result = base.Value;
+                String result = base.Value;
 
                 if (myDetail != null)
                 {
@@ -311,9 +313,9 @@ namespace NHapi.Base.Model.Primitive
             {
                 string[] dateFormats = new string[] { LongDateTimeFormat, ShortDateTimeFormat, LongDateTimeFormatWithSecond };
                 DateTime val = DateTime.MinValue;
-                System.Globalization.CultureInfo culture = System.Threading.Thread.CurrentThread.CurrentCulture;
+                CultureInfo culture = Thread.CurrentThread.CurrentCulture;
                 if (Value != null && Value.Length > 0)
-                    val = DateTime.ParseExact(Value, dateFormats, culture, System.Globalization.DateTimeStyles.NoCurrentDateDefault);
+                    val = DateTime.ParseExact(Value, dateFormats, culture, DateTimeStyles.NoCurrentDateDefault);
                 return val;
             }
             catch (Exception)

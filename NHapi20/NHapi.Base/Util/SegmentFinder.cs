@@ -55,7 +55,7 @@ namespace NHapi.Base.Util
         /// </param>
         /// <param name="rep">the repetition of the segment to return
         /// </param>
-        public virtual ISegment findSegment(System.String namePattern, int rep)
+        public virtual ISegment findSegment(String namePattern, int rep)
         {
             IStructure s = null;
             do
@@ -67,7 +67,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary> As findSegment(), but will only return a group.</summary>
-        public virtual IGroup findGroup(System.String namePattern, int rep)
+        public virtual IGroup findGroup(String namePattern, int rep)
         {
             IStructure s = null;
             do
@@ -79,14 +79,14 @@ namespace NHapi.Base.Util
         }
 
         /// <summary> Returns the first matching structure AFTER the current position</summary>
-        private IStructure findStructure(System.String namePattern, int rep)
+        private IStructure findStructure(String namePattern, int rep)
         {
             IStructure s = null;
 
             while (s == null)
             {
                 iterate(false, false);
-                System.String currentName = getCurrentStructure(0).GetStructureName();
+                String currentName = getCurrentStructure(0).GetStructureName();
                 if (matches(namePattern, currentName))
                 {
                     s = getCurrentStructure(rep);
@@ -107,7 +107,7 @@ namespace NHapi.Base.Util
         /// </param>
         /// <param name="rep">the repetition of the segment to return
         /// </param>
-        public virtual ISegment getSegment(System.String namePattern, int rep)
+        public virtual ISegment getSegment(String namePattern, int rep)
         {
             IStructure s = GetStructure(namePattern, rep);
             if (!typeof(ISegment).IsAssignableFrom(s.GetType()))
@@ -118,7 +118,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary> As getSegment() but will only return a group.</summary>
-        public virtual IGroup getGroup(System.String namePattern, int rep)
+        public virtual IGroup getGroup(String namePattern, int rep)
         {
             IStructure s = GetStructure(namePattern, rep);
             if (!typeof(IGroup).IsAssignableFrom(s.GetType()))
@@ -128,14 +128,14 @@ namespace NHapi.Base.Util
             return (IGroup)s;
         }
 
-        private IStructure GetStructure(System.String namePattern, int rep)
+        private IStructure GetStructure(String namePattern, int rep)
         {
             IStructure s = null;
 
-            if (getCurrentStructure(0).Equals(this.Root))
+            if (getCurrentStructure(0).Equals(Root))
                 drillDown(0);
 
-            System.String[] names = getCurrentStructure(0).ParentStructure.Names;
+            String[] names = getCurrentStructure(0).ParentStructure.Names;
             for (int i = 0; i < names.Length && s == null; i++)
             {
                 if (matches(namePattern, names[i]))
@@ -169,7 +169,7 @@ namespace NHapi.Base.Util
         }*/
 
         /// <summary> Tests whether the given name matches the given pattern.</summary>
-        private bool matches(System.String pattern, System.String candidate)
+        private bool matches(String pattern, String candidate)
         {
             //shortcut ...
             if (pattern.Equals(candidate))
@@ -178,7 +178,7 @@ namespace NHapi.Base.Util
             }
 
             if (!Regex.IsMatch(pattern, "[\\w\\*\\?]*"))
-                throw new System.ArgumentException("The pattern " + pattern + " is not valid.  Only [\\w\\*\\?]* allowed.");
+                throw new ArgumentException("The pattern " + pattern + " is not valid.  Only [\\w\\*\\?]* allowed.");
 
             pattern = Regex.Replace(pattern, "\\*", ".*");
             pattern = Regex.Replace(pattern, "\\?", ".");

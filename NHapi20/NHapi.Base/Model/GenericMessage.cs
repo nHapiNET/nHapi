@@ -24,13 +24,13 @@ namespace NHapi.Base.Model
         {
             try
             {
-                this.addNonstandardSegment("MSH");
+                addNonstandardSegment("MSH");
             }
             catch (HL7Exception e)
             {
-                System.String message = "Unexpected error adding GenericSegment to GenericMessage.";
-                HapiLogFactory.GetHapiLog(this.GetType()).Error(message, e);
-                throw new System.ApplicationException(message);
+                String message = "Unexpected error adding GenericSegment to GenericMessage.";
+                HapiLogFactory.GetHapiLog(GetType()).Error(message, e);
+                throw new ApplicationException(message);
             }
         }
 
@@ -38,12 +38,12 @@ namespace NHapi.Base.Model
         /// This is needed so that version-specific segments can be added as the message
         /// is parsed.  
         /// </summary>
-        public static System.Type getGenericMessageClass(System.String version)
+        public static Type getGenericMessageClass(String version)
         {
             if (!ParserBase.ValidVersion(version))
-                throw new System.ArgumentException("The version " + version + " is not recognized");
+                throw new ArgumentException("The version " + version + " is not recognized");
 
-            System.Type c = null;
+            Type c = null;
             if (version.Equals("2.1"))
             {
                 c = typeof(V21);
@@ -79,7 +79,7 @@ namespace NHapi.Base.Model
             /// <summary>
             /// Version of message
             /// </summary>
-            override public System.String Version
+            override public String Version
             {
                 get
                 {
@@ -105,7 +105,7 @@ namespace NHapi.Base.Model
             /// <summary>
             /// Version of message
             /// </summary>
-            override public System.String Version
+            override public String Version
             {
                 get
                 {
@@ -131,7 +131,7 @@ namespace NHapi.Base.Model
             /// <summary>
             /// Version of message
             /// </summary>
-            override public System.String Version
+            override public String Version
             {
                 get
                 {
@@ -157,7 +157,7 @@ namespace NHapi.Base.Model
             /// <summary>
             /// Version of message
             /// </summary>
-            override public System.String Version
+            override public String Version
             {
                 get
                 {
@@ -183,7 +183,7 @@ namespace NHapi.Base.Model
             /// <summary>
             /// Version of message
             /// </summary>
-            override public System.String Version
+            override public String Version
             {
                 get
                 {
@@ -209,7 +209,7 @@ namespace NHapi.Base.Model
             /// <summary>
             /// Version of message
             /// </summary>
-            override public System.String Version
+            override public String Version
             {
                 get
                 {

@@ -29,13 +29,13 @@ namespace NHapi.Base.SourceGeneration
     {
 
         public int field;
-        public System.String rep;
+        public String rep;
         public int repetitions;
-        public System.String desc;
+        public String desc;
         public int length;
         public int table;
-        public System.String opt;
-        public System.String type;
+        public String opt;
+        public String type;
 
 
         virtual public string GetDescriptionWithoutSpecialCharacters()

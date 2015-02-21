@@ -52,14 +52,14 @@ namespace NHapi.Base
         private static TableRepository rep = null;
 
         /// <summary> Returns true if the given value exists in the given table.</summary>
-        public abstract bool checkValue(int table, System.String value_Renamed);
+        public abstract bool checkValue(int table, String value_Renamed);
 
         /// <summary> Returns a list of the values in the given table. </summary>
-        public abstract System.String[] getValues(int table);
+        public abstract String[] getValues(int table);
 
         /// <summary> Returns the value corresponding to the given table and key.</summary>
         /// <throws>  UnknownValueException if the value can not be found.  This may be an UnknownTableException.   </throws>
-        public abstract System.String getDescription(int table, System.String value_Renamed);
+        public abstract String getDescription(int table, String value_Renamed);
 
         //test
         /*

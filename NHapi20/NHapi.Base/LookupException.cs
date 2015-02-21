@@ -31,7 +31,7 @@ namespace NHapi.Base
     /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
     /// </author>
     [Serializable]
-    public class LookupException : System.Exception
+    public class LookupException : Exception
     {
 
         /// <summary> Constructs an <code>LookupException</code> with the specified detail message.
@@ -39,7 +39,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="message">
         /// </param>
-        public LookupException(System.String message)
+        public LookupException(String message)
             : base(message)
         {
         }
@@ -51,7 +51,7 @@ namespace NHapi.Base
         /// </param>
         /// <param name="cause">
         /// </param>
-        public LookupException(System.String message, System.Exception cause)
+        public LookupException(String message, Exception cause)
             : base(message, cause)
         {
         }

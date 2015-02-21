@@ -40,7 +40,7 @@ namespace NHapi.Base
         /// </param>
         /// <param name="cause">
         /// </param>
-        public DataTypeException(System.String message, int errorCondition, System.Exception cause)
+        public DataTypeException(String message, int errorCondition, Exception cause)
             : base(message, errorCondition, cause)
         {
         }
@@ -49,7 +49,7 @@ namespace NHapi.Base
         /// </param>
         /// <param name="errorCondition">
         /// </param>
-        public DataTypeException(System.String message, int errorCondition)
+        public DataTypeException(String message, int errorCondition)
             : base(message, errorCondition)
         {
         }
@@ -58,7 +58,7 @@ namespace NHapi.Base
         /// </param>
         /// <param name="cause">
         /// </param>
-        public DataTypeException(System.String message, System.Exception cause)
+        public DataTypeException(String message, Exception cause)
             : base(message, cause)
         {
         }
@@ -66,7 +66,7 @@ namespace NHapi.Base
 
         /// <param name="message">
         /// </param>
-        public DataTypeException(System.String message)
+        public DataTypeException(String message)
             : base(message)
         {
         }

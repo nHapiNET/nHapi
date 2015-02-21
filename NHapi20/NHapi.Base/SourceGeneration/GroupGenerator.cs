@@ -21,6 +21,8 @@
 /// this file under either the MPL or the GPL. 
 /// </summary>
 using System;
+using System.IO;
+using System.Text;
 using NHapi.Base;
 using NHapi.Base.Log;
 
@@ -36,7 +38,7 @@ namespace NHapi.Base.SourceGeneration
     /// </author>
     /// <author>  Eric Poiseau
     /// </author>
-    public class GroupGenerator : System.Object
+    public class GroupGenerator : Object
     {
         private static readonly IHapiLog log;
 
@@ -65,7 +67,7 @@ namespace NHapi.Base.SourceGeneration
         /// </param>
         /// <throws>  HL7Exception if the repetition and optionality markers are not  </throws>
         /// </summary>
-        public static GroupDef writeGroup(IStructureDef[] structures, System.String groupName, System.String baseDirectory, System.String version, System.String message)
+        public static GroupDef writeGroup(IStructureDef[] structures, String groupName, String baseDirectory, String version, String message)
         {
 
             //make base directory
@@ -73,13 +75,13 @@ namespace NHapi.Base.SourceGeneration
             {
                 baseDirectory = baseDirectory + "/";
             }
-            System.IO.FileInfo targetDir = SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Group");
+            FileInfo targetDir = SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Group");
 
 			  // some group names are troublesome and have "/" which will cause problems when writing files
 			  groupName = groupName.Replace("/", "_");
 			  GroupDef group = getGroupDef(structures, groupName, baseDirectory, version, message);
 	        
-            using (System.IO.StreamWriter out_Renamed = new System.IO.StreamWriter(targetDir.FullName + @"\" + group.Name + ".cs"))
+            using (StreamWriter out_Renamed = new StreamWriter(targetDir.FullName + @"\" + group.Name + ".cs"))
             {
                 out_Renamed.Write(makePreamble(group, version));
                 out_Renamed.Write(makeConstructor(group, version));
@@ -105,7 +107,7 @@ namespace NHapi.Base.SourceGeneration
         /// <p>This method calls writeGroup(...) where necessary in order to create source code for 
         /// any nested groups before returning corresponding GroupDefs.</p>
         /// </summary>
-        public static GroupDef getGroupDef(IStructureDef[] structures, System.String groupName, System.String baseDirectory, System.String version, System.String message)
+        public static GroupDef getGroupDef(IStructureDef[] structures, String groupName, String baseDirectory, String version, String message)
         {
             GroupDef ret = null;
             bool required = true;
@@ -146,11 +148,11 @@ namespace NHapi.Base.SourceGeneration
                 currLongListPos = skip;
                 while (currLongListPos < len - skip)
                 {
-                    System.String currSegName = structures[currLongListPos].Name;
+                    String currSegName = structures[currLongListPos].Name;
                     if (currSegName.Equals("[") || currSegName.Equals("{") || currSegName.Equals("[{"))
                     {
                         //this is the opening of a new group ... 
-                        System.String name = ((SegmentDef)structures[currLongListPos]).GroupName;
+                        String name = ((SegmentDef)structures[currLongListPos]).GroupName;
                         int endOfNewGroup = findGroupEnd(structures, currLongListPos);
                         IStructureDef[] newGroupStructures = new IStructureDef[endOfNewGroup - currLongListPos + 1];
                         Array.Copy(structures, currLongListPos, newGroupStructures, 0, newGroupStructures.Length);
@@ -166,7 +168,7 @@ namespace NHapi.Base.SourceGeneration
                     currShortListPos++;
                 }
             }
-            catch (System.ArgumentException e)
+            catch (ArgumentException e)
             {
                 throw new HL7Exception("Problem creating nested group: " + e.GetType().FullName + ": " + e.Message, HL7Exception.APPLICATION_INTERNAL_ERROR);
             }
@@ -186,7 +188,7 @@ namespace NHapi.Base.SourceGeneration
         }
 
         /// <summary> Returns true if opening is "[{" and closing is "}]"</summary>
-        private static bool repoptMarkers(System.String opening, System.String closing)
+        private static bool repoptMarkers(String opening, String closing)
         {
             bool ret = false;
             if (opening.Equals("[{") && closing.Equals("}]"))
@@ -198,7 +200,7 @@ namespace NHapi.Base.SourceGeneration
 
 
         /// <summary> Returns true if opening is "[" and closing is "]"</summary>
-        private static bool optMarkers(System.String opening, System.String closing)
+        private static bool optMarkers(String opening, String closing)
         {
             bool ret = false;
             if (opening.Equals("[") && closing.Equals("]"))
@@ -209,7 +211,7 @@ namespace NHapi.Base.SourceGeneration
         }
 
         /// <summary> Returns true if opening is "{" and closing is "}"</summary>
-        private static bool repMarkers(System.String opening, System.String closing)
+        private static bool repMarkers(String opening, String closing)
         {
             bool ret = false;
             if (opening.Equals("{") && closing.Equals("}"))
@@ -222,9 +224,9 @@ namespace NHapi.Base.SourceGeneration
         /// <summary> Returns heading material for class source code (package, imports, JavaDoc, class
         /// declaration).
         /// </summary>
-        public static System.String makePreamble(GroupDef group, System.String version)
+        public static String makePreamble(GroupDef group, String version)
         {
-            System.Text.StringBuilder preamble = new System.Text.StringBuilder();
+            StringBuilder preamble = new StringBuilder();
             preamble.Append("using NHapi.Base.Parser;\r\n");
             preamble.Append("using NHapi.Base;\r\n");
             preamble.Append("using NHapi.Base.Log;\r\n");
@@ -254,11 +256,11 @@ namespace NHapi.Base.SourceGeneration
 
 
         /// <summary> Returns source code for the contructor for this Group class. </summary>
-        public static System.String makeConstructor(GroupDef group, System.String version)
+        public static String makeConstructor(GroupDef group, String version)
         {
-            bool useFactory = NHapi.Base.ConfigurationSettings.UseFactory;
+            bool useFactory = ConfigurationSettings.UseFactory;
 
-            System.Text.StringBuilder source = new System.Text.StringBuilder();
+            StringBuilder source = new StringBuilder();
 
             source.Append("\t///<summary> \r\n");
             source.Append("\t/// Creates a new ");
@@ -316,9 +318,9 @@ namespace NHapi.Base.SourceGeneration
         /// <summary> Returns source code for a JavaDoc snippet listing the contents of a Group 
         /// or Message.  
         /// </summary>
-        public static System.String makeElementsDoc(IStructureDef[] structures)
+        public static String makeElementsDoc(IStructureDef[] structures)
         {
-            System.Text.StringBuilder elements = new System.Text.StringBuilder();
+            StringBuilder elements = new StringBuilder();
             elements.Append("///<ol>\r\n");
             for (int i = 0; i < structures.Length; i++)
             {
@@ -341,19 +343,19 @@ namespace NHapi.Base.SourceGeneration
         }
 
         /// <summary> Returns source code for an accessor method for a particular Structure. </summary>
-        public static System.String makeAccessor(GroupDef group, int structure)
+        public static String makeAccessor(GroupDef group, int structure)
         {
-            System.Text.StringBuilder source = new System.Text.StringBuilder();
+            StringBuilder source = new StringBuilder();
 
             IStructureDef def = group.Structures[structure];
 
-            System.String name = def.Name;
-            System.String indexName = group.getIndexName(name);
-            System.String getterName = indexName;
+            String name = def.Name;
+            String indexName = group.getIndexName(name);
+            String getterName = indexName;
 
             if (def is GroupDef)
             {
-                System.String unqualifiedName = ((GroupDef)def).UnqualifiedName;
+                String unqualifiedName = ((GroupDef)def).UnqualifiedName;
                 getterName = group.getIndexName(unqualifiedName);
             }
 
@@ -467,10 +469,10 @@ namespace NHapi.Base.SourceGeneration
         {
 
             //  {} is rep; [] is optionality
-            System.String endMarker = null;
+            String endMarker = null;
             try
             {
-                System.String startMarker = structures[groupStart].Name;
+                String startMarker = structures[groupStart].Name;
                 if (startMarker.Equals("["))
                 {
                     endMarker = "]";
@@ -490,16 +492,16 @@ namespace NHapi.Base.SourceGeneration
                     {
                         log.Error("Structure " + i + ": " + structures[i].Name);
                     }
-                    throw new System.ArgumentException("The segment " + startMarker + " does not begin a group - must be [ or {");
+                    throw new ArgumentException("The segment " + startMarker + " does not begin a group - must be [ or {");
                 }
             }
-            catch (System.IndexOutOfRangeException)
+            catch (IndexOutOfRangeException)
             {
-                throw new System.ArgumentException("The given start location is out of bounds");
+                throw new ArgumentException("The given start location is out of bounds");
             }
 
             //loop, increment and decrement opening and closing markers until we get back to 0 
-            System.String segName = null;
+            String segName = null;
             int offset = 0;
             try
             {
@@ -518,7 +520,7 @@ namespace NHapi.Base.SourceGeneration
                     }
                 }
             }
-            catch (System.IndexOutOfRangeException)
+            catch (IndexOutOfRangeException)
             {
                 throw new HL7Exception("Couldn't find end of group", HL7Exception.APPLICATION_INTERNAL_ERROR);
             }

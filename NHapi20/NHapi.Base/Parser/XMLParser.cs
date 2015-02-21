@@ -24,6 +24,9 @@
 /// this file under either the MPL or the GPL.
 /// </summary>
 using System;
+using System.IO;
+using System.Text;
+using System.Xml;
 using NHapi.Base;
 using NHapi.Base.Model;
 using NHapi.Base.Util;
@@ -46,22 +49,22 @@ namespace NHapi.Base.Parser
     {
         private class AnonymousClassXMLParser : XMLParser
         {
-            public override IMessage ParseDocument(System.Xml.XmlDocument XMLMessage, System.String version)
+            public override IMessage ParseDocument(XmlDocument XMLMessage, String version)
             {
                 return null;
             }
-            public override System.Xml.XmlDocument EncodeDocument(IMessage source)
+            public override XmlDocument EncodeDocument(IMessage source)
             {
                 return null;
             }
-            public override System.String GetVersion(System.String message)
+            public override String GetVersion(String message)
             {
                 return null;
             }
         }
         /// <returns> the preferred encoding of this Parser
         /// </returns>
-        override public System.String DefaultEncoding
+        override public String DefaultEncoding
         {
             get
             {
@@ -75,7 +78,7 @@ namespace NHapi.Base.Parser
         /// The nodes whose names match the <i>keepAsOriginalNodes<i> will be kept as original, 
         /// meaning that no white space treaming will occur on them
         /// </summary>
-        virtual public System.String[] KeepAsOriginalNodes
+        virtual public String[] KeepAsOriginalNodes
         {
             get
             {
@@ -84,12 +87,12 @@ namespace NHapi.Base.Parser
 
             set
             {
-                this.keepAsOriginalNodes = value;
+                keepAsOriginalNodes = value;
 
                 if (value.Length != 0)
                 {
                     //initializes the         
-                    System.Text.StringBuilder strBuf = new System.Text.StringBuilder(value[0]);
+                    StringBuilder strBuf = new StringBuilder(value[0]);
                     for (int i = 1; i < value.Length; i++)
                     {
                         strBuf.Append("|");
@@ -107,26 +110,26 @@ namespace NHapi.Base.Parser
 
         private static readonly IHapiLog log;
 
-        private System.Xml.XmlDocument parser;
+        private XmlDocument parser;
 
         /// <summary> The nodes whose names match these strings will be kept as original, 
         /// meaning that no white space treaming will occur on them
         /// </summary>
-        private System.String[] keepAsOriginalNodes;
+        private String[] keepAsOriginalNodes;
 
         /// <summary> All keepAsOriginalNodes names, concatenated by a pipe (|)</summary>
-        private System.String concatKeepAsOriginalNodes = "";
+        private String concatKeepAsOriginalNodes = "";
 
         public XMLParser()
         {
-            parser = new System.Xml.XmlDocument();
+            parser = new XmlDocument();
             parser.PreserveWhitespace = false;  // this may not be similar functionality.
         }
 
         public XMLParser(IModelClassFactory factory)
             : base(factory)
         {
-            parser = new System.Xml.XmlDocument();
+            parser = new XmlDocument();
             parser.PreserveWhitespace = false;  // this may not be similar functionality.
 
         }
@@ -140,12 +143,12 @@ namespace NHapi.Base.Parser
         /// it is not encoded using any other encoding than the one returned.
         /// Returns null if the encoding is not recognized.
         /// </summary>
-        public override System.String GetEncoding(System.String message)
+        public override String GetEncoding(String message)
         {
-            System.String encoding = null;
+            String encoding = null;
 
             //check for a number of expected strings 
-            System.String[] expected = new System.String[] { "<MSH.1", "<MSH.2", "</MSH>" };
+            String[] expected = new String[] { "<MSH.1", "<MSH.2", "</MSH>" };
             bool isXML = true;
             for (int i = 0; i < expected.Length; i++)
             {
@@ -161,7 +164,7 @@ namespace NHapi.Base.Parser
         /// <summary> Returns true if and only if the given encoding is supported
         /// by this Parser.
         /// </summary>
-        public override bool SupportsEncoding(System.String encoding)
+        public override bool SupportsEncoding(String encoding)
         {
             if (encoding.Equals("XML"))
             {
@@ -188,22 +191,22 @@ namespace NHapi.Base.Parser
         /// <throws>  EncodingNotSupportedException if the message encoded </throws>
         /// <summary>      is not supported by this parser.
         /// </summary>
-        public abstract IMessage ParseDocument(System.Xml.XmlDocument XMLMessage, System.String version);
+        public abstract IMessage ParseDocument(XmlDocument XMLMessage, String version);
 
         /// <summary> <p>Parses a message string and returns the corresponding Message
         /// object.  This method checks that the given message string is XML encoded, creates an
         /// XML Document object (using Xerces) from the given String, and calls the abstract
         /// method <code>parse(Document XMLMessage)</code></p>
         /// </summary>
-        protected internal override IMessage DoParse(System.String message, System.String version)
+        protected internal override IMessage DoParse(String message, String version)
         {
             IMessage m = null;
 
             //parse message string into a DOM document 
             try
             {
-                System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
-                doc.Load(new System.IO.StringReader(message));
+                XmlDocument doc = new XmlDocument();
+                doc.Load(new StringReader(message));
                 //rlb: Don't think we need to lock this...
                 //lock (this)
                 //{
@@ -214,11 +217,11 @@ namespace NHapi.Base.Parser
                 //}
                 m = ParseDocument(doc, version);
             }
-            catch (System.Xml.XmlException e)
+            catch (XmlException e)
             {
                 throw new HL7Exception("XmlException parsing XML", HL7Exception.APPLICATION_INTERNAL_ERROR, e);
             }
-            catch (System.IO.IOException e)
+            catch (IOException e)
             {
                 throw new HL7Exception("IOException parsing XML", HL7Exception.APPLICATION_INTERNAL_ERROR, e);
             }
@@ -235,7 +238,7 @@ namespace NHapi.Base.Parser
         /// <throws>  EncodingNotSupportedException if the requested encoding is not </throws>
         /// <summary>      supported by this parser.
         /// </summary>
-        protected internal override System.String DoEncode(IMessage source, System.String encoding)
+        protected internal override String DoEncode(IMessage source, String encoding)
         {
             if (!encoding.Equals("XML"))
                 throw new EncodingNotSupportedException("XMLParser supports only XML encoding");
@@ -250,17 +253,17 @@ namespace NHapi.Base.Parser
         /// <throws>  HL7Exception if the data fields in the message do not permit encoding </throws>
         /// <summary>      (e.g. required fields are null)
         /// </summary>
-        protected internal override System.String DoEncode(IMessage source)
+        protected internal override String DoEncode(IMessage source)
         {
             if (source is GenericMessage)
             {
                 throw new HL7Exception("Can't XML-encode a GenericMessage.  Message must have a recognized structure.");
             }
 
-            System.Xml.XmlDocument doc = EncodeDocument(source);
-            ((System.Xml.XmlElement)doc.DocumentElement).SetAttribute("xmlns", "urn:hl7-org:v2xml");
+            XmlDocument doc = EncodeDocument(source);
+            ((XmlElement)doc.DocumentElement).SetAttribute("xmlns", "urn:hl7-org:v2xml");
 
-            System.IO.StringWriter out_Renamed = new System.IO.StringWriter();
+            StringWriter out_Renamed = new StringWriter();
 
             return doc.OuterXml;
 
@@ -273,13 +276,13 @@ namespace NHapi.Base.Parser
         /// <code>encode(Segment segmentObject, Element segmentElement)</code> using the Element for
         /// that segment and the corresponding Segment object from the given Message.</p>
         /// </summary>
-        public abstract System.Xml.XmlDocument EncodeDocument(IMessage source);
+        public abstract XmlDocument EncodeDocument(IMessage source);
 
         /// <summary> Populates the given Segment object with data from the given XML Element.</summary>
         /// <throws>  HL7Exception if the XML Element does not have the correct name and structure </throws>
         /// <summary>      for the given Segment, or if there is an error while setting individual field values.
         /// </summary>
-        public virtual void Parse(ISegment segmentObject, System.Xml.XmlElement segmentElement)
+        public virtual void Parse(ISegment segmentObject, XmlElement segmentElement)
         {
             SupportClass.HashSetSupport done = new SupportClass.HashSetSupport();
 
@@ -289,11 +292,11 @@ namespace NHapi.Base.Parser
             //            parseReps(segmentObject, segmentElement, elementName, i);
             //        }
 
-            System.Xml.XmlNodeList all = segmentElement.ChildNodes;
+            XmlNodeList all = segmentElement.ChildNodes;
             for (int i = 0; i < all.Count; i++)
             {
-                System.String elementName = all.Item(i).Name;
-                if (System.Convert.ToInt16(all.Item(i).NodeType) == (short)System.Xml.XmlNodeType.Element && !done.Contains(elementName))
+                String elementName = all.Item(i).Name;
+                if (Convert.ToInt16(all.Item(i).NodeType) == (short)XmlNodeType.Element && !done.Contains(elementName))
                 {
                     done.Add(elementName);
 
@@ -301,8 +304,8 @@ namespace NHapi.Base.Parser
                     if (index >= 0 && elementName.Length > index)
                     {
                         //properly formatted element
-                        System.String fieldNumString = elementName.Substring(index + 1);
-                        int fieldNum = System.Int32.Parse(fieldNumString);
+                        String fieldNumString = elementName.Substring(index + 1);
+                        int fieldNum = Int32.Parse(fieldNumString);
                         ParseReps(segmentObject, segmentElement, elementName, fieldNum);
                     }
                     else
@@ -319,13 +322,13 @@ namespace NHapi.Base.Parser
             }
         }
 
-        private void ParseReps(ISegment segmentObject, System.Xml.XmlElement segmentElement, System.String fieldName, int fieldNum)
+        private void ParseReps(ISegment segmentObject, XmlElement segmentElement, String fieldName, int fieldNum)
         {
 
-            System.Xml.XmlNodeList reps = segmentElement.GetElementsByTagName(fieldName);
+            XmlNodeList reps = segmentElement.GetElementsByTagName(fieldName);
             for (int i = 0; i < reps.Count; i++)
             {
-                Parse(segmentObject.GetField(fieldNum, i), (System.Xml.XmlElement)reps.Item(i));
+                Parse(segmentObject.GetField(fieldNum, i), (XmlElement)reps.Item(i));
             }
         }
 
@@ -333,17 +336,17 @@ namespace NHapi.Base.Parser
         /// Elements corresponding to the Segment's fields, their components, etc.  Returns 
         /// true if there is at least one data value in the segment.   
         /// </summary>
-        public virtual bool Encode(ISegment segmentObject, System.Xml.XmlElement segmentElement)
+        public virtual bool Encode(ISegment segmentObject, XmlElement segmentElement)
         {
             bool hasValue = false;
             int n = segmentObject.NumFields();
             for (int i = 1; i <= n; i++)
             {
-                System.String name = MakeElementName(segmentObject, i);
+                String name = MakeElementName(segmentObject, i);
                 IType[] reps = segmentObject.GetField(i);
                 for (int j = 0; j < reps.Length; j++)
                 {
-                    System.Xml.XmlElement newNode = segmentElement.OwnerDocument.CreateElement(name);
+                    XmlElement newNode = segmentElement.OwnerDocument.CreateElement(name);
                     bool componentHasValue = Encode(reps[j], newNode);
                     if (componentHasValue)
                     {
@@ -351,7 +354,7 @@ namespace NHapi.Base.Parser
                         {
                             segmentElement.AppendChild(newNode);
                         }
-                        catch (System.Exception e)
+                        catch (Exception e)
                         {
                             throw new HL7Exception("DOMException encoding Segment: ", HL7Exception.APPLICATION_INTERNAL_ERROR, e);
                         }
@@ -363,7 +366,7 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary> Populates the given Type object with data from the given XML Element.</summary>
-        public virtual void Parse(IType datatypeObject, System.Xml.XmlElement datatypeElement)
+        public virtual void Parse(IType datatypeObject, XmlElement datatypeElement)
         {
             if (datatypeObject is Varies)
             {
@@ -383,7 +386,7 @@ namespace NHapi.Base.Parser
         /// composite, calling setData() on the Varies with a new generic primitive or composite as appropriate, 
         /// and then calling parse again with the new Type object.  
         /// </summary>
-        private void ParseVaries(Varies datatypeObject, System.Xml.XmlElement datatypeElement)
+        private void ParseVaries(Varies datatypeObject, XmlElement datatypeElement)
         {
             //figure out what data type it holds 
             //short nodeType = datatypeElement.getFirstChild().getNodeType();        
@@ -401,14 +404,14 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary>Returns true if any of the given element's children are elements </summary>
-        private bool HasChildElement(System.Xml.XmlElement e)
+        private bool HasChildElement(XmlElement e)
         {
-            System.Xml.XmlNodeList children = e.ChildNodes;
+            XmlNodeList children = e.ChildNodes;
             bool hasElement = false;
             int c = 0;
             while (c < children.Count && !hasElement)
             {
-                if (System.Convert.ToInt16(children.Item(c).NodeType) == (short)System.Xml.XmlNodeType.Element)
+                if (Convert.ToInt16(children.Item(c).NodeType) == (short)XmlNodeType.Element)
                 {
                     hasElement = true;
                 }
@@ -418,15 +421,15 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary>Parses a primitive type by filling it with text child, if any </summary>
-        private void ParsePrimitive(IPrimitive datatypeObject, System.Xml.XmlElement datatypeElement)
+        private void ParsePrimitive(IPrimitive datatypeObject, XmlElement datatypeElement)
         {
-            System.Xml.XmlNodeList children = datatypeElement.ChildNodes;
+            XmlNodeList children = datatypeElement.ChildNodes;
             int c = 0;
             bool full = false;
             while (c < children.Count && !full)
             {
-                System.Xml.XmlNode child = children.Item(c++);
-                if (System.Convert.ToInt16(child.NodeType) == (short)System.Xml.XmlNodeType.Text)
+                XmlNode child = children.Item(c++);
+                if (Convert.ToInt16(child.NodeType) == (short)XmlNodeType.Text)
                 {
                     try
                     {
@@ -442,7 +445,7 @@ namespace NHapi.Base.Parser
                             }
                         }
                     }
-                    catch (System.Exception e)
+                    catch (Exception e)
                     {
                         log.Error("Error parsing primitive value from TEXT_NODE", e);
                     }
@@ -459,7 +462,7 @@ namespace NHapi.Base.Parser
         /// <returns> boolean <code>true</code> if whitespaces should not be removed from node content, 
         /// <code>false</code> otherwise
         /// </returns>
-        protected internal virtual bool KeepAsOriginal(System.Xml.XmlNode node)
+        protected internal virtual bool KeepAsOriginal(XmlNode node)
         {
             if (node.Name == null)
                 return false;
@@ -470,7 +473,7 @@ namespace NHapi.Base.Parser
         /// This includes leading and trailing whitespace, and repeated space characters.  Carriage returns, 
         /// line feeds, and tabs are replaced with spaces. 
         /// </summary>
-        protected internal virtual System.String RemoveWhitespace(System.String s)
+        protected internal virtual String RemoveWhitespace(String s)
         {
             s = s.Replace('\r', ' ');
             s = s.Replace('\n', ' ');
@@ -486,7 +489,7 @@ namespace NHapi.Base.Parser
                 }
                 else
                 {
-                    System.Text.StringBuilder buf = new System.Text.StringBuilder();
+                    StringBuilder buf = new StringBuilder();
                     buf.Append(s.Substring(0, (loc) - (0)));
                     buf.Append(" ");
                     buf.Append(s.Substring(loc + 2));
@@ -500,18 +503,18 @@ namespace NHapi.Base.Parser
         /// Elements among the children of the given Element, and calling parse(Type, Element) for
         /// each.
         /// </summary>
-        private void ParseComposite(IComposite datatypeObject, System.Xml.XmlElement datatypeElement)
+        private void ParseComposite(IComposite datatypeObject, XmlElement datatypeElement)
         {
             if (datatypeObject is GenericComposite)
             {
                 //elements won't be named GenericComposite.x
-                System.Xml.XmlNodeList children = datatypeElement.ChildNodes;
+                XmlNodeList children = datatypeElement.ChildNodes;
                 int compNum = 0;
                 for (int i = 0; i < children.Count; i++)
                 {
-                    if (System.Convert.ToInt16(children.Item(i).NodeType) == (short)System.Xml.XmlNodeType.Element)
+                    if (Convert.ToInt16(children.Item(i).NodeType) == (short)XmlNodeType.Element)
                     {
-                        Parse(datatypeObject[compNum], (System.Xml.XmlElement)children.Item(i));
+                        Parse(datatypeObject[compNum], (XmlElement)children.Item(i));
                         compNum++;
                     }
                 }
@@ -521,10 +524,10 @@ namespace NHapi.Base.Parser
                 IType[] children = datatypeObject.Components;
                 for (int i = 0; i < children.Length; i++)
                 {
-                    System.Xml.XmlNodeList matchingElements = datatypeElement.GetElementsByTagName(MakeElementName(datatypeObject, i + 1));
+                    XmlNodeList matchingElements = datatypeElement.GetElementsByTagName(MakeElementName(datatypeObject, i + 1));
                     if (matchingElements.Count > 0)
                     {
-                        Parse(children[i], (System.Xml.XmlElement)matchingElements.Item(0)); //components don't repeat - use 1st
+                        Parse(children[i], (XmlElement)matchingElements.Item(0)); //components don't repeat - use 1st
                     }
                 }
             }
@@ -543,13 +546,13 @@ namespace NHapi.Base.Parser
         }*/
 
         /// <summary>Returns the expected XML element name for the given child of the given Segment </summary>
-        private System.String MakeElementName(ISegment s, int child)
+        private String MakeElementName(ISegment s, int child)
         {
             return s.GetStructureName() + "." + child;
         }
 
         /// <summary>Returns the expected XML element name for the given child of the given Composite </summary>
-        private System.String MakeElementName(IComposite composite, int child)
+        private String MakeElementName(IComposite composite, int child)
         {
             return composite.TypeName + "." + child;
         }
@@ -560,7 +563,7 @@ namespace NHapi.Base.Parser
         /// return null, and for Composites, if at least one underlying Primitive doesn't 
         /// return null).
         /// </summary>
-        private bool Encode(IType datatypeObject, System.Xml.XmlElement datatypeElement)
+        private bool Encode(IType datatypeObject, XmlElement datatypeElement)
         {
             bool hasData = false;
             if (datatypeObject is Varies)
@@ -581,7 +584,7 @@ namespace NHapi.Base.Parser
         /// <summary> Encodes a Varies type by extracting it's data field and encoding that.  Returns true 
         /// if the data field (or one of its components) contains a value.  
         /// </summary>
-        private bool EncodeVaries(Varies datatypeObject, System.Xml.XmlElement datatypeElement)
+        private bool EncodeVaries(Varies datatypeObject, XmlElement datatypeElement)
         {
             bool hasData = false;
             if (datatypeObject.Data != null)
@@ -594,20 +597,20 @@ namespace NHapi.Base.Parser
         /// <summary> Encodes a Primitive in XML by adding it's value as a child of the given Element.  
         /// Returns true if the given Primitive contains a value.  
         /// </summary>
-        private bool EncodePrimitive(IPrimitive datatypeObject, System.Xml.XmlElement datatypeElement)
+        private bool EncodePrimitive(IPrimitive datatypeObject, XmlElement datatypeElement)
         {
             bool hasValue = false;
             if (datatypeObject.Value != null && !datatypeObject.Value.Equals(""))
                 hasValue = true;
 
-            System.Xml.XmlText t = datatypeElement.OwnerDocument.CreateTextNode(datatypeObject.Value);
+            XmlText t = datatypeElement.OwnerDocument.CreateTextNode(datatypeObject.Value);
             if (hasValue)
             {
                 try
                 {
                     datatypeElement.AppendChild(t);
                 }
-                catch (System.Exception e)
+                catch (Exception e)
                 {
                     throw new DataTypeException("DOMException encoding Primitive: ", e);
                 }
@@ -620,14 +623,14 @@ namespace NHapi.Base.Parser
         /// calling encode(Type, Element) using these children.  Returns true if at least 
         /// one component contains a value.  
         /// </summary>
-        private bool EncodeComposite(IComposite datatypeObject, System.Xml.XmlElement datatypeElement)
+        private bool EncodeComposite(IComposite datatypeObject, XmlElement datatypeElement)
         {
             IType[] components = datatypeObject.Components;
             bool hasValue = false;
             for (int i = 0; i < components.Length; i++)
             {
-                System.String name = MakeElementName(datatypeObject, i + 1);
-                System.Xml.XmlElement newNode = datatypeElement.OwnerDocument.CreateElement(name);
+                String name = MakeElementName(datatypeObject, i + 1);
+                XmlElement newNode = datatypeElement.OwnerDocument.CreateElement(name);
                 bool componentHasValue = Encode(components[i], newNode);
                 if (componentHasValue)
                 {
@@ -635,7 +638,7 @@ namespace NHapi.Base.Parser
                     {
                         datatypeElement.AppendChild(newNode);
                     }
-                    catch (System.Exception e)
+                    catch (Exception e)
                     {
                         throw new DataTypeException("DOMException encoding Composite: ", e);
                     }
@@ -658,15 +661,15 @@ namespace NHapi.Base.Parser
         /// message.  This method parses only that required information, hopefully
         /// avoiding the condition that caused the original error.</p>
         /// </summary>
-        public override ISegment GetCriticalResponseData(System.String message)
+        public override ISegment GetCriticalResponseData(String message)
         {
-            System.String version = GetVersion(message);
-            ISegment criticalData = ParserBase.MakeControlMSH(version, Factory);
+            String version = GetVersion(message);
+            ISegment criticalData = MakeControlMSH(version, Factory);
 
             Terser.Set(criticalData, 1, 0, 1, 1, ParseLeaf(message, "MSH.1", 0));
             Terser.Set(criticalData, 2, 0, 1, 1, ParseLeaf(message, "MSH.2", 0));
             Terser.Set(criticalData, 10, 0, 1, 1, ParseLeaf(message, "MSH.10", 0));
-            System.String procID = ParseLeaf(message, "MSH.11", 0);
+            String procID = ParseLeaf(message, "MSH.11", 0);
             if (procID == null || procID.Length == 0)
             {
                 procID = ParseLeaf(message, "PT.1", message.IndexOf("MSH.11"));
@@ -686,9 +689,9 @@ namespace NHapi.Base.Parser
         /// Returns null if MSA-2 can not be found (e.g. if the message is not a
         /// response message).  Trims whitespace from around the MSA-2 field.  
         /// </summary>
-        public override System.String GetAckID(System.String message)
+        public override String GetAckID(String message)
         {
-            System.String ackID = null;
+            String ackID = null;
             try
             {
                 ackID = ParseLeaf(message, "msa.2", 0).Trim();
@@ -700,9 +703,9 @@ namespace NHapi.Base.Parser
             return ackID;
         }
 
-        public override System.String GetVersion(System.String message)
+        public override String GetVersion(String message)
         {
-            System.String version = ParseLeaf(message, "MSH.12", 0);
+            String version = ParseLeaf(message, "MSH.12", 0);
             if (version == null || version.Trim().Length == 0)
             {
                 version = ParseLeaf(message, "VID.1", message.IndexOf("MSH.12"));
@@ -724,9 +727,9 @@ namespace NHapi.Base.Parser
         /// <param name="startAt">the character location at which to start searching
         /// </param>
         /// <throws>  HL7Exception if the tag can not be found </throws>
-        protected internal virtual System.String ParseLeaf(System.String message, System.String tagName, int startAt)
+        protected internal virtual String ParseLeaf(String message, String tagName, int startAt)
         {
-            System.String value_Renamed = null;
+            String value_Renamed = null;
 
             int tagStart = message.IndexOf("<" + tagName, startAt);
             if (tagStart < 0)
@@ -742,7 +745,7 @@ namespace NHapi.Base.Parser
             }
             else
             {
-                throw new HL7Exception("Couldn't find " + tagName + " in message beginning: " + message.Substring(0, (System.Math.Min(150, message.Length)) - (0)), HL7Exception.REQUIRED_FIELD_MISSING);
+                throw new HL7Exception("Couldn't find " + tagName + " in message beginning: " + message.Substring(0, (Math.Min(150, message.Length)) - (0)), HL7Exception.REQUIRED_FIELD_MISSING);
             }
 
             return value_Renamed;
@@ -750,32 +753,32 @@ namespace NHapi.Base.Parser
 
         /// <summary>Test harness </summary>
         [STAThread]
-        public static void Main(System.String[] args)
+        public static void Main(String[] args)
         {
             if (args.Length != 1)
             {
-                System.Console.Out.WriteLine("Usage: XMLParser pipe_encoded_file");
-                System.Environment.Exit(1);
+                Console.Out.WriteLine("Usage: XMLParser pipe_encoded_file");
+                Environment.Exit(1);
             }
 
             //read and parse message from file 
             try
             {
                 PipeParser parser = new PipeParser();
-                System.IO.FileInfo messageFile = new System.IO.FileInfo(args[0]);
+                FileInfo messageFile = new FileInfo(args[0]);
                 long fileLength = SupportClass.FileLength(messageFile);
-                System.IO.StreamReader r = new System.IO.StreamReader(messageFile.FullName, System.Text.Encoding.Default);
+                StreamReader r = new StreamReader(messageFile.FullName, Encoding.Default);
                 char[] cbuf = new char[(int)fileLength];
-                System.Console.Out.WriteLine("Reading message file ... " + r.Read((System.Char[])cbuf, 0, cbuf.Length) + " of " + fileLength + " chars");
+                Console.Out.WriteLine("Reading message file ... " + r.Read((Char[])cbuf, 0, cbuf.Length) + " of " + fileLength + " chars");
                 r.Close();
-                System.String messString = System.Convert.ToString(cbuf);
+                String messString = Convert.ToString(cbuf);
                 IMessage mess = parser.Parse(messString);
-                System.Console.Out.WriteLine("Got message of type " + mess.GetType().FullName);
+                Console.Out.WriteLine("Got message of type " + mess.GetType().FullName);
 
-                NHapi.Base.Parser.XMLParser xp = new AnonymousClassXMLParser();
+                XMLParser xp = new AnonymousClassXMLParser();
 
                 //loop through segment children of message, encode, print to console
-                System.String[] structNames = mess.Names;
+                String[] structNames = mess.Names;
                 for (int i = 0; i < structNames.Length; i++)
                 {
                     IStructure[] reps = mess.GetAll(structNames[i]);
@@ -784,38 +787,38 @@ namespace NHapi.Base.Parser
                         if (typeof(ISegment).IsAssignableFrom(reps[j].GetType()))
                         {
                             //ignore groups
-                            System.Xml.XmlDocument docBuilder = new System.Xml.XmlDocument();
-                            System.Xml.XmlDocument doc = new System.Xml.XmlDocument(); //new doc for each segment
-                            System.Xml.XmlElement root = doc.CreateElement(reps[j].GetType().FullName);
+                            XmlDocument docBuilder = new XmlDocument();
+                            XmlDocument doc = new XmlDocument(); //new doc for each segment
+                            XmlElement root = doc.CreateElement(reps[j].GetType().FullName);
                             doc.AppendChild(root);
                             xp.Encode((ISegment)reps[j], root);
-                            System.IO.StringWriter out_Renamed = new System.IO.StringWriter();
-                            System.Console.Out.WriteLine("Segment " + reps[j].GetType().FullName + ": \r\n" + doc.OuterXml);
+                            StringWriter out_Renamed = new StringWriter();
+                            Console.Out.WriteLine("Segment " + reps[j].GetType().FullName + ": \r\n" + doc.OuterXml);
 
-                            System.Type[] segmentConstructTypes = new System.Type[] { typeof(IMessage) };
-                            System.Object[] segmentConstructArgs = new System.Object[] { null };
+                            Type[] segmentConstructTypes = new Type[] { typeof(IMessage) };
+                            Object[] segmentConstructArgs = new Object[] { null };
                             ISegment s = (ISegment)reps[j].GetType().GetConstructor(segmentConstructTypes).Invoke(segmentConstructArgs);
                             xp.Parse(s, root);
-                            System.Xml.XmlDocument doc2 = new System.Xml.XmlDocument();
-                            System.Xml.XmlElement root2 = doc2.CreateElement(s.GetType().FullName);
+                            XmlDocument doc2 = new XmlDocument();
+                            XmlElement root2 = doc2.CreateElement(s.GetType().FullName);
                             doc2.AppendChild(root2);
                             xp.Encode(s, root2);
-                            System.IO.StringWriter out2 = new System.IO.StringWriter();
-                            System.Xml.XmlWriter ser = System.Xml.XmlWriter.Create(out2);
+                            StringWriter out2 = new StringWriter();
+                            XmlWriter ser = XmlWriter.Create(out2);
                             doc.WriteTo(ser);
                             if (out2.ToString().Equals(out_Renamed.ToString()))
                             {
-                                System.Console.Out.WriteLine("Re-encode OK");
+                                Console.Out.WriteLine("Re-encode OK");
                             }
                             else
                             {
-                                System.Console.Out.WriteLine("Warning: XML different after parse and re-encode: \r\n" + out2.ToString());
+                                Console.Out.WriteLine("Warning: XML different after parse and re-encode: \r\n" + out2.ToString());
                             }
                         }
                     }
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 SupportClass.WriteStackTrace(e, Console.Error);
             }

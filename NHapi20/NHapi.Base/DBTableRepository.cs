@@ -20,6 +20,9 @@
 /// this file under either the MPL or the GPL. 
 /// </summary>
 using System;
+using System.Collections;
+using System.Data.OleDb;
+using System.Text;
 using NHapi.Base.Log;
 
 namespace NHapi.Base
@@ -37,16 +40,16 @@ namespace NHapi.Base
         {
             get
             {
-                if (this.tableList == null)
+                if (tableList == null)
                 {
                     try
                     {
-                        System.Data.OleDb.OleDbConnection conn = NormativeDatabase.Instance.Connection;
-                        System.Data.OleDb.OleDbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
-                        System.Data.OleDb.OleDbCommand temp_OleDbCommand;
+                        OleDbConnection conn = NormativeDatabase.Instance.Connection;
+                        OleDbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
+                        OleDbCommand temp_OleDbCommand;
                         temp_OleDbCommand = stmt;
                         temp_OleDbCommand.CommandText = "select distinct table_id from TableValues";
-                        System.Data.OleDb.OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
+                        OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
                         int[] roomyList = new int[bufferSize];
                         int c = 0;
                         while (rs.Read())
@@ -56,15 +59,15 @@ namespace NHapi.Base
                         stmt.Dispose();
                         NormativeDatabase.Instance.returnConnection(conn);
 
-                        this.tableList = new int[c];
-                        Array.Copy(roomyList, 0, this.tableList, 0, c);
+                        tableList = new int[c];
+                        Array.Copy(roomyList, 0, tableList, 0, c);
                     }
-                    catch (System.Data.OleDb.OleDbException sqle)
+                    catch (OleDbException sqle)
                     {
                         throw new LookupException("Can't get table list from database: " + sqle.Message);
                     }
                 }
-                return this.tableList;
+                return tableList;
             }
 
         }
@@ -72,7 +75,7 @@ namespace NHapi.Base
         private static readonly IHapiLog log;
 
         private int[] tableList;
-        private System.Collections.Hashtable tables;
+        private Hashtable tables;
         private int bufferSize = 3000; //max # of tables or values that can be cached at a time
 
         /// <summary>
@@ -81,15 +84,15 @@ namespace NHapi.Base
         protected internal DBTableRepository()
         {
             tableList = null;
-            tables = new System.Collections.Hashtable();
+            tables = new Hashtable();
         }
 
         /// <summary> Returns true if the given value exists in the given table.</summary>
-        public override bool checkValue(int table, System.String value_Renamed)
+        public override bool checkValue(int table, String value_Renamed)
         {
             bool exists = false;
 
-            System.String[] values = this.getValues(table);
+            String[] values = getValues(table);
 
             int c = 0;
             while (c < values.Length && !exists)
@@ -102,45 +105,45 @@ namespace NHapi.Base
         }
 
         /// <summary> Returns a list of the values for the given table in the normative database. </summary>
-        public override System.String[] getValues(int table)
+        public override String[] getValues(int table)
         {
-            System.Int32 key = (System.Int32)table;
-            System.String[] values = null;
+            Int32 key = (Int32)table;
+            String[] values = null;
 
             //see if the value list exists in the cache
-            System.Object o = this.tables[key];
+            Object o = tables[key];
 
             if (o != null)
             {
-                values = (System.String[])o;
+                values = (String[])o;
             }
             else
             {
                 //not cached yet ...
                 int c;
-                System.String[] roomyValues = new System.String[bufferSize];
+                String[] roomyValues = new String[bufferSize];
 
                 try
                 {
-                    System.Data.OleDb.OleDbConnection conn = NormativeDatabase.Instance.Connection;
-                    System.Data.OleDb.OleDbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
-                    System.Text.StringBuilder sql = new System.Text.StringBuilder("select table_value from TableValues where table_id = ");
+                    OleDbConnection conn = NormativeDatabase.Instance.Connection;
+                    OleDbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
+                    StringBuilder sql = new StringBuilder("select table_value from TableValues where table_id = ");
                     sql.Append(table);
-                    System.Data.OleDb.OleDbCommand temp_OleDbCommand;
+                    OleDbCommand temp_OleDbCommand;
                     temp_OleDbCommand = stmt;
                     temp_OleDbCommand.CommandText = sql.ToString();
-                    System.Data.OleDb.OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
+                    OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
 
                     c = 0;
                     while (rs.Read())
                     {
-                        roomyValues[c++] = System.Convert.ToString(rs[1 - 1]);
+                        roomyValues[c++] = Convert.ToString(rs[1 - 1]);
                     }
 
                     stmt.Dispose();
                     NormativeDatabase.Instance.returnConnection(conn);
                 }
-                catch (System.Data.OleDb.OleDbException sqle)
+                catch (OleDbException sqle)
                 {
                     throw new LookupException("Couldn't look up values for table " + table + ": " + sqle.Message);
                 }
@@ -148,7 +151,7 @@ namespace NHapi.Base
                 if (c == 0)
                     throw new UndefinedTableException("No values found for table " + table);
 
-                values = new System.String[c];
+                values = new String[c];
                 Array.Copy(roomyValues, 0, values, 0, c);
 
                 tables[key] = values;
@@ -161,11 +164,11 @@ namespace NHapi.Base
         /// this method performs a database call each time - caching should probably be added,
         /// although this method will probably not be used very often.   
         /// </summary>
-        public override System.String getDescription(int table, System.String value_Renamed)
+        public override String getDescription(int table, String value_Renamed)
         {
-            System.String description = null;
+            String description = null;
 
-            System.Text.StringBuilder sql = new System.Text.StringBuilder("select Description from TableValues where table_id = ");
+            StringBuilder sql = new StringBuilder("select Description from TableValues where table_id = ");
             sql.Append(table);
             sql.Append(" and table_value = '");
             sql.Append(value_Renamed);
@@ -173,15 +176,15 @@ namespace NHapi.Base
 
             try
             {
-                System.Data.OleDb.OleDbConnection conn = NormativeDatabase.Instance.Connection;
-                System.Data.OleDb.OleDbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
-                System.Data.OleDb.OleDbCommand temp_OleDbCommand;
+                OleDbConnection conn = NormativeDatabase.Instance.Connection;
+                OleDbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
+                OleDbCommand temp_OleDbCommand;
                 temp_OleDbCommand = stmt;
                 temp_OleDbCommand.CommandText = sql.ToString();
-                System.Data.OleDb.OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
+                OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
                 if (rs.Read())
                 {
-                    description = System.Convert.ToString(rs[1 - 1]);
+                    description = Convert.ToString(rs[1 - 1]);
                 }
                 else
                 {
@@ -190,7 +193,7 @@ namespace NHapi.Base
                 stmt.Dispose();
                 NormativeDatabase.Instance.returnConnection(conn);
             }
-            catch (System.Data.OleDb.OleDbException e)
+            catch (OleDbException e)
             {
                 throw new LookupException("Can't find value " + value_Renamed + " in table " + table, e);
             }

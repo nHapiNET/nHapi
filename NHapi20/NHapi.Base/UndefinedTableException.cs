@@ -29,7 +29,7 @@ namespace NHapi.Base
     public class UndefinedTableException : UnknownValueException
     {
 
-        public UndefinedTableException(System.String message)
+        public UndefinedTableException(String message)
             : base(message)
         {
         }

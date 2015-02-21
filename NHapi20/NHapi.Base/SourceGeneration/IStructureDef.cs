@@ -30,13 +30,13 @@ namespace NHapi.Base.SourceGeneration
     public interface IStructureDef
     {
         /// <summary> Returns the name of the structure.</summary>
-        System.String Name
+        String Name
         {
             get;
 
         }
         /// <summary> Returns a text description of the structure.</summary>
-        System.String Description
+        String Description
         {
             get;
 
@@ -59,7 +59,7 @@ namespace NHapi.Base.SourceGeneration
         /// in subgroups (depth first).  This method is used to support the XML SIG's convention 
         /// for deriving group names. 
         /// </summary>
-        System.String[] ChildSegments
+        String[] ChildSegments
         {
             get;
 

@@ -37,11 +37,11 @@ namespace NHapi.Base.validation
         /// </param>
         /// <returns> a corrected version of the given value 
         /// </returns>
-        System.String correct(System.String originalValue);
+        String correct(String originalValue);
 
         /// <summary> Tests the given string against the criteria defined by this 
         /// rule -- returns true if it passes the test, false otherwise.  
         /// </summary>
-        bool test(System.String testValu);
+        bool test(String testValu);
     }
 }

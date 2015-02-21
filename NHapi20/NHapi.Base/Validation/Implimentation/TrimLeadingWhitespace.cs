@@ -35,7 +35,7 @@ namespace NHapi.Base.validation.impl
         /// <summary>
         /// Description of the rule
         /// </summary>
-        virtual public System.String Description
+        virtual public String Description
         {
             get
             {
@@ -47,7 +47,7 @@ namespace NHapi.Base.validation.impl
         /// <summary>
         /// Section reference
         /// </summary>
-        virtual public System.String SectionReference
+        virtual public String SectionReference
         {
             get
             {
@@ -57,17 +57,17 @@ namespace NHapi.Base.validation.impl
         }
 
         /// <summary> Removes leading whitespace.</summary>
-        public virtual System.String correct(System.String value_Renamed)
+        public virtual String correct(String value_Renamed)
         {
-            System.String trmValue = null;
+            String trmValue = null;
             if (value_Renamed != null)
             {
                 char[] stringChr = value_Renamed.ToCharArray();
                 for (int i = 0; i < stringChr.Length && trmValue == null; i++)
                 {
-                    if (!System.Char.IsWhiteSpace(stringChr[i]))
+                    if (!Char.IsWhiteSpace(stringChr[i]))
                     {
-                        trmValue = new System.String(stringChr, i, (stringChr.Length - i));
+                        trmValue = new String(stringChr, i, (stringChr.Length - i));
                     }
                 }
             }
@@ -75,7 +75,7 @@ namespace NHapi.Base.validation.impl
         }
 
         /// <summary> Returns true. </summary>
-        public virtual bool test(System.String value_Renamed)
+        public virtual bool test(String value_Renamed)
         {
             return true;
         }

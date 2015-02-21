@@ -18,18 +18,18 @@ namespace NHapi.Base.Log
         bool WarnEnabled { get;}
 
 
-        void Debug(System.Object message);
-        void Debug(System.Object message, System.Exception t);
-        void Error(System.Object message);
-        void Error(System.Object message, System.Exception t);
-        void Fatal(System.Object message);
-        void Fatal(System.Object message, System.Exception t);
-        void Info(System.Object message);
-        void Info(System.Object message, System.Exception t);
-        void Trace(System.Object message);
-        void Trace(System.Object message, System.Exception t);
-        void Warn(System.Object message);
-        void Warn(System.Object message, System.Exception t);
+        void Debug(Object message);
+        void Debug(Object message, Exception t);
+        void Error(Object message);
+        void Error(Object message, Exception t);
+        void Fatal(Object message);
+        void Fatal(Object message, Exception t);
+        void Info(Object message);
+        void Info(Object message, Exception t);
+        void Trace(Object message);
+        void Trace(Object message, Exception t);
+        void Warn(Object message);
+        void Warn(Object message, Exception t);
 
     }
 

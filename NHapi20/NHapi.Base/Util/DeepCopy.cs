@@ -28,7 +28,7 @@ namespace NHapi.Base.Util
             {
                 for (int j = 1; j <= Terser.numSubComponents(from, i); j++)
                 {
-                    System.String val = Terser.getPrimitive(from, i, j).Value;
+                    String val = Terser.getPrimitive(from, i, j).Value;
                     Terser.getPrimitive(to, i, j).Value = val;
                 }
             }

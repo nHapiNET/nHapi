@@ -21,6 +21,9 @@
 /// this file under either the MPL or the GPL. 
 /// </summary>
 using System;
+using System.Collections;
+using System.Text;
+
 namespace NHapi.Base.SourceGeneration
 {
 
@@ -36,11 +39,11 @@ namespace NHapi.Base.SourceGeneration
         /// message structure and the group elements.  This should only be called 
         /// after all the elements are added.  
         /// </summary>
-        virtual public System.String Name
+        virtual public String Name
         {
             get
             {
-                System.String result = null;
+                String result = null;
 
                 if (groupName != null && groupName.Length > 0)
                 {
@@ -48,10 +51,10 @@ namespace NHapi.Base.SourceGeneration
                 }
                 else
                 {
-                    System.Text.StringBuilder name = new System.Text.StringBuilder();
+                    StringBuilder name = new StringBuilder();
                     name.Append(messageName);
                     name.Append("_");
-                    System.String[] children = ChildSegments;
+                    String[] children = ChildSegments;
                     for (int i = 0; i < children.Length; i++)
                     {
                         name.Append(children[i]);
@@ -65,11 +68,11 @@ namespace NHapi.Base.SourceGeneration
         }
         /// <returns> group name without message name prepended  
         /// </returns>
-        virtual public System.String UnqualifiedName
+        virtual public String UnqualifiedName
         {
             get
             {
-                System.String name = Name;
+                String name = Name;
                 return name.Substring(messageName.Length + 1);
             }
 
@@ -93,7 +96,7 @@ namespace NHapi.Base.SourceGeneration
         {
             get
             {
-                return this.required;
+                return required;
             }
 
         }
@@ -102,16 +105,16 @@ namespace NHapi.Base.SourceGeneration
         {
             get
             {
-                return this.repeating;
+                return repeating;
             }
 
         }
         /// <summary> Returns a text description of the structure.</summary>
-        virtual public System.String Description
+        virtual public String Description
         {
             get
             {
-                return this.description;
+                return description;
             }
 
         }
@@ -121,49 +124,49 @@ namespace NHapi.Base.SourceGeneration
         /// in subgroups (depth first).  This method is used to support the XML SIG's convention
         /// for deriving group names.
         /// </summary>
-        virtual public System.String[] ChildSegments
+        virtual public String[] ChildSegments
         {
             get
             {
-                System.Collections.ArrayList deepChildList = new System.Collections.ArrayList();
+                ArrayList deepChildList = new ArrayList();
                 for (int i = 0; i < elements.Count; i++)
                 {
                     IStructureDef childStruct = (IStructureDef)elements[i];
-                    System.String[] childStructChildren = childStruct.ChildSegments;
+                    String[] childStructChildren = childStruct.ChildSegments;
                     for (int j = 0; j < childStructChildren.Length; j++)
                     {
                         deepChildList.Add(childStructChildren[j]);
                     }
                 }
-                System.String[] result = new System.String[deepChildList.Count];
+                String[] result = new String[deepChildList.Count];
                 for (int i = 0; i < result.Length; i++)
                 {
-                    result[i] = ((System.String)deepChildList[i]);
+                    result[i] = ((String)deepChildList[i]);
                 }
                 return result;
             }
 
         }
 
-        private System.Collections.ArrayList elements;
-        private System.String messageName;
-        private System.String groupName;
-        private System.String description;
+        private ArrayList elements;
+        private String messageName;
+        private String groupName;
+        private String description;
         private bool required;
         private bool repeating;
-        private System.Collections.Hashtable existingNames;
+        private Hashtable existingNames;
 
 
         /// <summary>Creates new GroupDef </summary>
-        public GroupDef(System.String messageName, System.String groupName, bool required, bool repeating, System.String description)
+        public GroupDef(String messageName, String groupName, bool required, bool repeating, String description)
         {
             this.messageName = messageName;
             this.groupName = groupName;
-            this.elements = new System.Collections.ArrayList();
+            elements = new ArrayList();
             this.required = required;
             this.repeating = repeating;
             this.description = description;
-            this.existingNames = new System.Collections.Hashtable();
+            existingNames = new Hashtable();
         }
 
         /// <summary> Adds an element (segment or group) to this group.  </summary>
@@ -181,12 +184,12 @@ namespace NHapi.Base.SourceGeneration
         /// method is called matters: it should be called ONCE for each element of the group in the 
         /// order in which they appear.  
         /// </summary>
-        protected internal virtual System.String getIndexName(System.String name)
+        protected internal virtual String getIndexName(String name)
         {
             //see if this name is already being used 
-            System.Object o = existingNames[name];
+            Object o = existingNames[name];
             int c = 2;
-            System.String newName = name;
+            String newName = name;
             while (o != null)
             {
                 newName = name + c++;
