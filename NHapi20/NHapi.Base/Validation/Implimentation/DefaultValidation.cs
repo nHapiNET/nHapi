@@ -59,9 +59,6 @@ namespace NHapi.Base.validation.impl
 			 IRule number = new RegexPrimitiveRule(@"^(\+|\-)?\d*\.?\d*$", "NM Fields should only contain numbers / decimals");
 			 PrimitiveRuleBindings.Add(new RuleBinding("*", "NM", number));
 
-			 //IRule telephoneNumber = new RegexPrimitiveRule("(\\d{1,2} )?(\\(\\d{3}\\))?\\d{3}-\\d{4}(X\\d{1,5})?(B\\d{1,5})?(C.*)?", "Version 2.4 Section 2.9.45");
-			 //PrimitiveRuleBindings.Add(new RuleBinding("*", "TN", telephoneNumber));
-
 			 String datePattern = @"^(\d{4}([01]\d(\d{2})?)?)?$"; //YYYY[MM[DD]]
 			 IRule date = new RegexPrimitiveRule(datePattern, "Version 2.5 Section 2.16.24");
 			 PrimitiveRuleBindings.Add(new RuleBinding("*", "DT", date));
