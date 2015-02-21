@@ -1,0 +1,11 @@
+; Top-most EditorConfig file
+root = true
+
+; Windows-style newlines
+[*]
+end_of_line = crlf
+
+; 3-column space indentation
+[*.cs]
+indent_style = tab
+indent_size = 3
