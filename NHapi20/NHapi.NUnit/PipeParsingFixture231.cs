@@ -1,12 +1,6 @@
-using System;
-using System.Collections;
-using System.Text;
 using NHapi.Base.Model;
 using NHapi.Base.Parser;
-using NHapi.Base;
-using NHapi.Model.V231;
 using NHapi.Model.V231.Message;
-using NHapi.Model.V231.Segment;
 using NUnit.Framework;
 
 namespace NHapi.NUnit

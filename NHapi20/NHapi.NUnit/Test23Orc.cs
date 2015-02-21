@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NHapi.Model.V23.Datatype;
+﻿using NHapi.Model.V23.Datatype;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Message;
 using NUnit.Framework;

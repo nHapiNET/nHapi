@@ -1,8 +1,6 @@
 using System;
-using System.IO;
 using NHapi.Base.Model;
 using NHapi.Base.Util;
-using NHapi.Model.V231;
 using NHapi.Model.V231.Datatype;
 using NHapi.Model.V231.Message;
 using NHapi.Base.Parser;

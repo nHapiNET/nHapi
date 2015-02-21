@@ -1,6 +1,4 @@
 using System;
-using NHapi.Model.V231;
-using NHapi.Model.V231.Datatype;
 using NHapi.Model.V231.Message;
 using NHapi.Base.Parser;
 using NUnit.Framework;
