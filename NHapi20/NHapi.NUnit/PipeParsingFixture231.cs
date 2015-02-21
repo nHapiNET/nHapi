@@ -1,3 +1,4 @@
+using System.Xml;
 using NHapi.Base.Model;
 using NHapi.Base.Parser;
 using NHapi.Model.V231.Message;
@@ -14,11 +15,11 @@ namespace NHapi.NUnit
 			string Message = @"MSH|^~\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||QRY^R02^QRY_R02|1|P|2.3.1|
 QRD|20060228155525|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||";
 
-			NHapi.Base.Parser.PipeParser Parser = new NHapi.Base.Parser.PipeParser();
+			PipeParser Parser = new PipeParser();
 
-			NHapi.Base.Model.IMessage m = Parser.Parse(Message);
+			IMessage m = Parser.Parse(Message);
 
-			NHapi.Model.V231.Message.QRY_R02 qryR02 = m as NHapi.Model.V231.Message.QRY_R02;
+			QRY_R02 qryR02 = m as QRY_R02;
 
 			Assert.IsNotNull(qryR02);
 			Assert.AreEqual("38923", qryR02.QRD.GetWhoSubjectFilter(0).IDNumber.Value);
@@ -34,11 +35,11 @@ ORC|NW|01444^00001|||||||||||L
 OBR||01444^00001||CAI^CALCIUM IONIZED|||200606191614||||L|||||045716^STEELE, ANDREW W|||||||||||00001&UNITS^ONCE&ONCE^000^200606191614^200606191614^ROUTINE
 ";
 
-			NHapi.Base.Parser.PipeParser Parser = new NHapi.Base.Parser.PipeParser();
+			PipeParser Parser = new PipeParser();
 
-			NHapi.Base.Model.IMessage m = Parser.Parse(Message);
+			IMessage m = Parser.Parse(Message);
 
-			NHapi.Model.V231.Message.ORM_O01 ormo01 = m as NHapi.Model.V231.Message.ORM_O01;
+			ORM_O01 ormo01 = m as ORM_O01;
 
 			Assert.IsNotNull(ormo01);
 			Assert.AreEqual("TRAINONLYPOE", (ormo01.PATIENT.PID.GetPatientName()[0]).FamilyLastName.FamilyName.Value);
@@ -60,19 +61,19 @@ ORC|NW|01444^00001|||||||||||L
 OBR||01444^00001||CAI^CALCIUM IONIZED|||200606191614||||L|||||045716^STEELE, ANDREW W|||||||||||00001&UNITS^ONCE&ONCE^000^200606191614^200606191614^ROUTINE
 ";
 
-			NHapi.Base.Parser.PipeParser Parser = new NHapi.Base.Parser.PipeParser();
+			PipeParser Parser = new PipeParser();
 
-			NHapi.Base.Model.IMessage m = Parser.Parse(Message);
+			IMessage m = Parser.Parse(Message);
 
-			NHapi.Model.V231.Message.ORM_O01 ormo01 = m as NHapi.Model.V231.Message.ORM_O01;
+			ORM_O01 ormo01 = m as ORM_O01;
 
-			NHapi.Base.Parser.XMLParser xmlParser = new NHapi.Base.Parser.DefaultXMLParser();
+			XMLParser xmlParser = new DefaultXMLParser();
 
 			string recoveredMessage = xmlParser.Encode(ormo01);
 
 			Assert.AreNotEqual(string.Empty, recoveredMessage);
 
-			System.Xml.XmlDocument ormDoc = new System.Xml.XmlDocument();
+			XmlDocument ormDoc = new XmlDocument();
 			ormDoc.LoadXml(recoveredMessage);
 			Assert.IsNotNull(ormDoc);
 		}
@@ -87,19 +88,19 @@ ORC|NA|00003^00001|F1492|||||||||888883
 OBR||00003^00001|F1492|RESPC^CULTURE RESPIRATORY ROUTINE|||||||L|||||||||F1492|||||||^ONCE&ONCE^^200607070600^200607070600^ROUTINE
 ";
 
-			NHapi.Base.Parser.PipeParser Parser = new NHapi.Base.Parser.PipeParser();
+			PipeParser Parser = new PipeParser();
 
-			NHapi.Base.Model.IMessage m = Parser.Parse(Message);
+			IMessage m = Parser.Parse(Message);
 
-			NHapi.Model.V231.Message.ORR_O02 msg = m as NHapi.Model.V231.Message.ORR_O02;
+			ORR_O02 msg = m as ORR_O02;
 
-			NHapi.Base.Parser.XMLParser xmlParser = new NHapi.Base.Parser.DefaultXMLParser();
+			XMLParser xmlParser = new DefaultXMLParser();
 
 			string recoveredMessage = xmlParser.Encode(msg);
 
 			Assert.AreNotEqual(string.Empty, recoveredMessage);
 
-			System.Xml.XmlDocument orrDoc = new System.Xml.XmlDocument();
+			XmlDocument orrDoc = new XmlDocument();
 			orrDoc.LoadXml(recoveredMessage);
 			Assert.IsNotNull(orrDoc);
 		}
@@ -133,19 +134,19 @@ OBX|10|NM|MPV||10.0|fL|6.2-10.0||||Z
 OBX|10|TX|MPV|1|(Ref Range: 6 fL)|fL|6.2-10.0||||Z
 ";
 
-			NHapi.Base.Parser.PipeParser Parser = new NHapi.Base.Parser.PipeParser();
+			PipeParser Parser = new PipeParser();
 
-			NHapi.Base.Model.IMessage m = Parser.Parse(Message);
+			IMessage m = Parser.Parse(Message);
 
-			NHapi.Model.V231.Message.ORU_R01 msg = m as NHapi.Model.V231.Message.ORU_R01;
+			ORU_R01 msg = m as ORU_R01;
 
-			NHapi.Base.Parser.XMLParser xmlParser = new NHapi.Base.Parser.DefaultXMLParser();
+			XMLParser xmlParser = new DefaultXMLParser();
 
 			string recoveredMessage = xmlParser.Encode(msg);
 
 			Assert.AreNotEqual(string.Empty, recoveredMessage);
 
-			System.Xml.XmlDocument orrDoc = new System.Xml.XmlDocument();
+			XmlDocument orrDoc = new XmlDocument();
 			orrDoc.LoadXml(recoveredMessage);
 			Assert.IsNotNull(orrDoc);
 		}
@@ -162,11 +163,11 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-			NHapi.Base.Parser.PipeParser Parser = new NHapi.Base.Parser.PipeParser();
+			PipeParser Parser = new PipeParser();
 
-			NHapi.Base.Model.IMessage m = Parser.Parse(Message);
+			IMessage m = Parser.Parse(Message);
 
-			NHapi.Model.V231.Message.ORF_R04 orfR04 = m as NHapi.Model.V231.Message.ORF_R04;
+			ORF_R04 orfR04 = m as ORF_R04;
 			Assert.IsNotNull(orfR04);
 			Assert.AreEqual("12",
 				orfR04.GetQUERY_RESPONSE().GetORDER().GetOBSERVATION().OBX.GetObservationValue()[0].Data.ToString());
@@ -184,15 +185,15 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-			NHapi.Base.Parser.PipeParser Parser = new NHapi.Base.Parser.PipeParser();
+			PipeParser Parser = new PipeParser();
 
-			NHapi.Base.Model.IMessage m = Parser.Parse(Message);
+			IMessage m = Parser.Parse(Message);
 
-			NHapi.Model.V231.Message.ORF_R04 orfR04 = m as NHapi.Model.V231.Message.ORF_R04;
+			ORF_R04 orfR04 = m as ORF_R04;
 
 			Assert.IsNotNull(orfR04);
 
-			NHapi.Base.Parser.XMLParser xmlParser = new NHapi.Base.Parser.DefaultXMLParser();
+			XMLParser xmlParser = new DefaultXMLParser();
 
 			string recoveredMessage = xmlParser.Encode(orfR04);
 
@@ -215,15 +216,15 @@ OBX||NM|||999||||||
 OBX||NM|||999||||||
 OBX||NM|||999||||||";
 
-			NHapi.Base.Parser.PipeParser Parser = new NHapi.Base.Parser.PipeParser();
+			PipeParser Parser = new PipeParser();
 
-			NHapi.Base.Model.IMessage m = Parser.Parse(Message);
+			IMessage m = Parser.Parse(Message);
 
-			NHapi.Model.V231.Message.ORM_O01 msgObj = m as NHapi.Model.V231.Message.ORM_O01;
+			ORM_O01 msgObj = m as ORM_O01;
 
 			Assert.IsNotNull(msgObj);
 
-			NHapi.Base.Parser.XMLParser xmlParser = new NHapi.Base.Parser.DefaultXMLParser();
+			XMLParser xmlParser = new DefaultXMLParser();
 
 			string recoveredMessage = xmlParser.Encode(msgObj);
 
@@ -250,15 +251,15 @@ OBX|4|TX|CULT||Critical result(s) called to and verification ";
 			Message += @" received from: Nu~||||||Z
 ";
 
-			NHapi.Base.Parser.PipeParser Parser = new NHapi.Base.Parser.PipeParser();
+			PipeParser Parser = new PipeParser();
 
-			NHapi.Base.Model.IMessage m = Parser.Parse(Message);
+			IMessage m = Parser.Parse(Message);
 
-			NHapi.Model.V231.Message.ORM_O01 msgObj = m as NHapi.Model.V231.Message.ORM_O01;
+			ORM_O01 msgObj = m as ORM_O01;
 
 			Assert.IsNotNull(msgObj);
 
-			NHapi.Base.Parser.XMLParser xmlParser = new NHapi.Base.Parser.DefaultXMLParser();
+			XMLParser xmlParser = new DefaultXMLParser();
 
 			string recoveredMessage = xmlParser.Encode(msgObj);
 
@@ -271,14 +272,14 @@ OBX|4|TX|CULT||Critical result(s) called to and verification ";
 		{
 			string Message = GetQRYR02XML();
 
-			NHapi.Base.Parser.XMLParser xmlParser = new NHapi.Base.Parser.DefaultXMLParser();
-			NHapi.Base.Model.IMessage m = xmlParser.Parse(Message);
+			XMLParser xmlParser = new DefaultXMLParser();
+			IMessage m = xmlParser.Parse(Message);
 
-			NHapi.Model.V231.Message.QRY_R02 qryR02 = m as NHapi.Model.V231.Message.QRY_R02;
+			QRY_R02 qryR02 = m as QRY_R02;
 
 			Assert.IsNotNull(qryR02);
 
-			NHapi.Base.Parser.PipeParser pipeParser = new NHapi.Base.Parser.PipeParser();
+			PipeParser pipeParser = new PipeParser();
 
 			string pipeOutput = pipeParser.Encode(qryR02);
 
@@ -299,15 +300,15 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-			NHapi.Base.Parser.PipeParser Parser = new NHapi.Base.Parser.PipeParser();
+			PipeParser Parser = new PipeParser();
 
-			NHapi.Base.Model.IMessage m = Parser.Parse(Message);
+			IMessage m = Parser.Parse(Message);
 
-			NHapi.Model.V231.Message.ORF_R04 orfR04 = m as NHapi.Model.V231.Message.ORF_R04;
+			ORF_R04 orfR04 = m as ORF_R04;
 
 			Assert.IsNotNull(orfR04);
 
-			NHapi.Base.Parser.XMLParser xmlParser = new NHapi.Base.Parser.DefaultXMLParser();
+			XMLParser xmlParser = new DefaultXMLParser();
 
 			string recoveredMessage = xmlParser.Encode(orfR04);
 
@@ -327,15 +328,15 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-			NHapi.Base.Parser.PipeParser Parser = new NHapi.Base.Parser.PipeParser();
+			PipeParser Parser = new PipeParser();
 
-			NHapi.Base.Model.IMessage m = Parser.Parse(Message);
+			IMessage m = Parser.Parse(Message);
 
-			NHapi.Model.V231.Message.ORF_R04 orfR04 = m as NHapi.Model.V231.Message.ORF_R04;
+			ORF_R04 orfR04 = m as ORF_R04;
 
 			Assert.IsNotNull(orfR04);
 
-			NHapi.Base.Parser.XMLParser xmlParser = new NHapi.Base.Parser.DefaultXMLParser();
+			XMLParser xmlParser = new DefaultXMLParser();
 
 			string recoveredMessage = xmlParser.Encode(orfR04);
 
@@ -422,15 +423,15 @@ OBX|9|TX|PLTC|1|(Ref Range: 1 k/uL)|k/uL|150-400||||Z
 OBX|10|NM|MPV||10.0|fL|6.2-10.0||||Z
 OBX|10|TX|MPV|1|(Ref Range: 6 fL)|fL|6.2-10.0||||Z";
 
-			NHapi.Base.Parser.PipeParser Parser = new NHapi.Base.Parser.PipeParser();
+			PipeParser Parser = new PipeParser();
 
-			NHapi.Base.Model.IMessage m = Parser.Parse(Message);
+			IMessage m = Parser.Parse(Message);
 
-			NHapi.Model.V231.Message.ORF_R04 orfR04 = m as NHapi.Model.V231.Message.ORF_R04;
+			ORF_R04 orfR04 = m as ORF_R04;
 
 			Assert.IsNotNull(orfR04);
 
-			NHapi.Base.Parser.XMLParser xmlParser = new NHapi.Base.Parser.DefaultXMLParser();
+			XMLParser xmlParser = new DefaultXMLParser();
 
 			string recoveredMessage = xmlParser.Encode(orfR04);
 
@@ -440,16 +441,16 @@ OBX|10|TX|MPV|1|(Ref Range: 6 fL)|fL|6.2-10.0||||Z";
 
 		public void TestDHPatient1111111()
 		{
-			NHapi.Base.Parser.PipeParser Parser = new NHapi.Base.Parser.PipeParser();
+			PipeParser Parser = new PipeParser();
 
-			NHapi.Base.Model.IMessage m = Parser.Parse(GetDHPatient1111111());
+			IMessage m = Parser.Parse(GetDHPatient1111111());
 
-			NHapi.Model.V231.Message.ORF_R04 orfR04 = m as NHapi.Model.V231.Message.ORF_R04;
+			ORF_R04 orfR04 = m as ORF_R04;
 
 			Assert.IsNotNull(orfR04);
 			object range = orfR04.GetQUERY_RESPONSE().GetORDER().GetOBSERVATION().OBX.GetObservationValue(1);
 
-			NHapi.Base.Parser.XMLParser xmlParser = new NHapi.Base.Parser.DefaultXMLParser();
+			XMLParser xmlParser = new DefaultXMLParser();
 
 			string recoveredMessage = xmlParser.Encode(orfR04);
 

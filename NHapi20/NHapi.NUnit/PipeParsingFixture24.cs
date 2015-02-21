@@ -15,11 +15,11 @@ namespace NHapi.NUnit
 			string message = @"MSH|^~\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||QRY^R02^QRY_R02|1|P|2.4|
 QRD|20060228155525|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||";
 
-			NHapi.Base.Parser.PipeParser Parser = new NHapi.Base.Parser.PipeParser();
+			PipeParser Parser = new PipeParser();
 
-			NHapi.Base.Model.IMessage m = Parser.Parse(message);
+			IMessage m = Parser.Parse(message);
 
-			NHapi.Model.V24.Message.QRY_R02 qryR02 = m as NHapi.Model.V24.Message.QRY_R02;
+			QRY_R02 qryR02 = m as QRY_R02;
 
 			Assert.IsNotNull(qryR02);
 			Assert.AreEqual("38923", qryR02.QRD.GetWhoSubjectFilter(0).IDNumber.Value);
@@ -38,11 +38,11 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-			NHapi.Base.Parser.PipeParser Parser = new NHapi.Base.Parser.PipeParser();
+			PipeParser Parser = new PipeParser();
 
-			NHapi.Base.Model.IMessage m = Parser.Parse(message);
+			IMessage m = Parser.Parse(message);
 
-			NHapi.Model.V24.Message.ORF_R04 orfR04 = m as NHapi.Model.V24.Message.ORF_R04;
+			ORF_R04 orfR04 = m as ORF_R04;
 			Assert.IsNotNull(orfR04);
 			Assert.AreEqual("12", orfR04.GetRESPONSE().GetORDER().GetOBSERVATION().OBX.GetObservationValue()[0].Data.ToString());
 		}
@@ -59,15 +59,15 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-			NHapi.Base.Parser.PipeParser Parser = new NHapi.Base.Parser.PipeParser();
+			PipeParser Parser = new PipeParser();
 
-			NHapi.Base.Model.IMessage m = Parser.Parse(message);
+			IMessage m = Parser.Parse(message);
 
-			NHapi.Model.V24.Message.ORF_R04 orfR04 = m as NHapi.Model.V24.Message.ORF_R04;
+			ORF_R04 orfR04 = m as ORF_R04;
 
 			Assert.IsNotNull(orfR04);
 
-			NHapi.Base.Parser.XMLParser xmlParser = new NHapi.Base.Parser.DefaultXMLParser();
+			XMLParser xmlParser = new DefaultXMLParser();
 
 			string recoveredMessage = xmlParser.Encode(orfR04);
 
@@ -80,14 +80,14 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
 		{
 			string message = GetQRYR02XML();
 
-			NHapi.Base.Parser.XMLParser xmlParser = new NHapi.Base.Parser.DefaultXMLParser();
-			NHapi.Base.Model.IMessage m = xmlParser.Parse(message);
+			XMLParser xmlParser = new DefaultXMLParser();
+			IMessage m = xmlParser.Parse(message);
 
-			NHapi.Model.V24.Message.QRY_R02 qryR02 = m as NHapi.Model.V24.Message.QRY_R02;
+			QRY_R02 qryR02 = m as QRY_R02;
 
 			Assert.IsNotNull(qryR02);
 
-			NHapi.Base.Parser.PipeParser pipeParser = new NHapi.Base.Parser.PipeParser();
+			PipeParser pipeParser = new PipeParser();
 
 			string pipeOutput = pipeParser.Encode(qryR02);
 
@@ -108,15 +108,15 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-			NHapi.Base.Parser.PipeParser Parser = new NHapi.Base.Parser.PipeParser();
+			PipeParser Parser = new PipeParser();
 
-			NHapi.Base.Model.IMessage m = Parser.Parse(message);
+			IMessage m = Parser.Parse(message);
 
-			NHapi.Model.V24.Message.ORF_R04 orfR04 = m as NHapi.Model.V24.Message.ORF_R04;
+			ORF_R04 orfR04 = m as ORF_R04;
 
 			Assert.IsNotNull(orfR04);
 
-			NHapi.Base.Parser.XMLParser xmlParser = new NHapi.Base.Parser.DefaultXMLParser();
+			XMLParser xmlParser = new DefaultXMLParser();
 
 			string recoveredMessage = xmlParser.Encode(orfR04);
 
@@ -173,15 +173,15 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-			NHapi.Base.Parser.PipeParser Parser = new NHapi.Base.Parser.PipeParser();
+			PipeParser Parser = new PipeParser();
 
-			NHapi.Base.Model.IMessage m = Parser.Parse(message);
+			IMessage m = Parser.Parse(message);
 
-			NHapi.Model.V24.Message.ORF_R04 orfR04 = m as NHapi.Model.V24.Message.ORF_R04;
+			ORF_R04 orfR04 = m as ORF_R04;
 
 			Assert.IsNotNull(orfR04);
 
-			NHapi.Base.Parser.XMLParser xmlParser = new NHapi.Base.Parser.DefaultXMLParser();
+			XMLParser xmlParser = new DefaultXMLParser();
 
 			string recoveredMessage = xmlParser.Encode(orfR04);
 

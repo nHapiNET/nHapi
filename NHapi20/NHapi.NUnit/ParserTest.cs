@@ -55,7 +55,7 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 			oru.MSH.VersionID.VersionID.Value = "2.3.1";
 			oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType.Value = "FT";
 			oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBR.SetIDOBR.Value = "1";
-			NHapi.Base.Model.Varies v =
+			Varies v =
 				oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0);
 			ST text = new ST(oru);
 			text.Value = @"This\.br\is\.br\A Test";
@@ -64,7 +64,7 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 
 			string encodedData = parser.Encode(oru);
 			Console.WriteLine(encodedData);
-			NHapi.Base.Model.IMessage msg = parser.Parse(encodedData);
+			IMessage msg = parser.Parse(encodedData);
 			Console.WriteLine(msg.GetStructureName());
 			oru = (ORU_R01) msg;
 			FT data = (FT) oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
@@ -82,7 +82,7 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 			oru.MSH.VersionID.VersionID.Value = "2.3.1";
 			oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType.Value = "FT";
 			oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBR.SetIDOBR.Value = "1";
-			NHapi.Base.Model.Varies v =
+			Varies v =
 				oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0);
 			ST text = new ST(oru);
 			text.Value = @"This\.br\is\.br\A Test~";
@@ -90,7 +90,7 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 
 
 			string encodedData = parser.Encode(oru);
-			NHapi.Base.Model.IMessage msg = parser.Parse(encodedData);
+			IMessage msg = parser.Parse(encodedData);
 			oru = (ORU_R01) msg;
 			FT data = (FT) oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
 			Assert.AreEqual(@"This\.br\is\.br\A Test~", data.Value);
@@ -107,7 +107,7 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 			oru.MSH.VersionID.VersionID.Value = "2.3.1";
 			oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType.Value = "FT";
 			oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBR.SetIDOBR.Value = "1";
-			NHapi.Base.Model.Varies v =
+			Varies v =
 				oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0);
 			ST text = new ST(oru);
 			text.Value = @"Th&is\.br\is\.br\A T|e\H\st\";
@@ -116,7 +116,7 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 
 			string encodedData = parser.Encode(oru);
 			Console.WriteLine(encodedData);
-			NHapi.Base.Model.IMessage msg = parser.Parse(encodedData);
+			IMessage msg = parser.Parse(encodedData);
 			oru = (ORU_R01) msg;
 			FT data = (FT) oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
 			Assert.AreEqual(@"Th&is\.br\is\.br\A T|e\H\st\", data.Value);
@@ -133,7 +133,7 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 			oru.MSH.VersionID.VersionID.Value = "2.3.1";
 			oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType.Value = "FT";
 			oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBR.SetIDOBR.Value = "1";
-			NHapi.Base.Model.Varies v =
+			Varies v =
 				oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0);
 			ST text = new ST(oru);
 			text.Value = @"Th&is\.br\is\.br\A T|est\";
