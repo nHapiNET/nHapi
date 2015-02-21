@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - ORU_R01 messages for v2.5.1 incorrectly did not support the repeating, optional segments OBX, Timing QTY and Specimen.
 - Moved regular expression field validation into it's own StrictValidation opt in validation context.
+- Correctly escape \X0A\ as \n (thanks to riaz.ahmad)
 
 ## [2.4.0.5] - 2015-02-19
 ### Fixed
