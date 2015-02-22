@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Configuration;
-using Microsoft.Test.CommandLineParsing;
 using NHapi.Base;
 using NHapi.Base.SourceGeneration;
 using ConfigurationSettings = NHapi.Base.ConfigurationSettings;
 
 namespace ModelGenerator
 {
-	public class ModelBuilder : Command
+	public class ModelBuilder
 	{
 		public enum MessageType
 		{
@@ -33,7 +32,7 @@ namespace ModelGenerator
 
 		public MessageType MessageTypeToBuild { get; set; }
 
-		public override void Execute()
+		public void Execute()
 		{
 			if (!string.IsNullOrEmpty(ConnectionString))
 			{
