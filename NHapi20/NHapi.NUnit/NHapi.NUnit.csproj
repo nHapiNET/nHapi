@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonDtTest.cs" />
+    <Compile Include="CustomZSegmentTest.cs" />
     <Compile Include="DataTypeUtilTests.cs" />
     <Compile Include="DateTypeTest23.cs" />
     <Compile Include="DateTypeTest231.cs" />
@@ -99,6 +100,10 @@
     <ProjectReference Include="..\NHapi.Model.V22\NHapi.Model.V22.csproj">
       <Project>{2AAFDC25-B3DF-4493-94A5-144D60122FEC}</Project>
       <Name>NHapi.Model.V22</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NHapi.Model.V22_ZSegments\NHapi.Model.V22_ZSegments.csproj">
+      <Project>{ffecb4de-c192-4f95-9dc7-9d0a815d250a}</Project>
+      <Name>NHapi.Model.V22_ZSegments</Name>
     </ProjectReference>
     <ProjectReference Include="..\NHapi.Model.V231\NHapi.Model.V231.csproj">
       <Project>{B8909698-59BA-453F-A4BC-2F4F2612F853}</Project>

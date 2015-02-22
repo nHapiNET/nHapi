@@ -1,16 +1,14 @@
 using System;
 using System.Configuration;
-using System.Collections.Generic;
-using System.Text;
 
 namespace NHapi.Base.Model.Configuration
 {
 	public class HL7PackageConfigurationSection : ConfigurationSection
 	{
-		[ConfigurationProperty("", IsDefaultCollection = true)]
+		[ConfigurationProperty("HL7PackageCollection", IsDefaultCollection = true)]
 		public HL7PackageCollection Packages
 		{
-			get { return (HL7PackageCollection) this[""]; }
+			get { return (HL7PackageCollection) this["HL7PackageCollection"]; }
 		}
 	}
 
@@ -36,8 +34,7 @@ namespace NHapi.Base.Model.Configuration
 		{
 			if ((element) is HL7PackageElement)
 			{
-				HL7PackageElement el =
-					(HL7PackageElement) element;
+				HL7PackageElement el = (HL7PackageElement) element;
 
 				return el.Name;
 			}
