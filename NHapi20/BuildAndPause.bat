@@ -1,0 +1,1 @@
+powershell -noexit -File Build.ps1
