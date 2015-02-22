@@ -26,4 +26,6 @@ The easiest way to get started using nHapi is to use the [NuGet package 'nHapi']
 
 Using the package manager console withing visual studio, simply run the following command:
 
+```
 PM > Install-Package nHapi
+```
