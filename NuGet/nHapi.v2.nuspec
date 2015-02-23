@@ -3,9 +3,9 @@
     <metadata>
         <id>nHapi</id>
         <version>2.4.0.7</version>
-        <authors>Chad Chenoweth,Duane Edwards</authors>
+        <authors>Chad Chenoweth, Duane Edwards</authors>
         <licenseUrl>http://www.mozilla.org/MPL/2.0/</licenseUrl>
-        <projectUrl>https://nhapi.codeplex.com</projectUrl>
+        <projectUrl>https://github.com/duaneedwards/nHapi</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>NHapi is a port of the original project HAPI.
 
