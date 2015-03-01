@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Upcoming Release
+###
+- Update FT's SizeRule to be up to 64k in length.
+
 ## [2.4.0.7] - 2015-02-21
 ### Fixed
 - Abstract and Varies segments were not having their Description field values populated. (Reported bv TheStephenStanton)
