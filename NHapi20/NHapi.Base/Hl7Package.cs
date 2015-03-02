@@ -30,7 +30,7 @@ namespace NHapi.Base
 
 		public string EventMappingResourceName
 		{
-			get { return _packageName + ".EventMapping.EventMap.properties"; }
+			get { return _packageName + "EventMapping.EventMap.properties"; }
 		}
 	}
 }

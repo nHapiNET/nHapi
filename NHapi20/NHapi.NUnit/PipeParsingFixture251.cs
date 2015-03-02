@@ -1,4 +1,5 @@
-﻿using NHapi.Base.Parser;
+﻿using System;
+using NHapi.Base.Parser;
 using NHapi.Model.V251.Datatype;
 using NHapi.Model.V251.Message;
 using NUnit.Framework;
@@ -35,6 +36,26 @@ OBX|3|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 			{
 				Assert.IsTrue(obs.Data is FT);
 			}
+		}
+
+		[Test]
+		public void TestAdtA04AndA01MessageStructure()
+		{
+			var result = PipeParser.GetMessageStructureForEvent("ADT_A04", "2.5");
+			bool isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
+			Assert.IsTrue(isSame, "ADT_A04 returns ADT_A01");
+
+			result = PipeParser.GetMessageStructureForEvent("ADT_A13", "2.5");
+			isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
+			Assert.IsTrue(isSame, "ADT_A13 returns ADT_A01");
+
+			result = PipeParser.GetMessageStructureForEvent("ADT_A08", "2.5");
+			isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
+			Assert.IsTrue(isSame, "ADT_A08 returns ADT_A01");
+
+			result = PipeParser.GetMessageStructureForEvent("ADT_A01", "2.5");
+			isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
+			Assert.IsTrue(isSame, "ADT_A01 returns ADT_A01");
 		}
 	}
 }
