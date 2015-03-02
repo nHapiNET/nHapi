@@ -335,7 +335,7 @@ namespace NHapi.Base.Parser
 			}
 
 			String[] fields = Split(segment, Convert.ToString(encodingChars.FieldSeparator));
-			//destination.setName(fields[0]);
+
 			for (int i = 1; i < fields.Length; i++)
 			{
 				String[] reps = Split(fields[i], Convert.ToString(encodingChars.RepetitionSeparator));
@@ -361,7 +361,6 @@ namespace NHapi.Base.Parser
 						statusMessage.Append(" repetition ");
 						statusMessage.Append(j);
 						log.Debug(statusMessage.ToString());
-						//parse(destination.GetField(i + fieldOffset, j), reps[j], encodingChars, false);
 
 						IType field = destination.GetField(i + fieldOffset, j);
 						if (isMSH2)
@@ -376,10 +375,10 @@ namespace NHapi.Base.Parser
 					catch (HL7Exception e)
 					{
 						//set the field location and throw again ...
-						e.FieldPosition = i;
+						e.FieldPosition = i + fieldOffset;
 						e.SegmentRepetition = MessageIterator.getIndex(destination.ParentStructure, destination).rep;
 						e.SegmentName = destination.GetStructureName();
-						throw e;
+						throw;
 					}
 				}
 			}
