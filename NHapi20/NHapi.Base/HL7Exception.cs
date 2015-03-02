@@ -273,6 +273,10 @@ namespace NHapi.Base
 			{
 				ourLog.Debug("Warning: LookupException getting error condition text (are we connected to a TableRepository?)", e);
 			}
+			catch (InvalidOperationException e)
+			{
+				ourLog.Debug("Warning: InvalidOperationException getting error condition text (are we connected to a TableRepository? Is a valid ConnectionString configured?)", e);
+			}
 		}
 
 		static HL7Exception()
