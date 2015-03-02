@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 ###
 - 
 
+## [2.4.0.9] - 2015-03-03
+### Fixed
+- Catch unhandled InvalidOperationExceptions when populating a HL7Exception's ERR segment using HL7Exception.populate().
+
 ## [2.4.0.8] - 2015-03-02
 ### Fixed
 - Resolve EventMaps not being loaded properly.
