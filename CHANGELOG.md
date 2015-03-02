@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## Upcoming Release
 ###
+- 
+
+## [2.4.0.8] - 2015-03-02
+### Fixed
 - Resolve EventMaps not being loaded properly.
 - Update FT's SizeRule to be up to 64k in length.
 - Include field offset component when rethrowing caught DataTypeExceptions whilst parsing.
