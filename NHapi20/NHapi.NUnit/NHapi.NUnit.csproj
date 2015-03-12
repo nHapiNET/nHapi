@@ -76,6 +76,7 @@
     <Compile Include="DateTypeTest24.cs" />
     <Compile Include="PipeParserLargeEmbeddedFileTest.cs" />
     <Compile Include="ParserTest.cs" />
+    <Compile Include="PipeParsingFixture21.cs" />
     <Compile Include="PipeParsingFixture25.cs" />
     <Compile Include="PipeParsingFixture23.cs" />
     <Compile Include="PipeParsingFixture231.cs" />
