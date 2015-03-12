@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 ###
 - 
 
+## [2.4.0.10] - 2015-03-15
+### Fixed
+- HL7 Version 2.1 messages would not parse due to not being listed as an acceptable base version. (Reported by taiji123)
+
 ## [2.4.0.9] - 2015-03-03
 ### Fixed
 - Catch unhandled InvalidOperationExceptions when populating a HL7Exception's ERR segment using HL7Exception.populate().
