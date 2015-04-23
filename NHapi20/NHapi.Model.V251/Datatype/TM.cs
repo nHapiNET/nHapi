@@ -1,7 +1,6 @@
-using System;
-
 using NHapi.Base.Model;
-namespace NHapi.Model.V251
+
+namespace NHapi.Model.V251.Datatype
 {
 /// <summary>/// Summary description for TM.
 /// </summary>
