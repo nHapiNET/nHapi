@@ -3,7 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## Upcoming Release
 ###
-- 
+-
+## [2.4.0.11] - 2015-04-23
+### Fixed
+- HL7 Version 2.5.1 messages would not parse due to having incorrect namespaces.  Affected segments "DT, ST and TM". (Reported by lharless)
 
 ## [2.4.0.10] - 2015-03-15
 ### Fixed
