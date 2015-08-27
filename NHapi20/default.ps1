@@ -44,6 +44,7 @@ task Test {
 Task Package -depends Build {
 	Remove-Item ..\NuGet\*.dll
 	Copy-Item .\NHapi.NUnit\bin\Release\*.dll ..\NuGet
+    Copy-Item .\NHapi.NUnit\bin\Release\*.xml ..\NuGet
 	Exec { .nuget\nuget pack ..\NuGet\nHapi.v2.nuspec }
 }
 
