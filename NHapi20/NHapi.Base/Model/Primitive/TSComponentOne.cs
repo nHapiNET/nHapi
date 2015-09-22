@@ -245,12 +245,20 @@ namespace NHapi.Base.Model.Primitive
 		protected virtual string LongDateTimeFormatWithSecond
 		{
 			get { return "yyyyMMddHHmmss"; }
-		}
+        }
 
-		/// <summary>
-		/// Used for setting the format of a long date (Year, Month, Day, Hour, Minute, Second, Fraction of second)
-		/// </summary>
-		protected virtual string LongDateTimeFormatWithFactionOfSecond
+        /// <summary>
+        /// Used for setting the format of a long date (Year, Month, Day, Hour, Minute, Second, Offset from GMT)
+        /// </summary>
+        protected virtual string LongDateTimeFormatWithOffset
+        {
+            get { return "yyyyMMddHHmmsszzz"; }
+        }
+
+        /// <summary>
+        /// Used for setting the format of a long date (Year, Month, Day, Hour, Minute, Second, Fraction of second)
+        /// </summary>
+        protected virtual string LongDateTimeFormatWithFactionOfSecond
 		{
 			get { return "yyyyMMddHHmmss.FFFF"; }
 		}
@@ -271,7 +279,7 @@ namespace NHapi.Base.Model.Primitive
 		{
 			try
 			{
-				string[] dateFormats = new string[] {LongDateTimeFormat, ShortDateTimeFormat, LongDateTimeFormatWithSecond};
+				string[] dateFormats = new string[] {LongDateTimeFormat, ShortDateTimeFormat, LongDateTimeFormatWithSecond, LongDateTimeFormatWithOffset };
 				DateTime val = DateTime.MinValue;
 				CultureInfo culture = Thread.CurrentThread.CurrentCulture;
 				if (Value != null && Value.Length > 0)
