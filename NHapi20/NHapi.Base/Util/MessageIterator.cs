@@ -218,11 +218,11 @@ namespace NHapi.Base.Util
             //the following conditional logic is a little convoluted -- its meant as an optimization 
             // i.e. trying to avoid calling matchExistsAfterCurrentPosition
 
-            if (!makeNewSegmentIfNeeded && typeof (IMessage).IsAssignableFrom(currPos.parent.GetType()))
+            if (!skipNewSegment && typeof (IMessage).IsAssignableFrom(currPos.parent.GetType()))
 			{
 				nextExists = false;
 			}
-			else if (!makeNewSegmentIfNeeded || matchExistsAfterPosition(currPos, direction, false, true))
+			else if (!skipNewSegment || matchExistsAfterPosition(currPos, direction, false, true))
 			{
 				IGroup grandparent = currPos.parent.ParentStructure;
 				Index parentIndex = getIndex(grandparent, currPos.parent);
