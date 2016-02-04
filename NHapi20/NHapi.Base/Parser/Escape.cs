@@ -129,9 +129,11 @@ namespace NHapi.Base.Parser
                             {
                                 if (_multiCharNonEscapeCharacterMapping[textAsChar[i + 1].ToString()] != null)
                                 {
+                                    // Contains /#xxyyzz..nn/ from the main string.
                                     string potentialEscapeSequence = text.Substring(i, nextEscapeChar - i + 1);
                                     bool encodeCharacter1 = true;
-                                    string hex = potentialEscapeSequence.Substring(2, potentialEscapeSequence.Length - 1);
+                                    // Get the hex component by striping initial slash, escape character, and last slash. Need to substring at index 2 for length - 3 characters.
+                                    string hex = potentialEscapeSequence.Substring(2, potentialEscapeSequence.Length - 3);
                                     if (hex.Length % 2 == 0)
                                     {
                                         switch (potentialEscapeSequence.Substring(0, 2))
