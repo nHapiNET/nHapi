@@ -233,7 +233,7 @@ namespace NHapi.Base.Model.Primitive
 							//extract the fractional second value from the input value
 							//If these characters are not numeric then a number
 							//format exception will be generated
-							float fract = Single.Parse(timeVal.Substring(6));
+							float fract = Single.Parse(timeVal.Substring(6), CultureInfo.InvariantCulture);
 							//check to see if the fractional second value is valid
 							if ((fract < 0) || (fract >= 1))
 							{
