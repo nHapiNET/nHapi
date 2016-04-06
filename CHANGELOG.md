@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## Upcoming Release
 ###
 -
+## [2.4.0.12] - 2016-04-06
+### Fixed
+- Add xml comments to nuget package (Submitted by vongillern)
+
 ## [2.4.0.11] - 2015-04-23
 ### Fixed
 - HL7 Version 2.5.1 messages would not parse due to having incorrect namespaces.  Affected segments "DT, ST and TM". (Reported by lharless)
