@@ -29,3 +29,5 @@ Using the package manager console withing visual studio, simply run the followin
 ```
 PM > Install-Package nHapi
 ```
+
+##[Change Log](https://github.com/duaneedwards/nHapi/blob/master/CHANGELOG.md)
