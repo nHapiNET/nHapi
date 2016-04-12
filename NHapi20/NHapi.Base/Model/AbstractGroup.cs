@@ -355,12 +355,16 @@ namespace NHapi.Base.Model
 	            throw new HL7Exception("The structure " + name + " does not exist in the group " + GetType().FullName,
 	                HL7Exception.APPLICATION_INTERNAL_ERROR);
 	        }
-
+            if (item.Structures.Count == 0)
+            {
+                throw new HL7Exception(
+                    "Invalid index: " + rep + ", structure " + name + " has no repetitions. ",
+                    HL7Exception.APPLICATION_INTERNAL_ERROR);
+            }
             if (rep >= item.Structures.Count)
             {
-                // return existng Structure if it exists 
                 throw new HL7Exception(
-                    "The structure " + name + " does not have " + rep + " repetitions. ",
+                    "Invalid index: " + rep + ", structure " + name + " must be between 0 and " + (item.Structures.Count - 1),
                     HL7Exception.APPLICATION_INTERNAL_ERROR);
             }
 
