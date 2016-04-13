@@ -27,4 +27,4 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 
 [assembly: AssemblyVersion("2.4.0.11")]
-[assembly: AssemblyFileVersion("2.4.0.11")]
+[assembly: AssemblyInformationalVersion("2.4.0.11-c94379a")]

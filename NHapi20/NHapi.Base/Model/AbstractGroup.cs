@@ -347,6 +347,33 @@ namespace NHapi.Base.Model
 			return item.IsRepeating;
 		}
 
+        public virtual IStructure RemoveRepetition(String name, int rep)
+	    {
+            AbstractGroupItem item = GetGroupItem(name);
+	        if (item == null)
+	        {
+	            throw new HL7Exception("The structure " + name + " does not exist in the group " + GetType().FullName,
+	                HL7Exception.APPLICATION_INTERNAL_ERROR);
+	        }
+            if (item.Structures.Count == 0)
+            {
+                throw new HL7Exception(
+                    "Invalid index: " + rep + ", structure " + name + " has no repetitions. ",
+                    HL7Exception.APPLICATION_INTERNAL_ERROR);
+            }
+            if (rep >= item.Structures.Count)
+            {
+                throw new HL7Exception(
+                    "Invalid index: " + rep + ", structure " + name + " must be between 0 and " + (item.Structures.Count - 1),
+                    HL7Exception.APPLICATION_INTERNAL_ERROR);
+            }
+
+            IStructure removed = item.Structures[rep];
+            item.Structures.RemoveAt(rep);
+            
+            return removed;
+	    }   
+            
 		/// <summary> Returns the number of existing repetitions of the named structure.</summary>
 		public virtual int currentReps(String name)
 		{
