@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 ## Upcoming Release
 ###
 -
+## [2.4.0.13] - 2016-05-19
+### Fixed
+- Fix incorrect version for all dlls
+- Fix NHapi.Model.V251.dll not having it's version property set correctly
+
 ## [2.4.0.12] - 2016-04-06
 ### Fixed
 - Add xml comments to nuget package (Submitted by vongillern)
