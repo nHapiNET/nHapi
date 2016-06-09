@@ -45,6 +45,7 @@
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>true</UseVSHostingProcess>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -84,12 +85,17 @@
     <Compile Include="PipeParsingFixture251.cs" />
     <Compile Include="PipeParsingORM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SourceGenerationTests.cs" />
     <Compile Include="Test23Orc.cs" />
     <Compile Include="TestMSH3.cs" />
     <Compile Include="ValidationTests.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ModelGenerator\ModelGenerator.csproj">
+      <Project>{EBB8E9C9-7FF2-49C4-96EF-C5B87E4C2617}</Project>
+      <Name>ModelGenerator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\nHapi.Base\NHapi.Base.csproj">
       <Project>{5A080123-0597-46C3-AE78-2007EFB0DD68}</Project>
       <Name>NHapi.Base</Name>

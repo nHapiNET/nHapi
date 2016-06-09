@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 ## Upcoming Release
 ###
 -
+
+## [2.4.0.14] - 2016-06-09
+### Fixed
+- Fix nHapi v2.5.1 not mapping ADT events correctly due to lack of having an eventmapping.properties embedded in the project (Submitted by rajputs6)
+
 ## [2.4.0.13] - 2016-05-19
 ### Fixed
 - Fix incorrect version for all dlls
