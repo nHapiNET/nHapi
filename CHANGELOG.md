@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 ## Upcoming Release
 ###
 -
+## [2.4.0.15] - 2016-06-10
+### Fixed
+- Restore original behaviour for Custom Segment handling as reported in issue #28 (Submitted by lniedzielski)
 
 ## [2.4.0.14] - 2016-06-09
 ### Fixed

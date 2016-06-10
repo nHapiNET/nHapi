@@ -53,7 +53,7 @@ namespace NHapi.Base
 
 		private void LoadAdditionalVersions()
 		{
-			var configSection = ConfigurationManager.GetSection("HL7PackageConfiguration") as HL7PackageConfigurationSection;
+			var configSection = ConfigurationManager.GetSection("Hl7PackageCollection") as HL7PackageConfigurationSection;
 			if (configSection != null)
 			{
 				foreach (HL7PackageElement package in configSection.Packages)

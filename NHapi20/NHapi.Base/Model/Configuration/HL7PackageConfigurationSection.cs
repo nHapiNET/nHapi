@@ -5,10 +5,10 @@ namespace NHapi.Base.Model.Configuration
 {
 	public class HL7PackageConfigurationSection : ConfigurationSection
 	{
-		[ConfigurationProperty("HL7PackageCollection", IsDefaultCollection = true)]
+		[ConfigurationProperty("", IsDefaultCollection = true)]
 		public HL7PackageCollection Packages
 		{
-			get { return (HL7PackageCollection) this["HL7PackageCollection"]; }
+			get { return (HL7PackageCollection) this[""]; }
 		}
 	}
 
