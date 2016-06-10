@@ -31,3 +31,12 @@ PM > Install-Package nHapi
 ```
 
 ##[Change Log](https://github.com/duaneedwards/nHapi/blob/master/CHANGELOG.md)
+
+##Related Projects
+
+If you use nHapi you may find the following projects useful:
+
+- [NHapiTools](https://github.com/dib0/NHapiTools) - Many useful extension methods, helper methods for listening on MLLP/TCP, generating ACK messages, custom segments, validation rules, too many features to list here.
+- [HL7Fuse](https://github.com/dib0/HL7Fuse) - HL7 Message Hub / Integration Engine
+
+Should you know of any other projects that use or improve nHapi please let me know or send a pull request with a link to the project and I'll be happy to add it to the list.
