@@ -1,0 +1,386 @@
+using System;
+using NHapi.Base;
+using NHapi.Base.Parser;
+using NHapi.Base.Model;
+using NHapi.Model.V281.Datatype;
+using NHapi.Base.Log;
+
+namespace NHapi.Model.V281.Segment{
+
+///<summary>
+/// Represents an HL7 FHS message segment. 
+/// This segment has the following fields:<ol>
+///<li>FHS-1: File Field Separator (ST)</li>
+///<li>FHS-2: File Encoding Characters (ST)</li>
+///<li>FHS-3: File Sending Application (HD)</li>
+///<li>FHS-4: File Sending Facility (HD)</li>
+///<li>FHS-5: File Receiving Application (HD)</li>
+///<li>FHS-6: File Receiving Facility (HD)</li>
+///<li>FHS-7: File Creation Date/Time (DTM)</li>
+///<li>FHS-8: File Security (ST)</li>
+///<li>FHS-9: File Name/ID (ST)</li>
+///<li>FHS-10: File Header Comment (ST)</li>
+///<li>FHS-11: File Control ID (ST)</li>
+///<li>FHS-12: Reference File Control ID (ST)</li>
+///<li>FHS-13: File Sending Network Address (HD)</li>
+///<li>FHS-14: File Receiving Network Address (HD)</li>
+///</ol>
+/// The get...() methods return data from individual fields.  These methods 
+/// do not throw exceptions and may therefore have to handle exceptions internally.  
+/// If an exception is handled internally, it is logged and null is returned.  
+/// This is not expected to happen - if it does happen this indicates not so much 
+/// an exceptional circumstance as a bug in the code for this class.
+///</summary>
+[Serializable]
+public class FHS : AbstractSegment  {
+
+  /**
+   * Creates a FHS (File Header) segment object that belongs to the given 
+   * message.  
+   */
+	public FHS(IGroup parent, IModelClassFactory factory) : base(parent,factory) {
+	IMessage message = Message;
+    try {
+       this.add(typeof(ST), true, 1, 1, new System.Object[]{message}, "File Field Separator");
+       this.add(typeof(ST), true, 1, 5, new System.Object[]{message}, "File Encoding Characters");
+       this.add(typeof(HD), false, 1, 0, new System.Object[]{message}, "File Sending Application");
+       this.add(typeof(HD), false, 1, 0, new System.Object[]{message}, "File Sending Facility");
+       this.add(typeof(HD), false, 1, 0, new System.Object[]{message}, "File Receiving Application");
+       this.add(typeof(HD), false, 1, 0, new System.Object[]{message}, "File Receiving Facility");
+       this.add(typeof(DTM), false, 1, 0, new System.Object[]{message}, "File Creation Date/Time");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "File Security");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "File Name/ID");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "File Header Comment");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "File Control ID");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Reference File Control ID");
+       this.add(typeof(HD), false, 1, 0, new System.Object[]{message}, "File Sending Network Address");
+       this.add(typeof(HD), false, 1, 0, new System.Object[]{message}, "File Receiving Network Address");
+    } catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Can't instantiate " + GetType().Name, he);
+    }
+  }
+
+	///<summary>
+	/// Returns File Field Separator(FHS-1).
+	///</summary>
+	public ST FileFieldSeparator
+	{
+		get{
+			ST ret = null;
+			try
+			{
+			IType t = this.GetField(1, 0);
+				ret = (ST)t;
+			}
+			 catch (HL7Exception he) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+				throw new System.Exception("An unexpected error ocurred", he);
+		} catch (System.Exception ex) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+				throw new System.Exception("An unexpected error ocurred", ex);
+    }
+			return ret;
+	}
+  }
+
+	///<summary>
+	/// Returns File Encoding Characters(FHS-2).
+	///</summary>
+	public ST FileEncodingCharacters
+	{
+		get{
+			ST ret = null;
+			try
+			{
+			IType t = this.GetField(2, 0);
+				ret = (ST)t;
+			}
+			 catch (HL7Exception he) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+				throw new System.Exception("An unexpected error ocurred", he);
+		} catch (System.Exception ex) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+				throw new System.Exception("An unexpected error ocurred", ex);
+    }
+			return ret;
+	}
+  }
+
+	///<summary>
+	/// Returns File Sending Application(FHS-3).
+	///</summary>
+	public HD FileSendingApplication
+	{
+		get{
+			HD ret = null;
+			try
+			{
+			IType t = this.GetField(3, 0);
+				ret = (HD)t;
+			}
+			 catch (HL7Exception he) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+				throw new System.Exception("An unexpected error ocurred", he);
+		} catch (System.Exception ex) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+				throw new System.Exception("An unexpected error ocurred", ex);
+    }
+			return ret;
+	}
+  }
+
+	///<summary>
+	/// Returns File Sending Facility(FHS-4).
+	///</summary>
+	public HD FileSendingFacility
+	{
+		get{
+			HD ret = null;
+			try
+			{
+			IType t = this.GetField(4, 0);
+				ret = (HD)t;
+			}
+			 catch (HL7Exception he) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+				throw new System.Exception("An unexpected error ocurred", he);
+		} catch (System.Exception ex) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+				throw new System.Exception("An unexpected error ocurred", ex);
+    }
+			return ret;
+	}
+  }
+
+	///<summary>
+	/// Returns File Receiving Application(FHS-5).
+	///</summary>
+	public HD FileReceivingApplication
+	{
+		get{
+			HD ret = null;
+			try
+			{
+			IType t = this.GetField(5, 0);
+				ret = (HD)t;
+			}
+			 catch (HL7Exception he) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+				throw new System.Exception("An unexpected error ocurred", he);
+		} catch (System.Exception ex) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+				throw new System.Exception("An unexpected error ocurred", ex);
+    }
+			return ret;
+	}
+  }
+
+	///<summary>
+	/// Returns File Receiving Facility(FHS-6).
+	///</summary>
+	public HD FileReceivingFacility
+	{
+		get{
+			HD ret = null;
+			try
+			{
+			IType t = this.GetField(6, 0);
+				ret = (HD)t;
+			}
+			 catch (HL7Exception he) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+				throw new System.Exception("An unexpected error ocurred", he);
+		} catch (System.Exception ex) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+				throw new System.Exception("An unexpected error ocurred", ex);
+    }
+			return ret;
+	}
+  }
+
+	///<summary>
+	/// Returns File Creation Date/Time(FHS-7).
+	///</summary>
+	public DTM FileCreationDateTime
+	{
+		get{
+			DTM ret = null;
+			try
+			{
+			IType t = this.GetField(7, 0);
+				ret = (DTM)t;
+			}
+			 catch (HL7Exception he) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+				throw new System.Exception("An unexpected error ocurred", he);
+		} catch (System.Exception ex) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+				throw new System.Exception("An unexpected error ocurred", ex);
+    }
+			return ret;
+	}
+  }
+
+	///<summary>
+	/// Returns File Security(FHS-8).
+	///</summary>
+	public ST FileSecurity
+	{
+		get{
+			ST ret = null;
+			try
+			{
+			IType t = this.GetField(8, 0);
+				ret = (ST)t;
+			}
+			 catch (HL7Exception he) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+				throw new System.Exception("An unexpected error ocurred", he);
+		} catch (System.Exception ex) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+				throw new System.Exception("An unexpected error ocurred", ex);
+    }
+			return ret;
+	}
+  }
+
+	///<summary>
+	/// Returns File Name/ID(FHS-9).
+	///</summary>
+	public ST FileNameID
+	{
+		get{
+			ST ret = null;
+			try
+			{
+			IType t = this.GetField(9, 0);
+				ret = (ST)t;
+			}
+			 catch (HL7Exception he) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+				throw new System.Exception("An unexpected error ocurred", he);
+		} catch (System.Exception ex) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+				throw new System.Exception("An unexpected error ocurred", ex);
+    }
+			return ret;
+	}
+  }
+
+	///<summary>
+	/// Returns File Header Comment(FHS-10).
+	///</summary>
+	public ST FileHeaderComment
+	{
+		get{
+			ST ret = null;
+			try
+			{
+			IType t = this.GetField(10, 0);
+				ret = (ST)t;
+			}
+			 catch (HL7Exception he) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+				throw new System.Exception("An unexpected error ocurred", he);
+		} catch (System.Exception ex) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+				throw new System.Exception("An unexpected error ocurred", ex);
+    }
+			return ret;
+	}
+  }
+
+	///<summary>
+	/// Returns File Control ID(FHS-11).
+	///</summary>
+	public ST FileControlID
+	{
+		get{
+			ST ret = null;
+			try
+			{
+			IType t = this.GetField(11, 0);
+				ret = (ST)t;
+			}
+			 catch (HL7Exception he) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+				throw new System.Exception("An unexpected error ocurred", he);
+		} catch (System.Exception ex) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+				throw new System.Exception("An unexpected error ocurred", ex);
+    }
+			return ret;
+	}
+  }
+
+	///<summary>
+	/// Returns Reference File Control ID(FHS-12).
+	///</summary>
+	public ST ReferenceFileControlID
+	{
+		get{
+			ST ret = null;
+			try
+			{
+			IType t = this.GetField(12, 0);
+				ret = (ST)t;
+			}
+			 catch (HL7Exception he) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+				throw new System.Exception("An unexpected error ocurred", he);
+		} catch (System.Exception ex) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+				throw new System.Exception("An unexpected error ocurred", ex);
+    }
+			return ret;
+	}
+  }
+
+	///<summary>
+	/// Returns File Sending Network Address(FHS-13).
+	///</summary>
+	public HD FileSendingNetworkAddress
+	{
+		get{
+			HD ret = null;
+			try
+			{
+			IType t = this.GetField(13, 0);
+				ret = (HD)t;
+			}
+			 catch (HL7Exception he) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+				throw new System.Exception("An unexpected error ocurred", he);
+		} catch (System.Exception ex) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+				throw new System.Exception("An unexpected error ocurred", ex);
+    }
+			return ret;
+	}
+  }
+
+	///<summary>
+	/// Returns File Receiving Network Address(FHS-14).
+	///</summary>
+	public HD FileReceivingNetworkAddress
+	{
+		get{
+			HD ret = null;
+			try
+			{
+			IType t = this.GetField(14, 0);
+				ret = (HD)t;
+			}
+			 catch (HL7Exception he) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+				throw new System.Exception("An unexpected error ocurred", he);
+		} catch (System.Exception ex) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+				throw new System.Exception("An unexpected error ocurred", ex);
+    }
+			return ret;
+	}
+  }
+
+
+}}
