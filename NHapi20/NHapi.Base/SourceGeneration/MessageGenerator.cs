@@ -87,7 +87,9 @@ namespace NHapi.Base.SourceGeneration
 
 				for (int i = 0; i < messages.Count; i++)
 				{
-					make((String) messages[i], baseDirectory, (String) chapters[i], version);
+					string message = (String) messages[i];
+					string chapter = (String) chapters[i];
+					make(message, baseDirectory, chapter, version);
 				}
 			}
 		}
@@ -138,7 +140,8 @@ namespace NHapi.Base.SourceGeneration
 					out_Renamed.Write(makeConstructor(contents, message, version));
 					for (int i = 0; i < contents.Length; i++)
 					{
-						out_Renamed.Write(GroupGenerator.makeAccessor(group, i));
+						string groupAccessor = GroupGenerator.makeAccessor(@group, i);
+						out_Renamed.Write(groupAccessor);
 					}
 
 					//add implementation of model.control interface, if any
