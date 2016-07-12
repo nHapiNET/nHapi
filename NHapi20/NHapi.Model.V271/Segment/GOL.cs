@@ -24,7 +24,7 @@ namespace NHapi.Model.V271.Segment{
 ///<li>GOL-12: Current Goal Review Date/Time (DTM)</li>
 ///<li>GOL-13: Next Goal Review Date/Time (DTM)</li>
 ///<li>GOL-14: Previous Goal Review Date/Time (DTM)</li>
-///<li>GOL-15: Goal Review Interval (-)</li>
+///<li>GOL-15: Goal Review Interval (ST)</li>
 ///<li>GOL-16: Goal Evaluation (CWE)</li>
 ///<li>GOL-17: Goal Evaluation Comment (ST)</li>
 ///<li>GOL-18: Goal Life Cycle Status (CWE)</li>
@@ -63,7 +63,7 @@ public class GOL : AbstractSegment  {
        this.add(typeof(DTM), false, 1, 0, new System.Object[]{message}, "Current Goal Review Date/Time");
        this.add(typeof(DTM), false, 1, 0, new System.Object[]{message}, "Next Goal Review Date/Time");
        this.add(typeof(DTM), false, 1, 0, new System.Object[]{message}, "Previous Goal Review Date/Time");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Goal Review Interval");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Goal Review Interval");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Goal Evaluation");
        this.add(typeof(ST), false, 0, 0, new System.Object[]{message}, "Goal Evaluation Comment");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Goal Life Cycle Status");
@@ -401,14 +401,14 @@ public class GOL : AbstractSegment  {
 	///<summary>
 	/// Returns Goal Review Interval(GOL-15).
 	///</summary>
-	public - GoalReviewInterval
+	public ST GoalReviewInterval
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(15, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

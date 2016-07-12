@@ -10,7 +10,7 @@ namespace NHapi.Model.V271.Segment{
 ///<summary>
 /// Represents an HL7 RXE message segment. 
 /// This segment has the following fields:<ol>
-///<li>RXE-1: Quantity/Timing (-)</li>
+///<li>RXE-1: Quantity/Timing (ST)</li>
 ///<li>RXE-2: Give Code (CWE)</li>
 ///<li>RXE-3: Give Amount - Minimum (NM)</li>
 ///<li>RXE-4: Give Amount - Maximum (NM)</li>
@@ -72,7 +72,7 @@ public class RXE : AbstractSegment  {
 	public RXE(IGroup parent, IModelClassFactory factory) : base(parent,factory) {
 	IMessage message = Message;
     try {
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Quantity/Timing");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Quantity/Timing");
        this.add(typeof(CWE), true, 1, 0, new System.Object[]{message}, "Give Code");
        this.add(typeof(NM), true, 1, 0, new System.Object[]{message}, "Give Amount - Minimum");
        this.add(typeof(NM), false, 1, 0, new System.Object[]{message}, "Give Amount - Maximum");
@@ -125,14 +125,14 @@ public class RXE : AbstractSegment  {
 	///<summary>
 	/// Returns Quantity/Timing(RXE-1).
 	///</summary>
-	public - QuantityTiming
+	public ST QuantityTiming
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(1, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

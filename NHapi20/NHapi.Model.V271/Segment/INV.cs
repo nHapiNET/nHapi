@@ -23,7 +23,7 @@ namespace NHapi.Model.V271.Segment{
 ///<li>INV-11: Quantity Units (CWE)</li>
 ///<li>INV-12: Expiration Date/Time (DTM)</li>
 ///<li>INV-13: First Used Date/Time (DTM)</li>
-///<li>INV-14: On Board Stability Duration (-)</li>
+///<li>INV-14: On Board Stability Duration (ST)</li>
 ///<li>INV-15: Test/Fluid Identifier(s) (CWE)</li>
 ///<li>INV-16: Manufacturer Lot Number (ST)</li>
 ///<li>INV-17: Manufacturer Identifier (CWE)</li>
@@ -60,7 +60,7 @@ public class INV : AbstractSegment  {
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Quantity Units");
        this.add(typeof(DTM), false, 1, 0, new System.Object[]{message}, "Expiration Date/Time");
        this.add(typeof(DTM), false, 1, 0, new System.Object[]{message}, "First Used Date/Time");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "On Board Stability Duration");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "On Board Stability Duration");
        this.add(typeof(CWE), false, 0, 0, new System.Object[]{message}, "Test/Fluid Identifier(s)");
        this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Manufacturer Lot Number");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Manufacturer Identifier");
@@ -409,14 +409,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns On Board Stability Duration(INV-14).
 	///</summary>
-	public - OnBoardStabilityDuration
+	public ST OnBoardStabilityDuration
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(14, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

@@ -10,7 +10,7 @@ namespace NHapi.Model.V271.Segment{
 ///<summary>
 /// Represents an HL7 EVN message segment. 
 /// This segment has the following fields:<ol>
-///<li>EVN-1: Event Type Code (-)</li>
+///<li>EVN-1: Event Type Code (ST)</li>
 ///<li>EVN-2: Recorded Date/Time (DTM)</li>
 ///<li>EVN-3: Date/Time Planned Event (DTM)</li>
 ///<li>EVN-4: Event Reason Code (CWE)</li>
@@ -34,7 +34,7 @@ public class EVN : AbstractSegment  {
 	public EVN(IGroup parent, IModelClassFactory factory) : base(parent,factory) {
 	IMessage message = Message;
     try {
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Event Type Code");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Event Type Code");
        this.add(typeof(DTM), true, 1, 0, new System.Object[]{message}, "Recorded Date/Time");
        this.add(typeof(DTM), false, 1, 0, new System.Object[]{message}, "Date/Time Planned Event");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Event Reason Code");
@@ -49,14 +49,14 @@ public class EVN : AbstractSegment  {
 	///<summary>
 	/// Returns Event Type Code(EVN-1).
 	///</summary>
-	public - EventTypeCode
+	public ST EventTypeCode
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(1, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

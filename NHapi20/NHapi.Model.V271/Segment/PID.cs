@@ -11,25 +11,25 @@ namespace NHapi.Model.V271.Segment{
 /// Represents an HL7 PID message segment. 
 /// This segment has the following fields:<ol>
 ///<li>PID-1: Set ID - PID (SI)</li>
-///<li>PID-2: Patient ID (-)</li>
+///<li>PID-2: Patient ID (ST)</li>
 ///<li>PID-3: Patient Identifier List (CX)</li>
-///<li>PID-4: Alternate Patient ID - PID (-)</li>
+///<li>PID-4: Alternate Patient ID - PID (ST)</li>
 ///<li>PID-5: Patient Name (XPN)</li>
 ///<li>PID-6: Mother's Maiden Name (XPN)</li>
 ///<li>PID-7: Date/Time of Birth (DTM)</li>
 ///<li>PID-8: Administrative Sex (CWE)</li>
-///<li>PID-9: Patient Alias (-)</li>
+///<li>PID-9: Patient Alias (ST)</li>
 ///<li>PID-10: Race (CWE)</li>
 ///<li>PID-11: Patient Address (XAD)</li>
-///<li>PID-12: County Code (-)</li>
+///<li>PID-12: County Code (ST)</li>
 ///<li>PID-13: Phone Number - Home (XTN)</li>
 ///<li>PID-14: Phone Number - Business (XTN)</li>
 ///<li>PID-15: Primary Language (CWE)</li>
 ///<li>PID-16: Marital Status (CWE)</li>
 ///<li>PID-17: Religion (CWE)</li>
 ///<li>PID-18: Patient Account Number (CX)</li>
-///<li>PID-19: SSN Number - Patient (-)</li>
-///<li>PID-20: Driver's License Number - Patient (-)</li>
+///<li>PID-19: SSN Number - Patient (ST)</li>
+///<li>PID-20: Driver's License Number - Patient (ST)</li>
 ///<li>PID-21: Mother's Identifier (CX)</li>
 ///<li>PID-22: Ethnic Group (CWE)</li>
 ///<li>PID-23: Birth Place (ST)</li>
@@ -68,25 +68,25 @@ public class PID : AbstractSegment  {
 	IMessage message = Message;
     try {
        this.add(typeof(SI), false, 1, 4, new System.Object[]{message}, "Set ID - PID");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Patient ID");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Patient ID");
        this.add(typeof(CX), true, 0, 0, new System.Object[]{message}, "Patient Identifier List");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Alternate Patient ID - PID");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Alternate Patient ID - PID");
        this.add(typeof(XPN), true, 0, 0, new System.Object[]{message}, "Patient Name");
        this.add(typeof(XPN), false, 0, 0, new System.Object[]{message}, "Mother's Maiden Name");
        this.add(typeof(DTM), false, 1, 0, new System.Object[]{message}, "Date/Time of Birth");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Administrative Sex");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Patient Alias");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Patient Alias");
        this.add(typeof(CWE), false, 0, 0, new System.Object[]{message}, "Race");
        this.add(typeof(XAD), false, 0, 0, new System.Object[]{message}, "Patient Address");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "County Code");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "County Code");
        this.add(typeof(XTN), false, 0, 0, new System.Object[]{message}, "Phone Number - Home");
        this.add(typeof(XTN), false, 0, 0, new System.Object[]{message}, "Phone Number - Business");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Primary Language");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Marital Status");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Religion");
        this.add(typeof(CX), false, 1, 0, new System.Object[]{message}, "Patient Account Number");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "SSN Number - Patient");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Driver's License Number - Patient");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "SSN Number - Patient");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Driver's License Number - Patient");
        this.add(typeof(CX), false, 0, 0, new System.Object[]{message}, "Mother's Identifier");
        this.add(typeof(CWE), false, 0, 0, new System.Object[]{message}, "Ethnic Group");
        this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Birth Place");
@@ -138,14 +138,14 @@ public class PID : AbstractSegment  {
 	///<summary>
 	/// Returns Patient ID(PID-2).
 	///</summary>
-	public - PatientID
+	public ST PatientID
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(2, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -219,14 +219,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Alternate Patient ID - PID(PID-4).
 	///</summary>
-	public - AlternatePatientIDPID
+	public ST AlternatePatientIDPID
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(4, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -404,14 +404,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Patient Alias(PID-9).
 	///</summary>
-	public - PatientAlias
+	public ST PatientAlias
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(9, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -543,14 +543,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns County Code(PID-12).
 	///</summary>
-	public - CountyCode
+	public ST CountyCode
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(12, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -774,14 +774,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns SSN Number - Patient(PID-19).
 	///</summary>
-	public - SSNNumberPatient
+	public ST SSNNumberPatient
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(19, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -797,14 +797,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Driver's License Number - Patient(PID-20).
 	///</summary>
-	public - DriverSLicenseNumberPatient
+	public ST DriverSLicenseNumberPatient
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(20, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

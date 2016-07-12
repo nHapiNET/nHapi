@@ -12,7 +12,7 @@ namespace NHapi.Model.V271.Segment{
 /// This segment has the following fields:<ol>
 ///<li>RXG-1: Give Sub-ID Counter (NM)</li>
 ///<li>RXG-2: Dispense Sub-ID Counter (NM)</li>
-///<li>RXG-3: Quantity/Timing (-)</li>
+///<li>RXG-3: Quantity/Timing (ST)</li>
 ///<li>RXG-4: Give Code (CWE)</li>
 ///<li>RXG-5: Give Amount - Minimum (NM)</li>
 ///<li>RXG-6: Give Amount - Maximum (NM)</li>
@@ -59,7 +59,7 @@ public class RXG : AbstractSegment  {
     try {
        this.add(typeof(NM), true, 1, 0, new System.Object[]{message}, "Give Sub-ID Counter");
        this.add(typeof(NM), false, 1, 0, new System.Object[]{message}, "Dispense Sub-ID Counter");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Quantity/Timing");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Quantity/Timing");
        this.add(typeof(CWE), true, 1, 0, new System.Object[]{message}, "Give Code");
        this.add(typeof(NM), true, 1, 0, new System.Object[]{message}, "Give Amount - Minimum");
        this.add(typeof(NM), false, 1, 0, new System.Object[]{message}, "Give Amount - Maximum");
@@ -141,14 +141,14 @@ public class RXG : AbstractSegment  {
 	///<summary>
 	/// Returns Quantity/Timing(RXG-3).
 	///</summary>
-	public - QuantityTiming
+	public ST QuantityTiming
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(3, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

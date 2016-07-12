@@ -16,7 +16,7 @@ namespace NHapi.Model.V271.Segment{
 ///<li>ORC-4: Placer Group Number (EI)</li>
 ///<li>ORC-5: Order Status (ID)</li>
 ///<li>ORC-6: Response Flag (ID)</li>
-///<li>ORC-7: Quantity/Timing (-)</li>
+///<li>ORC-7: Quantity/Timing (ST)</li>
 ///<li>ORC-8: Parent Order (EIP)</li>
 ///<li>ORC-9: Date/Time of Transaction (DTM)</li>
 ///<li>ORC-10: Entered By (XCN)</li>
@@ -66,7 +66,7 @@ public class ORC : AbstractSegment  {
        this.add(typeof(EI), false, 1, 0, new System.Object[]{message}, "Placer Group Number");
        this.add(typeof(ID), false, 1, 2, new System.Object[]{message, 38}, "Order Status");
        this.add(typeof(ID), false, 1, 1, new System.Object[]{message, 121}, "Response Flag");
-       this.add(typeof(-), false, 0, 0, new System.Object[]{message}, "Quantity/Timing");
+       this.add(typeof(ST), false, 0, 0, new System.Object[]{message}, "Quantity/Timing");
        this.add(typeof(EIP), false, 1, 0, new System.Object[]{message}, "Parent Order");
        this.add(typeof(DTM), false, 1, 0, new System.Object[]{message}, "Date/Time of Transaction");
        this.add(typeof(XCN), false, 0, 0, new System.Object[]{message}, "Entered By");
@@ -241,13 +241,13 @@ public class ORC : AbstractSegment  {
 	/// throws HL7Exception if the repetition number is invalid.
 	/// <param name="rep">The repetition number (this is a repeating field)</param>
 	///</summary>
-	public - GetQuantityTiming(int rep)
+	public ST GetQuantityTiming(int rep)
 	{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(7, rep);
-				ret = (-)t;
+				ret = (ST)t;
 		} catch (System.Exception ex) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
 				throw new System.Exception("An unexpected error ocurred", ex);
@@ -258,13 +258,13 @@ public class ORC : AbstractSegment  {
   ///<summary>
   /// Returns all repetitions of Quantity/Timing (ORC-7).
    ///</summary>
-  public -[] GetQuantityTiming() {
-     -[] ret = null;
+  public ST[] GetQuantityTiming() {
+     ST[] ret = null;
     try {
         IType[] t = this.GetField(7);  
-        ret = new -[t.Length];
+        ret = new ST[t.Length];
         for (int i = 0; i < ret.Length; i++) {
-            ret[i] = (-)t[i];
+            ret[i] = (ST)t[i];
         }
     } catch (HL7Exception he) {
         HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

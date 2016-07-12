@@ -10,7 +10,7 @@ namespace NHapi.Model.V271.Segment{
 ///<summary>
 /// Represents an HL7 ERR message segment. 
 /// This segment has the following fields:<ol>
-///<li>ERR-1: Error Code and Location (-)</li>
+///<li>ERR-1: Error Code and Location (ST)</li>
 ///<li>ERR-2: Error Location (ERL)</li>
 ///<li>ERR-3: HL7 Error Code (CWE)</li>
 ///<li>ERR-4: Severity (ID)</li>
@@ -39,7 +39,7 @@ public class ERR : AbstractSegment  {
 	public ERR(IGroup parent, IModelClassFactory factory) : base(parent,factory) {
 	IMessage message = Message;
     try {
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Error Code and Location");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Error Code and Location");
        this.add(typeof(ERL), false, 0, 0, new System.Object[]{message}, "Error Location");
        this.add(typeof(CWE), true, 1, 0, new System.Object[]{message}, "HL7 Error Code");
        this.add(typeof(ID), true, 1, 1, new System.Object[]{message, 516}, "Severity");
@@ -59,14 +59,14 @@ public class ERR : AbstractSegment  {
 	///<summary>
 	/// Returns Error Code and Location(ERR-1).
 	///</summary>
-	public - ErrorCodeAndLocation
+	public ST ErrorCodeAndLocation
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(1, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

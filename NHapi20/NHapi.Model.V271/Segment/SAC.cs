@@ -15,7 +15,7 @@ namespace NHapi.Model.V271.Segment{
 ///<li>SAC-3: Container Identifier (EI)</li>
 ///<li>SAC-4: Primary (Parent) Container Identifier (EI)</li>
 ///<li>SAC-5: Equipment Container Identifier (EI)</li>
-///<li>SAC-6: Specimen Source (-)</li>
+///<li>SAC-6: Specimen Source (ST)</li>
 ///<li>SAC-7: Registration Date/Time (DTM)</li>
 ///<li>SAC-8: Container Status (CWE)</li>
 ///<li>SAC-9: Carrier Type (CWE)</li>
@@ -76,7 +76,7 @@ public class SAC : AbstractSegment  {
        this.add(typeof(EI), false, 1, 0, new System.Object[]{message}, "Container Identifier");
        this.add(typeof(EI), false, 1, 0, new System.Object[]{message}, "Primary (Parent) Container Identifier");
        this.add(typeof(EI), false, 1, 0, new System.Object[]{message}, "Equipment Container Identifier");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Specimen Source");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Specimen Source");
        this.add(typeof(DTM), false, 1, 0, new System.Object[]{message}, "Registration Date/Time");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Container Status");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Carrier Type");
@@ -238,14 +238,14 @@ public class SAC : AbstractSegment  {
 	///<summary>
 	/// Returns Specimen Source(SAC-6).
 	///</summary>
-	public - SpecimenSource
+	public ST SpecimenSource
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(6, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
