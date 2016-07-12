@@ -64,7 +64,7 @@ namespace NHapi.Model.V26.Datatype
 
 		public string getVersion()
 		{
-			return "2.6";
+			return Constants.VERSION;
 		}
 	}
 }
