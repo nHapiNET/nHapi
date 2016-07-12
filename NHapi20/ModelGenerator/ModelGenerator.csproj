@@ -55,6 +55,12 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\NHapi.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Args">
       <HintPath>..\packages\Args.1.1.2\lib\Net35\Args.dll</HintPath>
@@ -78,6 +84,9 @@
     <Compile Include="ModelBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\NHapi.snk">
+      <Link>NHapi.snk</Link>
+    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>

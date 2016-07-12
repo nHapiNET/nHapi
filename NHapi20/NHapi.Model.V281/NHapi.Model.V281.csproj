@@ -11,7 +11,7 @@
     <RootNamespace>NHapi.Model.V281</RootNamespace>
     <AssemblyName>NHapi.Model.V281</AssemblyName>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>Properties\NHapi.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\NHapi.snk</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -94,7 +94,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\NHapi.snk" />
+    <None Include="..\NHapi.snk">
+      <Link>NHapi.snk</Link>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

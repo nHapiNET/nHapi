@@ -11,7 +11,7 @@
     <RootNamespace>NHapi.Base</RootNamespace>
     <AssemblyName>NHapi.Base</AssemblyName>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>Properties\NHapi.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\NHapi.snk</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -165,8 +165,10 @@
     <Compile Include="Validation\ValidationException.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\NHapi.snk">
+      <Link>NHapi.snk</Link>
+    </None>
     <None Include="App.config" />
-    <None Include="Properties\NHapi.snk" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
