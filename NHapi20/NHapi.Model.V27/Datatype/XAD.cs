@@ -20,7 +20,7 @@ namespace NHapi.Model.V27.Datatype
 /// <li>County/Parish Code (CWE)</li>
 /// <li>Census Tract (CWE)</li>
 /// <li>Address Representation Code (ID)</li>
-/// <li>Address Validity Range (-)</li>
+/// <li>Address Validity Range (ST)</li>
 /// <li>Effective Date (DTM)</li>
 /// <li>Expiration Date (DTM)</li>
 /// <li>Expiration Reason (CWE)</li>
@@ -62,7 +62,7 @@ public class XAD : AbstractType, IComposite{
 		data[8] = new CWE(message,"County/Parish Code");
 		data[9] = new CWE(message,"Census Tract");
 		data[10] = new ID(message, 465,"Address Representation Code");
-		data[11] = new -(message,"Address Validity Range");
+		data[11] = new ST(message,"Address Validity Range");
 		data[12] = new DTM(message,"Effective Date");
 		data[13] = new DTM(message,"Expiration Date");
 		data[14] = new CWE(message,"Expiration Reason");
@@ -293,11 +293,11 @@ get{
 	/// Returns Address Validity Range (component #11).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public - AddressValidityRange {
+	public ST AddressValidityRange {
 get{
-	   - ret = null;
+	   ST ret = null;
 	   try {
-	      ret = (-)this[11];
+	      ret = (ST)this[11];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);

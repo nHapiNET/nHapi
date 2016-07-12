@@ -11,7 +11,7 @@ namespace NHapi.Model.V27.Datatype
 /// <p>The HL7 RMC (Room Coverage) data type.  Consists of the following components: </p><ol>
 /// <li>Room Type (CWE)</li>
 /// <li>Amount Type (CWE)</li>
-/// <li>Coverage Amount (-)</li>
+/// <li>Coverage Amount (ST)</li>
 /// <li>Money or Percentage (MOP)</li>
 /// </ol>
 ///</summary>
@@ -34,7 +34,7 @@ public class RMC : AbstractType, IComposite{
 		data = new IType[4];
 		data[0] = new CWE(message,"Room Type");
 		data[1] = new CWE(message,"Amount Type");
-		data[2] = new -(message,"Coverage Amount");
+		data[2] = new ST(message,"Coverage Amount");
 		data[3] = new MOP(message,"Money or Percentage");
 	}
 
@@ -102,11 +102,11 @@ get{
 	/// Returns Coverage Amount (component #2).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public - CoverageAmount {
+	public ST CoverageAmount {
 get{
-	   - ret = null;
+	   ST ret = null;
 	   try {
-	      ret = (-)this[2];
+	      ret = (ST)this[2];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);

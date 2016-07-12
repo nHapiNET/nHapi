@@ -14,11 +14,11 @@ namespace NHapi.Model.V27.Datatype
 /// <li>Second and Further Given Names or Initials Thereof (ST)</li>
 /// <li>Suffix (e.g., JR or III) (ST)</li>
 /// <li>Prefix (e.g., DR) (ST)</li>
-/// <li>Degree (e.g., MD) (-)</li>
+/// <li>Degree (e.g., MD) (ST)</li>
 /// <li>Name Type Code (ID)</li>
 /// <li>Name Representation Code (ID)</li>
 /// <li>Name Context (CWE)</li>
-/// <li>Name Validity Range (-)</li>
+/// <li>Name Validity Range (ST)</li>
 /// <li>Name Assembly Order (ID)</li>
 /// <li>Effective Date (DTM)</li>
 /// <li>Expiration Date (DTM)</li>
@@ -48,11 +48,11 @@ public class XPN : AbstractType, IComposite{
 		data[2] = new ST(message,"Second and Further Given Names or Initials Thereof");
 		data[3] = new ST(message,"Suffix (e.g., JR or III)");
 		data[4] = new ST(message,"Prefix (e.g., DR)");
-		data[5] = new -(message,"Degree (e.g., MD)");
+		data[5] = new ST(message,"Degree (e.g., MD)");
 		data[6] = new ID(message, 200,"Name Type Code");
 		data[7] = new ID(message, 465,"Name Representation Code");
 		data[8] = new CWE(message,"Name Context");
-		data[9] = new -(message,"Name Validity Range");
+		data[9] = new ST(message,"Name Validity Range");
 		data[10] = new ID(message, 444,"Name Assembly Order");
 		data[11] = new DTM(message,"Effective Date");
 		data[12] = new DTM(message,"Expiration Date");
@@ -175,11 +175,11 @@ get{
 	/// Returns Degree (e.g., MD) (component #5).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public - DegreeEgMD {
+	public ST DegreeEgMD {
 get{
-	   - ret = null;
+	   ST ret = null;
 	   try {
-	      ret = (-)this[5];
+	      ret = (ST)this[5];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -243,11 +243,11 @@ get{
 	/// Returns Name Validity Range (component #9).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public - NameValidityRange {
+	public ST NameValidityRange {
 get{
-	   - ret = null;
+	   ST ret = null;
 	   try {
-	      ret = (-)this[9];
+	      ret = (ST)this[9];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);

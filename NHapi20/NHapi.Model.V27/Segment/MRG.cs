@@ -11,9 +11,9 @@ namespace NHapi.Model.V27.Segment{
 /// Represents an HL7 MRG message segment. 
 /// This segment has the following fields:<ol>
 ///<li>MRG-1: Prior Patient Identifier List (CX)</li>
-///<li>MRG-2: Prior Alternate Patient ID (-)</li>
+///<li>MRG-2: Prior Alternate Patient ID (ST)</li>
 ///<li>MRG-3: Prior Patient Account Number (CX)</li>
-///<li>MRG-4: Prior Patient ID (-)</li>
+///<li>MRG-4: Prior Patient ID (ST)</li>
 ///<li>MRG-5: Prior Visit Number (CX)</li>
 ///<li>MRG-6: Prior Alternate Visit ID (CX)</li>
 ///<li>MRG-7: Prior Patient Name (XPN)</li>
@@ -35,9 +35,9 @@ public class MRG : AbstractSegment  {
 	IMessage message = Message;
     try {
        this.add(typeof(CX), true, 0, 0, new System.Object[]{message}, "Prior Patient Identifier List");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Prior Alternate Patient ID");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Prior Alternate Patient ID");
        this.add(typeof(CX), false, 1, 0, new System.Object[]{message}, "Prior Patient Account Number");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Prior Patient ID");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Prior Patient ID");
        this.add(typeof(CX), false, 1, 0, new System.Object[]{message}, "Prior Visit Number");
        this.add(typeof(CX), false, 1, 0, new System.Object[]{message}, "Prior Alternate Visit ID");
        this.add(typeof(XPN), false, 0, 0, new System.Object[]{message}, "Prior Patient Name");
@@ -107,14 +107,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Prior Alternate Patient ID(MRG-2).
 	///</summary>
-	public - PriorAlternatePatientID
+	public ST PriorAlternatePatientID
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(2, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -153,14 +153,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Prior Patient ID(MRG-4).
 	///</summary>
-	public - PriorPatientID
+	public ST PriorPatientID
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(4, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

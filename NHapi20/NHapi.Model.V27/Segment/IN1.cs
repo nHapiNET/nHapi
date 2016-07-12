@@ -47,10 +47,10 @@ namespace NHapi.Model.V27.Segment{
 ///<li>IN1-35: Company Plan Code (CWE)</li>
 ///<li>IN1-36: Policy Number (ST)</li>
 ///<li>IN1-37: Policy Deductible (CP)</li>
-///<li>IN1-38: Policy Limit - Amount (-)</li>
+///<li>IN1-38: Policy Limit - Amount (ST)</li>
 ///<li>IN1-39: Policy Limit - Days (NM)</li>
-///<li>IN1-40: Room Rate - Semi-Private (-)</li>
-///<li>IN1-41: Room Rate - Private (-)</li>
+///<li>IN1-40: Room Rate - Semi-Private (ST)</li>
+///<li>IN1-41: Room Rate - Private (ST)</li>
 ///<li>IN1-42: Insured's Employment Status (CWE)</li>
 ///<li>IN1-43: Insured's Administrative Sex (CWE)</li>
 ///<li>IN1-44: Insured's Employer's Address (XAD)</li>
@@ -118,10 +118,10 @@ public class IN1 : AbstractSegment  {
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Company Plan Code");
        this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Policy Number");
        this.add(typeof(CP), false, 1, 0, new System.Object[]{message}, "Policy Deductible");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Policy Limit - Amount");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Policy Limit - Amount");
        this.add(typeof(NM), false, 1, 0, new System.Object[]{message}, "Policy Limit - Days");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Room Rate - Semi-Private");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Room Rate - Private");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Room Rate - Semi-Private");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Room Rate - Private");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Insured's Employment Status");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Insured's Administrative Sex");
        this.add(typeof(XAD), false, 0, 0, new System.Object[]{message}, "Insured's Employer's Address");
@@ -1379,14 +1379,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Policy Limit - Amount(IN1-38).
 	///</summary>
-	public - PolicyLimitAmount
+	public ST PolicyLimitAmount
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(38, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -1425,14 +1425,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Room Rate - Semi-Private(IN1-40).
 	///</summary>
-	public - RoomRateSemiPrivate
+	public ST RoomRateSemiPrivate
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(40, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -1448,14 +1448,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Room Rate - Private(IN1-41).
 	///</summary>
-	public - RoomRatePrivate
+	public ST RoomRatePrivate
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(41, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
