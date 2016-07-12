@@ -82,10 +82,10 @@
     <Compile Include="PipeParsingFixture23.cs" />
     <Compile Include="PipeParsingFixture231.cs" />
     <Compile Include="PipeParsingFixture24.cs" />
+    <Compile Include="PipeParsingFixture26.cs" />
     <Compile Include="PipeParsingFixture251.cs" />
     <Compile Include="PipeParsingORM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SourceGenerationTests.cs" />
     <Compile Include="Test23Orc.cs" />
     <Compile Include="TestMSH3.cs" />
     <Compile Include="ValidationTests.cs" />
@@ -131,6 +131,10 @@
     <ProjectReference Include="..\NHapi.Model.V25\NHapi.Model.V25.csproj">
       <Project>{BE6CDFAD-560E-44CC-B23B-87252DD4392C}</Project>
       <Name>NHapi.Model.V25</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NHapi.Model.V26\NHapi.Model.V26.csproj">
+      <Project>{a21b73c4-d18e-4bba-be6c-fd52a1f5f6c9}</Project>
+      <Name>NHapi.Model.V26</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
