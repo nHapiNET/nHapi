@@ -82,6 +82,7 @@
     <Compile Include="PipeParsingFixture23.cs" />
     <Compile Include="PipeParsingFixture231.cs" />
     <Compile Include="PipeParsingFixture24.cs" />
+    <Compile Include="PipeParsingFixture27.cs" />
     <Compile Include="PipeParsingFixture26.cs" />
     <Compile Include="PipeParsingFixture251.cs" />
     <Compile Include="PipeParsingORM.cs" />
@@ -135,6 +136,22 @@
     <ProjectReference Include="..\NHapi.Model.V26\NHapi.Model.V26.csproj">
       <Project>{a21b73c4-d18e-4bba-be6c-fd52a1f5f6c9}</Project>
       <Name>NHapi.Model.V26</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NHapi.Model.V271\NHapi.Model.V271.csproj">
+      <Project>{5aec7ea6-d02d-4dd5-82f4-d28ecf2be1ea}</Project>
+      <Name>NHapi.Model.V271</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NHapi.Model.V27\NHapi.Model.V27.csproj">
+      <Project>{299b6f9f-2aa8-4b93-b687-21563d421735}</Project>
+      <Name>NHapi.Model.V27</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NHapi.Model.V281\NHapi.Model.V281.csproj">
+      <Project>{4cb07522-cef0-44b4-b84a-110caf19f5e0}</Project>
+      <Name>NHapi.Model.V281</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NHapi.Model.V28\NHapi.Model.V28.csproj">
+      <Project>{9b2038ca-d3df-42e2-8f85-7c141d7ccd88}</Project>
+      <Name>NHapi.Model.V28</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
