@@ -144,6 +144,8 @@
     <Compile Include="Datatype\TQ.cs" />
     <Compile Include="Datatype\TS.cs" />
     <Compile Include="Datatype\TX.cs" />
+    <Compile Include="Datatype\ARV.cs" />
+    <Compile Include="Datatype\UAC.cs" />
     <Compile Include="Datatype\UVC.cs" />
     <Compile Include="Datatype\VH.cs" />
     <Compile Include="Datatype\VID.cs" />
