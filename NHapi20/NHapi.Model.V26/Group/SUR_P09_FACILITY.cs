@@ -3,8 +3,9 @@ using NHapi.Base;
 using NHapi.Base.Log;
 using System;
 using NHapi.Model.V26.Segment;
-
+using NHapi.Model.V26.Datatype;
 using NHapi.Base.Model;
+using ED = NHapi.Model.V26.Segment.ED;
 
 namespace NHapi.Model.V26.Group
 {
