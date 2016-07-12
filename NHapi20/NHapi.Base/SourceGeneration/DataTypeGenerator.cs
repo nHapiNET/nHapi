@@ -24,8 +24,8 @@ using System;
 using System.Collections;
 using System.Data.OleDb;
 using System.IO;
+using System.Linq;
 using System.Text;
-using NHapi.Base.Model;
 using NHapi.Base.Log;
 
 namespace NHapi.Base.SourceGeneration
@@ -96,10 +96,10 @@ namespace NHapi.Base.SourceGeneration
 				log.Warn("No version " + version + " data types found in database " + conn.Database);
 			}
 
-			for (int i = 0; i < types.Count; i++)
+			foreach (string type in types.Cast<string>())
 			{
-				if (!((String) types[i]).Equals("*"))
-					make(targetDir, (String) types[i], version);
+				if (!type.Equals("*"))
+					make(targetDir, type, version);
 			}
 		}
 
@@ -117,7 +117,7 @@ namespace NHapi.Base.SourceGeneration
 			Console.WriteLine(" Writing " + targetDirectory.FullName + dataType);
 			//make sure that targetDirectory is a directory ... 
 			if (!Directory.Exists(targetDirectory.FullName))
-				throw new IOException("Can't create file in " + targetDirectory.ToString() + " - it is not a directory.");
+				throw new IOException("Can't create file in " + targetDirectory + " - it is not a directory.");
 
 			//get any components for this data type
 			OleDbConnection conn = NormativeDatabase.Instance.Connection;
@@ -166,7 +166,7 @@ namespace NHapi.Base.SourceGeneration
 				//System.out.println("Component: " + de + "  Data Type: " + dt);  //for debugging
 				dataTypes.Add(dt);
 				descriptions.Add(de);
-				tables.Add((Int32) ta);
+				tables.Add(ta);
 			}
 			if (dataType.ToUpper().Equals("TS"))
 			{
@@ -217,7 +217,7 @@ namespace NHapi.Base.SourceGeneration
 			//write to file ... 
 			if (source != null)
 			{
-				String targetFile = targetDirectory.ToString() + "/" + dataType + ".cs";
+				String targetFile = targetDirectory + "/" + dataType + ".cs";
 				using (StreamWriter writer = new StreamWriter(targetFile))
 				{
 					writer.Write(source);
