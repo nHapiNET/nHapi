@@ -171,35 +171,33 @@ namespace NHapi.Base.SourceGeneration
 			String sql = getSegmentListQuery(message, version);
 			//System.out.println(sql.toString()); 	
 			SegmentDef[] segments = new SegmentDef[200]; //presumably there won't be more than 200
-			using (OleDbConnection conn = NormativeDatabase.Instance.Connection)
+			OleDbConnection conn = NormativeDatabase.Instance.Connection;
+			OleDbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
+			OleDbCommand temp_OleDbCommand;
+			temp_OleDbCommand = stmt;
+			temp_OleDbCommand.CommandText = sql;
+			OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
+			int c = -1;
+			while (rs.Read())
 			{
-				OleDbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
-				OleDbCommand temp_OleDbCommand;
-				temp_OleDbCommand = stmt;
-				temp_OleDbCommand.CommandText = sql;
-				OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
-				int c = -1;
-				while (rs.Read())
-				{
-					String name = SegmentGenerator.altSegName(Convert.ToString(rs[1 - 1]));
-					bool repeating = rs.GetBoolean(2 - 1);
-					bool optional = rs.GetBoolean(3 - 1);
-					String desc = Convert.ToString(rs[4 - 1]);
-					String groupName = Convert.ToString(rs[6 - 1]);
+				String name = SegmentGenerator.altSegName(Convert.ToString(rs[1 - 1]));
+				bool repeating = rs.GetBoolean(2 - 1);
+				bool optional = rs.GetBoolean(3 - 1);
+				String desc = Convert.ToString(rs[4 - 1]);
+				String groupName = Convert.ToString(rs[6 - 1]);
 
-					//ignore the "choice" directives ... the message class structure has to include all choices ...
-					//  if this is enforced (i.e. exception thrown if >1 choice populated) this will have to be done separately.
-					if (!(name.Equals("<") || name.Equals("|") || name.Equals(">")))
-					{
-						c++;
-						segments[c] = new SegmentDef(name, groupName, !optional, repeating, desc);
-					}
+				//ignore the "choice" directives ... the message class structure has to include all choices ...
+				//  if this is enforced (i.e. exception thrown if >1 choice populated) this will have to be done separately.
+				if (!(name.Equals("<") || name.Equals("|") || name.Equals(">")))
+				{
+					c++;
+					segments[c] = new SegmentDef(name, groupName, !optional, repeating, desc);
 				}
-				rs.Close();
-				SegmentDef[] ret = new SegmentDef[c + 1];
-				Array.Copy(segments, 0, ret, 0, c + 1);
-				return ret;
 			}
+			rs.Close();
+			SegmentDef[] ret = new SegmentDef[c + 1];
+			Array.Copy(segments, 0, ret, 0, c + 1);
+			return ret;
 		}
 
 		/// <summary> Returns an SQL query with which to get a list of the segments that
@@ -215,7 +213,7 @@ namespace NHapi.Base.SourceGeneration
 			      "FROM HL7Versions RIGHT JOIN (HL7Segments INNER JOIN HL7EventMessageTypeSegments ON (HL7Segments.version_id = HL7EventMessageTypeSegments.version_id) " +
 			      "AND (HL7Segments.seg_code = HL7EventMessageTypeSegments.seg_code)) " +
 			      "ON HL7Segments.version_id = HL7Versions.version_id " + "WHERE (((HL7Versions.hl7_version)= '" + version +
-			      "') " + "AND (([message_type]+'_'+[event_code])='" + message + "')) order by seq_no UNION " +
+			      "') " + "AND (([message_type]+'_'+[event_code])='" + message + "')) UNION " +
 			      "select HL7Segments.seg_code, repetitional, optional, HL7Segments.description, seq_no, groupname  " +
 			      "from HL7Versions RIGHT JOIN (HL7MsgStructIDSegments inner join HL7Segments on HL7MsgStructIDSegments.seg_code = HL7Segments.seg_code " +
 			      "and HL7MsgStructIDSegments.version_id = HL7Segments.version_id) " +
@@ -238,6 +236,9 @@ namespace NHapi.Base.SourceGeneration
 			preamble.Append("using ");
 			preamble.Append(PackageManager.GetVersionPackageName(version));
 			preamble.Append("Segment;\r\n");
+			preamble.Append("using ");
+			preamble.Append(PackageManager.GetVersionPackageName(version));
+			preamble.Append("Datatype;\r\n");
 			preamble.Append("using NHapi.Base;\r\n");
 			preamble.Append("using NHapi.Base.Parser;\r\n");
 			preamble.Append("using NHapi.Base.Model;\r\n\r\n");
