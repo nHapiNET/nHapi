@@ -56,6 +56,9 @@ namespace ModelGenerator
 				case MessageType.Message:
 					MessageGenerator.makeAll(BasePath, Version);
 					break;
+				case MessageType.DataType:
+					DataTypeGenerator.makeAll(BasePath, Version);
+					break;
 			}
 		}
 	}
