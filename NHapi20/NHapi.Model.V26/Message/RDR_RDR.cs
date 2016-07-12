@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V26.Group;
 using NHapi.Model.V26.Segment;
+using NHapi.Model.V26.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -16,8 +17,8 @@ namespace NHapi.Model.V26.Message
 ///<li>0: MSH (Message Header) </li>
 ///<li>1: MSA (Message Acknowledgment) </li>
 ///<li>2: ERR (Error) optional repeating</li>
-///<li>3: SFT (Software Segment) optional repeating</li>
-///<li>4: SFT (Software Segment) optional </li>
+///<li>3: SFT (Software Segment) optional </li>
+///<li>4: SFT (Software Segment) optional repeating</li>
 ///<li>5: UAC (User Authentication Credential Segment) optional </li>
 ///<li>6: RDR_RDR_DEFINITION (a Group object) repeating</li>
 ///<li>7: RXC (Pharmacy/Treatment Component Order) optional repeating</li>
@@ -53,8 +54,8 @@ public class RDR_RDR : AbstractMessage  {
 	      this.add(typeof(MSH), true, false);
 	      this.add(typeof(MSA), true, false);
 	      this.add(typeof(ERR), false, true);
-	      this.add(typeof(SFT), false, true);
 	      this.add(typeof(SFT), false, false);
+	      this.add(typeof(SFT), false, true);
 	      this.add(typeof(UAC), false, false);
 	      this.add(typeof(RDR_RDR_DEFINITION), true, true);
 	      this.add(typeof(RXC), false, true);
@@ -149,9 +150,10 @@ get{
 	} 
 
 	///<summary>
-	/// Returns  first repetition of SFT (Software Segment) - creates it if necessary
+	/// Returns SFT (Software Segment) - creates it if necessary
 	///</summary>
-	public SFT GetSFT() {
+	public SFT SFT { 
+get{
 	   SFT ret = null;
 	   try {
 	      ret = (SFT)this.GetStructure("SFT");
@@ -161,39 +163,12 @@ get{
 	   }
 	   return ret;
 	}
-
-	///<summary>
-	///Returns a specific repetition of SFT
-	/// * (Software Segment) - creates it if necessary
-	/// throws HL7Exception if the repetition requested is more than one 
-	///     greater than the number of existing repetitions.
-	///</summary>
-	public SFT GetSFT(int rep) { 
-	   return (SFT)this.GetStructure("SFT", rep);
 	}
 
-	/** 
-	 * Returns the number of existing repetitions of SFT 
-	 */ 
-	public int SFTRepetitionsUsed { 
-get{
-	    int reps = -1; 
-	    try { 
-	        reps = this.GetAll("SFT").Length; 
-	    } catch (HL7Exception e) { 
-	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
-	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
-	        throw new System.Exception(message);
-	    } 
-	    return reps; 
-	}
-	} 
-
 	///<summary>
-	/// Returns SFT2 (Software Segment) - creates it if necessary
+	/// Returns  first repetition of SFT2 (Software Segment) - creates it if necessary
 	///</summary>
-	public SFT SFT2 { 
-get{
+	public SFT GetSFT2() {
 	   SFT ret = null;
 	   try {
 	      ret = (SFT)this.GetStructure("SFT2");
@@ -203,7 +178,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of SFT2
+	/// * (Software Segment) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public SFT GetSFT2(int rep) { 
+	   return (SFT)this.GetStructure("SFT2", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of SFT2 
+	 */ 
+	public int SFT2RepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("SFT2").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
