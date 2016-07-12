@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## Upcoming Release
 ###
 -
+## [2.4.0.16] - 2016-07-12
+### Fixed
+- Initial implementation for HL7 version 2.6
+
 ## [2.4.0.15] - 2016-06-10
 ### Fixed
 - Restore original behaviour for Custom Segment handling as reported in issue #28 (Submitted by lniedzielski)
