@@ -11,9 +11,9 @@ namespace NHapi.Model.V26.Segment{
 /// Represents an HL7 DG1 message segment. 
 /// This segment has the following fields:<ol>
 ///<li>DG1-1: Set ID - DG1 (SI)</li>
-///<li>DG1-2: Diagnosis Coding Method (-)</li>
+///<li>DG1-2: Diagnosis Coding Method (ID)</li>
 ///<li>DG1-3: Diagnosis Code - DG1 (CWE)</li>
-///<li>DG1-4: Diagnosis Description (-)</li>
+///<li>DG1-4: Diagnosis Description (ST)</li>
 ///<li>DG1-5: Diagnosis Date/Time (DTM)</li>
 ///<li>DG1-6: Diagnosis Type (IS)</li>
 ///<li>DG1-7: Major Diagnostic Category (CNE)</li>
@@ -23,7 +23,7 @@ namespace NHapi.Model.V26.Segment{
 ///<li>DG1-11: Outlier Type (CWE)</li>
 ///<li>DG1-12: Outlier Days (NM)</li>
 ///<li>DG1-13: Outlier Cost (CP)</li>
-///<li>DG1-14: Grouper Version And Type (-)</li>
+///<li>DG1-14: Grouper Version And Type (ST)</li>
 ///<li>DG1-15: Diagnosis Priority (ID)</li>
 ///<li>DG1-16: Diagnosing Clinician (XCN)</li>
 ///<li>DG1-17: Diagnosis Classification (IS)</li>
@@ -54,9 +54,9 @@ public class DG1 : AbstractSegment  {
 	IMessage message = Message;
     try {
        this.add(typeof(SI), true, 1, 4, new System.Object[]{message}, "Set ID - DG1");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Diagnosis Coding Method");
+       this.add(typeof(ID), false, 1, 0, new System.Object[]{message, 0}, "Diagnosis Coding Method");
        this.add(typeof(CWE), true, 1, 250, new System.Object[]{message}, "Diagnosis Code - DG1");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Diagnosis Description");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Diagnosis Description");
        this.add(typeof(DTM), false, 1, 24, new System.Object[]{message}, "Diagnosis Date/Time");
        this.add(typeof(IS), true, 1, 2, new System.Object[]{message, 52}, "Diagnosis Type");
        this.add(typeof(CNE), false, 1, 1, new System.Object[]{message}, "Major Diagnostic Category");
@@ -66,7 +66,7 @@ public class DG1 : AbstractSegment  {
        this.add(typeof(CWE), false, 1, 250, new System.Object[]{message}, "Outlier Type");
        this.add(typeof(NM), false, 1, 3, new System.Object[]{message}, "Outlier Days");
        this.add(typeof(CP), false, 1, 12, new System.Object[]{message}, "Outlier Cost");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Grouper Version And Type");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Grouper Version And Type");
        this.add(typeof(ID), false, 1, 2, new System.Object[]{message, 359}, "Diagnosis Priority");
        this.add(typeof(XCN), false, 0, 250, new System.Object[]{message}, "Diagnosing Clinician");
        this.add(typeof(IS), false, 1, 3, new System.Object[]{message, 228}, "Diagnosis Classification");
@@ -110,14 +110,14 @@ public class DG1 : AbstractSegment  {
 	///<summary>
 	/// Returns Diagnosis Coding Method(DG1-2).
 	///</summary>
-	public - DiagnosisCodingMethod
+	public ID DiagnosisCodingMethod
 	{
 		get{
-			- ret = null;
+			ID ret = null;
 			try
 			{
 			IType t = this.GetField(2, 0);
-				ret = (-)t;
+				ret = (ID)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -156,14 +156,14 @@ public class DG1 : AbstractSegment  {
 	///<summary>
 	/// Returns Diagnosis Description(DG1-4).
 	///</summary>
-	public - DiagnosisDescription
+	public ST DiagnosisDescription
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(4, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -386,14 +386,14 @@ public class DG1 : AbstractSegment  {
 	///<summary>
 	/// Returns Grouper Version And Type(DG1-14).
 	///</summary>
-	public - GrouperVersionAndType
+	public ST GrouperVersionAndType
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(14, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

@@ -11,17 +11,17 @@ namespace NHapi.Model.V26.Segment{
 /// Represents an HL7 PR1 message segment. 
 /// This segment has the following fields:<ol>
 ///<li>PR1-1: Set ID - PR1 (SI)</li>
-///<li>PR1-2: Procedure Coding Method (-)</li>
+///<li>PR1-2: Procedure Coding Method (IS)</li>
 ///<li>PR1-3: Procedure Code (CNE)</li>
-///<li>PR1-4: Procedure Description (-)</li>
+///<li>PR1-4: Procedure Description (ST)</li>
 ///<li>PR1-5: Procedure Date/Time (DTM)</li>
 ///<li>PR1-6: Procedure Functional Type (IS)</li>
 ///<li>PR1-7: Procedure Minutes (NM)</li>
-///<li>PR1-8: Anesthesiologist (-)</li>
+///<li>PR1-8: Anesthesiologist (XCN)</li>
 ///<li>PR1-9: Anesthesia Code (IS)</li>
 ///<li>PR1-10: Anesthesia Minutes (NM)</li>
-///<li>PR1-11: Surgeon (-)</li>
-///<li>PR1-12: Procedure Practitioner (-)</li>
+///<li>PR1-11: Surgeon (XCN)</li>
+///<li>PR1-12: Procedure Practitioner (XCN)</li>
 ///<li>PR1-13: Consent Code (CWE)</li>
 ///<li>PR1-14: Procedure Priority (ID)</li>
 ///<li>PR1-15: Associated Diagnosis Code (CWE)</li>
@@ -50,17 +50,17 @@ public class PR1 : AbstractSegment  {
 	IMessage message = Message;
     try {
        this.add(typeof(SI), true, 1, 4, new System.Object[]{message}, "Set ID - PR1");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Procedure Coding Method");
+       this.add(typeof(IS), false, 1, 0, new System.Object[]{message, 0}, "Procedure Coding Method");
        this.add(typeof(CNE), true, 1, 705, new System.Object[]{message}, "Procedure Code");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Procedure Description");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Procedure Description");
        this.add(typeof(DTM), true, 1, 24, new System.Object[]{message}, "Procedure Date/Time");
        this.add(typeof(IS), false, 1, 2, new System.Object[]{message, 230}, "Procedure Functional Type");
        this.add(typeof(NM), false, 1, 4, new System.Object[]{message}, "Procedure Minutes");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Anesthesiologist");
+       this.add(typeof(XCN), false, 1, 0, new System.Object[]{message}, "Anesthesiologist");
        this.add(typeof(IS), false, 1, 2, new System.Object[]{message, 19}, "Anesthesia Code");
        this.add(typeof(NM), false, 1, 4, new System.Object[]{message}, "Anesthesia Minutes");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Surgeon");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Procedure Practitioner");
+       this.add(typeof(XCN), false, 1, 0, new System.Object[]{message}, "Surgeon");
+       this.add(typeof(XCN), false, 1, 0, new System.Object[]{message}, "Procedure Practitioner");
        this.add(typeof(CWE), false, 1, 250, new System.Object[]{message}, "Consent Code");
        this.add(typeof(ID), false, 1, 2, new System.Object[]{message, 418}, "Procedure Priority");
        this.add(typeof(CWE), false, 1, 250, new System.Object[]{message}, "Associated Diagnosis Code");
@@ -102,14 +102,14 @@ public class PR1 : AbstractSegment  {
 	///<summary>
 	/// Returns Procedure Coding Method(PR1-2).
 	///</summary>
-	public - ProcedureCodingMethod
+	public IS ProcedureCodingMethod
 	{
 		get{
-			- ret = null;
+			IS ret = null;
 			try
 			{
 			IType t = this.GetField(2, 0);
-				ret = (-)t;
+				ret = (IS)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -148,14 +148,14 @@ public class PR1 : AbstractSegment  {
 	///<summary>
 	/// Returns Procedure Description(PR1-4).
 	///</summary>
-	public - ProcedureDescription
+	public ST ProcedureDescription
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(4, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -240,14 +240,14 @@ public class PR1 : AbstractSegment  {
 	///<summary>
 	/// Returns Anesthesiologist(PR1-8).
 	///</summary>
-	public - Anesthesiologist
+	public XCN Anesthesiologist
 	{
 		get{
-			- ret = null;
+			XCN ret = null;
 			try
 			{
 			IType t = this.GetField(8, 0);
-				ret = (-)t;
+				ret = (XCN)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -309,14 +309,14 @@ public class PR1 : AbstractSegment  {
 	///<summary>
 	/// Returns Surgeon(PR1-11).
 	///</summary>
-	public - Surgeon
+	public XCN Surgeon
 	{
 		get{
-			- ret = null;
+			XCN ret = null;
 			try
 			{
 			IType t = this.GetField(11, 0);
-				ret = (-)t;
+				ret = (XCN)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -332,14 +332,14 @@ public class PR1 : AbstractSegment  {
 	///<summary>
 	/// Returns Procedure Practitioner(PR1-12).
 	///</summary>
-	public - ProcedurePractitioner
+	public XCN ProcedurePractitioner
 	{
 		get{
-			- ret = null;
+			XCN ret = null;
 			try
 			{
 			IType t = this.GetField(12, 0);
-				ret = (-)t;
+				ret = (XCN)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

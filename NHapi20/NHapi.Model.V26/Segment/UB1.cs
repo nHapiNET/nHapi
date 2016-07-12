@@ -11,7 +11,7 @@ namespace NHapi.Model.V26.Segment{
 /// Represents an HL7 UB1 message segment. 
 /// This segment has the following fields:<ol>
 ///<li>UB1-1: Set ID - UB1 (SI)</li>
-///<li>UB1-2: Blood Deductible (-)</li>
+///<li>UB1-2: Blood Deductible (NM)</li>
 ///<li>UB1-3: Blood Furnished-Pints (NM)</li>
 ///<li>UB1-4: Blood Replaced-Pints (NM)</li>
 ///<li>UB1-5: Blood Not Replaced-Pints (NM)</li>
@@ -51,7 +51,7 @@ public class UB1 : AbstractSegment  {
 	IMessage message = Message;
     try {
        this.add(typeof(SI), false, 1, 4, new System.Object[]{message}, "Set ID - UB1");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Blood Deductible");
+       this.add(typeof(NM), false, 1, 0, new System.Object[]{message}, "Blood Deductible");
        this.add(typeof(NM), false, 1, 2, new System.Object[]{message}, "Blood Furnished-Pints");
        this.add(typeof(NM), false, 1, 2, new System.Object[]{message}, "Blood Replaced-Pints");
        this.add(typeof(NM), false, 1, 2, new System.Object[]{message}, "Blood Not Replaced-Pints");
@@ -104,14 +104,14 @@ public class UB1 : AbstractSegment  {
 	///<summary>
 	/// Returns Blood Deductible(UB1-2).
 	///</summary>
-	public - BloodDeductible
+	public NM BloodDeductible
 	{
 		get{
-			- ret = null;
+			NM ret = null;
 			try
 			{
 			IType t = this.GetField(2, 0);
-				ret = (-)t;
+				ret = (NM)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

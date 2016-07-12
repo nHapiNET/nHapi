@@ -17,8 +17,8 @@ namespace NHapi.Model.V26.Segment{
 ///<li>FT1-5: Transaction Posting Date (DTM)</li>
 ///<li>FT1-6: Transaction Type (IS)</li>
 ///<li>FT1-7: Transaction Code (CWE)</li>
-///<li>FT1-8: Transaction Description (-)</li>
-///<li>FT1-9: Transaction Description - Alt (-)</li>
+///<li>FT1-8: Transaction Description (ST)</li>
+///<li>FT1-9: Transaction Description - Alt (ST)</li>
 ///<li>FT1-10: Transaction Quantity (NM)</li>
 ///<li>FT1-11: Transaction Amount - Extended (CP)</li>
 ///<li>FT1-12: Transaction amount - unit (CP)</li>
@@ -65,8 +65,8 @@ public class FT1 : AbstractSegment  {
        this.add(typeof(DTM), false, 1, 24, new System.Object[]{message}, "Transaction Posting Date");
        this.add(typeof(IS), true, 1, 8, new System.Object[]{message, 17}, "Transaction Type");
        this.add(typeof(CWE), true, 1, 250, new System.Object[]{message}, "Transaction Code");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Transaction Description");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Transaction Description - Alt");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Transaction Description");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Transaction Description - Alt");
        this.add(typeof(NM), false, 1, 6, new System.Object[]{message}, "Transaction Quantity");
        this.add(typeof(CP), false, 1, 12, new System.Object[]{message}, "Transaction Amount - Extended");
        this.add(typeof(CP), false, 1, 12, new System.Object[]{message}, "Transaction amount - unit");
@@ -258,14 +258,14 @@ public class FT1 : AbstractSegment  {
 	///<summary>
 	/// Returns Transaction Description(FT1-8).
 	///</summary>
-	public - TransactionDescription
+	public ST TransactionDescription
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(8, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -281,14 +281,14 @@ public class FT1 : AbstractSegment  {
 	///<summary>
 	/// Returns Transaction Description - Alt(FT1-9).
 	///</summary>
-	public - TransactionDescriptionAlt
+	public ST TransactionDescriptionAlt
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(9, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
