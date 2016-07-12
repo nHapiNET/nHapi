@@ -10,7 +10,7 @@ namespace NHapi.Model.V26.Datatype
 ///<summary>
 /// <p>The HL7 TS (Time Stamp) data type.  Consists of the following components: </p><ol>
 /// <li>Time (TSComponentOne)</li>
-/// <li>Degree of Precision (-)</li>
+/// <li>Degree of Precision (ID)</li>
 /// </ol>
 ///</summary>
 [Serializable]
@@ -31,7 +31,7 @@ public class TS : AbstractType, IComposite{
 	public TS(IMessage message, string description) : base(message, description){
 		data = new IType[2];
 		data[0] = new TSComponentOne(message,"Time");
-		data[1] = new -(message,"Degree of Precision");
+		data[1] = new ID(message, 0,"Degree of Precision");
 	}
 
 	///<summary>
@@ -81,11 +81,11 @@ get{
 	/// Returns Degree of Precision (component #1).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public - DegreeOfPrecision {
+	public ID DegreeOfPrecision {
 get{
-	   - ret = null;
+	   ID ret = null;
 	   try {
-	      ret = (-)this[1];
+	      ret = (ID)this[1];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);

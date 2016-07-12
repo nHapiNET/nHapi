@@ -9,12 +9,12 @@ namespace NHapi.Model.V26.Datatype
 
 ///<summary>
 /// <p>The HL7 CE (Coded Element) data type.  Consists of the following components: </p><ol>
-/// <li>Identifier (-)</li>
-/// <li>Text (-)</li>
-/// <li>Name of Coding System (-)</li>
-/// <li>Alternate Identifier (-)</li>
-/// <li>Alternate Text (-)</li>
-/// <li>Name of Alternate Coding System (-)</li>
+/// <li>Identifier (ST)</li>
+/// <li>Text (ST)</li>
+/// <li>Name of Coding System (ID)</li>
+/// <li>Alternate Identifier (ST)</li>
+/// <li>Alternate Text (ST)</li>
+/// <li>Name of Alternate Coding System (ID)</li>
 /// </ol>
 ///</summary>
 [Serializable]
@@ -34,12 +34,12 @@ public class CE : AbstractType, IComposite{
 	///</summary>
 	public CE(IMessage message, string description) : base(message, description){
 		data = new IType[6];
-		data[0] = new -(message,"Identifier");
-		data[1] = new -(message,"Text");
-		data[2] = new -(message,"Name of Coding System");
-		data[3] = new -(message,"Alternate Identifier");
-		data[4] = new -(message,"Alternate Text");
-		data[5] = new -(message,"Name of Alternate Coding System");
+		data[0] = new ST(message,"Identifier");
+		data[1] = new ST(message,"Text");
+		data[2] = new ID(message, 0,"Name of Coding System");
+		data[3] = new ST(message,"Alternate Identifier");
+		data[4] = new ST(message,"Alternate Text");
+		data[5] = new ID(message, 0,"Name of Alternate Coding System");
 	}
 
 	///<summary>
@@ -72,11 +72,11 @@ get{
 	/// Returns Identifier (component #0).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public - Identifier {
+	public ST Identifier {
 get{
-	   - ret = null;
+	   ST ret = null;
 	   try {
-	      ret = (-)this[0];
+	      ret = (ST)this[0];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -89,11 +89,11 @@ get{
 	/// Returns Text (component #1).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public - Text {
+	public ST Text {
 get{
-	   - ret = null;
+	   ST ret = null;
 	   try {
-	      ret = (-)this[1];
+	      ret = (ST)this[1];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -106,11 +106,11 @@ get{
 	/// Returns Name of Coding System (component #2).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public - NameOfCodingSystem {
+	public ID NameOfCodingSystem {
 get{
-	   - ret = null;
+	   ID ret = null;
 	   try {
-	      ret = (-)this[2];
+	      ret = (ID)this[2];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -123,11 +123,11 @@ get{
 	/// Returns Alternate Identifier (component #3).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public - AlternateIdentifier {
+	public ST AlternateIdentifier {
 get{
-	   - ret = null;
+	   ST ret = null;
 	   try {
-	      ret = (-)this[3];
+	      ret = (ST)this[3];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -140,11 +140,11 @@ get{
 	/// Returns Alternate Text (component #4).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public - AlternateText {
+	public ST AlternateText {
 get{
-	   - ret = null;
+	   ST ret = null;
 	   try {
-	      ret = (-)this[4];
+	      ret = (ST)this[4];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -157,11 +157,11 @@ get{
 	/// Returns Name of Alternate Coding System (component #5).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public - NameOfAlternateCodingSystem {
+	public ID NameOfAlternateCodingSystem {
 get{
-	   - ret = null;
+	   ID ret = null;
 	   try {
-	      ret = (-)this[5];
+	      ret = (ID)this[5];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
