@@ -348,29 +348,6 @@ namespace NHapi.Base.SourceGeneration
 			return source.ToString();
 		}
 
-		/// <summary> Test harness ...</summary>
-		[STAThread]
-		public static void Main(String[] args)
-		{
-			if (args.Length != 3)
-			{
-				Console.Out.WriteLine("Usage: MessageGenerator message_name version source_dir");
-				Environment.Exit(1);
-			}
-			String mess = args[0];
-			Console.Out.WriteLine("Testing source gen for message " + mess);
-			//System.setProperty("ca.on.uhn.hl7.database.url", "jdbc:odbc:hl7");
-			try
-			{
-				Type.GetType("sun.jdbc.odbc.JdbcOdbcDriver");
-				make(mess, args[2], "0", args[1]);
-			}
-			catch (Exception e)
-			{
-				SupportClass.WriteStackTrace(e, Console.Error);
-			}
-		}
-
 		static MessageGenerator()
 		{
 			log = HapiLogFactory.GetHapiLog(typeof (MessageGenerator));
