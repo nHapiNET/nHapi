@@ -5,10 +5,13 @@ All notable changes to this project will be documented in this file.
 ###
 -
 
-## [2.4.0.17] - 2016-07-13
+## [2.4.0.20] - 2016-07-13
+### Added
+- Initial implementation for HL7 version 2.8.1
+## [2.4.0.19] - 2016-07-13
 ### Added
 - Initial implementation for HL7 version 2.8
-## [2.4.0.17] - 2016-07-13
+## [2.4.0.18] - 2016-07-13
 ### Added
 - Initial implementation for HL7 version 2.7.1
 ## [2.4.0.17] - 2016-07-12
