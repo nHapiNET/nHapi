@@ -15,7 +15,7 @@ namespace NHapi.Model.V281.Segment{
 ///<li>AL1-3: Allergen Code/Mnemonic/Description (CWE)</li>
 ///<li>AL1-4: Allergy Severity Code (CWE)</li>
 ///<li>AL1-5: Allergy Reaction Code (ST)</li>
-///<li>AL1-6: Identification Date (-)</li>
+///<li>AL1-6: Identification Date (DT)</li>
 ///</ol>
 /// The get...() methods return data from individual fields.  These methods 
 /// do not throw exceptions and may therefore have to handle exceptions internally.  
@@ -38,7 +38,7 @@ public class AL1 : AbstractSegment  {
        this.add(typeof(CWE), true, 1, 0, new System.Object[]{message}, "Allergen Code/Mnemonic/Description");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Allergy Severity Code");
        this.add(typeof(ST), false, 0, 0, new System.Object[]{message}, "Allergy Reaction Code");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Identification Date");
+       this.add(typeof(DT), false, 1, 0, new System.Object[]{message}, "Identification Date");
     } catch (HL7Exception he) {
         HapiLogFactory.GetHapiLog(GetType()).Error("Can't instantiate " + GetType().Name, he);
     }
@@ -197,14 +197,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Identification Date(AL1-6).
 	///</summary>
-	public - IdentificationDate
+	public DT IdentificationDate
 	{
 		get{
-			- ret = null;
+			DT ret = null;
 			try
 			{
 			IType t = this.GetField(6, 0);
-				ret = (-)t;
+				ret = (DT)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

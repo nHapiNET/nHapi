@@ -13,7 +13,7 @@ namespace NHapi.Model.V281.Segment{
 ///<li>ECD-1: Reference Command Number (NM)</li>
 ///<li>ECD-2: Remote Control Command (CWE)</li>
 ///<li>ECD-3: Response Required (ID)</li>
-///<li>ECD-4: Requested Completion Time (-)</li>
+///<li>ECD-4: Requested Completion Time (ST)</li>
 ///<li>ECD-5: Parameters (TX)</li>
 ///</ol>
 /// The get...() methods return data from individual fields.  These methods 
@@ -35,7 +35,7 @@ public class ECD : AbstractSegment  {
        this.add(typeof(NM), true, 1, 0, new System.Object[]{message}, "Reference Command Number");
        this.add(typeof(CWE), true, 1, 0, new System.Object[]{message}, "Remote Control Command");
        this.add(typeof(ID), false, 1, 1, new System.Object[]{message, 136}, "Response Required");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Requested Completion Time");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Requested Completion Time");
        this.add(typeof(TX), false, 0, 0, new System.Object[]{message}, "Parameters");
     } catch (HL7Exception he) {
         HapiLogFactory.GetHapiLog(GetType()).Error("Can't instantiate " + GetType().Name, he);
@@ -114,14 +114,14 @@ public class ECD : AbstractSegment  {
 	///<summary>
 	/// Returns Requested Completion Time(ECD-4).
 	///</summary>
-	public - RequestedCompletionTime
+	public ST RequestedCompletionTime
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(4, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

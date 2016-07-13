@@ -12,10 +12,10 @@ namespace NHapi.Model.V281.Segment{
 /// This segment has the following fields:<ol>
 ///<li>MSA-1: Acknowledgment Code (ID)</li>
 ///<li>MSA-2: Message Control ID (ST)</li>
-///<li>MSA-3: Text Message (-)</li>
+///<li>MSA-3: Text Message (ST)</li>
 ///<li>MSA-4: Expected Sequence Number (NM)</li>
-///<li>MSA-5: Delayed Acknowledgment Type (-)</li>
-///<li>MSA-6: Error Condition (-)</li>
+///<li>MSA-5: Delayed Acknowledgment Type (ID)</li>
+///<li>MSA-6: Error Condition (ST)</li>
 ///<li>MSA-7: Message Waiting Number (NM)</li>
 ///<li>MSA-8: Message Waiting Priority (ID)</li>
 ///</ol>
@@ -37,10 +37,10 @@ public class MSA : AbstractSegment  {
     try {
        this.add(typeof(ID), true, 1, 2, new System.Object[]{message, 8}, "Acknowledgment Code");
        this.add(typeof(ST), true, 1, 199, new System.Object[]{message}, "Message Control ID");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Text Message");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Text Message");
        this.add(typeof(NM), false, 1, 0, new System.Object[]{message}, "Expected Sequence Number");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Delayed Acknowledgment Type");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Error Condition");
+       this.add(typeof(ID), false, 1, 0, new System.Object[]{message, 0}, "Delayed Acknowledgment Type");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Error Condition");
        this.add(typeof(NM), false, 1, 0, new System.Object[]{message}, "Message Waiting Number");
        this.add(typeof(ID), false, 1, 1, new System.Object[]{message, 520}, "Message Waiting Priority");
     } catch (HL7Exception he) {
@@ -97,14 +97,14 @@ public class MSA : AbstractSegment  {
 	///<summary>
 	/// Returns Text Message(MSA-3).
 	///</summary>
-	public - TextMessage
+	public ST TextMessage
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(3, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -143,14 +143,14 @@ public class MSA : AbstractSegment  {
 	///<summary>
 	/// Returns Delayed Acknowledgment Type(MSA-5).
 	///</summary>
-	public - DelayedAcknowledgmentType
+	public ID DelayedAcknowledgmentType
 	{
 		get{
-			- ret = null;
+			ID ret = null;
 			try
 			{
 			IType t = this.GetField(5, 0);
-				ret = (-)t;
+				ret = (ID)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -166,14 +166,14 @@ public class MSA : AbstractSegment  {
 	///<summary>
 	/// Returns Error Condition(MSA-6).
 	///</summary>
-	public - ErrorCondition
+	public ST ErrorCondition
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(6, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

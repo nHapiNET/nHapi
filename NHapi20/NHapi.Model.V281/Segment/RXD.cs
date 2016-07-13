@@ -22,7 +22,7 @@ namespace NHapi.Model.V281.Segment{
 ///<li>RXD-10: Dispensing Provider (XCN)</li>
 ///<li>RXD-11: Substitution Status (ID)</li>
 ///<li>RXD-12: Total Daily Dose (CQ)</li>
-///<li>RXD-13: Dispense-to Location (-)</li>
+///<li>RXD-13: Dispense-to Location (ST)</li>
 ///<li>RXD-14: Needs Human Review (ID)</li>
 ///<li>RXD-15: Special Dispensing Instructions (CWE)</li>
 ///<li>RXD-16: Actual Strength (NM)</li>
@@ -74,7 +74,7 @@ public class RXD : AbstractSegment  {
        this.add(typeof(XCN), false, 0, 0, new System.Object[]{message}, "Dispensing Provider");
        this.add(typeof(ID), false, 1, 1, new System.Object[]{message, 167}, "Substitution Status");
        this.add(typeof(CQ), false, 1, 0, new System.Object[]{message}, "Total Daily Dose");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Dispense-to Location");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Dispense-to Location");
        this.add(typeof(ID), false, 1, 1, new System.Object[]{message, 136}, "Needs Human Review");
        this.add(typeof(CWE), false, 0, 0, new System.Object[]{message}, "Special Dispensing Instructions");
        this.add(typeof(NM), false, 1, 0, new System.Object[]{message}, "Actual Strength");
@@ -451,14 +451,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Dispense-to Location(RXD-13).
 	///</summary>
-	public - DispenseToLocation
+	public ST DispenseToLocation
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(13, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

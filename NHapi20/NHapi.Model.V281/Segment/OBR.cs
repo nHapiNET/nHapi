@@ -14,8 +14,8 @@ namespace NHapi.Model.V281.Segment{
 ///<li>OBR-2: Placer Order Number (EI)</li>
 ///<li>OBR-3: Filler Order Number (EI)</li>
 ///<li>OBR-4: Universal Service Identifier (CWE)</li>
-///<li>OBR-5: Deliver-To Location (-)</li>
-///<li>OBR-6: Deliver-To Location (-)</li>
+///<li>OBR-5: Deliver-To Location (ST)</li>
+///<li>OBR-6: Deliver-To Location (ST)</li>
 ///<li>OBR-7: Observation Date/Time # (DTM)</li>
 ///<li>OBR-8: Observation End Date/Time # (DTM)</li>
 ///<li>OBR-9: Collection Volume * (CQ)</li>
@@ -23,8 +23,8 @@ namespace NHapi.Model.V281.Segment{
 ///<li>OBR-11: Specimen Action Code * (ID)</li>
 ///<li>OBR-12: Danger Code (CWE)</li>
 ///<li>OBR-13: Relevant Clinical Information (CWE)</li>
-///<li>OBR-14: Deliver-To Location (-)</li>
-///<li>OBR-15: Deliver-To Location (-)</li>
+///<li>OBR-14: Deliver-To Location (ST)</li>
+///<li>OBR-15: Deliver-To Location (ST)</li>
 ///<li>OBR-16: Ordering Provider (XCN)</li>
 ///<li>OBR-17: Order Callback Phone Number (XTN)</li>
 ///<li>OBR-18: Placer Field 1 (ST)</li>
@@ -36,7 +36,7 @@ namespace NHapi.Model.V281.Segment{
 ///<li>OBR-24: Diagnostic Serv Sect ID (ID)</li>
 ///<li>OBR-25: Result Status + (ID)</li>
 ///<li>OBR-26: Parent Result + (PRL)</li>
-///<li>OBR-27: Deliver-To Location (-)</li>
+///<li>OBR-27: Deliver-To Location (ST)</li>
 ///<li>OBR-28: Result Copies To (XCN)</li>
 ///<li>OBR-29: Parent  Results Observation Identifier (EIP)</li>
 ///<li>OBR-30: Transportation Mode (ID)</li>
@@ -85,8 +85,8 @@ public class OBR : AbstractSegment  {
        this.add(typeof(EI), false, 1, 0, new System.Object[]{message}, "Placer Order Number");
        this.add(typeof(EI), false, 1, 0, new System.Object[]{message}, "Filler Order Number");
        this.add(typeof(CWE), true, 1, 0, new System.Object[]{message}, "Universal Service Identifier");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Deliver-To Location");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Deliver-To Location");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Deliver-To Location");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Deliver-To Location");
        this.add(typeof(DTM), false, 1, 0, new System.Object[]{message}, "Observation Date/Time #");
        this.add(typeof(DTM), false, 1, 0, new System.Object[]{message}, "Observation End Date/Time #");
        this.add(typeof(CQ), false, 1, 0, new System.Object[]{message}, "Collection Volume *");
@@ -94,8 +94,8 @@ public class OBR : AbstractSegment  {
        this.add(typeof(ID), false, 1, 1, new System.Object[]{message, 65}, "Specimen Action Code *");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Danger Code");
        this.add(typeof(CWE), false, 0, 0, new System.Object[]{message}, "Relevant Clinical Information");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Deliver-To Location");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Deliver-To Location");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Deliver-To Location");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Deliver-To Location");
        this.add(typeof(XCN), false, 0, 0, new System.Object[]{message}, "Ordering Provider");
        this.add(typeof(XTN), false, 2, 0, new System.Object[]{message}, "Order Callback Phone Number");
        this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Placer Field 1");
@@ -107,7 +107,7 @@ public class OBR : AbstractSegment  {
        this.add(typeof(ID), false, 1, 3, new System.Object[]{message, 74}, "Diagnostic Serv Sect ID");
        this.add(typeof(ID), false, 1, 1, new System.Object[]{message, 123}, "Result Status +");
        this.add(typeof(PRL), false, 1, 0, new System.Object[]{message}, "Parent Result +");
-       this.add(typeof(-), false, 0, 0, new System.Object[]{message}, "Deliver-To Location");
+       this.add(typeof(ST), false, 0, 0, new System.Object[]{message}, "Deliver-To Location");
        this.add(typeof(XCN), false, 0, 0, new System.Object[]{message}, "Result Copies To");
        this.add(typeof(EIP), false, 1, 0, new System.Object[]{message}, "Parent  Results Observation Identifier");
        this.add(typeof(ID), false, 1, 4, new System.Object[]{message, 124}, "Transportation Mode");
@@ -235,14 +235,14 @@ public class OBR : AbstractSegment  {
 	///<summary>
 	/// Returns Deliver-To Location(OBR-5).
 	///</summary>
-	public - DeliverToLocation
+	public ST DeliverToLocation
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(5, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -258,14 +258,14 @@ public class OBR : AbstractSegment  {
 	///<summary>
 	/// Returns Deliver-To Location(OBR-6).
 	///</summary>
-	public - DeliverToLocation
+	public ST DeliverToLocation
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(6, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -512,14 +512,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Deliver-To Location(OBR-14).
 	///</summary>
-	public - DeliverToLocation
+	public ST DeliverToLocation
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(14, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -535,14 +535,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Deliver-To Location(OBR-15).
 	///</summary>
-	public - DeliverToLocation
+	public ST DeliverToLocation
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(15, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -883,13 +883,13 @@ catch (HL7Exception he) {
 	/// throws HL7Exception if the repetition number is invalid.
 	/// <param name="rep">The repetition number (this is a repeating field)</param>
 	///</summary>
-	public - GetDeliverToLocation(int rep)
+	public ST GetDeliverToLocation(int rep)
 	{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(27, rep);
-				ret = (-)t;
+				ret = (ST)t;
 		} catch (System.Exception ex) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
 				throw new System.Exception("An unexpected error ocurred", ex);
@@ -900,13 +900,13 @@ catch (HL7Exception he) {
   ///<summary>
   /// Returns all repetitions of Deliver-To Location (OBR-27).
    ///</summary>
-  public -[] GetDeliverToLocation() {
-     -[] ret = null;
+  public ST[] GetDeliverToLocation() {
+     ST[] ret = null;
     try {
         IType[] t = this.GetField(27);  
-        ret = new -[t.Length];
+        ret = new ST[t.Length];
         for (int i = 0; i < ret.Length; i++) {
-            ret[i] = (-)t[i];
+            ret[i] = (ST)t[i];
         }
     } catch (HL7Exception he) {
         HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
