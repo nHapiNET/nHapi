@@ -13,7 +13,7 @@ namespace NHapi.Model.V271.Segment{
 ///<li>PD1-1: Living Dependency (CWE)</li>
 ///<li>PD1-2: Living Arrangement (CWE)</li>
 ///<li>PD1-3: Patient Primary Facility (XON)</li>
-///<li>PD1-4: Patient Primary Care Provider Name and ID No. (ST)</li>
+///<li>PD1-4: Patient Primary Care Provider Name and ID No. (XCN)</li>
 ///<li>PD1-5: Student Indicator (CWE)</li>
 ///<li>PD1-6: Handicap (CWE)</li>
 ///<li>PD1-7: Living Will Code (CWE)</li>
@@ -52,7 +52,7 @@ public class PD1 : AbstractSegment  {
        this.add(typeof(CWE), false, 0, 0, new System.Object[]{message}, "Living Dependency");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Living Arrangement");
        this.add(typeof(XON), false, 0, 0, new System.Object[]{message}, "Patient Primary Facility");
-       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Patient Primary Care Provider Name and ID No.");
+       this.add(typeof(XCN), false, 1, 0, new System.Object[]{message}, "Patient Primary Care Provider Name and ID No.");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Student Indicator");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Handicap");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Living Will Code");
@@ -218,14 +218,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Patient Primary Care Provider Name and ID No.(PD1-4).
 	///</summary>
-	public ST PatientPrimaryCareProviderNameIDNo
+	public XCN PatientPrimaryCareProviderNameIDNo
 	{
 		get{
-			ST ret = null;
+			XCN ret = null;
 			try
 			{
 			IType t = this.GetField(4, 0);
-				ret = (ST)t;
+				ret = (XCN)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

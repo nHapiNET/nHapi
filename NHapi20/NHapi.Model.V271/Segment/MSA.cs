@@ -14,7 +14,7 @@ namespace NHapi.Model.V271.Segment{
 ///<li>MSA-2: Message Control ID (ST)</li>
 ///<li>MSA-3: Text Message (ST)</li>
 ///<li>MSA-4: Expected Sequence Number (NM)</li>
-///<li>MSA-5: Delayed Acknowledgment Type (ST)</li>
+///<li>MSA-5: Delayed Acknowledgment Type (ID)</li>
 ///<li>MSA-6: Error Condition (ST)</li>
 ///<li>MSA-7: Message Waiting Number (NM)</li>
 ///<li>MSA-8: Message Waiting Priority (ID)</li>
@@ -39,7 +39,7 @@ public class MSA : AbstractSegment  {
        this.add(typeof(ST), true, 1, 199, new System.Object[]{message}, "Message Control ID");
        this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Text Message");
        this.add(typeof(NM), false, 1, 0, new System.Object[]{message}, "Expected Sequence Number");
-       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Delayed Acknowledgment Type");
+       this.add(typeof(ID), false, 1, 0, new System.Object[]{message, 0}, "Delayed Acknowledgment Type");
        this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Error Condition");
        this.add(typeof(NM), false, 1, 0, new System.Object[]{message}, "Message Waiting Number");
        this.add(typeof(ID), false, 1, 1, new System.Object[]{message, 520}, "Message Waiting Priority");
@@ -143,14 +143,14 @@ public class MSA : AbstractSegment  {
 	///<summary>
 	/// Returns Delayed Acknowledgment Type(MSA-5).
 	///</summary>
-	public ST DelayedAcknowledgmentType
+	public ID DelayedAcknowledgmentType
 	{
 		get{
-			ST ret = null;
+			ID ret = null;
 			try
 			{
 			IType t = this.GetField(5, 0);
-				ret = (ST)t;
+				ret = (ID)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

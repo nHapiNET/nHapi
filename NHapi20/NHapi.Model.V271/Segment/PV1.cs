@@ -61,7 +61,7 @@ namespace NHapi.Model.V271.Segment{
 ///<li>PV1-49: Total Payments (NM)</li>
 ///<li>PV1-50: Alternate Visit ID (CX)</li>
 ///<li>PV1-51: Visit Indicator (CWE)</li>
-///<li>PV1-52: Other Healthcare Provider (ST)</li>
+///<li>PV1-52: Other Healthcare Provider (XCN)</li>
 ///<li>PV1-53: Service Episode Description (ST)</li>
 ///<li>PV1-54: Service Episode Identifier (CX)</li>
 ///</ol>
@@ -132,7 +132,7 @@ public class PV1 : AbstractSegment  {
        this.add(typeof(NM), false, 1, 0, new System.Object[]{message}, "Total Payments");
        this.add(typeof(CX), false, 1, 0, new System.Object[]{message}, "Alternate Visit ID");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Visit Indicator");
-       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Other Healthcare Provider");
+       this.add(typeof(XCN), false, 1, 0, new System.Object[]{message}, "Other Healthcare Provider");
        this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Service Episode Description");
        this.add(typeof(CX), false, 1, 0, new System.Object[]{message}, "Service Episode Identifier");
     } catch (HL7Exception he) {
@@ -1666,14 +1666,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Other Healthcare Provider(PV1-52).
 	///</summary>
-	public ST OtherHealthcareProvider
+	public XCN OtherHealthcareProvider
 	{
 		get{
-			ST ret = null;
+			XCN ret = null;
 			try
 			{
 			IType t = this.GetField(52, 0);
-				ret = (ST)t;
+				ret = (XCN)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
