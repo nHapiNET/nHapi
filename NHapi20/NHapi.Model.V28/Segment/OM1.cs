@@ -1849,7 +1849,7 @@ catch (HL7Exception he) {
 	/// throws HL7Exception if the repetition number is invalid.
 	/// <param name="rep">The repetition number (this is a repeating field)</param>
 	///</summary>
-	public ST GetOtherNames(int rep)
+	public ST GetOtherNames_2(int rep)
 	{
 			ST ret = null;
 			try
@@ -1866,7 +1866,7 @@ catch (HL7Exception he) {
   ///<summary>
   /// Returns all repetitions of Other Names (OM1-51).
    ///</summary>
-  public ST[] GetOtherNames() {
+  public ST[] GetOtherNames_2() {
      ST[] ret = null;
     try {
         IType[] t = this.GetField(51);  
@@ -1887,8 +1887,8 @@ catch (HL7Exception he) {
   ///<summary>
   /// Returns the total repetitions of Other Names (OM1-51).
    ///</summary>
-  public int OtherNamesRepetitionsUsed
-{
+  public int OtherNamesRepetitionsUsed_2
+		{
 get{
     try {
 	return GetTotalFieldRepetitionsUsed(51);

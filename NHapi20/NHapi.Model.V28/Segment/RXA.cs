@@ -20,7 +20,7 @@ namespace NHapi.Model.V28.Segment{
 ///<li>RXA-8: Administered Dosage Form (CWE)</li>
 ///<li>RXA-9: Administration Notes (CWE)</li>
 ///<li>RXA-10: Administering Provider (XCN)</li>
-///<li>RXA-11: Administered-at Location (-)</li>
+///<li>RXA-11: Administered-at Location (ST)</li>
 ///<li>RXA-12: Administered Per (Time Unit) (ST)</li>
 ///<li>RXA-13: Administered Strength (NM)</li>
 ///<li>RXA-14: Administered Strength Units (CWE)</li>
@@ -66,7 +66,7 @@ public class RXA : AbstractSegment  {
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Administered Dosage Form");
        this.add(typeof(CWE), false, 0, 0, new System.Object[]{message}, "Administration Notes");
        this.add(typeof(XCN), false, 0, 0, new System.Object[]{message}, "Administering Provider");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Administered-at Location");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Administered-at Location");
        this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Administered Per (Time Unit)");
        this.add(typeof(NM), false, 1, 0, new System.Object[]{message}, "Administered Strength");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Administered Strength Units");
@@ -393,14 +393,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Administered-at Location(RXA-11).
 	///</summary>
-	public - AdministeredAtLocation
+	public ST AdministeredAtLocation
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(11, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

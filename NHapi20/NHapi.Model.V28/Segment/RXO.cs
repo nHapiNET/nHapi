@@ -17,7 +17,7 @@ namespace NHapi.Model.V28.Segment{
 ///<li>RXO-5: Requested Dosage Form (CWE)</li>
 ///<li>RXO-6: Provider's Pharmacy/Treatment Instructions (CWE)</li>
 ///<li>RXO-7: Provider's Administration Instructions (CWE)</li>
-///<li>RXO-8: Deliver-To Location (-)</li>
+///<li>RXO-8: Deliver-To Location (ST)</li>
 ///<li>RXO-9: Allow Substitutions (ID)</li>
 ///<li>RXO-10: Requested Dispense Code (CWE)</li>
 ///<li>RXO-11: Requested Dispense Amount (NM)</li>
@@ -70,7 +70,7 @@ public class RXO : AbstractSegment  {
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Requested Dosage Form");
        this.add(typeof(CWE), false, 0, 0, new System.Object[]{message}, "Provider's Pharmacy/Treatment Instructions");
        this.add(typeof(CWE), false, 0, 0, new System.Object[]{message}, "Provider's Administration Instructions");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Deliver-To Location");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Deliver-To Location");
        this.add(typeof(ID), false, 1, 1, new System.Object[]{message, 161}, "Allow Substitutions");
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Requested Dispense Code");
        this.add(typeof(NM), false, 1, 0, new System.Object[]{message}, "Requested Dispense Amount");
@@ -338,14 +338,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Deliver-To Location(RXO-8).
 	///</summary>
-	public - DeliverToLocation
+	public ST DeliverToLocation
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(8, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

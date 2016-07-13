@@ -20,7 +20,7 @@ namespace NHapi.Model.V28.Segment{
 ///<li>SCH-8: Appointment Type (CWE)</li>
 ///<li>SCH-9: Appointment Duration (NM)</li>
 ///<li>SCH-10: Appointment Duration Units (CNE)</li>
-///<li>SCH-11: Appointment Timing Quantity (-)</li>
+///<li>SCH-11: Appointment Timing Quantity (ST)</li>
 ///<li>SCH-12: Placer Contact Person (XCN)</li>
 ///<li>SCH-13: Placer Contact Phone Number (XTN)</li>
 ///<li>SCH-14: Placer Contact Address (XAD)</li>
@@ -64,7 +64,7 @@ public class SCH : AbstractSegment  {
        this.add(typeof(CWE), false, 1, 0, new System.Object[]{message}, "Appointment Type");
        this.add(typeof(NM), false, 1, 0, new System.Object[]{message}, "Appointment Duration");
        this.add(typeof(CNE), false, 1, 0, new System.Object[]{message}, "Appointment Duration Units");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Appointment Timing Quantity");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Appointment Timing Quantity");
        this.add(typeof(XCN), false, 0, 0, new System.Object[]{message}, "Placer Contact Person");
        this.add(typeof(XTN), false, 1, 0, new System.Object[]{message}, "Placer Contact Phone Number");
        this.add(typeof(XAD), false, 0, 0, new System.Object[]{message}, "Placer Contact Address");
@@ -319,14 +319,14 @@ public class SCH : AbstractSegment  {
 	///<summary>
 	/// Returns Appointment Timing Quantity(SCH-11).
 	///</summary>
-	public - AppointmentTimingQuantity
+	public ST AppointmentTimingQuantity
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(11, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

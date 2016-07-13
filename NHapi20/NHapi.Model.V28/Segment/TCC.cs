@@ -12,7 +12,7 @@ namespace NHapi.Model.V28.Segment{
 /// This segment has the following fields:<ol>
 ///<li>TCC-1: Universal Service Identifier (CWE)</li>
 ///<li>TCC-2: Equipment Test Application Identifier (EI)</li>
-///<li>TCC-3: Specimen Source (-)</li>
+///<li>TCC-3: Specimen Source (ST)</li>
 ///<li>TCC-4: Auto-Dilution Factor Default (SN)</li>
 ///<li>TCC-5: Rerun Dilution Factor Default (SN)</li>
 ///<li>TCC-6: Pre-Dilution Factor Default (SN)</li>
@@ -44,7 +44,7 @@ public class TCC : AbstractSegment  {
     try {
        this.add(typeof(CWE), true, 1, 0, new System.Object[]{message}, "Universal Service Identifier");
        this.add(typeof(EI), true, 1, 0, new System.Object[]{message}, "Equipment Test Application Identifier");
-       this.add(typeof(-), false, 1, 0, new System.Object[]{message}, "Specimen Source");
+       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Specimen Source");
        this.add(typeof(SN), false, 1, 0, new System.Object[]{message}, "Auto-Dilution Factor Default");
        this.add(typeof(SN), false, 1, 0, new System.Object[]{message}, "Rerun Dilution Factor Default");
        this.add(typeof(SN), false, 1, 0, new System.Object[]{message}, "Pre-Dilution Factor Default");
@@ -111,14 +111,14 @@ public class TCC : AbstractSegment  {
 	///<summary>
 	/// Returns Specimen Source(TCC-3).
 	///</summary>
-	public - SpecimenSource
+	public ST SpecimenSource
 	{
 		get{
-			- ret = null;
+			ST ret = null;
 			try
 			{
 			IType t = this.GetField(3, 0);
-				ret = (-)t;
+				ret = (ST)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
