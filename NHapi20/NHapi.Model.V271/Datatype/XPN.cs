@@ -48,11 +48,11 @@ public class XPN : AbstractType, IComposite{
 		data[2] = new ST(message,"Second and Further Given Names or Initials Thereof");
 		data[3] = new ST(message,"Suffix (e.g., JR or III)");
 		data[4] = new ST(message,"Prefix (e.g., DR)");
-		data[5] = new XPN(message,"Degree (e.g., MD)");
+		data[5] = new ST(message,"Degree (e.g., MD)");
 		data[6] = new ID(message, 200,"Name Type Code");
 		data[7] = new ID(message, 465,"Name Representation Code");
 		data[8] = new CWE(message,"Name Context");
-		data[9] = new XPN(message,"Name Validity Range");
+		data[9] = new ST(message,"Name Validity Range");
 		data[10] = new ID(message, 444,"Name Assembly Order");
 		data[11] = new DTM(message,"Effective Date");
 		data[12] = new DTM(message,"Expiration Date");
