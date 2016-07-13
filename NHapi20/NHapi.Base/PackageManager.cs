@@ -43,7 +43,7 @@ namespace NHapi.Base
 
 		private void LoadBaseVersions()
 		{
-			string[] versions = new string[] { "2.1", "2.2", "2.3", "2.3.1", "2.4", "2.5", "2.5.1", "2.6", "2.7"};
+			string[] versions = new string[] { "2.1", "2.2", "2.3", "2.3.1", "2.4", "2.5", "2.5.1", "2.6", "2.7", "2.7.1"};
 			foreach (string version in versions)
 			{
 				string packageName = GetVersionPackageName(version);
