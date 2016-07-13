@@ -446,7 +446,7 @@ get{
 	/// Returns Alternate Unit of Measure Coding System OID (component #20).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public ST AlternateUnitOfMeasureCodingSystemOID {
+	public ST AlternateUnitOfMeasureCodingSystemOID_2 {
 get{
 	   ST ret = null;
 	   try {
@@ -463,7 +463,8 @@ get{
 	/// Returns Alternate Unit of Measure Value Set OID (component #21).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public ST AlternateUnitOfMeasureValueSetOID {
+	public ST AlternateUnitOfMeasureValueSetOID_2
+		{
 get{
 	   ST ret = null;
 	   try {
@@ -480,7 +481,8 @@ get{
 	/// Returns Alternate Unit of Measure Value Set Version ID (component #22).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public ST AlternateUnitOfMeasureValueSetVersionID {
+	public ST AlternateUnitOfMeasureValueSetVersionID_2
+		{
 get{
 	   ST ret = null;
 	   try {
