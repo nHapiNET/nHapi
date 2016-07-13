@@ -15,7 +15,7 @@ namespace NHapi.Model.V251.Group
 ///<ol>
 ///<li>0: ORC (Common Order) optional </li>
 ///<li>1: OBR (Observation Request) </li>
-///<li>2: OMG_O19_TIMING_PRIOR (a Group object) </li>
+///<li>2: OMG_O19_TIMING_PRIOR (a Group object) optional repeating</li>
 ///<li>3: NTE (Notes and Comments) optional repeating</li>
 ///<li>4: CTD (Contact Data) optional </li>
 ///<li>5: OMG_O19_OBSERVATION_PRIOR (a Group object) repeating</li>
@@ -31,7 +31,7 @@ public class OMG_O19_ORDER_PRIOR : AbstractGroup {
 	   try {
 	      this.add(typeof(ORC), false, false);
 	      this.add(typeof(OBR), true, false);
-	      this.add(typeof(OMG_O19_TIMING_PRIOR), true, false);
+	      this.add(typeof(OMG_O19_TIMING_PRIOR), false, true);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(CTD), false, false);
 	      this.add(typeof(OMG_O19_OBSERVATION_PRIOR), true, true);
@@ -73,10 +73,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns OMG_O19_TIMING_PRIOR (a Group object) - creates it if necessary
+	/// Returns  first repetition of OMG_O19_TIMING_PRIOR (a Group object) - creates it if necessary
 	///</summary>
-	public OMG_O19_TIMING_PRIOR TIMING_PRIOR { 
-get{
+	public OMG_O19_TIMING_PRIOR GetTIMING_PRIOR() {
 	   OMG_O19_TIMING_PRIOR ret = null;
 	   try {
 	      ret = (OMG_O19_TIMING_PRIOR)this.GetStructure("TIMING_PRIOR");
@@ -86,7 +85,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of OMG_O19_TIMING_PRIOR
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public OMG_O19_TIMING_PRIOR GetTIMING_PRIOR(int rep) { 
+	   return (OMG_O19_TIMING_PRIOR)this.GetStructure("TIMING_PRIOR", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of OMG_O19_TIMING_PRIOR 
+	 */ 
+	public int TIMING_PRIORRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING_PRIOR").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns  first repetition of NTE (Notes and Comments) - creates it if necessary

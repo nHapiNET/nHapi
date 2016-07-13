@@ -14,10 +14,10 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: ORC (Common Order) </li>
-///<li>1: VXU_V04_TIMING (a Group object) </li>
+///<li>1: VXU_V04_TIMING (a Group object) optional repeating</li>
 ///<li>2: RXA (Pharmacy/Treatment Administration) </li>
 ///<li>3: RXR (Pharmacy/Treatment Route) optional </li>
-///<li>4: VXU_V04_OBSERVATION (a Group object) </li>
+///<li>4: VXU_V04_OBSERVATION (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -29,10 +29,10 @@ public class VXU_V04_ORDER : AbstractGroup {
 	public VXU_V04_ORDER(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(ORC), true, false);
-	      this.add(typeof(VXU_V04_TIMING), true, false);
+	      this.add(typeof(VXU_V04_TIMING), false, true);
 	      this.add(typeof(RXA), true, false);
 	      this.add(typeof(RXR), false, false);
-	      this.add(typeof(VXU_V04_OBSERVATION), true, false);
+	      this.add(typeof(VXU_V04_OBSERVATION), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating VXU_V04_ORDER - this is probably a bug in the source code generator.", e);
 	   }
@@ -55,10 +55,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns VXU_V04_TIMING (a Group object) - creates it if necessary
+	/// Returns  first repetition of VXU_V04_TIMING (a Group object) - creates it if necessary
 	///</summary>
-	public VXU_V04_TIMING TIMING { 
-get{
+	public VXU_V04_TIMING GetTIMING() {
 	   VXU_V04_TIMING ret = null;
 	   try {
 	      ret = (VXU_V04_TIMING)this.GetStructure("TIMING");
@@ -68,7 +67,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of VXU_V04_TIMING
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public VXU_V04_TIMING GetTIMING(int rep) { 
+	   return (VXU_V04_TIMING)this.GetStructure("TIMING", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of VXU_V04_TIMING 
+	 */ 
+	public int TIMINGRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns RXA (Pharmacy/Treatment Administration) - creates it if necessary
@@ -103,10 +128,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns VXU_V04_OBSERVATION (a Group object) - creates it if necessary
+	/// Returns  first repetition of VXU_V04_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
-	public VXU_V04_OBSERVATION OBSERVATION { 
-get{
+	public VXU_V04_OBSERVATION GetOBSERVATION() {
 	   VXU_V04_OBSERVATION ret = null;
 	   try {
 	      ret = (VXU_V04_OBSERVATION)this.GetStructure("OBSERVATION");
@@ -116,7 +140,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of VXU_V04_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public VXU_V04_OBSERVATION GetOBSERVATION(int rep) { 
+	   return (VXU_V04_OBSERVATION)this.GetStructure("OBSERVATION", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of VXU_V04_OBSERVATION 
+	 */ 
+	public int OBSERVATIONRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

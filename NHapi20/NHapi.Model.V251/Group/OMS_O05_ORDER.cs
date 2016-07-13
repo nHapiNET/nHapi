@@ -14,11 +14,11 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: ORC (Common Order) </li>
-///<li>1: OMS_O05_TIMING (a Group object) </li>
+///<li>1: OMS_O05_TIMING (a Group object) optional repeating</li>
 ///<li>2: RQD (Requisition Detail) </li>
 ///<li>3: RQ1 (Requisition Detail-1) optional </li>
 ///<li>4: NTE (Notes and Comments) optional repeating</li>
-///<li>5: OMS_O05_OBSERVATION (a Group object) </li>
+///<li>5: OMS_O05_OBSERVATION (a Group object) optional repeating</li>
 ///<li>6: BLG (Billing) optional </li>
 ///</ol>
 ///</summary>
@@ -31,11 +31,11 @@ public class OMS_O05_ORDER : AbstractGroup {
 	public OMS_O05_ORDER(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(ORC), true, false);
-	      this.add(typeof(OMS_O05_TIMING), true, false);
+	      this.add(typeof(OMS_O05_TIMING), false, true);
 	      this.add(typeof(RQD), true, false);
 	      this.add(typeof(RQ1), false, false);
 	      this.add(typeof(NTE), false, true);
-	      this.add(typeof(OMS_O05_OBSERVATION), true, false);
+	      this.add(typeof(OMS_O05_OBSERVATION), false, true);
 	      this.add(typeof(BLG), false, false);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating OMS_O05_ORDER - this is probably a bug in the source code generator.", e);
@@ -59,10 +59,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns OMS_O05_TIMING (a Group object) - creates it if necessary
+	/// Returns  first repetition of OMS_O05_TIMING (a Group object) - creates it if necessary
 	///</summary>
-	public OMS_O05_TIMING TIMING { 
-get{
+	public OMS_O05_TIMING GetTIMING() {
 	   OMS_O05_TIMING ret = null;
 	   try {
 	      ret = (OMS_O05_TIMING)this.GetStructure("TIMING");
@@ -72,7 +71,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of OMS_O05_TIMING
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public OMS_O05_TIMING GetTIMING(int rep) { 
+	   return (OMS_O05_TIMING)this.GetStructure("TIMING", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of OMS_O05_TIMING 
+	 */ 
+	public int TIMINGRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns RQD (Requisition Detail) - creates it if necessary
@@ -148,10 +173,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns OMS_O05_OBSERVATION (a Group object) - creates it if necessary
+	/// Returns  first repetition of OMS_O05_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
-	public OMS_O05_OBSERVATION OBSERVATION { 
-get{
+	public OMS_O05_OBSERVATION GetOBSERVATION() {
 	   OMS_O05_OBSERVATION ret = null;
 	   try {
 	      ret = (OMS_O05_OBSERVATION)this.GetStructure("OBSERVATION");
@@ -161,7 +185,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of OMS_O05_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public OMS_O05_OBSERVATION GetOBSERVATION(int rep) { 
+	   return (OMS_O05_OBSERVATION)this.GetStructure("OBSERVATION", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of OMS_O05_OBSERVATION 
+	 */ 
+	public int OBSERVATIONRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns BLG (Billing) - creates it if necessary

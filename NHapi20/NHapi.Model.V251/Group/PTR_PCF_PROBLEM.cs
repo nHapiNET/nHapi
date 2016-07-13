@@ -16,10 +16,10 @@ namespace NHapi.Model.V251.Group
 ///<li>0: PRB (Problem Details) </li>
 ///<li>1: NTE (Notes and Comments) optional repeating</li>
 ///<li>2: VAR (Variance) optional repeating</li>
-///<li>3: PTR_PCF_PROBLEM_ROLE (a Group object) </li>
-///<li>4: PTR_PCF_PROBLEM_OBSERVATION (a Group object) </li>
-///<li>5: PTR_PCF_GOAL (a Group object) </li>
-///<li>6: PTR_PCF_ORDER (a Group object) </li>
+///<li>3: PTR_PCF_PROBLEM_ROLE (a Group object) optional repeating</li>
+///<li>4: PTR_PCF_PROBLEM_OBSERVATION (a Group object) optional repeating</li>
+///<li>5: PTR_PCF_GOAL (a Group object) optional repeating</li>
+///<li>6: PTR_PCF_ORDER (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -33,10 +33,10 @@ public class PTR_PCF_PROBLEM : AbstractGroup {
 	      this.add(typeof(PRB), true, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(VAR), false, true);
-	      this.add(typeof(PTR_PCF_PROBLEM_ROLE), true, false);
-	      this.add(typeof(PTR_PCF_PROBLEM_OBSERVATION), true, false);
-	      this.add(typeof(PTR_PCF_GOAL), true, false);
-	      this.add(typeof(PTR_PCF_ORDER), true, false);
+	      this.add(typeof(PTR_PCF_PROBLEM_ROLE), false, true);
+	      this.add(typeof(PTR_PCF_PROBLEM_OBSERVATION), false, true);
+	      this.add(typeof(PTR_PCF_GOAL), false, true);
+	      this.add(typeof(PTR_PCF_ORDER), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating PTR_PCF_PROBLEM - this is probably a bug in the source code generator.", e);
 	   }
@@ -141,10 +141,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns PTR_PCF_PROBLEM_ROLE (a Group object) - creates it if necessary
+	/// Returns  first repetition of PTR_PCF_PROBLEM_ROLE (a Group object) - creates it if necessary
 	///</summary>
-	public PTR_PCF_PROBLEM_ROLE PROBLEM_ROLE { 
-get{
+	public PTR_PCF_PROBLEM_ROLE GetPROBLEM_ROLE() {
 	   PTR_PCF_PROBLEM_ROLE ret = null;
 	   try {
 	      ret = (PTR_PCF_PROBLEM_ROLE)this.GetStructure("PROBLEM_ROLE");
@@ -154,13 +153,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns PTR_PCF_PROBLEM_OBSERVATION (a Group object) - creates it if necessary
+	///Returns a specific repetition of PTR_PCF_PROBLEM_ROLE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public PTR_PCF_PROBLEM_OBSERVATION PROBLEM_OBSERVATION { 
+	public PTR_PCF_PROBLEM_ROLE GetPROBLEM_ROLE(int rep) { 
+	   return (PTR_PCF_PROBLEM_ROLE)this.GetStructure("PROBLEM_ROLE", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of PTR_PCF_PROBLEM_ROLE 
+	 */ 
+	public int PROBLEM_ROLERepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PROBLEM_ROLE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of PTR_PCF_PROBLEM_OBSERVATION (a Group object) - creates it if necessary
+	///</summary>
+	public PTR_PCF_PROBLEM_OBSERVATION GetPROBLEM_OBSERVATION() {
 	   PTR_PCF_PROBLEM_OBSERVATION ret = null;
 	   try {
 	      ret = (PTR_PCF_PROBLEM_OBSERVATION)this.GetStructure("PROBLEM_OBSERVATION");
@@ -170,13 +194,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns PTR_PCF_GOAL (a Group object) - creates it if necessary
+	///Returns a specific repetition of PTR_PCF_PROBLEM_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public PTR_PCF_GOAL GOAL { 
+	public PTR_PCF_PROBLEM_OBSERVATION GetPROBLEM_OBSERVATION(int rep) { 
+	   return (PTR_PCF_PROBLEM_OBSERVATION)this.GetStructure("PROBLEM_OBSERVATION", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of PTR_PCF_PROBLEM_OBSERVATION 
+	 */ 
+	public int PROBLEM_OBSERVATIONRepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PROBLEM_OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of PTR_PCF_GOAL (a Group object) - creates it if necessary
+	///</summary>
+	public PTR_PCF_GOAL GetGOAL() {
 	   PTR_PCF_GOAL ret = null;
 	   try {
 	      ret = (PTR_PCF_GOAL)this.GetStructure("GOAL");
@@ -186,13 +235,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns PTR_PCF_ORDER (a Group object) - creates it if necessary
+	///Returns a specific repetition of PTR_PCF_GOAL
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public PTR_PCF_ORDER ORDER { 
+	public PTR_PCF_GOAL GetGOAL(int rep) { 
+	   return (PTR_PCF_GOAL)this.GetStructure("GOAL", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of PTR_PCF_GOAL 
+	 */ 
+	public int GOALRepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("GOAL").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of PTR_PCF_ORDER (a Group object) - creates it if necessary
+	///</summary>
+	public PTR_PCF_ORDER GetORDER() {
 	   PTR_PCF_ORDER ret = null;
 	   try {
 	      ret = (PTR_PCF_ORDER)this.GetStructure("ORDER");
@@ -202,7 +276,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of PTR_PCF_ORDER
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public PTR_PCF_ORDER GetORDER(int rep) { 
+	   return (PTR_PCF_ORDER)this.GetStructure("ORDER", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of PTR_PCF_ORDER 
+	 */ 
+	public int ORDERRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("ORDER").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

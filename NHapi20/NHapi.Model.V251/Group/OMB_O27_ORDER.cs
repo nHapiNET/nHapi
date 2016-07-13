@@ -14,12 +14,12 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: ORC (Common Order) </li>
-///<li>1: OMB_O27_TIMING (a Group object) </li>
+///<li>1: OMB_O27_TIMING (a Group object) optional repeating</li>
 ///<li>2: BPO (Blood product order) </li>
 ///<li>3: SPM (Specimen) optional </li>
 ///<li>4: NTE (Notes and Comments) optional repeating</li>
 ///<li>5: DG1 (Diagnosis) optional repeating</li>
-///<li>6: OMB_O27_OBSERVATION (a Group object) </li>
+///<li>6: OMB_O27_OBSERVATION (a Group object) optional repeating</li>
 ///<li>7: FT1 (Financial Transaction) optional repeating</li>
 ///<li>8: BLG (Billing) optional </li>
 ///</ol>
@@ -33,12 +33,12 @@ public class OMB_O27_ORDER : AbstractGroup {
 	public OMB_O27_ORDER(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(ORC), true, false);
-	      this.add(typeof(OMB_O27_TIMING), true, false);
+	      this.add(typeof(OMB_O27_TIMING), false, true);
 	      this.add(typeof(BPO), true, false);
 	      this.add(typeof(SPM), false, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(DG1), false, true);
-	      this.add(typeof(OMB_O27_OBSERVATION), true, false);
+	      this.add(typeof(OMB_O27_OBSERVATION), false, true);
 	      this.add(typeof(FT1), false, true);
 	      this.add(typeof(BLG), false, false);
 	   } catch(HL7Exception e) {
@@ -63,10 +63,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns OMB_O27_TIMING (a Group object) - creates it if necessary
+	/// Returns  first repetition of OMB_O27_TIMING (a Group object) - creates it if necessary
 	///</summary>
-	public OMB_O27_TIMING TIMING { 
-get{
+	public OMB_O27_TIMING GetTIMING() {
 	   OMB_O27_TIMING ret = null;
 	   try {
 	      ret = (OMB_O27_TIMING)this.GetStructure("TIMING");
@@ -76,7 +75,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of OMB_O27_TIMING
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public OMB_O27_TIMING GetTIMING(int rep) { 
+	   return (OMB_O27_TIMING)this.GetStructure("TIMING", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of OMB_O27_TIMING 
+	 */ 
+	public int TIMINGRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns BPO (Blood product order) - creates it if necessary
@@ -193,10 +218,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns OMB_O27_OBSERVATION (a Group object) - creates it if necessary
+	/// Returns  first repetition of OMB_O27_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
-	public OMB_O27_OBSERVATION OBSERVATION { 
-get{
+	public OMB_O27_OBSERVATION GetOBSERVATION() {
 	   OMB_O27_OBSERVATION ret = null;
 	   try {
 	      ret = (OMB_O27_OBSERVATION)this.GetStructure("OBSERVATION");
@@ -206,7 +230,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of OMB_O27_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public OMB_O27_OBSERVATION GetOBSERVATION(int rep) { 
+	   return (OMB_O27_OBSERVATION)this.GetStructure("OBSERVATION", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of OMB_O27_OBSERVATION 
+	 */ 
+	public int OBSERVATIONRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns  first repetition of FT1 (Financial Transaction) - creates it if necessary

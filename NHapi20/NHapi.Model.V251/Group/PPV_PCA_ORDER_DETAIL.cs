@@ -17,7 +17,7 @@ namespace NHapi.Model.V251.Group
 ///<li>1: Hxx (any HL7 segment) </li>
 ///<li>2: NTE (Notes and Comments) optional repeating</li>
 ///<li>3: VAR (Variance) optional repeating</li>
-///<li>4: PPV_PCA_ORDER_OBSERVATION (a Group object) </li>
+///<li>4: PPV_PCA_ORDER_OBSERVATION (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -32,7 +32,7 @@ public class PPV_PCA_ORDER_DETAIL : AbstractGroup {
 	      this.add(typeof(Hxx), true, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(VAR), false, true);
-	      this.add(typeof(PPV_PCA_ORDER_OBSERVATION), true, false);
+	      this.add(typeof(PPV_PCA_ORDER_OBSERVATION), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating PPV_PCA_ORDER_DETAIL - this is probably a bug in the source code generator.", e);
 	   }
@@ -153,10 +153,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns PPV_PCA_ORDER_OBSERVATION (a Group object) - creates it if necessary
+	/// Returns  first repetition of PPV_PCA_ORDER_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
-	public PPV_PCA_ORDER_OBSERVATION ORDER_OBSERVATION { 
-get{
+	public PPV_PCA_ORDER_OBSERVATION GetORDER_OBSERVATION() {
 	   PPV_PCA_ORDER_OBSERVATION ret = null;
 	   try {
 	      ret = (PPV_PCA_ORDER_OBSERVATION)this.GetStructure("ORDER_OBSERVATION");
@@ -166,7 +165,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of PPV_PCA_ORDER_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public PPV_PCA_ORDER_OBSERVATION GetORDER_OBSERVATION(int rep) { 
+	   return (PPV_PCA_ORDER_OBSERVATION)this.GetStructure("ORDER_OBSERVATION", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of PPV_PCA_ORDER_OBSERVATION 
+	 */ 
+	public int ORDER_OBSERVATIONRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("ORDER_OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

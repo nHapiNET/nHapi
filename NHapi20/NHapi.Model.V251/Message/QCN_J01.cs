@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
+using NHapi.Model.V251.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -48,6 +49,13 @@ public class QCN_J01 : AbstractMessage  {
 	   }
 	}
 
+
+	public override string Version
+		{
+			get{
+			return Constants.VERSION;
+			}
+		}
 	///<summary>
 	/// Returns MSH (Message Header) - creates it if necessary
 	///</summary>

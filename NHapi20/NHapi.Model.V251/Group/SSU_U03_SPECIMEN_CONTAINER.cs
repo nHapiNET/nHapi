@@ -15,7 +15,7 @@ namespace NHapi.Model.V251.Group
 ///<ol>
 ///<li>0: SAC (Specimen Container detail) </li>
 ///<li>1: OBX (Observation/Result) optional repeating</li>
-///<li>2: SSU_U03_SPECIMEN (a Group object) </li>
+///<li>2: SSU_U03_SPECIMEN (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -28,7 +28,7 @@ public class SSU_U03_SPECIMEN_CONTAINER : AbstractGroup {
 	   try {
 	      this.add(typeof(SAC), true, false);
 	      this.add(typeof(OBX), false, true);
-	      this.add(typeof(SSU_U03_SPECIMEN), true, false);
+	      this.add(typeof(SSU_U03_SPECIMEN), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating SSU_U03_SPECIMEN_CONTAINER - this is probably a bug in the source code generator.", e);
 	   }
@@ -92,10 +92,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns SSU_U03_SPECIMEN (a Group object) - creates it if necessary
+	/// Returns  first repetition of SSU_U03_SPECIMEN (a Group object) - creates it if necessary
 	///</summary>
-	public SSU_U03_SPECIMEN SPECIMEN { 
-get{
+	public SSU_U03_SPECIMEN GetSPECIMEN() {
 	   SSU_U03_SPECIMEN ret = null;
 	   try {
 	      ret = (SSU_U03_SPECIMEN)this.GetStructure("SPECIMEN");
@@ -105,7 +104,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of SSU_U03_SPECIMEN
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public SSU_U03_SPECIMEN GetSPECIMEN(int rep) { 
+	   return (SSU_U03_SPECIMEN)this.GetStructure("SPECIMEN", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of SSU_U03_SPECIMEN 
+	 */ 
+	public int SPECIMENRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("SPECIMEN").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

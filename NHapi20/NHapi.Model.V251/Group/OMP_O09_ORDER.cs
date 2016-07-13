@@ -14,12 +14,12 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: ORC (Common Order) </li>
-///<li>1: OMP_O09_TIMING (a Group object) </li>
+///<li>1: OMP_O09_TIMING (a Group object) optional repeating</li>
 ///<li>2: RXO (Pharmacy/Treatment Order) </li>
 ///<li>3: NTE (Notes and Comments) optional repeating</li>
 ///<li>4: RXR (Pharmacy/Treatment Route) repeating</li>
-///<li>5: OMP_O09_COMPONENT (a Group object) </li>
-///<li>6: OMP_O09_OBSERVATION (a Group object) </li>
+///<li>5: OMP_O09_COMPONENT (a Group object) optional repeating</li>
+///<li>6: OMP_O09_OBSERVATION (a Group object) optional repeating</li>
 ///<li>7: FT1 (Financial Transaction) optional repeating</li>
 ///<li>8: BLG (Billing) optional </li>
 ///</ol>
@@ -33,12 +33,12 @@ public class OMP_O09_ORDER : AbstractGroup {
 	public OMP_O09_ORDER(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(ORC), true, false);
-	      this.add(typeof(OMP_O09_TIMING), true, false);
+	      this.add(typeof(OMP_O09_TIMING), false, true);
 	      this.add(typeof(RXO), true, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(RXR), true, true);
-	      this.add(typeof(OMP_O09_COMPONENT), true, false);
-	      this.add(typeof(OMP_O09_OBSERVATION), true, false);
+	      this.add(typeof(OMP_O09_COMPONENT), false, true);
+	      this.add(typeof(OMP_O09_OBSERVATION), false, true);
 	      this.add(typeof(FT1), false, true);
 	      this.add(typeof(BLG), false, false);
 	   } catch(HL7Exception e) {
@@ -63,10 +63,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns OMP_O09_TIMING (a Group object) - creates it if necessary
+	/// Returns  first repetition of OMP_O09_TIMING (a Group object) - creates it if necessary
 	///</summary>
-	public OMP_O09_TIMING TIMING { 
-get{
+	public OMP_O09_TIMING GetTIMING() {
 	   OMP_O09_TIMING ret = null;
 	   try {
 	      ret = (OMP_O09_TIMING)this.GetStructure("TIMING");
@@ -76,7 +75,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of OMP_O09_TIMING
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public OMP_O09_TIMING GetTIMING(int rep) { 
+	   return (OMP_O09_TIMING)this.GetStructure("TIMING", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of OMP_O09_TIMING 
+	 */ 
+	public int TIMINGRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns RXO (Pharmacy/Treatment Order) - creates it if necessary
@@ -177,10 +202,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns OMP_O09_COMPONENT (a Group object) - creates it if necessary
+	/// Returns  first repetition of OMP_O09_COMPONENT (a Group object) - creates it if necessary
 	///</summary>
-	public OMP_O09_COMPONENT COMPONENT { 
-get{
+	public OMP_O09_COMPONENT GetCOMPONENT() {
 	   OMP_O09_COMPONENT ret = null;
 	   try {
 	      ret = (OMP_O09_COMPONENT)this.GetStructure("COMPONENT");
@@ -190,13 +214,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns OMP_O09_OBSERVATION (a Group object) - creates it if necessary
+	///Returns a specific repetition of OMP_O09_COMPONENT
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public OMP_O09_OBSERVATION OBSERVATION { 
+	public OMP_O09_COMPONENT GetCOMPONENT(int rep) { 
+	   return (OMP_O09_COMPONENT)this.GetStructure("COMPONENT", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of OMP_O09_COMPONENT 
+	 */ 
+	public int COMPONENTRepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("COMPONENT").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of OMP_O09_OBSERVATION (a Group object) - creates it if necessary
+	///</summary>
+	public OMP_O09_OBSERVATION GetOBSERVATION() {
 	   OMP_O09_OBSERVATION ret = null;
 	   try {
 	      ret = (OMP_O09_OBSERVATION)this.GetStructure("OBSERVATION");
@@ -206,7 +255,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of OMP_O09_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public OMP_O09_OBSERVATION GetOBSERVATION(int rep) { 
+	   return (OMP_O09_OBSERVATION)this.GetStructure("OBSERVATION", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of OMP_O09_OBSERVATION 
+	 */ 
+	public int OBSERVATIONRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns  first repetition of FT1 (Financial Transaction) - creates it if necessary

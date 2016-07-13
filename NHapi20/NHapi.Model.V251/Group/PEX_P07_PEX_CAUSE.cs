@@ -15,12 +15,12 @@ namespace NHapi.Model.V251.Group
 ///<ol>
 ///<li>0: PCR (Possible Causal Relationship) </li>
 ///<li>1: PEX_P07_RX_ORDER (a Group object) optional </li>
-///<li>2: PEX_P07_RX_ADMINISTRATION (a Group object) </li>
+///<li>2: PEX_P07_RX_ADMINISTRATION (a Group object) optional repeating</li>
 ///<li>3: PRB (Problem Details) optional repeating</li>
 ///<li>4: OBX (Observation/Result) optional repeating</li>
 ///<li>5: NTE (Notes and Comments) optional repeating</li>
 ///<li>6: PEX_P07_ASSOCIATED_PERSON (a Group object) optional </li>
-///<li>7: PEX_P07_STUDY (a Group object) </li>
+///<li>7: PEX_P07_STUDY (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -33,12 +33,12 @@ public class PEX_P07_PEX_CAUSE : AbstractGroup {
 	   try {
 	      this.add(typeof(PCR), true, false);
 	      this.add(typeof(PEX_P07_RX_ORDER), false, false);
-	      this.add(typeof(PEX_P07_RX_ADMINISTRATION), true, false);
+	      this.add(typeof(PEX_P07_RX_ADMINISTRATION), false, true);
 	      this.add(typeof(PRB), false, true);
 	      this.add(typeof(OBX), false, true);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(PEX_P07_ASSOCIATED_PERSON), false, false);
-	      this.add(typeof(PEX_P07_STUDY), true, false);
+	      this.add(typeof(PEX_P07_STUDY), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating PEX_P07_PEX_CAUSE - this is probably a bug in the source code generator.", e);
 	   }
@@ -77,10 +77,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns PEX_P07_RX_ADMINISTRATION (a Group object) - creates it if necessary
+	/// Returns  first repetition of PEX_P07_RX_ADMINISTRATION (a Group object) - creates it if necessary
 	///</summary>
-	public PEX_P07_RX_ADMINISTRATION RX_ADMINISTRATION { 
-get{
+	public PEX_P07_RX_ADMINISTRATION GetRX_ADMINISTRATION() {
 	   PEX_P07_RX_ADMINISTRATION ret = null;
 	   try {
 	      ret = (PEX_P07_RX_ADMINISTRATION)this.GetStructure("RX_ADMINISTRATION");
@@ -90,7 +89,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of PEX_P07_RX_ADMINISTRATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public PEX_P07_RX_ADMINISTRATION GetRX_ADMINISTRATION(int rep) { 
+	   return (PEX_P07_RX_ADMINISTRATION)this.GetStructure("RX_ADMINISTRATION", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of PEX_P07_RX_ADMINISTRATION 
+	 */ 
+	public int RX_ADMINISTRATIONRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("RX_ADMINISTRATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns  first repetition of PRB (Problem Details) - creates it if necessary
@@ -232,10 +257,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns PEX_P07_STUDY (a Group object) - creates it if necessary
+	/// Returns  first repetition of PEX_P07_STUDY (a Group object) - creates it if necessary
 	///</summary>
-	public PEX_P07_STUDY STUDY { 
-get{
+	public PEX_P07_STUDY GetSTUDY() {
 	   PEX_P07_STUDY ret = null;
 	   try {
 	      ret = (PEX_P07_STUDY)this.GetStructure("STUDY");
@@ -245,7 +269,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of PEX_P07_STUDY
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public PEX_P07_STUDY GetSTUDY(int rep) { 
+	   return (PEX_P07_STUDY)this.GetStructure("STUDY", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of PEX_P07_STUDY 
+	 */ 
+	public int STUDYRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("STUDY").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

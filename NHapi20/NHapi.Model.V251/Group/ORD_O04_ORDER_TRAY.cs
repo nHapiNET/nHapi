@@ -14,7 +14,7 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: ORC (Common Order) </li>
-///<li>1: ORD_O04_TIMING_TRAY (a Group object) </li>
+///<li>1: ORD_O04_TIMING_TRAY (a Group object) optional repeating</li>
 ///<li>2: ODT (Diet Tray Instructions) optional repeating</li>
 ///<li>3: NTE (Notes and Comments) optional repeating</li>
 ///</ol>
@@ -28,7 +28,7 @@ public class ORD_O04_ORDER_TRAY : AbstractGroup {
 	public ORD_O04_ORDER_TRAY(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(ORC), true, false);
-	      this.add(typeof(ORD_O04_TIMING_TRAY), true, false);
+	      this.add(typeof(ORD_O04_TIMING_TRAY), false, true);
 	      this.add(typeof(ODT), false, true);
 	      this.add(typeof(NTE), false, true);
 	   } catch(HL7Exception e) {
@@ -53,10 +53,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns ORD_O04_TIMING_TRAY (a Group object) - creates it if necessary
+	/// Returns  first repetition of ORD_O04_TIMING_TRAY (a Group object) - creates it if necessary
 	///</summary>
-	public ORD_O04_TIMING_TRAY TIMING_TRAY { 
-get{
+	public ORD_O04_TIMING_TRAY GetTIMING_TRAY() {
 	   ORD_O04_TIMING_TRAY ret = null;
 	   try {
 	      ret = (ORD_O04_TIMING_TRAY)this.GetStructure("TIMING_TRAY");
@@ -66,7 +65,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of ORD_O04_TIMING_TRAY
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public ORD_O04_TIMING_TRAY GetTIMING_TRAY(int rep) { 
+	   return (ORD_O04_TIMING_TRAY)this.GetStructure("TIMING_TRAY", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of ORD_O04_TIMING_TRAY 
+	 */ 
+	public int TIMING_TRAYRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING_TRAY").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns  first repetition of ODT (Diet Tray Instructions) - creates it if necessary

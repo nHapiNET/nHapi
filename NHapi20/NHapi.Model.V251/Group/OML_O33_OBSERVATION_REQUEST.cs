@@ -17,8 +17,8 @@ namespace NHapi.Model.V251.Group
 ///<li>1: TCD (Test Code Detail) optional </li>
 ///<li>2: NTE (Notes and Comments) optional repeating</li>
 ///<li>3: DG1 (Diagnosis) optional repeating</li>
-///<li>4: OML_O33_OBSERVATION (a Group object) </li>
-///<li>5: OML_O33_PRIOR_RESULT (a Group object) </li>
+///<li>4: OML_O33_OBSERVATION (a Group object) optional repeating</li>
+///<li>5: OML_O33_PRIOR_RESULT (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -33,8 +33,8 @@ public class OML_O33_OBSERVATION_REQUEST : AbstractGroup {
 	      this.add(typeof(TCD), false, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(DG1), false, true);
-	      this.add(typeof(OML_O33_OBSERVATION), true, false);
-	      this.add(typeof(OML_O33_PRIOR_RESULT), true, false);
+	      this.add(typeof(OML_O33_OBSERVATION), false, true);
+	      this.add(typeof(OML_O33_PRIOR_RESULT), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating OML_O33_OBSERVATION_REQUEST - this is probably a bug in the source code generator.", e);
 	   }
@@ -155,10 +155,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns OML_O33_OBSERVATION (a Group object) - creates it if necessary
+	/// Returns  first repetition of OML_O33_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
-	public OML_O33_OBSERVATION OBSERVATION { 
-get{
+	public OML_O33_OBSERVATION GetOBSERVATION() {
 	   OML_O33_OBSERVATION ret = null;
 	   try {
 	      ret = (OML_O33_OBSERVATION)this.GetStructure("OBSERVATION");
@@ -168,13 +167,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns OML_O33_PRIOR_RESULT (a Group object) - creates it if necessary
+	///Returns a specific repetition of OML_O33_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public OML_O33_PRIOR_RESULT PRIOR_RESULT { 
+	public OML_O33_OBSERVATION GetOBSERVATION(int rep) { 
+	   return (OML_O33_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of OML_O33_OBSERVATION 
+	 */ 
+	public int OBSERVATIONRepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of OML_O33_PRIOR_RESULT (a Group object) - creates it if necessary
+	///</summary>
+	public OML_O33_PRIOR_RESULT GetPRIOR_RESULT() {
 	   OML_O33_PRIOR_RESULT ret = null;
 	   try {
 	      ret = (OML_O33_PRIOR_RESULT)this.GetStructure("PRIOR_RESULT");
@@ -184,7 +208,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of OML_O33_PRIOR_RESULT
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public OML_O33_PRIOR_RESULT GetPRIOR_RESULT(int rep) { 
+	   return (OML_O33_PRIOR_RESULT)this.GetStructure("PRIOR_RESULT", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of OML_O33_PRIOR_RESULT 
+	 */ 
+	public int PRIOR_RESULTRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PRIOR_RESULT").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

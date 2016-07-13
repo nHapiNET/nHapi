@@ -16,7 +16,7 @@ namespace NHapi.Model.V251.Group
 ///<li>0: SPM (Specimen) </li>
 ///<li>1: OBX (Observation/Result) optional repeating</li>
 ///<li>2: SAC (Specimen Container detail) optional repeating</li>
-///<li>3: ORL_O34_ORDER (a Group object) </li>
+///<li>3: ORL_O34_ORDER (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -30,7 +30,7 @@ public class ORL_O34_SPECIMEN : AbstractGroup {
 	      this.add(typeof(SPM), true, false);
 	      this.add(typeof(OBX), false, true);
 	      this.add(typeof(SAC), false, true);
-	      this.add(typeof(ORL_O34_ORDER), true, false);
+	      this.add(typeof(ORL_O34_ORDER), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating ORL_O34_SPECIMEN - this is probably a bug in the source code generator.", e);
 	   }
@@ -135,10 +135,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns ORL_O34_ORDER (a Group object) - creates it if necessary
+	/// Returns  first repetition of ORL_O34_ORDER (a Group object) - creates it if necessary
 	///</summary>
-	public ORL_O34_ORDER ORDER { 
-get{
+	public ORL_O34_ORDER GetORDER() {
 	   ORL_O34_ORDER ret = null;
 	   try {
 	      ret = (ORL_O34_ORDER)this.GetStructure("ORDER");
@@ -148,7 +147,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of ORL_O34_ORDER
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public ORL_O34_ORDER GetORDER(int rep) { 
+	   return (ORL_O34_ORDER)this.GetStructure("ORDER", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of ORL_O34_ORDER 
+	 */ 
+	public int ORDERRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("ORDER").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

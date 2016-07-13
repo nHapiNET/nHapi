@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
+using NHapi.Model.V251.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -76,6 +77,13 @@ public class REF_I12 : AbstractMessage  {
 	   }
 	}
 
+
+	public override string Version
+		{
+			get{
+			return Constants.VERSION;
+			}
+		}
 	///<summary>
 	/// Returns MSH (Message Header) - creates it if necessary
 	///</summary>
@@ -569,8 +577,7 @@ get{
 	///<summary>
 	/// Returns REF_I12_PATIENT_VISIT (a Group object) - creates it if necessary
 	///</summary>
-   public REF_I12_PATIENT_VISIT PATIENT_VISIT
-   { 
+	public REF_I12_PATIENT_VISIT PATIENT_VISIT { 
 get{
 	   REF_I12_PATIENT_VISIT ret = null;
 	   try {

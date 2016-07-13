@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
+using NHapi.Model.V251.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -25,8 +26,8 @@ namespace NHapi.Model.V251.Message
 ///<li>9: DG1 (Diagnosis) optional repeating</li>
 ///<li>10: DRG (Diagnosis Related Group) optional repeating</li>
 ///<li>11: AL1 (Patient Allergy Information) optional repeating</li>
-///<li>12: RQA_I08_PROCEDURE (a Group object) </li>
-///<li>13: RQA_I08_OBSERVATION (a Group object) </li>
+///<li>12: RQA_I08_PROCEDURE (a Group object) optional repeating</li>
+///<li>13: RQA_I08_OBSERVATION (a Group object) optional repeating</li>
 ///<li>14: RQA_I08_VISIT (a Group object) optional </li>
 ///<li>15: NTE (Notes and Comments) optional repeating</li>
 ///</ol>
@@ -65,8 +66,8 @@ public class RQA_I08 : AbstractMessage  {
 	      this.add(typeof(DG1), false, true);
 	      this.add(typeof(DRG), false, true);
 	      this.add(typeof(AL1), false, true);
-	      this.add(typeof(RQA_I08_PROCEDURE), true, false);
-	      this.add(typeof(RQA_I08_OBSERVATION), true, false);
+	      this.add(typeof(RQA_I08_PROCEDURE), false, true);
+	      this.add(typeof(RQA_I08_OBSERVATION), false, true);
 	      this.add(typeof(RQA_I08_VISIT), false, false);
 	      this.add(typeof(NTE), false, true);
 	   } catch(HL7Exception e) {
@@ -74,6 +75,13 @@ public class RQA_I08 : AbstractMessage  {
 	   }
 	}
 
+
+	public override string Version
+		{
+			get{
+			return Constants.VERSION;
+			}
+		}
 	///<summary>
 	/// Returns MSH (Message Header) - creates it if necessary
 	///</summary>
@@ -417,10 +425,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns RQA_I08_PROCEDURE (a Group object) - creates it if necessary
+	/// Returns  first repetition of RQA_I08_PROCEDURE (a Group object) - creates it if necessary
 	///</summary>
-	public RQA_I08_PROCEDURE PROCEDURE { 
-get{
+	public RQA_I08_PROCEDURE GetPROCEDURE() {
 	   RQA_I08_PROCEDURE ret = null;
 	   try {
 	      ret = (RQA_I08_PROCEDURE)this.GetStructure("PROCEDURE");
@@ -430,13 +437,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns RQA_I08_OBSERVATION (a Group object) - creates it if necessary
+	///Returns a specific repetition of RQA_I08_PROCEDURE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public RQA_I08_OBSERVATION OBSERVATION { 
+	public RQA_I08_PROCEDURE GetPROCEDURE(int rep) { 
+	   return (RQA_I08_PROCEDURE)this.GetStructure("PROCEDURE", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of RQA_I08_PROCEDURE 
+	 */ 
+	public int PROCEDURERepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PROCEDURE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of RQA_I08_OBSERVATION (a Group object) - creates it if necessary
+	///</summary>
+	public RQA_I08_OBSERVATION GetOBSERVATION() {
 	   RQA_I08_OBSERVATION ret = null;
 	   try {
 	      ret = (RQA_I08_OBSERVATION)this.GetStructure("OBSERVATION");
@@ -446,7 +478,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of RQA_I08_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public RQA_I08_OBSERVATION GetOBSERVATION(int rep) { 
+	   return (RQA_I08_OBSERVATION)this.GetStructure("OBSERVATION", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of RQA_I08_OBSERVATION 
+	 */ 
+	public int OBSERVATIONRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns RQA_I08_VISIT (a Group object) - creates it if necessary

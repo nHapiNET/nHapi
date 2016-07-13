@@ -14,7 +14,7 @@ namespace NHapi.Model.V251.Segment{
 ///<li>MSA-2: Message Control ID (ST)</li>
 ///<li>MSA-3: Text Message (ST)</li>
 ///<li>MSA-4: Expected Sequence Number (NM)</li>
-///<li>MSA-5: Delayed Acknowledgment Type (NUL)</li>
+///<li>MSA-5: Delayed Acknowledgment Type (ID)</li>
 ///<li>MSA-6: Error Condition (CE)</li>
 ///</ol>
 /// The get...() methods return data from individual fields.  These methods 
@@ -37,7 +37,7 @@ public class MSA : AbstractSegment  {
        this.add(typeof(ST), true, 1, 20, new System.Object[]{message}, "Message Control ID");
        this.add(typeof(ST), false, 1, 80, new System.Object[]{message}, "Text Message");
        this.add(typeof(NM), false, 1, 15, new System.Object[]{message}, "Expected Sequence Number");
-       this.add(typeof(ID), false, 1, 0, new System.Object[] { message }, "Delayed Acknowledgment Type");
+       this.add(typeof(ID), false, 1, 0, new System.Object[]{message, 0}, "Delayed Acknowledgment Type");
        this.add(typeof(CE), false, 1, 250, new System.Object[]{message}, "Error Condition");
     } catch (HL7Exception he) {
         HapiLogFactory.GetHapiLog(GetType()).Error("Can't instantiate " + GetType().Name, he);
@@ -142,11 +142,11 @@ public class MSA : AbstractSegment  {
 	public ID DelayedAcknowledgmentType
 	{
 		get{
-         ID ret = null;
+			ID ret = null;
 			try
 			{
 			IType t = this.GetField(5, 0);
-         ret = (ID)t;
+				ret = (ID)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

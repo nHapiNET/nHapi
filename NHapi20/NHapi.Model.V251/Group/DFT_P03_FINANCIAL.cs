@@ -15,8 +15,8 @@ namespace NHapi.Model.V251.Group
 ///<ol>
 ///<li>0: FT1 (Financial Transaction) </li>
 ///<li>1: NTE (Notes and Comments) optional </li>
-///<li>2: DFT_P03_FINANCIAL_PROCEDURE (a Group object) </li>
-///<li>3: DFT_P03_FINANCIAL_COMMON_ORDER (a Group object) </li>
+///<li>2: DFT_P03_FINANCIAL_PROCEDURE (a Group object) optional repeating</li>
+///<li>3: DFT_P03_FINANCIAL_COMMON_ORDER (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -29,8 +29,8 @@ public class DFT_P03_FINANCIAL : AbstractGroup {
 	   try {
 	      this.add(typeof(FT1), true, false);
 	      this.add(typeof(NTE), false, false);
-	      this.add(typeof(DFT_P03_FINANCIAL_PROCEDURE), true, false);
-	      this.add(typeof(DFT_P03_FINANCIAL_COMMON_ORDER), true, false);
+	      this.add(typeof(DFT_P03_FINANCIAL_PROCEDURE), false, true);
+	      this.add(typeof(DFT_P03_FINANCIAL_COMMON_ORDER), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating DFT_P03_FINANCIAL - this is probably a bug in the source code generator.", e);
 	   }
@@ -69,10 +69,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns DFT_P03_FINANCIAL_PROCEDURE (a Group object) - creates it if necessary
+	/// Returns  first repetition of DFT_P03_FINANCIAL_PROCEDURE (a Group object) - creates it if necessary
 	///</summary>
-	public DFT_P03_FINANCIAL_PROCEDURE FINANCIAL_PROCEDURE { 
-get{
+	public DFT_P03_FINANCIAL_PROCEDURE GetFINANCIAL_PROCEDURE() {
 	   DFT_P03_FINANCIAL_PROCEDURE ret = null;
 	   try {
 	      ret = (DFT_P03_FINANCIAL_PROCEDURE)this.GetStructure("FINANCIAL_PROCEDURE");
@@ -82,14 +81,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns DFT_P03_FINANCIAL_COMMON_ORDER (a Group object) - creates it if necessary
+	///Returns a specific repetition of DFT_P03_FINANCIAL_PROCEDURE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-   public DFT_P03_FINANCIAL_COMMON_ORDER FINANCIAL_COMMON_ORDER
-   { 
+	public DFT_P03_FINANCIAL_PROCEDURE GetFINANCIAL_PROCEDURE(int rep) { 
+	   return (DFT_P03_FINANCIAL_PROCEDURE)this.GetStructure("FINANCIAL_PROCEDURE", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of DFT_P03_FINANCIAL_PROCEDURE 
+	 */ 
+	public int FINANCIAL_PROCEDURERepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("FINANCIAL_PROCEDURE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of DFT_P03_FINANCIAL_COMMON_ORDER (a Group object) - creates it if necessary
+	///</summary>
+	public DFT_P03_FINANCIAL_COMMON_ORDER GetFINANCIAL_COMMON_ORDER() {
 	   DFT_P03_FINANCIAL_COMMON_ORDER ret = null;
 	   try {
 	      ret = (DFT_P03_FINANCIAL_COMMON_ORDER)this.GetStructure("FINANCIAL_COMMON_ORDER");
@@ -99,7 +122,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of DFT_P03_FINANCIAL_COMMON_ORDER
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public DFT_P03_FINANCIAL_COMMON_ORDER GetFINANCIAL_COMMON_ORDER(int rep) { 
+	   return (DFT_P03_FINANCIAL_COMMON_ORDER)this.GetStructure("FINANCIAL_COMMON_ORDER", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of DFT_P03_FINANCIAL_COMMON_ORDER 
+	 */ 
+	public int FINANCIAL_COMMON_ORDERRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("FINANCIAL_COMMON_ORDER").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

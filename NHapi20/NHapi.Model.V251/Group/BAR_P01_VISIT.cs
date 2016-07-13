@@ -21,10 +21,10 @@ namespace NHapi.Model.V251.Group
 ///<li>5: AL1 (Patient Allergy Information) optional repeating</li>
 ///<li>6: DG1 (Diagnosis) optional repeating</li>
 ///<li>7: DRG (Diagnosis Related Group) optional </li>
-///<li>8: BAR_P01_PROCEDURE (a Group object) </li>
+///<li>8: BAR_P01_PROCEDURE (a Group object) optional repeating</li>
 ///<li>9: GT1 (Guarantor) optional repeating</li>
 ///<li>10: NK1 (Next of Kin / Associated Parties) optional repeating</li>
-///<li>11: BAR_P01_INSURANCE (a Group object) </li>
+///<li>11: BAR_P01_INSURANCE (a Group object) optional repeating</li>
 ///<li>12: ACC (Accident) optional </li>
 ///<li>13: UB1 (UB82) optional </li>
 ///<li>14: UB2 (UB92 Data) optional </li>
@@ -46,10 +46,10 @@ public class BAR_P01_VISIT : AbstractGroup {
 	      this.add(typeof(AL1), false, true);
 	      this.add(typeof(DG1), false, true);
 	      this.add(typeof(DRG), false, false);
-	      this.add(typeof(BAR_P01_PROCEDURE), true, false);
+	      this.add(typeof(BAR_P01_PROCEDURE), false, true);
 	      this.add(typeof(GT1), false, true);
 	      this.add(typeof(NK1), false, true);
-	      this.add(typeof(BAR_P01_INSURANCE), true, false);
+	      this.add(typeof(BAR_P01_INSURANCE), false, true);
 	      this.add(typeof(ACC), false, false);
 	      this.add(typeof(UB1), false, false);
 	      this.add(typeof(UB2), false, false);
@@ -312,10 +312,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns BAR_P01_PROCEDURE (a Group object) - creates it if necessary
+	/// Returns  first repetition of BAR_P01_PROCEDURE (a Group object) - creates it if necessary
 	///</summary>
-	public BAR_P01_PROCEDURE PROCEDURE { 
-get{
+	public BAR_P01_PROCEDURE GetPROCEDURE() {
 	   BAR_P01_PROCEDURE ret = null;
 	   try {
 	      ret = (BAR_P01_PROCEDURE)this.GetStructure("PROCEDURE");
@@ -325,7 +324,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of BAR_P01_PROCEDURE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public BAR_P01_PROCEDURE GetPROCEDURE(int rep) { 
+	   return (BAR_P01_PROCEDURE)this.GetStructure("PROCEDURE", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of BAR_P01_PROCEDURE 
+	 */ 
+	public int PROCEDURERepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PROCEDURE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns  first repetition of GT1 (Guarantor) - creates it if necessary
@@ -410,10 +435,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns BAR_P01_INSURANCE (a Group object) - creates it if necessary
+	/// Returns  first repetition of BAR_P01_INSURANCE (a Group object) - creates it if necessary
 	///</summary>
-	public BAR_P01_INSURANCE INSURANCE { 
-get{
+	public BAR_P01_INSURANCE GetINSURANCE() {
 	   BAR_P01_INSURANCE ret = null;
 	   try {
 	      ret = (BAR_P01_INSURANCE)this.GetStructure("INSURANCE");
@@ -423,7 +447,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of BAR_P01_INSURANCE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public BAR_P01_INSURANCE GetINSURANCE(int rep) { 
+	   return (BAR_P01_INSURANCE)this.GetStructure("INSURANCE", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of BAR_P01_INSURANCE 
+	 */ 
+	public int INSURANCERepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("INSURANCE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns ACC (Accident) - creates it if necessary

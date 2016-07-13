@@ -15,7 +15,7 @@ namespace NHapi.Model.V251.Group
 ///<ol>
 ///<li>0: RSP_Z90_PATIENT (a Group object) optional </li>
 ///<li>1: RSP_Z90_COMMON_ORDER (a Group object) repeating</li>
-///<li>2: RSP_Z90_SPECIMEN (a Group object) </li>
+///<li>2: RSP_Z90_SPECIMEN (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -28,7 +28,7 @@ public class RSP_Z90_QUERY_RESPONSE : AbstractGroup {
 	   try {
 	      this.add(typeof(RSP_Z90_PATIENT), false, false);
 	      this.add(typeof(RSP_Z90_COMMON_ORDER), true, true);
-	      this.add(typeof(RSP_Z90_SPECIMEN), true, false);
+	      this.add(typeof(RSP_Z90_SPECIMEN), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating RSP_Z90_QUERY_RESPONSE - this is probably a bug in the source code generator.", e);
 	   }
@@ -92,10 +92,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns RSP_Z90_SPECIMEN (a Group object) - creates it if necessary
+	/// Returns  first repetition of RSP_Z90_SPECIMEN (a Group object) - creates it if necessary
 	///</summary>
-	public RSP_Z90_SPECIMEN SPECIMEN { 
-get{
+	public RSP_Z90_SPECIMEN GetSPECIMEN() {
 	   RSP_Z90_SPECIMEN ret = null;
 	   try {
 	      ret = (RSP_Z90_SPECIMEN)this.GetStructure("SPECIMEN");
@@ -105,7 +104,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of RSP_Z90_SPECIMEN
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public RSP_Z90_SPECIMEN GetSPECIMEN(int rep) { 
+	   return (RSP_Z90_SPECIMEN)this.GetStructure("SPECIMEN", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of RSP_Z90_SPECIMEN 
+	 */ 
+	public int SPECIMENRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("SPECIMEN").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

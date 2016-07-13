@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
+using NHapi.Model.V251.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -18,7 +19,7 @@ namespace NHapi.Model.V251.Message
 ///<li>2: NTE (Notes and Comments) optional repeating</li>
 ///<li>3: OMD_O03_PATIENT (a Group object) optional </li>
 ///<li>4: OMD_O03_ORDER_DIET (a Group object) repeating</li>
-///<li>5: OMD_O03_ORDER_TRAY (a Group object) </li>
+///<li>5: OMD_O03_ORDER_TRAY (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -48,12 +49,19 @@ public class OMD_O03 : AbstractMessage  {
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(OMD_O03_PATIENT), false, false);
 	      this.add(typeof(OMD_O03_ORDER_DIET), true, true);
-	      this.add(typeof(OMD_O03_ORDER_TRAY), true, false);
+	      this.add(typeof(OMD_O03_ORDER_TRAY), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating OMD_O03 - this is probably a bug in the source code generator.", e);
 	   }
 	}
 
+
+	public override string Version
+		{
+			get{
+			return Constants.VERSION;
+			}
+		}
 	///<summary>
 	/// Returns MSH (Message Header) - creates it if necessary
 	///</summary>
@@ -210,10 +218,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns OMD_O03_ORDER_TRAY (a Group object) - creates it if necessary
+	/// Returns  first repetition of OMD_O03_ORDER_TRAY (a Group object) - creates it if necessary
 	///</summary>
-	public OMD_O03_ORDER_TRAY ORDER_TRAY { 
-get{
+	public OMD_O03_ORDER_TRAY GetORDER_TRAY() {
 	   OMD_O03_ORDER_TRAY ret = null;
 	   try {
 	      ret = (OMD_O03_ORDER_TRAY)this.GetStructure("ORDER_TRAY");
@@ -223,7 +230,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of OMD_O03_ORDER_TRAY
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public OMD_O03_ORDER_TRAY GetORDER_TRAY(int rep) { 
+	   return (OMD_O03_ORDER_TRAY)this.GetStructure("ORDER_TRAY", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of OMD_O03_ORDER_TRAY 
+	 */ 
+	public int ORDER_TRAYRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("ORDER_TRAY").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

@@ -16,8 +16,8 @@ namespace NHapi.Model.V251.Group
 ///<li>0: PTH (Pathway) </li>
 ///<li>1: NTE (Notes and Comments) optional repeating</li>
 ///<li>2: VAR (Variance) optional repeating</li>
-///<li>3: PPG_PCG_PATHWAY_ROLE (a Group object) </li>
-///<li>4: PPG_PCG_GOAL (a Group object) </li>
+///<li>3: PPG_PCG_PATHWAY_ROLE (a Group object) optional repeating</li>
+///<li>4: PPG_PCG_GOAL (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -31,8 +31,8 @@ public class PPG_PCG_PATHWAY : AbstractGroup {
 	      this.add(typeof(PTH), true, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(VAR), false, true);
-	      this.add(typeof(PPG_PCG_PATHWAY_ROLE), true, false);
-	      this.add(typeof(PPG_PCG_GOAL), true, false);
+	      this.add(typeof(PPG_PCG_PATHWAY_ROLE), false, true);
+	      this.add(typeof(PPG_PCG_GOAL), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating PPG_PCG_PATHWAY - this is probably a bug in the source code generator.", e);
 	   }
@@ -137,10 +137,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns PPG_PCG_PATHWAY_ROLE (a Group object) - creates it if necessary
+	/// Returns  first repetition of PPG_PCG_PATHWAY_ROLE (a Group object) - creates it if necessary
 	///</summary>
-	public PPG_PCG_PATHWAY_ROLE PATHWAY_ROLE { 
-get{
+	public PPG_PCG_PATHWAY_ROLE GetPATHWAY_ROLE() {
 	   PPG_PCG_PATHWAY_ROLE ret = null;
 	   try {
 	      ret = (PPG_PCG_PATHWAY_ROLE)this.GetStructure("PATHWAY_ROLE");
@@ -150,13 +149,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns PPG_PCG_GOAL (a Group object) - creates it if necessary
+	///Returns a specific repetition of PPG_PCG_PATHWAY_ROLE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public PPG_PCG_GOAL GOAL { 
+	public PPG_PCG_PATHWAY_ROLE GetPATHWAY_ROLE(int rep) { 
+	   return (PPG_PCG_PATHWAY_ROLE)this.GetStructure("PATHWAY_ROLE", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of PPG_PCG_PATHWAY_ROLE 
+	 */ 
+	public int PATHWAY_ROLERepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PATHWAY_ROLE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of PPG_PCG_GOAL (a Group object) - creates it if necessary
+	///</summary>
+	public PPG_PCG_GOAL GetGOAL() {
 	   PPG_PCG_GOAL ret = null;
 	   try {
 	      ret = (PPG_PCG_GOAL)this.GetStructure("GOAL");
@@ -166,7 +190,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of PPG_PCG_GOAL
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public PPG_PCG_GOAL GetGOAL(int rep) { 
+	   return (PPG_PCG_GOAL)this.GetStructure("GOAL", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of PPG_PCG_GOAL 
+	 */ 
+	public int GOALRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("GOAL").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

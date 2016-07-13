@@ -16,8 +16,8 @@ namespace NHapi.Model.V251.Group
 ///<li>0: PTH (Pathway) </li>
 ///<li>1: NTE (Notes and Comments) optional repeating</li>
 ///<li>2: VAR (Variance) optional repeating</li>
-///<li>3: PTR_PCF_PATHWAY_ROLE (a Group object) </li>
-///<li>4: PTR_PCF_PROBLEM (a Group object) </li>
+///<li>3: PTR_PCF_PATHWAY_ROLE (a Group object) optional repeating</li>
+///<li>4: PTR_PCF_PROBLEM (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -31,8 +31,8 @@ public class PTR_PCF_PATHWAY : AbstractGroup {
 	      this.add(typeof(PTH), true, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(VAR), false, true);
-	      this.add(typeof(PTR_PCF_PATHWAY_ROLE), true, false);
-	      this.add(typeof(PTR_PCF_PROBLEM), true, false);
+	      this.add(typeof(PTR_PCF_PATHWAY_ROLE), false, true);
+	      this.add(typeof(PTR_PCF_PROBLEM), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating PTR_PCF_PATHWAY - this is probably a bug in the source code generator.", e);
 	   }
@@ -137,10 +137,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns PTR_PCF_PATHWAY_ROLE (a Group object) - creates it if necessary
+	/// Returns  first repetition of PTR_PCF_PATHWAY_ROLE (a Group object) - creates it if necessary
 	///</summary>
-	public PTR_PCF_PATHWAY_ROLE PATHWAY_ROLE { 
-get{
+	public PTR_PCF_PATHWAY_ROLE GetPATHWAY_ROLE() {
 	   PTR_PCF_PATHWAY_ROLE ret = null;
 	   try {
 	      ret = (PTR_PCF_PATHWAY_ROLE)this.GetStructure("PATHWAY_ROLE");
@@ -150,13 +149,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns PTR_PCF_PROBLEM (a Group object) - creates it if necessary
+	///Returns a specific repetition of PTR_PCF_PATHWAY_ROLE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public PTR_PCF_PROBLEM PROBLEM { 
+	public PTR_PCF_PATHWAY_ROLE GetPATHWAY_ROLE(int rep) { 
+	   return (PTR_PCF_PATHWAY_ROLE)this.GetStructure("PATHWAY_ROLE", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of PTR_PCF_PATHWAY_ROLE 
+	 */ 
+	public int PATHWAY_ROLERepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PATHWAY_ROLE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of PTR_PCF_PROBLEM (a Group object) - creates it if necessary
+	///</summary>
+	public PTR_PCF_PROBLEM GetPROBLEM() {
 	   PTR_PCF_PROBLEM ret = null;
 	   try {
 	      ret = (PTR_PCF_PROBLEM)this.GetStructure("PROBLEM");
@@ -166,7 +190,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of PTR_PCF_PROBLEM
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public PTR_PCF_PROBLEM GetPROBLEM(int rep) { 
+	   return (PTR_PCF_PROBLEM)this.GetStructure("PROBLEM", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of PTR_PCF_PROBLEM 
+	 */ 
+	public int PROBLEMRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PROBLEM").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

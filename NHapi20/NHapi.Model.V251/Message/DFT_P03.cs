@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
+using NHapi.Model.V251.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -23,12 +24,12 @@ namespace NHapi.Model.V251.Message
 ///<li>7: PV2 (Patient Visit - Additional Information) optional </li>
 ///<li>8: ROL (Role) optional repeating</li>
 ///<li>9: DB1 (Disability) optional repeating</li>
-///<li>10: DFT_P03_COMMON_ORDER (a Group object) </li>
+///<li>10: DFT_P03_COMMON_ORDER (a Group object) optional repeating</li>
 ///<li>11: DFT_P03_FINANCIAL (a Group object) repeating</li>
 ///<li>12: DG1 (Diagnosis) optional repeating</li>
 ///<li>13: DRG (Diagnosis Related Group) optional </li>
 ///<li>14: GT1 (Guarantor) optional repeating</li>
-///<li>15: DFT_P03_INSURANCE (a Group object) </li>
+///<li>15: DFT_P03_INSURANCE (a Group object) optional repeating</li>
 ///<li>16: ACC (Accident) optional </li>
 ///</ol>
 ///</summary>
@@ -64,18 +65,25 @@ public class DFT_P03 : AbstractMessage  {
 	      this.add(typeof(PV2), false, false);
 	      this.add(typeof(ROL), false, true);
 	      this.add(typeof(DB1), false, true);
-	      this.add(typeof(DFT_P03_COMMON_ORDER), true, false);
+	      this.add(typeof(DFT_P03_COMMON_ORDER), false, true);
 	      this.add(typeof(DFT_P03_FINANCIAL), true, true);
 	      this.add(typeof(DG1), false, true);
 	      this.add(typeof(DRG), false, false);
 	      this.add(typeof(GT1), false, true);
-	      this.add(typeof(DFT_P03_INSURANCE), true, false);
+	      this.add(typeof(DFT_P03_INSURANCE), false, true);
 	      this.add(typeof(ACC), false, false);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating DFT_P03 - this is probably a bug in the source code generator.", e);
 	   }
 	}
 
+
+	public override string Version
+		{
+			get{
+			return Constants.VERSION;
+			}
+		}
 	///<summary>
 	/// Returns MSH (Message Header) - creates it if necessary
 	///</summary>
@@ -337,10 +345,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns DFT_P03_COMMON_ORDER (a Group object) - creates it if necessary
+	/// Returns  first repetition of DFT_P03_COMMON_ORDER (a Group object) - creates it if necessary
 	///</summary>
-	public DFT_P03_COMMON_ORDER COMMON_ORDER { 
-get{
+	public DFT_P03_COMMON_ORDER GetCOMMON_ORDER() {
 	   DFT_P03_COMMON_ORDER ret = null;
 	   try {
 	      ret = (DFT_P03_COMMON_ORDER)this.GetStructure("COMMON_ORDER");
@@ -350,7 +357,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of DFT_P03_COMMON_ORDER
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public DFT_P03_COMMON_ORDER GetCOMMON_ORDER(int rep) { 
+	   return (DFT_P03_COMMON_ORDER)this.GetStructure("COMMON_ORDER", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of DFT_P03_COMMON_ORDER 
+	 */ 
+	public int COMMON_ORDERRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("COMMON_ORDER").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns  first repetition of DFT_P03_FINANCIAL (a Group object) - creates it if necessary
@@ -492,10 +525,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns DFT_P03_INSURANCE (a Group object) - creates it if necessary
+	/// Returns  first repetition of DFT_P03_INSURANCE (a Group object) - creates it if necessary
 	///</summary>
-	public DFT_P03_INSURANCE INSURANCE { 
-get{
+	public DFT_P03_INSURANCE GetINSURANCE() {
 	   DFT_P03_INSURANCE ret = null;
 	   try {
 	      ret = (DFT_P03_INSURANCE)this.GetStructure("INSURANCE");
@@ -505,7 +537,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of DFT_P03_INSURANCE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public DFT_P03_INSURANCE GetINSURANCE(int rep) { 
+	   return (DFT_P03_INSURANCE)this.GetStructure("INSURANCE", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of DFT_P03_INSURANCE 
+	 */ 
+	public int INSURANCERepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("INSURANCE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns ACC (Accident) - creates it if necessary

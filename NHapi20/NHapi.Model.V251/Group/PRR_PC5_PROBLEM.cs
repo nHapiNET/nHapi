@@ -16,11 +16,11 @@ namespace NHapi.Model.V251.Group
 ///<li>0: PRB (Problem Details) </li>
 ///<li>1: NTE (Notes and Comments) optional repeating</li>
 ///<li>2: VAR (Variance) optional repeating</li>
-///<li>3: PRR_PC5_PROBLEM_ROLE (a Group object) </li>
-///<li>4: PRR_PC5_PROBLEM_PATHWAY (a Group object) </li>
-///<li>5: PRR_PC5_PROBLEM_OBSERVATION (a Group object) </li>
-///<li>6: PRR_PC5_GOAL (a Group object) </li>
-///<li>7: PRR_PC5_ORDER (a Group object) </li>
+///<li>3: PRR_PC5_PROBLEM_ROLE (a Group object) optional repeating</li>
+///<li>4: PRR_PC5_PROBLEM_PATHWAY (a Group object) optional repeating</li>
+///<li>5: PRR_PC5_PROBLEM_OBSERVATION (a Group object) optional repeating</li>
+///<li>6: PRR_PC5_GOAL (a Group object) optional repeating</li>
+///<li>7: PRR_PC5_ORDER (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -34,11 +34,11 @@ public class PRR_PC5_PROBLEM : AbstractGroup {
 	      this.add(typeof(PRB), true, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(VAR), false, true);
-	      this.add(typeof(PRR_PC5_PROBLEM_ROLE), true, false);
-	      this.add(typeof(PRR_PC5_PROBLEM_PATHWAY), true, false);
-	      this.add(typeof(PRR_PC5_PROBLEM_OBSERVATION), true, false);
-	      this.add(typeof(PRR_PC5_GOAL), true, false);
-	      this.add(typeof(PRR_PC5_ORDER), true, false);
+	      this.add(typeof(PRR_PC5_PROBLEM_ROLE), false, true);
+	      this.add(typeof(PRR_PC5_PROBLEM_PATHWAY), false, true);
+	      this.add(typeof(PRR_PC5_PROBLEM_OBSERVATION), false, true);
+	      this.add(typeof(PRR_PC5_GOAL), false, true);
+	      this.add(typeof(PRR_PC5_ORDER), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating PRR_PC5_PROBLEM - this is probably a bug in the source code generator.", e);
 	   }
@@ -143,10 +143,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns PRR_PC5_PROBLEM_ROLE (a Group object) - creates it if necessary
+	/// Returns  first repetition of PRR_PC5_PROBLEM_ROLE (a Group object) - creates it if necessary
 	///</summary>
-	public PRR_PC5_PROBLEM_ROLE PROBLEM_ROLE { 
-get{
+	public PRR_PC5_PROBLEM_ROLE GetPROBLEM_ROLE() {
 	   PRR_PC5_PROBLEM_ROLE ret = null;
 	   try {
 	      ret = (PRR_PC5_PROBLEM_ROLE)this.GetStructure("PROBLEM_ROLE");
@@ -156,13 +155,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns PRR_PC5_PROBLEM_PATHWAY (a Group object) - creates it if necessary
+	///Returns a specific repetition of PRR_PC5_PROBLEM_ROLE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public PRR_PC5_PROBLEM_PATHWAY PROBLEM_PATHWAY { 
+	public PRR_PC5_PROBLEM_ROLE GetPROBLEM_ROLE(int rep) { 
+	   return (PRR_PC5_PROBLEM_ROLE)this.GetStructure("PROBLEM_ROLE", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of PRR_PC5_PROBLEM_ROLE 
+	 */ 
+	public int PROBLEM_ROLERepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PROBLEM_ROLE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of PRR_PC5_PROBLEM_PATHWAY (a Group object) - creates it if necessary
+	///</summary>
+	public PRR_PC5_PROBLEM_PATHWAY GetPROBLEM_PATHWAY() {
 	   PRR_PC5_PROBLEM_PATHWAY ret = null;
 	   try {
 	      ret = (PRR_PC5_PROBLEM_PATHWAY)this.GetStructure("PROBLEM_PATHWAY");
@@ -172,13 +196,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns PRR_PC5_PROBLEM_OBSERVATION (a Group object) - creates it if necessary
+	///Returns a specific repetition of PRR_PC5_PROBLEM_PATHWAY
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public PRR_PC5_PROBLEM_OBSERVATION PROBLEM_OBSERVATION { 
+	public PRR_PC5_PROBLEM_PATHWAY GetPROBLEM_PATHWAY(int rep) { 
+	   return (PRR_PC5_PROBLEM_PATHWAY)this.GetStructure("PROBLEM_PATHWAY", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of PRR_PC5_PROBLEM_PATHWAY 
+	 */ 
+	public int PROBLEM_PATHWAYRepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PROBLEM_PATHWAY").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of PRR_PC5_PROBLEM_OBSERVATION (a Group object) - creates it if necessary
+	///</summary>
+	public PRR_PC5_PROBLEM_OBSERVATION GetPROBLEM_OBSERVATION() {
 	   PRR_PC5_PROBLEM_OBSERVATION ret = null;
 	   try {
 	      ret = (PRR_PC5_PROBLEM_OBSERVATION)this.GetStructure("PROBLEM_OBSERVATION");
@@ -188,13 +237,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns PRR_PC5_GOAL (a Group object) - creates it if necessary
+	///Returns a specific repetition of PRR_PC5_PROBLEM_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public PRR_PC5_GOAL GOAL { 
+	public PRR_PC5_PROBLEM_OBSERVATION GetPROBLEM_OBSERVATION(int rep) { 
+	   return (PRR_PC5_PROBLEM_OBSERVATION)this.GetStructure("PROBLEM_OBSERVATION", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of PRR_PC5_PROBLEM_OBSERVATION 
+	 */ 
+	public int PROBLEM_OBSERVATIONRepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PROBLEM_OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of PRR_PC5_GOAL (a Group object) - creates it if necessary
+	///</summary>
+	public PRR_PC5_GOAL GetGOAL() {
 	   PRR_PC5_GOAL ret = null;
 	   try {
 	      ret = (PRR_PC5_GOAL)this.GetStructure("GOAL");
@@ -204,13 +278,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns PRR_PC5_ORDER (a Group object) - creates it if necessary
+	///Returns a specific repetition of PRR_PC5_GOAL
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public PRR_PC5_ORDER ORDER { 
+	public PRR_PC5_GOAL GetGOAL(int rep) { 
+	   return (PRR_PC5_GOAL)this.GetStructure("GOAL", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of PRR_PC5_GOAL 
+	 */ 
+	public int GOALRepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("GOAL").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of PRR_PC5_ORDER (a Group object) - creates it if necessary
+	///</summary>
+	public PRR_PC5_ORDER GetORDER() {
 	   PRR_PC5_ORDER ret = null;
 	   try {
 	      ret = (PRR_PC5_ORDER)this.GetStructure("ORDER");
@@ -220,7 +319,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of PRR_PC5_ORDER
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public PRR_PC5_ORDER GetORDER(int rep) { 
+	   return (PRR_PC5_ORDER)this.GetStructure("ORDER", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of PRR_PC5_ORDER 
+	 */ 
+	public int ORDERRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("ORDER").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

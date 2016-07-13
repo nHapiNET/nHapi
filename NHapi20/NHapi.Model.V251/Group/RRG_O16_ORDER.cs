@@ -14,7 +14,7 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: ORC (Common Order) </li>
-///<li>1: RRG_O16_TIMING (a Group object) </li>
+///<li>1: RRG_O16_TIMING (a Group object) optional repeating</li>
 ///<li>2: RRG_O16_GIVE (a Group object) optional </li>
 ///</ol>
 ///</summary>
@@ -27,7 +27,7 @@ public class RRG_O16_ORDER : AbstractGroup {
 	public RRG_O16_ORDER(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(ORC), true, false);
-	      this.add(typeof(RRG_O16_TIMING), true, false);
+	      this.add(typeof(RRG_O16_TIMING), false, true);
 	      this.add(typeof(RRG_O16_GIVE), false, false);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating RRG_O16_ORDER - this is probably a bug in the source code generator.", e);
@@ -51,10 +51,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns RRG_O16_TIMING (a Group object) - creates it if necessary
+	/// Returns  first repetition of RRG_O16_TIMING (a Group object) - creates it if necessary
 	///</summary>
-	public RRG_O16_TIMING TIMING { 
-get{
+	public RRG_O16_TIMING GetTIMING() {
 	   RRG_O16_TIMING ret = null;
 	   try {
 	      ret = (RRG_O16_TIMING)this.GetStructure("TIMING");
@@ -64,7 +63,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of RRG_O16_TIMING
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public RRG_O16_TIMING GetTIMING(int rep) { 
+	   return (RRG_O16_TIMING)this.GetStructure("TIMING", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of RRG_O16_TIMING 
+	 */ 
+	public int TIMINGRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns RRG_O16_GIVE (a Group object) - creates it if necessary

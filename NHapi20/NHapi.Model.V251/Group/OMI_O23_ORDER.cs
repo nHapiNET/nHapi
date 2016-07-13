@@ -14,12 +14,12 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: ORC (Common Order) </li>
-///<li>1: OMI_O23_TIMING (a Group object) </li>
+///<li>1: OMI_O23_TIMING (a Group object) optional repeating</li>
 ///<li>2: OBR (Observation Request) </li>
 ///<li>3: NTE (Notes and Comments) optional repeating</li>
 ///<li>4: CTD (Contact Data) optional </li>
 ///<li>5: DG1 (Diagnosis) optional repeating</li>
-///<li>6: OMI_O23_OBSERVATION (a Group object) </li>
+///<li>6: OMI_O23_OBSERVATION (a Group object) optional repeating</li>
 ///<li>7: IPC (Imaging Procedure Control Segment) repeating</li>
 ///</ol>
 ///</summary>
@@ -32,12 +32,12 @@ public class OMI_O23_ORDER : AbstractGroup {
 	public OMI_O23_ORDER(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(ORC), true, false);
-	      this.add(typeof(OMI_O23_TIMING), true, false);
+	      this.add(typeof(OMI_O23_TIMING), false, true);
 	      this.add(typeof(OBR), true, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(CTD), false, false);
 	      this.add(typeof(DG1), false, true);
-	      this.add(typeof(OMI_O23_OBSERVATION), true, false);
+	      this.add(typeof(OMI_O23_OBSERVATION), false, true);
 	      this.add(typeof(IPC), true, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating OMI_O23_ORDER - this is probably a bug in the source code generator.", e);
@@ -61,10 +61,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns OMI_O23_TIMING (a Group object) - creates it if necessary
+	/// Returns  first repetition of OMI_O23_TIMING (a Group object) - creates it if necessary
 	///</summary>
-	public OMI_O23_TIMING TIMING { 
-get{
+	public OMI_O23_TIMING GetTIMING() {
 	   OMI_O23_TIMING ret = null;
 	   try {
 	      ret = (OMI_O23_TIMING)this.GetStructure("TIMING");
@@ -74,7 +73,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of OMI_O23_TIMING
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public OMI_O23_TIMING GetTIMING(int rep) { 
+	   return (OMI_O23_TIMING)this.GetStructure("TIMING", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of OMI_O23_TIMING 
+	 */ 
+	public int TIMINGRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns OBR (Observation Request) - creates it if necessary
@@ -191,10 +216,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns OMI_O23_OBSERVATION (a Group object) - creates it if necessary
+	/// Returns  first repetition of OMI_O23_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
-	public OMI_O23_OBSERVATION OBSERVATION { 
-get{
+	public OMI_O23_OBSERVATION GetOBSERVATION() {
 	   OMI_O23_OBSERVATION ret = null;
 	   try {
 	      ret = (OMI_O23_OBSERVATION)this.GetStructure("OBSERVATION");
@@ -204,7 +228,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of OMI_O23_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public OMI_O23_OBSERVATION GetOBSERVATION(int rep) { 
+	   return (OMI_O23_OBSERVATION)this.GetStructure("OBSERVATION", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of OMI_O23_OBSERVATION 
+	 */ 
+	public int OBSERVATIONRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns  first repetition of IPC (Imaging Procedure Control Segment) - creates it if necessary

@@ -16,7 +16,7 @@ namespace NHapi.Model.V251.Group
 ///<li>0: RXO (Pharmacy/Treatment Order) </li>
 ///<li>1: NTE (Notes and Comments) optional repeating</li>
 ///<li>2: RXR (Pharmacy/Treatment Route) repeating</li>
-///<li>3: ORP_O10_COMPONENT (a Group object) </li>
+///<li>3: ORP_O10_COMPONENT (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -30,7 +30,7 @@ public class ORP_O10_ORDER_DETAIL : AbstractGroup {
 	      this.add(typeof(RXO), true, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(RXR), true, true);
-	      this.add(typeof(ORP_O10_COMPONENT), true, false);
+	      this.add(typeof(ORP_O10_COMPONENT), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating ORP_O10_ORDER_DETAIL - this is probably a bug in the source code generator.", e);
 	   }
@@ -135,10 +135,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns ORP_O10_COMPONENT (a Group object) - creates it if necessary
+	/// Returns  first repetition of ORP_O10_COMPONENT (a Group object) - creates it if necessary
 	///</summary>
-	public ORP_O10_COMPONENT COMPONENT { 
-get{
+	public ORP_O10_COMPONENT GetCOMPONENT() {
 	   ORP_O10_COMPONENT ret = null;
 	   try {
 	      ret = (ORP_O10_COMPONENT)this.GetStructure("COMPONENT");
@@ -148,7 +147,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of ORP_O10_COMPONENT
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public ORP_O10_COMPONENT GetCOMPONENT(int rep) { 
+	   return (ORP_O10_COMPONENT)this.GetStructure("COMPONENT", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of ORP_O10_COMPONENT 
+	 */ 
+	public int COMPONENTRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("COMPONENT").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

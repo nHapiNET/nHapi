@@ -14,9 +14,10 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: OBR (Observation Request) </li>
-///<li>1: NTE (Notes and Comments) optional repeating</li>
-///<li>2: VAR (Variance) optional repeating</li>
-///<li>3: PPP_PCB_ORDER_OBSERVATION (a Group object) </li>
+///<li>1: Hxx (any HL7 segment) </li>
+///<li>2: NTE (Notes and Comments) optional repeating</li>
+///<li>3: VAR (Variance) optional repeating</li>
+///<li>4: PPP_PCB_ORDER_OBSERVATION (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -28,9 +29,10 @@ public class PPP_PCB_ORDER_DETAIL : AbstractGroup {
 	public PPP_PCB_ORDER_DETAIL(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(OBR), true, false);
+	      this.add(typeof(Hxx), true, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(VAR), false, true);
-	      this.add(typeof(PPP_PCB_ORDER_OBSERVATION), true, false);
+	      this.add(typeof(PPP_PCB_ORDER_OBSERVATION), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating PPP_PCB_ORDER_DETAIL - this is probably a bug in the source code generator.", e);
 	   }
@@ -44,6 +46,22 @@ get{
 	   OBR ret = null;
 	   try {
 	      ret = (OBR)this.GetStructure("OBR");
+	   } catch(HL7Exception e) {
+	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
+	      throw new System.Exception("An unexpected error ocurred",e);
+	   }
+	   return ret;
+	}
+	}
+
+	///<summary>
+	/// Returns Hxx (any HL7 segment) - creates it if necessary
+	///</summary>
+	public Hxx Hxx { 
+get{
+	   Hxx ret = null;
+	   try {
+	      ret = (Hxx)this.GetStructure("Hxx");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -135,10 +153,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns PPP_PCB_ORDER_OBSERVATION (a Group object) - creates it if necessary
+	/// Returns  first repetition of PPP_PCB_ORDER_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
-	public PPP_PCB_ORDER_OBSERVATION ORDER_OBSERVATION { 
-get{
+	public PPP_PCB_ORDER_OBSERVATION GetORDER_OBSERVATION() {
 	   PPP_PCB_ORDER_OBSERVATION ret = null;
 	   try {
 	      ret = (PPP_PCB_ORDER_OBSERVATION)this.GetStructure("ORDER_OBSERVATION");
@@ -148,7 +165,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of PPP_PCB_ORDER_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public PPP_PCB_ORDER_OBSERVATION GetORDER_OBSERVATION(int rep) { 
+	   return (PPP_PCB_ORDER_OBSERVATION)this.GetStructure("ORDER_OBSERVATION", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of PPP_PCB_ORDER_OBSERVATION 
+	 */ 
+	public int ORDER_OBSERVATIONRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("ORDER_OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

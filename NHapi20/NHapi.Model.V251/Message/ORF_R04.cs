@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
+using NHapi.Model.V251.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -18,7 +19,7 @@ namespace NHapi.Model.V251.Message
 ///<li>2: MSA (Message Acknowledgment) </li>
 ///<li>3: QRD (Original-Style Query Definition) </li>
 ///<li>4: QRF (Original style query filter) optional </li>
-///<li>5: ORF_R04_PIDNTEORCOBRNTETQ1TQ2CTDOBXNTECTI (a Group object) repeating</li>
+///<li>5: ORF_R04_QUERY_RESPONSE (a Group object) repeating</li>
 ///<li>6: ERR (Error) optional repeating</li>
 ///<li>7: QAK (Query Acknowledgment) optional </li>
 ///<li>8: DSC (Continuation Pointer) optional </li>
@@ -51,7 +52,7 @@ public class ORF_R04 : AbstractMessage  {
 	      this.add(typeof(MSA), true, false);
 	      this.add(typeof(QRD), true, false);
 	      this.add(typeof(QRF), false, false);
-	      this.add(typeof(ORF_R04_PIDNTEORCOBRNTETQ1TQ2CTDOBXNTECTI), true, true);
+	      this.add(typeof(ORF_R04_QUERY_RESPONSE), true, true);
 	      this.add(typeof(ERR), false, true);
 	      this.add(typeof(QAK), false, false);
 	      this.add(typeof(DSC), false, false);
@@ -60,6 +61,13 @@ public class ORF_R04 : AbstractMessage  {
 	   }
 	}
 
+
+	public override string Version
+		{
+			get{
+			return Constants.VERSION;
+			}
+		}
 	///<summary>
 	/// Returns MSH (Message Header) - creates it if necessary
 	///</summary>
@@ -166,12 +174,12 @@ get{
 	}
 
 	///<summary>
-	/// Returns  first repetition of ORF_R04_PIDNTEORCOBRNTETQ1TQ2CTDOBXNTECTI (a Group object) - creates it if necessary
+	/// Returns  first repetition of ORF_R04_QUERY_RESPONSE (a Group object) - creates it if necessary
 	///</summary>
-	public ORF_R04_PIDNTEORCOBRNTETQ1TQ2CTDOBXNTECTI GetPIDNTEORCOBRNTETQ1TQ2CTDOBXNTECTI() {
-	   ORF_R04_PIDNTEORCOBRNTETQ1TQ2CTDOBXNTECTI ret = null;
+	public ORF_R04_QUERY_RESPONSE GetQUERY_RESPONSE() {
+	   ORF_R04_QUERY_RESPONSE ret = null;
 	   try {
-	      ret = (ORF_R04_PIDNTEORCOBRNTETQ1TQ2CTDOBXNTECTI)this.GetStructure("PIDNTEORCOBRNTETQ1TQ2CTDOBXNTECTI");
+	      ret = (ORF_R04_QUERY_RESPONSE)this.GetStructure("QUERY_RESPONSE");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -180,23 +188,23 @@ get{
 	}
 
 	///<summary>
-	///Returns a specific repetition of ORF_R04_PIDNTEORCOBRNTETQ1TQ2CTDOBXNTECTI
+	///Returns a specific repetition of ORF_R04_QUERY_RESPONSE
 	/// * (a Group object) - creates it if necessary
 	/// throws HL7Exception if the repetition requested is more than one 
 	///     greater than the number of existing repetitions.
 	///</summary>
-	public ORF_R04_PIDNTEORCOBRNTETQ1TQ2CTDOBXNTECTI GetPIDNTEORCOBRNTETQ1TQ2CTDOBXNTECTI(int rep) { 
-	   return (ORF_R04_PIDNTEORCOBRNTETQ1TQ2CTDOBXNTECTI)this.GetStructure("PIDNTEORCOBRNTETQ1TQ2CTDOBXNTECTI", rep);
+	public ORF_R04_QUERY_RESPONSE GetQUERY_RESPONSE(int rep) { 
+	   return (ORF_R04_QUERY_RESPONSE)this.GetStructure("QUERY_RESPONSE", rep);
 	}
 
 	/** 
-	 * Returns the number of existing repetitions of ORF_R04_PIDNTEORCOBRNTETQ1TQ2CTDOBXNTECTI 
+	 * Returns the number of existing repetitions of ORF_R04_QUERY_RESPONSE 
 	 */ 
-	public int PIDNTEORCOBRNTETQ1TQ2CTDOBXNTECTIRepetitionsUsed { 
+	public int QUERY_RESPONSERepetitionsUsed { 
 get{
 	    int reps = -1; 
 	    try { 
-	        reps = this.GetAll("PIDNTEORCOBRNTETQ1TQ2CTDOBXNTECTI").Length; 
+	        reps = this.GetAll("QUERY_RESPONSE").Length; 
 	    } catch (HL7Exception e) { 
 	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
 	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 

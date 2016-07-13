@@ -16,8 +16,8 @@ namespace NHapi.Model.V251.Group
 ///<li>0: OBR (Observation Request) </li>
 ///<li>1: ORC (Common Order) optional </li>
 ///<li>2: NTE (Notes and Comments) optional repeating</li>
-///<li>3: OUL_R23_TQ1TQ2 (a Group object) </li>
-///<li>4: OUL_R23_OBXTCDSIDNTE (a Group object) </li>
+///<li>3: OUL_R23_TIMING_QTY (a Group object) optional repeating</li>
+///<li>4: OUL_R23_RESULT (a Group object) optional repeating</li>
 ///<li>5: CTI (Clinical Trial Identification) optional repeating</li>
 ///</ol>
 ///</summary>
@@ -32,8 +32,8 @@ public class OUL_R23_ORDER : AbstractGroup {
 	      this.add(typeof(OBR), true, false);
 	      this.add(typeof(ORC), false, false);
 	      this.add(typeof(NTE), false, true);
-	      this.add(typeof(OUL_R23_TQ1TQ2), true, false);
-	      this.add(typeof(OUL_R23_OBXTCDSIDNTE), true, false);
+	      this.add(typeof(OUL_R23_TIMING_QTY), false, true);
+	      this.add(typeof(OUL_R23_RESULT), false, true);
 	      this.add(typeof(CTI), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating OUL_R23_ORDER - this is probably a bug in the source code generator.", e);
@@ -114,36 +114,86 @@ get{
 	} 
 
 	///<summary>
-	/// Returns OUL_R23_TQ1TQ2 (a Group object) - creates it if necessary
+	/// Returns  first repetition of OUL_R23_TIMING_QTY (a Group object) - creates it if necessary
 	///</summary>
-	public OUL_R23_TQ1TQ2 TQ1TQ2 { 
-get{
-	   OUL_R23_TQ1TQ2 ret = null;
+	public OUL_R23_TIMING_QTY GetTIMING_QTY() {
+	   OUL_R23_TIMING_QTY ret = null;
 	   try {
-	      ret = (OUL_R23_TQ1TQ2)this.GetStructure("TQ1TQ2");
+	      ret = (OUL_R23_TIMING_QTY)this.GetStructure("TIMING_QTY");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
 	   }
 	   return ret;
-	}
 	}
 
 	///<summary>
-	/// Returns OUL_R23_OBXTCDSIDNTE (a Group object) - creates it if necessary
+	///Returns a specific repetition of OUL_R23_TIMING_QTY
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public OUL_R23_OBXTCDSIDNTE OBXTCDSIDNTE { 
+	public OUL_R23_TIMING_QTY GetTIMING_QTY(int rep) { 
+	   return (OUL_R23_TIMING_QTY)this.GetStructure("TIMING_QTY", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of OUL_R23_TIMING_QTY 
+	 */ 
+	public int TIMING_QTYRepetitionsUsed { 
 get{
-	   OUL_R23_OBXTCDSIDNTE ret = null;
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING_QTY").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of OUL_R23_RESULT (a Group object) - creates it if necessary
+	///</summary>
+	public OUL_R23_RESULT GetRESULT() {
+	   OUL_R23_RESULT ret = null;
 	   try {
-	      ret = (OUL_R23_OBXTCDSIDNTE)this.GetStructure("OBXTCDSIDNTE");
+	      ret = (OUL_R23_RESULT)this.GetStructure("RESULT");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of OUL_R23_RESULT
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public OUL_R23_RESULT GetRESULT(int rep) { 
+	   return (OUL_R23_RESULT)this.GetStructure("RESULT", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of OUL_R23_RESULT 
+	 */ 
+	public int RESULTRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("RESULT").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns  first repetition of CTI (Clinical Trial Identification) - creates it if necessary

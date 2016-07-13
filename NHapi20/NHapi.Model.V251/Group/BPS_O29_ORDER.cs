@@ -14,10 +14,10 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: ORC (Common Order) </li>
-///<li>1: BPS_O29_TIMING (a Group object) </li>
+///<li>1: BPS_O29_TIMING (a Group object) optional repeating</li>
 ///<li>2: BPO (Blood product order) </li>
 ///<li>3: NTE (Notes and Comments) optional repeating</li>
-///<li>4: BPS_O29_PRODUCT (a Group object) </li>
+///<li>4: BPS_O29_PRODUCT (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -29,10 +29,10 @@ public class BPS_O29_ORDER : AbstractGroup {
 	public BPS_O29_ORDER(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(ORC), true, false);
-	      this.add(typeof(BPS_O29_TIMING), true, false);
+	      this.add(typeof(BPS_O29_TIMING), false, true);
 	      this.add(typeof(BPO), true, false);
 	      this.add(typeof(NTE), false, true);
-	      this.add(typeof(BPS_O29_PRODUCT), true, false);
+	      this.add(typeof(BPS_O29_PRODUCT), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating BPS_O29_ORDER - this is probably a bug in the source code generator.", e);
 	   }
@@ -55,10 +55,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns BPS_O29_TIMING (a Group object) - creates it if necessary
+	/// Returns  first repetition of BPS_O29_TIMING (a Group object) - creates it if necessary
 	///</summary>
-	public BPS_O29_TIMING TIMING { 
-get{
+	public BPS_O29_TIMING GetTIMING() {
 	   BPS_O29_TIMING ret = null;
 	   try {
 	      ret = (BPS_O29_TIMING)this.GetStructure("TIMING");
@@ -68,7 +67,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of BPS_O29_TIMING
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public BPS_O29_TIMING GetTIMING(int rep) { 
+	   return (BPS_O29_TIMING)this.GetStructure("TIMING", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of BPS_O29_TIMING 
+	 */ 
+	public int TIMINGRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns BPO (Blood product order) - creates it if necessary
@@ -128,10 +153,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns BPS_O29_PRODUCT (a Group object) - creates it if necessary
+	/// Returns  first repetition of BPS_O29_PRODUCT (a Group object) - creates it if necessary
 	///</summary>
-	public BPS_O29_PRODUCT PRODUCT { 
-get{
+	public BPS_O29_PRODUCT GetPRODUCT() {
 	   BPS_O29_PRODUCT ret = null;
 	   try {
 	      ret = (BPS_O29_PRODUCT)this.GetStructure("PRODUCT");
@@ -141,7 +165,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of BPS_O29_PRODUCT
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public BPS_O29_PRODUCT GetPRODUCT(int rep) { 
+	   return (BPS_O29_PRODUCT)this.GetStructure("PRODUCT", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of BPS_O29_PRODUCT 
+	 */ 
+	public int PRODUCTRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PRODUCT").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

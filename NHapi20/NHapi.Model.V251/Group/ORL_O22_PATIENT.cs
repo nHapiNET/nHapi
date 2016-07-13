@@ -14,7 +14,7 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: PID (Patient Identification) </li>
-///<li>1: ORL_O22_ORDER (a Group object) </li>
+///<li>1: ORL_O22_ORDER (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -26,7 +26,7 @@ public class ORL_O22_PATIENT : AbstractGroup {
 	public ORL_O22_PATIENT(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(PID), true, false);
-	      this.add(typeof(ORL_O22_ORDER), true, false);
+	      this.add(typeof(ORL_O22_ORDER), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating ORL_O22_PATIENT - this is probably a bug in the source code generator.", e);
 	   }
@@ -49,10 +49,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns ORL_O22_ORDER (a Group object) - creates it if necessary
+	/// Returns  first repetition of ORL_O22_ORDER (a Group object) - creates it if necessary
 	///</summary>
-	public ORL_O22_ORDER ORDER { 
-get{
+	public ORL_O22_ORDER GetORDER() {
 	   ORL_O22_ORDER ret = null;
 	   try {
 	      ret = (ORL_O22_ORDER)this.GetStructure("ORDER");
@@ -62,7 +61,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of ORL_O22_ORDER
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public ORL_O22_ORDER GetORDER(int rep) { 
+	   return (ORL_O22_ORDER)this.GetStructure("ORDER", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of ORL_O22_ORDER 
+	 */ 
+	public int ORDERRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("ORDER").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

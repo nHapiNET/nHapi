@@ -14,7 +14,7 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: ORC (Common Order) </li>
-///<li>1: RAS_O17_TIMING (a Group object) </li>
+///<li>1: RAS_O17_TIMING (a Group object) optional repeating</li>
 ///<li>2: RAS_O17_ORDER_DETAIL (a Group object) optional </li>
 ///<li>3: RAS_O17_ENCODING (a Group object) optional </li>
 ///<li>4: RAS_O17_ADMINISTRATION (a Group object) repeating</li>
@@ -30,7 +30,7 @@ public class RAS_O17_ORDER : AbstractGroup {
 	public RAS_O17_ORDER(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(ORC), true, false);
-	      this.add(typeof(RAS_O17_TIMING), true, false);
+	      this.add(typeof(RAS_O17_TIMING), false, true);
 	      this.add(typeof(RAS_O17_ORDER_DETAIL), false, false);
 	      this.add(typeof(RAS_O17_ENCODING), false, false);
 	      this.add(typeof(RAS_O17_ADMINISTRATION), true, true);
@@ -57,10 +57,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns RAS_O17_TIMING (a Group object) - creates it if necessary
+	/// Returns  first repetition of RAS_O17_TIMING (a Group object) - creates it if necessary
 	///</summary>
-	public RAS_O17_TIMING TIMING { 
-get{
+	public RAS_O17_TIMING GetTIMING() {
 	   RAS_O17_TIMING ret = null;
 	   try {
 	      ret = (RAS_O17_TIMING)this.GetStructure("TIMING");
@@ -70,7 +69,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of RAS_O17_TIMING
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public RAS_O17_TIMING GetTIMING(int rep) { 
+	   return (RAS_O17_TIMING)this.GetStructure("TIMING", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of RAS_O17_TIMING 
+	 */ 
+	public int TIMINGRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns RAS_O17_ORDER_DETAIL (a Group object) - creates it if necessary

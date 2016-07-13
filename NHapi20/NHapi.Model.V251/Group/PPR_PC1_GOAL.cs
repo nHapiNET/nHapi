@@ -16,8 +16,8 @@ namespace NHapi.Model.V251.Group
 ///<li>0: GOL (Goal Detail) </li>
 ///<li>1: NTE (Notes and Comments) optional repeating</li>
 ///<li>2: VAR (Variance) optional repeating</li>
-///<li>3: PPR_PC1_GOAL_ROLE (a Group object) </li>
-///<li>4: PPR_PC1_GOAL_OBSERVATION (a Group object) </li>
+///<li>3: PPR_PC1_GOAL_ROLE (a Group object) optional repeating</li>
+///<li>4: PPR_PC1_GOAL_OBSERVATION (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -31,8 +31,8 @@ public class PPR_PC1_GOAL : AbstractGroup {
 	      this.add(typeof(GOL), true, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(VAR), false, true);
-	      this.add(typeof(PPR_PC1_GOAL_ROLE), true, false);
-	      this.add(typeof(PPR_PC1_GOAL_OBSERVATION), true, false);
+	      this.add(typeof(PPR_PC1_GOAL_ROLE), false, true);
+	      this.add(typeof(PPR_PC1_GOAL_OBSERVATION), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating PPR_PC1_GOAL - this is probably a bug in the source code generator.", e);
 	   }
@@ -137,10 +137,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns PPR_PC1_GOAL_ROLE (a Group object) - creates it if necessary
+	/// Returns  first repetition of PPR_PC1_GOAL_ROLE (a Group object) - creates it if necessary
 	///</summary>
-	public PPR_PC1_GOAL_ROLE GOAL_ROLE { 
-get{
+	public PPR_PC1_GOAL_ROLE GetGOAL_ROLE() {
 	   PPR_PC1_GOAL_ROLE ret = null;
 	   try {
 	      ret = (PPR_PC1_GOAL_ROLE)this.GetStructure("GOAL_ROLE");
@@ -150,13 +149,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns PPR_PC1_GOAL_OBSERVATION (a Group object) - creates it if necessary
+	///Returns a specific repetition of PPR_PC1_GOAL_ROLE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public PPR_PC1_GOAL_OBSERVATION GOAL_OBSERVATION { 
+	public PPR_PC1_GOAL_ROLE GetGOAL_ROLE(int rep) { 
+	   return (PPR_PC1_GOAL_ROLE)this.GetStructure("GOAL_ROLE", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of PPR_PC1_GOAL_ROLE 
+	 */ 
+	public int GOAL_ROLERepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("GOAL_ROLE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of PPR_PC1_GOAL_OBSERVATION (a Group object) - creates it if necessary
+	///</summary>
+	public PPR_PC1_GOAL_OBSERVATION GetGOAL_OBSERVATION() {
 	   PPR_PC1_GOAL_OBSERVATION ret = null;
 	   try {
 	      ret = (PPR_PC1_GOAL_OBSERVATION)this.GetStructure("GOAL_OBSERVATION");
@@ -166,7 +190,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of PPR_PC1_GOAL_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public PPR_PC1_GOAL_OBSERVATION GetGOAL_OBSERVATION(int rep) { 
+	   return (PPR_PC1_GOAL_OBSERVATION)this.GetStructure("GOAL_OBSERVATION", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of PPR_PC1_GOAL_OBSERVATION 
+	 */ 
+	public int GOAL_OBSERVATIONRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("GOAL_OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

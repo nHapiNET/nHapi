@@ -15,7 +15,7 @@ namespace NHapi.Model.V251.Group
 ///<ol>
 ///<li>0: OBR (Observation Request) </li>
 ///<li>1: NTE (Notes and Comments) optional repeating</li>
-///<li>2: RPA_I08_RESULTS (a Group object) </li>
+///<li>2: RPA_I08_RESULTS (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -28,7 +28,7 @@ public class RPA_I08_OBSERVATION : AbstractGroup {
 	   try {
 	      this.add(typeof(OBR), true, false);
 	      this.add(typeof(NTE), false, true);
-	      this.add(typeof(RPA_I08_RESULTS), true, false);
+	      this.add(typeof(RPA_I08_RESULTS), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating RPA_I08_OBSERVATION - this is probably a bug in the source code generator.", e);
 	   }
@@ -92,10 +92,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns RPA_I08_RESULTS (a Group object) - creates it if necessary
+	/// Returns  first repetition of RPA_I08_RESULTS (a Group object) - creates it if necessary
 	///</summary>
-	public RPA_I08_RESULTS RESULTS { 
-get{
+	public RPA_I08_RESULTS GetRESULTS() {
 	   RPA_I08_RESULTS ret = null;
 	   try {
 	      ret = (RPA_I08_RESULTS)this.GetStructure("RESULTS");
@@ -105,7 +104,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of RPA_I08_RESULTS
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public RPA_I08_RESULTS GetRESULTS(int rep) { 
+	   return (RPA_I08_RESULTS)this.GetStructure("RESULTS", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of RPA_I08_RESULTS 
+	 */ 
+	public int RESULTSRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("RESULTS").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

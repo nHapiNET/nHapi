@@ -14,7 +14,7 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: ORC (Common Order) </li>
-///<li>1: BRT_O32_TIMING (a Group object) </li>
+///<li>1: BRT_O32_TIMING (a Group object) optional repeating</li>
 ///<li>2: BPO (Blood product order) optional </li>
 ///<li>3: BTX (Blood Product Transfusion/Disposition) optional repeating</li>
 ///</ol>
@@ -28,7 +28,7 @@ public class BRT_O32_ORDER : AbstractGroup {
 	public BRT_O32_ORDER(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(ORC), true, false);
-	      this.add(typeof(BRT_O32_TIMING), true, false);
+	      this.add(typeof(BRT_O32_TIMING), false, true);
 	      this.add(typeof(BPO), false, false);
 	      this.add(typeof(BTX), false, true);
 	   } catch(HL7Exception e) {
@@ -53,10 +53,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns BRT_O32_TIMING (a Group object) - creates it if necessary
+	/// Returns  first repetition of BRT_O32_TIMING (a Group object) - creates it if necessary
 	///</summary>
-	public BRT_O32_TIMING TIMING { 
-get{
+	public BRT_O32_TIMING GetTIMING() {
 	   BRT_O32_TIMING ret = null;
 	   try {
 	      ret = (BRT_O32_TIMING)this.GetStructure("TIMING");
@@ -66,7 +65,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of BRT_O32_TIMING
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public BRT_O32_TIMING GetTIMING(int rep) { 
+	   return (BRT_O32_TIMING)this.GetStructure("TIMING", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of BRT_O32_TIMING 
+	 */ 
+	public int TIMINGRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns BPO (Blood product order) - creates it if necessary

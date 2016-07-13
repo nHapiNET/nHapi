@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
+using NHapi.Model.V251.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -28,9 +29,9 @@ namespace NHapi.Model.V251.Message
 ///<li>12: AL1 (Patient Allergy Information) optional repeating</li>
 ///<li>13: DG1 (Diagnosis) optional repeating</li>
 ///<li>14: DRG (Diagnosis Related Group) optional </li>
-///<li>15: ADT_A16_PROCEDURE (a Group object) </li>
+///<li>15: ADT_A16_PROCEDURE (a Group object) optional repeating</li>
 ///<li>16: GT1 (Guarantor) optional repeating</li>
-///<li>17: ADT_A16_INSURANCE (a Group object) </li>
+///<li>17: ADT_A16_INSURANCE (a Group object) optional repeating</li>
 ///<li>18: ACC (Accident) optional </li>
 ///</ol>
 ///</summary>
@@ -71,15 +72,22 @@ public class ADT_A16 : AbstractMessage  {
 	      this.add(typeof(AL1), false, true);
 	      this.add(typeof(DG1), false, true);
 	      this.add(typeof(DRG), false, false);
-	      this.add(typeof(ADT_A16_PROCEDURE), true, false);
+	      this.add(typeof(ADT_A16_PROCEDURE), false, true);
 	      this.add(typeof(GT1), false, true);
-	      this.add(typeof(ADT_A16_INSURANCE), true, false);
+	      this.add(typeof(ADT_A16_INSURANCE), false, true);
 	      this.add(typeof(ACC), false, false);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating ADT_A16 - this is probably a bug in the source code generator.", e);
 	   }
 	}
 
+
+	public override string Version
+		{
+			get{
+			return Constants.VERSION;
+			}
+		}
 	///<summary>
 	/// Returns MSH (Message Header) - creates it if necessary
 	///</summary>
@@ -521,10 +529,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns ADT_A16_PROCEDURE (a Group object) - creates it if necessary
+	/// Returns  first repetition of ADT_A16_PROCEDURE (a Group object) - creates it if necessary
 	///</summary>
-	public ADT_A16_PROCEDURE PROCEDURE { 
-get{
+	public ADT_A16_PROCEDURE GetPROCEDURE() {
 	   ADT_A16_PROCEDURE ret = null;
 	   try {
 	      ret = (ADT_A16_PROCEDURE)this.GetStructure("PROCEDURE");
@@ -534,7 +541,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of ADT_A16_PROCEDURE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public ADT_A16_PROCEDURE GetPROCEDURE(int rep) { 
+	   return (ADT_A16_PROCEDURE)this.GetStructure("PROCEDURE", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of ADT_A16_PROCEDURE 
+	 */ 
+	public int PROCEDURERepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PROCEDURE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns  first repetition of GT1 (Guarantor) - creates it if necessary
@@ -578,10 +611,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns ADT_A16_INSURANCE (a Group object) - creates it if necessary
+	/// Returns  first repetition of ADT_A16_INSURANCE (a Group object) - creates it if necessary
 	///</summary>
-	public ADT_A16_INSURANCE INSURANCE { 
-get{
+	public ADT_A16_INSURANCE GetINSURANCE() {
 	   ADT_A16_INSURANCE ret = null;
 	   try {
 	      ret = (ADT_A16_INSURANCE)this.GetStructure("INSURANCE");
@@ -591,7 +623,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of ADT_A16_INSURANCE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public ADT_A16_INSURANCE GetINSURANCE(int rep) { 
+	   return (ADT_A16_INSURANCE)this.GetStructure("INSURANCE", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of ADT_A16_INSURANCE 
+	 */ 
+	public int INSURANCERepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("INSURANCE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns ACC (Accident) - creates it if necessary

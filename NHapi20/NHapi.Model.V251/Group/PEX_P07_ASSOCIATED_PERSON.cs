@@ -15,7 +15,7 @@ namespace NHapi.Model.V251.Group
 ///<ol>
 ///<li>0: NK1 (Next of Kin / Associated Parties) </li>
 ///<li>1: PEX_P07_ASSOCIATED_RX_ORDER (a Group object) optional </li>
-///<li>2: PEX_P07_ASSOCIATED_RX_ADMIN (a Group object) </li>
+///<li>2: PEX_P07_ASSOCIATED_RX_ADMIN (a Group object) optional repeating</li>
 ///<li>3: PRB (Problem Details) optional repeating</li>
 ///<li>4: OBX (Observation/Result) optional repeating</li>
 ///</ol>
@@ -30,7 +30,7 @@ public class PEX_P07_ASSOCIATED_PERSON : AbstractGroup {
 	   try {
 	      this.add(typeof(NK1), true, false);
 	      this.add(typeof(PEX_P07_ASSOCIATED_RX_ORDER), false, false);
-	      this.add(typeof(PEX_P07_ASSOCIATED_RX_ADMIN), true, false);
+	      this.add(typeof(PEX_P07_ASSOCIATED_RX_ADMIN), false, true);
 	      this.add(typeof(PRB), false, true);
 	      this.add(typeof(OBX), false, true);
 	   } catch(HL7Exception e) {
@@ -71,10 +71,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns PEX_P07_ASSOCIATED_RX_ADMIN (a Group object) - creates it if necessary
+	/// Returns  first repetition of PEX_P07_ASSOCIATED_RX_ADMIN (a Group object) - creates it if necessary
 	///</summary>
-	public PEX_P07_ASSOCIATED_RX_ADMIN ASSOCIATED_RX_ADMIN { 
-get{
+	public PEX_P07_ASSOCIATED_RX_ADMIN GetASSOCIATED_RX_ADMIN() {
 	   PEX_P07_ASSOCIATED_RX_ADMIN ret = null;
 	   try {
 	      ret = (PEX_P07_ASSOCIATED_RX_ADMIN)this.GetStructure("ASSOCIATED_RX_ADMIN");
@@ -84,7 +83,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of PEX_P07_ASSOCIATED_RX_ADMIN
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public PEX_P07_ASSOCIATED_RX_ADMIN GetASSOCIATED_RX_ADMIN(int rep) { 
+	   return (PEX_P07_ASSOCIATED_RX_ADMIN)this.GetStructure("ASSOCIATED_RX_ADMIN", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of PEX_P07_ASSOCIATED_RX_ADMIN 
+	 */ 
+	public int ASSOCIATED_RX_ADMINRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("ASSOCIATED_RX_ADMIN").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns  first repetition of PRB (Problem Details) - creates it if necessary

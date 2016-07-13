@@ -15,7 +15,7 @@ namespace NHapi.Model.V251.Group
 ///<ol>
 ///<li>0: ORC (Common Order) optional </li>
 ///<li>1: OBR (Observation Request) </li>
-///<li>2: CSU_C09_TIMING_QTY (a Group object) </li>
+///<li>2: CSU_C09_TIMING_QTY (a Group object) optional repeating</li>
 ///<li>3: OBX (Observation/Result) repeating</li>
 ///</ol>
 ///</summary>
@@ -29,7 +29,7 @@ public class CSU_C09_STUDY_OBSERVATION : AbstractGroup {
 	   try {
 	      this.add(typeof(ORC), false, false);
 	      this.add(typeof(OBR), true, false);
-	      this.add(typeof(CSU_C09_TIMING_QTY), true, false);
+	      this.add(typeof(CSU_C09_TIMING_QTY), false, true);
 	      this.add(typeof(OBX), true, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating CSU_C09_STUDY_OBSERVATION - this is probably a bug in the source code generator.", e);
@@ -69,10 +69,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns CSU_C09_TIMING_QTY (a Group object) - creates it if necessary
+	/// Returns  first repetition of CSU_C09_TIMING_QTY (a Group object) - creates it if necessary
 	///</summary>
-	public CSU_C09_TIMING_QTY TIMING_QTY { 
-get{
+	public CSU_C09_TIMING_QTY GetTIMING_QTY() {
 	   CSU_C09_TIMING_QTY ret = null;
 	   try {
 	      ret = (CSU_C09_TIMING_QTY)this.GetStructure("TIMING_QTY");
@@ -82,7 +81,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of CSU_C09_TIMING_QTY
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public CSU_C09_TIMING_QTY GetTIMING_QTY(int rep) { 
+	   return (CSU_C09_TIMING_QTY)this.GetStructure("TIMING_QTY", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of CSU_C09_TIMING_QTY 
+	 */ 
+	public int TIMING_QTYRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING_QTY").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns  first repetition of OBX (Observation/Result) - creates it if necessary

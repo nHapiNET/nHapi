@@ -14,11 +14,11 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: ORC (Common Order) </li>
-///<li>1: ORG_O20_TIMING (a Group object) </li>
+///<li>1: ORG_O20_TIMING (a Group object) optional repeating</li>
 ///<li>2: OBR (Observation Request) optional </li>
 ///<li>3: NTE (Notes and Comments) optional repeating</li>
 ///<li>4: CTI (Clinical Trial Identification) optional repeating</li>
-///<li>5: ORG_O20_SPECIMEN (a Group object) </li>
+///<li>5: ORG_O20_SPECIMEN (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -30,11 +30,11 @@ public class ORG_O20_ORDER : AbstractGroup {
 	public ORG_O20_ORDER(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(ORC), true, false);
-	      this.add(typeof(ORG_O20_TIMING), true, false);
+	      this.add(typeof(ORG_O20_TIMING), false, true);
 	      this.add(typeof(OBR), false, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(CTI), false, true);
-	      this.add(typeof(ORG_O20_SPECIMEN), true, false);
+	      this.add(typeof(ORG_O20_SPECIMEN), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating ORG_O20_ORDER - this is probably a bug in the source code generator.", e);
 	   }
@@ -57,10 +57,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns ORG_O20_TIMING (a Group object) - creates it if necessary
+	/// Returns  first repetition of ORG_O20_TIMING (a Group object) - creates it if necessary
 	///</summary>
-	public ORG_O20_TIMING TIMING { 
-get{
+	public ORG_O20_TIMING GetTIMING() {
 	   ORG_O20_TIMING ret = null;
 	   try {
 	      ret = (ORG_O20_TIMING)this.GetStructure("TIMING");
@@ -70,7 +69,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of ORG_O20_TIMING
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public ORG_O20_TIMING GetTIMING(int rep) { 
+	   return (ORG_O20_TIMING)this.GetStructure("TIMING", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of ORG_O20_TIMING 
+	 */ 
+	public int TIMINGRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns OBR (Observation Request) - creates it if necessary
@@ -171,10 +196,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns ORG_O20_SPECIMEN (a Group object) - creates it if necessary
+	/// Returns  first repetition of ORG_O20_SPECIMEN (a Group object) - creates it if necessary
 	///</summary>
-	public ORG_O20_SPECIMEN SPECIMEN { 
-get{
+	public ORG_O20_SPECIMEN GetSPECIMEN() {
 	   ORG_O20_SPECIMEN ret = null;
 	   try {
 	      ret = (ORG_O20_SPECIMEN)this.GetStructure("SPECIMEN");
@@ -184,7 +208,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of ORG_O20_SPECIMEN
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public ORG_O20_SPECIMEN GetSPECIMEN(int rep) { 
+	   return (ORG_O20_SPECIMEN)this.GetStructure("SPECIMEN", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of ORG_O20_SPECIMEN 
+	 */ 
+	public int SPECIMENRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("SPECIMEN").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

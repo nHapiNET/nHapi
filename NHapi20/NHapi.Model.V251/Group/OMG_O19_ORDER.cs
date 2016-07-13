@@ -14,14 +14,14 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: ORC (Common Order) </li>
-///<li>1: OMG_O19_TIMING (a Group object) </li>
+///<li>1: OMG_O19_TIMING (a Group object) optional repeating</li>
 ///<li>2: OBR (Observation Request) </li>
 ///<li>3: NTE (Notes and Comments) optional repeating</li>
 ///<li>4: CTD (Contact Data) optional </li>
 ///<li>5: DG1 (Diagnosis) optional repeating</li>
-///<li>6: OMG_O19_OBSERVATION (a Group object) </li>
-///<li>7: OMG_O19_SPECIMEN (a Group object) </li>
-///<li>8: OMG_O19_PRIOR_RESULT (a Group object) </li>
+///<li>6: OMG_O19_OBSERVATION (a Group object) optional repeating</li>
+///<li>7: OMG_O19_SPECIMEN (a Group object) optional repeating</li>
+///<li>8: OMG_O19_PRIOR_RESULT (a Group object) optional repeating</li>
 ///<li>9: FT1 (Financial Transaction) optional repeating</li>
 ///<li>10: CTI (Clinical Trial Identification) optional repeating</li>
 ///<li>11: BLG (Billing) optional </li>
@@ -36,14 +36,14 @@ public class OMG_O19_ORDER : AbstractGroup {
 	public OMG_O19_ORDER(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(ORC), true, false);
-	      this.add(typeof(OMG_O19_TIMING), true, false);
+	      this.add(typeof(OMG_O19_TIMING), false, true);
 	      this.add(typeof(OBR), true, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(CTD), false, false);
 	      this.add(typeof(DG1), false, true);
-	      this.add(typeof(OMG_O19_OBSERVATION), true, false);
-	      this.add(typeof(OMG_O19_SPECIMEN), true, false);
-	      this.add(typeof(OMG_O19_PRIOR_RESULT), true, false);
+	      this.add(typeof(OMG_O19_OBSERVATION), false, true);
+	      this.add(typeof(OMG_O19_SPECIMEN), false, true);
+	      this.add(typeof(OMG_O19_PRIOR_RESULT), false, true);
 	      this.add(typeof(FT1), false, true);
 	      this.add(typeof(CTI), false, true);
 	      this.add(typeof(BLG), false, false);
@@ -69,10 +69,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns OMG_O19_TIMING (a Group object) - creates it if necessary
+	/// Returns  first repetition of OMG_O19_TIMING (a Group object) - creates it if necessary
 	///</summary>
-	public OMG_O19_TIMING TIMING { 
-get{
+	public OMG_O19_TIMING GetTIMING() {
 	   OMG_O19_TIMING ret = null;
 	   try {
 	      ret = (OMG_O19_TIMING)this.GetStructure("TIMING");
@@ -82,7 +81,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of OMG_O19_TIMING
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public OMG_O19_TIMING GetTIMING(int rep) { 
+	   return (OMG_O19_TIMING)this.GetStructure("TIMING", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of OMG_O19_TIMING 
+	 */ 
+	public int TIMINGRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns OBR (Observation Request) - creates it if necessary
@@ -199,10 +224,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns OMG_O19_OBSERVATION (a Group object) - creates it if necessary
+	/// Returns  first repetition of OMG_O19_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
-	public OMG_O19_OBSERVATION OBSERVATION { 
-get{
+	public OMG_O19_OBSERVATION GetOBSERVATION() {
 	   OMG_O19_OBSERVATION ret = null;
 	   try {
 	      ret = (OMG_O19_OBSERVATION)this.GetStructure("OBSERVATION");
@@ -212,13 +236,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns OMG_O19_SPECIMEN (a Group object) - creates it if necessary
+	///Returns a specific repetition of OMG_O19_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public OMG_O19_SPECIMEN SPECIMEN { 
+	public OMG_O19_OBSERVATION GetOBSERVATION(int rep) { 
+	   return (OMG_O19_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of OMG_O19_OBSERVATION 
+	 */ 
+	public int OBSERVATIONRepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of OMG_O19_SPECIMEN (a Group object) - creates it if necessary
+	///</summary>
+	public OMG_O19_SPECIMEN GetSPECIMEN() {
 	   OMG_O19_SPECIMEN ret = null;
 	   try {
 	      ret = (OMG_O19_SPECIMEN)this.GetStructure("SPECIMEN");
@@ -228,13 +277,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns OMG_O19_PRIOR_RESULT (a Group object) - creates it if necessary
+	///Returns a specific repetition of OMG_O19_SPECIMEN
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public OMG_O19_PRIOR_RESULT PRIOR_RESULT { 
+	public OMG_O19_SPECIMEN GetSPECIMEN(int rep) { 
+	   return (OMG_O19_SPECIMEN)this.GetStructure("SPECIMEN", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of OMG_O19_SPECIMEN 
+	 */ 
+	public int SPECIMENRepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("SPECIMEN").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of OMG_O19_PRIOR_RESULT (a Group object) - creates it if necessary
+	///</summary>
+	public OMG_O19_PRIOR_RESULT GetPRIOR_RESULT() {
 	   OMG_O19_PRIOR_RESULT ret = null;
 	   try {
 	      ret = (OMG_O19_PRIOR_RESULT)this.GetStructure("PRIOR_RESULT");
@@ -244,7 +318,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of OMG_O19_PRIOR_RESULT
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public OMG_O19_PRIOR_RESULT GetPRIOR_RESULT(int rep) { 
+	   return (OMG_O19_PRIOR_RESULT)this.GetStructure("PRIOR_RESULT", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of OMG_O19_PRIOR_RESULT 
+	 */ 
+	public int PRIOR_RESULTRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PRIOR_RESULT").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns  first repetition of FT1 (Financial Transaction) - creates it if necessary

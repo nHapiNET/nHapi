@@ -14,7 +14,7 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: ORC (Common Order) </li>
-///<li>1: ORS_O06_TIMING (a Group object) </li>
+///<li>1: ORS_O06_TIMING (a Group object) optional repeating</li>
 ///<li>2: RQD (Requisition Detail) </li>
 ///<li>3: RQ1 (Requisition Detail-1) optional </li>
 ///<li>4: NTE (Notes and Comments) optional repeating</li>
@@ -29,7 +29,7 @@ public class ORS_O06_ORDER : AbstractGroup {
 	public ORS_O06_ORDER(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(ORC), true, false);
-	      this.add(typeof(ORS_O06_TIMING), true, false);
+	      this.add(typeof(ORS_O06_TIMING), false, true);
 	      this.add(typeof(RQD), true, false);
 	      this.add(typeof(RQ1), false, false);
 	      this.add(typeof(NTE), false, true);
@@ -55,10 +55,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns ORS_O06_TIMING (a Group object) - creates it if necessary
+	/// Returns  first repetition of ORS_O06_TIMING (a Group object) - creates it if necessary
 	///</summary>
-	public ORS_O06_TIMING TIMING { 
-get{
+	public ORS_O06_TIMING GetTIMING() {
 	   ORS_O06_TIMING ret = null;
 	   try {
 	      ret = (ORS_O06_TIMING)this.GetStructure("TIMING");
@@ -68,7 +67,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of ORS_O06_TIMING
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public ORS_O06_TIMING GetTIMING(int rep) { 
+	   return (ORS_O06_TIMING)this.GetStructure("TIMING", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of ORS_O06_TIMING 
+	 */ 
+	public int TIMINGRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns RQD (Requisition Detail) - creates it if necessary

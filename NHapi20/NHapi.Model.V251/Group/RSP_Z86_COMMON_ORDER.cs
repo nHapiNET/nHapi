@@ -14,7 +14,7 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: ORC (Common Order) </li>
-///<li>1: RSP_Z86_TIMING (a Group object) </li>
+///<li>1: RSP_Z86_TIMING (a Group object) optional repeating</li>
 ///<li>2: RSP_Z86_ORDER_DETAIL (a Group object) optional </li>
 ///<li>3: RSP_Z86_ENCODED_ORDER (a Group object) optional </li>
 ///<li>4: RSP_Z86_DISPENSE (a Group object) optional </li>
@@ -32,7 +32,7 @@ public class RSP_Z86_COMMON_ORDER : AbstractGroup {
 	public RSP_Z86_COMMON_ORDER(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(ORC), true, false);
-	      this.add(typeof(RSP_Z86_TIMING), true, false);
+	      this.add(typeof(RSP_Z86_TIMING), false, true);
 	      this.add(typeof(RSP_Z86_ORDER_DETAIL), false, false);
 	      this.add(typeof(RSP_Z86_ENCODED_ORDER), false, false);
 	      this.add(typeof(RSP_Z86_DISPENSE), false, false);
@@ -61,10 +61,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns RSP_Z86_TIMING (a Group object) - creates it if necessary
+	/// Returns  first repetition of RSP_Z86_TIMING (a Group object) - creates it if necessary
 	///</summary>
-	public RSP_Z86_TIMING TIMING { 
-get{
+	public RSP_Z86_TIMING GetTIMING() {
 	   RSP_Z86_TIMING ret = null;
 	   try {
 	      ret = (RSP_Z86_TIMING)this.GetStructure("TIMING");
@@ -74,7 +73,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of RSP_Z86_TIMING
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public RSP_Z86_TIMING GetTIMING(int rep) { 
+	   return (RSP_Z86_TIMING)this.GetStructure("TIMING", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of RSP_Z86_TIMING 
+	 */ 
+	public int TIMINGRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns RSP_Z86_ORDER_DETAIL (a Group object) - creates it if necessary
@@ -95,8 +120,7 @@ get{
 	///<summary>
 	/// Returns RSP_Z86_ENCODED_ORDER (a Group object) - creates it if necessary
 	///</summary>
-   public RSP_Z86_ENCODED_ORDER ENCODED_ORDER
-   { 
+	public RSP_Z86_ENCODED_ORDER ENCODED_ORDER { 
 get{
 	   RSP_Z86_ENCODED_ORDER ret = null;
 	   try {

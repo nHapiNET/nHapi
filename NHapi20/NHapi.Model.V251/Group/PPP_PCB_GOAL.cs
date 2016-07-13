@@ -16,8 +16,8 @@ namespace NHapi.Model.V251.Group
 ///<li>0: GOL (Goal Detail) </li>
 ///<li>1: NTE (Notes and Comments) optional repeating</li>
 ///<li>2: VAR (Variance) optional repeating</li>
-///<li>3: PPP_PCB_GOAL_ROLE (a Group object) </li>
-///<li>4: PPP_PCB_GOAL_OBSERVATION (a Group object) </li>
+///<li>3: PPP_PCB_GOAL_ROLE (a Group object) optional repeating</li>
+///<li>4: PPP_PCB_GOAL_OBSERVATION (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -31,8 +31,8 @@ public class PPP_PCB_GOAL : AbstractGroup {
 	      this.add(typeof(GOL), true, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(VAR), false, true);
-	      this.add(typeof(PPP_PCB_GOAL_ROLE), true, false);
-	      this.add(typeof(PPP_PCB_GOAL_OBSERVATION), true, false);
+	      this.add(typeof(PPP_PCB_GOAL_ROLE), false, true);
+	      this.add(typeof(PPP_PCB_GOAL_OBSERVATION), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating PPP_PCB_GOAL - this is probably a bug in the source code generator.", e);
 	   }
@@ -137,10 +137,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns PPP_PCB_GOAL_ROLE (a Group object) - creates it if necessary
+	/// Returns  first repetition of PPP_PCB_GOAL_ROLE (a Group object) - creates it if necessary
 	///</summary>
-	public PPP_PCB_GOAL_ROLE GOAL_ROLE { 
-get{
+	public PPP_PCB_GOAL_ROLE GetGOAL_ROLE() {
 	   PPP_PCB_GOAL_ROLE ret = null;
 	   try {
 	      ret = (PPP_PCB_GOAL_ROLE)this.GetStructure("GOAL_ROLE");
@@ -150,13 +149,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns PPP_PCB_GOAL_OBSERVATION (a Group object) - creates it if necessary
+	///Returns a specific repetition of PPP_PCB_GOAL_ROLE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public PPP_PCB_GOAL_OBSERVATION GOAL_OBSERVATION { 
+	public PPP_PCB_GOAL_ROLE GetGOAL_ROLE(int rep) { 
+	   return (PPP_PCB_GOAL_ROLE)this.GetStructure("GOAL_ROLE", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of PPP_PCB_GOAL_ROLE 
+	 */ 
+	public int GOAL_ROLERepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("GOAL_ROLE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of PPP_PCB_GOAL_OBSERVATION (a Group object) - creates it if necessary
+	///</summary>
+	public PPP_PCB_GOAL_OBSERVATION GetGOAL_OBSERVATION() {
 	   PPP_PCB_GOAL_OBSERVATION ret = null;
 	   try {
 	      ret = (PPP_PCB_GOAL_OBSERVATION)this.GetStructure("GOAL_OBSERVATION");
@@ -166,7 +190,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of PPP_PCB_GOAL_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public PPP_PCB_GOAL_OBSERVATION GetGOAL_OBSERVATION(int rep) { 
+	   return (PPP_PCB_GOAL_OBSERVATION)this.GetStructure("GOAL_OBSERVATION", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of PPP_PCB_GOAL_OBSERVATION 
+	 */ 
+	public int GOAL_OBSERVATIONRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("GOAL_OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

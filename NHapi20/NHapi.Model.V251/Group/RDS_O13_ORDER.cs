@@ -14,14 +14,14 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: ORC (Common Order) </li>
-///<li>1: RDS_O13_TIMING (a Group object) </li>
+///<li>1: RDS_O13_TIMING (a Group object) optional repeating</li>
 ///<li>2: RDS_O13_ORDER_DETAIL (a Group object) optional </li>
 ///<li>3: RDS_O13_ENCODING (a Group object) optional </li>
 ///<li>4: RXD (Pharmacy/Treatment Dispense) </li>
 ///<li>5: NTE (Notes and Comments) optional repeating</li>
 ///<li>6: RXR (Pharmacy/Treatment Route) repeating</li>
 ///<li>7: RXC (Pharmacy/Treatment Component Order) optional repeating</li>
-///<li>8: RDS_O13_OBSERVATION (a Group object) </li>
+///<li>8: RDS_O13_OBSERVATION (a Group object) optional repeating</li>
 ///<li>9: FT1 (Financial Transaction) optional repeating</li>
 ///</ol>
 ///</summary>
@@ -34,14 +34,14 @@ public class RDS_O13_ORDER : AbstractGroup {
 	public RDS_O13_ORDER(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(ORC), true, false);
-	      this.add(typeof(RDS_O13_TIMING), true, false);
+	      this.add(typeof(RDS_O13_TIMING), false, true);
 	      this.add(typeof(RDS_O13_ORDER_DETAIL), false, false);
 	      this.add(typeof(RDS_O13_ENCODING), false, false);
 	      this.add(typeof(RXD), true, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(RXR), true, true);
 	      this.add(typeof(RXC), false, true);
-	      this.add(typeof(RDS_O13_OBSERVATION), true, false);
+	      this.add(typeof(RDS_O13_OBSERVATION), false, true);
 	      this.add(typeof(FT1), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating RDS_O13_ORDER - this is probably a bug in the source code generator.", e);
@@ -65,10 +65,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns RDS_O13_TIMING (a Group object) - creates it if necessary
+	/// Returns  first repetition of RDS_O13_TIMING (a Group object) - creates it if necessary
 	///</summary>
-	public RDS_O13_TIMING TIMING { 
-get{
+	public RDS_O13_TIMING GetTIMING() {
 	   RDS_O13_TIMING ret = null;
 	   try {
 	      ret = (RDS_O13_TIMING)this.GetStructure("TIMING");
@@ -78,7 +77,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of RDS_O13_TIMING
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public RDS_O13_TIMING GetTIMING(int rep) { 
+	   return (RDS_O13_TIMING)this.GetStructure("TIMING", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of RDS_O13_TIMING 
+	 */ 
+	public int TIMINGRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns RDS_O13_ORDER_DETAIL (a Group object) - creates it if necessary
@@ -252,10 +277,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns RDS_O13_OBSERVATION (a Group object) - creates it if necessary
+	/// Returns  first repetition of RDS_O13_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
-	public RDS_O13_OBSERVATION OBSERVATION { 
-get{
+	public RDS_O13_OBSERVATION GetOBSERVATION() {
 	   RDS_O13_OBSERVATION ret = null;
 	   try {
 	      ret = (RDS_O13_OBSERVATION)this.GetStructure("OBSERVATION");
@@ -265,7 +289,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of RDS_O13_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public RDS_O13_OBSERVATION GetOBSERVATION(int rep) { 
+	   return (RDS_O13_OBSERVATION)this.GetStructure("OBSERVATION", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of RDS_O13_OBSERVATION 
+	 */ 
+	public int OBSERVATIONRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns  first repetition of FT1 (Financial Transaction) - creates it if necessary

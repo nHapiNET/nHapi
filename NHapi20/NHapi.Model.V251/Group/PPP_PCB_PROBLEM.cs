@@ -16,10 +16,10 @@ namespace NHapi.Model.V251.Group
 ///<li>0: PRB (Problem Details) </li>
 ///<li>1: NTE (Notes and Comments) optional repeating</li>
 ///<li>2: VAR (Variance) optional repeating</li>
-///<li>3: PPP_PCB_PROBLEM_ROLE (a Group object) </li>
-///<li>4: PPP_PCB_PROBLEM_OBSERVATION (a Group object) </li>
-///<li>5: PPP_PCB_GOAL (a Group object) </li>
-///<li>6: PPP_PCB_ORDER (a Group object) </li>
+///<li>3: PPP_PCB_PROBLEM_ROLE (a Group object) optional repeating</li>
+///<li>4: PPP_PCB_PROBLEM_OBSERVATION (a Group object) optional repeating</li>
+///<li>5: PPP_PCB_GOAL (a Group object) optional repeating</li>
+///<li>6: PPP_PCB_ORDER (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -33,10 +33,10 @@ public class PPP_PCB_PROBLEM : AbstractGroup {
 	      this.add(typeof(PRB), true, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(VAR), false, true);
-	      this.add(typeof(PPP_PCB_PROBLEM_ROLE), true, false);
-	      this.add(typeof(PPP_PCB_PROBLEM_OBSERVATION), true, false);
-	      this.add(typeof(PPP_PCB_GOAL), true, false);
-	      this.add(typeof(PPP_PCB_ORDER), true, false);
+	      this.add(typeof(PPP_PCB_PROBLEM_ROLE), false, true);
+	      this.add(typeof(PPP_PCB_PROBLEM_OBSERVATION), false, true);
+	      this.add(typeof(PPP_PCB_GOAL), false, true);
+	      this.add(typeof(PPP_PCB_ORDER), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating PPP_PCB_PROBLEM - this is probably a bug in the source code generator.", e);
 	   }
@@ -141,10 +141,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns PPP_PCB_PROBLEM_ROLE (a Group object) - creates it if necessary
+	/// Returns  first repetition of PPP_PCB_PROBLEM_ROLE (a Group object) - creates it if necessary
 	///</summary>
-	public PPP_PCB_PROBLEM_ROLE PROBLEM_ROLE { 
-get{
+	public PPP_PCB_PROBLEM_ROLE GetPROBLEM_ROLE() {
 	   PPP_PCB_PROBLEM_ROLE ret = null;
 	   try {
 	      ret = (PPP_PCB_PROBLEM_ROLE)this.GetStructure("PROBLEM_ROLE");
@@ -154,13 +153,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns PPP_PCB_PROBLEM_OBSERVATION (a Group object) - creates it if necessary
+	///Returns a specific repetition of PPP_PCB_PROBLEM_ROLE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public PPP_PCB_PROBLEM_OBSERVATION PROBLEM_OBSERVATION { 
+	public PPP_PCB_PROBLEM_ROLE GetPROBLEM_ROLE(int rep) { 
+	   return (PPP_PCB_PROBLEM_ROLE)this.GetStructure("PROBLEM_ROLE", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of PPP_PCB_PROBLEM_ROLE 
+	 */ 
+	public int PROBLEM_ROLERepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PROBLEM_ROLE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of PPP_PCB_PROBLEM_OBSERVATION (a Group object) - creates it if necessary
+	///</summary>
+	public PPP_PCB_PROBLEM_OBSERVATION GetPROBLEM_OBSERVATION() {
 	   PPP_PCB_PROBLEM_OBSERVATION ret = null;
 	   try {
 	      ret = (PPP_PCB_PROBLEM_OBSERVATION)this.GetStructure("PROBLEM_OBSERVATION");
@@ -170,13 +194,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns PPP_PCB_GOAL (a Group object) - creates it if necessary
+	///Returns a specific repetition of PPP_PCB_PROBLEM_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public PPP_PCB_GOAL GOAL { 
+	public PPP_PCB_PROBLEM_OBSERVATION GetPROBLEM_OBSERVATION(int rep) { 
+	   return (PPP_PCB_PROBLEM_OBSERVATION)this.GetStructure("PROBLEM_OBSERVATION", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of PPP_PCB_PROBLEM_OBSERVATION 
+	 */ 
+	public int PROBLEM_OBSERVATIONRepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PROBLEM_OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of PPP_PCB_GOAL (a Group object) - creates it if necessary
+	///</summary>
+	public PPP_PCB_GOAL GetGOAL() {
 	   PPP_PCB_GOAL ret = null;
 	   try {
 	      ret = (PPP_PCB_GOAL)this.GetStructure("GOAL");
@@ -186,13 +235,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns PPP_PCB_ORDER (a Group object) - creates it if necessary
+	///Returns a specific repetition of PPP_PCB_GOAL
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public PPP_PCB_ORDER ORDER { 
+	public PPP_PCB_GOAL GetGOAL(int rep) { 
+	   return (PPP_PCB_GOAL)this.GetStructure("GOAL", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of PPP_PCB_GOAL 
+	 */ 
+	public int GOALRepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("GOAL").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of PPP_PCB_ORDER (a Group object) - creates it if necessary
+	///</summary>
+	public PPP_PCB_ORDER GetORDER() {
 	   PPP_PCB_ORDER ret = null;
 	   try {
 	      ret = (PPP_PCB_ORDER)this.GetStructure("ORDER");
@@ -202,7 +276,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of PPP_PCB_ORDER
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public PPP_PCB_ORDER GetORDER(int rep) { 
+	   return (PPP_PCB_ORDER)this.GetStructure("ORDER", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of PPP_PCB_ORDER 
+	 */ 
+	public int ORDERRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("ORDER").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

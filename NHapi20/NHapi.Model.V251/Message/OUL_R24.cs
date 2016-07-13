@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
+using NHapi.Model.V251.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -16,8 +17,8 @@ namespace NHapi.Model.V251.Message
 ///<li>0: MSH (Message Header) </li>
 ///<li>1: SFT (Software Segment) optional repeating</li>
 ///<li>2: NTE (Notes and Comments) optional </li>
-///<li>3: OUL_R24_PIDPD1NTE (a Group object) optional </li>
-///<li>4: OUL_R24_PV1PV2 (a Group object) optional </li>
+///<li>3: OUL_R24_PATIENT (a Group object) optional </li>
+///<li>4: OUL_R24_VISIT (a Group object) optional </li>
 ///<li>5: OUL_R24_ORDER (a Group object) repeating</li>
 ///<li>6: DSC (Continuation Pointer) optional </li>
 ///</ol>
@@ -47,8 +48,8 @@ public class OUL_R24 : AbstractMessage  {
 	      this.add(typeof(MSH), true, false);
 	      this.add(typeof(SFT), false, true);
 	      this.add(typeof(NTE), false, false);
-	      this.add(typeof(OUL_R24_PIDPD1NTE), false, false);
-	      this.add(typeof(OUL_R24_PV1PV2), false, false);
+	      this.add(typeof(OUL_R24_PATIENT), false, false);
+	      this.add(typeof(OUL_R24_VISIT), false, false);
 	      this.add(typeof(OUL_R24_ORDER), true, true);
 	      this.add(typeof(DSC), false, false);
 	   } catch(HL7Exception e) {
@@ -56,6 +57,13 @@ public class OUL_R24 : AbstractMessage  {
 	   }
 	}
 
+
+	public override string Version
+		{
+			get{
+			return Constants.VERSION;
+			}
+		}
 	///<summary>
 	/// Returns MSH (Message Header) - creates it if necessary
 	///</summary>
@@ -130,13 +138,13 @@ get{
 	}
 
 	///<summary>
-	/// Returns OUL_R24_PIDPD1NTE (a Group object) - creates it if necessary
+	/// Returns OUL_R24_PATIENT (a Group object) - creates it if necessary
 	///</summary>
-	public OUL_R24_PIDPD1NTE PIDPD1NTE { 
+	public OUL_R24_PATIENT PATIENT { 
 get{
-	   OUL_R24_PIDPD1NTE ret = null;
+	   OUL_R24_PATIENT ret = null;
 	   try {
-	      ret = (OUL_R24_PIDPD1NTE)this.GetStructure("PIDPD1NTE");
+	      ret = (OUL_R24_PATIENT)this.GetStructure("PATIENT");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -146,13 +154,13 @@ get{
 	}
 
 	///<summary>
-	/// Returns OUL_R24_PV1PV2 (a Group object) - creates it if necessary
+	/// Returns OUL_R24_VISIT (a Group object) - creates it if necessary
 	///</summary>
-	public OUL_R24_PV1PV2 PV1PV2 { 
+	public OUL_R24_VISIT VISIT { 
 get{
-	   OUL_R24_PV1PV2 ret = null;
+	   OUL_R24_VISIT ret = null;
 	   try {
-	      ret = (OUL_R24_PV1PV2)this.GetStructure("PV1PV2");
+	      ret = (OUL_R24_VISIT)this.GetStructure("VISIT");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);

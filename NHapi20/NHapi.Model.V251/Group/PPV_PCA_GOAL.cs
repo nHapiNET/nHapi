@@ -16,11 +16,11 @@ namespace NHapi.Model.V251.Group
 ///<li>0: GOL (Goal Detail) </li>
 ///<li>1: NTE (Notes and Comments) optional repeating</li>
 ///<li>2: VAR (Variance) optional repeating</li>
-///<li>3: PPV_PCA_GOAL_ROLE (a Group object) </li>
-///<li>4: PPV_PCA_GOAL_PATHWAY (a Group object) </li>
-///<li>5: PPV_PCA_GOAL_OBSERVATION (a Group object) </li>
-///<li>6: PPV_PCA_PROBLEM (a Group object) </li>
-///<li>7: PPV_PCA_ORDER (a Group object) </li>
+///<li>3: PPV_PCA_GOAL_ROLE (a Group object) optional repeating</li>
+///<li>4: PPV_PCA_GOAL_PATHWAY (a Group object) optional repeating</li>
+///<li>5: PPV_PCA_GOAL_OBSERVATION (a Group object) optional repeating</li>
+///<li>6: PPV_PCA_PROBLEM (a Group object) optional repeating</li>
+///<li>7: PPV_PCA_ORDER (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -34,11 +34,11 @@ public class PPV_PCA_GOAL : AbstractGroup {
 	      this.add(typeof(GOL), true, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(VAR), false, true);
-	      this.add(typeof(PPV_PCA_GOAL_ROLE), true, false);
-	      this.add(typeof(PPV_PCA_GOAL_PATHWAY), true, false);
-	      this.add(typeof(PPV_PCA_GOAL_OBSERVATION), true, false);
-	      this.add(typeof(PPV_PCA_PROBLEM), true, false);
-	      this.add(typeof(PPV_PCA_ORDER), true, false);
+	      this.add(typeof(PPV_PCA_GOAL_ROLE), false, true);
+	      this.add(typeof(PPV_PCA_GOAL_PATHWAY), false, true);
+	      this.add(typeof(PPV_PCA_GOAL_OBSERVATION), false, true);
+	      this.add(typeof(PPV_PCA_PROBLEM), false, true);
+	      this.add(typeof(PPV_PCA_ORDER), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating PPV_PCA_GOAL - this is probably a bug in the source code generator.", e);
 	   }
@@ -143,10 +143,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns PPV_PCA_GOAL_ROLE (a Group object) - creates it if necessary
+	/// Returns  first repetition of PPV_PCA_GOAL_ROLE (a Group object) - creates it if necessary
 	///</summary>
-	public PPV_PCA_GOAL_ROLE GOAL_ROLE { 
-get{
+	public PPV_PCA_GOAL_ROLE GetGOAL_ROLE() {
 	   PPV_PCA_GOAL_ROLE ret = null;
 	   try {
 	      ret = (PPV_PCA_GOAL_ROLE)this.GetStructure("GOAL_ROLE");
@@ -156,13 +155,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns PPV_PCA_GOAL_PATHWAY (a Group object) - creates it if necessary
+	///Returns a specific repetition of PPV_PCA_GOAL_ROLE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public PPV_PCA_GOAL_PATHWAY GOAL_PATHWAY { 
+	public PPV_PCA_GOAL_ROLE GetGOAL_ROLE(int rep) { 
+	   return (PPV_PCA_GOAL_ROLE)this.GetStructure("GOAL_ROLE", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of PPV_PCA_GOAL_ROLE 
+	 */ 
+	public int GOAL_ROLERepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("GOAL_ROLE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of PPV_PCA_GOAL_PATHWAY (a Group object) - creates it if necessary
+	///</summary>
+	public PPV_PCA_GOAL_PATHWAY GetGOAL_PATHWAY() {
 	   PPV_PCA_GOAL_PATHWAY ret = null;
 	   try {
 	      ret = (PPV_PCA_GOAL_PATHWAY)this.GetStructure("GOAL_PATHWAY");
@@ -172,13 +196,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns PPV_PCA_GOAL_OBSERVATION (a Group object) - creates it if necessary
+	///Returns a specific repetition of PPV_PCA_GOAL_PATHWAY
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public PPV_PCA_GOAL_OBSERVATION GOAL_OBSERVATION { 
+	public PPV_PCA_GOAL_PATHWAY GetGOAL_PATHWAY(int rep) { 
+	   return (PPV_PCA_GOAL_PATHWAY)this.GetStructure("GOAL_PATHWAY", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of PPV_PCA_GOAL_PATHWAY 
+	 */ 
+	public int GOAL_PATHWAYRepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("GOAL_PATHWAY").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of PPV_PCA_GOAL_OBSERVATION (a Group object) - creates it if necessary
+	///</summary>
+	public PPV_PCA_GOAL_OBSERVATION GetGOAL_OBSERVATION() {
 	   PPV_PCA_GOAL_OBSERVATION ret = null;
 	   try {
 	      ret = (PPV_PCA_GOAL_OBSERVATION)this.GetStructure("GOAL_OBSERVATION");
@@ -188,13 +237,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns PPV_PCA_PROBLEM (a Group object) - creates it if necessary
+	///Returns a specific repetition of PPV_PCA_GOAL_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public PPV_PCA_PROBLEM PROBLEM { 
+	public PPV_PCA_GOAL_OBSERVATION GetGOAL_OBSERVATION(int rep) { 
+	   return (PPV_PCA_GOAL_OBSERVATION)this.GetStructure("GOAL_OBSERVATION", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of PPV_PCA_GOAL_OBSERVATION 
+	 */ 
+	public int GOAL_OBSERVATIONRepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("GOAL_OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of PPV_PCA_PROBLEM (a Group object) - creates it if necessary
+	///</summary>
+	public PPV_PCA_PROBLEM GetPROBLEM() {
 	   PPV_PCA_PROBLEM ret = null;
 	   try {
 	      ret = (PPV_PCA_PROBLEM)this.GetStructure("PROBLEM");
@@ -204,13 +278,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns PPV_PCA_ORDER (a Group object) - creates it if necessary
+	///Returns a specific repetition of PPV_PCA_PROBLEM
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public PPV_PCA_ORDER ORDER { 
+	public PPV_PCA_PROBLEM GetPROBLEM(int rep) { 
+	   return (PPV_PCA_PROBLEM)this.GetStructure("PROBLEM", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of PPV_PCA_PROBLEM 
+	 */ 
+	public int PROBLEMRepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PROBLEM").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of PPV_PCA_ORDER (a Group object) - creates it if necessary
+	///</summary>
+	public PPV_PCA_ORDER GetORDER() {
 	   PPV_PCA_ORDER ret = null;
 	   try {
 	      ret = (PPV_PCA_ORDER)this.GetStructure("ORDER");
@@ -220,7 +319,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of PPV_PCA_ORDER
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public PPV_PCA_ORDER GetORDER(int rep) { 
+	   return (PPV_PCA_ORDER)this.GetStructure("ORDER", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of PPV_PCA_ORDER 
+	 */ 
+	public int ORDERRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("ORDER").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
+using NHapi.Model.V251.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -27,10 +28,10 @@ namespace NHapi.Model.V251.Message
 ///<li>11: AL1 (Patient Allergy Information) optional repeating</li>
 ///<li>12: DG1 (Diagnosis) optional repeating</li>
 ///<li>13: DRG (Diagnosis Related Group) optional </li>
-///<li>14: ADT_A03_PROCEDURE (a Group object) </li>
+///<li>14: ADT_A03_PROCEDURE (a Group object) optional repeating</li>
 ///<li>15: OBX (Observation/Result) optional repeating</li>
 ///<li>16: GT1 (Guarantor) optional repeating</li>
-///<li>17: ADT_A03_INSURANCE (a Group object) </li>
+///<li>17: ADT_A03_INSURANCE (a Group object) optional repeating</li>
 ///<li>18: ACC (Accident) optional </li>
 ///<li>19: PDA (Patient Death and Autopsy) optional </li>
 ///</ol>
@@ -71,10 +72,10 @@ public class ADT_A03 : AbstractMessage  {
 	      this.add(typeof(AL1), false, true);
 	      this.add(typeof(DG1), false, true);
 	      this.add(typeof(DRG), false, false);
-	      this.add(typeof(ADT_A03_PROCEDURE), true, false);
+	      this.add(typeof(ADT_A03_PROCEDURE), false, true);
 	      this.add(typeof(OBX), false, true);
 	      this.add(typeof(GT1), false, true);
-	      this.add(typeof(ADT_A03_INSURANCE), true, false);
+	      this.add(typeof(ADT_A03_INSURANCE), false, true);
 	      this.add(typeof(ACC), false, false);
 	      this.add(typeof(PDA), false, false);
 	   } catch(HL7Exception e) {
@@ -82,6 +83,13 @@ public class ADT_A03 : AbstractMessage  {
 	   }
 	}
 
+
+	public override string Version
+		{
+			get{
+			return Constants.VERSION;
+			}
+		}
 	///<summary>
 	/// Returns MSH (Message Header) - creates it if necessary
 	///</summary>
@@ -482,10 +490,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns ADT_A03_PROCEDURE (a Group object) - creates it if necessary
+	/// Returns  first repetition of ADT_A03_PROCEDURE (a Group object) - creates it if necessary
 	///</summary>
-	public ADT_A03_PROCEDURE PROCEDURE { 
-get{
+	public ADT_A03_PROCEDURE GetPROCEDURE() {
 	   ADT_A03_PROCEDURE ret = null;
 	   try {
 	      ret = (ADT_A03_PROCEDURE)this.GetStructure("PROCEDURE");
@@ -495,7 +502,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of ADT_A03_PROCEDURE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public ADT_A03_PROCEDURE GetPROCEDURE(int rep) { 
+	   return (ADT_A03_PROCEDURE)this.GetStructure("PROCEDURE", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of ADT_A03_PROCEDURE 
+	 */ 
+	public int PROCEDURERepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PROCEDURE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns  first repetition of OBX (Observation/Result) - creates it if necessary
@@ -580,10 +613,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns ADT_A03_INSURANCE (a Group object) - creates it if necessary
+	/// Returns  first repetition of ADT_A03_INSURANCE (a Group object) - creates it if necessary
 	///</summary>
-	public ADT_A03_INSURANCE INSURANCE { 
-get{
+	public ADT_A03_INSURANCE GetINSURANCE() {
 	   ADT_A03_INSURANCE ret = null;
 	   try {
 	      ret = (ADT_A03_INSURANCE)this.GetStructure("INSURANCE");
@@ -593,7 +625,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of ADT_A03_INSURANCE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public ADT_A03_INSURANCE GetINSURANCE(int rep) { 
+	   return (ADT_A03_INSURANCE)this.GetStructure("INSURANCE", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of ADT_A03_INSURANCE 
+	 */ 
+	public int INSURANCERepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("INSURANCE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns ACC (Accident) - creates it if necessary

@@ -17,7 +17,7 @@ namespace NHapi.Model.V251.Group
 ///<li>1: PD1 (Patient Additional Demographic) optional </li>
 ///<li>2: NTE (Notes and Comments) optional repeating</li>
 ///<li>3: RDE_O11_PATIENT_VISIT (a Group object) optional </li>
-///<li>4: RDE_O11_INSURANCE (a Group object) </li>
+///<li>4: RDE_O11_INSURANCE (a Group object) optional repeating</li>
 ///<li>5: GT1 (Guarantor) optional </li>
 ///<li>6: AL1 (Patient Allergy Information) optional repeating</li>
 ///</ol>
@@ -34,7 +34,7 @@ public class RDE_O11_PATIENT : AbstractGroup {
 	      this.add(typeof(PD1), false, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(RDE_O11_PATIENT_VISIT), false, false);
-	      this.add(typeof(RDE_O11_INSURANCE), true, false);
+	      this.add(typeof(RDE_O11_INSURANCE), false, true);
 	      this.add(typeof(GT1), false, false);
 	      this.add(typeof(AL1), false, true);
 	   } catch(HL7Exception e) {
@@ -132,10 +132,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns RDE_O11_INSURANCE (a Group object) - creates it if necessary
+	/// Returns  first repetition of RDE_O11_INSURANCE (a Group object) - creates it if necessary
 	///</summary>
-	public RDE_O11_INSURANCE INSURANCE { 
-get{
+	public RDE_O11_INSURANCE GetINSURANCE() {
 	   RDE_O11_INSURANCE ret = null;
 	   try {
 	      ret = (RDE_O11_INSURANCE)this.GetStructure("INSURANCE");
@@ -145,7 +144,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of RDE_O11_INSURANCE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public RDE_O11_INSURANCE GetINSURANCE(int rep) { 
+	   return (RDE_O11_INSURANCE)this.GetStructure("INSURANCE", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of RDE_O11_INSURANCE 
+	 */ 
+	public int INSURANCERepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("INSURANCE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns GT1 (Guarantor) - creates it if necessary

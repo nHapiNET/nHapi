@@ -14,14 +14,14 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: ORC (Common Order) </li>
-///<li>1: RDE_O11_TIMING (a Group object) </li>
+///<li>1: RDE_O11_TIMING (a Group object) optional repeating</li>
 ///<li>2: RDE_O11_ORDER_DETAIL (a Group object) optional </li>
 ///<li>3: RXE (Pharmacy/Treatment Encoded Order) </li>
 ///<li>4: NTE (Notes and Comments) optional repeating</li>
 ///<li>5: RDE_O11_TIMING_ENCODED (a Group object) repeating</li>
 ///<li>6: RXR (Pharmacy/Treatment Route) repeating</li>
 ///<li>7: RXC (Pharmacy/Treatment Component Order) optional repeating</li>
-///<li>8: RDE_O11_OBSERVATION (a Group object) </li>
+///<li>8: RDE_O11_OBSERVATION (a Group object) optional repeating</li>
 ///<li>9: FT1 (Financial Transaction) optional repeating</li>
 ///<li>10: BLG (Billing) optional </li>
 ///<li>11: CTI (Clinical Trial Identification) optional repeating</li>
@@ -36,14 +36,14 @@ public class RDE_O11_ORDER : AbstractGroup {
 	public RDE_O11_ORDER(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(ORC), true, false);
-	      this.add(typeof(RDE_O11_TIMING), true, false);
+	      this.add(typeof(RDE_O11_TIMING), false, true);
 	      this.add(typeof(RDE_O11_ORDER_DETAIL), false, false);
 	      this.add(typeof(RXE), true, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(RDE_O11_TIMING_ENCODED), true, true);
 	      this.add(typeof(RXR), true, true);
 	      this.add(typeof(RXC), false, true);
-	      this.add(typeof(RDE_O11_OBSERVATION), true, false);
+	      this.add(typeof(RDE_O11_OBSERVATION), false, true);
 	      this.add(typeof(FT1), false, true);
 	      this.add(typeof(BLG), false, false);
 	      this.add(typeof(CTI), false, true);
@@ -69,10 +69,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns RDE_O11_TIMING (a Group object) - creates it if necessary
+	/// Returns  first repetition of RDE_O11_TIMING (a Group object) - creates it if necessary
 	///</summary>
-	public RDE_O11_TIMING TIMING { 
-get{
+	public RDE_O11_TIMING GetTIMING() {
 	   RDE_O11_TIMING ret = null;
 	   try {
 	      ret = (RDE_O11_TIMING)this.GetStructure("TIMING");
@@ -82,7 +81,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of RDE_O11_TIMING
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public RDE_O11_TIMING GetTIMING(int rep) { 
+	   return (RDE_O11_TIMING)this.GetStructure("TIMING", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of RDE_O11_TIMING 
+	 */ 
+	public int TIMINGRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns RDE_O11_ORDER_DETAIL (a Group object) - creates it if necessary
@@ -281,10 +306,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns RDE_O11_OBSERVATION (a Group object) - creates it if necessary
+	/// Returns  first repetition of RDE_O11_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
-	public RDE_O11_OBSERVATION OBSERVATION { 
-get{
+	public RDE_O11_OBSERVATION GetOBSERVATION() {
 	   RDE_O11_OBSERVATION ret = null;
 	   try {
 	      ret = (RDE_O11_OBSERVATION)this.GetStructure("OBSERVATION");
@@ -294,7 +318,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of RDE_O11_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public RDE_O11_OBSERVATION GetOBSERVATION(int rep) { 
+	   return (RDE_O11_OBSERVATION)this.GetStructure("OBSERVATION", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of RDE_O11_OBSERVATION 
+	 */ 
+	public int OBSERVATIONRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns  first repetition of FT1 (Financial Transaction) - creates it if necessary

@@ -14,10 +14,10 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: ORC (Common Order) </li>
-///<li>1: BTS_O31_TIMING (a Group object) </li>
+///<li>1: BTS_O31_TIMING (a Group object) optional repeating</li>
 ///<li>2: BPO (Blood product order) </li>
 ///<li>3: NTE (Notes and Comments) optional repeating</li>
-///<li>4: BTS_O31_PRODUCT_STATUS (a Group object) </li>
+///<li>4: BTS_O31_PRODUCT_STATUS (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -29,10 +29,10 @@ public class BTS_O31_ORDER : AbstractGroup {
 	public BTS_O31_ORDER(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(ORC), true, false);
-	      this.add(typeof(BTS_O31_TIMING), true, false);
+	      this.add(typeof(BTS_O31_TIMING), false, true);
 	      this.add(typeof(BPO), true, false);
 	      this.add(typeof(NTE), false, true);
-	      this.add(typeof(BTS_O31_PRODUCT_STATUS), true, false);
+	      this.add(typeof(BTS_O31_PRODUCT_STATUS), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating BTS_O31_ORDER - this is probably a bug in the source code generator.", e);
 	   }
@@ -55,10 +55,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns BTS_O31_TIMING (a Group object) - creates it if necessary
+	/// Returns  first repetition of BTS_O31_TIMING (a Group object) - creates it if necessary
 	///</summary>
-	public BTS_O31_TIMING TIMING { 
-get{
+	public BTS_O31_TIMING GetTIMING() {
 	   BTS_O31_TIMING ret = null;
 	   try {
 	      ret = (BTS_O31_TIMING)this.GetStructure("TIMING");
@@ -68,7 +67,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of BTS_O31_TIMING
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public BTS_O31_TIMING GetTIMING(int rep) { 
+	   return (BTS_O31_TIMING)this.GetStructure("TIMING", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of BTS_O31_TIMING 
+	 */ 
+	public int TIMINGRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns BPO (Blood product order) - creates it if necessary
@@ -128,10 +153,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns BTS_O31_PRODUCT_STATUS (a Group object) - creates it if necessary
+	/// Returns  first repetition of BTS_O31_PRODUCT_STATUS (a Group object) - creates it if necessary
 	///</summary>
-	public BTS_O31_PRODUCT_STATUS PRODUCT_STATUS { 
-get{
+	public BTS_O31_PRODUCT_STATUS GetPRODUCT_STATUS() {
 	   BTS_O31_PRODUCT_STATUS ret = null;
 	   try {
 	      ret = (BTS_O31_PRODUCT_STATUS)this.GetStructure("PRODUCT_STATUS");
@@ -141,7 +165,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of BTS_O31_PRODUCT_STATUS
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public BTS_O31_PRODUCT_STATUS GetPRODUCT_STATUS(int rep) { 
+	   return (BTS_O31_PRODUCT_STATUS)this.GetStructure("PRODUCT_STATUS", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of BTS_O31_PRODUCT_STATUS 
+	 */ 
+	public int PRODUCT_STATUSRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PRODUCT_STATUS").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

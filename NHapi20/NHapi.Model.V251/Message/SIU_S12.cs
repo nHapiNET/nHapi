@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
+using NHapi.Model.V251.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -17,7 +18,7 @@ namespace NHapi.Model.V251.Message
 ///<li>1: SCH (Scheduling Activity Information) </li>
 ///<li>2: TQ1 (Timing/Quantity) optional repeating</li>
 ///<li>3: NTE (Notes and Comments) optional repeating</li>
-///<li>4: SIU_S12_PATIENT (a Group object) </li>
+///<li>4: SIU_S12_PATIENT (a Group object) optional repeating</li>
 ///<li>5: SIU_S12_RESOURCES (a Group object) repeating</li>
 ///</ol>
 ///</summary>
@@ -47,13 +48,20 @@ public class SIU_S12 : AbstractMessage  {
 	      this.add(typeof(SCH), true, false);
 	      this.add(typeof(TQ1), false, true);
 	      this.add(typeof(NTE), false, true);
-	      this.add(typeof(SIU_S12_PATIENT), true, false);
+	      this.add(typeof(SIU_S12_PATIENT), false, true);
 	      this.add(typeof(SIU_S12_RESOURCES), true, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating SIU_S12 - this is probably a bug in the source code generator.", e);
 	   }
 	}
 
+
+	public override string Version
+		{
+			get{
+			return Constants.VERSION;
+			}
+		}
 	///<summary>
 	/// Returns MSH (Message Header) - creates it if necessary
 	///</summary>
@@ -169,10 +177,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns SIU_S12_PATIENT (a Group object) - creates it if necessary
+	/// Returns  first repetition of SIU_S12_PATIENT (a Group object) - creates it if necessary
 	///</summary>
-	public SIU_S12_PATIENT PATIENT { 
-get{
+	public SIU_S12_PATIENT GetPATIENT() {
 	   SIU_S12_PATIENT ret = null;
 	   try {
 	      ret = (SIU_S12_PATIENT)this.GetStructure("PATIENT");
@@ -182,7 +189,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of SIU_S12_PATIENT
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public SIU_S12_PATIENT GetPATIENT(int rep) { 
+	   return (SIU_S12_PATIENT)this.GetStructure("PATIENT", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of SIU_S12_PATIENT 
+	 */ 
+	public int PATIENTRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PATIENT").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns  first repetition of SIU_S12_RESOURCES (a Group object) - creates it if necessary

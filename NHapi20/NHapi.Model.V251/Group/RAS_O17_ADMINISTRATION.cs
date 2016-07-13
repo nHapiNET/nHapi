@@ -15,7 +15,7 @@ namespace NHapi.Model.V251.Group
 ///<ol>
 ///<li>0: RXA (Pharmacy/Treatment Administration) repeating</li>
 ///<li>1: RXR (Pharmacy/Treatment Route) </li>
-///<li>2: RAS_O17_OBSERVATION (a Group object) </li>
+///<li>2: RAS_O17_OBSERVATION (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -28,7 +28,7 @@ public class RAS_O17_ADMINISTRATION : AbstractGroup {
 	   try {
 	      this.add(typeof(RXA), true, true);
 	      this.add(typeof(RXR), true, false);
-	      this.add(typeof(RAS_O17_OBSERVATION), true, false);
+	      this.add(typeof(RAS_O17_OBSERVATION), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating RAS_O17_ADMINISTRATION - this is probably a bug in the source code generator.", e);
 	   }
@@ -92,10 +92,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns RAS_O17_OBSERVATION (a Group object) - creates it if necessary
+	/// Returns  first repetition of RAS_O17_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
-	public RAS_O17_OBSERVATION OBSERVATION { 
-get{
+	public RAS_O17_OBSERVATION GetOBSERVATION() {
 	   RAS_O17_OBSERVATION ret = null;
 	   try {
 	      ret = (RAS_O17_OBSERVATION)this.GetStructure("OBSERVATION");
@@ -105,7 +104,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of RAS_O17_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public RAS_O17_OBSERVATION GetOBSERVATION(int rep) { 
+	   return (RAS_O17_OBSERVATION)this.GetStructure("OBSERVATION", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of RAS_O17_OBSERVATION 
+	 */ 
+	public int OBSERVATIONRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

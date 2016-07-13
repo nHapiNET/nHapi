@@ -14,10 +14,10 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: RGS (Resource Group) </li>
-///<li>1: SRR_S01_SERVICE (a Group object) </li>
-///<li>2: SRR_S01_GENERAL_RESOURCE (a Group object) </li>
-///<li>3: SRR_S01_LOCATION_RESOURCE (a Group object) </li>
-///<li>4: SRR_S01_PERSONNEL_RESOURCE (a Group object) </li>
+///<li>1: SRR_S01_SERVICE (a Group object) optional repeating</li>
+///<li>2: SRR_S01_GENERAL_RESOURCE (a Group object) optional repeating</li>
+///<li>3: SRR_S01_LOCATION_RESOURCE (a Group object) optional repeating</li>
+///<li>4: SRR_S01_PERSONNEL_RESOURCE (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -29,10 +29,10 @@ public class SRR_S01_RESOURCES : AbstractGroup {
 	public SRR_S01_RESOURCES(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(RGS), true, false);
-	      this.add(typeof(SRR_S01_SERVICE), true, false);
-	      this.add(typeof(SRR_S01_GENERAL_RESOURCE), true, false);
-	      this.add(typeof(SRR_S01_LOCATION_RESOURCE), true, false);
-	      this.add(typeof(SRR_S01_PERSONNEL_RESOURCE), true, false);
+	      this.add(typeof(SRR_S01_SERVICE), false, true);
+	      this.add(typeof(SRR_S01_GENERAL_RESOURCE), false, true);
+	      this.add(typeof(SRR_S01_LOCATION_RESOURCE), false, true);
+	      this.add(typeof(SRR_S01_PERSONNEL_RESOURCE), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating SRR_S01_RESOURCES - this is probably a bug in the source code generator.", e);
 	   }
@@ -55,10 +55,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns SRR_S01_SERVICE (a Group object) - creates it if necessary
+	/// Returns  first repetition of SRR_S01_SERVICE (a Group object) - creates it if necessary
 	///</summary>
-	public SRR_S01_SERVICE SERVICE { 
-get{
+	public SRR_S01_SERVICE GetSERVICE() {
 	   SRR_S01_SERVICE ret = null;
 	   try {
 	      ret = (SRR_S01_SERVICE)this.GetStructure("SERVICE");
@@ -68,13 +67,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns SRR_S01_GENERAL_RESOURCE (a Group object) - creates it if necessary
+	///Returns a specific repetition of SRR_S01_SERVICE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public SRR_S01_GENERAL_RESOURCE GENERAL_RESOURCE { 
+	public SRR_S01_SERVICE GetSERVICE(int rep) { 
+	   return (SRR_S01_SERVICE)this.GetStructure("SERVICE", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of SRR_S01_SERVICE 
+	 */ 
+	public int SERVICERepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("SERVICE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of SRR_S01_GENERAL_RESOURCE (a Group object) - creates it if necessary
+	///</summary>
+	public SRR_S01_GENERAL_RESOURCE GetGENERAL_RESOURCE() {
 	   SRR_S01_GENERAL_RESOURCE ret = null;
 	   try {
 	      ret = (SRR_S01_GENERAL_RESOURCE)this.GetStructure("GENERAL_RESOURCE");
@@ -84,14 +108,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns SRR_S01_LOCATION_RESOURCE (a Group object) - creates it if necessary
+	///Returns a specific repetition of SRR_S01_GENERAL_RESOURCE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-   public SRR_S01_LOCATION_RESOURCE LOCATION_RESOURCE
-   { 
+	public SRR_S01_GENERAL_RESOURCE GetGENERAL_RESOURCE(int rep) { 
+	   return (SRR_S01_GENERAL_RESOURCE)this.GetStructure("GENERAL_RESOURCE", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of SRR_S01_GENERAL_RESOURCE 
+	 */ 
+	public int GENERAL_RESOURCERepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("GENERAL_RESOURCE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of SRR_S01_LOCATION_RESOURCE (a Group object) - creates it if necessary
+	///</summary>
+	public SRR_S01_LOCATION_RESOURCE GetLOCATION_RESOURCE() {
 	   SRR_S01_LOCATION_RESOURCE ret = null;
 	   try {
 	      ret = (SRR_S01_LOCATION_RESOURCE)this.GetStructure("LOCATION_RESOURCE");
@@ -101,13 +149,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns SRR_S01_PERSONNEL_RESOURCE (a Group object) - creates it if necessary
+	///Returns a specific repetition of SRR_S01_LOCATION_RESOURCE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public SRR_S01_PERSONNEL_RESOURCE PERSONNEL_RESOURCE { 
+	public SRR_S01_LOCATION_RESOURCE GetLOCATION_RESOURCE(int rep) { 
+	   return (SRR_S01_LOCATION_RESOURCE)this.GetStructure("LOCATION_RESOURCE", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of SRR_S01_LOCATION_RESOURCE 
+	 */ 
+	public int LOCATION_RESOURCERepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("LOCATION_RESOURCE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of SRR_S01_PERSONNEL_RESOURCE (a Group object) - creates it if necessary
+	///</summary>
+	public SRR_S01_PERSONNEL_RESOURCE GetPERSONNEL_RESOURCE() {
 	   SRR_S01_PERSONNEL_RESOURCE ret = null;
 	   try {
 	      ret = (SRR_S01_PERSONNEL_RESOURCE)this.GetStructure("PERSONNEL_RESOURCE");
@@ -117,7 +190,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of SRR_S01_PERSONNEL_RESOURCE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public SRR_S01_PERSONNEL_RESOURCE GetPERSONNEL_RESOURCE(int rep) { 
+	   return (SRR_S01_PERSONNEL_RESOURCE)this.GetStructure("PERSONNEL_RESOURCE", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of SRR_S01_PERSONNEL_RESOURCE 
+	 */ 
+	public int PERSONNEL_RESOURCERepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("PERSONNEL_RESOURCE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

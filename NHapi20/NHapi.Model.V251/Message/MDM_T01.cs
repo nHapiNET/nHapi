@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
+using NHapi.Model.V251.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -18,7 +19,7 @@ namespace NHapi.Model.V251.Message
 ///<li>2: EVN (Event Type) </li>
 ///<li>3: PID (Patient Identification) </li>
 ///<li>4: PV1 (Patient Visit) </li>
-///<li>5: MDM_T01_COMMON_ORDER (a Group object) </li>
+///<li>5: MDM_T01_COMMON_ORDER (a Group object) optional repeating</li>
 ///<li>6: TXA (Transcription Document Header) </li>
 ///</ol>
 ///</summary>
@@ -49,13 +50,20 @@ public class MDM_T01 : AbstractMessage  {
 	      this.add(typeof(EVN), true, false);
 	      this.add(typeof(PID), true, false);
 	      this.add(typeof(PV1), true, false);
-	      this.add(typeof(MDM_T01_COMMON_ORDER), true, false);
+	      this.add(typeof(MDM_T01_COMMON_ORDER), false, true);
 	      this.add(typeof(TXA), true, false);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating MDM_T01 - this is probably a bug in the source code generator.", e);
 	   }
 	}
 
+
+	public override string Version
+		{
+			get{
+			return Constants.VERSION;
+			}
+		}
 	///<summary>
 	/// Returns MSH (Message Header) - creates it if necessary
 	///</summary>
@@ -162,10 +170,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns MDM_T01_COMMON_ORDER (a Group object) - creates it if necessary
+	/// Returns  first repetition of MDM_T01_COMMON_ORDER (a Group object) - creates it if necessary
 	///</summary>
-	public MDM_T01_COMMON_ORDER COMMON_ORDER { 
-get{
+	public MDM_T01_COMMON_ORDER GetCOMMON_ORDER() {
 	   MDM_T01_COMMON_ORDER ret = null;
 	   try {
 	      ret = (MDM_T01_COMMON_ORDER)this.GetStructure("COMMON_ORDER");
@@ -175,7 +182,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of MDM_T01_COMMON_ORDER
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public MDM_T01_COMMON_ORDER GetCOMMON_ORDER(int rep) { 
+	   return (MDM_T01_COMMON_ORDER)this.GetStructure("COMMON_ORDER", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of MDM_T01_COMMON_ORDER 
+	 */ 
+	public int COMMON_ORDERRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("COMMON_ORDER").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns TXA (Transcription Document Header) - creates it if necessary

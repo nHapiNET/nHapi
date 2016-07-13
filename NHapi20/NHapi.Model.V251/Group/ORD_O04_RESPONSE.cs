@@ -15,7 +15,7 @@ namespace NHapi.Model.V251.Group
 ///<ol>
 ///<li>0: ORD_O04_PATIENT (a Group object) optional </li>
 ///<li>1: ORD_O04_ORDER_DIET (a Group object) repeating</li>
-///<li>2: ORD_O04_ORDER_TRAY (a Group object) </li>
+///<li>2: ORD_O04_ORDER_TRAY (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -28,7 +28,7 @@ public class ORD_O04_RESPONSE : AbstractGroup {
 	   try {
 	      this.add(typeof(ORD_O04_PATIENT), false, false);
 	      this.add(typeof(ORD_O04_ORDER_DIET), true, true);
-	      this.add(typeof(ORD_O04_ORDER_TRAY), true, false);
+	      this.add(typeof(ORD_O04_ORDER_TRAY), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating ORD_O04_RESPONSE - this is probably a bug in the source code generator.", e);
 	   }
@@ -92,10 +92,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns ORD_O04_ORDER_TRAY (a Group object) - creates it if necessary
+	/// Returns  first repetition of ORD_O04_ORDER_TRAY (a Group object) - creates it if necessary
 	///</summary>
-	public ORD_O04_ORDER_TRAY ORDER_TRAY { 
-get{
+	public ORD_O04_ORDER_TRAY GetORDER_TRAY() {
 	   ORD_O04_ORDER_TRAY ret = null;
 	   try {
 	      ret = (ORD_O04_ORDER_TRAY)this.GetStructure("ORDER_TRAY");
@@ -105,7 +104,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of ORD_O04_ORDER_TRAY
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public ORD_O04_ORDER_TRAY GetORDER_TRAY(int rep) { 
+	   return (ORD_O04_ORDER_TRAY)this.GetStructure("ORDER_TRAY", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of ORD_O04_ORDER_TRAY 
+	 */ 
+	public int ORDER_TRAYRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("ORDER_TRAY").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

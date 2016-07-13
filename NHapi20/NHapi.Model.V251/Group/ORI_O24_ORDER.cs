@@ -14,7 +14,7 @@ namespace NHapi.Model.V251.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: ORC (Common Order) </li>
-///<li>1: ORI_O24_TIMING (a Group object) </li>
+///<li>1: ORI_O24_TIMING (a Group object) optional repeating</li>
 ///<li>2: OBR (Observation Request) </li>
 ///<li>3: NTE (Notes and Comments) optional repeating</li>
 ///<li>4: IPC (Imaging Procedure Control Segment) repeating</li>
@@ -29,7 +29,7 @@ public class ORI_O24_ORDER : AbstractGroup {
 	public ORI_O24_ORDER(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(ORC), true, false);
-	      this.add(typeof(ORI_O24_TIMING), true, false);
+	      this.add(typeof(ORI_O24_TIMING), false, true);
 	      this.add(typeof(OBR), true, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(IPC), true, true);
@@ -55,10 +55,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns ORI_O24_TIMING (a Group object) - creates it if necessary
+	/// Returns  first repetition of ORI_O24_TIMING (a Group object) - creates it if necessary
 	///</summary>
-	public ORI_O24_TIMING TIMING { 
-get{
+	public ORI_O24_TIMING GetTIMING() {
 	   ORI_O24_TIMING ret = null;
 	   try {
 	      ret = (ORI_O24_TIMING)this.GetStructure("TIMING");
@@ -68,7 +67,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of ORI_O24_TIMING
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public ORI_O24_TIMING GetTIMING(int rep) { 
+	   return (ORI_O24_TIMING)this.GetStructure("TIMING", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of ORI_O24_TIMING 
+	 */ 
+	public int TIMINGRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns OBR (Observation Request) - creates it if necessary

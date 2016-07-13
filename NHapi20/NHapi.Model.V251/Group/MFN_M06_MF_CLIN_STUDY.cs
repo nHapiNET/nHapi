@@ -15,7 +15,7 @@ namespace NHapi.Model.V251.Group
 ///<ol>
 ///<li>0: MFE (Master File Entry) </li>
 ///<li>1: CM0 (Clinical Study Master) </li>
-///<li>2: MFN_M06_MF_PHASE_SCHED_DETAIL (a Group object) </li>
+///<li>2: MFN_M06_MF_PHASE_SCHED_DETAIL (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -28,7 +28,7 @@ public class MFN_M06_MF_CLIN_STUDY : AbstractGroup {
 	   try {
 	      this.add(typeof(MFE), true, false);
 	      this.add(typeof(CM0), true, false);
-	      this.add(typeof(MFN_M06_MF_PHASE_SCHED_DETAIL), true, false);
+	      this.add(typeof(MFN_M06_MF_PHASE_SCHED_DETAIL), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating MFN_M06_MF_CLIN_STUDY - this is probably a bug in the source code generator.", e);
 	   }
@@ -67,10 +67,9 @@ get{
 	}
 
 	///<summary>
-	/// Returns MFN_M06_MF_PHASE_SCHED_DETAIL (a Group object) - creates it if necessary
+	/// Returns  first repetition of MFN_M06_MF_PHASE_SCHED_DETAIL (a Group object) - creates it if necessary
 	///</summary>
-	public MFN_M06_MF_PHASE_SCHED_DETAIL MF_PHASE_SCHED_DETAIL { 
-get{
+	public MFN_M06_MF_PHASE_SCHED_DETAIL GetMF_PHASE_SCHED_DETAIL() {
 	   MFN_M06_MF_PHASE_SCHED_DETAIL ret = null;
 	   try {
 	      ret = (MFN_M06_MF_PHASE_SCHED_DETAIL)this.GetStructure("MF_PHASE_SCHED_DETAIL");
@@ -80,7 +79,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of MFN_M06_MF_PHASE_SCHED_DETAIL
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public MFN_M06_MF_PHASE_SCHED_DETAIL GetMF_PHASE_SCHED_DETAIL(int rep) { 
+	   return (MFN_M06_MF_PHASE_SCHED_DETAIL)this.GetStructure("MF_PHASE_SCHED_DETAIL", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of MFN_M06_MF_PHASE_SCHED_DETAIL 
+	 */ 
+	public int MF_PHASE_SCHED_DETAILRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("MF_PHASE_SCHED_DETAIL").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

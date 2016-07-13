@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
+using NHapi.Model.V251.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -21,7 +22,7 @@ namespace NHapi.Model.V251.Message
 ///<li>5: ORC (Common Order) </li>
 ///<li>6: OBR (Observation Request) </li>
 ///<li>7: NTE (Notes and Comments) optional repeating</li>
-///<li>8: ORU_R30_TIMING_QTY (a Group object) </li>
+///<li>8: ORU_R30_TIMING_QTY (a Group object) optional repeating</li>
 ///<li>9: ORU_R30_OBSERVATION (a Group object) repeating</li>
 ///</ol>
 ///</summary>
@@ -55,13 +56,20 @@ public class ORU_R30 : AbstractMessage  {
 	      this.add(typeof(ORC), true, false);
 	      this.add(typeof(OBR), true, false);
 	      this.add(typeof(NTE), false, true);
-	      this.add(typeof(ORU_R30_TIMING_QTY), true, false);
+	      this.add(typeof(ORU_R30_TIMING_QTY), false, true);
 	      this.add(typeof(ORU_R30_OBSERVATION), true, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating ORU_R30 - this is probably a bug in the source code generator.", e);
 	   }
 	}
 
+
+	public override string Version
+		{
+			get{
+			return Constants.VERSION;
+			}
+		}
 	///<summary>
 	/// Returns MSH (Message Header) - creates it if necessary
 	///</summary>
@@ -241,10 +249,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns ORU_R30_TIMING_QTY (a Group object) - creates it if necessary
+	/// Returns  first repetition of ORU_R30_TIMING_QTY (a Group object) - creates it if necessary
 	///</summary>
-	public ORU_R30_TIMING_QTY TIMING_QTY { 
-get{
+	public ORU_R30_TIMING_QTY GetTIMING_QTY() {
 	   ORU_R30_TIMING_QTY ret = null;
 	   try {
 	      ret = (ORU_R30_TIMING_QTY)this.GetStructure("TIMING_QTY");
@@ -254,7 +261,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of ORU_R30_TIMING_QTY
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public ORU_R30_TIMING_QTY GetTIMING_QTY(int rep) { 
+	   return (ORU_R30_TIMING_QTY)this.GetStructure("TIMING_QTY", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of ORU_R30_TIMING_QTY 
+	 */ 
+	public int TIMING_QTYRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("TIMING_QTY").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns  first repetition of ORU_R30_OBSERVATION (a Group object) - creates it if necessary

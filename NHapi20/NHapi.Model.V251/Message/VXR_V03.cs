@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
+using NHapi.Model.V251.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -23,8 +24,8 @@ namespace NHapi.Model.V251.Message
 ///<li>7: NK1 (Next of Kin / Associated Parties) optional repeating</li>
 ///<li>8: VXR_V03_PATIENT_VISIT (a Group object) optional </li>
 ///<li>9: GT1 (Guarantor) optional repeating</li>
-///<li>10: VXR_V03_INSURANCE (a Group object) </li>
-///<li>11: VXR_V03_ORDER (a Group object) </li>
+///<li>10: VXR_V03_INSURANCE (a Group object) optional repeating</li>
+///<li>11: VXR_V03_ORDER (a Group object) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -59,13 +60,20 @@ public class VXR_V03 : AbstractMessage  {
 	      this.add(typeof(NK1), false, true);
 	      this.add(typeof(VXR_V03_PATIENT_VISIT), false, false);
 	      this.add(typeof(GT1), false, true);
-	      this.add(typeof(VXR_V03_INSURANCE), true, false);
-	      this.add(typeof(VXR_V03_ORDER), true, false);
+	      this.add(typeof(VXR_V03_INSURANCE), false, true);
+	      this.add(typeof(VXR_V03_ORDER), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating VXR_V03 - this is probably a bug in the source code generator.", e);
 	   }
 	}
 
+
+	public override string Version
+		{
+			get{
+			return Constants.VERSION;
+			}
+		}
 	///<summary>
 	/// Returns MSH (Message Header) - creates it if necessary
 	///</summary>
@@ -302,10 +310,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns VXR_V03_INSURANCE (a Group object) - creates it if necessary
+	/// Returns  first repetition of VXR_V03_INSURANCE (a Group object) - creates it if necessary
 	///</summary>
-	public VXR_V03_INSURANCE INSURANCE { 
-get{
+	public VXR_V03_INSURANCE GetINSURANCE() {
 	   VXR_V03_INSURANCE ret = null;
 	   try {
 	      ret = (VXR_V03_INSURANCE)this.GetStructure("INSURANCE");
@@ -315,13 +322,38 @@ get{
 	   }
 	   return ret;
 	}
-	}
 
 	///<summary>
-	/// Returns VXR_V03_ORDER (a Group object) - creates it if necessary
+	///Returns a specific repetition of VXR_V03_INSURANCE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
 	///</summary>
-	public VXR_V03_ORDER ORDER { 
+	public VXR_V03_INSURANCE GetINSURANCE(int rep) { 
+	   return (VXR_V03_INSURANCE)this.GetStructure("INSURANCE", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of VXR_V03_INSURANCE 
+	 */ 
+	public int INSURANCERepetitionsUsed { 
 get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("INSURANCE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	///<summary>
+	/// Returns  first repetition of VXR_V03_ORDER (a Group object) - creates it if necessary
+	///</summary>
+	public VXR_V03_ORDER GetORDER() {
 	   VXR_V03_ORDER ret = null;
 	   try {
 	      ret = (VXR_V03_ORDER)this.GetStructure("ORDER");
@@ -331,7 +363,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of VXR_V03_ORDER
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public VXR_V03_ORDER GetORDER(int rep) { 
+	   return (VXR_V03_ORDER)this.GetStructure("ORDER", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of VXR_V03_ORDER 
+	 */ 
+	public int ORDERRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("ORDER").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 }
 }

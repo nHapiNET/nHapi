@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
+using NHapi.Model.V251.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -22,13 +23,13 @@ namespace NHapi.Model.V251.Message
 ///<li>6: PID (Patient Identification) </li>
 ///<li>7: NK1 (Next of Kin / Associated Parties) optional repeating</li>
 ///<li>8: GT1 (Guarantor) optional repeating</li>
-///<li>9: RPA_I08_INSURANCE (a Group object) </li>
+///<li>9: RPA_I08_INSURANCE (a Group object) optional repeating</li>
 ///<li>10: ACC (Accident) optional </li>
 ///<li>11: DG1 (Diagnosis) optional repeating</li>
 ///<li>12: DRG (Diagnosis Related Group) optional repeating</li>
 ///<li>13: AL1 (Patient Allergy Information) optional repeating</li>
 ///<li>14: RPA_I08_PROCEDURE (a Group object) repeating</li>
-///<li>15: RPA_I08_OBSERVATION (a Group object) </li>
+///<li>15: RPA_I08_OBSERVATION (a Group object) optional repeating</li>
 ///<li>16: RPA_I08_VISIT (a Group object) optional </li>
 ///<li>17: NTE (Notes and Comments) optional repeating</li>
 ///</ol>
@@ -64,13 +65,13 @@ public class RPA_I08 : AbstractMessage  {
 	      this.add(typeof(PID), true, false);
 	      this.add(typeof(NK1), false, true);
 	      this.add(typeof(GT1), false, true);
-	      this.add(typeof(RPA_I08_INSURANCE), true, false);
+	      this.add(typeof(RPA_I08_INSURANCE), false, true);
 	      this.add(typeof(ACC), false, false);
 	      this.add(typeof(DG1), false, true);
 	      this.add(typeof(DRG), false, true);
 	      this.add(typeof(AL1), false, true);
 	      this.add(typeof(RPA_I08_PROCEDURE), true, true);
-	      this.add(typeof(RPA_I08_OBSERVATION), true, false);
+	      this.add(typeof(RPA_I08_OBSERVATION), false, true);
 	      this.add(typeof(RPA_I08_VISIT), false, false);
 	      this.add(typeof(NTE), false, true);
 	   } catch(HL7Exception e) {
@@ -78,6 +79,13 @@ public class RPA_I08 : AbstractMessage  {
 	   }
 	}
 
+
+	public override string Version
+		{
+			get{
+			return Constants.VERSION;
+			}
+		}
 	///<summary>
 	/// Returns MSH (Message Header) - creates it if necessary
 	///</summary>
@@ -323,10 +331,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns RPA_I08_INSURANCE (a Group object) - creates it if necessary
+	/// Returns  first repetition of RPA_I08_INSURANCE (a Group object) - creates it if necessary
 	///</summary>
-	public RPA_I08_INSURANCE INSURANCE { 
-get{
+	public RPA_I08_INSURANCE GetINSURANCE() {
 	   RPA_I08_INSURANCE ret = null;
 	   try {
 	      ret = (RPA_I08_INSURANCE)this.GetStructure("INSURANCE");
@@ -336,7 +343,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of RPA_I08_INSURANCE
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public RPA_I08_INSURANCE GetINSURANCE(int rep) { 
+	   return (RPA_I08_INSURANCE)this.GetStructure("INSURANCE", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of RPA_I08_INSURANCE 
+	 */ 
+	public int INSURANCERepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("INSURANCE").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns ACC (Accident) - creates it if necessary
@@ -519,10 +552,9 @@ get{
 	} 
 
 	///<summary>
-	/// Returns RPA_I08_OBSERVATION (a Group object) - creates it if necessary
+	/// Returns  first repetition of RPA_I08_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
-	public RPA_I08_OBSERVATION OBSERVATION { 
-get{
+	public RPA_I08_OBSERVATION GetOBSERVATION() {
 	   RPA_I08_OBSERVATION ret = null;
 	   try {
 	      ret = (RPA_I08_OBSERVATION)this.GetStructure("OBSERVATION");
@@ -532,7 +564,33 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of RPA_I08_OBSERVATION
+	/// * (a Group object) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public RPA_I08_OBSERVATION GetOBSERVATION(int rep) { 
+	   return (RPA_I08_OBSERVATION)this.GetStructure("OBSERVATION", rep);
 	}
+
+	/** 
+	 * Returns the number of existing repetitions of RPA_I08_OBSERVATION 
+	 */ 
+	public int OBSERVATIONRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("OBSERVATION").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
 
 	///<summary>
 	/// Returns RPA_I08_VISIT (a Group object) - creates it if necessary
