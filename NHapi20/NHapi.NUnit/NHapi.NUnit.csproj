@@ -82,6 +82,7 @@
     <Compile Include="PipeParsingFixture23.cs" />
     <Compile Include="PipeParsingFixture231.cs" />
     <Compile Include="PipeParsingFixture24.cs" />
+    <Compile Include="PipeParsingFixture281.cs" />
     <Compile Include="PipeParsingFixture28.cs" />
     <Compile Include="PipeParsingFixture271.cs" />
     <Compile Include="PipeParsingFixture27.cs" />
