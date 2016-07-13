@@ -1,5 +1,6 @@
-using NHapi.Base.Model;
+using System;
 
+using NHapi.Base.Model;
 namespace NHapi.Model.V251.Datatype
 {
 /// <summary>/// Summary description for ID.
