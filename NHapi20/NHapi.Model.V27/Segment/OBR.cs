@@ -14,7 +14,7 @@ namespace NHapi.Model.V27.Segment{
 ///<li>OBR-2: Placer Order Number (EI)</li>
 ///<li>OBR-3: Filler Order Number (EI)</li>
 ///<li>OBR-4: Universal Service Identifier (CWE)</li>
-///<li>OBR-5: Priority (ST)</li>
+///<li>OBR-5: Priority (ID)</li>
 ///<li>OBR-6: Requested Date/Time (ST)</li>
 ///<li>OBR-7: Observation Date/Time # (DTM)</li>
 ///<li>OBR-8: Observation End Date/Time # (DTM)</li>
@@ -84,7 +84,7 @@ public class OBR : AbstractSegment  {
        this.add(typeof(EI), false, 1, 0, new System.Object[]{message}, "Placer Order Number");
        this.add(typeof(EI), false, 1, 0, new System.Object[]{message}, "Filler Order Number");
        this.add(typeof(CWE), true, 1, 0, new System.Object[]{message}, "Universal Service Identifier");
-       this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Priority");
+       this.add(typeof(ID), false, 1, 0, new System.Object[]{message, 0}, "Priority");
        this.add(typeof(ST), false, 1, 0, new System.Object[]{message}, "Requested Date/Time");
        this.add(typeof(DTM), false, 1, 0, new System.Object[]{message}, "Observation Date/Time #");
        this.add(typeof(DTM), false, 1, 0, new System.Object[]{message}, "Observation End Date/Time #");
@@ -233,14 +233,14 @@ public class OBR : AbstractSegment  {
 	///<summary>
 	/// Returns Priority(OBR-5).
 	///</summary>
-	public ST Priority
+	public ID Priority
 	{
 		get{
-			ST ret = null;
+			ID ret = null;
 			try
 			{
 			IType t = this.GetField(5, 0);
-				ret = (ST)t;
+				ret = (ID)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
