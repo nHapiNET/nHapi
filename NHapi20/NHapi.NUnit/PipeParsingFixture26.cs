@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using NHapi.Base.Model;
 using NHapi.Base.Parser;
@@ -109,6 +110,45 @@ PV1|1";
 			result = PipeParser.GetMessageStructureForEvent("ADT_A01", "2.6");
 			isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
 			Assert.IsTrue(isSame, "ADT_A01 returns ADT_A01");
+		}
+
+		[Test]
+		public void TestORUR01_HasDTMFieldParsed()
+		{
+			string hl7Data = @"MSH|^~\&|Paceart|Medtronic|||20160628142621||ORU^R01^ORU_R01|20160628142621000001|P|2.6|||AL|NE|||||IHE_PCD_ORU_R01^IHE PCD^1.3.6.1.4.1.19376.1.6.1.9.1^ISOPID|||MODEL:A3DR01 Advisa DR MRI/SERIAL:PZK600806S^^^MDT^U~^^^^Patient ID~A10000641^^^^Paceart||Patient^Test||19100000000000+0000PV1|1|AOBR|1||dfac748c-213c-e611-80c5-000c2996266c|754050^MDC_IDC_ENUM_SESS_TYPE_InClinic^MDC^INCLINIC^INCLINIC^MDT|||20160627041809+0000||||||||||||||||||POBX|1|DTM|721025^MDC_IDC_SESS_DTM^MDC||20160627041809+0000||||||P";
+
+			PipeParser parser = new PipeParser();
+			IMessage msg = parser.Parse(hl7Data);
+
+			Assert.IsNotNull(msg, "Message should not be null");
+			ORU_R01 oruR01 = (ORU_R01)msg;
+
+			Assert.AreEqual("R01", oruR01.MSH.MessageType.TriggerEvent.Value);
+			Assert.AreEqual(null, oruR01.GetPATIENT_RESULT(0).PATIENT.PID.SetIDPID.Value);
+			var knownDTM = oruR01.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType.Value;
+			Assert.AreEqual("DTM", knownDTM);
+			var knownDTMValue = oruR01.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data as DTM;
+			Assert.AreEqual("20160627041809+0000", knownDTMValue.ToString());
+		}
+
+		[Test, Explicit]
+		public void ParseKnownMessageTypeFromFile()
+		{
+			string filePath = @"C:\Users\Duane\Desktop\ParseErrors\20160628_142635469_b94dde77-857a-4881-8915-6814809c5442.HL7";
+			string fileContents = File.ReadAllText(filePath);
+
+			PipeParser parser = new PipeParser();
+			IMessage msg = parser.Parse(fileContents);
+
+			Assert.IsNotNull(msg, "Message should not be null");
+			ORU_R01 oruR01 = (ORU_R01)msg;
+
+			Assert.AreEqual("R01", oruR01.MSH.MessageType.TriggerEvent.Value);
+			Assert.AreEqual(null, oruR01.GetPATIENT_RESULT(0).PATIENT.PID.SetIDPID.Value);
+			var knownDTM = oruR01.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType.Value;
+			Assert.AreEqual("DTM", knownDTM);
+			var knownDTMValue = oruR01.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data as DTM;
+			Assert.AreEqual("20160627041809+0000", knownDTMValue.ToString());
 		}
 	}
 }
