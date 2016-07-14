@@ -150,6 +150,9 @@
     <Compile Include="Datatype\XON.cs" />
     <Compile Include="Datatype\XPN.cs" />
     <Compile Include="Datatype\XTN.cs" />
+    <Compile Include="Group\ADR_A19_INSURANCE.cs" />
+    <Compile Include="Group\ADR_A19_PROCEDURE.cs" />
+    <Compile Include="Group\ADR_A19_QUERY_RESPONSE.cs" />
     <Compile Include="Group\ADT_A01_INSURANCE.cs" />
     <Compile Include="Group\ADT_A01_PROCEDURE.cs" />
     <Compile Include="Group\ADT_A03_PROCEDURE.cs" />
@@ -245,6 +248,7 @@
     <Compile Include="Group\MFN_M09_MF_TEST_CATEGORICAL.cs" />
     <Compile Include="Group\MFN_M09_MF_TEST_CAT_DETAIL.cs" />
     <Compile Include="Group\MFN_M10_MF_TEST_BATTERIES.cs" />
+    <Compile Include="Group\MFN_M10_MF_TEST_BATT_DETAIL.cs" />
     <Compile Include="Group\MFN_M11_MF_TEST_CALCULATED.cs" />
     <Compile Include="Group\MFN_M11_MF_TEST_CALC_DETAIL.cs" />
     <Compile Include="Group\OMD_O01_DIET.cs" />
@@ -588,6 +592,14 @@
     <Compile Include="Group\RGR_RGR_ENCODING.cs" />
     <Compile Include="Group\RGR_RGR_ORDER.cs" />
     <Compile Include="Group\RGR_RGR_PATIENT.cs" />
+    <Compile Include="Group\RGV_O01_COMPONENTS.cs" />
+    <Compile Include="Group\RGV_O01_ENCODING.cs" />
+    <Compile Include="Group\RGV_O01_GIVE.cs" />
+    <Compile Include="Group\RGV_O01_OBSERVATION.cs" />
+    <Compile Include="Group\RGV_O01_ORDER.cs" />
+    <Compile Include="Group\RGV_O01_ORDER_DETAIL.cs" />
+    <Compile Include="Group\RGV_O01_ORDER_DETAIL_SUPPLEMENT.cs" />
+    <Compile Include="Group\RGV_O01_PATIENT.cs" />
     <Compile Include="Group\RGV_O01_PATIENT_VISIT.cs" />
     <Compile Include="Group\ROR_ROR_DEFINITION.cs" />
     <Compile Include="Group\ROR_ROR_ORDER.cs" />
@@ -665,6 +677,7 @@
     <Compile Include="Group\RQI_I01_GUARANTOR_INSURANCE.cs" />
     <Compile Include="Group\RQI_I01_INSURANCE.cs" />
     <Compile Include="Group\RQI_I01_PRDCTD.cs" />
+    <Compile Include="Group\RQI_I01_PROVIDER.cs" />
     <Compile Include="Group\RQI_I02_GUARANTOR_INSURANCE.cs" />
     <Compile Include="Group\RQI_I02_INSURANCE.cs" />
     <Compile Include="Group\RQI_I02_PROVIDER.cs" />
@@ -969,6 +982,7 @@
     <Compile Include="Group\VXU_V04_PATIENT.cs" />
     <Compile Include="Group\VXX_V02_PATIENT.cs" />
     <Compile Include="Message\ACK.cs" />
+    <Compile Include="Message\ADR_A19.cs" />
     <Compile Include="Message\ADT_A01.cs" />
     <Compile Include="Message\ADT_A02.cs" />
     <Compile Include="Message\ADT_A03.cs" />
@@ -1039,6 +1053,7 @@
     <Compile Include="Message\DFT_P03.cs" />
     <Compile Include="Message\DOC_T12.cs" />
     <Compile Include="Message\DSR_Q01.cs" />
+    <Compile Include="Message\DSR_Q02.cs" />
     <Compile Include="Message\DSR_Q03.cs" />
     <Compile Include="Message\EDR_Q01.cs" />
     <Compile Include="Message\EQQ_Q01.cs" />
@@ -1127,6 +1142,7 @@
     <Compile Include="Message\REF_I15.cs" />
     <Compile Include="Message\RER_RER.cs" />
     <Compile Include="Message\RGR_RGR.cs" />
+    <Compile Include="Message\RGV_O01.cs" />
     <Compile Include="Message\ROR_ROR.cs" />
     <Compile Include="Message\RPA_I08.cs" />
     <Compile Include="Message\RPA_I09.cs" />
