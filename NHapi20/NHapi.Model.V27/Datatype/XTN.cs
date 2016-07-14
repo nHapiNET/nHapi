@@ -13,10 +13,10 @@ namespace NHapi.Model.V27.Datatype
 /// <li>Telecommunication Use Code (ID)</li>
 /// <li>Telecommunication Equipment Type (ID)</li>
 /// <li>Communication Address (ST)</li>
-/// <li>Country Code (ST)</li>
-/// <li>Area/City Code (ST)</li>
-/// <li>Local Number (ST)</li>
-/// <li>Extension (ST)</li>
+/// <li>Country Code (SNM)</li>
+/// <li>Area/City Code (SNM)</li>
+/// <li>Local Number (SNM)</li>
+/// <li>Extension (SNM)</li>
 /// <li>Any Text (ST)</li>
 /// <li>Extension Prefix (ST)</li>
 /// <li>Speed Dial Code (ST)</li>
@@ -50,10 +50,10 @@ public class XTN : AbstractType, IComposite{
 		data[1] = new ID(message, 201,"Telecommunication Use Code");
 		data[2] = new ID(message, 202,"Telecommunication Equipment Type");
 		data[3] = new ST(message,"Communication Address");
-		data[4] = new ST(message,"Country Code");
-		data[5] = new ST(message,"Area/City Code");
-		data[6] = new ST(message,"Local Number");
-		data[7] = new ST(message,"Extension");
+		data[4] = new SNM(message,"Country Code");
+		data[5] = new SNM(message,"Area/City Code");
+		data[6] = new SNM(message,"Local Number");
+		data[7] = new SNM(message,"Extension");
 		data[8] = new ST(message,"Any Text");
 		data[9] = new ST(message,"Extension Prefix");
 		data[10] = new ST(message,"Speed Dial Code");
@@ -164,11 +164,11 @@ get{
 	/// Returns Country Code (component #4).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public ST CountryCode {
+	public SNM CountryCode {
 get{
-	   ST ret = null;
+	   SNM ret = null;
 	   try {
-	      ret = (ST)this[4];
+	      ret = (SNM)this[4];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -181,11 +181,11 @@ get{
 	/// Returns Area/City Code (component #5).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public ST AreaCityCode {
+	public SNM AreaCityCode {
 get{
-	   ST ret = null;
+	   SNM ret = null;
 	   try {
-	      ret = (ST)this[5];
+	      ret = (SNM)this[5];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -198,11 +198,11 @@ get{
 	/// Returns Local Number (component #6).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public ST LocalNumber {
+	public SNM LocalNumber {
 get{
-	   ST ret = null;
+	   SNM ret = null;
 	   try {
-	      ret = (ST)this[6];
+	      ret = (SNM)this[6];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -215,11 +215,11 @@ get{
 	/// Returns Extension (component #7).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public ST Extension {
+	public SNM Extension {
 get{
-	   ST ret = null;
+	   SNM ret = null;
 	   try {
-	      ret = (ST)this[7];
+	      ret = (SNM)this[7];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
