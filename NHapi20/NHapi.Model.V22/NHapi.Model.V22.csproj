@@ -68,6 +68,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Datatype\AD.cs" />
     <Compile Include="Datatype\CE.cs" />
+    <Compile Include="Datatype\COMP_ID_DIGIT.cs" />
     <Compile Include="Datatype\CK.cs" />
     <Compile Include="Datatype\CK_ACCOUNT_NO.cs" />
     <Compile Include="Datatype\CK_PAT_ID.cs" />
@@ -94,7 +95,7 @@
     <Compile Include="Datatype\CM_NDL.cs" />
     <Compile Include="Datatype\CM_OCD.cs" />
     <Compile Include="Datatype\CM_OSP.cs" />
-    <Compile Include="Datatype\CM_PARENT_RESULT.cs" />
+    <Compile Include="Datatype\CM_UNDEFINED.cs" />
     <Compile Include="Datatype\CM_PAT_ID.cs" />
     <Compile Include="Datatype\CM_PAT_ID_0192.cs" />
     <Compile Include="Datatype\CM_PCF.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Datatype\CM_VR.cs" />
     <Compile Include="Datatype\CN_PERSON.cs" />
     <Compile Include="Datatype\CN_PHYSICIAN.cs" />
+    <Compile Include="Datatype\CQ_COMP_QUANT.cs" />
     <Compile Include="Datatype\CQ_QUANTITY.cs" />
     <Compile Include="Datatype\DT.cs" />
     <Compile Include="Datatype\FT.cs" />
@@ -129,6 +131,8 @@
     <Compile Include="Datatype\TQ.cs" />
     <Compile Include="Datatype\TS.cs" />
     <Compile Include="Datatype\TX.cs" />
+    <Compile Include="Group\ADR_A19_INSURANCE.cs" />
+    <Compile Include="Group\ADR_A19_QUERY_RESPONSE.cs" />
     <Compile Include="Group\ADT_A01_INSURANCE.cs" />
     <Compile Include="Group\ADT_A04_INSURANCE.cs" />
     <Compile Include="Group\ADT_A05_INSURANCE.cs" />
@@ -174,6 +178,7 @@
     <Compile Include="Group\ORU_R03_ORDER_OBSERVATION.cs" />
     <Compile Include="Group\ORU_R03_PATIENT.cs" />
     <Compile Include="Group\ORU_R03_PATIENT_RESULT.cs" />
+    <Compile Include="Message\ADR_A19.cs" />
     <Compile Include="Message\ADT_A01.cs" />
     <Compile Include="Message\ADT_A02.cs" />
     <Compile Include="Message\ADT_A03.cs" />

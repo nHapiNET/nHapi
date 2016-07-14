@@ -11,7 +11,7 @@ namespace NHapi.Model.V22.Segment{
 /// Represents an HL7 GT1 message segment. 
 /// This segment has the following fields:<ol>
 ///<li>GT1-1: Set ID - guarantor (SI)</li>
-///<li>GT1-2: Guarantor number (CK)</li>
+///<li>GT1-2: Guarantor number (COMP_ID_DIGIT)</li>
 ///<li>GT1-3: Guarantor name (PN)</li>
 ///<li>GT1-4: Guarantor spouse name (PN)</li>
 ///<li>GT1-5: Guarantor address (AD)</li>
@@ -49,7 +49,7 @@ public class GT1 : AbstractSegment  {
 	IMessage message = Message;
     try {
        this.add(typeof(SI), true, 1, 4, new System.Object[]{message}, "Set ID - guarantor");
-       this.add(typeof(CK), false, 1, 20, new System.Object[]{message}, "Guarantor number");
+       this.add(typeof(COMP_ID_DIGIT), false, 1, 20, new System.Object[]{message}, "Guarantor number");
        this.add(typeof(PN), true, 1, 48, new System.Object[]{message}, "Guarantor name");
        this.add(typeof(PN), false, 1, 48, new System.Object[]{message}, "Guarantor spouse name");
        this.add(typeof(AD), false, 1, 106, new System.Object[]{message}, "Guarantor address");
@@ -100,14 +100,14 @@ public class GT1 : AbstractSegment  {
 	///<summary>
 	/// Returns Guarantor number(GT1-2).
 	///</summary>
-	public CK GuarantorNumber
+	public COMP_ID_DIGIT GuarantorNumber
 	{
 		get{
-			CK ret = null;
+			COMP_ID_DIGIT ret = null;
 			try
 			{
 			IType t = this.GetField(2, 0);
-				ret = (CK)t;
+				ret = (COMP_ID_DIGIT)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

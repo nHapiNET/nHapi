@@ -95,7 +95,7 @@ public class PV1 : AbstractSegment  {
        this.add(typeof(ID), false, 1, 2, new System.Object[]{message, 99}, "VIP Indicator");
        this.add(typeof(CN_PHYSICIAN), false, 1, 60, new System.Object[]{message}, "Admitting Doctor");
        this.add(typeof(ID), false, 1, 2, new System.Object[]{message, 18}, "Patient type");
-       this.add(typeof(NM), false, 1, 15, new System.Object[]{message}, "Visit Number");
+       this.add(typeof(CM_PAT_ID), false, 1, 15, new System.Object[]{message}, "Visit Number");
        this.add(typeof(CM_FINANCE), false, 4, 50, new System.Object[]{message}, "Financial Class");
        this.add(typeof(ID), false, 1, 2, new System.Object[]{message, 32}, "Charge Price Indicator");
        this.add(typeof(ID), false, 1, 2, new System.Object[]{message, 45}, "Courtesy Code");
@@ -619,14 +619,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Visit Number(PV1-19).
 	///</summary>
-	public NM VisitNumber
+	public CM_PAT_ID VisitNumber
 	{
 		get{
-			NM ret = null;
+			CM_PAT_ID ret = null;
 			try
 			{
 			IType t = this.GetField(19, 0);
-				ret = (NM)t;
+				ret = (CM_PAT_ID)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

@@ -22,7 +22,7 @@ namespace NHapi.Model.V22.Segment{
 ///<li>ORC-10: Entered By (CN_PERSON)</li>
 ///<li>ORC-11: Verified By (CN_PERSON)</li>
 ///<li>ORC-12: Ordering Provider (CN_PERSON)</li>
-///<li>ORC-13: Enterer's Location (CM_PARENT_RESULT)</li>
+///<li>ORC-13: Enterer's Location (CM_UNDEFINED)</li>
 ///<li>ORC-14: Call Back Phone Number (TN)</li>
 ///<li>ORC-15: Order effective date / time (TS)</li>
 ///<li>ORC-16: Order Control Code Reason (CE)</li>
@@ -58,7 +58,7 @@ public class ORC : AbstractSegment  {
        this.add(typeof(CN_PERSON), false, 1, 80, new System.Object[]{message}, "Entered By");
        this.add(typeof(CN_PERSON), false, 1, 80, new System.Object[]{message}, "Verified By");
        this.add(typeof(CN_PERSON), false, 1, 80, new System.Object[]{message}, "Ordering Provider");
-       this.add(typeof(CM_PARENT_RESULT), false, 1, 80, new System.Object[]{message}, "Enterer's Location");
+       this.add(typeof(CM_UNDEFINED), false, 1, 80, new System.Object[]{message}, "Enterer's Location");
        this.add(typeof(TN), false, 2, 40, new System.Object[]{message}, "Call Back Phone Number");
        this.add(typeof(TS), false, 1, 26, new System.Object[]{message}, "Order effective date / time");
        this.add(typeof(CE), false, 1, 200, new System.Object[]{message}, "Order Control Code Reason");
@@ -384,14 +384,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Enterer's Location(ORC-13).
 	///</summary>
-	public CM_PARENT_RESULT EntererSLocation
+	public CM_UNDEFINED EntererSLocation
 	{
 		get{
-			CM_PARENT_RESULT ret = null;
+			CM_UNDEFINED ret = null;
 			try
 			{
 			IType t = this.GetField(13, 0);
-				ret = (CM_PARENT_RESULT)t;
+				ret = (CM_UNDEFINED)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

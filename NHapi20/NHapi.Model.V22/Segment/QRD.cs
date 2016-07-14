@@ -16,7 +16,7 @@ namespace NHapi.Model.V22.Segment{
 ///<li>QRD-4: Query ID (ST)</li>
 ///<li>QRD-5: Deferred Response Type (ID)</li>
 ///<li>QRD-6: Deferred response date / time (TS)</li>
-///<li>QRD-7: Quantity Limited Request (CQ_QUANTITY)</li>
+///<li>QRD-7: Quantity Limited Request (CQ_COMP_QUANT)</li>
 ///<li>QRD-8: Who Subject Filter (ST)</li>
 ///<li>QRD-9: What Subject Filter (ID)</li>
 ///<li>QRD-10: What Department Data Code (ST)</li>
@@ -45,7 +45,7 @@ public class QRD : AbstractSegment  {
        this.add(typeof(ST), true, 1, 10, new System.Object[]{message}, "Query ID");
        this.add(typeof(ID), false, 1, 1, new System.Object[]{message, 107}, "Deferred Response Type");
        this.add(typeof(TS), false, 1, 26, new System.Object[]{message}, "Deferred response date / time");
-       this.add(typeof(CQ_QUANTITY), true, 1, 10, new System.Object[]{message}, "Quantity Limited Request");
+       this.add(typeof(CQ_COMP_QUANT), true, 1, 10, new System.Object[]{message}, "Quantity Limited Request");
        this.add(typeof(ST), true, 0, 20, new System.Object[]{message}, "Who Subject Filter");
        this.add(typeof(ID), true, 0, 3, new System.Object[]{message, 48}, "What Subject Filter");
        this.add(typeof(ST), true, 0, 20, new System.Object[]{message}, "What Department Data Code");
@@ -197,14 +197,14 @@ public class QRD : AbstractSegment  {
 	///<summary>
 	/// Returns Quantity Limited Request(QRD-7).
 	///</summary>
-	public CQ_QUANTITY QuantityLimitedRequest
+	public CQ_COMP_QUANT QuantityLimitedRequest
 	{
 		get{
-			CQ_QUANTITY ret = null;
+			CQ_COMP_QUANT ret = null;
 			try
 			{
 			IType t = this.GetField(7, 0);
-				ret = (CQ_QUANTITY)t;
+				ret = (CQ_COMP_QUANT)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

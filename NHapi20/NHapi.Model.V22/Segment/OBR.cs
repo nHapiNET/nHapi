@@ -35,7 +35,7 @@ namespace NHapi.Model.V22.Segment{
 ///<li>OBR-23: Charge to Practice (CM_MOC)</li>
 ///<li>OBR-24: Diagnostic service section ID (ID)</li>
 ///<li>OBR-25: Result Status (ID)</li>
-///<li>OBR-26: Parent Result (CM_PARENT_RESULT)</li>
+///<li>OBR-26: Parent Result (CM_UNDEFINED)</li>
 ///<li>OBR-27: Quantity / timing (TQ)</li>
 ///<li>OBR-28: Result Copies To (CN_PERSON)</li>
 ///<li>OBR-29: Parent Number (CM_EIP)</li>
@@ -88,7 +88,7 @@ public class OBR : AbstractSegment  {
        this.add(typeof(CM_MOC), false, 1, 40, new System.Object[]{message}, "Charge to Practice");
        this.add(typeof(ID), false, 1, 10, new System.Object[]{message, 74}, "Diagnostic service section ID");
        this.add(typeof(ID), false, 1, 1, new System.Object[]{message, 123}, "Result Status");
-       this.add(typeof(CM_PARENT_RESULT), false, 1, 200, new System.Object[]{message}, "Parent Result");
+       this.add(typeof(CM_UNDEFINED), false, 1, 200, new System.Object[]{message}, "Parent Result");
        this.add(typeof(TQ), false, 0, 200, new System.Object[]{message}, "Quantity / timing");
        this.add(typeof(CN_PERSON), false, 5, 150, new System.Object[]{message}, "Result Copies To");
        this.add(typeof(CM_EIP), false, 1, 150, new System.Object[]{message}, "Parent Number");
@@ -752,14 +752,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Parent Result(OBR-26).
 	///</summary>
-	public CM_PARENT_RESULT ParentResult
+	public CM_UNDEFINED ParentResult
 	{
 		get{
-			CM_PARENT_RESULT ret = null;
+			CM_UNDEFINED ret = null;
 			try
 			{
 			IType t = this.GetField(26, 0);
-				ret = (CM_PARENT_RESULT)t;
+				ret = (CM_UNDEFINED)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);

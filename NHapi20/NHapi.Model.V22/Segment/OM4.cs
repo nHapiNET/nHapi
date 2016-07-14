@@ -21,10 +21,10 @@ namespace NHapi.Model.V22.Segment{
 ///<li>OM4-9: Preparation (TX)</li>
 ///<li>OM4-10: Special Handling Requirements (TX)</li>
 ///<li>OM4-11: Normal Collection Volume (CQ_QUANTITY)</li>
-///<li>OM4-12: Minimum Collection Volume (CQ_QUANTITY)</li>
+///<li>OM4-12: Minimum Collection Volume (CQ_COMP_QUANT)</li>
 ///<li>OM4-13: Specimen Requirements (TX)</li>
 ///<li>OM4-14: Specimen Priorities (ID)</li>
-///<li>OM4-15: Specimen Retention Time (CQ_QUANTITY)</li>
+///<li>OM4-15: Specimen Retention Time (CQ_COMP_QUANT)</li>
 ///</ol>
 /// The get...() methods return data from individual fields.  These methods 
 /// do not throw exceptions and may therefore have to handle exceptions internally.  
@@ -53,10 +53,10 @@ public class OM4 : AbstractSegment  {
        this.add(typeof(TX), false, 1, 10240, new System.Object[]{message}, "Preparation");
        this.add(typeof(TX), false, 1, 10240, new System.Object[]{message}, "Special Handling Requirements");
        this.add(typeof(CQ_QUANTITY), false, 1, 20, new System.Object[]{message}, "Normal Collection Volume");
-       this.add(typeof(CQ_QUANTITY), false, 1, 20, new System.Object[]{message}, "Minimum Collection Volume");
+       this.add(typeof(CQ_COMP_QUANT), false, 1, 20, new System.Object[]{message}, "Minimum Collection Volume");
        this.add(typeof(TX), false, 1, 10240, new System.Object[]{message}, "Specimen Requirements");
        this.add(typeof(ID), false, 0, 60, new System.Object[]{message, 27}, "Specimen Priorities");
-       this.add(typeof(CQ_QUANTITY), false, 1, 20, new System.Object[]{message}, "Specimen Retention Time");
+       this.add(typeof(CQ_COMP_QUANT), false, 1, 20, new System.Object[]{message}, "Specimen Retention Time");
     } catch (HL7Exception he) {
         HapiLogFactory.GetHapiLog(GetType()).Error("Can't instantiate " + GetType().Name, he);
     }
@@ -318,14 +318,14 @@ public class OM4 : AbstractSegment  {
 	///<summary>
 	/// Returns Minimum Collection Volume(OM4-12).
 	///</summary>
-	public CQ_QUANTITY MinimumCollectionVolume
+	public CQ_COMP_QUANT MinimumCollectionVolume
 	{
 		get{
-			CQ_QUANTITY ret = null;
+			CQ_COMP_QUANT ret = null;
 			try
 			{
 			IType t = this.GetField(12, 0);
-				ret = (CQ_QUANTITY)t;
+				ret = (CQ_COMP_QUANT)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
@@ -422,14 +422,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Specimen Retention Time(OM4-15).
 	///</summary>
-	public CQ_QUANTITY SpecimenRetentionTime
+	public CQ_COMP_QUANT SpecimenRetentionTime
 	{
 		get{
-			CQ_QUANTITY ret = null;
+			CQ_COMP_QUANT ret = null;
 			try
 			{
 			IType t = this.GetField(15, 0);
-				ret = (CQ_QUANTITY)t;
+				ret = (CQ_COMP_QUANT)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
