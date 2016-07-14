@@ -71,7 +71,7 @@ public class OBR : AbstractSegment  {
 	IMessage message = Message;
     try {
        this.add(typeof(SI), false, 1, 4, new System.Object[]{message}, "Set ID - Observation Request");
-       this.add(typeof(EI), false, 0, 22, new System.Object[]{message}, "Placer Order Number");
+       this.add(typeof(EI), false, 1, 22, new System.Object[]{message}, "Placer Order Number");
        this.add(typeof(EI), false, 1, 22, new System.Object[]{message}, "Filler Order Number");
        this.add(typeof(CE), true, 1, 200, new System.Object[]{message}, "Universal Service Identifier");
        this.add(typeof(ID), false, 1, 2, new System.Object[]{message, 0}, "Priority");
@@ -96,7 +96,7 @@ public class OBR : AbstractSegment  {
        this.add(typeof(ID), false, 1, 10, new System.Object[]{message, 74}, "Diagnostic Service Section ID");
        this.add(typeof(ID), false, 1, 1, new System.Object[]{message, 123}, "Result Status");
        this.add(typeof(CM_PRL), false, 1, 200, new System.Object[]{message}, "Parent Result");
-       this.add(typeof(TQ), true, 1, 200, new System.Object[]{message}, "Quantity/Timing");
+       this.add(typeof(TQ), false, 1, 200, new System.Object[]{message}, "Quantity/Timing");
        this.add(typeof(XCN), false, 5, 150, new System.Object[]{message}, "Result Copies To");
        this.add(typeof(CM_EIP), false, 1, 150, new System.Object[]{message}, "Parent Number");
        this.add(typeof(ID), false, 1, 20, new System.Object[]{message, 124}, "Transportation Mode");
@@ -142,63 +142,28 @@ public class OBR : AbstractSegment  {
   }
 
 	///<summary>
-	/// Returns a single repetition of Placer Order Number(OBR-2).
-	/// throws HL7Exception if the repetition number is invalid.
-	/// <param name="rep">The repetition number (this is a repeating field)</param>
+	/// Returns Placer Order Number(OBR-2).
 	///</summary>
-	public EI GetPlacerOrderNumber(int rep)
+	public EI PlacerOrderNumber
 	{
+		get{
 			EI ret = null;
 			try
 			{
-			IType t = this.GetField(2, rep);
+			IType t = this.GetField(2, 0);
 				ret = (EI)t;
+			}
+			 catch (HL7Exception he) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+				throw new System.Exception("An unexpected error ocurred", he);
 		} catch (System.Exception ex) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
 				throw new System.Exception("An unexpected error ocurred", ex);
     }
 			return ret;
+	}
   }
 
-  ///<summary>
-  /// Returns all repetitions of Placer Order Number (OBR-2).
-   ///</summary>
-  public EI[] GetPlacerOrderNumber() {
-     EI[] ret = null;
-    try {
-        IType[] t = this.GetField(2);  
-        ret = new EI[t.Length];
-        for (int i = 0; i < ret.Length; i++) {
-            ret[i] = (EI)t[i];
-        }
-    } catch (HL7Exception he) {
-        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-        throw new System.Exception("An unexpected error ocurred", he);
-    } catch (System.Exception cce) {
-        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
-        throw new System.Exception("An unexpected error ocurred", cce);
-  }
- return ret;
-}
-
-  ///<summary>
-  /// Returns the total repetitions of Placer Order Number (OBR-2).
-   ///</summary>
-  public int PlacerOrderNumberRepetitionsUsed
-{
-get{
-    try {
-	return GetTotalFieldRepetitionsUsed(2);
-    }
-catch (HL7Exception he) {
-        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-        throw new System.Exception("An unexpected error ocurred", he);
-} catch (System.Exception cce) {
-        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
-        throw new System.Exception("An unexpected error ocurred", cce);
-}
-}
-}
 	///<summary>
 	/// Returns Filler Order Number(OBR-3).
 	///</summary>
