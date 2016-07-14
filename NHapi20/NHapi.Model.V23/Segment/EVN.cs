@@ -14,7 +14,7 @@ namespace NHapi.Model.V23.Segment{
 ///<li>EVN-2: Recorded Date/Time (TS)</li>
 ///<li>EVN-3: Date/Time Planned Event (TS)</li>
 ///<li>EVN-4: Event Reason Code (ID)</li>
-///<li>EVN-5: Operator ID (CN)</li>
+///<li>EVN-5: Operator ID (XCN)</li>
 ///<li>EVN-6: Event occured (TS)</li>
 ///</ol>
 /// The get...() methods return data from individual fields.  These methods 
@@ -37,7 +37,7 @@ public class EVN : AbstractSegment  {
        this.add(typeof(TS), false, 1, 26, new System.Object[]{message}, "Recorded Date/Time");
        this.add(typeof(TS), false, 1, 26, new System.Object[]{message}, "Date/Time Planned Event");
        this.add(typeof(ID), false, 1, 3, new System.Object[]{message, 62}, "Event Reason Code");
-       this.add(typeof(CN), false, 1, 60, new System.Object[]{message}, "Operator ID");
+       this.add(typeof(XCN), false, 1, 60, new System.Object[]{message}, "Operator ID");
        this.add(typeof(TS), false, 1, 26, new System.Object[]{message}, "Event occured");
     } catch (HL7Exception he) {
         HapiLogFactory.GetHapiLog(GetType()).Error("Can't instantiate " + GetType().Name, he);
@@ -139,14 +139,14 @@ public class EVN : AbstractSegment  {
 	///<summary>
 	/// Returns Operator ID(EVN-5).
 	///</summary>
-	public CN OperatorID
+	public XCN OperatorID
 	{
 		get{
-			CN ret = null;
+			XCN ret = null;
 			try
 			{
 			IType t = this.GetField(5, 0);
-				ret = (CN)t;
+				ret = (XCN)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
