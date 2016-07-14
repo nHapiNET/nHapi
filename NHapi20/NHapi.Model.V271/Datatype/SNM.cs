@@ -3,7 +3,7 @@ using System;
 using NHapi.Base.Model;
 namespace NHapi.Model.V271.Datatype
 {
-/// <summary>/// Summary description for ST.
+/// <summary>/// Summary description for SNM.
 /// </summary>
 public class SNM: AbstractPrimitive
 {
