@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
+using NHapi.Model.V23.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -15,7 +16,7 @@ namespace NHapi.Model.V23.Message
 ///<ol>
 ///<li>0: MSH (Message header segment) </li>
 ///<li>1: MFI (Master file identification segment) </li>
-///<li>2: MFN_M10_MF_TEST_BATTERIES (a Group object) optional repeating</li>
+///<li>2: MFN_M10_MF_TEST_BATTERIES (a Group object) repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -42,7 +43,7 @@ public class MFN_M10 : AbstractMessage  {
 	   try {
 	      this.add(typeof(MSH), true, false);
 	      this.add(typeof(MFI), true, false);
-	      this.add(typeof(MFN_M10_MF_TEST_BATTERIES), false, true);
+	      this.add(typeof(MFN_M10_MF_TEST_BATTERIES), true, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating MFN_M10 - this is probably a bug in the source code generator.", e);
 	   }

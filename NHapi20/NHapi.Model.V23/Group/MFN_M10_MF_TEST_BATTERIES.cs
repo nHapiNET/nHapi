@@ -3,7 +3,7 @@ using NHapi.Base;
 using NHapi.Base.Log;
 using System;
 using NHapi.Model.V23.Segment;
-
+using NHapi.Model.V23.Datatype;
 using NHapi.Base.Model;
 
 namespace NHapi.Model.V23.Group
@@ -13,8 +13,9 @@ namespace NHapi.Model.V23.Group
 /// segments that can repeat together or be optionally in/excluded together.
 /// This Group contains the following elements: 
 ///<ol>
-///<li>0: OM5 (Observation batteries) </li>
-///<li>1: OM4 (Observations that require specimens) optional repeating</li>
+///<li>0: MFE (Master file entry segment) </li>
+///<li>1: OM1 (General - fields that apply to most observations) </li>
+///<li>2: MFN_M10_MF_TEST_BATT_DETAIL (a Group object) optional </li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -25,21 +26,22 @@ public class MFN_M10_MF_TEST_BATTERIES : AbstractGroup {
 	///</summary>
 	public MFN_M10_MF_TEST_BATTERIES(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
-	      this.add(typeof(OM5), true, false);
-	      this.add(typeof(OM4), false, true);
+	      this.add(typeof(MFE), true, false);
+	      this.add(typeof(OM1), true, false);
+	      this.add(typeof(MFN_M10_MF_TEST_BATT_DETAIL), false, false);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating MFN_M10_MF_TEST_BATTERIES - this is probably a bug in the source code generator.", e);
 	   }
 	}
 
 	///<summary>
-	/// Returns OM5 (Observation batteries) - creates it if necessary
+	/// Returns MFE (Master file entry segment) - creates it if necessary
 	///</summary>
-	public OM5 OM5 { 
+	public MFE MFE { 
 get{
-	   OM5 ret = null;
+	   MFE ret = null;
 	   try {
-	      ret = (OM5)this.GetStructure("OM5");
+	      ret = (MFE)this.GetStructure("MFE");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -49,45 +51,36 @@ get{
 	}
 
 	///<summary>
-	/// Returns  first repetition of OM4 (Observations that require specimens) - creates it if necessary
+	/// Returns OM1 (General - fields that apply to most observations) - creates it if necessary
 	///</summary>
-	public OM4 GetOM4() {
-	   OM4 ret = null;
+	public OM1 OM1 { 
+get{
+	   OM1 ret = null;
 	   try {
-	      ret = (OM4)this.GetStructure("OM4");
+	      ret = (OM1)this.GetStructure("OM1");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
 	   }
 	   return ret;
 	}
+	}
 
 	///<summary>
-	///Returns a specific repetition of OM4
-	/// * (Observations that require specimens) - creates it if necessary
-	/// throws HL7Exception if the repetition requested is more than one 
-	///     greater than the number of existing repetitions.
+	/// Returns MFN_M10_MF_TEST_BATT_DETAIL (a Group object) - creates it if necessary
 	///</summary>
-	public OM4 GetOM4(int rep) { 
-	   return (OM4)this.GetStructure("OM4", rep);
-	}
-
-	/** 
-	 * Returns the number of existing repetitions of OM4 
-	 */ 
-	public int OM4RepetitionsUsed { 
+	public MFN_M10_MF_TEST_BATT_DETAIL MF_TEST_BATT_DETAIL { 
 get{
-	    int reps = -1; 
-	    try { 
-	        reps = this.GetAll("OM4").Length; 
-	    } catch (HL7Exception e) { 
-	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
-	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
-	        throw new System.Exception(message);
-	    } 
-	    return reps; 
+	   MFN_M10_MF_TEST_BATT_DETAIL ret = null;
+	   try {
+	      ret = (MFN_M10_MF_TEST_BATT_DETAIL)this.GetStructure("MF_TEST_BATT_DETAIL");
+	   } catch(HL7Exception e) {
+	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
+	      throw new System.Exception("An unexpected error ocurred",e);
+	   }
+	   return ret;
 	}
-	} 
+	}
 
 }
 }

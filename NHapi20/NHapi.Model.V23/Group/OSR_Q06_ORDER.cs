@@ -3,7 +3,7 @@ using NHapi.Base;
 using NHapi.Base.Log;
 using System;
 using NHapi.Model.V23.Segment;
-
+using NHapi.Model.V23.Datatype;
 using NHapi.Base.Model;
 
 namespace NHapi.Model.V23.Group
@@ -15,8 +15,9 @@ namespace NHapi.Model.V23.Group
 ///<ol>
 ///<li>0: ORC (Common order segment) </li>
 ///<li>1: OBR (Observation request segment) optional </li>
-///<li>2: NTE (Notes and comments segment) optional repeating</li>
-///<li>3: CTI (Clinical Trial Identification) optional repeating</li>
+///<li>2: Hxx (any HL7 segment) </li>
+///<li>3: NTE (Notes and comments segment) optional repeating</li>
+///<li>4: CTI (Clinical Trial Identification) optional repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -29,6 +30,7 @@ public class OSR_Q06_ORDER : AbstractGroup {
 	   try {
 	      this.add(typeof(ORC), true, false);
 	      this.add(typeof(OBR), false, false);
+	      this.add(typeof(Hxx), true, false);
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(CTI), false, true);
 	   } catch(HL7Exception e) {
@@ -60,6 +62,22 @@ get{
 	   OBR ret = null;
 	   try {
 	      ret = (OBR)this.GetStructure("OBR");
+	   } catch(HL7Exception e) {
+	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
+	      throw new System.Exception("An unexpected error ocurred",e);
+	   }
+	   return ret;
+	}
+	}
+
+	///<summary>
+	/// Returns Hxx (any HL7 segment) - creates it if necessary
+	///</summary>
+	public Hxx Hxx { 
+get{
+	   Hxx ret = null;
+	   try {
+	      ret = (Hxx)this.GetStructure("Hxx");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);

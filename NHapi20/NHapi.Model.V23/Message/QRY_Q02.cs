@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
+using NHapi.Model.V23.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -17,7 +18,6 @@ namespace NHapi.Model.V23.Message
 ///<li>1: QRD (Query definition segment) </li>
 ///<li>2: QRF (Query filter segment) optional </li>
 ///<li>3: DSC (Continuation pointer segment) optional </li>
-///<li>4: QCK () </li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -46,7 +46,6 @@ public class QRY_Q02 : AbstractMessage  {
 	      this.add(typeof(QRD), true, false);
 	      this.add(typeof(QRF), false, false);
 	      this.add(typeof(DSC), false, false);
-	      this.add(typeof(QCK), true, false);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating QRY_Q02 - this is probably a bug in the source code generator.", e);
 	   }
@@ -115,22 +114,6 @@ get{
 	   DSC ret = null;
 	   try {
 	      ret = (DSC)this.GetStructure("DSC");
-	   } catch(HL7Exception e) {
-	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
-	      throw new System.Exception("An unexpected error ocurred",e);
-	   }
-	   return ret;
-	}
-	}
-
-	///<summary>
-	/// Returns QCK () - creates it if necessary
-	///</summary>
-	public QCK QCK { 
-get{
-	   QCK ret = null;
-	   try {
-	      ret = (QCK)this.GetStructure("QCK");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);

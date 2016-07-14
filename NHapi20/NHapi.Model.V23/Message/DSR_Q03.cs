@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
+using NHapi.Model.V23.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -15,10 +16,12 @@ namespace NHapi.Model.V23.Message
 ///<ol>
 ///<li>0: MSH (Message header segment) </li>
 ///<li>1: MSA (Message acknowledgement segment) optional </li>
-///<li>2: QRD (Query definition segment) </li>
-///<li>3: QRF (Query filter segment) optional </li>
-///<li>4: DSP (Display data segment) repeating</li>
-///<li>5: DSC (Continuation pointer segment) optional </li>
+///<li>2: ERR (Error segment) optional </li>
+///<li>3: QAK (Query Acknowledgement) optional </li>
+///<li>4: QRD (Query definition segment) </li>
+///<li>5: QRF (Query filter segment) optional </li>
+///<li>6: DSP (Display data segment) repeating</li>
+///<li>7: DSC (Continuation pointer segment) optional </li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -45,6 +48,8 @@ public class DSR_Q03 : AbstractMessage  {
 	   try {
 	      this.add(typeof(MSH), true, false);
 	      this.add(typeof(MSA), false, false);
+	      this.add(typeof(ERR), false, false);
+	      this.add(typeof(QAK), false, false);
 	      this.add(typeof(QRD), true, false);
 	      this.add(typeof(QRF), false, false);
 	      this.add(typeof(DSP), true, true);
@@ -85,6 +90,38 @@ get{
 	   MSA ret = null;
 	   try {
 	      ret = (MSA)this.GetStructure("MSA");
+	   } catch(HL7Exception e) {
+	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
+	      throw new System.Exception("An unexpected error ocurred",e);
+	   }
+	   return ret;
+	}
+	}
+
+	///<summary>
+	/// Returns ERR (Error segment) - creates it if necessary
+	///</summary>
+	public ERR ERR { 
+get{
+	   ERR ret = null;
+	   try {
+	      ret = (ERR)this.GetStructure("ERR");
+	   } catch(HL7Exception e) {
+	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
+	      throw new System.Exception("An unexpected error ocurred",e);
+	   }
+	   return ret;
+	}
+	}
+
+	///<summary>
+	/// Returns QAK (Query Acknowledgement) - creates it if necessary
+	///</summary>
+	public QAK QAK { 
+get{
+	   QAK ret = null;
+	   try {
+	      ret = (QAK)this.GetStructure("QAK");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);

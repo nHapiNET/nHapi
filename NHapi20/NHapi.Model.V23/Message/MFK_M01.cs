@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
+using NHapi.Model.V23.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -15,11 +16,12 @@ namespace NHapi.Model.V23.Message
 ///<ol>
 ///<li>0: MSH (Message header segment) </li>
 ///<li>1: MSA (Message acknowledgement segment) </li>
-///<li>2: MFI (Master file identification segment) </li>
+///<li>2: ERR (Error segment) optional </li>
 ///<li>3: ERR (Error segment) optional </li>
-///<li>4: MFA (Master file acknowledgement segment) optional repeating</li>
-///<li>5: MFI (Master file identification segment) </li>
-///<li>6: MFK_M01_MF (a Group object) repeating</li>
+///<li>4: MFI (Master file identification segment) </li>
+///<li>5: MFA (Master file acknowledgement segment) optional repeating</li>
+///<li>6: MFI (Master file identification segment) </li>
+///<li>7: MFK_M01_MF (a Group object) repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -46,8 +48,9 @@ public class MFK_M01 : AbstractMessage  {
 	   try {
 	      this.add(typeof(MSH), true, false);
 	      this.add(typeof(MSA), true, false);
-	      this.add(typeof(MFI), true, false);
 	      this.add(typeof(ERR), false, false);
+	      this.add(typeof(ERR), false, false);
+	      this.add(typeof(MFI), true, false);
 	      this.add(typeof(MFA), false, true);
 	      this.add(typeof(MFI), true, false);
 	      this.add(typeof(MFK_M01_MF), true, true);
@@ -96,13 +99,13 @@ get{
 	}
 
 	///<summary>
-	/// Returns MFI (Master file identification segment) - creates it if necessary
+	/// Returns ERR (Error segment) - creates it if necessary
 	///</summary>
-	public MFI MFI { 
+	public ERR ERR { 
 get{
-	   MFI ret = null;
+	   ERR ret = null;
 	   try {
-	      ret = (MFI)this.GetStructure("MFI");
+	      ret = (ERR)this.GetStructure("ERR");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -112,13 +115,29 @@ get{
 	}
 
 	///<summary>
-	/// Returns ERR (Error segment) - creates it if necessary
+	/// Returns ERR2 (Error segment) - creates it if necessary
 	///</summary>
-	public ERR ERR { 
+	public ERR ERR2 { 
 get{
 	   ERR ret = null;
 	   try {
-	      ret = (ERR)this.GetStructure("ERR");
+	      ret = (ERR)this.GetStructure("ERR2");
+	   } catch(HL7Exception e) {
+	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
+	      throw new System.Exception("An unexpected error ocurred",e);
+	   }
+	   return ret;
+	}
+	}
+
+	///<summary>
+	/// Returns MFI (Master file identification segment) - creates it if necessary
+	///</summary>
+	public MFI MFI { 
+get{
+	   MFI ret = null;
+	   try {
+	      ret = (MFI)this.GetStructure("MFI");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);

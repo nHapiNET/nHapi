@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
+using NHapi.Model.V23.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -14,7 +15,7 @@ namespace NHapi.Model.V23.Message
 /// following elements:
 ///<ol>
 ///<li>0: MSH (Message header segment) </li>
-///<li>1: RQI_I01_PRDCTD (a Group object) repeating</li>
+///<li>1: RQI_I01_PROVIDER (a Group object) repeating</li>
 ///<li>2: PID (Patient Identification) </li>
 ///<li>3: NK1 (Next of kin) optional repeating</li>
 ///<li>4: RQI_I01_GUARANTOR_INSURANCE (a Group object) optional </li>
@@ -44,7 +45,7 @@ public class RQI_I01 : AbstractMessage  {
 	private void init(IModelClassFactory factory) {
 	   try {
 	      this.add(typeof(MSH), true, false);
-	      this.add(typeof(RQI_I01_PRDCTD), true, true);
+	      this.add(typeof(RQI_I01_PROVIDER), true, true);
 	      this.add(typeof(PID), true, false);
 	      this.add(typeof(NK1), false, true);
 	      this.add(typeof(RQI_I01_GUARANTOR_INSURANCE), false, false);
@@ -78,12 +79,12 @@ get{
 	}
 
 	///<summary>
-	/// Returns  first repetition of RQI_I01_PRDCTD (a Group object) - creates it if necessary
+	/// Returns  first repetition of RQI_I01_PROVIDER (a Group object) - creates it if necessary
 	///</summary>
-	public RQI_I01_PRDCTD GetPRDCTD() {
-	   RQI_I01_PRDCTD ret = null;
+	public RQI_I01_PROVIDER GetPROVIDER() {
+	   RQI_I01_PROVIDER ret = null;
 	   try {
-	      ret = (RQI_I01_PRDCTD)this.GetStructure("PRDCTD");
+	      ret = (RQI_I01_PROVIDER)this.GetStructure("PROVIDER");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -92,23 +93,23 @@ get{
 	}
 
 	///<summary>
-	///Returns a specific repetition of RQI_I01_PRDCTD
+	///Returns a specific repetition of RQI_I01_PROVIDER
 	/// * (a Group object) - creates it if necessary
 	/// throws HL7Exception if the repetition requested is more than one 
 	///     greater than the number of existing repetitions.
 	///</summary>
-	public RQI_I01_PRDCTD GetPRDCTD(int rep) { 
-	   return (RQI_I01_PRDCTD)this.GetStructure("PRDCTD", rep);
+	public RQI_I01_PROVIDER GetPROVIDER(int rep) { 
+	   return (RQI_I01_PROVIDER)this.GetStructure("PROVIDER", rep);
 	}
 
 	/** 
-	 * Returns the number of existing repetitions of RQI_I01_PRDCTD 
+	 * Returns the number of existing repetitions of RQI_I01_PROVIDER 
 	 */ 
-	public int PRDCTDRepetitionsUsed { 
+	public int PROVIDERRepetitionsUsed { 
 get{
 	    int reps = -1; 
 	    try { 
-	        reps = this.GetAll("PRDCTD").Length; 
+	        reps = this.GetAll("PROVIDER").Length; 
 	    } catch (HL7Exception e) { 
 	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
 	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
