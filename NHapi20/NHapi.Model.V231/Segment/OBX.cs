@@ -45,9 +45,9 @@ public class OBX : AbstractSegment  {
 	IMessage message = Message;
     try {
        this.add(typeof(SI), false, 1, 4, new System.Object[]{message}, "Set ID - OBX");
-       this.add(typeof(ID), true, 1, 3, new System.Object[]{message, 125}, "Value Type");
+       this.add(typeof(ID), false, 1, 3, new System.Object[]{message, 125}, "Value Type");
        this.add(typeof(CE), true, 1, 80, new System.Object[]{message}, "Observation Identifier");
-       this.add(typeof(ST), true, 1, 20, new System.Object[]{message}, "Observation Sub-ID");
+       this.add(typeof(ST), false, 1, 20, new System.Object[]{message}, "Observation Sub-ID");
        this.add(typeof(Varies), false, 0, 65536, new System.Object[]{message}, "Observation Value");
        this.add(typeof(CE), false, 1, 60, new System.Object[]{message}, "Units");
        this.add(typeof(ST), false, 1, 60, new System.Object[]{message}, "References Range");
