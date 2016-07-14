@@ -9,8 +9,8 @@ namespace NHapi.Model.V24.Datatype
 
 ///<summary>
 /// <p>The HL7 EIP (parent order) data type.  Consists of the following components: </p><ol>
-/// <li>parent´s placer order number (EI)</li>
-/// <li>parent´s filler order number (EI)</li>
+/// <li>parent's placer order number (EI)</li>
+/// <li>parent's filler order number (EI)</li>
 /// </ol>
 ///</summary>
 [Serializable]
@@ -30,8 +30,8 @@ public class EIP : AbstractType, IComposite{
 	///</summary>
 	public EIP(IMessage message, string description) : base(message, description){
 		data = new IType[2];
-		data[0] = new EI(message,"Parent´s placer order number");
-		data[1] = new EI(message,"Parent´s filler order number");
+		data[0] = new EI(message,"Parent's placer order number");
+		data[1] = new EI(message,"Parent's filler order number");
 	}
 
 	///<summary>
@@ -61,7 +61,7 @@ get{
 	} 
 	} 
 	///<summary>
-	/// Returns parent´s placer order number (component #0).  This is a convenience method that saves you from 
+	/// Returns parent's placer order number (component #0).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
 	public EI ParentSPlacerOrderNumber {
@@ -78,7 +78,7 @@ get{
 
 }
 	///<summary>
-	/// Returns parent´s filler order number (component #1).  This is a convenience method that saves you from 
+	/// Returns parent's filler order number (component #1).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
 	public EI ParentSFillerOrderNumber {
