@@ -34,8 +34,8 @@ QRD|20060228155525|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||";
 			a01.MSH.SendingApplication.UniversalID.Value = "ThisOne";
 			a01.MSH.ReceivingApplication.UniversalID.Value = "COHIE";
 			a01.PID.PatientIDExternalID.ID.Value = "123456";
-			a01.PV1.AttendingDoctor.FamilyName.Value = "Jones";
-			a01.PV1.AttendingDoctor.GivenName.Value = "Mike";
+			a01.PV1.GetAttendingDoctor(0).FamilyName.Value = "Jones";
+			a01.PV1.GetAttendingDoctor(0).GivenName.Value = "Mike";
 			a01.PID.DateOfBirth.TimeOfAnEvent.SetShortDate(birthDate);
 
 			PipeParser parser = new PipeParser();
@@ -53,7 +53,7 @@ QRD|20060228155525|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||";
 
 			Assert.AreEqual(a01Test.PID.DateOfBirth.TimeOfAnEvent.GetAsDate().ToShortDateString(), birthDate.ToShortDateString());
 
-			Assert.AreEqual(a01Test.PV1.AttendingDoctor.FamilyName.Value, "Jones");
+			Assert.AreEqual(a01Test.PV1.GetAttendingDoctor(0).FamilyName.Value, "Jones");
 			Assert.AreEqual(a01Test.MSH.MessageType.MessageType.Value, "ADT");
 			Assert.AreEqual(a01Test.MSH.MessageType.TriggerEvent.Value, "A01");
 		}

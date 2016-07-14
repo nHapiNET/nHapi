@@ -85,17 +85,17 @@ public class PV1 : AbstractSegment  {
        this.add(typeof(ID), false, 1, 2, new System.Object[]{message, 7}, "Admission Type");
        this.add(typeof(CX), false, 1, 20, new System.Object[]{message}, "Preadmit Number");
        this.add(typeof(PL), false, 1, 12, new System.Object[]{message}, "Prior Patient Location");
-       this.add(typeof(XCN), false, 1, 60, new System.Object[]{message}, "Attending Doctor");
-       this.add(typeof(XCN), false, 1, 60, new System.Object[]{message}, "Referring Doctor");
+       this.add(typeof(XCN), false, 0, 60, new System.Object[]{message}, "Attending Doctor");
+       this.add(typeof(XCN), false, 0, 60, new System.Object[]{message}, "Referring Doctor");
        this.add(typeof(XCN), false, 0, 60, new System.Object[]{message}, "Consulting Doctor");
        this.add(typeof(ID), false, 1, 3, new System.Object[]{message, 69}, "Hospital Service");
        this.add(typeof(PL), false, 1, 12, new System.Object[]{message}, "Temporary Location");
        this.add(typeof(ID), false, 1, 2, new System.Object[]{message, 87}, "Preadmit Test Indicator");
        this.add(typeof(ID), false, 1, 2, new System.Object[]{message, 92}, "Readmission Indicator");
        this.add(typeof(ID), false, 1, 3, new System.Object[]{message, 23}, "Admit Source");
-       this.add(typeof(IS), false, 1, 2, new System.Object[]{message, 9}, "Ambulatory Status");
+       this.add(typeof(IS), false, 0, 2, new System.Object[]{message, 9}, "Ambulatory Status");
        this.add(typeof(ID), false, 1, 2, new System.Object[]{message, 99}, "VIP Indicator");
-       this.add(typeof(XCN), false, 1, 60, new System.Object[]{message}, "Admitting Doctor");
+       this.add(typeof(XCN), false, 0, 60, new System.Object[]{message}, "Admitting Doctor");
        this.add(typeof(ID), false, 1, 2, new System.Object[]{message, 18}, "Patient Type");
        this.add(typeof(CX), false, 1, 15, new System.Object[]{message}, "Visit Number");
        this.add(typeof(FC), false, 0, 50, new System.Object[]{message}, "Financial Class");
@@ -275,51 +275,121 @@ public class PV1 : AbstractSegment  {
   }
 
 	///<summary>
-	/// Returns Attending Doctor(PV1-7).
+	/// Returns a single repetition of Attending Doctor(PV1-7).
+	/// throws HL7Exception if the repetition number is invalid.
+	/// <param name="rep">The repetition number (this is a repeating field)</param>
 	///</summary>
-	public XCN AttendingDoctor
+	public XCN GetAttendingDoctor(int rep)
 	{
-		get{
 			XCN ret = null;
 			try
 			{
-			IType t = this.GetField(7, 0);
+			IType t = this.GetField(7, rep);
 				ret = (XCN)t;
-			}
-			 catch (HL7Exception he) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-				throw new System.Exception("An unexpected error ocurred", he);
 		} catch (System.Exception ex) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
 				throw new System.Exception("An unexpected error ocurred", ex);
     }
 			return ret;
-	}
   }
 
+  ///<summary>
+  /// Returns all repetitions of Attending Doctor (PV1-7).
+   ///</summary>
+  public XCN[] GetAttendingDoctor() {
+     XCN[] ret = null;
+    try {
+        IType[] t = this.GetField(7);  
+        ret = new XCN[t.Length];
+        for (int i = 0; i < ret.Length; i++) {
+            ret[i] = (XCN)t[i];
+        }
+    } catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error ocurred", he);
+    } catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error ocurred", cce);
+  }
+ return ret;
+}
+
+  ///<summary>
+  /// Returns the total repetitions of Attending Doctor (PV1-7).
+   ///</summary>
+  public int AttendingDoctorRepetitionsUsed
+{
+get{
+    try {
+	return GetTotalFieldRepetitionsUsed(7);
+    }
+catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error ocurred", he);
+} catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error ocurred", cce);
+}
+}
+}
 	///<summary>
-	/// Returns Referring Doctor(PV1-8).
+	/// Returns a single repetition of Referring Doctor(PV1-8).
+	/// throws HL7Exception if the repetition number is invalid.
+	/// <param name="rep">The repetition number (this is a repeating field)</param>
 	///</summary>
-	public XCN ReferringDoctor
+	public XCN GetReferringDoctor(int rep)
 	{
-		get{
 			XCN ret = null;
 			try
 			{
-			IType t = this.GetField(8, 0);
+			IType t = this.GetField(8, rep);
 				ret = (XCN)t;
-			}
-			 catch (HL7Exception he) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-				throw new System.Exception("An unexpected error ocurred", he);
 		} catch (System.Exception ex) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
 				throw new System.Exception("An unexpected error ocurred", ex);
     }
 			return ret;
-	}
   }
 
+  ///<summary>
+  /// Returns all repetitions of Referring Doctor (PV1-8).
+   ///</summary>
+  public XCN[] GetReferringDoctor() {
+     XCN[] ret = null;
+    try {
+        IType[] t = this.GetField(8);  
+        ret = new XCN[t.Length];
+        for (int i = 0; i < ret.Length; i++) {
+            ret[i] = (XCN)t[i];
+        }
+    } catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error ocurred", he);
+    } catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error ocurred", cce);
+  }
+ return ret;
+}
+
+  ///<summary>
+  /// Returns the total repetitions of Referring Doctor (PV1-8).
+   ///</summary>
+  public int ReferringDoctorRepetitionsUsed
+{
+get{
+    try {
+	return GetTotalFieldRepetitionsUsed(8);
+    }
+catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error ocurred", he);
+} catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error ocurred", cce);
+}
+}
+}
 	///<summary>
 	/// Returns a single repetition of Consulting Doctor(PV1-9).
 	/// throws HL7Exception if the repetition number is invalid.
@@ -494,28 +564,63 @@ catch (HL7Exception he) {
   }
 
 	///<summary>
-	/// Returns Ambulatory Status(PV1-15).
+	/// Returns a single repetition of Ambulatory Status(PV1-15).
+	/// throws HL7Exception if the repetition number is invalid.
+	/// <param name="rep">The repetition number (this is a repeating field)</param>
 	///</summary>
-	public IS AmbulatoryStatus
+	public IS GetAmbulatoryStatus(int rep)
 	{
-		get{
 			IS ret = null;
 			try
 			{
-			IType t = this.GetField(15, 0);
+			IType t = this.GetField(15, rep);
 				ret = (IS)t;
-			}
-			 catch (HL7Exception he) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-				throw new System.Exception("An unexpected error ocurred", he);
 		} catch (System.Exception ex) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
 				throw new System.Exception("An unexpected error ocurred", ex);
     }
 			return ret;
-	}
   }
 
+  ///<summary>
+  /// Returns all repetitions of Ambulatory Status (PV1-15).
+   ///</summary>
+  public IS[] GetAmbulatoryStatus() {
+     IS[] ret = null;
+    try {
+        IType[] t = this.GetField(15);  
+        ret = new IS[t.Length];
+        for (int i = 0; i < ret.Length; i++) {
+            ret[i] = (IS)t[i];
+        }
+    } catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error ocurred", he);
+    } catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error ocurred", cce);
+  }
+ return ret;
+}
+
+  ///<summary>
+  /// Returns the total repetitions of Ambulatory Status (PV1-15).
+   ///</summary>
+  public int AmbulatoryStatusRepetitionsUsed
+{
+get{
+    try {
+	return GetTotalFieldRepetitionsUsed(15);
+    }
+catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error ocurred", he);
+} catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error ocurred", cce);
+}
+}
+}
 	///<summary>
 	/// Returns VIP Indicator(PV1-16).
 	///</summary>
@@ -540,28 +645,63 @@ catch (HL7Exception he) {
   }
 
 	///<summary>
-	/// Returns Admitting Doctor(PV1-17).
+	/// Returns a single repetition of Admitting Doctor(PV1-17).
+	/// throws HL7Exception if the repetition number is invalid.
+	/// <param name="rep">The repetition number (this is a repeating field)</param>
 	///</summary>
-	public XCN AdmittingDoctor
+	public XCN GetAdmittingDoctor(int rep)
 	{
-		get{
 			XCN ret = null;
 			try
 			{
-			IType t = this.GetField(17, 0);
+			IType t = this.GetField(17, rep);
 				ret = (XCN)t;
-			}
-			 catch (HL7Exception he) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-				throw new System.Exception("An unexpected error ocurred", he);
 		} catch (System.Exception ex) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
 				throw new System.Exception("An unexpected error ocurred", ex);
     }
 			return ret;
-	}
   }
 
+  ///<summary>
+  /// Returns all repetitions of Admitting Doctor (PV1-17).
+   ///</summary>
+  public XCN[] GetAdmittingDoctor() {
+     XCN[] ret = null;
+    try {
+        IType[] t = this.GetField(17);  
+        ret = new XCN[t.Length];
+        for (int i = 0; i < ret.Length; i++) {
+            ret[i] = (XCN)t[i];
+        }
+    } catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error ocurred", he);
+    } catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error ocurred", cce);
+  }
+ return ret;
+}
+
+  ///<summary>
+  /// Returns the total repetitions of Admitting Doctor (PV1-17).
+   ///</summary>
+  public int AdmittingDoctorRepetitionsUsed
+{
+get{
+    try {
+	return GetTotalFieldRepetitionsUsed(17);
+    }
+catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error ocurred", he);
+} catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error ocurred", cce);
+}
+}
+}
 	///<summary>
 	/// Returns Patient Type(PV1-18).
 	///</summary>
