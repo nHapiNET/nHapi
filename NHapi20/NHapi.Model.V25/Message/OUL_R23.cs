@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V25.Group;
 using NHapi.Model.V25.Segment;
+using NHapi.Model.V25.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -18,7 +19,7 @@ namespace NHapi.Model.V25.Message
 ///<li>2: NTE (Notes and Comments) optional </li>
 ///<li>3: OUL_R23_PATIENT (a Group object) optional </li>
 ///<li>4: OUL_R23_VISIT (a Group object) optional </li>
-///<li>5: OUL_R23_SPMOBXSACINVOBRORCNTETQ1TQ2OBXTCDSIDNTECTI (a Group object) repeating</li>
+///<li>5: OUL_R23_SPECIMEN (a Group object) repeating</li>
 ///<li>6: DSC (Continuation Pointer) optional </li>
 ///</ol>
 ///</summary>
@@ -49,7 +50,7 @@ public class OUL_R23 : AbstractMessage  {
 	      this.add(typeof(NTE), false, false);
 	      this.add(typeof(OUL_R23_PATIENT), false, false);
 	      this.add(typeof(OUL_R23_VISIT), false, false);
-	      this.add(typeof(OUL_R23_SPMOBXSACINVOBRORCNTETQ1TQ2OBXTCDSIDNTECTI), true, true);
+	      this.add(typeof(OUL_R23_SPECIMEN), true, true);
 	      this.add(typeof(DSC), false, false);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating OUL_R23 - this is probably a bug in the source code generator.", e);
@@ -169,12 +170,12 @@ get{
 	}
 
 	///<summary>
-	/// Returns  first repetition of OUL_R23_SPMOBXSACINVOBRORCNTETQ1TQ2OBXTCDSIDNTECTI (a Group object) - creates it if necessary
+	/// Returns  first repetition of OUL_R23_SPECIMEN (a Group object) - creates it if necessary
 	///</summary>
-	public OUL_R23_SPMOBXSACINVOBRORCNTETQ1TQ2OBXTCDSIDNTECTI GetSPMOBXSACINVOBRORCNTETQ1TQ2OBXTCDSIDNTECTI() {
-	   OUL_R23_SPMOBXSACINVOBRORCNTETQ1TQ2OBXTCDSIDNTECTI ret = null;
+	public OUL_R23_SPECIMEN GetSPECIMEN() {
+	   OUL_R23_SPECIMEN ret = null;
 	   try {
-	      ret = (OUL_R23_SPMOBXSACINVOBRORCNTETQ1TQ2OBXTCDSIDNTECTI)this.GetStructure("SPMOBXSACINVOBRORCNTETQ1TQ2OBXTCDSIDNTECTI");
+	      ret = (OUL_R23_SPECIMEN)this.GetStructure("SPECIMEN");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -183,23 +184,23 @@ get{
 	}
 
 	///<summary>
-	///Returns a specific repetition of OUL_R23_SPMOBXSACINVOBRORCNTETQ1TQ2OBXTCDSIDNTECTI
+	///Returns a specific repetition of OUL_R23_SPECIMEN
 	/// * (a Group object) - creates it if necessary
 	/// throws HL7Exception if the repetition requested is more than one 
 	///     greater than the number of existing repetitions.
 	///</summary>
-	public OUL_R23_SPMOBXSACINVOBRORCNTETQ1TQ2OBXTCDSIDNTECTI GetSPMOBXSACINVOBRORCNTETQ1TQ2OBXTCDSIDNTECTI(int rep) { 
-	   return (OUL_R23_SPMOBXSACINVOBRORCNTETQ1TQ2OBXTCDSIDNTECTI)this.GetStructure("SPMOBXSACINVOBRORCNTETQ1TQ2OBXTCDSIDNTECTI", rep);
+	public OUL_R23_SPECIMEN GetSPECIMEN(int rep) { 
+	   return (OUL_R23_SPECIMEN)this.GetStructure("SPECIMEN", rep);
 	}
 
 	/** 
-	 * Returns the number of existing repetitions of OUL_R23_SPMOBXSACINVOBRORCNTETQ1TQ2OBXTCDSIDNTECTI 
+	 * Returns the number of existing repetitions of OUL_R23_SPECIMEN 
 	 */ 
-	public int SPMOBXSACINVOBRORCNTETQ1TQ2OBXTCDSIDNTECTIRepetitionsUsed { 
+	public int SPECIMENRepetitionsUsed { 
 get{
 	    int reps = -1; 
 	    try { 
-	        reps = this.GetAll("SPMOBXSACINVOBRORCNTETQ1TQ2OBXTCDSIDNTECTI").Length; 
+	        reps = this.GetAll("SPECIMEN").Length; 
 	    } catch (HL7Exception e) { 
 	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
 	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 

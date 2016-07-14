@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V25.Group;
 using NHapi.Model.V25.Segment;
+using NHapi.Model.V25.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -20,7 +21,7 @@ namespace NHapi.Model.V25.Message
 ///<li>4: PV1 (Patient Visit) </li>
 ///<li>5: MDM_T02_COMMON_ORDER (a Group object) optional repeating</li>
 ///<li>6: TXA (Transcription Document Header) </li>
-///<li>7: MDM_T02_OBXNTE (a Group object) repeating</li>
+///<li>7: MDM_T02_OBSERVATION (a Group object) repeating</li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -52,7 +53,7 @@ public class MDM_T02 : AbstractMessage  {
 	      this.add(typeof(PV1), true, false);
 	      this.add(typeof(MDM_T02_COMMON_ORDER), false, true);
 	      this.add(typeof(TXA), true, false);
-	      this.add(typeof(MDM_T02_OBXNTE), true, true);
+	      this.add(typeof(MDM_T02_OBSERVATION), true, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating MDM_T02 - this is probably a bug in the source code generator.", e);
 	   }
@@ -228,12 +229,12 @@ get{
 	}
 
 	///<summary>
-	/// Returns  first repetition of MDM_T02_OBXNTE (a Group object) - creates it if necessary
+	/// Returns  first repetition of MDM_T02_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
-	public MDM_T02_OBXNTE GetOBXNTE() {
-	   MDM_T02_OBXNTE ret = null;
+	public MDM_T02_OBSERVATION GetOBSERVATION() {
+	   MDM_T02_OBSERVATION ret = null;
 	   try {
-	      ret = (MDM_T02_OBXNTE)this.GetStructure("OBXNTE");
+	      ret = (MDM_T02_OBSERVATION)this.GetStructure("OBSERVATION");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -242,23 +243,23 @@ get{
 	}
 
 	///<summary>
-	///Returns a specific repetition of MDM_T02_OBXNTE
+	///Returns a specific repetition of MDM_T02_OBSERVATION
 	/// * (a Group object) - creates it if necessary
 	/// throws HL7Exception if the repetition requested is more than one 
 	///     greater than the number of existing repetitions.
 	///</summary>
-	public MDM_T02_OBXNTE GetOBXNTE(int rep) { 
-	   return (MDM_T02_OBXNTE)this.GetStructure("OBXNTE", rep);
+	public MDM_T02_OBSERVATION GetOBSERVATION(int rep) { 
+	   return (MDM_T02_OBSERVATION)this.GetStructure("OBSERVATION", rep);
 	}
 
 	/** 
-	 * Returns the number of existing repetitions of MDM_T02_OBXNTE 
+	 * Returns the number of existing repetitions of MDM_T02_OBSERVATION 
 	 */ 
-	public int OBXNTERepetitionsUsed { 
+	public int OBSERVATIONRepetitionsUsed { 
 get{
 	    int reps = -1; 
 	    try { 
-	        reps = this.GetAll("OBXNTE").Length; 
+	        reps = this.GetAll("OBSERVATION").Length; 
 	    } catch (HL7Exception e) { 
 	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
 	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
