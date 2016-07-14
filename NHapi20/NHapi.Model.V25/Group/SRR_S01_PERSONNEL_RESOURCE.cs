@@ -3,7 +3,7 @@ using NHapi.Base;
 using NHapi.Base.Log;
 using System;
 using NHapi.Model.V25.Segment;
-
+using NHapi.Model.V25.Datatype;
 using NHapi.Base.Model;
 
 namespace NHapi.Model.V25.Group
@@ -13,7 +13,7 @@ namespace NHapi.Model.V25.Group
 /// segments that can repeat together or be optionally in/excluded together.
 /// This Group contains the following elements: 
 ///<ol>
-///<li>0: AIP (Appointment Information _ Personnel Resource) </li>
+///<li>0: AIP (Appointment Information - Personnel Resource) </li>
 ///<li>1: NTE (Notes and Comments) optional repeating</li>
 ///</ol>
 ///</summary>
@@ -33,7 +33,7 @@ public class SRR_S01_PERSONNEL_RESOURCE : AbstractGroup {
 	}
 
 	///<summary>
-	/// Returns AIP (Appointment Information _ Personnel Resource) - creates it if necessary
+	/// Returns AIP (Appointment Information - Personnel Resource) - creates it if necessary
 	///</summary>
 	public AIP AIP { 
 get{

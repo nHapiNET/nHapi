@@ -3,7 +3,7 @@ using NHapi.Base;
 using NHapi.Base.Log;
 using System;
 using NHapi.Model.V25.Segment;
-
+using NHapi.Model.V25.Datatype;
 using NHapi.Base.Model;
 
 namespace NHapi.Model.V25.Group
@@ -14,7 +14,7 @@ namespace NHapi.Model.V25.Group
 /// This Group contains the following elements: 
 ///<ol>
 ///<li>0: ORC (Common Order) </li>
-///<li>1: OML_O35_TIIMING (a Group object) optional repeating</li>
+///<li>1: OML_O35_TIMING (a Group object) optional repeating</li>
 ///<li>2: OML_O35_OBSERVATION_REQUEST (a Group object) optional </li>
 ///<li>3: FT1 (Financial Transaction) optional repeating</li>
 ///<li>4: CTI (Clinical Trial Identification) optional repeating</li>
@@ -30,7 +30,7 @@ public class OML_O35_ORDER : AbstractGroup {
 	public OML_O35_ORDER(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
 	      this.add(typeof(ORC), true, false);
-	      this.add(typeof(OML_O35_TIIMING), false, true);
+	      this.add(typeof(OML_O35_TIMING), false, true);
 	      this.add(typeof(OML_O35_OBSERVATION_REQUEST), false, false);
 	      this.add(typeof(FT1), false, true);
 	      this.add(typeof(CTI), false, true);
@@ -57,12 +57,12 @@ get{
 	}
 
 	///<summary>
-	/// Returns  first repetition of OML_O35_TIIMING (a Group object) - creates it if necessary
+	/// Returns  first repetition of OML_O35_TIMING (a Group object) - creates it if necessary
 	///</summary>
-	public OML_O35_TIIMING GetTIIMING() {
-	   OML_O35_TIIMING ret = null;
+	public OML_O35_TIMING GetTIMING() {
+	   OML_O35_TIMING ret = null;
 	   try {
-	      ret = (OML_O35_TIIMING)this.GetStructure("TIIMING");
+	      ret = (OML_O35_TIMING)this.GetStructure("TIMING");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -71,23 +71,23 @@ get{
 	}
 
 	///<summary>
-	///Returns a specific repetition of OML_O35_TIIMING
+	///Returns a specific repetition of OML_O35_TIMING
 	/// * (a Group object) - creates it if necessary
 	/// throws HL7Exception if the repetition requested is more than one 
 	///     greater than the number of existing repetitions.
 	///</summary>
-	public OML_O35_TIIMING GetTIIMING(int rep) { 
-	   return (OML_O35_TIIMING)this.GetStructure("TIIMING", rep);
+	public OML_O35_TIMING GetTIMING(int rep) { 
+	   return (OML_O35_TIMING)this.GetStructure("TIMING", rep);
 	}
 
 	/** 
-	 * Returns the number of existing repetitions of OML_O35_TIIMING 
+	 * Returns the number of existing repetitions of OML_O35_TIMING 
 	 */ 
-	public int TIIMINGRepetitionsUsed { 
+	public int TIMINGRepetitionsUsed { 
 get{
 	    int reps = -1; 
 	    try { 
-	        reps = this.GetAll("TIIMING").Length; 
+	        reps = this.GetAll("TIMING").Length; 
 	    } catch (HL7Exception e) { 
 	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
 	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 

@@ -3,7 +3,7 @@ using NHapi.Base;
 using NHapi.Base.Log;
 using System;
 using NHapi.Model.V25.Segment;
-
+using NHapi.Model.V25.Datatype;
 using NHapi.Base.Model;
 
 namespace NHapi.Model.V25.Group
@@ -13,7 +13,7 @@ namespace NHapi.Model.V25.Group
 /// segments that can repeat together or be optionally in/excluded together.
 /// This Group contains the following elements: 
 ///<ol>
-///<li>0: AIL (Appointment Information _ Location Resource) </li>
+///<li>0: AIL (Appointment Information - Location Resource) </li>
 ///<li>1: NTE (Notes and Comments) optional repeating</li>
 ///</ol>
 ///</summary>
@@ -33,7 +33,7 @@ public class SRR_S01_LOCATION_RESOURCE : AbstractGroup {
 	}
 
 	///<summary>
-	/// Returns AIL (Appointment Information _ Location Resource) - creates it if necessary
+	/// Returns AIL (Appointment Information - Location Resource) - creates it if necessary
 	///</summary>
 	public AIL AIL { 
 get{

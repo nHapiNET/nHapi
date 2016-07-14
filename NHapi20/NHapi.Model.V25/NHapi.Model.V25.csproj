@@ -238,6 +238,7 @@
     <Compile Include="Group\MDM_T01_COMMON_ORDER.cs" />
     <Compile Include="Group\MDM_T01_TIMING.cs" />
     <Compile Include="Group\MDM_T02_COMMON_ORDER.cs" />
+    <Compile Include="Group\MDM_T02_OBSERVATION.cs" />
     <Compile Include="Group\MDM_T02_OBXNTE.cs" />
     <Compile Include="Group\MDM_T02_TIMING.cs" />
     <Compile Include="Group\MFN_M01_MF.cs" />
@@ -319,7 +320,7 @@
     <Compile Include="Group\OML_O21_PATIENT_VISIT_PRIOR.cs" />
     <Compile Include="Group\OML_O21_PRIOR_RESULT.cs" />
     <Compile Include="Group\OML_O21_SPECIMEN.cs" />
-    <Compile Include="Group\OML_O21_TIIMING.cs" />
+    <Compile Include="Group\OML_O21_TIMING.cs" />
     <Compile Include="Group\OML_O21_TIMING_PRIOR.cs" />
     <Compile Include="Group\OML_O33_INSURANCE.cs" />
     <Compile Include="Group\OML_O33_OBSERVATION.cs" />
@@ -333,7 +334,7 @@
     <Compile Include="Group\OML_O33_PATIENT_VISIT_PRIOR.cs" />
     <Compile Include="Group\OML_O33_PRIOR_RESULT.cs" />
     <Compile Include="Group\OML_O33_SPECIMEN.cs" />
-    <Compile Include="Group\OML_O33_TIIMING.cs" />
+    <Compile Include="Group\OML_O33_TIMING.cs" />
     <Compile Include="Group\OML_O33_TIMING_PRIOR.cs" />
     <Compile Include="Group\OML_O35_INSURANCE.cs" />
     <Compile Include="Group\OML_O35_OBSERVATION.cs" />
@@ -348,7 +349,7 @@
     <Compile Include="Group\OML_O35_PRIOR_RESULT.cs" />
     <Compile Include="Group\OML_O35_SPECIMEN.cs" />
     <Compile Include="Group\OML_O35_SPECIMEN_CONTAINER.cs" />
-    <Compile Include="Group\OML_O35_TIIMING.cs" />
+    <Compile Include="Group\OML_O35_TIMING.cs" />
     <Compile Include="Group\OML_O35_TIMING_PRIOR.cs" />
     <Compile Include="Group\OMN_O07_INSURANCE.cs" />
     <Compile Include="Group\OMN_O07_OBSERVATION.cs" />
@@ -466,6 +467,7 @@
     <Compile Include="Group\OUL_R23_ORDER.cs" />
     <Compile Include="Group\OUL_R23_PATIENT.cs" />
     <Compile Include="Group\OUL_R23_RESULT.cs" />
+    <Compile Include="Group\OUL_R23_SPECIMEN.cs" />
     <Compile Include="Group\OUL_R23_SPMOBXSACINVOBRORCNTETQ1TQ2OBXTCDSIDNTECTI.cs" />
     <Compile Include="Group\OUL_R23_TIMING_QTY.cs" />
     <Compile Include="Group\OUL_R23_VISIT.cs" />
@@ -1051,6 +1053,7 @@
     <Compile Include="Segment\CM1.cs" />
     <Compile Include="Segment\CM2.cs" />
     <Compile Include="Segment\CNS.cs" />
+    <Compile Include="Segment\CON1.cs" />
     <Compile Include="Segment\CSP.cs" />
     <Compile Include="Segment\CSR.cs" />
     <Compile Include="Segment\CSS.cs" />
