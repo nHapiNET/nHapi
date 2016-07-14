@@ -15,7 +15,7 @@ namespace NHapi.Model.V271.Datatype
 /// <li>Second and Further Given Names or Initials Thereof (ST)</li>
 /// <li>Suffix (e.g., JR or III) (ST)</li>
 /// <li>Prefix (e.g., DR) (ST)</li>
-/// <li>Degree (e.g., MD) (XCN)</li>
+/// <li>Degree (e.g., MD) (IS)</li>
 /// <li>Source Table (CWE)</li>
 /// <li>Assigning Authority (HD)</li>
 /// <li>Name Type Code (ID)</li>
@@ -25,7 +25,7 @@ namespace NHapi.Model.V271.Datatype
 /// <li>Assigning Facility (HD)</li>
 /// <li>Name Representation Code (ID)</li>
 /// <li>Name Context (CWE)</li>
-/// <li>Name Validity Range (XCN)</li>
+/// <li>Name Validity Range (DR)</li>
 /// <li>Name Assembly Order (ID)</li>
 /// <li>Effective Date (DTM)</li>
 /// <li>Expiration Date (DTM)</li>
@@ -59,7 +59,7 @@ public class XCN : AbstractType, IComposite{
 		data[3] = new ST(message,"Second and Further Given Names or Initials Thereof");
 		data[4] = new ST(message,"Suffix (e.g., JR or III)");
 		data[5] = new ST(message,"Prefix (e.g., DR)");
-		data[6] = new IS(message, 360, "Degree (e.g., MD)");
+		data[6] = new IS(message, 0,"Degree (e.g., MD)");
 		data[7] = new CWE(message,"Source Table");
 		data[8] = new HD(message,"Assigning Authority");
 		data[9] = new ID(message, 200,"Name Type Code");
@@ -212,11 +212,11 @@ get{
 	/// Returns Degree (e.g., MD) (component #6).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public XCN DegreeEgMD {
+	public IS DegreeEgMD {
 get{
-	   XCN ret = null;
+	   IS ret = null;
 	   try {
-	      ret = (XCN)this[6];
+	      ret = (IS)this[6];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -382,11 +382,11 @@ get{
 	/// Returns Name Validity Range (component #16).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public XCN NameValidityRange {
+	public DR NameValidityRange {
 get{
-	   XCN ret = null;
+	   DR ret = null;
 	   try {
-	      ret = (XCN)this[16];
+	      ret = (DR)this[16];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
