@@ -80,9 +80,9 @@ public class NK1 : AbstractSegment  {
        this.add(typeof(IS), false, 0, 1, new System.Object[]{message, 2}, "Marital Status");
        this.add(typeof(IS), false, 1, 1, new System.Object[]{message, 1}, "Sex");
        this.add(typeof(TS), false, 1, 26, new System.Object[]{message}, "Date of Birth");
-       this.add(typeof(IS), false, 1, 2, new System.Object[]{message, 223}, "Living Dependency");
-       this.add(typeof(IS), false, 1, 2, new System.Object[]{message, 9}, "Ambulatory Status");
-       this.add(typeof(IS), false, 1, 4, new System.Object[]{message, 171}, "Citizenship");
+       this.add(typeof(IS), false, 0, 2, new System.Object[]{message, 223}, "Living Dependency");
+       this.add(typeof(IS), false, 0, 2, new System.Object[]{message, 9}, "Ambulatory Status");
+       this.add(typeof(IS), false, 0, 4, new System.Object[]{message, 171}, "Citizenship");
        this.add(typeof(CE), false, 1, 60, new System.Object[]{message}, "Primary Language");
        this.add(typeof(IS), false, 1, 2, new System.Object[]{message, 220}, "Living Arrangement");
        this.add(typeof(CE), false, 1, 1, new System.Object[]{message}, "Publicity Indicator");
@@ -92,7 +92,7 @@ public class NK1 : AbstractSegment  {
        this.add(typeof(XPN), false, 1, 48, new System.Object[]{message}, "Mother’s Maiden Name");
        this.add(typeof(CE), false, 1, 80, new System.Object[]{message}, "Nationality Code");
        this.add(typeof(IS), false, 1, 1, new System.Object[]{message, 189}, "Ethnic Group");
-       this.add(typeof(CE), false, 1, 2, new System.Object[]{message}, "Contact Reason");
+       this.add(typeof(CE), false, 0, 2, new System.Object[]{message}, "Contact Reason");
        this.add(typeof(XPN), false, 0, 48, new System.Object[]{message}, "Contact Person's Name");
        this.add(typeof(XTN), false, 0, 40, new System.Object[]{message}, "Contact Person’s Telephone Number");
        this.add(typeof(XAD), false, 0, 106, new System.Object[]{message}, "Contact Person’s Address");
@@ -685,74 +685,179 @@ catch (HL7Exception he) {
   }
 
 	///<summary>
-	/// Returns Living Dependency(NK1-17).
+	/// Returns a single repetition of Living Dependency(NK1-17).
+	/// throws HL7Exception if the repetition number is invalid.
+	/// <param name="rep">The repetition number (this is a repeating field)</param>
 	///</summary>
-	public IS LivingDependency
+	public IS GetLivingDependency(int rep)
 	{
-		get{
 			IS ret = null;
 			try
 			{
-			IType t = this.GetField(17, 0);
+			IType t = this.GetField(17, rep);
 				ret = (IS)t;
-			}
-			 catch (HL7Exception he) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-				throw new System.Exception("An unexpected error ocurred", he);
 		} catch (System.Exception ex) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
 				throw new System.Exception("An unexpected error ocurred", ex);
     }
 			return ret;
-	}
   }
 
+  ///<summary>
+  /// Returns all repetitions of Living Dependency (NK1-17).
+   ///</summary>
+  public IS[] GetLivingDependency() {
+     IS[] ret = null;
+    try {
+        IType[] t = this.GetField(17);  
+        ret = new IS[t.Length];
+        for (int i = 0; i < ret.Length; i++) {
+            ret[i] = (IS)t[i];
+        }
+    } catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error ocurred", he);
+    } catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error ocurred", cce);
+  }
+ return ret;
+}
+
+  ///<summary>
+  /// Returns the total repetitions of Living Dependency (NK1-17).
+   ///</summary>
+  public int LivingDependencyRepetitionsUsed
+{
+get{
+    try {
+	return GetTotalFieldRepetitionsUsed(17);
+    }
+catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error ocurred", he);
+} catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error ocurred", cce);
+}
+}
+}
 	///<summary>
-	/// Returns Ambulatory Status(NK1-18).
+	/// Returns a single repetition of Ambulatory Status(NK1-18).
+	/// throws HL7Exception if the repetition number is invalid.
+	/// <param name="rep">The repetition number (this is a repeating field)</param>
 	///</summary>
-	public IS AmbulatoryStatus
+	public IS GetAmbulatoryStatus(int rep)
 	{
-		get{
 			IS ret = null;
 			try
 			{
-			IType t = this.GetField(18, 0);
+			IType t = this.GetField(18, rep);
 				ret = (IS)t;
-			}
-			 catch (HL7Exception he) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-				throw new System.Exception("An unexpected error ocurred", he);
 		} catch (System.Exception ex) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
 				throw new System.Exception("An unexpected error ocurred", ex);
     }
 			return ret;
-	}
   }
 
+  ///<summary>
+  /// Returns all repetitions of Ambulatory Status (NK1-18).
+   ///</summary>
+  public IS[] GetAmbulatoryStatus() {
+     IS[] ret = null;
+    try {
+        IType[] t = this.GetField(18);  
+        ret = new IS[t.Length];
+        for (int i = 0; i < ret.Length; i++) {
+            ret[i] = (IS)t[i];
+        }
+    } catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error ocurred", he);
+    } catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error ocurred", cce);
+  }
+ return ret;
+}
+
+  ///<summary>
+  /// Returns the total repetitions of Ambulatory Status (NK1-18).
+   ///</summary>
+  public int AmbulatoryStatusRepetitionsUsed
+{
+get{
+    try {
+	return GetTotalFieldRepetitionsUsed(18);
+    }
+catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error ocurred", he);
+} catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error ocurred", cce);
+}
+}
+}
 	///<summary>
-	/// Returns Citizenship(NK1-19).
+	/// Returns a single repetition of Citizenship(NK1-19).
+	/// throws HL7Exception if the repetition number is invalid.
+	/// <param name="rep">The repetition number (this is a repeating field)</param>
 	///</summary>
-	public IS Citizenship
+	public IS GetCitizenship(int rep)
 	{
-		get{
 			IS ret = null;
 			try
 			{
-			IType t = this.GetField(19, 0);
+			IType t = this.GetField(19, rep);
 				ret = (IS)t;
-			}
-			 catch (HL7Exception he) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-				throw new System.Exception("An unexpected error ocurred", he);
 		} catch (System.Exception ex) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
 				throw new System.Exception("An unexpected error ocurred", ex);
     }
 			return ret;
-	}
   }
 
+  ///<summary>
+  /// Returns all repetitions of Citizenship (NK1-19).
+   ///</summary>
+  public IS[] GetCitizenship() {
+     IS[] ret = null;
+    try {
+        IType[] t = this.GetField(19);  
+        ret = new IS[t.Length];
+        for (int i = 0; i < ret.Length; i++) {
+            ret[i] = (IS)t[i];
+        }
+    } catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error ocurred", he);
+    } catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error ocurred", cce);
+  }
+ return ret;
+}
+
+  ///<summary>
+  /// Returns the total repetitions of Citizenship (NK1-19).
+   ///</summary>
+  public int CitizenshipRepetitionsUsed
+{
+get{
+    try {
+	return GetTotalFieldRepetitionsUsed(19);
+    }
+catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error ocurred", he);
+} catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error ocurred", cce);
+}
+}
+}
 	///<summary>
 	/// Returns Primary Language(NK1-20).
 	///</summary>
@@ -961,28 +1066,63 @@ catch (HL7Exception he) {
   }
 
 	///<summary>
-	/// Returns Contact Reason(NK1-29).
+	/// Returns a single repetition of Contact Reason(NK1-29).
+	/// throws HL7Exception if the repetition number is invalid.
+	/// <param name="rep">The repetition number (this is a repeating field)</param>
 	///</summary>
-	public CE ContactReason
+	public CE GetContactReason(int rep)
 	{
-		get{
 			CE ret = null;
 			try
 			{
-			IType t = this.GetField(29, 0);
+			IType t = this.GetField(29, rep);
 				ret = (CE)t;
-			}
-			 catch (HL7Exception he) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-				throw new System.Exception("An unexpected error ocurred", he);
 		} catch (System.Exception ex) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
 				throw new System.Exception("An unexpected error ocurred", ex);
     }
 			return ret;
-	}
   }
 
+  ///<summary>
+  /// Returns all repetitions of Contact Reason (NK1-29).
+   ///</summary>
+  public CE[] GetContactReason() {
+     CE[] ret = null;
+    try {
+        IType[] t = this.GetField(29);  
+        ret = new CE[t.Length];
+        for (int i = 0; i < ret.Length; i++) {
+            ret[i] = (CE)t[i];
+        }
+    } catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error ocurred", he);
+    } catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error ocurred", cce);
+  }
+ return ret;
+}
+
+  ///<summary>
+  /// Returns the total repetitions of Contact Reason (NK1-29).
+   ///</summary>
+  public int ContactReasonRepetitionsUsed
+{
+get{
+    try {
+	return GetTotalFieldRepetitionsUsed(29);
+    }
+catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error ocurred", he);
+} catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error ocurred", cce);
+}
+}
+}
 	///<summary>
 	/// Returns a single repetition of Contact Person's Name(NK1-30).
 	/// throws HL7Exception if the repetition number is invalid.
