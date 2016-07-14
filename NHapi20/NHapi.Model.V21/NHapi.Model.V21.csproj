@@ -84,6 +84,7 @@
     <Compile Include="Datatype\TN.cs" />
     <Compile Include="Datatype\TS.cs" />
     <Compile Include="Datatype\TX.cs" />
+    <Compile Include="Group\ADR_A19_QUERY_RESPONSE.cs" />
     <Compile Include="Group\ADT_A17_PATIENT.cs" />
     <Compile Include="Group\ARD_A19_QUERY_RESPONSE.cs" />
     <Compile Include="Group\BAR_P01_VISIT.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Group\ORU_R03_ORDER_OBSERVATION.cs" />
     <Compile Include="Group\ORU_R03_PATIENT.cs" />
     <Compile Include="Group\ORU_R03_PATIENT_RESULT.cs" />
+    <Compile Include="Message\ADR_A19.cs" />
     <Compile Include="Message\ADT_A01.cs" />
     <Compile Include="Message\ADT_A02.cs" />
     <Compile Include="Message\ADT_A03.cs" />
