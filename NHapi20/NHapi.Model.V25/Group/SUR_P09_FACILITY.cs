@@ -5,6 +5,7 @@ using System;
 using NHapi.Model.V25.Segment;
 
 using NHapi.Base.Model;
+using NHapi.Model.V25.Datatype;
 
 namespace NHapi.Model.V25.Group
 {

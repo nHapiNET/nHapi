@@ -1060,7 +1060,6 @@
     <Compile Include="Segment\DSP.cs" />
     <Compile Include="Segment\ECD.cs" />
     <Compile Include="Segment\ECR.cs" />
-    <Compile Include="Segment\ED.cs" />
     <Compile Include="Segment\EDU.cs" />
     <Compile Include="Segment\EQL.cs" />
     <Compile Include="Segment\EQP.cs" />
