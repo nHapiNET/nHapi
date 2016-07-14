@@ -236,7 +236,10 @@ namespace NHapi.Base.SourceGeneration
 			preamble.Append("using System;\r\n");
 			preamble.Append("using ");
 			preamble.Append(PackageManager.GetVersionPackageName(version));
-			preamble.Append("Segment;\r\n\r\n");
+			preamble.Append("Segment;\r\n");
+			preamble.Append("using ");
+			preamble.Append(PackageManager.GetVersionPackageName(version));
+			preamble.Append("Datatype;\r\n");
 			preamble.Append("using NHapi.Base.Model;\r\n\r\n");
 			preamble.Append("namespace ");
 			preamble.Append(PackageManager.GetVersionPackageName(version));
