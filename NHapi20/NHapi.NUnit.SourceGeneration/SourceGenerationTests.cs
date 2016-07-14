@@ -11,10 +11,9 @@ namespace NHapi.NUnit.SourceGeneration
 		{
 			string[] versionsToGenerate = new[]
 			{
-				//"2.1",
-				
 				// Known good generations:
-				"2.2",
+				"2.1",
+				//"2.2",
 				//"2.3",
 				//"2.3.1",
 				//"2.4",
