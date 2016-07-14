@@ -429,6 +429,11 @@ namespace NHapi.Base.SourceGeneration
 				source.Append(dtName);
 				source.Append(" ");
 				source.Append(SourceGenerator.MakeAccessorName(descriptions[i]));
+				bool duplicateField = descriptions.Count(element => GetDescription(element) == GetDescription(descriptions[i])) > 1;
+				if (duplicateField)
+				{
+					source.Append("_" + i);
+				}
 				source.Append(" {\r\n");
 				source.Append("get{\r\n");
 				source.Append("\t   ");
