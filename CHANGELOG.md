@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 ###
 -
 
+## [2.5.0.1] - 2016-07-14
+### Breaking Changes
+- Many breaking changes for v2.2, v2.3 and v2.3.1.  These are all due to fields not correctly being repeating or single fields, incorrect data types etc.
+- All versions now successfully able to be code generated once more.
 ## [2.4.0.20] - 2016-07-13
 ### Added
 - Initial implementation for HL7 version 2.8.1
