@@ -8,7 +8,7 @@ namespace NHapi.Model.V23.Datatype
 {
 
 ///<summary>
-/// <p>The HL7 CP (Composite Price (2.8.8)) data type.  Consists of the following components: </p><ol>
+/// <p>The HL7 CP (Composite Price) data type.  Consists of the following components: </p><ol>
 /// <li>price (MO)</li>
 /// <li>price type (ID)</li>
 /// <li>from value (NM)</li>

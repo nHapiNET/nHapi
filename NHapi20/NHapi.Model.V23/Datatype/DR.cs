@@ -8,7 +8,7 @@ namespace NHapi.Model.V23.Datatype
 {
 
 ///<summary>
-/// <p>The HL7 DR (Date Time Range (2.8.12)) data type.  Consists of the following components: </p><ol>
+/// <p>The HL7 DR (Date Time Range) data type.  Consists of the following components: </p><ol>
 /// <li>range start date/time (TS)</li>
 /// <li>range end date/time (TS)</li>
 /// </ol>

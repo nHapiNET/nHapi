@@ -8,7 +8,7 @@ namespace NHapi.Model.V23.Datatype
 {
 
 ///<summary>
-/// <p>The HL7 CD (Channel Definition (2.8.2)) data type.  Consists of the following components: </p><ol>
+/// <p>The HL7 CD (Channel Definition) data type.  Consists of the following components: </p><ol>
 /// <li>channel identifier (CM_WVI)</li>
 /// <li>electrode names (CM_CD_ELECTRODE)</li>
 /// <li>channel sensitivity/units (CM_CSU)</li>
