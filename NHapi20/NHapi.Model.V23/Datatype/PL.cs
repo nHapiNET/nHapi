@@ -17,7 +17,7 @@ namespace NHapi.Model.V23.Datatype
 /// <li>person location type (IS)</li>
 /// <li>building (IS)</li>
 /// <li>floor (ST)</li>
-/// <li>Location type (ST)</li>
+/// <li>Location description (ST)</li>
 /// </ol>
 ///</summary>
 [Serializable]
@@ -45,7 +45,7 @@ public class PL : AbstractType, IComposite{
 		data[5] = new IS(message, 0,"Person location type");
 		data[6] = new IS(message, 0,"Building");
 		data[7] = new ST(message,"Floor");
-		data[8] = new ST(message,"Location type");
+		data[8] = new ST(message,"Location description");
 	}
 
 	///<summary>
@@ -211,10 +211,10 @@ get{
 
 }
 	///<summary>
-	/// Returns Location type (component #8).  This is a convenience method that saves you from 
+	/// Returns Location description (component #8).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public ST LocationType {
+	public ST LocationDescription {
 get{
 	   ST ret = null;
 	   try {

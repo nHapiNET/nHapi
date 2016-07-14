@@ -11,9 +11,9 @@ namespace NHapi.Model.V23.Datatype
 /// <p>The HL7 ED (encapsulated data) data type.  Consists of the following components: </p><ol>
 /// <li>source application (HD)</li>
 /// <li>type of data (ID)</li>
-/// <li>data1 (ID)</li>
+/// <li>data subtype (ID)</li>
 /// <li>encoding (ID)</li>
-/// <li>data2 (ST)</li>
+/// <li>data (ST)</li>
 /// </ol>
 ///</summary>
 [Serializable]
@@ -35,9 +35,9 @@ public class ED : AbstractType, IComposite{
 		data = new IType[5];
 		data[0] = new HD(message,"Source application");
 		data[1] = new ID(message, 0,"Type of data");
-		data[2] = new ID(message, 0,"Data1");
+		data[2] = new ID(message, 0,"Data subtype");
 		data[3] = new ID(message, 0,"Encoding");
-		data[4] = new ST(message,"Data2");
+		data[4] = new ST(message,"Data");
 	}
 
 	///<summary>
@@ -101,10 +101,10 @@ get{
 
 }
 	///<summary>
-	/// Returns data1 (component #2).  This is a convenience method that saves you from 
+	/// Returns data subtype (component #2).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public ID Data1 {
+	public ID DataSubtype {
 get{
 	   ID ret = null;
 	   try {
@@ -135,10 +135,10 @@ get{
 
 }
 	///<summary>
-	/// Returns data2 (component #4).  This is a convenience method that saves you from 
+	/// Returns data (component #4).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public ST Data2 {
+	public ST Data {
 get{
 	   ST ret = null;
 	   try {
