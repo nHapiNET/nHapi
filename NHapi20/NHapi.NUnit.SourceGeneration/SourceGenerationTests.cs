@@ -13,10 +13,10 @@ namespace NHapi.NUnit.SourceGeneration
 			{
 				//"2.1",
 				//"2.2",
-				//"2.3",
 				
 				// Known good generations:
-				"2.3.1",
+				"2.3",
+				//"2.3.1",
 				//"2.4",
 				//"2.5",
 				//"2.5.1",
