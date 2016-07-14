@@ -13,7 +13,7 @@ namespace NHapi.Model.V25.Segment{
 ///<li>MFE-1: Record-Level Event Code (ID)</li>
 ///<li>MFE-2: MFN Control ID (ST)</li>
 ///<li>MFE-3: Effective Date/Time (TS)</li>
-///<li>MFE-4: Primary Key Value - MFE (Varies)</li>
+///<li>MFE-4: Primary Key Value - MFE (varies)</li>
 ///<li>MFE-5: Primary Key Value Type (ID)</li>
 ///</ol>
 /// The get...() methods return data from individual fields.  These methods 

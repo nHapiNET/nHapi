@@ -61,7 +61,7 @@ namespace NHapi.Model.V25.Segment{
 ///<li>IN1-49: Insured's ID Number (CX)</li>
 ///<li>IN1-50: Signature Code (IS)</li>
 ///<li>IN1-51: Signature Code Date (DT)</li>
-///<li>IN1-52: Insured_s Birth Place (ST)</li>
+///<li>IN1-52: Insured's Birth Place (ST)</li>
 ///<li>IN1-53: VIP Indicator (IS)</li>
 ///</ol>
 /// The get...() methods return data from individual fields.  These methods 
@@ -131,7 +131,7 @@ public class IN1 : AbstractSegment  {
        this.add(typeof(CX), false, 0, 250, new System.Object[]{message}, "Insured's ID Number");
        this.add(typeof(IS), false, 1, 1, new System.Object[]{message, 535}, "Signature Code");
        this.add(typeof(DT), false, 1, 8, new System.Object[]{message}, "Signature Code Date");
-       this.add(typeof(ST), false, 1, 250, new System.Object[]{message}, "Insured_s Birth Place");
+       this.add(typeof(ST), false, 1, 250, new System.Object[]{message}, "Insured's Birth Place");
        this.add(typeof(IS), false, 1, 2, new System.Object[]{message, 99}, "VIP Indicator");
     } catch (HL7Exception he) {
         HapiLogFactory.GetHapiLog(GetType()).Error("Can't instantiate " + GetType().Name, he);
@@ -1767,7 +1767,7 @@ catch (HL7Exception he) {
   }
 
 	///<summary>
-	/// Returns Insured_s Birth Place(IN1-52).
+	/// Returns Insured's Birth Place(IN1-52).
 	///</summary>
 	public ST InsuredSBirthPlace
 	{

@@ -10,7 +10,7 @@ namespace NHapi.Model.V25.Segment{
 ///<summary>
 /// Represents an HL7 BPX message segment. 
 /// This segment has the following fields:<ol>
-///<li>BPX-1: Set ID _ BPX (SI)</li>
+///<li>BPX-1: Set ID - BPX (SI)</li>
 ///<li>BPX-2: BP Dispense Status (CWE)</li>
 ///<li>BPX-3: BP Status (ID)</li>
 ///<li>BPX-4: BP Date/Time of Status (TS)</li>
@@ -48,7 +48,7 @@ public class BPX : AbstractSegment  {
 	public BPX(IGroup parent, IModelClassFactory factory) : base(parent,factory) {
 	IMessage message = Message;
     try {
-       this.add(typeof(SI), true, 1, 4, new System.Object[]{message}, "Set ID _ BPX");
+       this.add(typeof(SI), true, 1, 4, new System.Object[]{message}, "Set ID - BPX");
        this.add(typeof(CWE), true, 1, 250, new System.Object[]{message}, "BP Dispense Status");
        this.add(typeof(ID), true, 1, 1, new System.Object[]{message, 511}, "BP Status");
        this.add(typeof(TS), true, 1, 26, new System.Object[]{message}, "BP Date/Time of Status");
@@ -75,7 +75,7 @@ public class BPX : AbstractSegment  {
   }
 
 	///<summary>
-	/// Returns Set ID _ BPX(BPX-1).
+	/// Returns Set ID - BPX(BPX-1).
 	///</summary>
 	public SI SetIDBPX
 	{

@@ -10,7 +10,7 @@ namespace NHapi.Model.V25.Segment{
 ///<summary>
 /// Represents an HL7 ORG message segment. 
 /// This segment has the following fields:<ol>
-///<li>ORG-1: Set ID _ ORG (SI)</li>
+///<li>ORG-1: Set ID - ORG (SI)</li>
 ///<li>ORG-2: Organization Unit Code (CE)</li>
 ///<li>ORG-3: Organization Unit Type Code (CE)</li>
 ///<li>ORG-4: Primary Org Unit Indicator (ID)</li>
@@ -39,7 +39,7 @@ public class ORG : AbstractSegment  {
 	public ORG(IGroup parent, IModelClassFactory factory) : base(parent,factory) {
 	IMessage message = Message;
     try {
-       this.add(typeof(SI), true, 1, 60, new System.Object[]{message}, "Set ID _ ORG");
+       this.add(typeof(SI), true, 1, 60, new System.Object[]{message}, "Set ID - ORG");
        this.add(typeof(CE), false, 1, 250, new System.Object[]{message}, "Organization Unit Code");
        this.add(typeof(CE), false, 1, 250, new System.Object[]{message}, "Organization Unit Type Code");
        this.add(typeof(ID), false, 1, 1, new System.Object[]{message, 136}, "Primary Org Unit Indicator");
@@ -57,7 +57,7 @@ public class ORG : AbstractSegment  {
   }
 
 	///<summary>
-	/// Returns Set ID _ ORG(ORG-1).
+	/// Returns Set ID - ORG(ORG-1).
 	///</summary>
 	public SI SetIDORG
 	{

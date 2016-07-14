@@ -33,7 +33,7 @@ namespace NHapi.Model.V25.Segment{
 public class AIL : AbstractSegment  {
 
   /**
-   * Creates a AIL (Appointment Information _ Location Resource) segment object that belongs to the given 
+   * Creates a AIL (Appointment Information - Location Resource) segment object that belongs to the given 
    * message.  
    */
 	public AIL(IGroup parent, IModelClassFactory factory) : base(parent,factory) {

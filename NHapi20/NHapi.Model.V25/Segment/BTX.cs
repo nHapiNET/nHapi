@@ -10,7 +10,7 @@ namespace NHapi.Model.V25.Segment{
 ///<summary>
 /// Represents an HL7 BTX message segment. 
 /// This segment has the following fields:<ol>
-///<li>BTX-1: Set ID _ BTX (SI)</li>
+///<li>BTX-1: Set ID - BTX (SI)</li>
 ///<li>BTX-2: BC Donation ID (EI)</li>
 ///<li>BTX-3: BC Component (CNE)</li>
 ///<li>BTX-4: BC Blood Group (CNE)</li>
@@ -46,7 +46,7 @@ public class BTX : AbstractSegment  {
 	public BTX(IGroup parent, IModelClassFactory factory) : base(parent,factory) {
 	IMessage message = Message;
     try {
-       this.add(typeof(SI), true, 1, 4, new System.Object[]{message}, "Set ID _ BTX");
+       this.add(typeof(SI), true, 1, 4, new System.Object[]{message}, "Set ID - BTX");
        this.add(typeof(EI), false, 1, 22, new System.Object[]{message}, "BC Donation ID");
        this.add(typeof(CNE), false, 1, 250, new System.Object[]{message}, "BC Component");
        this.add(typeof(CNE), false, 1, 250, new System.Object[]{message}, "BC Blood Group");
@@ -71,7 +71,7 @@ public class BTX : AbstractSegment  {
   }
 
 	///<summary>
-	/// Returns Set ID _ BTX(BTX-1).
+	/// Returns Set ID - BTX(BTX-1).
 	///</summary>
 	public SI SetIDBTX
 	{

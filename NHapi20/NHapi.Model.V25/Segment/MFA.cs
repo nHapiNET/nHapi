@@ -14,7 +14,7 @@ namespace NHapi.Model.V25.Segment{
 ///<li>MFA-2: MFN Control ID (ST)</li>
 ///<li>MFA-3: Event Completion Date/Time (TS)</li>
 ///<li>MFA-4: MFN Record Level Error Return (CE)</li>
-///<li>MFA-5: Primary Key Value - MFA (Varies)</li>
+///<li>MFA-5: Primary Key Value - MFA (varies)</li>
 ///<li>MFA-6: Primary Key Value Type - MFA (ID)</li>
 ///</ol>
 /// The get...() methods return data from individual fields.  These methods 

@@ -33,7 +33,7 @@ namespace NHapi.Model.V25.Segment{
 public class AIP : AbstractSegment  {
 
   /**
-   * Creates a AIP (Appointment Information _ Personnel Resource) segment object that belongs to the given 
+   * Creates a AIP (Appointment Information - Personnel Resource) segment object that belongs to the given 
    * message.  
    */
 	public AIP(IGroup parent, IModelClassFactory factory) : base(parent,factory) {

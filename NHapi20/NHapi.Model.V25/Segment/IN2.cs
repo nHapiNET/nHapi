@@ -81,7 +81,7 @@ namespace NHapi.Model.V25.Segment{
 ///<li>IN2-69: Insured Organization Name and ID (XON)</li>
 ///<li>IN2-70: Insured Employer Organization Name and ID (XON)</li>
 ///<li>IN2-71: Race (CE)</li>
-///<li>IN2-72: CMS Patient_s Relationship to Insured (CE)</li>
+///<li>IN2-72: CMS Patient's Relationship to Insured (CE)</li>
 ///</ol>
 /// The get...() methods return data from individual fields.  These methods 
 /// do not throw exceptions and may therefore have to handle exceptions internally.  
@@ -170,7 +170,7 @@ public class IN2 : AbstractSegment  {
        this.add(typeof(XON), false, 0, 250, new System.Object[]{message}, "Insured Organization Name and ID");
        this.add(typeof(XON), false, 0, 250, new System.Object[]{message}, "Insured Employer Organization Name and ID");
        this.add(typeof(CE), false, 0, 250, new System.Object[]{message}, "Race");
-       this.add(typeof(CE), false, 1, 250, new System.Object[]{message}, "CMS Patient_s Relationship to Insured");
+       this.add(typeof(CE), false, 1, 250, new System.Object[]{message}, "CMS Patient's Relationship to Insured");
     } catch (HL7Exception he) {
         HapiLogFactory.GetHapiLog(GetType()).Error("Can't instantiate " + GetType().Name, he);
     }
@@ -2755,7 +2755,7 @@ catch (HL7Exception he) {
 }
 }
 	///<summary>
-	/// Returns CMS Patient_s Relationship to Insured(IN2-72).
+	/// Returns CMS Patient's Relationship to Insured(IN2-72).
 	///</summary>
 	public CE CMSPatientSRelationshipToInsured
 	{

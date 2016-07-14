@@ -10,7 +10,7 @@ namespace NHapi.Model.V25.Segment{
 ///<summary>
 /// Represents an HL7 CER message segment. 
 /// This segment has the following fields:<ol>
-///<li>CER-1: Set ID _ CER (SI)</li>
+///<li>CER-1: Set ID - CER (SI)</li>
 ///<li>CER-2: Serial Number (ST)</li>
 ///<li>CER-3: Version (ST)</li>
 ///<li>CER-4: Granting Authority (XON)</li>
@@ -58,7 +58,7 @@ public class CER : AbstractSegment  {
 	public CER(IGroup parent, IModelClassFactory factory) : base(parent,factory) {
 	IMessage message = Message;
     try {
-       this.add(typeof(SI), true, 1, 4, new System.Object[]{message}, "Set ID _ CER");
+       this.add(typeof(SI), true, 1, 4, new System.Object[]{message}, "Set ID - CER");
        this.add(typeof(ST), false, 1, 80, new System.Object[]{message}, "Serial Number");
        this.add(typeof(ST), false, 1, 80, new System.Object[]{message}, "Version");
        this.add(typeof(XON), false, 1, 250, new System.Object[]{message}, "Granting Authority");
@@ -95,7 +95,7 @@ public class CER : AbstractSegment  {
   }
 
 	///<summary>
-	/// Returns Set ID _ CER(CER-1).
+	/// Returns Set ID - CER(CER-1).
 	///</summary>
 	public SI SetIDCER
 	{

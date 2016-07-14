@@ -35,7 +35,7 @@ namespace NHapi.Model.V25.Segment{
 public class AIG : AbstractSegment  {
 
   /**
-   * Creates a AIG (Appointment Information _ General Resource) segment object that belongs to the given 
+   * Creates a AIG (Appointment Information - General Resource) segment object that belongs to the given 
    * message.  
    */
 	public AIG(IGroup parent, IModelClassFactory factory) : base(parent,factory) {

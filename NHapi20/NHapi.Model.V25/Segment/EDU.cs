@@ -10,7 +10,7 @@ namespace NHapi.Model.V25.Segment{
 ///<summary>
 /// Represents an HL7 EDU message segment. 
 /// This segment has the following fields:<ol>
-///<li>EDU-1: Set ID _ EDU (SI)</li>
+///<li>EDU-1: Set ID - EDU (SI)</li>
 ///<li>EDU-2: Academic Degree (IS)</li>
 ///<li>EDU-3: Academic Degree Program Date Range (DR)</li>
 ///<li>EDU-4: Academic Degree Program Participation Date Range (DR)</li>
@@ -36,7 +36,7 @@ public class EDU : AbstractSegment  {
 	public EDU(IGroup parent, IModelClassFactory factory) : base(parent,factory) {
 	IMessage message = Message;
     try {
-       this.add(typeof(SI), true, 1, 60, new System.Object[]{message}, "Set ID _ EDU");
+       this.add(typeof(SI), true, 1, 60, new System.Object[]{message}, "Set ID - EDU");
        this.add(typeof(IS), false, 1, 10, new System.Object[]{message, 360}, "Academic Degree");
        this.add(typeof(DR), false, 1, 52, new System.Object[]{message}, "Academic Degree Program Date Range");
        this.add(typeof(DR), false, 1, 52, new System.Object[]{message}, "Academic Degree Program Participation Date Range");
@@ -51,7 +51,7 @@ public class EDU : AbstractSegment  {
   }
 
 	///<summary>
-	/// Returns Set ID _ EDU(EDU-1).
+	/// Returns Set ID - EDU(EDU-1).
 	///</summary>
 	public SI SetIDEDU
 	{

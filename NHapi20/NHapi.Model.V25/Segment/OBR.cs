@@ -14,7 +14,7 @@ namespace NHapi.Model.V25.Segment{
 ///<li>OBR-2: Placer Order Number (EI)</li>
 ///<li>OBR-3: Filler Order Number (EI)</li>
 ///<li>OBR-4: Universal Service Identifier (CE)</li>
-///<li>OBR-5: Priority _ OBR (ID)</li>
+///<li>OBR-5: Priority - OBR (ID)</li>
 ///<li>OBR-6: Requested Date/Time (TS)</li>
 ///<li>OBR-7: Observation Date/Time (TS)</li>
 ///<li>OBR-8: Observation End Date/Time (TS)</li>
@@ -80,7 +80,7 @@ public class OBR : AbstractSegment  {
        this.add(typeof(EI), false, 1, 22, new System.Object[]{message}, "Placer Order Number");
        this.add(typeof(EI), false, 1, 22, new System.Object[]{message}, "Filler Order Number");
        this.add(typeof(CE), true, 1, 250, new System.Object[]{message}, "Universal Service Identifier");
-       this.add(typeof(ID), false, 1, 2, new System.Object[]{message, 0}, "Priority _ OBR");
+       this.add(typeof(ID), false, 1, 2, new System.Object[]{message, 0}, "Priority - OBR");
        this.add(typeof(TS), false, 1, 26, new System.Object[]{message}, "Requested Date/Time");
        this.add(typeof(TS), false, 1, 26, new System.Object[]{message}, "Observation Date/Time");
        this.add(typeof(TS), false, 1, 26, new System.Object[]{message}, "Observation End Date/Time");
@@ -223,7 +223,7 @@ public class OBR : AbstractSegment  {
   }
 
 	///<summary>
-	/// Returns Priority _ OBR(OBR-5).
+	/// Returns Priority - OBR(OBR-5).
 	///</summary>
 	public ID PriorityOBR
 	{

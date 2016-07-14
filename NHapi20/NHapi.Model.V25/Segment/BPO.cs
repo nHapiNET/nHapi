@@ -10,9 +10,9 @@ namespace NHapi.Model.V25.Segment{
 ///<summary>
 /// Represents an HL7 BPO message segment. 
 /// This segment has the following fields:<ol>
-///<li>BPO-1: Set ID _ BPO (SI)</li>
+///<li>BPO-1: Set ID - BPO (SI)</li>
 ///<li>BPO-2: BP Universal Service ID (CWE)</li>
-///<li>BPO-3: BP  Processing Requirements (CWE)</li>
+///<li>BPO-3: BP Processing Requirements (CWE)</li>
 ///<li>BPO-4: BP Quantity (NM)</li>
 ///<li>BPO-5: BP Amount (NM)</li>
 ///<li>BPO-6: BP Units (CE)</li>
@@ -41,9 +41,9 @@ public class BPO : AbstractSegment  {
 	public BPO(IGroup parent, IModelClassFactory factory) : base(parent,factory) {
 	IMessage message = Message;
     try {
-       this.add(typeof(SI), true, 1, 4, new System.Object[]{message}, "Set ID _ BPO");
+       this.add(typeof(SI), true, 1, 4, new System.Object[]{message}, "Set ID - BPO");
        this.add(typeof(CWE), true, 1, 250, new System.Object[]{message}, "BP Universal Service ID");
-       this.add(typeof(CWE), false, 0, 250, new System.Object[]{message}, "BP  Processing Requirements");
+       this.add(typeof(CWE), false, 0, 250, new System.Object[]{message}, "BP Processing Requirements");
        this.add(typeof(NM), true, 1, 5, new System.Object[]{message}, "BP Quantity");
        this.add(typeof(NM), false, 1, 5, new System.Object[]{message}, "BP Amount");
        this.add(typeof(CE), false, 1, 250, new System.Object[]{message}, "BP Units");
@@ -61,7 +61,7 @@ public class BPO : AbstractSegment  {
   }
 
 	///<summary>
-	/// Returns Set ID _ BPO(BPO-1).
+	/// Returns Set ID - BPO(BPO-1).
 	///</summary>
 	public SI SetIDBPO
 	{
@@ -107,7 +107,7 @@ public class BPO : AbstractSegment  {
   }
 
 	///<summary>
-	/// Returns a single repetition of BP  Processing Requirements(BPO-3).
+	/// Returns a single repetition of BP Processing Requirements(BPO-3).
 	/// throws HL7Exception if the repetition number is invalid.
 	/// <param name="rep">The repetition number (this is a repeating field)</param>
 	///</summary>
@@ -126,7 +126,7 @@ public class BPO : AbstractSegment  {
   }
 
   ///<summary>
-  /// Returns all repetitions of BP  Processing Requirements (BPO-3).
+  /// Returns all repetitions of BP Processing Requirements (BPO-3).
    ///</summary>
   public CWE[] GetBPProcessingRequirements() {
      CWE[] ret = null;
@@ -147,7 +147,7 @@ public class BPO : AbstractSegment  {
 }
 
   ///<summary>
-  /// Returns the total repetitions of BP  Processing Requirements (BPO-3).
+  /// Returns the total repetitions of BP Processing Requirements (BPO-3).
    ///</summary>
   public int BPProcessingRequirementsRepetitionsUsed
 {

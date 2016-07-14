@@ -10,7 +10,7 @@ namespace NHapi.Model.V25.Segment{
 ///<summary>
 /// Represents an HL7 AFF message segment. 
 /// This segment has the following fields:<ol>
-///<li>AFF-1: Set ID _ AFF (SI)</li>
+///<li>AFF-1: Set ID - AFF (SI)</li>
 ///<li>AFF-2: Professional Organization (XON)</li>
 ///<li>AFF-3: Professional Organization Address (XAD)</li>
 ///<li>AFF-4: Professional Organization Affiliation Date Range (DR)</li>
@@ -32,7 +32,7 @@ public class AFF : AbstractSegment  {
 	public AFF(IGroup parent, IModelClassFactory factory) : base(parent,factory) {
 	IMessage message = Message;
     try {
-       this.add(typeof(SI), true, 1, 60, new System.Object[]{message}, "Set ID _ AFF");
+       this.add(typeof(SI), true, 1, 60, new System.Object[]{message}, "Set ID - AFF");
        this.add(typeof(XON), true, 1, 250, new System.Object[]{message}, "Professional Organization");
        this.add(typeof(XAD), false, 1, 250, new System.Object[]{message}, "Professional Organization Address");
        this.add(typeof(DR), false, 0, 52, new System.Object[]{message}, "Professional Organization Affiliation Date Range");
@@ -43,7 +43,7 @@ public class AFF : AbstractSegment  {
   }
 
 	///<summary>
-	/// Returns Set ID _ AFF(AFF-1).
+	/// Returns Set ID - AFF(AFF-1).
 	///</summary>
 	public SI SetIDAFF
 	{

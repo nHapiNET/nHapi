@@ -10,7 +10,7 @@ namespace NHapi.Model.V25.Segment{
 ///<summary>
 /// Represents an HL7 LAN message segment. 
 /// This segment has the following fields:<ol>
-///<li>LAN-1: Set ID _ LAN (SI)</li>
+///<li>LAN-1: Set ID - LAN (SI)</li>
 ///<li>LAN-2: Language Code (CE)</li>
 ///<li>LAN-3: Language Ability Code (CE)</li>
 ///<li>LAN-4: Language Proficiency Code (CE)</li>
@@ -31,7 +31,7 @@ public class LAN : AbstractSegment  {
 	public LAN(IGroup parent, IModelClassFactory factory) : base(parent,factory) {
 	IMessage message = Message;
     try {
-       this.add(typeof(SI), true, 1, 60, new System.Object[]{message}, "Set ID _ LAN");
+       this.add(typeof(SI), true, 1, 60, new System.Object[]{message}, "Set ID - LAN");
        this.add(typeof(CE), true, 1, 250, new System.Object[]{message}, "Language Code");
        this.add(typeof(CE), false, 0, 250, new System.Object[]{message}, "Language Ability Code");
        this.add(typeof(CE), false, 1, 250, new System.Object[]{message}, "Language Proficiency Code");
@@ -41,7 +41,7 @@ public class LAN : AbstractSegment  {
   }
 
 	///<summary>
-	/// Returns Set ID _ LAN(LAN-1).
+	/// Returns Set ID - LAN(LAN-1).
 	///</summary>
 	public SI SetIDLAN
 	{

@@ -10,7 +10,7 @@ namespace NHapi.Model.V25.Segment{
 ///<summary>
 /// Represents an HL7 SPM message segment. 
 /// This segment has the following fields:<ol>
-///<li>SPM-1: Set ID _ SPM (SI)</li>
+///<li>SPM-1: Set ID - SPM (SI)</li>
 ///<li>SPM-2: Specimen ID (EIP)</li>
 ///<li>SPM-3: Specimen Parent IDs (EIP)</li>
 ///<li>SPM-4: Specimen Type (CWE)</li>
@@ -56,7 +56,7 @@ public class SPM : AbstractSegment  {
 	public SPM(IGroup parent, IModelClassFactory factory) : base(parent,factory) {
 	IMessage message = Message;
     try {
-       this.add(typeof(SI), false, 1, 4, new System.Object[]{message}, "Set ID _ SPM");
+       this.add(typeof(SI), false, 1, 4, new System.Object[]{message}, "Set ID - SPM");
        this.add(typeof(EIP), false, 1, 80, new System.Object[]{message}, "Specimen ID");
        this.add(typeof(EIP), false, 0, 80, new System.Object[]{message}, "Specimen Parent IDs");
        this.add(typeof(CWE), true, 1, 250, new System.Object[]{message}, "Specimen Type");
@@ -91,7 +91,7 @@ public class SPM : AbstractSegment  {
   }
 
 	///<summary>
-	/// Returns Set ID _ SPM(SPM-1).
+	/// Returns Set ID - SPM(SPM-1).
 	///</summary>
 	public SI SetIDSPM
 	{
