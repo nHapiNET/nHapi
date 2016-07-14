@@ -8,7 +8,7 @@ namespace NHapi.Model.V231.Datatype
 {
 
 ///<summary>
-/// <p>The HL7 NR (Wertebereich) data type.  Consists of the following components: </p><ol>
+/// <p>The HL7 NR (Numeric Range) data type.  Consists of the following components: </p><ol>
 /// <li>Low Value (NM)</li>
 /// <li>High Value (NM)</li>
 /// </ol>

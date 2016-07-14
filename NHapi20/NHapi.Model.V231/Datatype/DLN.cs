@@ -9,7 +9,7 @@ namespace NHapi.Model.V231.Datatype
 
 ///<summary>
 /// <p>The HL7 DLN (driver's license number) data type.  Consists of the following components: </p><ol>
-/// <li>Driver´s License Number (ST)</li>
+/// <li>Driver's License Number (ST)</li>
 /// <li>Issuing State, province, country (IS)</li>
 /// <li>expiration date (DT)</li>
 /// </ol>
@@ -31,7 +31,7 @@ public class DLN : AbstractType, IComposite{
 	///</summary>
 	public DLN(IMessage message, string description) : base(message, description){
 		data = new IType[3];
-		data[0] = new ST(message,"Driver´s License Number");
+		data[0] = new ST(message,"Driver's License Number");
 		data[1] = new IS(message, 0,"Issuing State, province, country");
 		data[2] = new DT(message,"Expiration date");
 	}
@@ -63,7 +63,7 @@ get{
 	} 
 	} 
 	///<summary>
-	/// Returns Driver´s License Number (component #0).  This is a convenience method that saves you from 
+	/// Returns Driver's License Number (component #0).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
 	public ST DriverSLicenseNumber {
