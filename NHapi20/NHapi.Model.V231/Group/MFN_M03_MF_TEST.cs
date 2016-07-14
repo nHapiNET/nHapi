@@ -3,7 +3,7 @@ using NHapi.Base;
 using NHapi.Base.Log;
 using System;
 using NHapi.Model.V231.Segment;
-
+using NHapi.Model.V231.Datatype;
 using NHapi.Base.Model;
 
 namespace NHapi.Model.V231.Group
