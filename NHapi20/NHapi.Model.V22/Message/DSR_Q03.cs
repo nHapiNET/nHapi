@@ -2,6 +2,7 @@ using System;
 using NHapi.Base.Log;
 using NHapi.Model.V22.Group;
 using NHapi.Model.V22.Segment;
+using NHapi.Model.V22.Datatype;
 using NHapi.Base;
 using NHapi.Base.Parser;
 using NHapi.Base.Model;
@@ -18,7 +19,7 @@ namespace NHapi.Model.V22.Message
 ///<li>2: QRD (QUERY DEFINITION) </li>
 ///<li>3: QRF (QUERY FILTER) optional </li>
 ///<li>4: DSP (DISPLAY DATA) repeating</li>
-///<li>5: DSC (CONTINUATION POINTER) </li>
+///<li>5: DSC (CONTINUATION POINTER) optional </li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -48,7 +49,7 @@ public class DSR_Q03 : AbstractMessage  {
 	      this.add(typeof(QRD), true, false);
 	      this.add(typeof(QRF), false, false);
 	      this.add(typeof(DSP), true, true);
-	      this.add(typeof(DSC), true, false);
+	      this.add(typeof(DSC), false, false);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating DSR_Q03 - this is probably a bug in the source code generator.", e);
 	   }
