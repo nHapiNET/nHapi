@@ -30,6 +30,7 @@ namespace NHapi.Base.SourceGeneration
 	{
 		public int field;
 		public String rep;
+		public String AccessorNameToAppend = string.Empty;
 		public int repetitions;
 		public String desc;
 		public int length;

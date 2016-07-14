@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data.OleDb;
 using System.IO;
 using System.Linq;
@@ -224,6 +225,9 @@ namespace NHapi.Base.SourceGeneration
 				source.Append(name);
 				source.Append(" message segment. \r\n");
 				source.Append("/// This segment has the following fields:<ol>\r\n");
+
+				PrepareAppendStringsForElementsWithDuplicateDescriptions(name, elements);
+
 				for (int i = 0; i < elements.Count; i++)
 				{
 					se = (SegmentElement) elements[i];
@@ -363,7 +367,7 @@ namespace NHapi.Base.SourceGeneration
 						source.Append("\tpublic ");
 						source.Append(type);
 						source.Append(" ");
-						source.Append(SourceGenerator.MakeAccessorName(se.desc, se.repetitions));
+						source.Append(SourceGenerator.MakeAccessorName(se.desc, se.repetitions) + se.AccessorNameToAppend);
 						if (se.repetitions != 1)
 							source.Append("(int rep)");
 						source.Append("\n\t{\r\n");
@@ -494,6 +498,29 @@ namespace NHapi.Base.SourceGeneration
 			}
 
 			return source.ToString();
+		}
+
+		private static void PrepareAppendStringsForElementsWithDuplicateDescriptions(string name, ArrayList elements)
+		{
+			var segmentElements = elements.Cast<SegmentElement>().ToArray();
+			var toProcess = new List<SegmentElement>();
+			foreach (var segmentElement in segmentElements)
+			{
+				bool duplicateField =
+					segmentElements.Count(
+						element =>
+							element.GetDescriptionWithoutSpecialCharacters() == segmentElement.GetDescriptionWithoutSpecialCharacters()) > 1;
+				if (duplicateField)
+				{
+					toProcess.Add(segmentElement);
+				}
+			}
+
+			foreach (var element in toProcess)
+			{
+				string toAppend = "_" + name + element.field;
+				element.AccessorNameToAppend += toAppend;
+			}
 		}
 
 		private static int DetermineLength(OleDbDataReader rs)
