@@ -181,9 +181,6 @@
     <Compile Include="Group\ADT_A43_PATIENT.cs" />
     <Compile Include="Group\ADT_A44_PATIENT.cs" />
     <Compile Include="Group\ADT_A45_MERGE_INFO.cs" />
-    <Compile Include="Group\ARD_A19_INSURANCE.cs" />
-    <Compile Include="Group\ARD_A19_PROCEDURE.cs" />
-    <Compile Include="Group\ARD_A19_QUERY_RESPONSE.cs" />
     <Compile Include="Group\BAR_P01_INSURANCE.cs" />
     <Compile Include="Group\BAR_P01_PROCEDURE.cs" />
     <Compile Include="Group\BAR_P01_VISIT.cs" />
@@ -676,7 +673,6 @@
     <Compile Include="Group\RQC_I06_PROVIDER.cs" />
     <Compile Include="Group\RQI_I01_GUARANTOR_INSURANCE.cs" />
     <Compile Include="Group\RQI_I01_INSURANCE.cs" />
-    <Compile Include="Group\RQI_I01_PRDCTD.cs" />
     <Compile Include="Group\RQI_I01_PROVIDER.cs" />
     <Compile Include="Group\RQI_I02_GUARANTOR_INSURANCE.cs" />
     <Compile Include="Group\RQI_I02_INSURANCE.cs" />
@@ -1033,7 +1029,6 @@
     <Compile Include="Message\ADT_A49.cs" />
     <Compile Include="Message\ADT_A50.cs" />
     <Compile Include="Message\ADT_A51.cs" />
-    <Compile Include="Message\ARD_A19.cs" />
     <Compile Include="Message\BAR_P01.cs" />
     <Compile Include="Message\BAR_P02.cs" />
     <Compile Include="Message\BAR_P05.cs" />
@@ -1305,7 +1300,6 @@
     <Compile Include="Segment\PV1.cs" />
     <Compile Include="Segment\PV2.cs" />
     <Compile Include="Segment\QAK.cs" />
-    <Compile Include="Segment\QCK.cs" />
     <Compile Include="Segment\QRD.cs" />
     <Compile Include="Segment\QRF.cs" />
     <Compile Include="Segment\RDF.cs" />
