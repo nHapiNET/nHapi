@@ -16,7 +16,7 @@ namespace NHapi.Model.V23.Segment{
 ///<li>MRG-4: Prior Patient ID - External (CX)</li>
 ///<li>MRG-5: Prior Visit Number (CX)</li>
 ///<li>MRG-6: Prior Alternate Visit ID (CX)</li>
-///<li>MRG-7: Prior Patient Name (CX)</li>
+///<li>MRG-7: Prior Patient Name (XPN)</li>
 ///</ol>
 /// The get...() methods return data from individual fields.  These methods 
 /// do not throw exceptions and may therefore have to handle exceptions internally.  
@@ -40,7 +40,7 @@ public class MRG : AbstractSegment  {
        this.add(typeof(CX), false, 1, 16, new System.Object[]{message}, "Prior Patient ID - External");
        this.add(typeof(CX), false, 1, 0, new System.Object[]{message}, "Prior Visit Number");
        this.add(typeof(CX), false, 1, 0, new System.Object[]{message}, "Prior Alternate Visit ID");
-       this.add(typeof(CX), false, 1, 0, new System.Object[]{message}, "Prior Patient Name");
+       this.add(typeof(XPN), false, 1, 0, new System.Object[]{message}, "Prior Patient Name");
     } catch (HL7Exception he) {
         HapiLogFactory.GetHapiLog(GetType()).Error("Can't instantiate " + GetType().Name, he);
     }
@@ -257,14 +257,14 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Prior Patient Name(MRG-7).
 	///</summary>
-	public CX PriorPatientName
+	public XPN PriorPatientName
 	{
 		get{
-			CX ret = null;
+			XPN ret = null;
 			try
 			{
 			IType t = this.GetField(7, 0);
-				ret = (CX)t;
+				ret = (XPN)t;
 			}
 			 catch (HL7Exception he) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
