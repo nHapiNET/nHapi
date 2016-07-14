@@ -135,6 +135,7 @@
     <Compile Include="Datatype\SN.cs" />
     <Compile Include="Datatype\SPD.cs" />
     <Compile Include="Datatype\SRT.cs" />
+    <Compile Include="Datatype\SNM.cs" />
     <Compile Include="Datatype\ST.cs" />
     <Compile Include="Datatype\TM.cs" />
     <Compile Include="Datatype\TX.cs" />
