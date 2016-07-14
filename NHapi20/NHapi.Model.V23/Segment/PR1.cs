@@ -44,7 +44,7 @@ public class PR1 : AbstractSegment  {
     try {
        this.add(typeof(SI), true, 1, 4, new System.Object[]{message}, "Set ID - Procedure");
        this.add(typeof(IS), true, 1, 2, new System.Object[]{message, 89}, "Procedure Coding Method");
-       this.add(typeof(CE), false, 1, 80, new System.Object[]{message}, "Procedure Code");
+       this.add(typeof(CE), true, 1, 80, new System.Object[]{message}, "Procedure Code");
        this.add(typeof(ST), false, 1, 40, new System.Object[]{message}, "Procedure Description");
        this.add(typeof(TS), false, 1, 26, new System.Object[]{message}, "Procedure Date/Time");
        this.add(typeof(ID), true, 1, 2, new System.Object[]{message, 230}, "Procedure Type");
