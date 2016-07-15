@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
@@ -179,6 +180,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RCL_I06_PROVIDER results 
+	 */ 
+	public IEnumerable<RCL_I06_PROVIDER> PROVIDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROVIDERRepetitionsUsed; rep++)
+			{
+				yield return (RCL_I06_PROVIDER)this.GetStructure("PROVIDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RCL_I06_PROVIDER
+	///</summary>
+	public RCL_I06_PROVIDER AddPROVIDER()
+	{
+		return this.AddStructure("PROVIDER") as RCL_I06_PROVIDER;
+	}
+
+	///<summary>
+	///Removes the given RCL_I06_PROVIDER
+	///</summary>
+	public void RemovePROVIDER(RCL_I06_PROVIDER toRemove)
+	{
+		this.RemoveStructure("PROVIDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the RCL_I06_PROVIDER at the given index
+	///</summary>
+	public void RemovePROVIDERAt(int index)
+	{
+		this.RemoveRepetition("PROVIDER", index);
+	}
+
 	///<summary>
 	/// Returns PID (Patient Identification) - creates it if necessary
 	///</summary>
@@ -236,6 +275,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the DG1 results 
+	 */ 
+	public IEnumerable<DG1> DG1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DG1RepetitionsUsed; rep++)
+			{
+				yield return (DG1)this.GetStructure("DG1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DG1
+	///</summary>
+	public DG1 AddDG1()
+	{
+		return this.AddStructure("DG1") as DG1;
+	}
+
+	///<summary>
+	///Removes the given DG1
+	///</summary>
+	public void RemoveDG1(DG1 toRemove)
+	{
+		this.RemoveStructure("DG1", toRemove);
+	}
+
+	///<summary>
+	///Removes the DG1 at the given index
+	///</summary>
+	public void RemoveDG1At(int index)
+	{
+		this.RemoveRepetition("DG1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of DRG (Diagnosis Related Group) - creates it if necessary
 	///</summary>
@@ -276,6 +353,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DRG results 
+	 */ 
+	public IEnumerable<DRG> DRGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DRGRepetitionsUsed; rep++)
+			{
+				yield return (DRG)this.GetStructure("DRG", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DRG
+	///</summary>
+	public DRG AddDRG()
+	{
+		return this.AddStructure("DRG") as DRG;
+	}
+
+	///<summary>
+	///Removes the given DRG
+	///</summary>
+	public void RemoveDRG(DRG toRemove)
+	{
+		this.RemoveStructure("DRG", toRemove);
+	}
+
+	///<summary>
+	///Removes the DRG at the given index
+	///</summary>
+	public void RemoveDRGAt(int index)
+	{
+		this.RemoveRepetition("DRG", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of AL1 (Patient allergy information) - creates it if necessary
@@ -318,6 +433,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the AL1 results 
+	 */ 
+	public IEnumerable<AL1> AL1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < AL1RepetitionsUsed; rep++)
+			{
+				yield return (AL1)this.GetStructure("AL1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new AL1
+	///</summary>
+	public AL1 AddAL1()
+	{
+		return this.AddStructure("AL1") as AL1;
+	}
+
+	///<summary>
+	///Removes the given AL1
+	///</summary>
+	public void RemoveAL1(AL1 toRemove)
+	{
+		this.RemoveStructure("AL1", toRemove);
+	}
+
+	///<summary>
+	///Removes the AL1 at the given index
+	///</summary>
+	public void RemoveAL1At(int index)
+	{
+		this.RemoveRepetition("AL1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of NTE (Notes and comments segment) - creates it if necessary
 	///</summary>
@@ -359,6 +512,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of DSP (Display data segment) - creates it if necessary
 	///</summary>
@@ -399,6 +590,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DSP results 
+	 */ 
+	public IEnumerable<DSP> DSPs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DSPRepetitionsUsed; rep++)
+			{
+				yield return (DSP)this.GetStructure("DSP", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DSP
+	///</summary>
+	public DSP AddDSP()
+	{
+		return this.AddStructure("DSP") as DSP;
+	}
+
+	///<summary>
+	///Removes the given DSP
+	///</summary>
+	public void RemoveDSP(DSP toRemove)
+	{
+		this.RemoveStructure("DSP", toRemove);
+	}
+
+	///<summary>
+	///Removes the DSP at the given index
+	///</summary>
+	public void RemoveDSPAt(int index)
+	{
+		this.RemoveRepetition("DSP", index);
+	}
 
 	///<summary>
 	/// Returns DSC (Continuation pointer segment) - creates it if necessary

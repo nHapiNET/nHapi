@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V24.Segment;
 using NHapi.Model.V24.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OML_O21_ORDER results 
+	 */ 
+	public IEnumerable<OML_O21_ORDER> ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDERRepetitionsUsed; rep++)
+			{
+				yield return (OML_O21_ORDER)this.GetStructure("ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OML_O21_ORDER
+	///</summary>
+	public OML_O21_ORDER AddORDER()
+	{
+		return this.AddStructure("ORDER") as OML_O21_ORDER;
+	}
+
+	///<summary>
+	///Removes the given OML_O21_ORDER
+	///</summary>
+	public void RemoveORDER(OML_O21_ORDER toRemove)
+	{
+		this.RemoveStructure("ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the OML_O21_ORDER at the given index
+	///</summary>
+	public void RemoveORDERAt(int index)
+	{
+		this.RemoveRepetition("ORDER", index);
+	}
 
 }
 }

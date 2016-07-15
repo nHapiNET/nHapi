@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -107,6 +108,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RSP_K31_TIMING (a Group object) - creates it if necessary
 	///</summary>
@@ -147,6 +186,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RSP_K31_TIMING results 
+	 */ 
+	public IEnumerable<RSP_K31_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (RSP_K31_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RSP_K31_TIMING
+	///</summary>
+	public RSP_K31_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as RSP_K31_TIMING;
+	}
+
+	///<summary>
+	///Removes the given RSP_K31_TIMING
+	///</summary>
+	public void RemoveTIMING(RSP_K31_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the RSP_K31_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
 
 	///<summary>
 	/// Returns RSP_K31_ORDER_DETAIL (a Group object) - creates it if necessary
@@ -237,6 +314,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRT2s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRT2RepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT2", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT2()
+	{
+		return this.AddStructure("PRT2") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT2(PRT toRemove)
+	{
+		this.RemoveStructure("PRT2", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRT2At(int index)
+	{
+		this.RemoveRepetition("PRT2", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RXR (Pharmacy/Treatment Route) - creates it if necessary
 	///</summary>
@@ -277,6 +392,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RXR results 
+	 */ 
+	public IEnumerable<RXR> RXRs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RXRRepetitionsUsed; rep++)
+			{
+				yield return (RXR)this.GetStructure("RXR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RXR
+	///</summary>
+	public RXR AddRXR()
+	{
+		return this.AddStructure("RXR") as RXR;
+	}
+
+	///<summary>
+	///Removes the given RXR
+	///</summary>
+	public void RemoveRXR(RXR toRemove)
+	{
+		this.RemoveStructure("RXR", toRemove);
+	}
+
+	///<summary>
+	///Removes the RXR at the given index
+	///</summary>
+	public void RemoveRXRAt(int index)
+	{
+		this.RemoveRepetition("RXR", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of RXC (Pharmacy/Treatment Component Order) - creates it if necessary
@@ -319,6 +472,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RXC results 
+	 */ 
+	public IEnumerable<RXC> RXCs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RXCRepetitionsUsed; rep++)
+			{
+				yield return (RXC)this.GetStructure("RXC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RXC
+	///</summary>
+	public RXC AddRXC()
+	{
+		return this.AddStructure("RXC") as RXC;
+	}
+
+	///<summary>
+	///Removes the given RXC
+	///</summary>
+	public void RemoveRXC(RXC toRemove)
+	{
+		this.RemoveStructure("RXC", toRemove);
+	}
+
+	///<summary>
+	///Removes the RXC at the given index
+	///</summary>
+	public void RemoveRXCAt(int index)
+	{
+		this.RemoveRepetition("RXC", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CDO (Cumulative Dosage) - creates it if necessary
 	///</summary>
@@ -360,6 +551,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the CDO results 
+	 */ 
+	public IEnumerable<CDO> CDOs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CDORepetitionsUsed; rep++)
+			{
+				yield return (CDO)this.GetStructure("CDO", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CDO
+	///</summary>
+	public CDO AddCDO()
+	{
+		return this.AddStructure("CDO") as CDO;
+	}
+
+	///<summary>
+	///Removes the given CDO
+	///</summary>
+	public void RemoveCDO(CDO toRemove)
+	{
+		this.RemoveStructure("CDO", toRemove);
+	}
+
+	///<summary>
+	///Removes the CDO at the given index
+	///</summary>
+	public void RemoveCDOAt(int index)
+	{
+		this.RemoveRepetition("CDO", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RSP_K31_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -400,6 +629,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RSP_K31_OBSERVATION results 
+	 */ 
+	public IEnumerable<RSP_K31_OBSERVATION> OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (RSP_K31_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RSP_K31_OBSERVATION
+	///</summary>
+	public RSP_K31_OBSERVATION AddOBSERVATION()
+	{
+		return this.AddStructure("OBSERVATION") as RSP_K31_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given RSP_K31_OBSERVATION
+	///</summary>
+	public void RemoveOBSERVATION(RSP_K31_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the RSP_K31_OBSERVATION at the given index
+	///</summary>
+	public void RemoveOBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION", index);
+	}
 
 }
 }

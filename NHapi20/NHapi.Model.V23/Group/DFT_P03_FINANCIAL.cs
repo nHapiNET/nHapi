@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V23.Segment;
 using NHapi.Model.V23.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DFT_P03_FINANCIAL_PROCEDURE results 
+	 */ 
+	public IEnumerable<DFT_P03_FINANCIAL_PROCEDURE> FINANCIAL_PROCEDUREs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < FINANCIAL_PROCEDURERepetitionsUsed; rep++)
+			{
+				yield return (DFT_P03_FINANCIAL_PROCEDURE)this.GetStructure("FINANCIAL_PROCEDURE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DFT_P03_FINANCIAL_PROCEDURE
+	///</summary>
+	public DFT_P03_FINANCIAL_PROCEDURE AddFINANCIAL_PROCEDURE()
+	{
+		return this.AddStructure("FINANCIAL_PROCEDURE") as DFT_P03_FINANCIAL_PROCEDURE;
+	}
+
+	///<summary>
+	///Removes the given DFT_P03_FINANCIAL_PROCEDURE
+	///</summary>
+	public void RemoveFINANCIAL_PROCEDURE(DFT_P03_FINANCIAL_PROCEDURE toRemove)
+	{
+		this.RemoveStructure("FINANCIAL_PROCEDURE", toRemove);
+	}
+
+	///<summary>
+	///Removes the DFT_P03_FINANCIAL_PROCEDURE at the given index
+	///</summary>
+	public void RemoveFINANCIAL_PROCEDUREAt(int index)
+	{
+		this.RemoveRepetition("FINANCIAL_PROCEDURE", index);
+	}
 
 }
 }

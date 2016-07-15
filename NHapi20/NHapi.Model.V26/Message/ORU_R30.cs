@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V26.Group;
 using NHapi.Model.V26.Segment;
@@ -133,6 +134,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -221,6 +260,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OBX results 
+	 */ 
+	public IEnumerable<OBX> OBXs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBXRepetitionsUsed; rep++)
+			{
+				yield return (OBX)this.GetStructure("OBX", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OBX
+	///</summary>
+	public OBX AddOBX()
+	{
+		return this.AddStructure("OBX") as OBX;
+	}
+
+	///<summary>
+	///Removes the given OBX
+	///</summary>
+	public void RemoveOBX(OBX toRemove)
+	{
+		this.RemoveStructure("OBX", toRemove);
+	}
+
+	///<summary>
+	///Removes the OBX at the given index
+	///</summary>
+	public void RemoveOBXAt(int index)
+	{
+		this.RemoveRepetition("OBX", index);
+	}
 
 	///<summary>
 	/// Returns ORU_R30_VISIT (a Group object) - creates it if necessary
@@ -311,6 +388,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ROL (Role) - creates it if necessary
 	///</summary>
@@ -351,6 +466,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ROL results 
+	 */ 
+	public IEnumerable<ROL> ROLs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ROLRepetitionsUsed; rep++)
+			{
+				yield return (ROL)this.GetStructure("ROL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ROL
+	///</summary>
+	public ROL AddROL()
+	{
+		return this.AddStructure("ROL") as ROL;
+	}
+
+	///<summary>
+	///Removes the given ROL
+	///</summary>
+	public void RemoveROL(ROL toRemove)
+	{
+		this.RemoveStructure("ROL", toRemove);
+	}
+
+	///<summary>
+	///Removes the ROL at the given index
+	///</summary>
+	public void RemoveROLAt(int index)
+	{
+		this.RemoveRepetition("ROL", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of ORU_R30_TIMING_QTY (a Group object) - creates it if necessary
@@ -393,6 +546,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ORU_R30_TIMING_QTY results 
+	 */ 
+	public IEnumerable<ORU_R30_TIMING_QTY> TIMING_QTYs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMING_QTYRepetitionsUsed; rep++)
+			{
+				yield return (ORU_R30_TIMING_QTY)this.GetStructure("TIMING_QTY", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORU_R30_TIMING_QTY
+	///</summary>
+	public ORU_R30_TIMING_QTY AddTIMING_QTY()
+	{
+		return this.AddStructure("TIMING_QTY") as ORU_R30_TIMING_QTY;
+	}
+
+	///<summary>
+	///Removes the given ORU_R30_TIMING_QTY
+	///</summary>
+	public void RemoveTIMING_QTY(ORU_R30_TIMING_QTY toRemove)
+	{
+		this.RemoveStructure("TIMING_QTY", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORU_R30_TIMING_QTY at the given index
+	///</summary>
+	public void RemoveTIMING_QTYAt(int index)
+	{
+		this.RemoveRepetition("TIMING_QTY", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ORU_R30_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -433,6 +624,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORU_R30_OBSERVATION results 
+	 */ 
+	public IEnumerable<ORU_R30_OBSERVATION> OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (ORU_R30_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORU_R30_OBSERVATION
+	///</summary>
+	public ORU_R30_OBSERVATION AddOBSERVATION()
+	{
+		return this.AddStructure("OBSERVATION") as ORU_R30_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given ORU_R30_OBSERVATION
+	///</summary>
+	public void RemoveOBSERVATION(ORU_R30_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORU_R30_OBSERVATION at the given index
+	///</summary>
+	public void RemoveOBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION", index);
+	}
 
 }
 }

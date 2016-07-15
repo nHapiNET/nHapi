@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
@@ -183,6 +184,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RRI_I12_PROVIDER results 
+	 */ 
+	public IEnumerable<RRI_I12_PROVIDER> PROVIDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROVIDERRepetitionsUsed; rep++)
+			{
+				yield return (RRI_I12_PROVIDER)this.GetStructure("PROVIDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RRI_I12_PROVIDER
+	///</summary>
+	public RRI_I12_PROVIDER AddPROVIDER()
+	{
+		return this.AddStructure("PROVIDER") as RRI_I12_PROVIDER;
+	}
+
+	///<summary>
+	///Removes the given RRI_I12_PROVIDER
+	///</summary>
+	public void RemovePROVIDER(RRI_I12_PROVIDER toRemove)
+	{
+		this.RemoveStructure("PROVIDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the RRI_I12_PROVIDER at the given index
+	///</summary>
+	public void RemovePROVIDERAt(int index)
+	{
+		this.RemoveRepetition("PROVIDER", index);
+	}
+
 	///<summary>
 	/// Returns PID (Patient Identification) - creates it if necessary
 	///</summary>
@@ -256,6 +295,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the DG1 results 
+	 */ 
+	public IEnumerable<DG1> DG1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DG1RepetitionsUsed; rep++)
+			{
+				yield return (DG1)this.GetStructure("DG1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DG1
+	///</summary>
+	public DG1 AddDG1()
+	{
+		return this.AddStructure("DG1") as DG1;
+	}
+
+	///<summary>
+	///Removes the given DG1
+	///</summary>
+	public void RemoveDG1(DG1 toRemove)
+	{
+		this.RemoveStructure("DG1", toRemove);
+	}
+
+	///<summary>
+	///Removes the DG1 at the given index
+	///</summary>
+	public void RemoveDG1At(int index)
+	{
+		this.RemoveRepetition("DG1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of DRG (Diagnosis Related Group) - creates it if necessary
 	///</summary>
@@ -296,6 +373,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DRG results 
+	 */ 
+	public IEnumerable<DRG> DRGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DRGRepetitionsUsed; rep++)
+			{
+				yield return (DRG)this.GetStructure("DRG", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DRG
+	///</summary>
+	public DRG AddDRG()
+	{
+		return this.AddStructure("DRG") as DRG;
+	}
+
+	///<summary>
+	///Removes the given DRG
+	///</summary>
+	public void RemoveDRG(DRG toRemove)
+	{
+		this.RemoveStructure("DRG", toRemove);
+	}
+
+	///<summary>
+	///Removes the DRG at the given index
+	///</summary>
+	public void RemoveDRGAt(int index)
+	{
+		this.RemoveRepetition("DRG", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of AL1 (Patient allergy information) - creates it if necessary
@@ -338,6 +453,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the AL1 results 
+	 */ 
+	public IEnumerable<AL1> AL1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < AL1RepetitionsUsed; rep++)
+			{
+				yield return (AL1)this.GetStructure("AL1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new AL1
+	///</summary>
+	public AL1 AddAL1()
+	{
+		return this.AddStructure("AL1") as AL1;
+	}
+
+	///<summary>
+	///Removes the given AL1
+	///</summary>
+	public void RemoveAL1(AL1 toRemove)
+	{
+		this.RemoveStructure("AL1", toRemove);
+	}
+
+	///<summary>
+	///Removes the AL1 at the given index
+	///</summary>
+	public void RemoveAL1At(int index)
+	{
+		this.RemoveRepetition("AL1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RRI_I12_PROCEDURE (a Group object) - creates it if necessary
 	///</summary>
@@ -379,6 +532,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RRI_I12_PROCEDURE results 
+	 */ 
+	public IEnumerable<RRI_I12_PROCEDURE> PROCEDUREs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROCEDURERepetitionsUsed; rep++)
+			{
+				yield return (RRI_I12_PROCEDURE)this.GetStructure("PROCEDURE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RRI_I12_PROCEDURE
+	///</summary>
+	public RRI_I12_PROCEDURE AddPROCEDURE()
+	{
+		return this.AddStructure("PROCEDURE") as RRI_I12_PROCEDURE;
+	}
+
+	///<summary>
+	///Removes the given RRI_I12_PROCEDURE
+	///</summary>
+	public void RemovePROCEDURE(RRI_I12_PROCEDURE toRemove)
+	{
+		this.RemoveStructure("PROCEDURE", toRemove);
+	}
+
+	///<summary>
+	///Removes the RRI_I12_PROCEDURE at the given index
+	///</summary>
+	public void RemovePROCEDUREAt(int index)
+	{
+		this.RemoveRepetition("PROCEDURE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RRI_I12_RESULTS (a Group object) - creates it if necessary
 	///</summary>
@@ -419,6 +610,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RRI_I12_RESULTS results 
+	 */ 
+	public IEnumerable<RRI_I12_RESULTS> RESULTSs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RESULTSRepetitionsUsed; rep++)
+			{
+				yield return (RRI_I12_RESULTS)this.GetStructure("RESULTS", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RRI_I12_RESULTS
+	///</summary>
+	public RRI_I12_RESULTS AddRESULTS()
+	{
+		return this.AddStructure("RESULTS") as RRI_I12_RESULTS;
+	}
+
+	///<summary>
+	///Removes the given RRI_I12_RESULTS
+	///</summary>
+	public void RemoveRESULTS(RRI_I12_RESULTS toRemove)
+	{
+		this.RemoveStructure("RESULTS", toRemove);
+	}
+
+	///<summary>
+	///Removes the RRI_I12_RESULTS at the given index
+	///</summary>
+	public void RemoveRESULTSAt(int index)
+	{
+		this.RemoveRepetition("RESULTS", index);
+	}
 
 	///<summary>
 	/// Returns RRI_I12_VISIT (a Group object) - creates it if necessary
@@ -476,6 +705,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
 
 }
 }

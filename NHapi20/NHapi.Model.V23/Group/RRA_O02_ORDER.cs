@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V23.Segment;
 using NHapi.Model.V23.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RRA_O02_ADMINISTRATION results 
+	 */ 
+	public IEnumerable<RRA_O02_ADMINISTRATION> ADMINISTRATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ADMINISTRATIONRepetitionsUsed; rep++)
+			{
+				yield return (RRA_O02_ADMINISTRATION)this.GetStructure("ADMINISTRATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RRA_O02_ADMINISTRATION
+	///</summary>
+	public RRA_O02_ADMINISTRATION AddADMINISTRATION()
+	{
+		return this.AddStructure("ADMINISTRATION") as RRA_O02_ADMINISTRATION;
+	}
+
+	///<summary>
+	///Removes the given RRA_O02_ADMINISTRATION
+	///</summary>
+	public void RemoveADMINISTRATION(RRA_O02_ADMINISTRATION toRemove)
+	{
+		this.RemoveStructure("ADMINISTRATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the RRA_O02_ADMINISTRATION at the given index
+	///</summary>
+	public void RemoveADMINISTRATIONAt(int index)
+	{
+		this.RemoveRepetition("ADMINISTRATION", index);
+	}
 
 }
 }

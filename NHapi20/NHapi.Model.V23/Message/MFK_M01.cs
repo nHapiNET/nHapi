@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
@@ -187,6 +188,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the MFA results 
+	 */ 
+	public IEnumerable<MFA> MFAs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MFARepetitionsUsed; rep++)
+			{
+				yield return (MFA)this.GetStructure("MFA", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFA
+	///</summary>
+	public MFA AddMFA()
+	{
+		return this.AddStructure("MFA") as MFA;
+	}
+
+	///<summary>
+	///Removes the given MFA
+	///</summary>
+	public void RemoveMFA(MFA toRemove)
+	{
+		this.RemoveStructure("MFA", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFA at the given index
+	///</summary>
+	public void RemoveMFAAt(int index)
+	{
+		this.RemoveRepetition("MFA", index);
+	}
+
 	///<summary>
 	/// Returns MFI2 (Master file identification segment) - creates it if necessary
 	///</summary>
@@ -243,6 +282,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFK_M01_MF results 
+	 */ 
+	public IEnumerable<MFK_M01_MF> MFs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MFRepetitionsUsed; rep++)
+			{
+				yield return (MFK_M01_MF)this.GetStructure("MF", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFK_M01_MF
+	///</summary>
+	public MFK_M01_MF AddMF()
+	{
+		return this.AddStructure("MF") as MFK_M01_MF;
+	}
+
+	///<summary>
+	///Removes the given MFK_M01_MF
+	///</summary>
+	public void RemoveMF(MFK_M01_MF toRemove)
+	{
+		this.RemoveStructure("MF", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFK_M01_MF at the given index
+	///</summary>
+	public void RemoveMFAt(int index)
+	{
+		this.RemoveRepetition("MF", index);
+	}
 
 }
 }

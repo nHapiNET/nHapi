@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V26.Segment;
 using NHapi.Model.V26.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OBX results 
+	 */ 
+	public IEnumerable<OBX> OBXs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBXRepetitionsUsed; rep++)
+			{
+				yield return (OBX)this.GetStructure("OBX", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OBX
+	///</summary>
+	public OBX AddOBX()
+	{
+		return this.AddStructure("OBX") as OBX;
+	}
+
+	///<summary>
+	///Removes the given OBX
+	///</summary>
+	public void RemoveOBX(OBX toRemove)
+	{
+		this.RemoveStructure("OBX", toRemove);
+	}
+
+	///<summary>
+	///Removes the OBX at the given index
+	///</summary>
+	public void RemoveOBXAt(int index)
+	{
+		this.RemoveRepetition("OBX", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OPL_O37_CONTAINER (a Group object) - creates it if necessary
 	///</summary>
@@ -134,6 +173,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OPL_O37_CONTAINER results 
+	 */ 
+	public IEnumerable<OPL_O37_CONTAINER> CONTAINERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CONTAINERRepetitionsUsed; rep++)
+			{
+				yield return (OPL_O37_CONTAINER)this.GetStructure("CONTAINER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OPL_O37_CONTAINER
+	///</summary>
+	public OPL_O37_CONTAINER AddCONTAINER()
+	{
+		return this.AddStructure("CONTAINER") as OPL_O37_CONTAINER;
+	}
+
+	///<summary>
+	///Removes the given OPL_O37_CONTAINER
+	///</summary>
+	public void RemoveCONTAINER(OPL_O37_CONTAINER toRemove)
+	{
+		this.RemoveStructure("CONTAINER", toRemove);
+	}
+
+	///<summary>
+	///Removes the OPL_O37_CONTAINER at the given index
+	///</summary>
+	public void RemoveCONTAINERAt(int index)
+	{
+		this.RemoveRepetition("CONTAINER", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OPL_O37_OBSERVATION_REQUEST (a Group object) - creates it if necessary
 	///</summary>
@@ -174,6 +251,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OPL_O37_OBSERVATION_REQUEST results 
+	 */ 
+	public IEnumerable<OPL_O37_OBSERVATION_REQUEST> OBSERVATION_REQUESTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATION_REQUESTRepetitionsUsed; rep++)
+			{
+				yield return (OPL_O37_OBSERVATION_REQUEST)this.GetStructure("OBSERVATION_REQUEST", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OPL_O37_OBSERVATION_REQUEST
+	///</summary>
+	public OPL_O37_OBSERVATION_REQUEST AddOBSERVATION_REQUEST()
+	{
+		return this.AddStructure("OBSERVATION_REQUEST") as OPL_O37_OBSERVATION_REQUEST;
+	}
+
+	///<summary>
+	///Removes the given OPL_O37_OBSERVATION_REQUEST
+	///</summary>
+	public void RemoveOBSERVATION_REQUEST(OPL_O37_OBSERVATION_REQUEST toRemove)
+	{
+		this.RemoveStructure("OBSERVATION_REQUEST", toRemove);
+	}
+
+	///<summary>
+	///Removes the OPL_O37_OBSERVATION_REQUEST at the given index
+	///</summary>
+	public void RemoveOBSERVATION_REQUESTAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION_REQUEST", index);
+	}
 
 }
 }

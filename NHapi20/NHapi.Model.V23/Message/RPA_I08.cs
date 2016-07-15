@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
@@ -187,6 +188,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RPA_I08_PROVIDER results 
+	 */ 
+	public IEnumerable<RPA_I08_PROVIDER> PROVIDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROVIDERRepetitionsUsed; rep++)
+			{
+				yield return (RPA_I08_PROVIDER)this.GetStructure("PROVIDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RPA_I08_PROVIDER
+	///</summary>
+	public RPA_I08_PROVIDER AddPROVIDER()
+	{
+		return this.AddStructure("PROVIDER") as RPA_I08_PROVIDER;
+	}
+
+	///<summary>
+	///Removes the given RPA_I08_PROVIDER
+	///</summary>
+	public void RemovePROVIDER(RPA_I08_PROVIDER toRemove)
+	{
+		this.RemoveStructure("PROVIDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the RPA_I08_PROVIDER at the given index
+	///</summary>
+	public void RemovePROVIDERAt(int index)
+	{
+		this.RemoveRepetition("PROVIDER", index);
+	}
+
 	///<summary>
 	/// Returns PID (Patient Identification) - creates it if necessary
 	///</summary>
@@ -244,6 +283,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NK1 results 
+	 */ 
+	public IEnumerable<NK1> NK1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NK1RepetitionsUsed; rep++)
+			{
+				yield return (NK1)this.GetStructure("NK1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NK1
+	///</summary>
+	public NK1 AddNK1()
+	{
+		return this.AddStructure("NK1") as NK1;
+	}
+
+	///<summary>
+	///Removes the given NK1
+	///</summary>
+	public void RemoveNK1(NK1 toRemove)
+	{
+		this.RemoveStructure("NK1", toRemove);
+	}
+
+	///<summary>
+	///Removes the NK1 at the given index
+	///</summary>
+	public void RemoveNK1At(int index)
+	{
+		this.RemoveRepetition("NK1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of GT1 (Guarantor) - creates it if necessary
 	///</summary>
@@ -285,6 +362,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the GT1 results 
+	 */ 
+	public IEnumerable<GT1> GT1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < GT1RepetitionsUsed; rep++)
+			{
+				yield return (GT1)this.GetStructure("GT1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new GT1
+	///</summary>
+	public GT1 AddGT1()
+	{
+		return this.AddStructure("GT1") as GT1;
+	}
+
+	///<summary>
+	///Removes the given GT1
+	///</summary>
+	public void RemoveGT1(GT1 toRemove)
+	{
+		this.RemoveStructure("GT1", toRemove);
+	}
+
+	///<summary>
+	///Removes the GT1 at the given index
+	///</summary>
+	public void RemoveGT1At(int index)
+	{
+		this.RemoveRepetition("GT1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RPA_I08_INSURANCE (a Group object) - creates it if necessary
 	///</summary>
@@ -325,6 +440,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RPA_I08_INSURANCE results 
+	 */ 
+	public IEnumerable<RPA_I08_INSURANCE> INSURANCEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < INSURANCERepetitionsUsed; rep++)
+			{
+				yield return (RPA_I08_INSURANCE)this.GetStructure("INSURANCE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RPA_I08_INSURANCE
+	///</summary>
+	public RPA_I08_INSURANCE AddINSURANCE()
+	{
+		return this.AddStructure("INSURANCE") as RPA_I08_INSURANCE;
+	}
+
+	///<summary>
+	///Removes the given RPA_I08_INSURANCE
+	///</summary>
+	public void RemoveINSURANCE(RPA_I08_INSURANCE toRemove)
+	{
+		this.RemoveStructure("INSURANCE", toRemove);
+	}
+
+	///<summary>
+	///Removes the RPA_I08_INSURANCE at the given index
+	///</summary>
+	public void RemoveINSURANCEAt(int index)
+	{
+		this.RemoveRepetition("INSURANCE", index);
+	}
 
 	///<summary>
 	/// Returns ACC (Accident) - creates it if necessary
@@ -383,6 +536,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the DG1 results 
+	 */ 
+	public IEnumerable<DG1> DG1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DG1RepetitionsUsed; rep++)
+			{
+				yield return (DG1)this.GetStructure("DG1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DG1
+	///</summary>
+	public DG1 AddDG1()
+	{
+		return this.AddStructure("DG1") as DG1;
+	}
+
+	///<summary>
+	///Removes the given DG1
+	///</summary>
+	public void RemoveDG1(DG1 toRemove)
+	{
+		this.RemoveStructure("DG1", toRemove);
+	}
+
+	///<summary>
+	///Removes the DG1 at the given index
+	///</summary>
+	public void RemoveDG1At(int index)
+	{
+		this.RemoveRepetition("DG1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of DRG (Diagnosis Related Group) - creates it if necessary
 	///</summary>
@@ -423,6 +614,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DRG results 
+	 */ 
+	public IEnumerable<DRG> DRGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DRGRepetitionsUsed; rep++)
+			{
+				yield return (DRG)this.GetStructure("DRG", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DRG
+	///</summary>
+	public DRG AddDRG()
+	{
+		return this.AddStructure("DRG") as DRG;
+	}
+
+	///<summary>
+	///Removes the given DRG
+	///</summary>
+	public void RemoveDRG(DRG toRemove)
+	{
+		this.RemoveStructure("DRG", toRemove);
+	}
+
+	///<summary>
+	///Removes the DRG at the given index
+	///</summary>
+	public void RemoveDRGAt(int index)
+	{
+		this.RemoveRepetition("DRG", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of AL1 (Patient allergy information) - creates it if necessary
@@ -465,6 +694,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the AL1 results 
+	 */ 
+	public IEnumerable<AL1> AL1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < AL1RepetitionsUsed; rep++)
+			{
+				yield return (AL1)this.GetStructure("AL1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new AL1
+	///</summary>
+	public AL1 AddAL1()
+	{
+		return this.AddStructure("AL1") as AL1;
+	}
+
+	///<summary>
+	///Removes the given AL1
+	///</summary>
+	public void RemoveAL1(AL1 toRemove)
+	{
+		this.RemoveStructure("AL1", toRemove);
+	}
+
+	///<summary>
+	///Removes the AL1 at the given index
+	///</summary>
+	public void RemoveAL1At(int index)
+	{
+		this.RemoveRepetition("AL1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RPA_I08_PROCEDURE (a Group object) - creates it if necessary
 	///</summary>
@@ -506,6 +773,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RPA_I08_PROCEDURE results 
+	 */ 
+	public IEnumerable<RPA_I08_PROCEDURE> PROCEDUREs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROCEDURERepetitionsUsed; rep++)
+			{
+				yield return (RPA_I08_PROCEDURE)this.GetStructure("PROCEDURE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RPA_I08_PROCEDURE
+	///</summary>
+	public RPA_I08_PROCEDURE AddPROCEDURE()
+	{
+		return this.AddStructure("PROCEDURE") as RPA_I08_PROCEDURE;
+	}
+
+	///<summary>
+	///Removes the given RPA_I08_PROCEDURE
+	///</summary>
+	public void RemovePROCEDURE(RPA_I08_PROCEDURE toRemove)
+	{
+		this.RemoveStructure("PROCEDURE", toRemove);
+	}
+
+	///<summary>
+	///Removes the RPA_I08_PROCEDURE at the given index
+	///</summary>
+	public void RemovePROCEDUREAt(int index)
+	{
+		this.RemoveRepetition("PROCEDURE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RPA_I08_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -546,6 +851,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RPA_I08_OBSERVATION results 
+	 */ 
+	public IEnumerable<RPA_I08_OBSERVATION> OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (RPA_I08_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RPA_I08_OBSERVATION
+	///</summary>
+	public RPA_I08_OBSERVATION AddOBSERVATION()
+	{
+		return this.AddStructure("OBSERVATION") as RPA_I08_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given RPA_I08_OBSERVATION
+	///</summary>
+	public void RemoveOBSERVATION(RPA_I08_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the RPA_I08_OBSERVATION at the given index
+	///</summary>
+	public void RemoveOBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION", index);
+	}
 
 	///<summary>
 	/// Returns RPA_I08_VISIT (a Group object) - creates it if necessary

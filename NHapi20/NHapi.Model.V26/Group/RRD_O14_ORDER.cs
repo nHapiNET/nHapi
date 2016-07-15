@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V26.Segment;
 using NHapi.Model.V26.Datatype;
 using NHapi.Base.Model;
@@ -90,6 +91,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RRD_O14_TIMING results 
+	 */ 
+	public IEnumerable<RRD_O14_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (RRD_O14_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RRD_O14_TIMING
+	///</summary>
+	public RRD_O14_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as RRD_O14_TIMING;
+	}
+
+	///<summary>
+	///Removes the given RRD_O14_TIMING
+	///</summary>
+	public void RemoveTIMING(RRD_O14_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the RRD_O14_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
 
 	///<summary>
 	/// Returns RRD_O14_DISPENSE (a Group object) - creates it if necessary

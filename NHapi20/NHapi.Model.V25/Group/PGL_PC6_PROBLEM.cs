@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V25.Segment;
 using NHapi.Model.V25.Datatype;
 using NHapi.Base.Model;
@@ -95,6 +96,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of VAR (Variance) - creates it if necessary
 	///</summary>
@@ -135,6 +174,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the VAR results 
+	 */ 
+	public IEnumerable<VAR> VARs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < VARRepetitionsUsed; rep++)
+			{
+				yield return (VAR)this.GetStructure("VAR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new VAR
+	///</summary>
+	public VAR AddVAR()
+	{
+		return this.AddStructure("VAR") as VAR;
+	}
+
+	///<summary>
+	///Removes the given VAR
+	///</summary>
+	public void RemoveVAR(VAR toRemove)
+	{
+		this.RemoveStructure("VAR", toRemove);
+	}
+
+	///<summary>
+	///Removes the VAR at the given index
+	///</summary>
+	public void RemoveVARAt(int index)
+	{
+		this.RemoveRepetition("VAR", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of PGL_PC6_PROBLEM_ROLE (a Group object) - creates it if necessary
@@ -177,6 +254,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PGL_PC6_PROBLEM_ROLE results 
+	 */ 
+	public IEnumerable<PGL_PC6_PROBLEM_ROLE> PROBLEM_ROLEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROBLEM_ROLERepetitionsUsed; rep++)
+			{
+				yield return (PGL_PC6_PROBLEM_ROLE)this.GetStructure("PROBLEM_ROLE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PGL_PC6_PROBLEM_ROLE
+	///</summary>
+	public PGL_PC6_PROBLEM_ROLE AddPROBLEM_ROLE()
+	{
+		return this.AddStructure("PROBLEM_ROLE") as PGL_PC6_PROBLEM_ROLE;
+	}
+
+	///<summary>
+	///Removes the given PGL_PC6_PROBLEM_ROLE
+	///</summary>
+	public void RemovePROBLEM_ROLE(PGL_PC6_PROBLEM_ROLE toRemove)
+	{
+		this.RemoveStructure("PROBLEM_ROLE", toRemove);
+	}
+
+	///<summary>
+	///Removes the PGL_PC6_PROBLEM_ROLE at the given index
+	///</summary>
+	public void RemovePROBLEM_ROLEAt(int index)
+	{
+		this.RemoveRepetition("PROBLEM_ROLE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of PGL_PC6_PROBLEM_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -217,6 +332,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PGL_PC6_PROBLEM_OBSERVATION results 
+	 */ 
+	public IEnumerable<PGL_PC6_PROBLEM_OBSERVATION> PROBLEM_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROBLEM_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (PGL_PC6_PROBLEM_OBSERVATION)this.GetStructure("PROBLEM_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PGL_PC6_PROBLEM_OBSERVATION
+	///</summary>
+	public PGL_PC6_PROBLEM_OBSERVATION AddPROBLEM_OBSERVATION()
+	{
+		return this.AddStructure("PROBLEM_OBSERVATION") as PGL_PC6_PROBLEM_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given PGL_PC6_PROBLEM_OBSERVATION
+	///</summary>
+	public void RemovePROBLEM_OBSERVATION(PGL_PC6_PROBLEM_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("PROBLEM_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the PGL_PC6_PROBLEM_OBSERVATION at the given index
+	///</summary>
+	public void RemovePROBLEM_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("PROBLEM_OBSERVATION", index);
+	}
 
 }
 }

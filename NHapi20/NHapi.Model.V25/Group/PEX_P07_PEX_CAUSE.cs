@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V25.Segment;
 using NHapi.Model.V25.Datatype;
 using NHapi.Base.Model;
@@ -117,6 +118,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PEX_P07_RX_ADMINISTRATION results 
+	 */ 
+	public IEnumerable<PEX_P07_RX_ADMINISTRATION> RX_ADMINISTRATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RX_ADMINISTRATIONRepetitionsUsed; rep++)
+			{
+				yield return (PEX_P07_RX_ADMINISTRATION)this.GetStructure("RX_ADMINISTRATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PEX_P07_RX_ADMINISTRATION
+	///</summary>
+	public PEX_P07_RX_ADMINISTRATION AddRX_ADMINISTRATION()
+	{
+		return this.AddStructure("RX_ADMINISTRATION") as PEX_P07_RX_ADMINISTRATION;
+	}
+
+	///<summary>
+	///Removes the given PEX_P07_RX_ADMINISTRATION
+	///</summary>
+	public void RemoveRX_ADMINISTRATION(PEX_P07_RX_ADMINISTRATION toRemove)
+	{
+		this.RemoveStructure("RX_ADMINISTRATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the PEX_P07_RX_ADMINISTRATION at the given index
+	///</summary>
+	public void RemoveRX_ADMINISTRATIONAt(int index)
+	{
+		this.RemoveRepetition("RX_ADMINISTRATION", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of PRB (Problem Details) - creates it if necessary
 	///</summary>
@@ -157,6 +196,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PRB results 
+	 */ 
+	public IEnumerable<PRB> PRBs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRBRepetitionsUsed; rep++)
+			{
+				yield return (PRB)this.GetStructure("PRB", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRB
+	///</summary>
+	public PRB AddPRB()
+	{
+		return this.AddStructure("PRB") as PRB;
+	}
+
+	///<summary>
+	///Removes the given PRB
+	///</summary>
+	public void RemovePRB(PRB toRemove)
+	{
+		this.RemoveStructure("PRB", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRB at the given index
+	///</summary>
+	public void RemovePRBAt(int index)
+	{
+		this.RemoveRepetition("PRB", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of OBX (Observation/Result) - creates it if necessary
@@ -199,6 +276,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OBX results 
+	 */ 
+	public IEnumerable<OBX> OBXs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBXRepetitionsUsed; rep++)
+			{
+				yield return (OBX)this.GetStructure("OBX", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OBX
+	///</summary>
+	public OBX AddOBX()
+	{
+		return this.AddStructure("OBX") as OBX;
+	}
+
+	///<summary>
+	///Removes the given OBX
+	///</summary>
+	public void RemoveOBX(OBX toRemove)
+	{
+		this.RemoveStructure("OBX", toRemove);
+	}
+
+	///<summary>
+	///Removes the OBX at the given index
+	///</summary>
+	public void RemoveOBXAt(int index)
+	{
+		this.RemoveRepetition("OBX", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of NTE (Notes and Comments) - creates it if necessary
 	///</summary>
@@ -239,6 +354,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
 
 	///<summary>
 	/// Returns PEX_P07_ASSOCIATED_PERSON (a Group object) - creates it if necessary
@@ -296,6 +449,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PEX_P07_STUDY results 
+	 */ 
+	public IEnumerable<PEX_P07_STUDY> STUDYs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < STUDYRepetitionsUsed; rep++)
+			{
+				yield return (PEX_P07_STUDY)this.GetStructure("STUDY", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PEX_P07_STUDY
+	///</summary>
+	public PEX_P07_STUDY AddSTUDY()
+	{
+		return this.AddStructure("STUDY") as PEX_P07_STUDY;
+	}
+
+	///<summary>
+	///Removes the given PEX_P07_STUDY
+	///</summary>
+	public void RemoveSTUDY(PEX_P07_STUDY toRemove)
+	{
+		this.RemoveStructure("STUDY", toRemove);
+	}
+
+	///<summary>
+	///Removes the PEX_P07_STUDY at the given index
+	///</summary>
+	public void RemoveSTUDYAt(int index)
+	{
+		this.RemoveRepetition("STUDY", index);
+	}
 
 }
 }

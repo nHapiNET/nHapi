@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V26.Segment;
 using NHapi.Model.V26.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OBX results 
+	 */ 
+	public IEnumerable<OBX> OBXs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBXRepetitionsUsed; rep++)
+			{
+				yield return (OBX)this.GetStructure("OBX", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OBX
+	///</summary>
+	public OBX AddOBX()
+	{
+		return this.AddStructure("OBX") as OBX;
+	}
+
+	///<summary>
+	///Removes the given OBX
+	///</summary>
+	public void RemoveOBX(OBX toRemove)
+	{
+		this.RemoveStructure("OBX", toRemove);
+	}
+
+	///<summary>
+	///Removes the OBX at the given index
+	///</summary>
+	public void RemoveOBXAt(int index)
+	{
+		this.RemoveRepetition("OBX", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OUL_R22_CONTAINER (a Group object) - creates it if necessary
 	///</summary>
@@ -134,6 +173,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OUL_R22_CONTAINER results 
+	 */ 
+	public IEnumerable<OUL_R22_CONTAINER> CONTAINERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CONTAINERRepetitionsUsed; rep++)
+			{
+				yield return (OUL_R22_CONTAINER)this.GetStructure("CONTAINER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OUL_R22_CONTAINER
+	///</summary>
+	public OUL_R22_CONTAINER AddCONTAINER()
+	{
+		return this.AddStructure("CONTAINER") as OUL_R22_CONTAINER;
+	}
+
+	///<summary>
+	///Removes the given OUL_R22_CONTAINER
+	///</summary>
+	public void RemoveCONTAINER(OUL_R22_CONTAINER toRemove)
+	{
+		this.RemoveStructure("CONTAINER", toRemove);
+	}
+
+	///<summary>
+	///Removes the OUL_R22_CONTAINER at the given index
+	///</summary>
+	public void RemoveCONTAINERAt(int index)
+	{
+		this.RemoveRepetition("CONTAINER", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OUL_R22_ORDER (a Group object) - creates it if necessary
 	///</summary>
@@ -174,6 +251,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OUL_R22_ORDER results 
+	 */ 
+	public IEnumerable<OUL_R22_ORDER> ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDERRepetitionsUsed; rep++)
+			{
+				yield return (OUL_R22_ORDER)this.GetStructure("ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OUL_R22_ORDER
+	///</summary>
+	public OUL_R22_ORDER AddORDER()
+	{
+		return this.AddStructure("ORDER") as OUL_R22_ORDER;
+	}
+
+	///<summary>
+	///Removes the given OUL_R22_ORDER
+	///</summary>
+	public void RemoveORDER(OUL_R22_ORDER toRemove)
+	{
+		this.RemoveStructure("ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the OUL_R22_ORDER at the given index
+	///</summary>
+	public void RemoveORDERAt(int index)
+	{
+		this.RemoveRepetition("ORDER", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -97,6 +98,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OSM_R26_SPECIMEN_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -138,6 +177,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OSM_R26_SPECIMEN_OBSERVATION results 
+	 */ 
+	public IEnumerable<OSM_R26_SPECIMEN_OBSERVATION> SPECIMEN_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPECIMEN_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (OSM_R26_SPECIMEN_OBSERVATION)this.GetStructure("SPECIMEN_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OSM_R26_SPECIMEN_OBSERVATION
+	///</summary>
+	public OSM_R26_SPECIMEN_OBSERVATION AddSPECIMEN_OBSERVATION()
+	{
+		return this.AddStructure("SPECIMEN_OBSERVATION") as OSM_R26_SPECIMEN_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given OSM_R26_SPECIMEN_OBSERVATION
+	///</summary>
+	public void RemoveSPECIMEN_OBSERVATION(OSM_R26_SPECIMEN_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("SPECIMEN_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the OSM_R26_SPECIMEN_OBSERVATION at the given index
+	///</summary>
+	public void RemoveSPECIMEN_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("SPECIMEN_OBSERVATION", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OSM_R26_CONTAINER (a Group object) - creates it if necessary
 	///</summary>
@@ -178,6 +255,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OSM_R26_CONTAINER results 
+	 */ 
+	public IEnumerable<OSM_R26_CONTAINER> CONTAINERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CONTAINERRepetitionsUsed; rep++)
+			{
+				yield return (OSM_R26_CONTAINER)this.GetStructure("CONTAINER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OSM_R26_CONTAINER
+	///</summary>
+	public OSM_R26_CONTAINER AddCONTAINER()
+	{
+		return this.AddStructure("CONTAINER") as OSM_R26_CONTAINER;
+	}
+
+	///<summary>
+	///Removes the given OSM_R26_CONTAINER
+	///</summary>
+	public void RemoveCONTAINER(OSM_R26_CONTAINER toRemove)
+	{
+		this.RemoveStructure("CONTAINER", toRemove);
+	}
+
+	///<summary>
+	///Removes the OSM_R26_CONTAINER at the given index
+	///</summary>
+	public void RemoveCONTAINERAt(int index)
+	{
+		this.RemoveRepetition("CONTAINER", index);
+	}
 
 	///<summary>
 	/// Returns OSM_R26_SUBJECT_PERSON_ANIMAL_IDENTIFICATION (a Group object) - creates it if necessary

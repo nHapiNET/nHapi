@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V25.Segment;
 using NHapi.Model.V25.Datatype;
 using NHapi.Base.Model;
@@ -109,6 +110,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RDE_O11_TIMING results 
+	 */ 
+	public IEnumerable<RDE_O11_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (RDE_O11_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RDE_O11_TIMING
+	///</summary>
+	public RDE_O11_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as RDE_O11_TIMING;
+	}
+
+	///<summary>
+	///Removes the given RDE_O11_TIMING
+	///</summary>
+	public void RemoveTIMING(RDE_O11_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the RDE_O11_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
+
 	///<summary>
 	/// Returns RDE_O11_ORDER_DETAIL (a Group object) - creates it if necessary
 	///</summary>
@@ -182,6 +221,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RDE_O11_TIMING_ENCODED (a Group object) - creates it if necessary
 	///</summary>
@@ -222,6 +299,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RDE_O11_TIMING_ENCODED results 
+	 */ 
+	public IEnumerable<RDE_O11_TIMING_ENCODED> TIMING_ENCODEDs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMING_ENCODEDRepetitionsUsed; rep++)
+			{
+				yield return (RDE_O11_TIMING_ENCODED)this.GetStructure("TIMING_ENCODED", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RDE_O11_TIMING_ENCODED
+	///</summary>
+	public RDE_O11_TIMING_ENCODED AddTIMING_ENCODED()
+	{
+		return this.AddStructure("TIMING_ENCODED") as RDE_O11_TIMING_ENCODED;
+	}
+
+	///<summary>
+	///Removes the given RDE_O11_TIMING_ENCODED
+	///</summary>
+	public void RemoveTIMING_ENCODED(RDE_O11_TIMING_ENCODED toRemove)
+	{
+		this.RemoveStructure("TIMING_ENCODED", toRemove);
+	}
+
+	///<summary>
+	///Removes the RDE_O11_TIMING_ENCODED at the given index
+	///</summary>
+	public void RemoveTIMING_ENCODEDAt(int index)
+	{
+		this.RemoveRepetition("TIMING_ENCODED", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of RXR (Pharmacy/Treatment Route) - creates it if necessary
@@ -264,6 +379,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RXR results 
+	 */ 
+	public IEnumerable<RXR> RXRs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RXRRepetitionsUsed; rep++)
+			{
+				yield return (RXR)this.GetStructure("RXR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RXR
+	///</summary>
+	public RXR AddRXR()
+	{
+		return this.AddStructure("RXR") as RXR;
+	}
+
+	///<summary>
+	///Removes the given RXR
+	///</summary>
+	public void RemoveRXR(RXR toRemove)
+	{
+		this.RemoveStructure("RXR", toRemove);
+	}
+
+	///<summary>
+	///Removes the RXR at the given index
+	///</summary>
+	public void RemoveRXRAt(int index)
+	{
+		this.RemoveRepetition("RXR", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RXC (Pharmacy/Treatment Component Order) - creates it if necessary
 	///</summary>
@@ -304,6 +457,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RXC results 
+	 */ 
+	public IEnumerable<RXC> RXCs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RXCRepetitionsUsed; rep++)
+			{
+				yield return (RXC)this.GetStructure("RXC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RXC
+	///</summary>
+	public RXC AddRXC()
+	{
+		return this.AddStructure("RXC") as RXC;
+	}
+
+	///<summary>
+	///Removes the given RXC
+	///</summary>
+	public void RemoveRXC(RXC toRemove)
+	{
+		this.RemoveStructure("RXC", toRemove);
+	}
+
+	///<summary>
+	///Removes the RXC at the given index
+	///</summary>
+	public void RemoveRXCAt(int index)
+	{
+		this.RemoveRepetition("RXC", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of RDE_O11_OBSERVATION (a Group object) - creates it if necessary
@@ -346,6 +537,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RDE_O11_OBSERVATION results 
+	 */ 
+	public IEnumerable<RDE_O11_OBSERVATION> OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (RDE_O11_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RDE_O11_OBSERVATION
+	///</summary>
+	public RDE_O11_OBSERVATION AddOBSERVATION()
+	{
+		return this.AddStructure("OBSERVATION") as RDE_O11_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given RDE_O11_OBSERVATION
+	///</summary>
+	public void RemoveOBSERVATION(RDE_O11_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the RDE_O11_OBSERVATION at the given index
+	///</summary>
+	public void RemoveOBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of FT1 (Financial Transaction) - creates it if necessary
 	///</summary>
@@ -386,6 +615,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the FT1 results 
+	 */ 
+	public IEnumerable<FT1> FT1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < FT1RepetitionsUsed; rep++)
+			{
+				yield return (FT1)this.GetStructure("FT1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new FT1
+	///</summary>
+	public FT1 AddFT1()
+	{
+		return this.AddStructure("FT1") as FT1;
+	}
+
+	///<summary>
+	///Removes the given FT1
+	///</summary>
+	public void RemoveFT1(FT1 toRemove)
+	{
+		this.RemoveStructure("FT1", toRemove);
+	}
+
+	///<summary>
+	///Removes the FT1 at the given index
+	///</summary>
+	public void RemoveFT1At(int index)
+	{
+		this.RemoveRepetition("FT1", index);
+	}
 
 	///<summary>
 	/// Returns BLG (Billing) - creates it if necessary
@@ -443,6 +710,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CTI results 
+	 */ 
+	public IEnumerable<CTI> CTIs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CTIRepetitionsUsed; rep++)
+			{
+				yield return (CTI)this.GetStructure("CTI", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CTI
+	///</summary>
+	public CTI AddCTI()
+	{
+		return this.AddStructure("CTI") as CTI;
+	}
+
+	///<summary>
+	///Removes the given CTI
+	///</summary>
+	public void RemoveCTI(CTI toRemove)
+	{
+		this.RemoveStructure("CTI", toRemove);
+	}
+
+	///<summary>
+	///Removes the CTI at the given index
+	///</summary>
+	public void RemoveCTIAt(int index)
+	{
+		this.RemoveRepetition("CTI", index);
+	}
 
 }
 }

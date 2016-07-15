@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V28.Segment;
 using NHapi.Model.V28.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFN_M16_PACKAGING results 
+	 */ 
+	public IEnumerable<MFN_M16_PACKAGING> PACKAGINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PACKAGINGRepetitionsUsed; rep++)
+			{
+				yield return (MFN_M16_PACKAGING)this.GetStructure("PACKAGING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFN_M16_PACKAGING
+	///</summary>
+	public MFN_M16_PACKAGING AddPACKAGING()
+	{
+		return this.AddStructure("PACKAGING") as MFN_M16_PACKAGING;
+	}
+
+	///<summary>
+	///Removes the given MFN_M16_PACKAGING
+	///</summary>
+	public void RemovePACKAGING(MFN_M16_PACKAGING toRemove)
+	{
+		this.RemoveStructure("PACKAGING", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFN_M16_PACKAGING at the given index
+	///</summary>
+	public void RemovePACKAGINGAt(int index)
+	{
+		this.RemoveRepetition("PACKAGING", index);
+	}
 
 }
 }

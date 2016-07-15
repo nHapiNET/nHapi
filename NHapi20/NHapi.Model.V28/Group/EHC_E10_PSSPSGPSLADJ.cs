@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V28.Segment;
 using NHapi.Model.V28.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the EHC_E10_PSGPSLADJ results 
+	 */ 
+	public IEnumerable<EHC_E10_PSGPSLADJ> PSGPSLADJs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PSGPSLADJRepetitionsUsed; rep++)
+			{
+				yield return (EHC_E10_PSGPSLADJ)this.GetStructure("PSGPSLADJ", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EHC_E10_PSGPSLADJ
+	///</summary>
+	public EHC_E10_PSGPSLADJ AddPSGPSLADJ()
+	{
+		return this.AddStructure("PSGPSLADJ") as EHC_E10_PSGPSLADJ;
+	}
+
+	///<summary>
+	///Removes the given EHC_E10_PSGPSLADJ
+	///</summary>
+	public void RemovePSGPSLADJ(EHC_E10_PSGPSLADJ toRemove)
+	{
+		this.RemoveStructure("PSGPSLADJ", toRemove);
+	}
+
+	///<summary>
+	///Removes the EHC_E10_PSGPSLADJ at the given index
+	///</summary>
+	public void RemovePSGPSLADJAt(int index)
+	{
+		this.RemoveRepetition("PSGPSLADJ", index);
+	}
 
 }
 }

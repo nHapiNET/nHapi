@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V22.Group;
 using NHapi.Model.V22.Segment;
@@ -166,6 +167,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ADR_A19_QUERY_RESPONSE results 
+	 */ 
+	public IEnumerable<ADR_A19_QUERY_RESPONSE> QUERY_RESPONSEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < QUERY_RESPONSERepetitionsUsed; rep++)
+			{
+				yield return (ADR_A19_QUERY_RESPONSE)this.GetStructure("QUERY_RESPONSE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ADR_A19_QUERY_RESPONSE
+	///</summary>
+	public ADR_A19_QUERY_RESPONSE AddQUERY_RESPONSE()
+	{
+		return this.AddStructure("QUERY_RESPONSE") as ADR_A19_QUERY_RESPONSE;
+	}
+
+	///<summary>
+	///Removes the given ADR_A19_QUERY_RESPONSE
+	///</summary>
+	public void RemoveQUERY_RESPONSE(ADR_A19_QUERY_RESPONSE toRemove)
+	{
+		this.RemoveStructure("QUERY_RESPONSE", toRemove);
+	}
+
+	///<summary>
+	///Removes the ADR_A19_QUERY_RESPONSE at the given index
+	///</summary>
+	public void RemoveQUERY_RESPONSEAt(int index)
+	{
+		this.RemoveRepetition("QUERY_RESPONSE", index);
+	}
 
 	///<summary>
 	/// Returns DSC (CONTINUATION POINTER) - creates it if necessary

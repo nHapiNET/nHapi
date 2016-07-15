@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -115,6 +116,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OPL_O37_TIMING (a Group object) - creates it if necessary
 	///</summary>
@@ -155,6 +194,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OPL_O37_TIMING results 
+	 */ 
+	public IEnumerable<OPL_O37_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (OPL_O37_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OPL_O37_TIMING
+	///</summary>
+	public OPL_O37_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as OPL_O37_TIMING;
+	}
+
+	///<summary>
+	///Removes the given OPL_O37_TIMING
+	///</summary>
+	public void RemoveTIMING(OPL_O37_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the OPL_O37_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
 
 	///<summary>
 	/// Returns TCD (Test Code Detail) - creates it if necessary
@@ -213,6 +290,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the DG1 results 
+	 */ 
+	public IEnumerable<DG1> DG1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DG1RepetitionsUsed; rep++)
+			{
+				yield return (DG1)this.GetStructure("DG1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DG1
+	///</summary>
+	public DG1 AddDG1()
+	{
+		return this.AddStructure("DG1") as DG1;
+	}
+
+	///<summary>
+	///Removes the given DG1
+	///</summary>
+	public void RemoveDG1(DG1 toRemove)
+	{
+		this.RemoveStructure("DG1", toRemove);
+	}
+
+	///<summary>
+	///Removes the DG1 at the given index
+	///</summary>
+	public void RemoveDG1At(int index)
+	{
+		this.RemoveRepetition("DG1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OPL_O37_ORDER_RELATED_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -253,6 +368,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OPL_O37_ORDER_RELATED_OBSERVATION results 
+	 */ 
+	public IEnumerable<OPL_O37_ORDER_RELATED_OBSERVATION> ORDER_RELATED_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDER_RELATED_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (OPL_O37_ORDER_RELATED_OBSERVATION)this.GetStructure("ORDER_RELATED_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OPL_O37_ORDER_RELATED_OBSERVATION
+	///</summary>
+	public OPL_O37_ORDER_RELATED_OBSERVATION AddORDER_RELATED_OBSERVATION()
+	{
+		return this.AddStructure("ORDER_RELATED_OBSERVATION") as OPL_O37_ORDER_RELATED_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given OPL_O37_ORDER_RELATED_OBSERVATION
+	///</summary>
+	public void RemoveORDER_RELATED_OBSERVATION(OPL_O37_ORDER_RELATED_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("ORDER_RELATED_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the OPL_O37_ORDER_RELATED_OBSERVATION at the given index
+	///</summary>
+	public void RemoveORDER_RELATED_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("ORDER_RELATED_OBSERVATION", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OMG_O19_CONTAINER_OBSERVATION results 
+	 */ 
+	public IEnumerable<OMG_O19_CONTAINER_OBSERVATION> CONTAINER_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CONTAINER_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (OMG_O19_CONTAINER_OBSERVATION)this.GetStructure("CONTAINER_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OMG_O19_CONTAINER_OBSERVATION
+	///</summary>
+	public OMG_O19_CONTAINER_OBSERVATION AddCONTAINER_OBSERVATION()
+	{
+		return this.AddStructure("CONTAINER_OBSERVATION") as OMG_O19_CONTAINER_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given OMG_O19_CONTAINER_OBSERVATION
+	///</summary>
+	public void RemoveCONTAINER_OBSERVATION(OMG_O19_CONTAINER_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("CONTAINER_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the OMG_O19_CONTAINER_OBSERVATION at the given index
+	///</summary>
+	public void RemoveCONTAINER_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("CONTAINER_OBSERVATION", index);
+	}
 
 }
 }

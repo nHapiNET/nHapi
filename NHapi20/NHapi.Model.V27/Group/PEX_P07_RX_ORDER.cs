@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of PEX_P07_TIMING_QTY (a Group object) - creates it if necessary
 	///</summary>
@@ -134,6 +173,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PEX_P07_TIMING_QTY results 
+	 */ 
+	public IEnumerable<PEX_P07_TIMING_QTY> TIMING_QTYs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMING_QTYRepetitionsUsed; rep++)
+			{
+				yield return (PEX_P07_TIMING_QTY)this.GetStructure("TIMING_QTY", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PEX_P07_TIMING_QTY
+	///</summary>
+	public PEX_P07_TIMING_QTY AddTIMING_QTY()
+	{
+		return this.AddStructure("TIMING_QTY") as PEX_P07_TIMING_QTY;
+	}
+
+	///<summary>
+	///Removes the given PEX_P07_TIMING_QTY
+	///</summary>
+	public void RemoveTIMING_QTY(PEX_P07_TIMING_QTY toRemove)
+	{
+		this.RemoveStructure("TIMING_QTY", toRemove);
+	}
+
+	///<summary>
+	///Removes the PEX_P07_TIMING_QTY at the given index
+	///</summary>
+	public void RemoveTIMING_QTYAt(int index)
+	{
+		this.RemoveRepetition("TIMING_QTY", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RXR (Pharmacy/Treatment Route) - creates it if necessary
 	///</summary>
@@ -174,6 +251,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RXR results 
+	 */ 
+	public IEnumerable<RXR> RXRs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RXRRepetitionsUsed; rep++)
+			{
+				yield return (RXR)this.GetStructure("RXR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RXR
+	///</summary>
+	public RXR AddRXR()
+	{
+		return this.AddStructure("RXR") as RXR;
+	}
+
+	///<summary>
+	///Removes the given RXR
+	///</summary>
+	public void RemoveRXR(RXR toRemove)
+	{
+		this.RemoveStructure("RXR", toRemove);
+	}
+
+	///<summary>
+	///Removes the RXR at the given index
+	///</summary>
+	public void RemoveRXRAt(int index)
+	{
+		this.RemoveRepetition("RXR", index);
+	}
 
 }
 }

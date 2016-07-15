@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the VAR results 
+	 */ 
+	public IEnumerable<VAR> VARs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < VARRepetitionsUsed; rep++)
+			{
+				yield return (VAR)this.GetStructure("VAR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new VAR
+	///</summary>
+	public VAR AddVAR()
+	{
+		return this.AddStructure("VAR") as VAR;
+	}
+
+	///<summary>
+	///Removes the given VAR
+	///</summary>
+	public void RemoveVAR(VAR toRemove)
+	{
+		this.RemoveStructure("VAR", toRemove);
+	}
+
+	///<summary>
+	///Removes the VAR at the given index
+	///</summary>
+	public void RemoveVARAt(int index)
+	{
+		this.RemoveRepetition("VAR", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CCU_I20_ROLE_PROBLEM (a Group object) - creates it if necessary
 	///</summary>
@@ -134,6 +173,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the CCU_I20_ROLE_PROBLEM results 
+	 */ 
+	public IEnumerable<CCU_I20_ROLE_PROBLEM> ROLE_PROBLEMs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ROLE_PROBLEMRepetitionsUsed; rep++)
+			{
+				yield return (CCU_I20_ROLE_PROBLEM)this.GetStructure("ROLE_PROBLEM", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CCU_I20_ROLE_PROBLEM
+	///</summary>
+	public CCU_I20_ROLE_PROBLEM AddROLE_PROBLEM()
+	{
+		return this.AddStructure("ROLE_PROBLEM") as CCU_I20_ROLE_PROBLEM;
+	}
+
+	///<summary>
+	///Removes the given CCU_I20_ROLE_PROBLEM
+	///</summary>
+	public void RemoveROLE_PROBLEM(CCU_I20_ROLE_PROBLEM toRemove)
+	{
+		this.RemoveStructure("ROLE_PROBLEM", toRemove);
+	}
+
+	///<summary>
+	///Removes the CCU_I20_ROLE_PROBLEM at the given index
+	///</summary>
+	public void RemoveROLE_PROBLEMAt(int index)
+	{
+		this.RemoveRepetition("ROLE_PROBLEM", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CCU_I20_PROBLEM_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -174,6 +251,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CCU_I20_PROBLEM_OBSERVATION results 
+	 */ 
+	public IEnumerable<CCU_I20_PROBLEM_OBSERVATION> PROBLEM_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROBLEM_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (CCU_I20_PROBLEM_OBSERVATION)this.GetStructure("PROBLEM_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CCU_I20_PROBLEM_OBSERVATION
+	///</summary>
+	public CCU_I20_PROBLEM_OBSERVATION AddPROBLEM_OBSERVATION()
+	{
+		return this.AddStructure("PROBLEM_OBSERVATION") as CCU_I20_PROBLEM_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given CCU_I20_PROBLEM_OBSERVATION
+	///</summary>
+	public void RemovePROBLEM_OBSERVATION(CCU_I20_PROBLEM_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("PROBLEM_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the CCU_I20_PROBLEM_OBSERVATION at the given index
+	///</summary>
+	public void RemovePROBLEM_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("PROBLEM_OBSERVATION", index);
+	}
 
 }
 }

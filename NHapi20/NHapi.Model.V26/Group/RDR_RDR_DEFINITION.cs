@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V26.Segment;
 using NHapi.Model.V26.Datatype;
 using NHapi.Base.Model;
@@ -127,6 +128,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RDR_RDR_ORDER results 
+	 */ 
+	public IEnumerable<RDR_RDR_ORDER> ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDERRepetitionsUsed; rep++)
+			{
+				yield return (RDR_RDR_ORDER)this.GetStructure("ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RDR_RDR_ORDER
+	///</summary>
+	public RDR_RDR_ORDER AddORDER()
+	{
+		return this.AddStructure("ORDER") as RDR_RDR_ORDER;
+	}
+
+	///<summary>
+	///Removes the given RDR_RDR_ORDER
+	///</summary>
+	public void RemoveORDER(RDR_RDR_ORDER toRemove)
+	{
+		this.RemoveStructure("ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the RDR_RDR_ORDER at the given index
+	///</summary>
+	public void RemoveORDERAt(int index)
+	{
+		this.RemoveRepetition("ORDER", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RXR (Pharmacy/Treatment Route) - creates it if necessary
 	///</summary>
@@ -167,6 +206,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RXR results 
+	 */ 
+	public IEnumerable<RXR> RXRs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RXRRepetitionsUsed; rep++)
+			{
+				yield return (RXR)this.GetStructure("RXR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RXR
+	///</summary>
+	public RXR AddRXR()
+	{
+		return this.AddStructure("RXR") as RXR;
+	}
+
+	///<summary>
+	///Removes the given RXR
+	///</summary>
+	public void RemoveRXR(RXR toRemove)
+	{
+		this.RemoveStructure("RXR", toRemove);
+	}
+
+	///<summary>
+	///Removes the RXR at the given index
+	///</summary>
+	public void RemoveRXRAt(int index)
+	{
+		this.RemoveRepetition("RXR", index);
+	}
 
 }
 }

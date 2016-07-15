@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V26.Segment;
 using NHapi.Model.V26.Datatype;
 using NHapi.Base.Model;
@@ -91,6 +92,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ROL (Role) - creates it if necessary
 	///</summary>
@@ -131,6 +170,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ROL results 
+	 */ 
+	public IEnumerable<ROL> ROLs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ROLRepetitionsUsed; rep++)
+			{
+				yield return (ROL)this.GetStructure("ROL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ROL
+	///</summary>
+	public ROL AddROL()
+	{
+		return this.AddStructure("ROL") as ROL;
+	}
+
+	///<summary>
+	///Removes the given ROL
+	///</summary>
+	public void RemoveROL(ROL toRemove)
+	{
+		this.RemoveStructure("ROL", toRemove);
+	}
+
+	///<summary>
+	///Removes the ROL at the given index
+	///</summary>
+	public void RemoveROLAt(int index)
+	{
+		this.RemoveRepetition("ROL", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V271.Segment;
 using NHapi.Model.V271.Datatype;
 using NHapi.Base.Model;
@@ -73,6 +74,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the GT1 results 
+	 */ 
+	public IEnumerable<GT1> GT1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < GT1RepetitionsUsed; rep++)
+			{
+				yield return (GT1)this.GetStructure("GT1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new GT1
+	///</summary>
+	public GT1 AddGT1()
+	{
+		return this.AddStructure("GT1") as GT1;
+	}
+
+	///<summary>
+	///Removes the given GT1
+	///</summary>
+	public void RemoveGT1(GT1 toRemove)
+	{
+		this.RemoveStructure("GT1", toRemove);
+	}
+
+	///<summary>
+	///Removes the GT1 at the given index
+	///</summary>
+	public void RemoveGT1At(int index)
+	{
+		this.RemoveRepetition("GT1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RPI_I04_INSURANCE (a Group object) - creates it if necessary
 	///</summary>
@@ -113,6 +152,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RPI_I04_INSURANCE results 
+	 */ 
+	public IEnumerable<RPI_I04_INSURANCE> INSURANCEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < INSURANCERepetitionsUsed; rep++)
+			{
+				yield return (RPI_I04_INSURANCE)this.GetStructure("INSURANCE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RPI_I04_INSURANCE
+	///</summary>
+	public RPI_I04_INSURANCE AddINSURANCE()
+	{
+		return this.AddStructure("INSURANCE") as RPI_I04_INSURANCE;
+	}
+
+	///<summary>
+	///Removes the given RPI_I04_INSURANCE
+	///</summary>
+	public void RemoveINSURANCE(RPI_I04_INSURANCE toRemove)
+	{
+		this.RemoveStructure("INSURANCE", toRemove);
+	}
+
+	///<summary>
+	///Removes the RPI_I04_INSURANCE at the given index
+	///</summary>
+	public void RemoveINSURANCEAt(int index)
+	{
+		this.RemoveRepetition("INSURANCE", index);
+	}
 
 }
 }

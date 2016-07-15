@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -130,6 +131,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SAC results 
+	 */ 
+	public IEnumerable<SAC> SACs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SACRepetitionsUsed; rep++)
+			{
+				yield return (SAC)this.GetStructure("SAC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SAC
+	///</summary>
+	public SAC AddSAC()
+	{
+		return this.AddStructure("SAC") as SAC;
+	}
+
+	///<summary>
+	///Removes the given SAC
+	///</summary>
+	public void RemoveSAC(SAC toRemove)
+	{
+		this.RemoveStructure("SAC", toRemove);
+	}
+
+	///<summary>
+	///Removes the SAC at the given index
+	///</summary>
+	public void RemoveSACAt(int index)
+	{
+		this.RemoveRepetition("SAC", index);
+	}
 
 	///<summary>
 	/// Returns ROL (Role) - creates it if necessary

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V27.Group;
 using NHapi.Model.V27.Segment;
@@ -117,6 +118,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -189,6 +228,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFN_M09_MF_TEST_CATEGORICAL results 
+	 */ 
+	public IEnumerable<MFN_M09_MF_TEST_CATEGORICAL> MF_TEST_CATEGORICALs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MF_TEST_CATEGORICALRepetitionsUsed; rep++)
+			{
+				yield return (MFN_M09_MF_TEST_CATEGORICAL)this.GetStructure("MF_TEST_CATEGORICAL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFN_M09_MF_TEST_CATEGORICAL
+	///</summary>
+	public MFN_M09_MF_TEST_CATEGORICAL AddMF_TEST_CATEGORICAL()
+	{
+		return this.AddStructure("MF_TEST_CATEGORICAL") as MFN_M09_MF_TEST_CATEGORICAL;
+	}
+
+	///<summary>
+	///Removes the given MFN_M09_MF_TEST_CATEGORICAL
+	///</summary>
+	public void RemoveMF_TEST_CATEGORICAL(MFN_M09_MF_TEST_CATEGORICAL toRemove)
+	{
+		this.RemoveStructure("MF_TEST_CATEGORICAL", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFN_M09_MF_TEST_CATEGORICAL at the given index
+	///</summary>
+	public void RemoveMF_TEST_CATEGORICALAt(int index)
+	{
+		this.RemoveRepetition("MF_TEST_CATEGORICAL", index);
+	}
 
 }
 }

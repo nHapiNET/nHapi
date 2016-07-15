@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -202,6 +203,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RSP_K25_STAFF results 
+	 */ 
+	public IEnumerable<RSP_K25_STAFF> STAFFs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < STAFFRepetitionsUsed; rep++)
+			{
+				yield return (RSP_K25_STAFF)this.GetStructure("STAFF", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RSP_K25_STAFF
+	///</summary>
+	public RSP_K25_STAFF AddSTAFF()
+	{
+		return this.AddStructure("STAFF") as RSP_K25_STAFF;
+	}
+
+	///<summary>
+	///Removes the given RSP_K25_STAFF
+	///</summary>
+	public void RemoveSTAFF(RSP_K25_STAFF toRemove)
+	{
+		this.RemoveStructure("STAFF", toRemove);
+	}
+
+	///<summary>
+	///Removes the RSP_K25_STAFF at the given index
+	///</summary>
+	public void RemoveSTAFFAt(int index)
+	{
+		this.RemoveRepetition("STAFF", index);
+	}
 
 	///<summary>
 	/// Returns DSC (Continuation Pointer) - creates it if necessary

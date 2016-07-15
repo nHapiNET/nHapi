@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V271.Segment;
 using NHapi.Model.V271.Datatype;
 using NHapi.Base.Model;
@@ -113,6 +114,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of MFN_M16_STERILIZATION (a Group object) - creates it if necessary
 	///</summary>
@@ -153,6 +192,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFN_M16_STERILIZATION results 
+	 */ 
+	public IEnumerable<MFN_M16_STERILIZATION> STERILIZATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < STERILIZATIONRepetitionsUsed; rep++)
+			{
+				yield return (MFN_M16_STERILIZATION)this.GetStructure("STERILIZATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFN_M16_STERILIZATION
+	///</summary>
+	public MFN_M16_STERILIZATION AddSTERILIZATION()
+	{
+		return this.AddStructure("STERILIZATION") as MFN_M16_STERILIZATION;
+	}
+
+	///<summary>
+	///Removes the given MFN_M16_STERILIZATION
+	///</summary>
+	public void RemoveSTERILIZATION(MFN_M16_STERILIZATION toRemove)
+	{
+		this.RemoveStructure("STERILIZATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFN_M16_STERILIZATION at the given index
+	///</summary>
+	public void RemoveSTERILIZATIONAt(int index)
+	{
+		this.RemoveRepetition("STERILIZATION", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of MFN_M16_PURCHASING_VENDOR (a Group object) - creates it if necessary
@@ -195,6 +272,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the MFN_M16_PURCHASING_VENDOR results 
+	 */ 
+	public IEnumerable<MFN_M16_PURCHASING_VENDOR> PURCHASING_VENDORs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PURCHASING_VENDORRepetitionsUsed; rep++)
+			{
+				yield return (MFN_M16_PURCHASING_VENDOR)this.GetStructure("PURCHASING_VENDOR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFN_M16_PURCHASING_VENDOR
+	///</summary>
+	public MFN_M16_PURCHASING_VENDOR AddPURCHASING_VENDOR()
+	{
+		return this.AddStructure("PURCHASING_VENDOR") as MFN_M16_PURCHASING_VENDOR;
+	}
+
+	///<summary>
+	///Removes the given MFN_M16_PURCHASING_VENDOR
+	///</summary>
+	public void RemovePURCHASING_VENDOR(MFN_M16_PURCHASING_VENDOR toRemove)
+	{
+		this.RemoveStructure("PURCHASING_VENDOR", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFN_M16_PURCHASING_VENDOR at the given index
+	///</summary>
+	public void RemovePURCHASING_VENDORAt(int index)
+	{
+		this.RemoveRepetition("PURCHASING_VENDOR", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of MFN_M16_MATERIAL_LOCATION (a Group object) - creates it if necessary
 	///</summary>
@@ -235,6 +350,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFN_M16_MATERIAL_LOCATION results 
+	 */ 
+	public IEnumerable<MFN_M16_MATERIAL_LOCATION> MATERIAL_LOCATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MATERIAL_LOCATIONRepetitionsUsed; rep++)
+			{
+				yield return (MFN_M16_MATERIAL_LOCATION)this.GetStructure("MATERIAL_LOCATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFN_M16_MATERIAL_LOCATION
+	///</summary>
+	public MFN_M16_MATERIAL_LOCATION AddMATERIAL_LOCATION()
+	{
+		return this.AddStructure("MATERIAL_LOCATION") as MFN_M16_MATERIAL_LOCATION;
+	}
+
+	///<summary>
+	///Removes the given MFN_M16_MATERIAL_LOCATION
+	///</summary>
+	public void RemoveMATERIAL_LOCATION(MFN_M16_MATERIAL_LOCATION toRemove)
+	{
+		this.RemoveStructure("MATERIAL_LOCATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFN_M16_MATERIAL_LOCATION at the given index
+	///</summary>
+	public void RemoveMATERIAL_LOCATIONAt(int index)
+	{
+		this.RemoveRepetition("MATERIAL_LOCATION", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V24.Segment;
 using NHapi.Model.V24.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORL_O22_GENERAL_ORDER results 
+	 */ 
+	public IEnumerable<ORL_O22_GENERAL_ORDER> GENERAL_ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < GENERAL_ORDERRepetitionsUsed; rep++)
+			{
+				yield return (ORL_O22_GENERAL_ORDER)this.GetStructure("GENERAL_ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORL_O22_GENERAL_ORDER
+	///</summary>
+	public ORL_O22_GENERAL_ORDER AddGENERAL_ORDER()
+	{
+		return this.AddStructure("GENERAL_ORDER") as ORL_O22_GENERAL_ORDER;
+	}
+
+	///<summary>
+	///Removes the given ORL_O22_GENERAL_ORDER
+	///</summary>
+	public void RemoveGENERAL_ORDER(ORL_O22_GENERAL_ORDER toRemove)
+	{
+		this.RemoveStructure("GENERAL_ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORL_O22_GENERAL_ORDER at the given index
+	///</summary>
+	public void RemoveGENERAL_ORDERAt(int index)
+	{
+		this.RemoveRepetition("GENERAL_ORDER", index);
+	}
 
 }
 }

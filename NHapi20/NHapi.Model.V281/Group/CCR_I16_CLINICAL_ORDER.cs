@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the CCR_I16_CLINICAL_ORDER_TIMING results 
+	 */ 
+	public IEnumerable<CCR_I16_CLINICAL_ORDER_TIMING> CLINICAL_ORDER_TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CLINICAL_ORDER_TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (CCR_I16_CLINICAL_ORDER_TIMING)this.GetStructure("CLINICAL_ORDER_TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CCR_I16_CLINICAL_ORDER_TIMING
+	///</summary>
+	public CCR_I16_CLINICAL_ORDER_TIMING AddCLINICAL_ORDER_TIMING()
+	{
+		return this.AddStructure("CLINICAL_ORDER_TIMING") as CCR_I16_CLINICAL_ORDER_TIMING;
+	}
+
+	///<summary>
+	///Removes the given CCR_I16_CLINICAL_ORDER_TIMING
+	///</summary>
+	public void RemoveCLINICAL_ORDER_TIMING(CCR_I16_CLINICAL_ORDER_TIMING toRemove)
+	{
+		this.RemoveStructure("CLINICAL_ORDER_TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the CCR_I16_CLINICAL_ORDER_TIMING at the given index
+	///</summary>
+	public void RemoveCLINICAL_ORDER_TIMINGAt(int index)
+	{
+		this.RemoveRepetition("CLINICAL_ORDER_TIMING", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CCR_I16_CLINICAL_ORDER_DETAIL (a Group object) - creates it if necessary
 	///</summary>
@@ -134,6 +173,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the CCR_I16_CLINICAL_ORDER_DETAIL results 
+	 */ 
+	public IEnumerable<CCR_I16_CLINICAL_ORDER_DETAIL> CLINICAL_ORDER_DETAILs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CLINICAL_ORDER_DETAILRepetitionsUsed; rep++)
+			{
+				yield return (CCR_I16_CLINICAL_ORDER_DETAIL)this.GetStructure("CLINICAL_ORDER_DETAIL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CCR_I16_CLINICAL_ORDER_DETAIL
+	///</summary>
+	public CCR_I16_CLINICAL_ORDER_DETAIL AddCLINICAL_ORDER_DETAIL()
+	{
+		return this.AddStructure("CLINICAL_ORDER_DETAIL") as CCR_I16_CLINICAL_ORDER_DETAIL;
+	}
+
+	///<summary>
+	///Removes the given CCR_I16_CLINICAL_ORDER_DETAIL
+	///</summary>
+	public void RemoveCLINICAL_ORDER_DETAIL(CCR_I16_CLINICAL_ORDER_DETAIL toRemove)
+	{
+		this.RemoveStructure("CLINICAL_ORDER_DETAIL", toRemove);
+	}
+
+	///<summary>
+	///Removes the CCR_I16_CLINICAL_ORDER_DETAIL at the given index
+	///</summary>
+	public void RemoveCLINICAL_ORDER_DETAILAt(int index)
+	{
+		this.RemoveRepetition("CLINICAL_ORDER_DETAIL", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CTI (Clinical Trial Identification) - creates it if necessary
 	///</summary>
@@ -174,6 +251,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CTI results 
+	 */ 
+	public IEnumerable<CTI> CTIs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CTIRepetitionsUsed; rep++)
+			{
+				yield return (CTI)this.GetStructure("CTI", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CTI
+	///</summary>
+	public CTI AddCTI()
+	{
+		return this.AddStructure("CTI") as CTI;
+	}
+
+	///<summary>
+	///Removes the given CTI
+	///</summary>
+	public void RemoveCTI(CTI toRemove)
+	{
+		this.RemoveStructure("CTI", toRemove);
+	}
+
+	///<summary>
+	///Removes the CTI at the given index
+	///</summary>
+	public void RemoveCTIAt(int index)
+	{
+		this.RemoveRepetition("CTI", index);
+	}
 
 }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
@@ -135,6 +136,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RPL_I02_PROVIDER results 
+	 */ 
+	public IEnumerable<RPL_I02_PROVIDER> PROVIDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROVIDERRepetitionsUsed; rep++)
+			{
+				yield return (RPL_I02_PROVIDER)this.GetStructure("PROVIDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RPL_I02_PROVIDER
+	///</summary>
+	public RPL_I02_PROVIDER AddPROVIDER()
+	{
+		return this.AddStructure("PROVIDER") as RPL_I02_PROVIDER;
+	}
+
+	///<summary>
+	///Removes the given RPL_I02_PROVIDER
+	///</summary>
+	public void RemovePROVIDER(RPL_I02_PROVIDER toRemove)
+	{
+		this.RemoveStructure("PROVIDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the RPL_I02_PROVIDER at the given index
+	///</summary>
+	public void RemovePROVIDERAt(int index)
+	{
+		this.RemoveRepetition("PROVIDER", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of NTE (Notes and comments segment) - creates it if necessary
 	///</summary>
@@ -176,6 +215,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of DSP (Display data segment) - creates it if necessary
 	///</summary>
@@ -216,6 +293,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DSP results 
+	 */ 
+	public IEnumerable<DSP> DSPs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DSPRepetitionsUsed; rep++)
+			{
+				yield return (DSP)this.GetStructure("DSP", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DSP
+	///</summary>
+	public DSP AddDSP()
+	{
+		return this.AddStructure("DSP") as DSP;
+	}
+
+	///<summary>
+	///Removes the given DSP
+	///</summary>
+	public void RemoveDSP(DSP toRemove)
+	{
+		this.RemoveStructure("DSP", toRemove);
+	}
+
+	///<summary>
+	///Removes the DSP at the given index
+	///</summary>
+	public void RemoveDSPAt(int index)
+	{
+		this.RemoveRepetition("DSP", index);
+	}
 
 	///<summary>
 	/// Returns DSC (Continuation pointer segment) - creates it if necessary

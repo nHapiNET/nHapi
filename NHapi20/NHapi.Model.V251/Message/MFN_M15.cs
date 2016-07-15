@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
@@ -115,6 +116,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns MFI (Master File Identification) - creates it if necessary
 	///</summary>
@@ -171,6 +210,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFN_M15_MF_INV_ITEM results 
+	 */ 
+	public IEnumerable<MFN_M15_MF_INV_ITEM> MF_INV_ITEMs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MF_INV_ITEMRepetitionsUsed; rep++)
+			{
+				yield return (MFN_M15_MF_INV_ITEM)this.GetStructure("MF_INV_ITEM", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFN_M15_MF_INV_ITEM
+	///</summary>
+	public MFN_M15_MF_INV_ITEM AddMF_INV_ITEM()
+	{
+		return this.AddStructure("MF_INV_ITEM") as MFN_M15_MF_INV_ITEM;
+	}
+
+	///<summary>
+	///Removes the given MFN_M15_MF_INV_ITEM
+	///</summary>
+	public void RemoveMF_INV_ITEM(MFN_M15_MF_INV_ITEM toRemove)
+	{
+		this.RemoveStructure("MF_INV_ITEM", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFN_M15_MF_INV_ITEM at the given index
+	///</summary>
+	public void RemoveMF_INV_ITEMAt(int index)
+	{
+		this.RemoveRepetition("MF_INV_ITEM", index);
+	}
 
 }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V21.Group;
 using NHapi.Model.V21.Segment;
@@ -164,6 +165,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the FT1 results 
+	 */ 
+	public IEnumerable<FT1> FT1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < FT1RepetitionsUsed; rep++)
+			{
+				yield return (FT1)this.GetStructure("FT1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new FT1
+	///</summary>
+	public FT1 AddFT1()
+	{
+		return this.AddStructure("FT1") as FT1;
+	}
+
+	///<summary>
+	///Removes the given FT1
+	///</summary>
+	public void RemoveFT1(FT1 toRemove)
+	{
+		this.RemoveStructure("FT1", toRemove);
+	}
+
+	///<summary>
+	///Removes the FT1 at the given index
+	///</summary>
+	public void RemoveFT1At(int index)
+	{
+		this.RemoveRepetition("FT1", index);
+	}
 
 }
 }

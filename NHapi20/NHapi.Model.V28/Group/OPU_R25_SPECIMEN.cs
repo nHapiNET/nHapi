@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V28.Segment;
 using NHapi.Model.V28.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OPU_R25_SPECIMEN_OBSERVATION results 
+	 */ 
+	public IEnumerable<OPU_R25_SPECIMEN_OBSERVATION> SPECIMEN_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPECIMEN_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (OPU_R25_SPECIMEN_OBSERVATION)this.GetStructure("SPECIMEN_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OPU_R25_SPECIMEN_OBSERVATION
+	///</summary>
+	public OPU_R25_SPECIMEN_OBSERVATION AddSPECIMEN_OBSERVATION()
+	{
+		return this.AddStructure("SPECIMEN_OBSERVATION") as OPU_R25_SPECIMEN_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given OPU_R25_SPECIMEN_OBSERVATION
+	///</summary>
+	public void RemoveSPECIMEN_OBSERVATION(OPU_R25_SPECIMEN_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("SPECIMEN_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the OPU_R25_SPECIMEN_OBSERVATION at the given index
+	///</summary>
+	public void RemoveSPECIMEN_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("SPECIMEN_OBSERVATION", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OPU_R25_CONTAINER (a Group object) - creates it if necessary
 	///</summary>
@@ -134,6 +173,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OPU_R25_CONTAINER results 
+	 */ 
+	public IEnumerable<OPU_R25_CONTAINER> CONTAINERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CONTAINERRepetitionsUsed; rep++)
+			{
+				yield return (OPU_R25_CONTAINER)this.GetStructure("CONTAINER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OPU_R25_CONTAINER
+	///</summary>
+	public OPU_R25_CONTAINER AddCONTAINER()
+	{
+		return this.AddStructure("CONTAINER") as OPU_R25_CONTAINER;
+	}
+
+	///<summary>
+	///Removes the given OPU_R25_CONTAINER
+	///</summary>
+	public void RemoveCONTAINER(OPU_R25_CONTAINER toRemove)
+	{
+		this.RemoveStructure("CONTAINER", toRemove);
+	}
+
+	///<summary>
+	///Removes the OPU_R25_CONTAINER at the given index
+	///</summary>
+	public void RemoveCONTAINERAt(int index)
+	{
+		this.RemoveRepetition("CONTAINER", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OPU_R25_ORDER (a Group object) - creates it if necessary
 	///</summary>
@@ -174,6 +251,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OPU_R25_ORDER results 
+	 */ 
+	public IEnumerable<OPU_R25_ORDER> ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDERRepetitionsUsed; rep++)
+			{
+				yield return (OPU_R25_ORDER)this.GetStructure("ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OPU_R25_ORDER
+	///</summary>
+	public OPU_R25_ORDER AddORDER()
+	{
+		return this.AddStructure("ORDER") as OPU_R25_ORDER;
+	}
+
+	///<summary>
+	///Removes the given OPU_R25_ORDER
+	///</summary>
+	public void RemoveORDER(OPU_R25_ORDER toRemove)
+	{
+		this.RemoveStructure("ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the OPU_R25_ORDER at the given index
+	///</summary>
+	public void RemoveORDERAt(int index)
+	{
+		this.RemoveRepetition("ORDER", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V26.Segment;
 using NHapi.Model.V26.Datatype;
 using NHapi.Base.Model;
@@ -95,6 +96,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OBX results 
+	 */ 
+	public IEnumerable<OBX> OBXs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBXRepetitionsUsed; rep++)
+			{
+				yield return (OBX)this.GetStructure("OBX", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OBX
+	///</summary>
+	public OBX AddOBX()
+	{
+		return this.AddStructure("OBX") as OBX;
+	}
+
+	///<summary>
+	///Removes the given OBX
+	///</summary>
+	public void RemoveOBX(OBX toRemove)
+	{
+		this.RemoveStructure("OBX", toRemove);
+	}
+
+	///<summary>
+	///Removes the OBX at the given index
+	///</summary>
+	public void RemoveOBXAt(int index)
+	{
+		this.RemoveRepetition("OBX", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of SAC (Specimen Container detail) - creates it if necessary
 	///</summary>
@@ -135,6 +174,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SAC results 
+	 */ 
+	public IEnumerable<SAC> SACs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SACRepetitionsUsed; rep++)
+			{
+				yield return (SAC)this.GetStructure("SAC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SAC
+	///</summary>
+	public SAC AddSAC()
+	{
+		return this.AddStructure("SAC") as SAC;
+	}
+
+	///<summary>
+	///Removes the given SAC
+	///</summary>
+	public void RemoveSAC(SAC toRemove)
+	{
+		this.RemoveStructure("SAC", toRemove);
+	}
+
+	///<summary>
+	///Removes the SAC at the given index
+	///</summary>
+	public void RemoveSACAt(int index)
+	{
+		this.RemoveRepetition("SAC", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of OPR_O38_OBSERVATION_REQUEST (a Group object) - creates it if necessary
@@ -177,6 +254,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OPR_O38_OBSERVATION_REQUEST results 
+	 */ 
+	public IEnumerable<OPR_O38_OBSERVATION_REQUEST> OBSERVATION_REQUESTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATION_REQUESTRepetitionsUsed; rep++)
+			{
+				yield return (OPR_O38_OBSERVATION_REQUEST)this.GetStructure("OBSERVATION_REQUEST", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OPR_O38_OBSERVATION_REQUEST
+	///</summary>
+	public OPR_O38_OBSERVATION_REQUEST AddOBSERVATION_REQUEST()
+	{
+		return this.AddStructure("OBSERVATION_REQUEST") as OPR_O38_OBSERVATION_REQUEST;
+	}
+
+	///<summary>
+	///Removes the given OPR_O38_OBSERVATION_REQUEST
+	///</summary>
+	public void RemoveOBSERVATION_REQUEST(OPR_O38_OBSERVATION_REQUEST toRemove)
+	{
+		this.RemoveStructure("OBSERVATION_REQUEST", toRemove);
+	}
+
+	///<summary>
+	///Removes the OPR_O38_OBSERVATION_REQUEST at the given index
+	///</summary>
+	public void RemoveOBSERVATION_REQUESTAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION_REQUEST", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OPR_O38_TIMING (a Group object) - creates it if necessary
 	///</summary>
@@ -217,6 +332,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OPR_O38_TIMING results 
+	 */ 
+	public IEnumerable<OPR_O38_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (OPR_O38_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OPR_O38_TIMING
+	///</summary>
+	public OPR_O38_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as OPR_O38_TIMING;
+	}
+
+	///<summary>
+	///Removes the given OPR_O38_TIMING
+	///</summary>
+	public void RemoveTIMING(OPR_O38_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the OPR_O38_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
 
 }
 }

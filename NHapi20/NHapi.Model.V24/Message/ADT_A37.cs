@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -191,6 +192,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the DB1 results 
+	 */ 
+	public IEnumerable<DB1> DB1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DB1RepetitionsUsed; rep++)
+			{
+				yield return (DB1)this.GetStructure("DB1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DB1
+	///</summary>
+	public DB1 AddDB1()
+	{
+		return this.AddStructure("DB1") as DB1;
+	}
+
+	///<summary>
+	///Removes the given DB1
+	///</summary>
+	public void RemoveDB1(DB1 toRemove)
+	{
+		this.RemoveStructure("DB1", toRemove);
+	}
+
+	///<summary>
+	///Removes the DB1 at the given index
+	///</summary>
+	public void RemoveDB1At(int index)
+	{
+		this.RemoveRepetition("DB1", index);
+	}
+
 	///<summary>
 	/// Returns PID2 (Patient identification) - creates it if necessary
 	///</summary>
@@ -279,6 +318,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DB1 results 
+	 */ 
+	public IEnumerable<DB1> DB12s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DB12RepetitionsUsed; rep++)
+			{
+				yield return (DB1)this.GetStructure("DB12", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DB1
+	///</summary>
+	public DB1 AddDB12()
+	{
+		return this.AddStructure("DB12") as DB1;
+	}
+
+	///<summary>
+	///Removes the given DB1
+	///</summary>
+	public void RemoveDB12(DB1 toRemove)
+	{
+		this.RemoveStructure("DB12", toRemove);
+	}
+
+	///<summary>
+	///Removes the DB1 at the given index
+	///</summary>
+	public void RemoveDB12At(int index)
+	{
+		this.RemoveRepetition("DB12", index);
+	}
 
 }
 }

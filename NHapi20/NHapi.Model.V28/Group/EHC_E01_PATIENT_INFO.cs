@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V28.Segment;
 using NHapi.Model.V28.Datatype;
 using NHapi.Base.Model;
@@ -131,6 +132,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ACC results 
+	 */ 
+	public IEnumerable<ACC> ACCs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ACCRepetitionsUsed; rep++)
+			{
+				yield return (ACC)this.GetStructure("ACC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ACC
+	///</summary>
+	public ACC AddACC()
+	{
+		return this.AddStructure("ACC") as ACC;
+	}
+
+	///<summary>
+	///Removes the given ACC
+	///</summary>
+	public void RemoveACC(ACC toRemove)
+	{
+		this.RemoveStructure("ACC", toRemove);
+	}
+
+	///<summary>
+	///Removes the ACC at the given index
+	///</summary>
+	public void RemoveACCAt(int index)
+	{
+		this.RemoveRepetition("ACC", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of EHC_E01_INSURANCE (a Group object) - creates it if necessary
 	///</summary>
@@ -171,6 +210,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the EHC_E01_INSURANCE results 
+	 */ 
+	public IEnumerable<EHC_E01_INSURANCE> INSURANCEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < INSURANCERepetitionsUsed; rep++)
+			{
+				yield return (EHC_E01_INSURANCE)this.GetStructure("INSURANCE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EHC_E01_INSURANCE
+	///</summary>
+	public EHC_E01_INSURANCE AddINSURANCE()
+	{
+		return this.AddStructure("INSURANCE") as EHC_E01_INSURANCE;
+	}
+
+	///<summary>
+	///Removes the given EHC_E01_INSURANCE
+	///</summary>
+	public void RemoveINSURANCE(EHC_E01_INSURANCE toRemove)
+	{
+		this.RemoveStructure("INSURANCE", toRemove);
+	}
+
+	///<summary>
+	///Removes the EHC_E01_INSURANCE at the given index
+	///</summary>
+	public void RemoveINSURANCEAt(int index)
+	{
+		this.RemoveRepetition("INSURANCE", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of EHC_E01_DIAGNOSIS (a Group object) - creates it if necessary
@@ -213,6 +290,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the EHC_E01_DIAGNOSIS results 
+	 */ 
+	public IEnumerable<EHC_E01_DIAGNOSIS> DIAGNOSISs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DIAGNOSISRepetitionsUsed; rep++)
+			{
+				yield return (EHC_E01_DIAGNOSIS)this.GetStructure("DIAGNOSIS", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EHC_E01_DIAGNOSIS
+	///</summary>
+	public EHC_E01_DIAGNOSIS AddDIAGNOSIS()
+	{
+		return this.AddStructure("DIAGNOSIS") as EHC_E01_DIAGNOSIS;
+	}
+
+	///<summary>
+	///Removes the given EHC_E01_DIAGNOSIS
+	///</summary>
+	public void RemoveDIAGNOSIS(EHC_E01_DIAGNOSIS toRemove)
+	{
+		this.RemoveStructure("DIAGNOSIS", toRemove);
+	}
+
+	///<summary>
+	///Removes the EHC_E01_DIAGNOSIS at the given index
+	///</summary>
+	public void RemoveDIAGNOSISAt(int index)
+	{
+		this.RemoveRepetition("DIAGNOSIS", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OBX (Observation/Result) - creates it if necessary
 	///</summary>
@@ -253,6 +368,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OBX results 
+	 */ 
+	public IEnumerable<OBX> OBXs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBXRepetitionsUsed; rep++)
+			{
+				yield return (OBX)this.GetStructure("OBX", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OBX
+	///</summary>
+	public OBX AddOBX()
+	{
+		return this.AddStructure("OBX") as OBX;
+	}
+
+	///<summary>
+	///Removes the given OBX
+	///</summary>
+	public void RemoveOBX(OBX toRemove)
+	{
+		this.RemoveStructure("OBX", toRemove);
+	}
+
+	///<summary>
+	///Removes the OBX at the given index
+	///</summary>
+	public void RemoveOBXAt(int index)
+	{
+		this.RemoveRepetition("OBX", index);
+	}
 
 }
 }

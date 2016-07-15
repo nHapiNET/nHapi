@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V251.Segment;
 using NHapi.Model.V251.Datatype;
 using NHapi.Base.Model;
@@ -95,6 +96,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SUR_P09_PRODUCT results 
+	 */ 
+	public IEnumerable<SUR_P09_PRODUCT> PRODUCTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRODUCTRepetitionsUsed; rep++)
+			{
+				yield return (SUR_P09_PRODUCT)this.GetStructure("PRODUCT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SUR_P09_PRODUCT
+	///</summary>
+	public SUR_P09_PRODUCT AddPRODUCT()
+	{
+		return this.AddStructure("PRODUCT") as SUR_P09_PRODUCT;
+	}
+
+	///<summary>
+	///Removes the given SUR_P09_PRODUCT
+	///</summary>
+	public void RemovePRODUCT(SUR_P09_PRODUCT toRemove)
+	{
+		this.RemoveStructure("PRODUCT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SUR_P09_PRODUCT at the given index
+	///</summary>
+	public void RemovePRODUCTAt(int index)
+	{
+		this.RemoveRepetition("PRODUCT", index);
+	}
+
 	///<summary>
 	/// Returns PSH (Product Summary Header) - creates it if necessary
 	///</summary>
@@ -151,6 +190,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SUR_P09_FACILITY_DETAIL results 
+	 */ 
+	public IEnumerable<SUR_P09_FACILITY_DETAIL> FACILITY_DETAILs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < FACILITY_DETAILRepetitionsUsed; rep++)
+			{
+				yield return (SUR_P09_FACILITY_DETAIL)this.GetStructure("FACILITY_DETAIL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SUR_P09_FACILITY_DETAIL
+	///</summary>
+	public SUR_P09_FACILITY_DETAIL AddFACILITY_DETAIL()
+	{
+		return this.AddStructure("FACILITY_DETAIL") as SUR_P09_FACILITY_DETAIL;
+	}
+
+	///<summary>
+	///Removes the given SUR_P09_FACILITY_DETAIL
+	///</summary>
+	public void RemoveFACILITY_DETAIL(SUR_P09_FACILITY_DETAIL toRemove)
+	{
+		this.RemoveStructure("FACILITY_DETAIL", toRemove);
+	}
+
+	///<summary>
+	///Removes the SUR_P09_FACILITY_DETAIL at the given index
+	///</summary>
+	public void RemoveFACILITY_DETAILAt(int index)
+	{
+		this.RemoveRepetition("FACILITY_DETAIL", index);
+	}
 
 	///<summary>
 	/// Returns ED (Encapsulated Data (wrong segment)) - creates it if necessary

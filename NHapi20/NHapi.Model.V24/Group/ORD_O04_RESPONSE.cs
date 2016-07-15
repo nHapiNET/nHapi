@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V24.Segment;
 using NHapi.Model.V24.Datatype;
 using NHapi.Base.Model;
@@ -91,6 +92,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ORD_O04_ORDER_DIET results 
+	 */ 
+	public IEnumerable<ORD_O04_ORDER_DIET> ORDER_DIETs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDER_DIETRepetitionsUsed; rep++)
+			{
+				yield return (ORD_O04_ORDER_DIET)this.GetStructure("ORDER_DIET", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORD_O04_ORDER_DIET
+	///</summary>
+	public ORD_O04_ORDER_DIET AddORDER_DIET()
+	{
+		return this.AddStructure("ORDER_DIET") as ORD_O04_ORDER_DIET;
+	}
+
+	///<summary>
+	///Removes the given ORD_O04_ORDER_DIET
+	///</summary>
+	public void RemoveORDER_DIET(ORD_O04_ORDER_DIET toRemove)
+	{
+		this.RemoveStructure("ORDER_DIET", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORD_O04_ORDER_DIET at the given index
+	///</summary>
+	public void RemoveORDER_DIETAt(int index)
+	{
+		this.RemoveRepetition("ORDER_DIET", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ORD_O04_ORDER_TRAY (a Group object) - creates it if necessary
 	///</summary>
@@ -131,6 +170,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORD_O04_ORDER_TRAY results 
+	 */ 
+	public IEnumerable<ORD_O04_ORDER_TRAY> ORDER_TRAYs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDER_TRAYRepetitionsUsed; rep++)
+			{
+				yield return (ORD_O04_ORDER_TRAY)this.GetStructure("ORDER_TRAY", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORD_O04_ORDER_TRAY
+	///</summary>
+	public ORD_O04_ORDER_TRAY AddORDER_TRAY()
+	{
+		return this.AddStructure("ORDER_TRAY") as ORD_O04_ORDER_TRAY;
+	}
+
+	///<summary>
+	///Removes the given ORD_O04_ORDER_TRAY
+	///</summary>
+	public void RemoveORDER_TRAY(ORD_O04_ORDER_TRAY toRemove)
+	{
+		this.RemoveStructure("ORDER_TRAY", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORD_O04_ORDER_TRAY at the given index
+	///</summary>
+	public void RemoveORDER_TRAYAt(int index)
+	{
+		this.RemoveRepetition("ORDER_TRAY", index);
+	}
 
 }
 }

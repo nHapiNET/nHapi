@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V251.Segment;
 using NHapi.Model.V251.Datatype;
 using NHapi.Base.Model;
@@ -100,6 +101,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RSP_Z86_TIMING results 
+	 */ 
+	public IEnumerable<RSP_Z86_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (RSP_Z86_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RSP_Z86_TIMING
+	///</summary>
+	public RSP_Z86_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as RSP_Z86_TIMING;
+	}
+
+	///<summary>
+	///Removes the given RSP_Z86_TIMING
+	///</summary>
+	public void RemoveTIMING(RSP_Z86_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the RSP_Z86_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
 
 	///<summary>
 	/// Returns RSP_Z86_ORDER_DETAIL (a Group object) - creates it if necessary
@@ -221,6 +260,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RSP_Z86_OBSERVATION results 
+	 */ 
+	public IEnumerable<RSP_Z86_OBSERVATION> OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (RSP_Z86_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RSP_Z86_OBSERVATION
+	///</summary>
+	public RSP_Z86_OBSERVATION AddOBSERVATION()
+	{
+		return this.AddStructure("OBSERVATION") as RSP_Z86_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given RSP_Z86_OBSERVATION
+	///</summary>
+	public void RemoveOBSERVATION(RSP_Z86_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the RSP_Z86_OBSERVATION at the given index
+	///</summary>
+	public void RemoveOBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION", index);
+	}
 
 }
 }

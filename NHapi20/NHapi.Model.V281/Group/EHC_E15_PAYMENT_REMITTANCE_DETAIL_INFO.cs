@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -106,6 +107,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the EHC_E15_PRODUCT_SERVICE_SECTION results 
+	 */ 
+	public IEnumerable<EHC_E15_PRODUCT_SERVICE_SECTION> PRODUCT_SERVICE_SECTIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRODUCT_SERVICE_SECTIONRepetitionsUsed; rep++)
+			{
+				yield return (EHC_E15_PRODUCT_SERVICE_SECTION)this.GetStructure("PRODUCT_SERVICE_SECTION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EHC_E15_PRODUCT_SERVICE_SECTION
+	///</summary>
+	public EHC_E15_PRODUCT_SERVICE_SECTION AddPRODUCT_SERVICE_SECTION()
+	{
+		return this.AddStructure("PRODUCT_SERVICE_SECTION") as EHC_E15_PRODUCT_SERVICE_SECTION;
+	}
+
+	///<summary>
+	///Removes the given EHC_E15_PRODUCT_SERVICE_SECTION
+	///</summary>
+	public void RemovePRODUCT_SERVICE_SECTION(EHC_E15_PRODUCT_SERVICE_SECTION toRemove)
+	{
+		this.RemoveStructure("PRODUCT_SERVICE_SECTION", toRemove);
+	}
+
+	///<summary>
+	///Removes the EHC_E15_PRODUCT_SERVICE_SECTION at the given index
+	///</summary>
+	public void RemovePRODUCT_SERVICE_SECTIONAt(int index)
+	{
+		this.RemoveRepetition("PRODUCT_SERVICE_SECTION", index);
+	}
 
 }
 }

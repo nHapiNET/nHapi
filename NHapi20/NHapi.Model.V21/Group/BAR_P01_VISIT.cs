@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V21.Segment;
 using NHapi.Model.V21.Datatype;
 using NHapi.Base.Model;
@@ -101,6 +102,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the DG1 results 
+	 */ 
+	public IEnumerable<DG1> DG1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DG1RepetitionsUsed; rep++)
+			{
+				yield return (DG1)this.GetStructure("DG1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DG1
+	///</summary>
+	public DG1 AddDG1()
+	{
+		return this.AddStructure("DG1") as DG1;
+	}
+
+	///<summary>
+	///Removes the given DG1
+	///</summary>
+	public void RemoveDG1(DG1 toRemove)
+	{
+		this.RemoveStructure("DG1", toRemove);
+	}
+
+	///<summary>
+	///Removes the DG1 at the given index
+	///</summary>
+	public void RemoveDG1At(int index)
+	{
+		this.RemoveRepetition("DG1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of PR1 (PROCEDURES) - creates it if necessary
 	///</summary>
@@ -141,6 +180,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PR1 results 
+	 */ 
+	public IEnumerable<PR1> PR1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PR1RepetitionsUsed; rep++)
+			{
+				yield return (PR1)this.GetStructure("PR1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PR1
+	///</summary>
+	public PR1 AddPR1()
+	{
+		return this.AddStructure("PR1") as PR1;
+	}
+
+	///<summary>
+	///Removes the given PR1
+	///</summary>
+	public void RemovePR1(PR1 toRemove)
+	{
+		this.RemoveStructure("PR1", toRemove);
+	}
+
+	///<summary>
+	///Removes the PR1 at the given index
+	///</summary>
+	public void RemovePR1At(int index)
+	{
+		this.RemoveRepetition("PR1", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of GT1 (GUARANTOR) - creates it if necessary
@@ -183,6 +260,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the GT1 results 
+	 */ 
+	public IEnumerable<GT1> GT1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < GT1RepetitionsUsed; rep++)
+			{
+				yield return (GT1)this.GetStructure("GT1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new GT1
+	///</summary>
+	public GT1 AddGT1()
+	{
+		return this.AddStructure("GT1") as GT1;
+	}
+
+	///<summary>
+	///Removes the given GT1
+	///</summary>
+	public void RemoveGT1(GT1 toRemove)
+	{
+		this.RemoveStructure("GT1", toRemove);
+	}
+
+	///<summary>
+	///Removes the GT1 at the given index
+	///</summary>
+	public void RemoveGT1At(int index)
+	{
+		this.RemoveRepetition("GT1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of NK1 (NEXT OF KIN) - creates it if necessary
 	///</summary>
@@ -224,6 +339,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NK1 results 
+	 */ 
+	public IEnumerable<NK1> NK1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NK1RepetitionsUsed; rep++)
+			{
+				yield return (NK1)this.GetStructure("NK1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NK1
+	///</summary>
+	public NK1 AddNK1()
+	{
+		return this.AddStructure("NK1") as NK1;
+	}
+
+	///<summary>
+	///Removes the given NK1
+	///</summary>
+	public void RemoveNK1(NK1 toRemove)
+	{
+		this.RemoveStructure("NK1", toRemove);
+	}
+
+	///<summary>
+	///Removes the NK1 at the given index
+	///</summary>
+	public void RemoveNK1At(int index)
+	{
+		this.RemoveRepetition("NK1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of IN1 (INSURANCE) - creates it if necessary
 	///</summary>
@@ -264,6 +417,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the IN1 results 
+	 */ 
+	public IEnumerable<IN1> IN1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < IN1RepetitionsUsed; rep++)
+			{
+				yield return (IN1)this.GetStructure("IN1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new IN1
+	///</summary>
+	public IN1 AddIN1()
+	{
+		return this.AddStructure("IN1") as IN1;
+	}
+
+	///<summary>
+	///Removes the given IN1
+	///</summary>
+	public void RemoveIN1(IN1 toRemove)
+	{
+		this.RemoveStructure("IN1", toRemove);
+	}
+
+	///<summary>
+	///Removes the IN1 at the given index
+	///</summary>
+	public void RemoveIN1At(int index)
+	{
+		this.RemoveRepetition("IN1", index);
+	}
 
 	///<summary>
 	/// Returns ACC (ACCIDENT) - creates it if necessary

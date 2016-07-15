@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -110,6 +111,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SUR_P09_FACILITY results 
+	 */ 
+	public IEnumerable<SUR_P09_FACILITY> FACILITYs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < FACILITYRepetitionsUsed; rep++)
+			{
+				yield return (SUR_P09_FACILITY)this.GetStructure("FACILITY", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SUR_P09_FACILITY
+	///</summary>
+	public SUR_P09_FACILITY AddFACILITY()
+	{
+		return this.AddStructure("FACILITY") as SUR_P09_FACILITY;
+	}
+
+	///<summary>
+	///Removes the given SUR_P09_FACILITY
+	///</summary>
+	public void RemoveFACILITY(SUR_P09_FACILITY toRemove)
+	{
+		this.RemoveStructure("FACILITY", toRemove);
+	}
+
+	///<summary>
+	///Removes the SUR_P09_FACILITY at the given index
+	///</summary>
+	public void RemoveFACILITYAt(int index)
+	{
+		this.RemoveRepetition("FACILITY", index);
+	}
 
 }
 }

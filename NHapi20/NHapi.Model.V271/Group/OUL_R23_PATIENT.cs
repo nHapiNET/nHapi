@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V271.Segment;
 using NHapi.Model.V271.Datatype;
 using NHapi.Base.Model;
@@ -113,6 +114,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of NTE (Notes and Comments) - creates it if necessary
 	///</summary>
@@ -154,6 +193,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OUL_R23_PATIENT_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -194,6 +271,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OUL_R23_PATIENT_OBSERVATION results 
+	 */ 
+	public IEnumerable<OUL_R23_PATIENT_OBSERVATION> PATIENT_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PATIENT_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (OUL_R23_PATIENT_OBSERVATION)this.GetStructure("PATIENT_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OUL_R23_PATIENT_OBSERVATION
+	///</summary>
+	public OUL_R23_PATIENT_OBSERVATION AddPATIENT_OBSERVATION()
+	{
+		return this.AddStructure("PATIENT_OBSERVATION") as OUL_R23_PATIENT_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given OUL_R23_PATIENT_OBSERVATION
+	///</summary>
+	public void RemovePATIENT_OBSERVATION(OUL_R23_PATIENT_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("PATIENT_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the OUL_R23_PATIENT_OBSERVATION at the given index
+	///</summary>
+	public void RemovePATIENT_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("PATIENT_OBSERVATION", index);
+	}
 
 	///<summary>
 	/// Returns OUL_R23_VISIT (a Group object) - creates it if necessary

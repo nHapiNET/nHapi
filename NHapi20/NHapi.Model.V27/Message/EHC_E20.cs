@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V27.Group;
 using NHapi.Model.V27.Segment;
@@ -125,6 +126,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -165,6 +204,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the UAC results 
+	 */ 
+	public IEnumerable<UAC> UACs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < UACRepetitionsUsed; rep++)
+			{
+				yield return (UAC)this.GetStructure("UAC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new UAC
+	///</summary>
+	public UAC AddUAC()
+	{
+		return this.AddStructure("UAC") as UAC;
+	}
+
+	///<summary>
+	///Removes the given UAC
+	///</summary>
+	public void RemoveUAC(UAC toRemove)
+	{
+		this.RemoveStructure("UAC", toRemove);
+	}
+
+	///<summary>
+	///Removes the UAC at the given index
+	///</summary>
+	public void RemoveUACAt(int index)
+	{
+		this.RemoveRepetition("UAC", index);
+	}
 
 	///<summary>
 	/// Returns IVC (Invoice Segment) - creates it if necessary
@@ -223,6 +300,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the CTD results 
+	 */ 
+	public IEnumerable<CTD> CTDs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CTDRepetitionsUsed; rep++)
+			{
+				yield return (CTD)this.GetStructure("CTD", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CTD
+	///</summary>
+	public CTD AddCTD()
+	{
+		return this.AddStructure("CTD") as CTD;
+	}
+
+	///<summary>
+	///Removes the given CTD
+	///</summary>
+	public void RemoveCTD(CTD toRemove)
+	{
+		this.RemoveStructure("CTD", toRemove);
+	}
+
+	///<summary>
+	///Removes the CTD at the given index
+	///</summary>
+	public void RemoveCTDAt(int index)
+	{
+		this.RemoveRepetition("CTD", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of LOC (Location Identification) - creates it if necessary
 	///</summary>
@@ -263,6 +378,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the LOC results 
+	 */ 
+	public IEnumerable<LOC> LOCs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < LOCRepetitionsUsed; rep++)
+			{
+				yield return (LOC)this.GetStructure("LOC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new LOC
+	///</summary>
+	public LOC AddLOC()
+	{
+		return this.AddStructure("LOC") as LOC;
+	}
+
+	///<summary>
+	///Removes the given LOC
+	///</summary>
+	public void RemoveLOC(LOC toRemove)
+	{
+		this.RemoveStructure("LOC", toRemove);
+	}
+
+	///<summary>
+	///Removes the LOC at the given index
+	///</summary>
+	public void RemoveLOCAt(int index)
+	{
+		this.RemoveRepetition("LOC", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of ROL (Role) - creates it if necessary
@@ -305,6 +458,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ROL results 
+	 */ 
+	public IEnumerable<ROL> ROLs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ROLRepetitionsUsed; rep++)
+			{
+				yield return (ROL)this.GetStructure("ROL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ROL
+	///</summary>
+	public ROL AddROL()
+	{
+		return this.AddStructure("ROL") as ROL;
+	}
+
+	///<summary>
+	///Removes the given ROL
+	///</summary>
+	public void RemoveROL(ROL toRemove)
+	{
+		this.RemoveStructure("ROL", toRemove);
+	}
+
+	///<summary>
+	///Removes the ROL at the given index
+	///</summary>
+	public void RemoveROLAt(int index)
+	{
+		this.RemoveRepetition("ROL", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of EHC_E20_PAT_INFO (a Group object) - creates it if necessary
 	///</summary>
@@ -346,6 +537,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the EHC_E20_PAT_INFO results 
+	 */ 
+	public IEnumerable<EHC_E20_PAT_INFO> PAT_INFOs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PAT_INFORepetitionsUsed; rep++)
+			{
+				yield return (EHC_E20_PAT_INFO)this.GetStructure("PAT_INFO", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EHC_E20_PAT_INFO
+	///</summary>
+	public EHC_E20_PAT_INFO AddPAT_INFO()
+	{
+		return this.AddStructure("PAT_INFO") as EHC_E20_PAT_INFO;
+	}
+
+	///<summary>
+	///Removes the given EHC_E20_PAT_INFO
+	///</summary>
+	public void RemovePAT_INFO(EHC_E20_PAT_INFO toRemove)
+	{
+		this.RemoveStructure("PAT_INFO", toRemove);
+	}
+
+	///<summary>
+	///Removes the EHC_E20_PAT_INFO at the given index
+	///</summary>
+	public void RemovePAT_INFOAt(int index)
+	{
+		this.RemoveRepetition("PAT_INFO", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of EHC_E20_PSL_ITEM_INFO (a Group object) - creates it if necessary
 	///</summary>
@@ -386,6 +615,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the EHC_E20_PSL_ITEM_INFO results 
+	 */ 
+	public IEnumerable<EHC_E20_PSL_ITEM_INFO> PSL_ITEM_INFOs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PSL_ITEM_INFORepetitionsUsed; rep++)
+			{
+				yield return (EHC_E20_PSL_ITEM_INFO)this.GetStructure("PSL_ITEM_INFO", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EHC_E20_PSL_ITEM_INFO
+	///</summary>
+	public EHC_E20_PSL_ITEM_INFO AddPSL_ITEM_INFO()
+	{
+		return this.AddStructure("PSL_ITEM_INFO") as EHC_E20_PSL_ITEM_INFO;
+	}
+
+	///<summary>
+	///Removes the given EHC_E20_PSL_ITEM_INFO
+	///</summary>
+	public void RemovePSL_ITEM_INFO(EHC_E20_PSL_ITEM_INFO toRemove)
+	{
+		this.RemoveStructure("PSL_ITEM_INFO", toRemove);
+	}
+
+	///<summary>
+	///Removes the EHC_E20_PSL_ITEM_INFO at the given index
+	///</summary>
+	public void RemovePSL_ITEM_INFOAt(int index)
+	{
+		this.RemoveRepetition("PSL_ITEM_INFO", index);
+	}
 
 }
 }

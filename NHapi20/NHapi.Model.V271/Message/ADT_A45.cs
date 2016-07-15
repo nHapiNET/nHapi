@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V271.Group;
 using NHapi.Model.V271.Segment;
@@ -121,6 +122,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -225,6 +264,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ADT_A45_MERGE_INFO results 
+	 */ 
+	public IEnumerable<ADT_A45_MERGE_INFO> MERGE_INFOs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MERGE_INFORepetitionsUsed; rep++)
+			{
+				yield return (ADT_A45_MERGE_INFO)this.GetStructure("MERGE_INFO", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ADT_A45_MERGE_INFO
+	///</summary>
+	public ADT_A45_MERGE_INFO AddMERGE_INFO()
+	{
+		return this.AddStructure("MERGE_INFO") as ADT_A45_MERGE_INFO;
+	}
+
+	///<summary>
+	///Removes the given ADT_A45_MERGE_INFO
+	///</summary>
+	public void RemoveMERGE_INFO(ADT_A45_MERGE_INFO toRemove)
+	{
+		this.RemoveStructure("MERGE_INFO", toRemove);
+	}
+
+	///<summary>
+	///Removes the ADT_A45_MERGE_INFO at the given index
+	///</summary>
+	public void RemoveMERGE_INFOAt(int index)
+	{
+		this.RemoveRepetition("MERGE_INFO", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V271.Segment;
 using NHapi.Model.V271.Datatype;
 using NHapi.Base.Model;
@@ -101,6 +102,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of VAR (Variance) - creates it if necessary
 	///</summary>
@@ -141,6 +180,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the VAR results 
+	 */ 
+	public IEnumerable<VAR> VARs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < VARRepetitionsUsed; rep++)
+			{
+				yield return (VAR)this.GetStructure("VAR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new VAR
+	///</summary>
+	public VAR AddVAR()
+	{
+		return this.AddStructure("VAR") as VAR;
+	}
+
+	///<summary>
+	///Removes the given VAR
+	///</summary>
+	public void RemoveVAR(VAR toRemove)
+	{
+		this.RemoveStructure("VAR", toRemove);
+	}
+
+	///<summary>
+	///Removes the VAR at the given index
+	///</summary>
+	public void RemoveVARAt(int index)
+	{
+		this.RemoveRepetition("VAR", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of PPV_PCA_GOAL_ROLE (a Group object) - creates it if necessary
@@ -183,6 +260,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PPV_PCA_GOAL_ROLE results 
+	 */ 
+	public IEnumerable<PPV_PCA_GOAL_ROLE> GOAL_ROLEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < GOAL_ROLERepetitionsUsed; rep++)
+			{
+				yield return (PPV_PCA_GOAL_ROLE)this.GetStructure("GOAL_ROLE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PPV_PCA_GOAL_ROLE
+	///</summary>
+	public PPV_PCA_GOAL_ROLE AddGOAL_ROLE()
+	{
+		return this.AddStructure("GOAL_ROLE") as PPV_PCA_GOAL_ROLE;
+	}
+
+	///<summary>
+	///Removes the given PPV_PCA_GOAL_ROLE
+	///</summary>
+	public void RemoveGOAL_ROLE(PPV_PCA_GOAL_ROLE toRemove)
+	{
+		this.RemoveStructure("GOAL_ROLE", toRemove);
+	}
+
+	///<summary>
+	///Removes the PPV_PCA_GOAL_ROLE at the given index
+	///</summary>
+	public void RemoveGOAL_ROLEAt(int index)
+	{
+		this.RemoveRepetition("GOAL_ROLE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of PPV_PCA_GOAL_PATHWAY (a Group object) - creates it if necessary
 	///</summary>
@@ -223,6 +338,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PPV_PCA_GOAL_PATHWAY results 
+	 */ 
+	public IEnumerable<PPV_PCA_GOAL_PATHWAY> GOAL_PATHWAYs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < GOAL_PATHWAYRepetitionsUsed; rep++)
+			{
+				yield return (PPV_PCA_GOAL_PATHWAY)this.GetStructure("GOAL_PATHWAY", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PPV_PCA_GOAL_PATHWAY
+	///</summary>
+	public PPV_PCA_GOAL_PATHWAY AddGOAL_PATHWAY()
+	{
+		return this.AddStructure("GOAL_PATHWAY") as PPV_PCA_GOAL_PATHWAY;
+	}
+
+	///<summary>
+	///Removes the given PPV_PCA_GOAL_PATHWAY
+	///</summary>
+	public void RemoveGOAL_PATHWAY(PPV_PCA_GOAL_PATHWAY toRemove)
+	{
+		this.RemoveStructure("GOAL_PATHWAY", toRemove);
+	}
+
+	///<summary>
+	///Removes the PPV_PCA_GOAL_PATHWAY at the given index
+	///</summary>
+	public void RemoveGOAL_PATHWAYAt(int index)
+	{
+		this.RemoveRepetition("GOAL_PATHWAY", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of PPV_PCA_GOAL_OBSERVATION (a Group object) - creates it if necessary
@@ -265,6 +418,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PPV_PCA_GOAL_OBSERVATION results 
+	 */ 
+	public IEnumerable<PPV_PCA_GOAL_OBSERVATION> GOAL_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < GOAL_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (PPV_PCA_GOAL_OBSERVATION)this.GetStructure("GOAL_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PPV_PCA_GOAL_OBSERVATION
+	///</summary>
+	public PPV_PCA_GOAL_OBSERVATION AddGOAL_OBSERVATION()
+	{
+		return this.AddStructure("GOAL_OBSERVATION") as PPV_PCA_GOAL_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given PPV_PCA_GOAL_OBSERVATION
+	///</summary>
+	public void RemoveGOAL_OBSERVATION(PPV_PCA_GOAL_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("GOAL_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the PPV_PCA_GOAL_OBSERVATION at the given index
+	///</summary>
+	public void RemoveGOAL_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("GOAL_OBSERVATION", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of PPV_PCA_PROBLEM (a Group object) - creates it if necessary
 	///</summary>
@@ -306,6 +497,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PPV_PCA_PROBLEM results 
+	 */ 
+	public IEnumerable<PPV_PCA_PROBLEM> PROBLEMs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROBLEMRepetitionsUsed; rep++)
+			{
+				yield return (PPV_PCA_PROBLEM)this.GetStructure("PROBLEM", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PPV_PCA_PROBLEM
+	///</summary>
+	public PPV_PCA_PROBLEM AddPROBLEM()
+	{
+		return this.AddStructure("PROBLEM") as PPV_PCA_PROBLEM;
+	}
+
+	///<summary>
+	///Removes the given PPV_PCA_PROBLEM
+	///</summary>
+	public void RemovePROBLEM(PPV_PCA_PROBLEM toRemove)
+	{
+		this.RemoveStructure("PROBLEM", toRemove);
+	}
+
+	///<summary>
+	///Removes the PPV_PCA_PROBLEM at the given index
+	///</summary>
+	public void RemovePROBLEMAt(int index)
+	{
+		this.RemoveRepetition("PROBLEM", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of PPV_PCA_ORDER (a Group object) - creates it if necessary
 	///</summary>
@@ -346,6 +575,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PPV_PCA_ORDER results 
+	 */ 
+	public IEnumerable<PPV_PCA_ORDER> ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDERRepetitionsUsed; rep++)
+			{
+				yield return (PPV_PCA_ORDER)this.GetStructure("ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PPV_PCA_ORDER
+	///</summary>
+	public PPV_PCA_ORDER AddORDER()
+	{
+		return this.AddStructure("ORDER") as PPV_PCA_ORDER;
+	}
+
+	///<summary>
+	///Removes the given PPV_PCA_ORDER
+	///</summary>
+	public void RemoveORDER(PPV_PCA_ORDER toRemove)
+	{
+		this.RemoveStructure("ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the PPV_PCA_ORDER at the given index
+	///</summary>
+	public void RemoveORDERAt(int index)
+	{
+		this.RemoveRepetition("ORDER", index);
+	}
 
 }
 }

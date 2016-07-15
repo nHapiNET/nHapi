@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -169,6 +170,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns PEX_P07_VISIT (a Group object) - creates it if necessary
 	///</summary>
@@ -225,6 +264,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PEX_P07_EXPERIENCE results 
+	 */ 
+	public IEnumerable<PEX_P07_EXPERIENCE> EXPERIENCEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < EXPERIENCERepetitionsUsed; rep++)
+			{
+				yield return (PEX_P07_EXPERIENCE)this.GetStructure("EXPERIENCE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PEX_P07_EXPERIENCE
+	///</summary>
+	public PEX_P07_EXPERIENCE AddEXPERIENCE()
+	{
+		return this.AddStructure("EXPERIENCE") as PEX_P07_EXPERIENCE;
+	}
+
+	///<summary>
+	///Removes the given PEX_P07_EXPERIENCE
+	///</summary>
+	public void RemoveEXPERIENCE(PEX_P07_EXPERIENCE toRemove)
+	{
+		this.RemoveStructure("EXPERIENCE", toRemove);
+	}
+
+	///<summary>
+	///Removes the PEX_P07_EXPERIENCE at the given index
+	///</summary>
+	public void RemoveEXPERIENCEAt(int index)
+	{
+		this.RemoveRepetition("EXPERIENCE", index);
+	}
 
 }
 }

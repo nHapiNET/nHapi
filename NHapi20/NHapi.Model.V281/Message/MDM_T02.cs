@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V281.Group;
 using NHapi.Model.V281.Segment;
@@ -127,6 +128,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -232,6 +271,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the MDM_T02_COMMON_ORDER results 
+	 */ 
+	public IEnumerable<MDM_T02_COMMON_ORDER> COMMON_ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < COMMON_ORDERRepetitionsUsed; rep++)
+			{
+				yield return (MDM_T02_COMMON_ORDER)this.GetStructure("COMMON_ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MDM_T02_COMMON_ORDER
+	///</summary>
+	public MDM_T02_COMMON_ORDER AddCOMMON_ORDER()
+	{
+		return this.AddStructure("COMMON_ORDER") as MDM_T02_COMMON_ORDER;
+	}
+
+	///<summary>
+	///Removes the given MDM_T02_COMMON_ORDER
+	///</summary>
+	public void RemoveCOMMON_ORDER(MDM_T02_COMMON_ORDER toRemove)
+	{
+		this.RemoveStructure("COMMON_ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the MDM_T02_COMMON_ORDER at the given index
+	///</summary>
+	public void RemoveCOMMON_ORDERAt(int index)
+	{
+		this.RemoveRepetition("COMMON_ORDER", index);
+	}
+
 	///<summary>
 	/// Returns TXA (Transcription Document Header) - creates it if necessary
 	///</summary>
@@ -289,6 +366,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the CON results 
+	 */ 
+	public IEnumerable<CON> CONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CONRepetitionsUsed; rep++)
+			{
+				yield return (CON)this.GetStructure("CON", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CON
+	///</summary>
+	public CON AddCON()
+	{
+		return this.AddStructure("CON") as CON;
+	}
+
+	///<summary>
+	///Removes the given CON
+	///</summary>
+	public void RemoveCON(CON toRemove)
+	{
+		this.RemoveStructure("CON", toRemove);
+	}
+
+	///<summary>
+	///Removes the CON at the given index
+	///</summary>
+	public void RemoveCONAt(int index)
+	{
+		this.RemoveRepetition("CON", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of MDM_T02_OBXNTE (a Group object) - creates it if necessary
 	///</summary>
@@ -329,6 +444,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MDM_T02_OBXNTE results 
+	 */ 
+	public IEnumerable<MDM_T02_OBXNTE> OBXNTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBXNTERepetitionsUsed; rep++)
+			{
+				yield return (MDM_T02_OBXNTE)this.GetStructure("OBXNTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MDM_T02_OBXNTE
+	///</summary>
+	public MDM_T02_OBXNTE AddOBXNTE()
+	{
+		return this.AddStructure("OBXNTE") as MDM_T02_OBXNTE;
+	}
+
+	///<summary>
+	///Removes the given MDM_T02_OBXNTE
+	///</summary>
+	public void RemoveOBXNTE(MDM_T02_OBXNTE toRemove)
+	{
+		this.RemoveStructure("OBXNTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the MDM_T02_OBXNTE at the given index
+	///</summary>
+	public void RemoveOBXNTEAt(int index)
+	{
+		this.RemoveRepetition("OBXNTE", index);
+	}
 
 }
 }

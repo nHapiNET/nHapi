@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V271.Segment;
 using NHapi.Model.V271.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CQU_I19_RESOURCES results 
+	 */ 
+	public IEnumerable<CQU_I19_RESOURCES> RESOURCESs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RESOURCESRepetitionsUsed; rep++)
+			{
+				yield return (CQU_I19_RESOURCES)this.GetStructure("RESOURCES", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CQU_I19_RESOURCES
+	///</summary>
+	public CQU_I19_RESOURCES AddRESOURCES()
+	{
+		return this.AddStructure("RESOURCES") as CQU_I19_RESOURCES;
+	}
+
+	///<summary>
+	///Removes the given CQU_I19_RESOURCES
+	///</summary>
+	public void RemoveRESOURCES(CQU_I19_RESOURCES toRemove)
+	{
+		this.RemoveStructure("RESOURCES", toRemove);
+	}
+
+	///<summary>
+	///Removes the CQU_I19_RESOURCES at the given index
+	///</summary>
+	public void RemoveRESOURCESAt(int index)
+	{
+		this.RemoveRepetition("RESOURCES", index);
+	}
 
 }
 }

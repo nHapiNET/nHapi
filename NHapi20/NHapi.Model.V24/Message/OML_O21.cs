@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -115,6 +116,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns OML_O21_PATIENT (a Group object) - creates it if necessary
 	///</summary>
@@ -171,6 +210,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OML_O21_ORDER_GENERAL results 
+	 */ 
+	public IEnumerable<OML_O21_ORDER_GENERAL> ORDER_GENERALs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDER_GENERALRepetitionsUsed; rep++)
+			{
+				yield return (OML_O21_ORDER_GENERAL)this.GetStructure("ORDER_GENERAL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OML_O21_ORDER_GENERAL
+	///</summary>
+	public OML_O21_ORDER_GENERAL AddORDER_GENERAL()
+	{
+		return this.AddStructure("ORDER_GENERAL") as OML_O21_ORDER_GENERAL;
+	}
+
+	///<summary>
+	///Removes the given OML_O21_ORDER_GENERAL
+	///</summary>
+	public void RemoveORDER_GENERAL(OML_O21_ORDER_GENERAL toRemove)
+	{
+		this.RemoveStructure("ORDER_GENERAL", toRemove);
+	}
+
+	///<summary>
+	///Removes the OML_O21_ORDER_GENERAL at the given index
+	///</summary>
+	public void RemoveORDER_GENERALAt(int index)
+	{
+		this.RemoveRepetition("ORDER_GENERAL", index);
+	}
 
 }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V22.Group;
 using NHapi.Model.V22.Segment;
@@ -184,6 +185,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DSP results 
+	 */ 
+	public IEnumerable<DSP> DSPs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DSPRepetitionsUsed; rep++)
+			{
+				yield return (DSP)this.GetStructure("DSP", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DSP
+	///</summary>
+	public DSP AddDSP()
+	{
+		return this.AddStructure("DSP") as DSP;
+	}
+
+	///<summary>
+	///Removes the given DSP
+	///</summary>
+	public void RemoveDSP(DSP toRemove)
+	{
+		this.RemoveStructure("DSP", toRemove);
+	}
+
+	///<summary>
+	///Removes the DSP at the given index
+	///</summary>
+	public void RemoveDSPAt(int index)
+	{
+		this.RemoveRepetition("DSP", index);
+	}
 
 	///<summary>
 	/// Returns DSC (CONTINUATION POINTER) - creates it if necessary

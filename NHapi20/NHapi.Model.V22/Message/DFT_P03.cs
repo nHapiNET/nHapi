@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V22.Group;
 using NHapi.Model.V22.Segment;
@@ -185,6 +186,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OBX results 
+	 */ 
+	public IEnumerable<OBX> OBXs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBXRepetitionsUsed; rep++)
+			{
+				yield return (OBX)this.GetStructure("OBX", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OBX
+	///</summary>
+	public OBX AddOBX()
+	{
+		return this.AddStructure("OBX") as OBX;
+	}
+
+	///<summary>
+	///Removes the given OBX
+	///</summary>
+	public void RemoveOBX(OBX toRemove)
+	{
+		this.RemoveStructure("OBX", toRemove);
+	}
+
+	///<summary>
+	///Removes the OBX at the given index
+	///</summary>
+	public void RemoveOBXAt(int index)
+	{
+		this.RemoveRepetition("OBX", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of FT1 (FINANCIAL TRANSACTION) - creates it if necessary
 	///</summary>
@@ -225,6 +264,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the FT1 results 
+	 */ 
+	public IEnumerable<FT1> FT1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < FT1RepetitionsUsed; rep++)
+			{
+				yield return (FT1)this.GetStructure("FT1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new FT1
+	///</summary>
+	public FT1 AddFT1()
+	{
+		return this.AddStructure("FT1") as FT1;
+	}
+
+	///<summary>
+	///Removes the given FT1
+	///</summary>
+	public void RemoveFT1(FT1 toRemove)
+	{
+		this.RemoveStructure("FT1", toRemove);
+	}
+
+	///<summary>
+	///Removes the FT1 at the given index
+	///</summary>
+	public void RemoveFT1At(int index)
+	{
+		this.RemoveRepetition("FT1", index);
+	}
 
 }
 }

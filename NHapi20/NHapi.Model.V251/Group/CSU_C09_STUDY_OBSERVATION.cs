@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V251.Segment;
 using NHapi.Model.V251.Datatype;
 using NHapi.Base.Model;
@@ -109,6 +110,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the CSU_C09_TIMING_QTY results 
+	 */ 
+	public IEnumerable<CSU_C09_TIMING_QTY> TIMING_QTYs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMING_QTYRepetitionsUsed; rep++)
+			{
+				yield return (CSU_C09_TIMING_QTY)this.GetStructure("TIMING_QTY", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CSU_C09_TIMING_QTY
+	///</summary>
+	public CSU_C09_TIMING_QTY AddTIMING_QTY()
+	{
+		return this.AddStructure("TIMING_QTY") as CSU_C09_TIMING_QTY;
+	}
+
+	///<summary>
+	///Removes the given CSU_C09_TIMING_QTY
+	///</summary>
+	public void RemoveTIMING_QTY(CSU_C09_TIMING_QTY toRemove)
+	{
+		this.RemoveStructure("TIMING_QTY", toRemove);
+	}
+
+	///<summary>
+	///Removes the CSU_C09_TIMING_QTY at the given index
+	///</summary>
+	public void RemoveTIMING_QTYAt(int index)
+	{
+		this.RemoveRepetition("TIMING_QTY", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OBX (Observation/Result) - creates it if necessary
 	///</summary>
@@ -149,6 +188,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OBX results 
+	 */ 
+	public IEnumerable<OBX> OBXs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBXRepetitionsUsed; rep++)
+			{
+				yield return (OBX)this.GetStructure("OBX", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OBX
+	///</summary>
+	public OBX AddOBX()
+	{
+		return this.AddStructure("OBX") as OBX;
+	}
+
+	///<summary>
+	///Removes the given OBX
+	///</summary>
+	public void RemoveOBX(OBX toRemove)
+	{
+		this.RemoveStructure("OBX", toRemove);
+	}
+
+	///<summary>
+	///Removes the OBX at the given index
+	///</summary>
+	public void RemoveOBXAt(int index)
+	{
+		this.RemoveRepetition("OBX", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V25.Segment;
 using NHapi.Model.V25.Datatype;
 using NHapi.Base.Model;
@@ -99,6 +100,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OMS_O05_TIMING results 
+	 */ 
+	public IEnumerable<OMS_O05_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (OMS_O05_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OMS_O05_TIMING
+	///</summary>
+	public OMS_O05_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as OMS_O05_TIMING;
+	}
+
+	///<summary>
+	///Removes the given OMS_O05_TIMING
+	///</summary>
+	public void RemoveTIMING(OMS_O05_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the OMS_O05_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
+
 	///<summary>
 	/// Returns RQD (Requisition Detail) - creates it if necessary
 	///</summary>
@@ -172,6 +211,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OMS_O05_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -212,6 +289,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OMS_O05_OBSERVATION results 
+	 */ 
+	public IEnumerable<OMS_O05_OBSERVATION> OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (OMS_O05_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OMS_O05_OBSERVATION
+	///</summary>
+	public OMS_O05_OBSERVATION AddOBSERVATION()
+	{
+		return this.AddStructure("OBSERVATION") as OMS_O05_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given OMS_O05_OBSERVATION
+	///</summary>
+	public void RemoveOBSERVATION(OMS_O05_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the OMS_O05_OBSERVATION at the given index
+	///</summary>
+	public void RemoveOBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION", index);
+	}
 
 	///<summary>
 	/// Returns BLG (Billing) - creates it if necessary

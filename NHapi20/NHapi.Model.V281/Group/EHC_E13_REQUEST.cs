@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -124,6 +125,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the EHC_E13_RESPONSE results 
+	 */ 
+	public IEnumerable<EHC_E13_RESPONSE> RESPONSEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RESPONSERepetitionsUsed; rep++)
+			{
+				yield return (EHC_E13_RESPONSE)this.GetStructure("RESPONSE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EHC_E13_RESPONSE
+	///</summary>
+	public EHC_E13_RESPONSE AddRESPONSE()
+	{
+		return this.AddStructure("RESPONSE") as EHC_E13_RESPONSE;
+	}
+
+	///<summary>
+	///Removes the given EHC_E13_RESPONSE
+	///</summary>
+	public void RemoveRESPONSE(EHC_E13_RESPONSE toRemove)
+	{
+		this.RemoveStructure("RESPONSE", toRemove);
+	}
+
+	///<summary>
+	///Removes the EHC_E13_RESPONSE at the given index
+	///</summary>
+	public void RemoveRESPONSEAt(int index)
+	{
+		this.RemoveRepetition("RESPONSE", index);
+	}
 
 }
 }

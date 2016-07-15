@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V25.Segment;
 using NHapi.Model.V25.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RRG_O16_TIMING_GIVE results 
+	 */ 
+	public IEnumerable<RRG_O16_TIMING_GIVE> TIMING_GIVEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMING_GIVERepetitionsUsed; rep++)
+			{
+				yield return (RRG_O16_TIMING_GIVE)this.GetStructure("TIMING_GIVE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RRG_O16_TIMING_GIVE
+	///</summary>
+	public RRG_O16_TIMING_GIVE AddTIMING_GIVE()
+	{
+		return this.AddStructure("TIMING_GIVE") as RRG_O16_TIMING_GIVE;
+	}
+
+	///<summary>
+	///Removes the given RRG_O16_TIMING_GIVE
+	///</summary>
+	public void RemoveTIMING_GIVE(RRG_O16_TIMING_GIVE toRemove)
+	{
+		this.RemoveStructure("TIMING_GIVE", toRemove);
+	}
+
+	///<summary>
+	///Removes the RRG_O16_TIMING_GIVE at the given index
+	///</summary>
+	public void RemoveTIMING_GIVEAt(int index)
+	{
+		this.RemoveRepetition("TIMING_GIVE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RXR (Pharmacy/Treatment Route) - creates it if necessary
 	///</summary>
@@ -134,6 +173,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RXR results 
+	 */ 
+	public IEnumerable<RXR> RXRs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RXRRepetitionsUsed; rep++)
+			{
+				yield return (RXR)this.GetStructure("RXR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RXR
+	///</summary>
+	public RXR AddRXR()
+	{
+		return this.AddStructure("RXR") as RXR;
+	}
+
+	///<summary>
+	///Removes the given RXR
+	///</summary>
+	public void RemoveRXR(RXR toRemove)
+	{
+		this.RemoveStructure("RXR", toRemove);
+	}
+
+	///<summary>
+	///Removes the RXR at the given index
+	///</summary>
+	public void RemoveRXRAt(int index)
+	{
+		this.RemoveRepetition("RXR", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RXC (Pharmacy/Treatment Component Order) - creates it if necessary
 	///</summary>
@@ -174,6 +251,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RXC results 
+	 */ 
+	public IEnumerable<RXC> RXCs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RXCRepetitionsUsed; rep++)
+			{
+				yield return (RXC)this.GetStructure("RXC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RXC
+	///</summary>
+	public RXC AddRXC()
+	{
+		return this.AddStructure("RXC") as RXC;
+	}
+
+	///<summary>
+	///Removes the given RXC
+	///</summary>
+	public void RemoveRXC(RXC toRemove)
+	{
+		this.RemoveStructure("RXC", toRemove);
+	}
+
+	///<summary>
+	///Removes the RXC at the given index
+	///</summary>
+	public void RemoveRXCAt(int index)
+	{
+		this.RemoveRepetition("RXC", index);
+	}
 
 }
 }

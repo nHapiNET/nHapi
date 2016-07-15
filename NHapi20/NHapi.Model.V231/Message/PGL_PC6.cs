@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V231.Group;
 using NHapi.Model.V231.Segment;
@@ -146,6 +147,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PGL_PC6_GOAL results 
+	 */ 
+	public IEnumerable<PGL_PC6_GOAL> GOALs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < GOALRepetitionsUsed; rep++)
+			{
+				yield return (PGL_PC6_GOAL)this.GetStructure("GOAL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PGL_PC6_GOAL
+	///</summary>
+	public PGL_PC6_GOAL AddGOAL()
+	{
+		return this.AddStructure("GOAL") as PGL_PC6_GOAL;
+	}
+
+	///<summary>
+	///Removes the given PGL_PC6_GOAL
+	///</summary>
+	public void RemoveGOAL(PGL_PC6_GOAL toRemove)
+	{
+		this.RemoveStructure("GOAL", toRemove);
+	}
+
+	///<summary>
+	///Removes the PGL_PC6_GOAL at the given index
+	///</summary>
+	public void RemoveGOALAt(int index)
+	{
+		this.RemoveRepetition("GOAL", index);
+	}
 
 }
 }

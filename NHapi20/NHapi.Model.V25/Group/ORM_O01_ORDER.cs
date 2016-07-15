@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V25.Segment;
 using NHapi.Model.V25.Datatype;
 using NHapi.Base.Model;
@@ -111,6 +112,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the FT1 results 
+	 */ 
+	public IEnumerable<FT1> FT1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < FT1RepetitionsUsed; rep++)
+			{
+				yield return (FT1)this.GetStructure("FT1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new FT1
+	///</summary>
+	public FT1 AddFT1()
+	{
+		return this.AddStructure("FT1") as FT1;
+	}
+
+	///<summary>
+	///Removes the given FT1
+	///</summary>
+	public void RemoveFT1(FT1 toRemove)
+	{
+		this.RemoveStructure("FT1", toRemove);
+	}
+
+	///<summary>
+	///Removes the FT1 at the given index
+	///</summary>
+	public void RemoveFT1At(int index)
+	{
+		this.RemoveRepetition("FT1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CTI (Clinical Trial Identification) - creates it if necessary
 	///</summary>
@@ -151,6 +190,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CTI results 
+	 */ 
+	public IEnumerable<CTI> CTIs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CTIRepetitionsUsed; rep++)
+			{
+				yield return (CTI)this.GetStructure("CTI", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CTI
+	///</summary>
+	public CTI AddCTI()
+	{
+		return this.AddStructure("CTI") as CTI;
+	}
+
+	///<summary>
+	///Removes the given CTI
+	///</summary>
+	public void RemoveCTI(CTI toRemove)
+	{
+		this.RemoveStructure("CTI", toRemove);
+	}
+
+	///<summary>
+	///Removes the CTI at the given index
+	///</summary>
+	public void RemoveCTIAt(int index)
+	{
+		this.RemoveRepetition("CTI", index);
+	}
 
 	///<summary>
 	/// Returns BLG (Billing) - creates it if necessary

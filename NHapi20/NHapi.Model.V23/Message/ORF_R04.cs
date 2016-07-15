@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
@@ -166,6 +167,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORF_R04_QUERY_RESPONSE results 
+	 */ 
+	public IEnumerable<ORF_R04_QUERY_RESPONSE> QUERY_RESPONSEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < QUERY_RESPONSERepetitionsUsed; rep++)
+			{
+				yield return (ORF_R04_QUERY_RESPONSE)this.GetStructure("QUERY_RESPONSE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORF_R04_QUERY_RESPONSE
+	///</summary>
+	public ORF_R04_QUERY_RESPONSE AddQUERY_RESPONSE()
+	{
+		return this.AddStructure("QUERY_RESPONSE") as ORF_R04_QUERY_RESPONSE;
+	}
+
+	///<summary>
+	///Removes the given ORF_R04_QUERY_RESPONSE
+	///</summary>
+	public void RemoveQUERY_RESPONSE(ORF_R04_QUERY_RESPONSE toRemove)
+	{
+		this.RemoveStructure("QUERY_RESPONSE", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORF_R04_QUERY_RESPONSE at the given index
+	///</summary>
+	public void RemoveQUERY_RESPONSEAt(int index)
+	{
+		this.RemoveRepetition("QUERY_RESPONSE", index);
+	}
 
 	///<summary>
 	/// Returns DSC (Continuation pointer segment) - creates it if necessary

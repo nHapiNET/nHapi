@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V251.Segment;
 using NHapi.Model.V251.Datatype;
 using NHapi.Base.Model;
@@ -91,6 +92,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OBX results 
+	 */ 
+	public IEnumerable<OBX> OBXs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBXRepetitionsUsed; rep++)
+			{
+				yield return (OBX)this.GetStructure("OBX", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OBX
+	///</summary>
+	public OBX AddOBX()
+	{
+		return this.AddStructure("OBX") as OBX;
+	}
+
+	///<summary>
+	///Removes the given OBX
+	///</summary>
+	public void RemoveOBX(OBX toRemove)
+	{
+		this.RemoveStructure("OBX", toRemove);
+	}
+
+	///<summary>
+	///Removes the OBX at the given index
+	///</summary>
+	public void RemoveOBXAt(int index)
+	{
+		this.RemoveRepetition("OBX", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OMG_O19_CONTAINER (a Group object) - creates it if necessary
 	///</summary>
@@ -131,6 +170,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OMG_O19_CONTAINER results 
+	 */ 
+	public IEnumerable<OMG_O19_CONTAINER> CONTAINERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CONTAINERRepetitionsUsed; rep++)
+			{
+				yield return (OMG_O19_CONTAINER)this.GetStructure("CONTAINER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OMG_O19_CONTAINER
+	///</summary>
+	public OMG_O19_CONTAINER AddCONTAINER()
+	{
+		return this.AddStructure("CONTAINER") as OMG_O19_CONTAINER;
+	}
+
+	///<summary>
+	///Removes the given OMG_O19_CONTAINER
+	///</summary>
+	public void RemoveCONTAINER(OMG_O19_CONTAINER toRemove)
+	{
+		this.RemoveStructure("CONTAINER", toRemove);
+	}
+
+	///<summary>
+	///Removes the OMG_O19_CONTAINER at the given index
+	///</summary>
+	public void RemoveCONTAINERAt(int index)
+	{
+		this.RemoveRepetition("CONTAINER", index);
+	}
 
 }
 }

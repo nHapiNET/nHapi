@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V27.Group;
 using NHapi.Model.V27.Segment;
@@ -119,6 +120,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -207,6 +246,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PPR_PC1_PROBLEM results 
+	 */ 
+	public IEnumerable<PPR_PC1_PROBLEM> PROBLEMs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROBLEMRepetitionsUsed; rep++)
+			{
+				yield return (PPR_PC1_PROBLEM)this.GetStructure("PROBLEM", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PPR_PC1_PROBLEM
+	///</summary>
+	public PPR_PC1_PROBLEM AddPROBLEM()
+	{
+		return this.AddStructure("PROBLEM") as PPR_PC1_PROBLEM;
+	}
+
+	///<summary>
+	///Removes the given PPR_PC1_PROBLEM
+	///</summary>
+	public void RemovePROBLEM(PPR_PC1_PROBLEM toRemove)
+	{
+		this.RemoveStructure("PROBLEM", toRemove);
+	}
+
+	///<summary>
+	///Removes the PPR_PC1_PROBLEM at the given index
+	///</summary>
+	public void RemovePROBLEMAt(int index)
+	{
+		this.RemoveRepetition("PROBLEM", index);
+	}
 
 }
 }

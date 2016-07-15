@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V26.Group;
 using NHapi.Model.V26.Segment;
@@ -127,6 +128,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -232,6 +271,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OBX results 
+	 */ 
+	public IEnumerable<OBX> OBXs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBXRepetitionsUsed; rep++)
+			{
+				yield return (OBX)this.GetStructure("OBX", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OBX
+	///</summary>
+	public OBX AddOBX()
+	{
+		return this.AddStructure("OBX") as OBX;
+	}
+
+	///<summary>
+	///Removes the given OBX
+	///</summary>
+	public void RemoveOBX(OBX toRemove)
+	{
+		this.RemoveStructure("OBX", toRemove);
+	}
+
+	///<summary>
+	///Removes the OBX at the given index
+	///</summary>
+	public void RemoveOBXAt(int index)
+	{
+		this.RemoveRepetition("OBX", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of NTE2 (Notes and Comments) - creates it if necessary
 	///</summary>
@@ -272,6 +349,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTE2s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTE2RepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE2", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE2()
+	{
+		return this.AddStructure("NTE2") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE2(NTE toRemove)
+	{
+		this.RemoveStructure("NTE2", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTE2At(int index)
+	{
+		this.RemoveRepetition("NTE2", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of ROL (Role) - creates it if necessary
@@ -314,6 +429,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ROL results 
+	 */ 
+	public IEnumerable<ROL> ROLs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ROLRepetitionsUsed; rep++)
+			{
+				yield return (ROL)this.GetStructure("ROL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ROL
+	///</summary>
+	public ROL AddROL()
+	{
+		return this.AddStructure("ROL") as ROL;
+	}
+
+	///<summary>
+	///Removes the given ROL
+	///</summary>
+	public void RemoveROL(ROL toRemove)
+	{
+		this.RemoveStructure("ROL", toRemove);
+	}
+
+	///<summary>
+	///Removes the ROL at the given index
+	///</summary>
+	public void RemoveROLAt(int index)
+	{
+		this.RemoveRepetition("ROL", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OPU_R25_ACCESSION_DETAIL (a Group object) - creates it if necessary
 	///</summary>
@@ -354,6 +507,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OPU_R25_ACCESSION_DETAIL results 
+	 */ 
+	public IEnumerable<OPU_R25_ACCESSION_DETAIL> ACCESSION_DETAILs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ACCESSION_DETAILRepetitionsUsed; rep++)
+			{
+				yield return (OPU_R25_ACCESSION_DETAIL)this.GetStructure("ACCESSION_DETAIL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OPU_R25_ACCESSION_DETAIL
+	///</summary>
+	public OPU_R25_ACCESSION_DETAIL AddACCESSION_DETAIL()
+	{
+		return this.AddStructure("ACCESSION_DETAIL") as OPU_R25_ACCESSION_DETAIL;
+	}
+
+	///<summary>
+	///Removes the given OPU_R25_ACCESSION_DETAIL
+	///</summary>
+	public void RemoveACCESSION_DETAIL(OPU_R25_ACCESSION_DETAIL toRemove)
+	{
+		this.RemoveStructure("ACCESSION_DETAIL", toRemove);
+	}
+
+	///<summary>
+	///Removes the OPU_R25_ACCESSION_DETAIL at the given index
+	///</summary>
+	public void RemoveACCESSION_DETAILAt(int index)
+	{
+		this.RemoveRepetition("ACCESSION_DETAIL", index);
+	}
 
 }
 }

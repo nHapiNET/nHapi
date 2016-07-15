@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
@@ -151,6 +152,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns EVN (Event Type) - creates it if necessary
 	///</summary>
@@ -240,6 +279,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ROL results 
+	 */ 
+	public IEnumerable<ROL> ROLs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ROLRepetitionsUsed; rep++)
+			{
+				yield return (ROL)this.GetStructure("ROL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ROL
+	///</summary>
+	public ROL AddROL()
+	{
+		return this.AddStructure("ROL") as ROL;
+	}
+
+	///<summary>
+	///Removes the given ROL
+	///</summary>
+	public void RemoveROL(ROL toRemove)
+	{
+		this.RemoveStructure("ROL", toRemove);
+	}
+
+	///<summary>
+	///Removes the ROL at the given index
+	///</summary>
+	public void RemoveROLAt(int index)
+	{
+		this.RemoveRepetition("ROL", index);
+	}
+
 	///<summary>
 	/// Returns MRG (Merge Patient Information) - creates it if necessary
 	///</summary>
@@ -296,6 +373,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the NK1 results 
+	 */ 
+	public IEnumerable<NK1> NK1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NK1RepetitionsUsed; rep++)
+			{
+				yield return (NK1)this.GetStructure("NK1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NK1
+	///</summary>
+	public NK1 AddNK1()
+	{
+		return this.AddStructure("NK1") as NK1;
+	}
+
+	///<summary>
+	///Removes the given NK1
+	///</summary>
+	public void RemoveNK1(NK1 toRemove)
+	{
+		this.RemoveStructure("NK1", toRemove);
+	}
+
+	///<summary>
+	///Removes the NK1 at the given index
+	///</summary>
+	public void RemoveNK1At(int index)
+	{
+		this.RemoveRepetition("NK1", index);
+	}
 
 	///<summary>
 	/// Returns PV1 (Patient Visit) - creates it if necessary
@@ -370,6 +485,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ROL results 
+	 */ 
+	public IEnumerable<ROL> ROL2s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ROL2RepetitionsUsed; rep++)
+			{
+				yield return (ROL)this.GetStructure("ROL2", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ROL
+	///</summary>
+	public ROL AddROL2()
+	{
+		return this.AddStructure("ROL2") as ROL;
+	}
+
+	///<summary>
+	///Removes the given ROL
+	///</summary>
+	public void RemoveROL2(ROL toRemove)
+	{
+		this.RemoveStructure("ROL2", toRemove);
+	}
+
+	///<summary>
+	///Removes the ROL at the given index
+	///</summary>
+	public void RemoveROL2At(int index)
+	{
+		this.RemoveRepetition("ROL2", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of DB1 (Disability) - creates it if necessary
 	///</summary>
@@ -410,6 +563,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DB1 results 
+	 */ 
+	public IEnumerable<DB1> DB1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DB1RepetitionsUsed; rep++)
+			{
+				yield return (DB1)this.GetStructure("DB1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DB1
+	///</summary>
+	public DB1 AddDB1()
+	{
+		return this.AddStructure("DB1") as DB1;
+	}
+
+	///<summary>
+	///Removes the given DB1
+	///</summary>
+	public void RemoveDB1(DB1 toRemove)
+	{
+		this.RemoveStructure("DB1", toRemove);
+	}
+
+	///<summary>
+	///Removes the DB1 at the given index
+	///</summary>
+	public void RemoveDB1At(int index)
+	{
+		this.RemoveRepetition("DB1", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of OBX (Observation/Result) - creates it if necessary
@@ -452,6 +643,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OBX results 
+	 */ 
+	public IEnumerable<OBX> OBXs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBXRepetitionsUsed; rep++)
+			{
+				yield return (OBX)this.GetStructure("OBX", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OBX
+	///</summary>
+	public OBX AddOBX()
+	{
+		return this.AddStructure("OBX") as OBX;
+	}
+
+	///<summary>
+	///Removes the given OBX
+	///</summary>
+	public void RemoveOBX(OBX toRemove)
+	{
+		this.RemoveStructure("OBX", toRemove);
+	}
+
+	///<summary>
+	///Removes the OBX at the given index
+	///</summary>
+	public void RemoveOBXAt(int index)
+	{
+		this.RemoveRepetition("OBX", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of AL1 (Patient Allergy Information) - creates it if necessary
 	///</summary>
@@ -493,6 +722,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the AL1 results 
+	 */ 
+	public IEnumerable<AL1> AL1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < AL1RepetitionsUsed; rep++)
+			{
+				yield return (AL1)this.GetStructure("AL1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new AL1
+	///</summary>
+	public AL1 AddAL1()
+	{
+		return this.AddStructure("AL1") as AL1;
+	}
+
+	///<summary>
+	///Removes the given AL1
+	///</summary>
+	public void RemoveAL1(AL1 toRemove)
+	{
+		this.RemoveStructure("AL1", toRemove);
+	}
+
+	///<summary>
+	///Removes the AL1 at the given index
+	///</summary>
+	public void RemoveAL1At(int index)
+	{
+		this.RemoveRepetition("AL1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of DG1 (Diagnosis) - creates it if necessary
 	///</summary>
@@ -533,6 +800,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DG1 results 
+	 */ 
+	public IEnumerable<DG1> DG1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DG1RepetitionsUsed; rep++)
+			{
+				yield return (DG1)this.GetStructure("DG1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DG1
+	///</summary>
+	public DG1 AddDG1()
+	{
+		return this.AddStructure("DG1") as DG1;
+	}
+
+	///<summary>
+	///Removes the given DG1
+	///</summary>
+	public void RemoveDG1(DG1 toRemove)
+	{
+		this.RemoveStructure("DG1", toRemove);
+	}
+
+	///<summary>
+	///Removes the DG1 at the given index
+	///</summary>
+	public void RemoveDG1At(int index)
+	{
+		this.RemoveRepetition("DG1", index);
+	}
 
 	///<summary>
 	/// Returns DRG (Diagnosis Related Group) - creates it if necessary
@@ -591,6 +896,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ADT_A06_PROCEDURE results 
+	 */ 
+	public IEnumerable<ADT_A06_PROCEDURE> PROCEDUREs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROCEDURERepetitionsUsed; rep++)
+			{
+				yield return (ADT_A06_PROCEDURE)this.GetStructure("PROCEDURE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ADT_A06_PROCEDURE
+	///</summary>
+	public ADT_A06_PROCEDURE AddPROCEDURE()
+	{
+		return this.AddStructure("PROCEDURE") as ADT_A06_PROCEDURE;
+	}
+
+	///<summary>
+	///Removes the given ADT_A06_PROCEDURE
+	///</summary>
+	public void RemovePROCEDURE(ADT_A06_PROCEDURE toRemove)
+	{
+		this.RemoveStructure("PROCEDURE", toRemove);
+	}
+
+	///<summary>
+	///Removes the ADT_A06_PROCEDURE at the given index
+	///</summary>
+	public void RemovePROCEDUREAt(int index)
+	{
+		this.RemoveRepetition("PROCEDURE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of GT1 (Guarantor) - creates it if necessary
 	///</summary>
@@ -632,6 +975,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the GT1 results 
+	 */ 
+	public IEnumerable<GT1> GT1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < GT1RepetitionsUsed; rep++)
+			{
+				yield return (GT1)this.GetStructure("GT1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new GT1
+	///</summary>
+	public GT1 AddGT1()
+	{
+		return this.AddStructure("GT1") as GT1;
+	}
+
+	///<summary>
+	///Removes the given GT1
+	///</summary>
+	public void RemoveGT1(GT1 toRemove)
+	{
+		this.RemoveStructure("GT1", toRemove);
+	}
+
+	///<summary>
+	///Removes the GT1 at the given index
+	///</summary>
+	public void RemoveGT1At(int index)
+	{
+		this.RemoveRepetition("GT1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ADT_A06_INSURANCE (a Group object) - creates it if necessary
 	///</summary>
@@ -672,6 +1053,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ADT_A06_INSURANCE results 
+	 */ 
+	public IEnumerable<ADT_A06_INSURANCE> INSURANCEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < INSURANCERepetitionsUsed; rep++)
+			{
+				yield return (ADT_A06_INSURANCE)this.GetStructure("INSURANCE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ADT_A06_INSURANCE
+	///</summary>
+	public ADT_A06_INSURANCE AddINSURANCE()
+	{
+		return this.AddStructure("INSURANCE") as ADT_A06_INSURANCE;
+	}
+
+	///<summary>
+	///Removes the given ADT_A06_INSURANCE
+	///</summary>
+	public void RemoveINSURANCE(ADT_A06_INSURANCE toRemove)
+	{
+		this.RemoveStructure("INSURANCE", toRemove);
+	}
+
+	///<summary>
+	///Removes the ADT_A06_INSURANCE at the given index
+	///</summary>
+	public void RemoveINSURANCEAt(int index)
+	{
+		this.RemoveRepetition("INSURANCE", index);
+	}
 
 	///<summary>
 	/// Returns ACC (Accident) - creates it if necessary

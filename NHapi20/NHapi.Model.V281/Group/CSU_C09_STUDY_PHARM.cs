@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CSU_C09_RX_ADMIN results 
+	 */ 
+	public IEnumerable<CSU_C09_RX_ADMIN> RX_ADMINs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RX_ADMINRepetitionsUsed; rep++)
+			{
+				yield return (CSU_C09_RX_ADMIN)this.GetStructure("RX_ADMIN", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CSU_C09_RX_ADMIN
+	///</summary>
+	public CSU_C09_RX_ADMIN AddRX_ADMIN()
+	{
+		return this.AddStructure("RX_ADMIN") as CSU_C09_RX_ADMIN;
+	}
+
+	///<summary>
+	///Removes the given CSU_C09_RX_ADMIN
+	///</summary>
+	public void RemoveRX_ADMIN(CSU_C09_RX_ADMIN toRemove)
+	{
+		this.RemoveStructure("RX_ADMIN", toRemove);
+	}
+
+	///<summary>
+	///Removes the CSU_C09_RX_ADMIN at the given index
+	///</summary>
+	public void RemoveRX_ADMINAt(int index)
+	{
+		this.RemoveRepetition("RX_ADMIN", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the EHC_E10_PRODUCT_SERVICE_LINE_INFO results 
+	 */ 
+	public IEnumerable<EHC_E10_PRODUCT_SERVICE_LINE_INFO> PRODUCT_SERVICE_LINE_INFOs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRODUCT_SERVICE_LINE_INFORepetitionsUsed; rep++)
+			{
+				yield return (EHC_E10_PRODUCT_SERVICE_LINE_INFO)this.GetStructure("PRODUCT_SERVICE_LINE_INFO", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EHC_E10_PRODUCT_SERVICE_LINE_INFO
+	///</summary>
+	public EHC_E10_PRODUCT_SERVICE_LINE_INFO AddPRODUCT_SERVICE_LINE_INFO()
+	{
+		return this.AddStructure("PRODUCT_SERVICE_LINE_INFO") as EHC_E10_PRODUCT_SERVICE_LINE_INFO;
+	}
+
+	///<summary>
+	///Removes the given EHC_E10_PRODUCT_SERVICE_LINE_INFO
+	///</summary>
+	public void RemovePRODUCT_SERVICE_LINE_INFO(EHC_E10_PRODUCT_SERVICE_LINE_INFO toRemove)
+	{
+		this.RemoveStructure("PRODUCT_SERVICE_LINE_INFO", toRemove);
+	}
+
+	///<summary>
+	///Removes the EHC_E10_PRODUCT_SERVICE_LINE_INFO at the given index
+	///</summary>
+	public void RemovePRODUCT_SERVICE_LINE_INFOAt(int index)
+	{
+		this.RemoveRepetition("PRODUCT_SERVICE_LINE_INFO", index);
+	}
 
 }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
@@ -153,6 +154,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NK1 results 
+	 */ 
+	public IEnumerable<NK1> NK1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NK1RepetitionsUsed; rep++)
+			{
+				yield return (NK1)this.GetStructure("NK1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NK1
+	///</summary>
+	public NK1 AddNK1()
+	{
+		return this.AddStructure("NK1") as NK1;
+	}
+
+	///<summary>
+	///Removes the given NK1
+	///</summary>
+	public void RemoveNK1(NK1 toRemove)
+	{
+		this.RemoveStructure("NK1", toRemove);
+	}
+
+	///<summary>
+	///Removes the NK1 at the given index
+	///</summary>
+	public void RemoveNK1At(int index)
+	{
+		this.RemoveRepetition("NK1", index);
+	}
+
 	///<summary>
 	/// Returns VXU_V04_PATIENT (a Group object) - creates it if necessary
 	///</summary>
@@ -210,6 +249,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the VXU_V04_INSURANCE results 
+	 */ 
+	public IEnumerable<VXU_V04_INSURANCE> INSURANCEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < INSURANCERepetitionsUsed; rep++)
+			{
+				yield return (VXU_V04_INSURANCE)this.GetStructure("INSURANCE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new VXU_V04_INSURANCE
+	///</summary>
+	public VXU_V04_INSURANCE AddINSURANCE()
+	{
+		return this.AddStructure("INSURANCE") as VXU_V04_INSURANCE;
+	}
+
+	///<summary>
+	///Removes the given VXU_V04_INSURANCE
+	///</summary>
+	public void RemoveINSURANCE(VXU_V04_INSURANCE toRemove)
+	{
+		this.RemoveStructure("INSURANCE", toRemove);
+	}
+
+	///<summary>
+	///Removes the VXU_V04_INSURANCE at the given index
+	///</summary>
+	public void RemoveINSURANCEAt(int index)
+	{
+		this.RemoveRepetition("INSURANCE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of VXU_V04_ORDER (a Group object) - creates it if necessary
 	///</summary>
@@ -250,6 +327,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the VXU_V04_ORDER results 
+	 */ 
+	public IEnumerable<VXU_V04_ORDER> ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDERRepetitionsUsed; rep++)
+			{
+				yield return (VXU_V04_ORDER)this.GetStructure("ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new VXU_V04_ORDER
+	///</summary>
+	public VXU_V04_ORDER AddORDER()
+	{
+		return this.AddStructure("ORDER") as VXU_V04_ORDER;
+	}
+
+	///<summary>
+	///Removes the given VXU_V04_ORDER
+	///</summary>
+	public void RemoveORDER(VXU_V04_ORDER toRemove)
+	{
+		this.RemoveStructure("ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the VXU_V04_ORDER at the given index
+	///</summary>
+	public void RemoveORDERAt(int index)
+	{
+		this.RemoveRepetition("ORDER", index);
+	}
 
 }
 }

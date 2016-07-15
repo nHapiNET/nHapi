@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V231.Group;
 using NHapi.Model.V231.Segment;
@@ -117,6 +118,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns OMD_O01_PATIENT (a Group object) - creates it if necessary
 	///</summary>
@@ -174,6 +213,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OMD_O01_ORDER_DIET results 
+	 */ 
+	public IEnumerable<OMD_O01_ORDER_DIET> ORDER_DIETs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDER_DIETRepetitionsUsed; rep++)
+			{
+				yield return (OMD_O01_ORDER_DIET)this.GetStructure("ORDER_DIET", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OMD_O01_ORDER_DIET
+	///</summary>
+	public OMD_O01_ORDER_DIET AddORDER_DIET()
+	{
+		return this.AddStructure("ORDER_DIET") as OMD_O01_ORDER_DIET;
+	}
+
+	///<summary>
+	///Removes the given OMD_O01_ORDER_DIET
+	///</summary>
+	public void RemoveORDER_DIET(OMD_O01_ORDER_DIET toRemove)
+	{
+		this.RemoveStructure("ORDER_DIET", toRemove);
+	}
+
+	///<summary>
+	///Removes the OMD_O01_ORDER_DIET at the given index
+	///</summary>
+	public void RemoveORDER_DIETAt(int index)
+	{
+		this.RemoveRepetition("ORDER_DIET", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OMD_O01_ORDER_TRAY (a Group object) - creates it if necessary
 	///</summary>
@@ -214,6 +291,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OMD_O01_ORDER_TRAY results 
+	 */ 
+	public IEnumerable<OMD_O01_ORDER_TRAY> ORDER_TRAYs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDER_TRAYRepetitionsUsed; rep++)
+			{
+				yield return (OMD_O01_ORDER_TRAY)this.GetStructure("ORDER_TRAY", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OMD_O01_ORDER_TRAY
+	///</summary>
+	public OMD_O01_ORDER_TRAY AddORDER_TRAY()
+	{
+		return this.AddStructure("ORDER_TRAY") as OMD_O01_ORDER_TRAY;
+	}
+
+	///<summary>
+	///Removes the given OMD_O01_ORDER_TRAY
+	///</summary>
+	public void RemoveORDER_TRAY(OMD_O01_ORDER_TRAY toRemove)
+	{
+		this.RemoveStructure("ORDER_TRAY", toRemove);
+	}
+
+	///<summary>
+	///Removes the OMD_O01_ORDER_TRAY at the given index
+	///</summary>
+	public void RemoveORDER_TRAYAt(int index)
+	{
+		this.RemoveRepetition("ORDER_TRAY", index);
+	}
 
 }
 }

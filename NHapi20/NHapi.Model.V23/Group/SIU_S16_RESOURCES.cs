@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V23.Segment;
 using NHapi.Model.V23.Datatype;
 using NHapi.Base.Model;
@@ -95,6 +96,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SIU_S16_SERVICE results 
+	 */ 
+	public IEnumerable<SIU_S16_SERVICE> SERVICEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SERVICERepetitionsUsed; rep++)
+			{
+				yield return (SIU_S16_SERVICE)this.GetStructure("SERVICE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SIU_S16_SERVICE
+	///</summary>
+	public SIU_S16_SERVICE AddSERVICE()
+	{
+		return this.AddStructure("SERVICE") as SIU_S16_SERVICE;
+	}
+
+	///<summary>
+	///Removes the given SIU_S16_SERVICE
+	///</summary>
+	public void RemoveSERVICE(SIU_S16_SERVICE toRemove)
+	{
+		this.RemoveStructure("SERVICE", toRemove);
+	}
+
+	///<summary>
+	///Removes the SIU_S16_SERVICE at the given index
+	///</summary>
+	public void RemoveSERVICEAt(int index)
+	{
+		this.RemoveRepetition("SERVICE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of SIU_S16_GENERAL_RESOURCE (a Group object) - creates it if necessary
 	///</summary>
@@ -135,6 +174,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SIU_S16_GENERAL_RESOURCE results 
+	 */ 
+	public IEnumerable<SIU_S16_GENERAL_RESOURCE> GENERAL_RESOURCEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < GENERAL_RESOURCERepetitionsUsed; rep++)
+			{
+				yield return (SIU_S16_GENERAL_RESOURCE)this.GetStructure("GENERAL_RESOURCE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SIU_S16_GENERAL_RESOURCE
+	///</summary>
+	public SIU_S16_GENERAL_RESOURCE AddGENERAL_RESOURCE()
+	{
+		return this.AddStructure("GENERAL_RESOURCE") as SIU_S16_GENERAL_RESOURCE;
+	}
+
+	///<summary>
+	///Removes the given SIU_S16_GENERAL_RESOURCE
+	///</summary>
+	public void RemoveGENERAL_RESOURCE(SIU_S16_GENERAL_RESOURCE toRemove)
+	{
+		this.RemoveStructure("GENERAL_RESOURCE", toRemove);
+	}
+
+	///<summary>
+	///Removes the SIU_S16_GENERAL_RESOURCE at the given index
+	///</summary>
+	public void RemoveGENERAL_RESOURCEAt(int index)
+	{
+		this.RemoveRepetition("GENERAL_RESOURCE", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of SIU_S16_LOCATIONL_RESOURCE (a Group object) - creates it if necessary
@@ -177,6 +254,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SIU_S16_LOCATIONL_RESOURCE results 
+	 */ 
+	public IEnumerable<SIU_S16_LOCATIONL_RESOURCE> LOCATIONL_RESOURCEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < LOCATIONL_RESOURCERepetitionsUsed; rep++)
+			{
+				yield return (SIU_S16_LOCATIONL_RESOURCE)this.GetStructure("LOCATIONL_RESOURCE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SIU_S16_LOCATIONL_RESOURCE
+	///</summary>
+	public SIU_S16_LOCATIONL_RESOURCE AddLOCATIONL_RESOURCE()
+	{
+		return this.AddStructure("LOCATIONL_RESOURCE") as SIU_S16_LOCATIONL_RESOURCE;
+	}
+
+	///<summary>
+	///Removes the given SIU_S16_LOCATIONL_RESOURCE
+	///</summary>
+	public void RemoveLOCATIONL_RESOURCE(SIU_S16_LOCATIONL_RESOURCE toRemove)
+	{
+		this.RemoveStructure("LOCATIONL_RESOURCE", toRemove);
+	}
+
+	///<summary>
+	///Removes the SIU_S16_LOCATIONL_RESOURCE at the given index
+	///</summary>
+	public void RemoveLOCATIONL_RESOURCEAt(int index)
+	{
+		this.RemoveRepetition("LOCATIONL_RESOURCE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of SIU_S16_PERSONNEL_RESOURCE (a Group object) - creates it if necessary
 	///</summary>
@@ -217,6 +332,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SIU_S16_PERSONNEL_RESOURCE results 
+	 */ 
+	public IEnumerable<SIU_S16_PERSONNEL_RESOURCE> PERSONNEL_RESOURCEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PERSONNEL_RESOURCERepetitionsUsed; rep++)
+			{
+				yield return (SIU_S16_PERSONNEL_RESOURCE)this.GetStructure("PERSONNEL_RESOURCE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SIU_S16_PERSONNEL_RESOURCE
+	///</summary>
+	public SIU_S16_PERSONNEL_RESOURCE AddPERSONNEL_RESOURCE()
+	{
+		return this.AddStructure("PERSONNEL_RESOURCE") as SIU_S16_PERSONNEL_RESOURCE;
+	}
+
+	///<summary>
+	///Removes the given SIU_S16_PERSONNEL_RESOURCE
+	///</summary>
+	public void RemovePERSONNEL_RESOURCE(SIU_S16_PERSONNEL_RESOURCE toRemove)
+	{
+		this.RemoveStructure("PERSONNEL_RESOURCE", toRemove);
+	}
+
+	///<summary>
+	///Removes the SIU_S16_PERSONNEL_RESOURCE at the given index
+	///</summary>
+	public void RemovePERSONNEL_RESOURCEAt(int index)
+	{
+		this.RemoveRepetition("PERSONNEL_RESOURCE", index);
+	}
 
 }
 }

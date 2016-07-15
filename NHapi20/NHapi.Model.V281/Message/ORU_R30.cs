@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V281.Group;
 using NHapi.Model.V281.Segment;
@@ -139,6 +140,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -228,6 +267,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ARV (Access Restriction) - creates it if necessary
 	///</summary>
@@ -269,6 +346,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ARV results 
+	 */ 
+	public IEnumerable<ARV> ARVs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ARVRepetitionsUsed; rep++)
+			{
+				yield return (ARV)this.GetStructure("ARV", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ARV
+	///</summary>
+	public ARV AddARV()
+	{
+		return this.AddStructure("ARV") as ARV;
+	}
+
+	///<summary>
+	///Removes the given ARV
+	///</summary>
+	public void RemoveARV(ARV toRemove)
+	{
+		this.RemoveStructure("ARV", toRemove);
+	}
+
+	///<summary>
+	///Removes the ARV at the given index
+	///</summary>
+	public void RemoveARVAt(int index)
+	{
+		this.RemoveRepetition("ARV", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ORU_R30_PATIENT_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -309,6 +424,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORU_R30_PATIENT_OBSERVATION results 
+	 */ 
+	public IEnumerable<ORU_R30_PATIENT_OBSERVATION> PATIENT_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PATIENT_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (ORU_R30_PATIENT_OBSERVATION)this.GetStructure("PATIENT_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORU_R30_PATIENT_OBSERVATION
+	///</summary>
+	public ORU_R30_PATIENT_OBSERVATION AddPATIENT_OBSERVATION()
+	{
+		return this.AddStructure("PATIENT_OBSERVATION") as ORU_R30_PATIENT_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given ORU_R30_PATIENT_OBSERVATION
+	///</summary>
+	public void RemovePATIENT_OBSERVATION(ORU_R30_PATIENT_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("PATIENT_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORU_R30_PATIENT_OBSERVATION at the given index
+	///</summary>
+	public void RemovePATIENT_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("PATIENT_OBSERVATION", index);
+	}
 
 	///<summary>
 	/// Returns ORU_R30_VISIT (a Group object) - creates it if necessary
@@ -383,6 +536,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRT2s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRT2RepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT2", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT2()
+	{
+		return this.AddStructure("PRT2") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT2(PRT toRemove)
+	{
+		this.RemoveStructure("PRT2", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRT2At(int index)
+	{
+		this.RemoveRepetition("PRT2", index);
+	}
+
 	///<summary>
 	/// Returns OBR (Observation Request) - creates it if necessary
 	///</summary>
@@ -440,6 +631,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of PRT3 (Participation Information) - creates it if necessary
 	///</summary>
@@ -480,6 +709,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRT3s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRT3RepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT3", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT3()
+	{
+		return this.AddStructure("PRT3") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT3(PRT toRemove)
+	{
+		this.RemoveStructure("PRT3", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRT3At(int index)
+	{
+		this.RemoveRepetition("PRT3", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of ORU_R30_TIMING_QTY (a Group object) - creates it if necessary
@@ -522,6 +789,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ORU_R30_TIMING_QTY results 
+	 */ 
+	public IEnumerable<ORU_R30_TIMING_QTY> TIMING_QTYs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMING_QTYRepetitionsUsed; rep++)
+			{
+				yield return (ORU_R30_TIMING_QTY)this.GetStructure("TIMING_QTY", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORU_R30_TIMING_QTY
+	///</summary>
+	public ORU_R30_TIMING_QTY AddTIMING_QTY()
+	{
+		return this.AddStructure("TIMING_QTY") as ORU_R30_TIMING_QTY;
+	}
+
+	///<summary>
+	///Removes the given ORU_R30_TIMING_QTY
+	///</summary>
+	public void RemoveTIMING_QTY(ORU_R30_TIMING_QTY toRemove)
+	{
+		this.RemoveStructure("TIMING_QTY", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORU_R30_TIMING_QTY at the given index
+	///</summary>
+	public void RemoveTIMING_QTYAt(int index)
+	{
+		this.RemoveRepetition("TIMING_QTY", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ORU_R30_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -562,6 +867,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORU_R30_OBSERVATION results 
+	 */ 
+	public IEnumerable<ORU_R30_OBSERVATION> OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (ORU_R30_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORU_R30_OBSERVATION
+	///</summary>
+	public ORU_R30_OBSERVATION AddOBSERVATION()
+	{
+		return this.AddStructure("OBSERVATION") as ORU_R30_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given ORU_R30_OBSERVATION
+	///</summary>
+	public void RemoveOBSERVATION(ORU_R30_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORU_R30_OBSERVATION at the given index
+	///</summary>
+	public void RemoveOBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION", index);
+	}
 
 }
 }

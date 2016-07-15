@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
@@ -112,6 +113,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORU_R01_RESPONSE results 
+	 */ 
+	public IEnumerable<ORU_R01_RESPONSE> RESPONSEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RESPONSERepetitionsUsed; rep++)
+			{
+				yield return (ORU_R01_RESPONSE)this.GetStructure("RESPONSE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORU_R01_RESPONSE
+	///</summary>
+	public ORU_R01_RESPONSE AddRESPONSE()
+	{
+		return this.AddStructure("RESPONSE") as ORU_R01_RESPONSE;
+	}
+
+	///<summary>
+	///Removes the given ORU_R01_RESPONSE
+	///</summary>
+	public void RemoveRESPONSE(ORU_R01_RESPONSE toRemove)
+	{
+		this.RemoveStructure("RESPONSE", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORU_R01_RESPONSE at the given index
+	///</summary>
+	public void RemoveRESPONSEAt(int index)
+	{
+		this.RemoveRepetition("RESPONSE", index);
+	}
 
 	///<summary>
 	/// Returns DSC (Continuation pointer segment) - creates it if necessary

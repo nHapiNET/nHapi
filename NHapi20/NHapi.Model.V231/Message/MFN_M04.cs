@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V231.Group;
 using NHapi.Model.V231.Segment;
@@ -128,6 +129,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFN_M04_MF_CDM results 
+	 */ 
+	public IEnumerable<MFN_M04_MF_CDM> MF_CDMs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MF_CDMRepetitionsUsed; rep++)
+			{
+				yield return (MFN_M04_MF_CDM)this.GetStructure("MF_CDM", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFN_M04_MF_CDM
+	///</summary>
+	public MFN_M04_MF_CDM AddMF_CDM()
+	{
+		return this.AddStructure("MF_CDM") as MFN_M04_MF_CDM;
+	}
+
+	///<summary>
+	///Removes the given MFN_M04_MF_CDM
+	///</summary>
+	public void RemoveMF_CDM(MFN_M04_MF_CDM toRemove)
+	{
+		this.RemoveStructure("MF_CDM", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFN_M04_MF_CDM at the given index
+	///</summary>
+	public void RemoveMF_CDMAt(int index)
+	{
+		this.RemoveRepetition("MF_CDM", index);
+	}
 
 }
 }

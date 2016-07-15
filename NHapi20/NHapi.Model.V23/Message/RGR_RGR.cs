@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
@@ -148,6 +149,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RGR_RGR_DEFINITION results 
+	 */ 
+	public IEnumerable<RGR_RGR_DEFINITION> DEFINITIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DEFINITIONRepetitionsUsed; rep++)
+			{
+				yield return (RGR_RGR_DEFINITION)this.GetStructure("DEFINITION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RGR_RGR_DEFINITION
+	///</summary>
+	public RGR_RGR_DEFINITION AddDEFINITION()
+	{
+		return this.AddStructure("DEFINITION") as RGR_RGR_DEFINITION;
+	}
+
+	///<summary>
+	///Removes the given RGR_RGR_DEFINITION
+	///</summary>
+	public void RemoveDEFINITION(RGR_RGR_DEFINITION toRemove)
+	{
+		this.RemoveStructure("DEFINITION", toRemove);
+	}
+
+	///<summary>
+	///Removes the RGR_RGR_DEFINITION at the given index
+	///</summary>
+	public void RemoveDEFINITIONAt(int index)
+	{
+		this.RemoveRepetition("DEFINITION", index);
+	}
 
 	///<summary>
 	/// Returns DSC (Continuation pointer segment) - creates it if necessary

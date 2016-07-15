@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V27.Group;
 using NHapi.Model.V27.Segment;
@@ -123,6 +124,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -212,6 +251,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NK1 results 
+	 */ 
+	public IEnumerable<NK1> NK1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NK1RepetitionsUsed; rep++)
+			{
+				yield return (NK1)this.GetStructure("NK1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NK1
+	///</summary>
+	public NK1 AddNK1()
+	{
+		return this.AddStructure("NK1") as NK1;
+	}
+
+	///<summary>
+	///Removes the given NK1
+	///</summary>
+	public void RemoveNK1(NK1 toRemove)
+	{
+		this.RemoveStructure("NK1", toRemove);
+	}
+
+	///<summary>
+	///Removes the NK1 at the given index
+	///</summary>
+	public void RemoveNK1At(int index)
+	{
+		this.RemoveRepetition("NK1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OUL_R24_ORDER (a Group object) - creates it if necessary
 	///</summary>
@@ -252,6 +329,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OUL_R24_ORDER results 
+	 */ 
+	public IEnumerable<OUL_R24_ORDER> ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDERRepetitionsUsed; rep++)
+			{
+				yield return (OUL_R24_ORDER)this.GetStructure("ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OUL_R24_ORDER
+	///</summary>
+	public OUL_R24_ORDER AddORDER()
+	{
+		return this.AddStructure("ORDER") as OUL_R24_ORDER;
+	}
+
+	///<summary>
+	///Removes the given OUL_R24_ORDER
+	///</summary>
+	public void RemoveORDER(OUL_R24_ORDER toRemove)
+	{
+		this.RemoveStructure("ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the OUL_R24_ORDER at the given index
+	///</summary>
+	public void RemoveORDERAt(int index)
+	{
+		this.RemoveRepetition("ORDER", index);
+	}
 
 	///<summary>
 	/// Returns DSC (Continuation Pointer) - creates it if necessary

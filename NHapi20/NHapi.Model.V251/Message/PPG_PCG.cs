@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
@@ -117,6 +118,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns PID (Patient Identification) - creates it if necessary
 	///</summary>
@@ -189,6 +228,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PPG_PCG_PATHWAY results 
+	 */ 
+	public IEnumerable<PPG_PCG_PATHWAY> PATHWAYs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PATHWAYRepetitionsUsed; rep++)
+			{
+				yield return (PPG_PCG_PATHWAY)this.GetStructure("PATHWAY", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PPG_PCG_PATHWAY
+	///</summary>
+	public PPG_PCG_PATHWAY AddPATHWAY()
+	{
+		return this.AddStructure("PATHWAY") as PPG_PCG_PATHWAY;
+	}
+
+	///<summary>
+	///Removes the given PPG_PCG_PATHWAY
+	///</summary>
+	public void RemovePATHWAY(PPG_PCG_PATHWAY toRemove)
+	{
+		this.RemoveStructure("PATHWAY", toRemove);
+	}
+
+	///<summary>
+	///Removes the PPG_PCG_PATHWAY at the given index
+	///</summary>
+	public void RemovePATHWAYAt(int index)
+	{
+		this.RemoveRepetition("PATHWAY", index);
+	}
 
 }
 }

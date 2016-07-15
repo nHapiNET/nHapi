@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V28.Group;
 using NHapi.Model.V28.Segment;
@@ -123,6 +124,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -212,6 +251,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NK1 results 
+	 */ 
+	public IEnumerable<NK1> NK1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NK1RepetitionsUsed; rep++)
+			{
+				yield return (NK1)this.GetStructure("NK1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NK1
+	///</summary>
+	public NK1 AddNK1()
+	{
+		return this.AddStructure("NK1") as NK1;
+	}
+
+	///<summary>
+	///Removes the given NK1
+	///</summary>
+	public void RemoveNK1(NK1 toRemove)
+	{
+		this.RemoveStructure("NK1", toRemove);
+	}
+
+	///<summary>
+	///Removes the NK1 at the given index
+	///</summary>
+	public void RemoveNK1At(int index)
+	{
+		this.RemoveRepetition("NK1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OUL_R22_SPECIMEN (a Group object) - creates it if necessary
 	///</summary>
@@ -252,6 +329,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OUL_R22_SPECIMEN results 
+	 */ 
+	public IEnumerable<OUL_R22_SPECIMEN> SPECIMENs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPECIMENRepetitionsUsed; rep++)
+			{
+				yield return (OUL_R22_SPECIMEN)this.GetStructure("SPECIMEN", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OUL_R22_SPECIMEN
+	///</summary>
+	public OUL_R22_SPECIMEN AddSPECIMEN()
+	{
+		return this.AddStructure("SPECIMEN") as OUL_R22_SPECIMEN;
+	}
+
+	///<summary>
+	///Removes the given OUL_R22_SPECIMEN
+	///</summary>
+	public void RemoveSPECIMEN(OUL_R22_SPECIMEN toRemove)
+	{
+		this.RemoveStructure("SPECIMEN", toRemove);
+	}
+
+	///<summary>
+	///Removes the OUL_R22_SPECIMEN at the given index
+	///</summary>
+	public void RemoveSPECIMENAt(int index)
+	{
+		this.RemoveRepetition("SPECIMEN", index);
+	}
 
 	///<summary>
 	/// Returns DSC (Continuation Pointer) - creates it if necessary

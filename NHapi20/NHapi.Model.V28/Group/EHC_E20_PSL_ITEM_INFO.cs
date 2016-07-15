@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V28.Segment;
 using NHapi.Model.V28.Datatype;
 using NHapi.Base.Model;
@@ -97,6 +98,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ADJ (Adjustment) - creates it if necessary
 	///</summary>
@@ -137,6 +176,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ADJ results 
+	 */ 
+	public IEnumerable<ADJ> ADJs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ADJRepetitionsUsed; rep++)
+			{
+				yield return (ADJ)this.GetStructure("ADJ", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ADJ
+	///</summary>
+	public ADJ AddADJ()
+	{
+		return this.AddStructure("ADJ") as ADJ;
+	}
+
+	///<summary>
+	///Removes the given ADJ
+	///</summary>
+	public void RemoveADJ(ADJ toRemove)
+	{
+		this.RemoveStructure("ADJ", toRemove);
+	}
+
+	///<summary>
+	///Removes the ADJ at the given index
+	///</summary>
+	public void RemoveADJAt(int index)
+	{
+		this.RemoveRepetition("ADJ", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of LOC (Location Identification) - creates it if necessary
@@ -179,6 +256,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the LOC results 
+	 */ 
+	public IEnumerable<LOC> LOCs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < LOCRepetitionsUsed; rep++)
+			{
+				yield return (LOC)this.GetStructure("LOC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new LOC
+	///</summary>
+	public LOC AddLOC()
+	{
+		return this.AddStructure("LOC") as LOC;
+	}
+
+	///<summary>
+	///Removes the given LOC
+	///</summary>
+	public void RemoveLOC(LOC toRemove)
+	{
+		this.RemoveStructure("LOC", toRemove);
+	}
+
+	///<summary>
+	///Removes the LOC at the given index
+	///</summary>
+	public void RemoveLOCAt(int index)
+	{
+		this.RemoveRepetition("LOC", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of PRT (Participation Information) - creates it if necessary
 	///</summary>
@@ -220,6 +335,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ROL (Role) - creates it if necessary
 	///</summary>
@@ -260,6 +413,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ROL results 
+	 */ 
+	public IEnumerable<ROL> ROLs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ROLRepetitionsUsed; rep++)
+			{
+				yield return (ROL)this.GetStructure("ROL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ROL
+	///</summary>
+	public ROL AddROL()
+	{
+		return this.AddStructure("ROL") as ROL;
+	}
+
+	///<summary>
+	///Removes the given ROL
+	///</summary>
+	public void RemoveROL(ROL toRemove)
+	{
+		this.RemoveStructure("ROL", toRemove);
+	}
+
+	///<summary>
+	///Removes the ROL at the given index
+	///</summary>
+	public void RemoveROLAt(int index)
+	{
+		this.RemoveRepetition("ROL", index);
+	}
 
 }
 }

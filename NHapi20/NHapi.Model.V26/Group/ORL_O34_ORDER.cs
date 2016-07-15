@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V26.Segment;
 using NHapi.Model.V26.Datatype;
 using NHapi.Base.Model;
@@ -90,6 +91,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORL_O34_TIMING results 
+	 */ 
+	public IEnumerable<ORL_O34_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (ORL_O34_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORL_O34_TIMING
+	///</summary>
+	public ORL_O34_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as ORL_O34_TIMING;
+	}
+
+	///<summary>
+	///Removes the given ORL_O34_TIMING
+	///</summary>
+	public void RemoveTIMING(ORL_O34_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORL_O34_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
 
 	///<summary>
 	/// Returns ORL_O34_OBSERVATION_REQUEST (a Group object) - creates it if necessary

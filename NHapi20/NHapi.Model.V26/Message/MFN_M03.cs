@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V26.Group;
 using NHapi.Model.V26.Segment;
@@ -115,6 +116,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns MFI (Master File Identification) - creates it if necessary
 	///</summary>
@@ -171,6 +210,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFN_M03_MF_TEST results 
+	 */ 
+	public IEnumerable<MFN_M03_MF_TEST> MF_TESTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MF_TESTRepetitionsUsed; rep++)
+			{
+				yield return (MFN_M03_MF_TEST)this.GetStructure("MF_TEST", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFN_M03_MF_TEST
+	///</summary>
+	public MFN_M03_MF_TEST AddMF_TEST()
+	{
+		return this.AddStructure("MF_TEST") as MFN_M03_MF_TEST;
+	}
+
+	///<summary>
+	///Removes the given MFN_M03_MF_TEST
+	///</summary>
+	public void RemoveMF_TEST(MFN_M03_MF_TEST toRemove)
+	{
+		this.RemoveStructure("MF_TEST", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFN_M03_MF_TEST at the given index
+	///</summary>
+	public void RemoveMF_TESTAt(int index)
+	{
+		this.RemoveRepetition("MF_TEST", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V251.Segment;
 using NHapi.Model.V251.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PEX_P07_PEX_CAUSE results 
+	 */ 
+	public IEnumerable<PEX_P07_PEX_CAUSE> PEX_CAUSEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PEX_CAUSERepetitionsUsed; rep++)
+			{
+				yield return (PEX_P07_PEX_CAUSE)this.GetStructure("PEX_CAUSE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PEX_P07_PEX_CAUSE
+	///</summary>
+	public PEX_P07_PEX_CAUSE AddPEX_CAUSE()
+	{
+		return this.AddStructure("PEX_CAUSE") as PEX_P07_PEX_CAUSE;
+	}
+
+	///<summary>
+	///Removes the given PEX_P07_PEX_CAUSE
+	///</summary>
+	public void RemovePEX_CAUSE(PEX_P07_PEX_CAUSE toRemove)
+	{
+		this.RemoveStructure("PEX_CAUSE", toRemove);
+	}
+
+	///<summary>
+	///Removes the PEX_P07_PEX_CAUSE at the given index
+	///</summary>
+	public void RemovePEX_CAUSEAt(int index)
+	{
+		this.RemoveRepetition("PEX_CAUSE", index);
+	}
 
 }
 }

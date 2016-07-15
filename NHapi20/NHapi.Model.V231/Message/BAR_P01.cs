@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V231.Group;
 using NHapi.Model.V231.Segment;
@@ -164,6 +165,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the BAR_P01_VISIT results 
+	 */ 
+	public IEnumerable<BAR_P01_VISIT> VISITs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < VISITRepetitionsUsed; rep++)
+			{
+				yield return (BAR_P01_VISIT)this.GetStructure("VISIT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new BAR_P01_VISIT
+	///</summary>
+	public BAR_P01_VISIT AddVISIT()
+	{
+		return this.AddStructure("VISIT") as BAR_P01_VISIT;
+	}
+
+	///<summary>
+	///Removes the given BAR_P01_VISIT
+	///</summary>
+	public void RemoveVISIT(BAR_P01_VISIT toRemove)
+	{
+		this.RemoveStructure("VISIT", toRemove);
+	}
+
+	///<summary>
+	///Removes the BAR_P01_VISIT at the given index
+	///</summary>
+	public void RemoveVISITAt(int index)
+	{
+		this.RemoveRepetition("VISIT", index);
+	}
 
 }
 }

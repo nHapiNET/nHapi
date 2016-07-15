@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V231.Group;
 using NHapi.Model.V231.Segment;
@@ -209,6 +210,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the DB1 results 
+	 */ 
+	public IEnumerable<DB1> DB1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DB1RepetitionsUsed; rep++)
+			{
+				yield return (DB1)this.GetStructure("DB1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DB1
+	///</summary>
+	public DB1 AddDB1()
+	{
+		return this.AddStructure("DB1") as DB1;
+	}
+
+	///<summary>
+	///Removes the given DB1
+	///</summary>
+	public void RemoveDB1(DB1 toRemove)
+	{
+		this.RemoveStructure("DB1", toRemove);
+	}
+
+	///<summary>
+	///Removes the DB1 at the given index
+	///</summary>
+	public void RemoveDB1At(int index)
+	{
+		this.RemoveRepetition("DB1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of DG1 (DG1 - diagnosis segment) - creates it if necessary
 	///</summary>
@@ -249,6 +288,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DG1 results 
+	 */ 
+	public IEnumerable<DG1> DG1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DG1RepetitionsUsed; rep++)
+			{
+				yield return (DG1)this.GetStructure("DG1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DG1
+	///</summary>
+	public DG1 AddDG1()
+	{
+		return this.AddStructure("DG1") as DG1;
+	}
+
+	///<summary>
+	///Removes the given DG1
+	///</summary>
+	public void RemoveDG1(DG1 toRemove)
+	{
+		this.RemoveStructure("DG1", toRemove);
+	}
+
+	///<summary>
+	///Removes the DG1 at the given index
+	///</summary>
+	public void RemoveDG1At(int index)
+	{
+		this.RemoveRepetition("DG1", index);
+	}
 
 	///<summary>
 	/// Returns DRG (DRG - diagnosis related group segment) - creates it if necessary
@@ -307,6 +384,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ADT_A03_PROCEDURE results 
+	 */ 
+	public IEnumerable<ADT_A03_PROCEDURE> PROCEDUREs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROCEDURERepetitionsUsed; rep++)
+			{
+				yield return (ADT_A03_PROCEDURE)this.GetStructure("PROCEDURE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ADT_A03_PROCEDURE
+	///</summary>
+	public ADT_A03_PROCEDURE AddPROCEDURE()
+	{
+		return this.AddStructure("PROCEDURE") as ADT_A03_PROCEDURE;
+	}
+
+	///<summary>
+	///Removes the given ADT_A03_PROCEDURE
+	///</summary>
+	public void RemovePROCEDURE(ADT_A03_PROCEDURE toRemove)
+	{
+		this.RemoveStructure("PROCEDURE", toRemove);
+	}
+
+	///<summary>
+	///Removes the ADT_A03_PROCEDURE at the given index
+	///</summary>
+	public void RemovePROCEDUREAt(int index)
+	{
+		this.RemoveRepetition("PROCEDURE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OBX (OBX - observation/result segment) - creates it if necessary
 	///</summary>
@@ -347,6 +462,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OBX results 
+	 */ 
+	public IEnumerable<OBX> OBXs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBXRepetitionsUsed; rep++)
+			{
+				yield return (OBX)this.GetStructure("OBX", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OBX
+	///</summary>
+	public OBX AddOBX()
+	{
+		return this.AddStructure("OBX") as OBX;
+	}
+
+	///<summary>
+	///Removes the given OBX
+	///</summary>
+	public void RemoveOBX(OBX toRemove)
+	{
+		this.RemoveStructure("OBX", toRemove);
+	}
+
+	///<summary>
+	///Removes the OBX at the given index
+	///</summary>
+	public void RemoveOBXAt(int index)
+	{
+		this.RemoveRepetition("OBX", index);
+	}
 
 }
 }

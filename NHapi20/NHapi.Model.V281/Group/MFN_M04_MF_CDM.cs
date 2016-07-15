@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -95,6 +96,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns CDM (Charge Description Master) - creates it if necessary
 	///</summary>
@@ -152,6 +191,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTE2s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTE2RepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE2", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE2()
+	{
+		return this.AddStructure("NTE2") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE2(NTE toRemove)
+	{
+		this.RemoveStructure("NTE2", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTE2At(int index)
+	{
+		this.RemoveRepetition("NTE2", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of PRC (Pricing) - creates it if necessary
 	///</summary>
@@ -192,6 +269,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PRC results 
+	 */ 
+	public IEnumerable<PRC> PRCs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRCRepetitionsUsed; rep++)
+			{
+				yield return (PRC)this.GetStructure("PRC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRC
+	///</summary>
+	public PRC AddPRC()
+	{
+		return this.AddStructure("PRC") as PRC;
+	}
+
+	///<summary>
+	///Removes the given PRC
+	///</summary>
+	public void RemovePRC(PRC toRemove)
+	{
+		this.RemoveStructure("PRC", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRC at the given index
+	///</summary>
+	public void RemovePRCAt(int index)
+	{
+		this.RemoveRepetition("PRC", index);
+	}
 
 }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
@@ -117,6 +118,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns EQU (Equipment Detail) - creates it if necessary
 	///</summary>
@@ -173,6 +212,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SSR_U04_SPECIMEN_CONTAINER results 
+	 */ 
+	public IEnumerable<SSR_U04_SPECIMEN_CONTAINER> SPECIMEN_CONTAINERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPECIMEN_CONTAINERRepetitionsUsed; rep++)
+			{
+				yield return (SSR_U04_SPECIMEN_CONTAINER)this.GetStructure("SPECIMEN_CONTAINER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SSR_U04_SPECIMEN_CONTAINER
+	///</summary>
+	public SSR_U04_SPECIMEN_CONTAINER AddSPECIMEN_CONTAINER()
+	{
+		return this.AddStructure("SPECIMEN_CONTAINER") as SSR_U04_SPECIMEN_CONTAINER;
+	}
+
+	///<summary>
+	///Removes the given SSR_U04_SPECIMEN_CONTAINER
+	///</summary>
+	public void RemoveSPECIMEN_CONTAINER(SSR_U04_SPECIMEN_CONTAINER toRemove)
+	{
+		this.RemoveStructure("SPECIMEN_CONTAINER", toRemove);
+	}
+
+	///<summary>
+	///Removes the SSR_U04_SPECIMEN_CONTAINER at the given index
+	///</summary>
+	public void RemoveSPECIMEN_CONTAINERAt(int index)
+	{
+		this.RemoveRepetition("SPECIMEN_CONTAINER", index);
+	}
 
 	///<summary>
 	/// Returns ROL (Role) - creates it if necessary

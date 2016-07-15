@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -111,6 +112,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PEX_P07_ASSOCIATED_RX_ADMIN results 
+	 */ 
+	public IEnumerable<PEX_P07_ASSOCIATED_RX_ADMIN> ASSOCIATED_RX_ADMINs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ASSOCIATED_RX_ADMINRepetitionsUsed; rep++)
+			{
+				yield return (PEX_P07_ASSOCIATED_RX_ADMIN)this.GetStructure("ASSOCIATED_RX_ADMIN", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PEX_P07_ASSOCIATED_RX_ADMIN
+	///</summary>
+	public PEX_P07_ASSOCIATED_RX_ADMIN AddASSOCIATED_RX_ADMIN()
+	{
+		return this.AddStructure("ASSOCIATED_RX_ADMIN") as PEX_P07_ASSOCIATED_RX_ADMIN;
+	}
+
+	///<summary>
+	///Removes the given PEX_P07_ASSOCIATED_RX_ADMIN
+	///</summary>
+	public void RemoveASSOCIATED_RX_ADMIN(PEX_P07_ASSOCIATED_RX_ADMIN toRemove)
+	{
+		this.RemoveStructure("ASSOCIATED_RX_ADMIN", toRemove);
+	}
+
+	///<summary>
+	///Removes the PEX_P07_ASSOCIATED_RX_ADMIN at the given index
+	///</summary>
+	public void RemoveASSOCIATED_RX_ADMINAt(int index)
+	{
+		this.RemoveRepetition("ASSOCIATED_RX_ADMIN", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of PRB (Problem Details) - creates it if necessary
 	///</summary>
@@ -152,6 +191,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRB results 
+	 */ 
+	public IEnumerable<PRB> PRBs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRBRepetitionsUsed; rep++)
+			{
+				yield return (PRB)this.GetStructure("PRB", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRB
+	///</summary>
+	public PRB AddPRB()
+	{
+		return this.AddStructure("PRB") as PRB;
+	}
+
+	///<summary>
+	///Removes the given PRB
+	///</summary>
+	public void RemovePRB(PRB toRemove)
+	{
+		this.RemoveStructure("PRB", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRB at the given index
+	///</summary>
+	public void RemovePRBAt(int index)
+	{
+		this.RemoveRepetition("PRB", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of PEX_P07_ASSOCIATED_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -192,6 +269,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PEX_P07_ASSOCIATED_OBSERVATION results 
+	 */ 
+	public IEnumerable<PEX_P07_ASSOCIATED_OBSERVATION> ASSOCIATED_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ASSOCIATED_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (PEX_P07_ASSOCIATED_OBSERVATION)this.GetStructure("ASSOCIATED_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PEX_P07_ASSOCIATED_OBSERVATION
+	///</summary>
+	public PEX_P07_ASSOCIATED_OBSERVATION AddASSOCIATED_OBSERVATION()
+	{
+		return this.AddStructure("ASSOCIATED_OBSERVATION") as PEX_P07_ASSOCIATED_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given PEX_P07_ASSOCIATED_OBSERVATION
+	///</summary>
+	public void RemoveASSOCIATED_OBSERVATION(PEX_P07_ASSOCIATED_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("ASSOCIATED_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the PEX_P07_ASSOCIATED_OBSERVATION at the given index
+	///</summary>
+	public void RemoveASSOCIATED_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("ASSOCIATED_OBSERVATION", index);
+	}
 
 }
 }

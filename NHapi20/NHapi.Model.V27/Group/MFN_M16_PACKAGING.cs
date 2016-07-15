@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PCE results 
+	 */ 
+	public IEnumerable<PCE> PCEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PCERepetitionsUsed; rep++)
+			{
+				yield return (PCE)this.GetStructure("PCE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PCE
+	///</summary>
+	public PCE AddPCE()
+	{
+		return this.AddStructure("PCE") as PCE;
+	}
+
+	///<summary>
+	///Removes the given PCE
+	///</summary>
+	public void RemovePCE(PCE toRemove)
+	{
+		this.RemoveStructure("PCE", toRemove);
+	}
+
+	///<summary>
+	///Removes the PCE at the given index
+	///</summary>
+	public void RemovePCEAt(int index)
+	{
+		this.RemoveRepetition("PCE", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V28.Segment;
 using NHapi.Model.V28.Datatype;
 using NHapi.Base.Model;
@@ -91,6 +92,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ILT results 
+	 */ 
+	public IEnumerable<ILT> ILTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ILTRepetitionsUsed; rep++)
+			{
+				yield return (ILT)this.GetStructure("ILT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ILT
+	///</summary>
+	public ILT AddILT()
+	{
+		return this.AddStructure("ILT") as ILT;
+	}
+
+	///<summary>
+	///Removes the given ILT
+	///</summary>
+	public void RemoveILT(ILT toRemove)
+	{
+		this.RemoveStructure("ILT", toRemove);
+	}
+
+	///<summary>
+	///Removes the ILT at the given index
+	///</summary>
+	public void RemoveILTAt(int index)
+	{
+		this.RemoveRepetition("ILT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of NTE (Notes and Comments) - creates it if necessary
 	///</summary>
@@ -131,6 +170,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
 
 }
 }

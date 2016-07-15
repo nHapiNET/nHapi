@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V25.Group;
 using NHapi.Model.V25.Segment;
@@ -119,6 +120,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns EVN (Event Type) - creates it if necessary
 	///</summary>
@@ -192,6 +231,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRA results 
+	 */ 
+	public IEnumerable<PRA> PRAs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRARepetitionsUsed; rep++)
+			{
+				yield return (PRA)this.GetStructure("PRA", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRA
+	///</summary>
+	public PRA AddPRA()
+	{
+		return this.AddStructure("PRA") as PRA;
+	}
+
+	///<summary>
+	///Removes the given PRA
+	///</summary>
+	public void RemovePRA(PRA toRemove)
+	{
+		this.RemoveStructure("PRA", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRA at the given index
+	///</summary>
+	public void RemovePRAAt(int index)
+	{
+		this.RemoveRepetition("PRA", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ORG (Practitioner Organization Unit) - creates it if necessary
 	///</summary>
@@ -232,6 +309,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORG results 
+	 */ 
+	public IEnumerable<ORG> ORGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORGRepetitionsUsed; rep++)
+			{
+				yield return (ORG)this.GetStructure("ORG", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORG
+	///</summary>
+	public ORG AddORG()
+	{
+		return this.AddStructure("ORG") as ORG;
+	}
+
+	///<summary>
+	///Removes the given ORG
+	///</summary>
+	public void RemoveORG(ORG toRemove)
+	{
+		this.RemoveStructure("ORG", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORG at the given index
+	///</summary>
+	public void RemoveORGAt(int index)
+	{
+		this.RemoveRepetition("ORG", index);
+	}
 
 }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -130,6 +131,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SSU_U03_SPECIMEN_CONTAINER results 
+	 */ 
+	public IEnumerable<SSU_U03_SPECIMEN_CONTAINER> SPECIMEN_CONTAINERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPECIMEN_CONTAINERRepetitionsUsed; rep++)
+			{
+				yield return (SSU_U03_SPECIMEN_CONTAINER)this.GetStructure("SPECIMEN_CONTAINER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SSU_U03_SPECIMEN_CONTAINER
+	///</summary>
+	public SSU_U03_SPECIMEN_CONTAINER AddSPECIMEN_CONTAINER()
+	{
+		return this.AddStructure("SPECIMEN_CONTAINER") as SSU_U03_SPECIMEN_CONTAINER;
+	}
+
+	///<summary>
+	///Removes the given SSU_U03_SPECIMEN_CONTAINER
+	///</summary>
+	public void RemoveSPECIMEN_CONTAINER(SSU_U03_SPECIMEN_CONTAINER toRemove)
+	{
+		this.RemoveStructure("SPECIMEN_CONTAINER", toRemove);
+	}
+
+	///<summary>
+	///Removes the SSU_U03_SPECIMEN_CONTAINER at the given index
+	///</summary>
+	public void RemoveSPECIMEN_CONTAINERAt(int index)
+	{
+		this.RemoveRepetition("SPECIMEN_CONTAINER", index);
+	}
 
 	///<summary>
 	/// Returns ROL (Role) - creates it if necessary

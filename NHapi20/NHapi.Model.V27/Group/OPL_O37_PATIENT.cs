@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -113,6 +114,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OPL_O37_OBSERVATIONS_ON_PATIENT (a Group object) - creates it if necessary
 	///</summary>
@@ -153,6 +192,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OPL_O37_OBSERVATIONS_ON_PATIENT results 
+	 */ 
+	public IEnumerable<OPL_O37_OBSERVATIONS_ON_PATIENT> OBSERVATIONS_ON_PATIENTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATIONS_ON_PATIENTRepetitionsUsed; rep++)
+			{
+				yield return (OPL_O37_OBSERVATIONS_ON_PATIENT)this.GetStructure("OBSERVATIONS_ON_PATIENT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OPL_O37_OBSERVATIONS_ON_PATIENT
+	///</summary>
+	public OPL_O37_OBSERVATIONS_ON_PATIENT AddOBSERVATIONS_ON_PATIENT()
+	{
+		return this.AddStructure("OBSERVATIONS_ON_PATIENT") as OPL_O37_OBSERVATIONS_ON_PATIENT;
+	}
+
+	///<summary>
+	///Removes the given OPL_O37_OBSERVATIONS_ON_PATIENT
+	///</summary>
+	public void RemoveOBSERVATIONS_ON_PATIENT(OPL_O37_OBSERVATIONS_ON_PATIENT toRemove)
+	{
+		this.RemoveStructure("OBSERVATIONS_ON_PATIENT", toRemove);
+	}
+
+	///<summary>
+	///Removes the OPL_O37_OBSERVATIONS_ON_PATIENT at the given index
+	///</summary>
+	public void RemoveOBSERVATIONS_ON_PATIENTAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATIONS_ON_PATIENT", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of OPL_O37_INSURANCE (a Group object) - creates it if necessary
@@ -195,6 +272,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OPL_O37_INSURANCE results 
+	 */ 
+	public IEnumerable<OPL_O37_INSURANCE> INSURANCEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < INSURANCERepetitionsUsed; rep++)
+			{
+				yield return (OPL_O37_INSURANCE)this.GetStructure("INSURANCE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OPL_O37_INSURANCE
+	///</summary>
+	public OPL_O37_INSURANCE AddINSURANCE()
+	{
+		return this.AddStructure("INSURANCE") as OPL_O37_INSURANCE;
+	}
+
+	///<summary>
+	///Removes the given OPL_O37_INSURANCE
+	///</summary>
+	public void RemoveINSURANCE(OPL_O37_INSURANCE toRemove)
+	{
+		this.RemoveStructure("INSURANCE", toRemove);
+	}
+
+	///<summary>
+	///Removes the OPL_O37_INSURANCE at the given index
+	///</summary>
+	public void RemoveINSURANCEAt(int index)
+	{
+		this.RemoveRepetition("INSURANCE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of AL1 (Patient Allergy Information) - creates it if necessary
 	///</summary>
@@ -235,6 +350,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the AL1 results 
+	 */ 
+	public IEnumerable<AL1> AL1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < AL1RepetitionsUsed; rep++)
+			{
+				yield return (AL1)this.GetStructure("AL1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new AL1
+	///</summary>
+	public AL1 AddAL1()
+	{
+		return this.AddStructure("AL1") as AL1;
+	}
+
+	///<summary>
+	///Removes the given AL1
+	///</summary>
+	public void RemoveAL1(AL1 toRemove)
+	{
+		this.RemoveStructure("AL1", toRemove);
+	}
+
+	///<summary>
+	///Removes the AL1 at the given index
+	///</summary>
+	public void RemoveAL1At(int index)
+	{
+		this.RemoveRepetition("AL1", index);
+	}
 
 }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
@@ -121,6 +122,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RQI_I01_PROVIDER (a Group object) - creates it if necessary
 	///</summary>
@@ -161,6 +200,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RQI_I01_PROVIDER results 
+	 */ 
+	public IEnumerable<RQI_I01_PROVIDER> PROVIDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROVIDERRepetitionsUsed; rep++)
+			{
+				yield return (RQI_I01_PROVIDER)this.GetStructure("PROVIDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RQI_I01_PROVIDER
+	///</summary>
+	public RQI_I01_PROVIDER AddPROVIDER()
+	{
+		return this.AddStructure("PROVIDER") as RQI_I01_PROVIDER;
+	}
+
+	///<summary>
+	///Removes the given RQI_I01_PROVIDER
+	///</summary>
+	public void RemovePROVIDER(RQI_I01_PROVIDER toRemove)
+	{
+		this.RemoveStructure("PROVIDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the RQI_I01_PROVIDER at the given index
+	///</summary>
+	public void RemovePROVIDERAt(int index)
+	{
+		this.RemoveRepetition("PROVIDER", index);
+	}
 
 	///<summary>
 	/// Returns PID (Patient Identification) - creates it if necessary
@@ -219,6 +296,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NK1 results 
+	 */ 
+	public IEnumerable<NK1> NK1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NK1RepetitionsUsed; rep++)
+			{
+				yield return (NK1)this.GetStructure("NK1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NK1
+	///</summary>
+	public NK1 AddNK1()
+	{
+		return this.AddStructure("NK1") as NK1;
+	}
+
+	///<summary>
+	///Removes the given NK1
+	///</summary>
+	public void RemoveNK1(NK1 toRemove)
+	{
+		this.RemoveStructure("NK1", toRemove);
+	}
+
+	///<summary>
+	///Removes the NK1 at the given index
+	///</summary>
+	public void RemoveNK1At(int index)
+	{
+		this.RemoveRepetition("NK1", index);
+	}
+
 	///<summary>
 	/// Returns RQI_I01_GUARANTOR_INSURANCE (a Group object) - creates it if necessary
 	///</summary>
@@ -275,6 +390,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
 
 }
 }

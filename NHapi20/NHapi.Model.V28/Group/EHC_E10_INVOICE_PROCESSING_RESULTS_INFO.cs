@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V28.Segment;
 using NHapi.Model.V28.Datatype;
 using NHapi.Base.Model;
@@ -98,6 +99,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
 
 	///<summary>
 	/// Returns PYE (Payee Information) - creates it if necessary
@@ -203,6 +242,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the EHC_E10_PSSPSGPSLADJ results 
+	 */ 
+	public IEnumerable<EHC_E10_PSSPSGPSLADJ> PSSPSGPSLADJs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PSSPSGPSLADJRepetitionsUsed; rep++)
+			{
+				yield return (EHC_E10_PSSPSGPSLADJ)this.GetStructure("PSSPSGPSLADJ", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EHC_E10_PSSPSGPSLADJ
+	///</summary>
+	public EHC_E10_PSSPSGPSLADJ AddPSSPSGPSLADJ()
+	{
+		return this.AddStructure("PSSPSGPSLADJ") as EHC_E10_PSSPSGPSLADJ;
+	}
+
+	///<summary>
+	///Removes the given EHC_E10_PSSPSGPSLADJ
+	///</summary>
+	public void RemovePSSPSGPSLADJ(EHC_E10_PSSPSGPSLADJ toRemove)
+	{
+		this.RemoveStructure("PSSPSGPSLADJ", toRemove);
+	}
+
+	///<summary>
+	///Removes the EHC_E10_PSSPSGPSLADJ at the given index
+	///</summary>
+	public void RemovePSSPSGPSLADJAt(int index)
+	{
+		this.RemoveRepetition("PSSPSGPSLADJ", index);
+	}
 
 }
 }

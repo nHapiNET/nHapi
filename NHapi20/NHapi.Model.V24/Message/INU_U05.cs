@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -130,6 +131,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the INV results 
+	 */ 
+	public IEnumerable<INV> INVs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < INVRepetitionsUsed; rep++)
+			{
+				yield return (INV)this.GetStructure("INV", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new INV
+	///</summary>
+	public INV AddINV()
+	{
+		return this.AddStructure("INV") as INV;
+	}
+
+	///<summary>
+	///Removes the given INV
+	///</summary>
+	public void RemoveINV(INV toRemove)
+	{
+		this.RemoveStructure("INV", toRemove);
+	}
+
+	///<summary>
+	///Removes the INV at the given index
+	///</summary>
+	public void RemoveINVAt(int index)
+	{
+		this.RemoveRepetition("INV", index);
+	}
 
 	///<summary>
 	/// Returns ROL (Role) - creates it if necessary

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V271.Segment;
 using NHapi.Model.V271.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the VAR results 
+	 */ 
+	public IEnumerable<VAR> VARs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < VARRepetitionsUsed; rep++)
+			{
+				yield return (VAR)this.GetStructure("VAR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new VAR
+	///</summary>
+	public VAR AddVAR()
+	{
+		return this.AddStructure("VAR") as VAR;
+	}
+
+	///<summary>
+	///Removes the given VAR
+	///</summary>
+	public void RemoveVAR(VAR toRemove)
+	{
+		this.RemoveStructure("VAR", toRemove);
+	}
+
+	///<summary>
+	///Removes the VAR at the given index
+	///</summary>
+	public void RemoveVARAt(int index)
+	{
+		this.RemoveRepetition("VAR", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CCR_I16_ROLE_PROBLEM (a Group object) - creates it if necessary
 	///</summary>
@@ -134,6 +173,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the CCR_I16_ROLE_PROBLEM results 
+	 */ 
+	public IEnumerable<CCR_I16_ROLE_PROBLEM> ROLE_PROBLEMs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ROLE_PROBLEMRepetitionsUsed; rep++)
+			{
+				yield return (CCR_I16_ROLE_PROBLEM)this.GetStructure("ROLE_PROBLEM", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CCR_I16_ROLE_PROBLEM
+	///</summary>
+	public CCR_I16_ROLE_PROBLEM AddROLE_PROBLEM()
+	{
+		return this.AddStructure("ROLE_PROBLEM") as CCR_I16_ROLE_PROBLEM;
+	}
+
+	///<summary>
+	///Removes the given CCR_I16_ROLE_PROBLEM
+	///</summary>
+	public void RemoveROLE_PROBLEM(CCR_I16_ROLE_PROBLEM toRemove)
+	{
+		this.RemoveStructure("ROLE_PROBLEM", toRemove);
+	}
+
+	///<summary>
+	///Removes the CCR_I16_ROLE_PROBLEM at the given index
+	///</summary>
+	public void RemoveROLE_PROBLEMAt(int index)
+	{
+		this.RemoveRepetition("ROLE_PROBLEM", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OBX (Observation/Result) - creates it if necessary
 	///</summary>
@@ -174,6 +251,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OBX results 
+	 */ 
+	public IEnumerable<OBX> OBXs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBXRepetitionsUsed; rep++)
+			{
+				yield return (OBX)this.GetStructure("OBX", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OBX
+	///</summary>
+	public OBX AddOBX()
+	{
+		return this.AddStructure("OBX") as OBX;
+	}
+
+	///<summary>
+	///Removes the given OBX
+	///</summary>
+	public void RemoveOBX(OBX toRemove)
+	{
+		this.RemoveStructure("OBX", toRemove);
+	}
+
+	///<summary>
+	///Removes the OBX at the given index
+	///</summary>
+	public void RemoveOBXAt(int index)
+	{
+		this.RemoveRepetition("OBX", index);
+	}
 
 }
 }

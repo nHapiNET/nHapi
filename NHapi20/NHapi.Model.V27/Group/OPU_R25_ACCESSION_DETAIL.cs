@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -75,6 +76,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NK1 results 
+	 */ 
+	public IEnumerable<NK1> NK1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NK1RepetitionsUsed; rep++)
+			{
+				yield return (NK1)this.GetStructure("NK1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NK1
+	///</summary>
+	public NK1 AddNK1()
+	{
+		return this.AddStructure("NK1") as NK1;
+	}
+
+	///<summary>
+	///Removes the given NK1
+	///</summary>
+	public void RemoveNK1(NK1 toRemove)
+	{
+		this.RemoveStructure("NK1", toRemove);
+	}
+
+	///<summary>
+	///Removes the NK1 at the given index
+	///</summary>
+	public void RemoveNK1At(int index)
+	{
+		this.RemoveRepetition("NK1", index);
+	}
+
 	///<summary>
 	/// Returns OPU_R25_PATIENT (a Group object) - creates it if necessary
 	///</summary>
@@ -131,6 +170,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OPU_R25_SPECIMEN results 
+	 */ 
+	public IEnumerable<OPU_R25_SPECIMEN> SPECIMENs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPECIMENRepetitionsUsed; rep++)
+			{
+				yield return (OPU_R25_SPECIMEN)this.GetStructure("SPECIMEN", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OPU_R25_SPECIMEN
+	///</summary>
+	public OPU_R25_SPECIMEN AddSPECIMEN()
+	{
+		return this.AddStructure("SPECIMEN") as OPU_R25_SPECIMEN;
+	}
+
+	///<summary>
+	///Removes the given OPU_R25_SPECIMEN
+	///</summary>
+	public void RemoveSPECIMEN(OPU_R25_SPECIMEN toRemove)
+	{
+		this.RemoveStructure("SPECIMEN", toRemove);
+	}
+
+	///<summary>
+	///Removes the OPU_R25_SPECIMEN at the given index
+	///</summary>
+	public void RemoveSPECIMENAt(int index)
+	{
+		this.RemoveRepetition("SPECIMEN", index);
+	}
 
 }
 }

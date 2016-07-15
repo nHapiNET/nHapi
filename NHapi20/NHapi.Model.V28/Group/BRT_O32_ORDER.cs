@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V28.Segment;
 using NHapi.Model.V28.Datatype;
 using NHapi.Base.Model;
@@ -95,6 +96,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of BRT_O32_TIMING (a Group object) - creates it if necessary
 	///</summary>
@@ -135,6 +174,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the BRT_O32_TIMING results 
+	 */ 
+	public IEnumerable<BRT_O32_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (BRT_O32_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new BRT_O32_TIMING
+	///</summary>
+	public BRT_O32_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as BRT_O32_TIMING;
+	}
+
+	///<summary>
+	///Removes the given BRT_O32_TIMING
+	///</summary>
+	public void RemoveTIMING(BRT_O32_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the BRT_O32_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
 
 	///<summary>
 	/// Returns BPO (Blood product order) - creates it if necessary
@@ -192,6 +269,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the BTX results 
+	 */ 
+	public IEnumerable<BTX> BTXs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < BTXRepetitionsUsed; rep++)
+			{
+				yield return (BTX)this.GetStructure("BTX", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new BTX
+	///</summary>
+	public BTX AddBTX()
+	{
+		return this.AddStructure("BTX") as BTX;
+	}
+
+	///<summary>
+	///Removes the given BTX
+	///</summary>
+	public void RemoveBTX(BTX toRemove)
+	{
+		this.RemoveStructure("BTX", toRemove);
+	}
+
+	///<summary>
+	///Removes the BTX at the given index
+	///</summary>
+	public void RemoveBTXAt(int index)
+	{
+		this.RemoveRepetition("BTX", index);
+	}
 
 }
 }

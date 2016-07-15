@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORL_O40_PACKAGE results 
+	 */ 
+	public IEnumerable<ORL_O40_PACKAGE> PACKAGEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PACKAGERepetitionsUsed; rep++)
+			{
+				yield return (ORL_O40_PACKAGE)this.GetStructure("PACKAGE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORL_O40_PACKAGE
+	///</summary>
+	public ORL_O40_PACKAGE AddPACKAGE()
+	{
+		return this.AddStructure("PACKAGE") as ORL_O40_PACKAGE;
+	}
+
+	///<summary>
+	///Removes the given ORL_O40_PACKAGE
+	///</summary>
+	public void RemovePACKAGE(ORL_O40_PACKAGE toRemove)
+	{
+		this.RemoveStructure("PACKAGE", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORL_O40_PACKAGE at the given index
+	///</summary>
+	public void RemovePACKAGEAt(int index)
+	{
+		this.RemoveRepetition("PACKAGE", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V28.Segment;
 using NHapi.Model.V28.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CCR_I16_RESOURCE_DETAIL results 
+	 */ 
+	public IEnumerable<CCR_I16_RESOURCE_DETAIL> RESOURCE_DETAILs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RESOURCE_DETAILRepetitionsUsed; rep++)
+			{
+				yield return (CCR_I16_RESOURCE_DETAIL)this.GetStructure("RESOURCE_DETAIL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CCR_I16_RESOURCE_DETAIL
+	///</summary>
+	public CCR_I16_RESOURCE_DETAIL AddRESOURCE_DETAIL()
+	{
+		return this.AddStructure("RESOURCE_DETAIL") as CCR_I16_RESOURCE_DETAIL;
+	}
+
+	///<summary>
+	///Removes the given CCR_I16_RESOURCE_DETAIL
+	///</summary>
+	public void RemoveRESOURCE_DETAIL(CCR_I16_RESOURCE_DETAIL toRemove)
+	{
+		this.RemoveStructure("RESOURCE_DETAIL", toRemove);
+	}
+
+	///<summary>
+	///Removes the CCR_I16_RESOURCE_DETAIL at the given index
+	///</summary>
+	public void RemoveRESOURCE_DETAILAt(int index)
+	{
+		this.RemoveRepetition("RESOURCE_DETAIL", index);
+	}
 
 }
 }

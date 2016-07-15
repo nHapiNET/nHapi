@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V271.Group;
 using NHapi.Model.V271.Segment;
@@ -127,6 +128,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -199,6 +238,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ERR results 
+	 */ 
+	public IEnumerable<ERR> ERRs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ERRRepetitionsUsed; rep++)
+			{
+				yield return (ERR)this.GetStructure("ERR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ERR
+	///</summary>
+	public ERR AddERR()
+	{
+		return this.AddStructure("ERR") as ERR;
+	}
+
+	///<summary>
+	///Removes the given ERR
+	///</summary>
+	public void RemoveERR(ERR toRemove)
+	{
+		this.RemoveStructure("ERR", toRemove);
+	}
+
+	///<summary>
+	///Removes the ERR at the given index
+	///</summary>
+	public void RemoveERRAt(int index)
+	{
+		this.RemoveRepetition("ERR", index);
+	}
 
 	///<summary>
 	/// Returns QAK (Query Acknowledgment) - creates it if necessary
@@ -288,6 +365,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RSP_K25_STAFF results 
+	 */ 
+	public IEnumerable<RSP_K25_STAFF> STAFFs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < STAFFRepetitionsUsed; rep++)
+			{
+				yield return (RSP_K25_STAFF)this.GetStructure("STAFF", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RSP_K25_STAFF
+	///</summary>
+	public RSP_K25_STAFF AddSTAFF()
+	{
+		return this.AddStructure("STAFF") as RSP_K25_STAFF;
+	}
+
+	///<summary>
+	///Removes the given RSP_K25_STAFF
+	///</summary>
+	public void RemoveSTAFF(RSP_K25_STAFF toRemove)
+	{
+		this.RemoveStructure("STAFF", toRemove);
+	}
+
+	///<summary>
+	///Removes the RSP_K25_STAFF at the given index
+	///</summary>
+	public void RemoveSTAFFAt(int index)
+	{
+		this.RemoveRepetition("STAFF", index);
+	}
 
 	///<summary>
 	/// Returns DSC (Continuation Pointer) - creates it if necessary

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -91,6 +92,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OML_O39_SHIPMENT_OBSERVATION results 
+	 */ 
+	public IEnumerable<OML_O39_SHIPMENT_OBSERVATION> SHIPMENT_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SHIPMENT_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (OML_O39_SHIPMENT_OBSERVATION)this.GetStructure("SHIPMENT_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OML_O39_SHIPMENT_OBSERVATION
+	///</summary>
+	public OML_O39_SHIPMENT_OBSERVATION AddSHIPMENT_OBSERVATION()
+	{
+		return this.AddStructure("SHIPMENT_OBSERVATION") as OML_O39_SHIPMENT_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given OML_O39_SHIPMENT_OBSERVATION
+	///</summary>
+	public void RemoveSHIPMENT_OBSERVATION(OML_O39_SHIPMENT_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("SHIPMENT_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the OML_O39_SHIPMENT_OBSERVATION at the given index
+	///</summary>
+	public void RemoveSHIPMENT_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("SHIPMENT_OBSERVATION", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OML_O39_PACKAGE (a Group object) - creates it if necessary
 	///</summary>
@@ -131,6 +170,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OML_O39_PACKAGE results 
+	 */ 
+	public IEnumerable<OML_O39_PACKAGE> PACKAGEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PACKAGERepetitionsUsed; rep++)
+			{
+				yield return (OML_O39_PACKAGE)this.GetStructure("PACKAGE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OML_O39_PACKAGE
+	///</summary>
+	public OML_O39_PACKAGE AddPACKAGE()
+	{
+		return this.AddStructure("PACKAGE") as OML_O39_PACKAGE;
+	}
+
+	///<summary>
+	///Removes the given OML_O39_PACKAGE
+	///</summary>
+	public void RemovePACKAGE(OML_O39_PACKAGE toRemove)
+	{
+		this.RemoveStructure("PACKAGE", toRemove);
+	}
+
+	///<summary>
+	///Removes the OML_O39_PACKAGE at the given index
+	///</summary>
+	public void RemovePACKAGEAt(int index)
+	{
+		this.RemoveRepetition("PACKAGE", index);
+	}
 
 }
 }

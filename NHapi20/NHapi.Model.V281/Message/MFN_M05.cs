@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V281.Group;
 using NHapi.Model.V281.Segment;
@@ -117,6 +118,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -189,6 +228,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFN_M05_MF_LOCATION results 
+	 */ 
+	public IEnumerable<MFN_M05_MF_LOCATION> MF_LOCATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MF_LOCATIONRepetitionsUsed; rep++)
+			{
+				yield return (MFN_M05_MF_LOCATION)this.GetStructure("MF_LOCATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFN_M05_MF_LOCATION
+	///</summary>
+	public MFN_M05_MF_LOCATION AddMF_LOCATION()
+	{
+		return this.AddStructure("MF_LOCATION") as MFN_M05_MF_LOCATION;
+	}
+
+	///<summary>
+	///Removes the given MFN_M05_MF_LOCATION
+	///</summary>
+	public void RemoveMF_LOCATION(MFN_M05_MF_LOCATION toRemove)
+	{
+		this.RemoveStructure("MF_LOCATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFN_M05_MF_LOCATION at the given index
+	///</summary>
+	public void RemoveMF_LOCATIONAt(int index)
+	{
+		this.RemoveRepetition("MF_LOCATION", index);
+	}
 
 }
 }

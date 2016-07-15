@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -119,6 +120,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of PRT (Participation Information) - creates it if necessary
 	///</summary>
@@ -159,6 +198,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
 
 	///<summary>
 	/// Returns CTD (Contact Data) - creates it if necessary
@@ -217,6 +294,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the DG1 results 
+	 */ 
+	public IEnumerable<DG1> DG1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DG1RepetitionsUsed; rep++)
+			{
+				yield return (DG1)this.GetStructure("DG1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DG1
+	///</summary>
+	public DG1 AddDG1()
+	{
+		return this.AddStructure("DG1") as DG1;
+	}
+
+	///<summary>
+	///Removes the given DG1
+	///</summary>
+	public void RemoveDG1(DG1 toRemove)
+	{
+		this.RemoveStructure("DG1", toRemove);
+	}
+
+	///<summary>
+	///Removes the DG1 at the given index
+	///</summary>
+	public void RemoveDG1At(int index)
+	{
+		this.RemoveRepetition("DG1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OML_O21_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -257,6 +372,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OML_O21_OBSERVATION results 
+	 */ 
+	public IEnumerable<OML_O21_OBSERVATION> OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (OML_O21_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OML_O21_OBSERVATION
+	///</summary>
+	public OML_O21_OBSERVATION AddOBSERVATION()
+	{
+		return this.AddStructure("OBSERVATION") as OML_O21_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given OML_O21_OBSERVATION
+	///</summary>
+	public void RemoveOBSERVATION(OML_O21_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the OML_O21_OBSERVATION at the given index
+	///</summary>
+	public void RemoveOBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of OML_O21_SPECIMEN (a Group object) - creates it if necessary
@@ -299,6 +452,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OML_O21_SPECIMEN results 
+	 */ 
+	public IEnumerable<OML_O21_SPECIMEN> SPECIMENs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPECIMENRepetitionsUsed; rep++)
+			{
+				yield return (OML_O21_SPECIMEN)this.GetStructure("SPECIMEN", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OML_O21_SPECIMEN
+	///</summary>
+	public OML_O21_SPECIMEN AddSPECIMEN()
+	{
+		return this.AddStructure("SPECIMEN") as OML_O21_SPECIMEN;
+	}
+
+	///<summary>
+	///Removes the given OML_O21_SPECIMEN
+	///</summary>
+	public void RemoveSPECIMEN(OML_O21_SPECIMEN toRemove)
+	{
+		this.RemoveStructure("SPECIMEN", toRemove);
+	}
+
+	///<summary>
+	///Removes the OML_O21_SPECIMEN at the given index
+	///</summary>
+	public void RemoveSPECIMENAt(int index)
+	{
+		this.RemoveRepetition("SPECIMEN", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OML_O21_PRIOR_RESULT (a Group object) - creates it if necessary
 	///</summary>
@@ -339,6 +530,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OML_O21_PRIOR_RESULT results 
+	 */ 
+	public IEnumerable<OML_O21_PRIOR_RESULT> PRIOR_RESULTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRIOR_RESULTRepetitionsUsed; rep++)
+			{
+				yield return (OML_O21_PRIOR_RESULT)this.GetStructure("PRIOR_RESULT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OML_O21_PRIOR_RESULT
+	///</summary>
+	public OML_O21_PRIOR_RESULT AddPRIOR_RESULT()
+	{
+		return this.AddStructure("PRIOR_RESULT") as OML_O21_PRIOR_RESULT;
+	}
+
+	///<summary>
+	///Removes the given OML_O21_PRIOR_RESULT
+	///</summary>
+	public void RemovePRIOR_RESULT(OML_O21_PRIOR_RESULT toRemove)
+	{
+		this.RemoveStructure("PRIOR_RESULT", toRemove);
+	}
+
+	///<summary>
+	///Removes the OML_O21_PRIOR_RESULT at the given index
+	///</summary>
+	public void RemovePRIOR_RESULTAt(int index)
+	{
+		this.RemoveRepetition("PRIOR_RESULT", index);
+	}
 
 }
 }

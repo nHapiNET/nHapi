@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
@@ -127,6 +128,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns MSA (Message Acknowledgment) - creates it if necessary
 	///</summary>
@@ -183,6 +222,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ERR results 
+	 */ 
+	public IEnumerable<ERR> ERRs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ERRRepetitionsUsed; rep++)
+			{
+				yield return (ERR)this.GetStructure("ERR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ERR
+	///</summary>
+	public ERR AddERR()
+	{
+		return this.AddStructure("ERR") as ERR;
+	}
+
+	///<summary>
+	///Removes the given ERR
+	///</summary>
+	public void RemoveERR(ERR toRemove)
+	{
+		this.RemoveStructure("ERR", toRemove);
+	}
+
+	///<summary>
+	///Removes the ERR at the given index
+	///</summary>
+	public void RemoveERRAt(int index)
+	{
+		this.RemoveRepetition("ERR", index);
+	}
 
 	///<summary>
 	/// Returns QAK (Query Acknowledgment) - creates it if necessary
@@ -288,6 +365,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFR_M04_MF_QUERY results 
+	 */ 
+	public IEnumerable<MFR_M04_MF_QUERY> MF_QUERYs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MF_QUERYRepetitionsUsed; rep++)
+			{
+				yield return (MFR_M04_MF_QUERY)this.GetStructure("MF_QUERY", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFR_M04_MF_QUERY
+	///</summary>
+	public MFR_M04_MF_QUERY AddMF_QUERY()
+	{
+		return this.AddStructure("MF_QUERY") as MFR_M04_MF_QUERY;
+	}
+
+	///<summary>
+	///Removes the given MFR_M04_MF_QUERY
+	///</summary>
+	public void RemoveMF_QUERY(MFR_M04_MF_QUERY toRemove)
+	{
+		this.RemoveStructure("MF_QUERY", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFR_M04_MF_QUERY at the given index
+	///</summary>
+	public void RemoveMF_QUERYAt(int index)
+	{
+		this.RemoveRepetition("MF_QUERY", index);
+	}
 
 	///<summary>
 	/// Returns DSC (Continuation Pointer) - creates it if necessary

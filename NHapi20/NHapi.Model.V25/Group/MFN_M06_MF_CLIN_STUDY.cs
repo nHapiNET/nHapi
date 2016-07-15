@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V25.Segment;
 using NHapi.Model.V25.Datatype;
 using NHapi.Base.Model;
@@ -106,6 +107,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFN_M06_MF_PHASE_SCHED_DETAIL results 
+	 */ 
+	public IEnumerable<MFN_M06_MF_PHASE_SCHED_DETAIL> MF_PHASE_SCHED_DETAILs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MF_PHASE_SCHED_DETAILRepetitionsUsed; rep++)
+			{
+				yield return (MFN_M06_MF_PHASE_SCHED_DETAIL)this.GetStructure("MF_PHASE_SCHED_DETAIL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFN_M06_MF_PHASE_SCHED_DETAIL
+	///</summary>
+	public MFN_M06_MF_PHASE_SCHED_DETAIL AddMF_PHASE_SCHED_DETAIL()
+	{
+		return this.AddStructure("MF_PHASE_SCHED_DETAIL") as MFN_M06_MF_PHASE_SCHED_DETAIL;
+	}
+
+	///<summary>
+	///Removes the given MFN_M06_MF_PHASE_SCHED_DETAIL
+	///</summary>
+	public void RemoveMF_PHASE_SCHED_DETAIL(MFN_M06_MF_PHASE_SCHED_DETAIL toRemove)
+	{
+		this.RemoveStructure("MF_PHASE_SCHED_DETAIL", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFN_M06_MF_PHASE_SCHED_DETAIL at the given index
+	///</summary>
+	public void RemoveMF_PHASE_SCHED_DETAILAt(int index)
+	{
+		this.RemoveRepetition("MF_PHASE_SCHED_DETAIL", index);
+	}
 
 }
 }

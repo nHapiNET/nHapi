@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V281.Group;
 using NHapi.Model.V281.Segment;
@@ -135,6 +136,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -224,6 +263,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRA results 
+	 */ 
+	public IEnumerable<PRA> PRAs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRARepetitionsUsed; rep++)
+			{
+				yield return (PRA)this.GetStructure("PRA", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRA
+	///</summary>
+	public PRA AddPRA()
+	{
+		return this.AddStructure("PRA") as PRA;
+	}
+
+	///<summary>
+	///Removes the given PRA
+	///</summary>
+	public void RemovePRA(PRA toRemove)
+	{
+		this.RemoveStructure("PRA", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRA at the given index
+	///</summary>
+	public void RemovePRAAt(int index)
+	{
+		this.RemoveRepetition("PRA", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ORG (Practitioner Organization Unit) - creates it if necessary
 	///</summary>
@@ -264,6 +341,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORG results 
+	 */ 
+	public IEnumerable<ORG> ORGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORGRepetitionsUsed; rep++)
+			{
+				yield return (ORG)this.GetStructure("ORG", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORG
+	///</summary>
+	public ORG AddORG()
+	{
+		return this.AddStructure("ORG") as ORG;
+	}
+
+	///<summary>
+	///Removes the given ORG
+	///</summary>
+	public void RemoveORG(ORG toRemove)
+	{
+		this.RemoveStructure("ORG", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORG at the given index
+	///</summary>
+	public void RemoveORGAt(int index)
+	{
+		this.RemoveRepetition("ORG", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of AFF (Professional Affiliation) - creates it if necessary
@@ -306,6 +421,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the AFF results 
+	 */ 
+	public IEnumerable<AFF> AFFs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < AFFRepetitionsUsed; rep++)
+			{
+				yield return (AFF)this.GetStructure("AFF", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new AFF
+	///</summary>
+	public AFF AddAFF()
+	{
+		return this.AddStructure("AFF") as AFF;
+	}
+
+	///<summary>
+	///Removes the given AFF
+	///</summary>
+	public void RemoveAFF(AFF toRemove)
+	{
+		this.RemoveStructure("AFF", toRemove);
+	}
+
+	///<summary>
+	///Removes the AFF at the given index
+	///</summary>
+	public void RemoveAFFAt(int index)
+	{
+		this.RemoveRepetition("AFF", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of LAN (Language Detail) - creates it if necessary
 	///</summary>
@@ -346,6 +499,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the LAN results 
+	 */ 
+	public IEnumerable<LAN> LANs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < LANRepetitionsUsed; rep++)
+			{
+				yield return (LAN)this.GetStructure("LAN", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new LAN
+	///</summary>
+	public LAN AddLAN()
+	{
+		return this.AddStructure("LAN") as LAN;
+	}
+
+	///<summary>
+	///Removes the given LAN
+	///</summary>
+	public void RemoveLAN(LAN toRemove)
+	{
+		this.RemoveStructure("LAN", toRemove);
+	}
+
+	///<summary>
+	///Removes the LAN at the given index
+	///</summary>
+	public void RemoveLANAt(int index)
+	{
+		this.RemoveRepetition("LAN", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of EDU (Educational Detail) - creates it if necessary
@@ -388,6 +579,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the EDU results 
+	 */ 
+	public IEnumerable<EDU> EDUs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < EDURepetitionsUsed; rep++)
+			{
+				yield return (EDU)this.GetStructure("EDU", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EDU
+	///</summary>
+	public EDU AddEDU()
+	{
+		return this.AddStructure("EDU") as EDU;
+	}
+
+	///<summary>
+	///Removes the given EDU
+	///</summary>
+	public void RemoveEDU(EDU toRemove)
+	{
+		this.RemoveStructure("EDU", toRemove);
+	}
+
+	///<summary>
+	///Removes the EDU at the given index
+	///</summary>
+	public void RemoveEDUAt(int index)
+	{
+		this.RemoveRepetition("EDU", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CER (Certificate Detail) - creates it if necessary
 	///</summary>
@@ -428,6 +657,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CER results 
+	 */ 
+	public IEnumerable<CER> CERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CERRepetitionsUsed; rep++)
+			{
+				yield return (CER)this.GetStructure("CER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CER
+	///</summary>
+	public CER AddCER()
+	{
+		return this.AddStructure("CER") as CER;
+	}
+
+	///<summary>
+	///Removes the given CER
+	///</summary>
+	public void RemoveCER(CER toRemove)
+	{
+		this.RemoveStructure("CER", toRemove);
+	}
+
+	///<summary>
+	///Removes the CER at the given index
+	///</summary>
+	public void RemoveCERAt(int index)
+	{
+		this.RemoveRepetition("CER", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of NK1 (Next of Kin / Associated Parties) - creates it if necessary
@@ -470,6 +737,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NK1 results 
+	 */ 
+	public IEnumerable<NK1> NK1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NK1RepetitionsUsed; rep++)
+			{
+				yield return (NK1)this.GetStructure("NK1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NK1
+	///</summary>
+	public NK1 AddNK1()
+	{
+		return this.AddStructure("NK1") as NK1;
+	}
+
+	///<summary>
+	///Removes the given NK1
+	///</summary>
+	public void RemoveNK1(NK1 toRemove)
+	{
+		this.RemoveStructure("NK1", toRemove);
+	}
+
+	///<summary>
+	///Removes the NK1 at the given index
+	///</summary>
+	public void RemoveNK1At(int index)
+	{
+		this.RemoveRepetition("NK1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of PRT (Participation Information) - creates it if necessary
 	///</summary>
@@ -511,6 +816,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ROL (Role) - creates it if necessary
 	///</summary>
@@ -551,6 +894,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ROL results 
+	 */ 
+	public IEnumerable<ROL> ROLs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ROLRepetitionsUsed; rep++)
+			{
+				yield return (ROL)this.GetStructure("ROL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ROL
+	///</summary>
+	public ROL AddROL()
+	{
+		return this.AddStructure("ROL") as ROL;
+	}
+
+	///<summary>
+	///Removes the given ROL
+	///</summary>
+	public void RemoveROL(ROL toRemove)
+	{
+		this.RemoveStructure("ROL", toRemove);
+	}
+
+	///<summary>
+	///Removes the ROL at the given index
+	///</summary>
+	public void RemoveROLAt(int index)
+	{
+		this.RemoveRepetition("ROL", index);
+	}
 
 }
 }

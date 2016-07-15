@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -182,6 +183,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PPV_PCA_PATIENT results 
+	 */ 
+	public IEnumerable<PPV_PCA_PATIENT> PATIENTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PATIENTRepetitionsUsed; rep++)
+			{
+				yield return (PPV_PCA_PATIENT)this.GetStructure("PATIENT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PPV_PCA_PATIENT
+	///</summary>
+	public PPV_PCA_PATIENT AddPATIENT()
+	{
+		return this.AddStructure("PATIENT") as PPV_PCA_PATIENT;
+	}
+
+	///<summary>
+	///Removes the given PPV_PCA_PATIENT
+	///</summary>
+	public void RemovePATIENT(PPV_PCA_PATIENT toRemove)
+	{
+		this.RemoveStructure("PATIENT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PPV_PCA_PATIENT at the given index
+	///</summary>
+	public void RemovePATIENTAt(int index)
+	{
+		this.RemoveRepetition("PATIENT", index);
+	}
 
 }
 }

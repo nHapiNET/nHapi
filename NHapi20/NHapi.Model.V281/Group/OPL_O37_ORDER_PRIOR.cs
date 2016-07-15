@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -111,6 +112,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns OPL_O37_TIMING (a Group object) - creates it if necessary
 	///</summary>
@@ -167,6 +206,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OPL_O37_OBSERVATION_RESULT_GROUP results 
+	 */ 
+	public IEnumerable<OPL_O37_OBSERVATION_RESULT_GROUP> OBSERVATION_RESULT_GROUPs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATION_RESULT_GROUPRepetitionsUsed; rep++)
+			{
+				yield return (OPL_O37_OBSERVATION_RESULT_GROUP)this.GetStructure("OBSERVATION_RESULT_GROUP", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OPL_O37_OBSERVATION_RESULT_GROUP
+	///</summary>
+	public OPL_O37_OBSERVATION_RESULT_GROUP AddOBSERVATION_RESULT_GROUP()
+	{
+		return this.AddStructure("OBSERVATION_RESULT_GROUP") as OPL_O37_OBSERVATION_RESULT_GROUP;
+	}
+
+	///<summary>
+	///Removes the given OPL_O37_OBSERVATION_RESULT_GROUP
+	///</summary>
+	public void RemoveOBSERVATION_RESULT_GROUP(OPL_O37_OBSERVATION_RESULT_GROUP toRemove)
+	{
+		this.RemoveStructure("OBSERVATION_RESULT_GROUP", toRemove);
+	}
+
+	///<summary>
+	///Removes the OPL_O37_OBSERVATION_RESULT_GROUP at the given index
+	///</summary>
+	public void RemoveOBSERVATION_RESULT_GROUPAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION_RESULT_GROUP", index);
+	}
 
 }
 }

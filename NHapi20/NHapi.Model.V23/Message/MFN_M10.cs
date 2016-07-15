@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
@@ -128,6 +129,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFN_M10_MF_TEST_BATTERIES results 
+	 */ 
+	public IEnumerable<MFN_M10_MF_TEST_BATTERIES> MF_TEST_BATTERIESs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MF_TEST_BATTERIESRepetitionsUsed; rep++)
+			{
+				yield return (MFN_M10_MF_TEST_BATTERIES)this.GetStructure("MF_TEST_BATTERIES", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFN_M10_MF_TEST_BATTERIES
+	///</summary>
+	public MFN_M10_MF_TEST_BATTERIES AddMF_TEST_BATTERIES()
+	{
+		return this.AddStructure("MF_TEST_BATTERIES") as MFN_M10_MF_TEST_BATTERIES;
+	}
+
+	///<summary>
+	///Removes the given MFN_M10_MF_TEST_BATTERIES
+	///</summary>
+	public void RemoveMF_TEST_BATTERIES(MFN_M10_MF_TEST_BATTERIES toRemove)
+	{
+		this.RemoveStructure("MF_TEST_BATTERIES", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFN_M10_MF_TEST_BATTERIES at the given index
+	///</summary>
+	public void RemoveMF_TEST_BATTERIESAt(int index)
+	{
+		this.RemoveRepetition("MF_TEST_BATTERIES", index);
+	}
 
 }
 }

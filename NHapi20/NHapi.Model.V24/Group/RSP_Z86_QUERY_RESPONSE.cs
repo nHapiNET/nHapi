@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V24.Segment;
 using NHapi.Model.V24.Datatype;
 using NHapi.Base.Model;
@@ -111,6 +112,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of AL1 (Patient allergy information) - creates it if necessary
 	///</summary>
@@ -152,6 +191,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the AL1 results 
+	 */ 
+	public IEnumerable<AL1> AL1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < AL1RepetitionsUsed; rep++)
+			{
+				yield return (AL1)this.GetStructure("AL1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new AL1
+	///</summary>
+	public AL1 AddAL1()
+	{
+		return this.AddStructure("AL1") as AL1;
+	}
+
+	///<summary>
+	///Removes the given AL1
+	///</summary>
+	public void RemoveAL1(AL1 toRemove)
+	{
+		this.RemoveStructure("AL1", toRemove);
+	}
+
+	///<summary>
+	///Removes the AL1 at the given index
+	///</summary>
+	public void RemoveAL1At(int index)
+	{
+		this.RemoveRepetition("AL1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RSP_Z86_COMMON_ORDER (a Group object) - creates it if necessary
 	///</summary>
@@ -192,6 +269,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RSP_Z86_COMMON_ORDER results 
+	 */ 
+	public IEnumerable<RSP_Z86_COMMON_ORDER> COMMON_ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < COMMON_ORDERRepetitionsUsed; rep++)
+			{
+				yield return (RSP_Z86_COMMON_ORDER)this.GetStructure("COMMON_ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RSP_Z86_COMMON_ORDER
+	///</summary>
+	public RSP_Z86_COMMON_ORDER AddCOMMON_ORDER()
+	{
+		return this.AddStructure("COMMON_ORDER") as RSP_Z86_COMMON_ORDER;
+	}
+
+	///<summary>
+	///Removes the given RSP_Z86_COMMON_ORDER
+	///</summary>
+	public void RemoveCOMMON_ORDER(RSP_Z86_COMMON_ORDER toRemove)
+	{
+		this.RemoveStructure("COMMON_ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the RSP_Z86_COMMON_ORDER at the given index
+	///</summary>
+	public void RemoveCOMMON_ORDERAt(int index)
+	{
+		this.RemoveRepetition("COMMON_ORDER", index);
+	}
 
 }
 }

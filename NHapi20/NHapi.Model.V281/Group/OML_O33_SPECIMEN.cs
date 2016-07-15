@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OML_O33_SPECIMEN_OBSERVATION results 
+	 */ 
+	public IEnumerable<OML_O33_SPECIMEN_OBSERVATION> SPECIMEN_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPECIMEN_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (OML_O33_SPECIMEN_OBSERVATION)this.GetStructure("SPECIMEN_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OML_O33_SPECIMEN_OBSERVATION
+	///</summary>
+	public OML_O33_SPECIMEN_OBSERVATION AddSPECIMEN_OBSERVATION()
+	{
+		return this.AddStructure("SPECIMEN_OBSERVATION") as OML_O33_SPECIMEN_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given OML_O33_SPECIMEN_OBSERVATION
+	///</summary>
+	public void RemoveSPECIMEN_OBSERVATION(OML_O33_SPECIMEN_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("SPECIMEN_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the OML_O33_SPECIMEN_OBSERVATION at the given index
+	///</summary>
+	public void RemoveSPECIMEN_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("SPECIMEN_OBSERVATION", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of SAC (Specimen Container detail) - creates it if necessary
 	///</summary>
@@ -134,6 +173,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SAC results 
+	 */ 
+	public IEnumerable<SAC> SACs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SACRepetitionsUsed; rep++)
+			{
+				yield return (SAC)this.GetStructure("SAC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SAC
+	///</summary>
+	public SAC AddSAC()
+	{
+		return this.AddStructure("SAC") as SAC;
+	}
+
+	///<summary>
+	///Removes the given SAC
+	///</summary>
+	public void RemoveSAC(SAC toRemove)
+	{
+		this.RemoveStructure("SAC", toRemove);
+	}
+
+	///<summary>
+	///Removes the SAC at the given index
+	///</summary>
+	public void RemoveSACAt(int index)
+	{
+		this.RemoveRepetition("SAC", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OML_O33_ORDER (a Group object) - creates it if necessary
 	///</summary>
@@ -174,6 +251,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OML_O33_ORDER results 
+	 */ 
+	public IEnumerable<OML_O33_ORDER> ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDERRepetitionsUsed; rep++)
+			{
+				yield return (OML_O33_ORDER)this.GetStructure("ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OML_O33_ORDER
+	///</summary>
+	public OML_O33_ORDER AddORDER()
+	{
+		return this.AddStructure("ORDER") as OML_O33_ORDER;
+	}
+
+	///<summary>
+	///Removes the given OML_O33_ORDER
+	///</summary>
+	public void RemoveORDER(OML_O33_ORDER toRemove)
+	{
+		this.RemoveStructure("ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the OML_O33_ORDER at the given index
+	///</summary>
+	public void RemoveORDERAt(int index)
+	{
+		this.RemoveRepetition("ORDER", index);
+	}
 
 }
 }

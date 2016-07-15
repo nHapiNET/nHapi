@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V25.Segment;
 using NHapi.Model.V25.Datatype;
 using NHapi.Base.Model;
@@ -109,6 +110,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the CM1 results 
+	 */ 
+	public IEnumerable<CM1> CM1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CM1RepetitionsUsed; rep++)
+			{
+				yield return (CM1)this.GetStructure("CM1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CM1
+	///</summary>
+	public CM1 AddCM1()
+	{
+		return this.AddStructure("CM1") as CM1;
+	}
+
+	///<summary>
+	///Removes the given CM1
+	///</summary>
+	public void RemoveCM1(CM1 toRemove)
+	{
+		this.RemoveStructure("CM1", toRemove);
+	}
+
+	///<summary>
+	///Removes the CM1 at the given index
+	///</summary>
+	public void RemoveCM1At(int index)
+	{
+		this.RemoveRepetition("CM1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CM2 (Clinical Study Schedule Master) - creates it if necessary
 	///</summary>
@@ -149,6 +188,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CM2 results 
+	 */ 
+	public IEnumerable<CM2> CM2s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CM2RepetitionsUsed; rep++)
+			{
+				yield return (CM2)this.GetStructure("CM2", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CM2
+	///</summary>
+	public CM2 AddCM2()
+	{
+		return this.AddStructure("CM2") as CM2;
+	}
+
+	///<summary>
+	///Removes the given CM2
+	///</summary>
+	public void RemoveCM2(CM2 toRemove)
+	{
+		this.RemoveStructure("CM2", toRemove);
+	}
+
+	///<summary>
+	///Removes the CM2 at the given index
+	///</summary>
+	public void RemoveCM2At(int index)
+	{
+		this.RemoveRepetition("CM2", index);
+	}
 
 }
 }

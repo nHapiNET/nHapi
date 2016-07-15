@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V28.Group;
 using NHapi.Model.V28.Segment;
@@ -117,6 +118,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -189,6 +228,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DRC_O47_DONATION_ORDER results 
+	 */ 
+	public IEnumerable<DRC_O47_DONATION_ORDER> DONATION_ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DONATION_ORDERRepetitionsUsed; rep++)
+			{
+				yield return (DRC_O47_DONATION_ORDER)this.GetStructure("DONATION_ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DRC_O47_DONATION_ORDER
+	///</summary>
+	public DRC_O47_DONATION_ORDER AddDONATION_ORDER()
+	{
+		return this.AddStructure("DONATION_ORDER") as DRC_O47_DONATION_ORDER;
+	}
+
+	///<summary>
+	///Removes the given DRC_O47_DONATION_ORDER
+	///</summary>
+	public void RemoveDONATION_ORDER(DRC_O47_DONATION_ORDER toRemove)
+	{
+		this.RemoveStructure("DONATION_ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the DRC_O47_DONATION_ORDER at the given index
+	///</summary>
+	public void RemoveDONATION_ORDERAt(int index)
+	{
+		this.RemoveRepetition("DONATION_ORDER", index);
+	}
 
 }
 }

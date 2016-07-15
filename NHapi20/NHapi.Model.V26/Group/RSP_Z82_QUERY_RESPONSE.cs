@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V26.Segment;
 using NHapi.Model.V26.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RSP_Z82_COMMON_ORDER results 
+	 */ 
+	public IEnumerable<RSP_Z82_COMMON_ORDER> COMMON_ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < COMMON_ORDERRepetitionsUsed; rep++)
+			{
+				yield return (RSP_Z82_COMMON_ORDER)this.GetStructure("COMMON_ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RSP_Z82_COMMON_ORDER
+	///</summary>
+	public RSP_Z82_COMMON_ORDER AddCOMMON_ORDER()
+	{
+		return this.AddStructure("COMMON_ORDER") as RSP_Z82_COMMON_ORDER;
+	}
+
+	///<summary>
+	///Removes the given RSP_Z82_COMMON_ORDER
+	///</summary>
+	public void RemoveCOMMON_ORDER(RSP_Z82_COMMON_ORDER toRemove)
+	{
+		this.RemoveStructure("COMMON_ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the RSP_Z82_COMMON_ORDER at the given index
+	///</summary>
+	public void RemoveCOMMON_ORDERAt(int index)
+	{
+		this.RemoveRepetition("COMMON_ORDER", index);
+	}
 
 }
 }

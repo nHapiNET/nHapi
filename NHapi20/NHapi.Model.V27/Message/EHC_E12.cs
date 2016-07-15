@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V27.Group;
 using NHapi.Model.V27.Segment;
@@ -129,6 +130,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -169,6 +208,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the UAC results 
+	 */ 
+	public IEnumerable<UAC> UACs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < UACRepetitionsUsed; rep++)
+			{
+				yield return (UAC)this.GetStructure("UAC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new UAC
+	///</summary>
+	public UAC AddUAC()
+	{
+		return this.AddStructure("UAC") as UAC;
+	}
+
+	///<summary>
+	///Removes the given UAC
+	///</summary>
+	public void RemoveUAC(UAC toRemove)
+	{
+		this.RemoveStructure("UAC", toRemove);
+	}
+
+	///<summary>
+	///Removes the UAC at the given index
+	///</summary>
+	public void RemoveUACAt(int index)
+	{
+		this.RemoveRepetition("UAC", index);
+	}
 
 	///<summary>
 	/// Returns RFI (Request for Information) - creates it if necessary
@@ -226,6 +303,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CTD results 
+	 */ 
+	public IEnumerable<CTD> CTDs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CTDRepetitionsUsed; rep++)
+			{
+				yield return (CTD)this.GetStructure("CTD", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CTD
+	///</summary>
+	public CTD AddCTD()
+	{
+		return this.AddStructure("CTD") as CTD;
+	}
+
+	///<summary>
+	///Removes the given CTD
+	///</summary>
+	public void RemoveCTD(CTD toRemove)
+	{
+		this.RemoveStructure("CTD", toRemove);
+	}
+
+	///<summary>
+	///Removes the CTD at the given index
+	///</summary>
+	public void RemoveCTDAt(int index)
+	{
+		this.RemoveRepetition("CTD", index);
+	}
 
 	///<summary>
 	/// Returns IVC (Invoice Segment) - creates it if necessary
@@ -332,6 +447,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PSL results 
+	 */ 
+	public IEnumerable<PSL> PSLs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PSLRepetitionsUsed; rep++)
+			{
+				yield return (PSL)this.GetStructure("PSL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PSL
+	///</summary>
+	public PSL AddPSL()
+	{
+		return this.AddStructure("PSL") as PSL;
+	}
+
+	///<summary>
+	///Removes the given PSL
+	///</summary>
+	public void RemovePSL(PSL toRemove)
+	{
+		this.RemoveStructure("PSL", toRemove);
+	}
+
+	///<summary>
+	///Removes the PSL at the given index
+	///</summary>
+	public void RemovePSLAt(int index)
+	{
+		this.RemoveRepetition("PSL", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of EHC_E12_REQUEST (a Group object) - creates it if necessary
 	///</summary>
@@ -372,6 +525,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the EHC_E12_REQUEST results 
+	 */ 
+	public IEnumerable<EHC_E12_REQUEST> REQUESTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < REQUESTRepetitionsUsed; rep++)
+			{
+				yield return (EHC_E12_REQUEST)this.GetStructure("REQUEST", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EHC_E12_REQUEST
+	///</summary>
+	public EHC_E12_REQUEST AddREQUEST()
+	{
+		return this.AddStructure("REQUEST") as EHC_E12_REQUEST;
+	}
+
+	///<summary>
+	///Removes the given EHC_E12_REQUEST
+	///</summary>
+	public void RemoveREQUEST(EHC_E12_REQUEST toRemove)
+	{
+		this.RemoveStructure("REQUEST", toRemove);
+	}
+
+	///<summary>
+	///Removes the EHC_E12_REQUEST at the given index
+	///</summary>
+	public void RemoveREQUESTAt(int index)
+	{
+		this.RemoveRepetition("REQUEST", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V26.Segment;
 using NHapi.Model.V26.Datatype;
 using NHapi.Base.Model;
@@ -95,6 +96,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the VXR_V03_TIMING results 
+	 */ 
+	public IEnumerable<VXR_V03_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (VXR_V03_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new VXR_V03_TIMING
+	///</summary>
+	public VXR_V03_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as VXR_V03_TIMING;
+	}
+
+	///<summary>
+	///Removes the given VXR_V03_TIMING
+	///</summary>
+	public void RemoveTIMING(VXR_V03_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the VXR_V03_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
+
 	///<summary>
 	/// Returns RXA (Pharmacy/Treatment Administration) - creates it if necessary
 	///</summary>
@@ -167,6 +206,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the VXR_V03_OBSERVATION results 
+	 */ 
+	public IEnumerable<VXR_V03_OBSERVATION> OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (VXR_V03_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new VXR_V03_OBSERVATION
+	///</summary>
+	public VXR_V03_OBSERVATION AddOBSERVATION()
+	{
+		return this.AddStructure("OBSERVATION") as VXR_V03_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given VXR_V03_OBSERVATION
+	///</summary>
+	public void RemoveOBSERVATION(VXR_V03_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the VXR_V03_OBSERVATION at the given index
+	///</summary>
+	public void RemoveOBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION", index);
+	}
 
 }
 }

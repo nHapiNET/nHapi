@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V24.Segment;
 using NHapi.Model.V24.Datatype;
 using NHapi.Base.Model;
@@ -111,6 +112,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns RSP_Z88_ALLERGY (a Group object) - creates it if necessary
 	///</summary>
@@ -167,6 +206,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RSP_Z88_COMMON_ORDER results 
+	 */ 
+	public IEnumerable<RSP_Z88_COMMON_ORDER> COMMON_ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < COMMON_ORDERRepetitionsUsed; rep++)
+			{
+				yield return (RSP_Z88_COMMON_ORDER)this.GetStructure("COMMON_ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RSP_Z88_COMMON_ORDER
+	///</summary>
+	public RSP_Z88_COMMON_ORDER AddCOMMON_ORDER()
+	{
+		return this.AddStructure("COMMON_ORDER") as RSP_Z88_COMMON_ORDER;
+	}
+
+	///<summary>
+	///Removes the given RSP_Z88_COMMON_ORDER
+	///</summary>
+	public void RemoveCOMMON_ORDER(RSP_Z88_COMMON_ORDER toRemove)
+	{
+		this.RemoveStructure("COMMON_ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the RSP_Z88_COMMON_ORDER at the given index
+	///</summary>
+	public void RemoveCOMMON_ORDERAt(int index)
+	{
+		this.RemoveRepetition("COMMON_ORDER", index);
+	}
 
 }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V26.Group;
 using NHapi.Model.V26.Segment;
@@ -125,6 +126,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -230,6 +269,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the MDM_T02_COMMON_ORDER results 
+	 */ 
+	public IEnumerable<MDM_T02_COMMON_ORDER> COMMON_ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < COMMON_ORDERRepetitionsUsed; rep++)
+			{
+				yield return (MDM_T02_COMMON_ORDER)this.GetStructure("COMMON_ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MDM_T02_COMMON_ORDER
+	///</summary>
+	public MDM_T02_COMMON_ORDER AddCOMMON_ORDER()
+	{
+		return this.AddStructure("COMMON_ORDER") as MDM_T02_COMMON_ORDER;
+	}
+
+	///<summary>
+	///Removes the given MDM_T02_COMMON_ORDER
+	///</summary>
+	public void RemoveCOMMON_ORDER(MDM_T02_COMMON_ORDER toRemove)
+	{
+		this.RemoveStructure("COMMON_ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the MDM_T02_COMMON_ORDER at the given index
+	///</summary>
+	public void RemoveCOMMON_ORDERAt(int index)
+	{
+		this.RemoveRepetition("COMMON_ORDER", index);
+	}
+
 	///<summary>
 	/// Returns TXA (Transcription Document Header) - creates it if necessary
 	///</summary>
@@ -286,6 +363,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MDM_T02_OBSERVATION results 
+	 */ 
+	public IEnumerable<MDM_T02_OBSERVATION> OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (MDM_T02_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MDM_T02_OBSERVATION
+	///</summary>
+	public MDM_T02_OBSERVATION AddOBSERVATION()
+	{
+		return this.AddStructure("OBSERVATION") as MDM_T02_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given MDM_T02_OBSERVATION
+	///</summary>
+	public void RemoveOBSERVATION(MDM_T02_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the MDM_T02_OBSERVATION at the given index
+	///</summary>
+	public void RemoveOBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -99,6 +100,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OML_O33_TIMING (a Group object) - creates it if necessary
 	///</summary>
@@ -139,6 +178,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OML_O33_TIMING results 
+	 */ 
+	public IEnumerable<OML_O33_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (OML_O33_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OML_O33_TIMING
+	///</summary>
+	public OML_O33_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as OML_O33_TIMING;
+	}
+
+	///<summary>
+	///Removes the given OML_O33_TIMING
+	///</summary>
+	public void RemoveTIMING(OML_O33_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the OML_O33_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
 
 	///<summary>
 	/// Returns OML_O33_OBSERVATION_REQUEST (a Group object) - creates it if necessary
@@ -197,6 +274,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the FT1 results 
+	 */ 
+	public IEnumerable<FT1> FT1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < FT1RepetitionsUsed; rep++)
+			{
+				yield return (FT1)this.GetStructure("FT1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new FT1
+	///</summary>
+	public FT1 AddFT1()
+	{
+		return this.AddStructure("FT1") as FT1;
+	}
+
+	///<summary>
+	///Removes the given FT1
+	///</summary>
+	public void RemoveFT1(FT1 toRemove)
+	{
+		this.RemoveStructure("FT1", toRemove);
+	}
+
+	///<summary>
+	///Removes the FT1 at the given index
+	///</summary>
+	public void RemoveFT1At(int index)
+	{
+		this.RemoveRepetition("FT1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CTI (Clinical Trial Identification) - creates it if necessary
 	///</summary>
@@ -237,6 +352,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CTI results 
+	 */ 
+	public IEnumerable<CTI> CTIs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CTIRepetitionsUsed; rep++)
+			{
+				yield return (CTI)this.GetStructure("CTI", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CTI
+	///</summary>
+	public CTI AddCTI()
+	{
+		return this.AddStructure("CTI") as CTI;
+	}
+
+	///<summary>
+	///Removes the given CTI
+	///</summary>
+	public void RemoveCTI(CTI toRemove)
+	{
+		this.RemoveStructure("CTI", toRemove);
+	}
+
+	///<summary>
+	///Removes the CTI at the given index
+	///</summary>
+	public void RemoveCTIAt(int index)
+	{
+		this.RemoveRepetition("CTI", index);
+	}
 
 	///<summary>
 	/// Returns BLG (Billing) - creates it if necessary

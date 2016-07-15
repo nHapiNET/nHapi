@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -99,6 +100,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the DFT_P11_FINANCIAL_PROCEDURE results 
+	 */ 
+	public IEnumerable<DFT_P11_FINANCIAL_PROCEDURE> FINANCIAL_PROCEDUREs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < FINANCIAL_PROCEDURERepetitionsUsed; rep++)
+			{
+				yield return (DFT_P11_FINANCIAL_PROCEDURE)this.GetStructure("FINANCIAL_PROCEDURE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DFT_P11_FINANCIAL_PROCEDURE
+	///</summary>
+	public DFT_P11_FINANCIAL_PROCEDURE AddFINANCIAL_PROCEDURE()
+	{
+		return this.AddStructure("FINANCIAL_PROCEDURE") as DFT_P11_FINANCIAL_PROCEDURE;
+	}
+
+	///<summary>
+	///Removes the given DFT_P11_FINANCIAL_PROCEDURE
+	///</summary>
+	public void RemoveFINANCIAL_PROCEDURE(DFT_P11_FINANCIAL_PROCEDURE toRemove)
+	{
+		this.RemoveStructure("FINANCIAL_PROCEDURE", toRemove);
+	}
+
+	///<summary>
+	///Removes the DFT_P11_FINANCIAL_PROCEDURE at the given index
+	///</summary>
+	public void RemoveFINANCIAL_PROCEDUREAt(int index)
+	{
+		this.RemoveRepetition("FINANCIAL_PROCEDURE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of DFT_P11_FINANCIAL_COMMON_ORDER (a Group object) - creates it if necessary
 	///</summary>
@@ -140,6 +179,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the DFT_P11_FINANCIAL_COMMON_ORDER results 
+	 */ 
+	public IEnumerable<DFT_P11_FINANCIAL_COMMON_ORDER> FINANCIAL_COMMON_ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < FINANCIAL_COMMON_ORDERRepetitionsUsed; rep++)
+			{
+				yield return (DFT_P11_FINANCIAL_COMMON_ORDER)this.GetStructure("FINANCIAL_COMMON_ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DFT_P11_FINANCIAL_COMMON_ORDER
+	///</summary>
+	public DFT_P11_FINANCIAL_COMMON_ORDER AddFINANCIAL_COMMON_ORDER()
+	{
+		return this.AddStructure("FINANCIAL_COMMON_ORDER") as DFT_P11_FINANCIAL_COMMON_ORDER;
+	}
+
+	///<summary>
+	///Removes the given DFT_P11_FINANCIAL_COMMON_ORDER
+	///</summary>
+	public void RemoveFINANCIAL_COMMON_ORDER(DFT_P11_FINANCIAL_COMMON_ORDER toRemove)
+	{
+		this.RemoveStructure("FINANCIAL_COMMON_ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the DFT_P11_FINANCIAL_COMMON_ORDER at the given index
+	///</summary>
+	public void RemoveFINANCIAL_COMMON_ORDERAt(int index)
+	{
+		this.RemoveRepetition("FINANCIAL_COMMON_ORDER", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of DG1 (Diagnosis) - creates it if necessary
 	///</summary>
@@ -180,6 +257,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DG1 results 
+	 */ 
+	public IEnumerable<DG1> DG1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DG1RepetitionsUsed; rep++)
+			{
+				yield return (DG1)this.GetStructure("DG1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DG1
+	///</summary>
+	public DG1 AddDG1()
+	{
+		return this.AddStructure("DG1") as DG1;
+	}
+
+	///<summary>
+	///Removes the given DG1
+	///</summary>
+	public void RemoveDG1(DG1 toRemove)
+	{
+		this.RemoveStructure("DG1", toRemove);
+	}
+
+	///<summary>
+	///Removes the DG1 at the given index
+	///</summary>
+	public void RemoveDG1At(int index)
+	{
+		this.RemoveRepetition("DG1", index);
+	}
 
 	///<summary>
 	/// Returns DRG (Diagnosis Related Group) - creates it if necessary
@@ -238,6 +353,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the GT1 results 
+	 */ 
+	public IEnumerable<GT1> GT1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < GT1RepetitionsUsed; rep++)
+			{
+				yield return (GT1)this.GetStructure("GT1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new GT1
+	///</summary>
+	public GT1 AddGT1()
+	{
+		return this.AddStructure("GT1") as GT1;
+	}
+
+	///<summary>
+	///Removes the given GT1
+	///</summary>
+	public void RemoveGT1(GT1 toRemove)
+	{
+		this.RemoveStructure("GT1", toRemove);
+	}
+
+	///<summary>
+	///Removes the GT1 at the given index
+	///</summary>
+	public void RemoveGT1At(int index)
+	{
+		this.RemoveRepetition("GT1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of DFT_P11_FINANCIAL_INSURANCE (a Group object) - creates it if necessary
 	///</summary>
@@ -278,6 +431,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DFT_P11_FINANCIAL_INSURANCE results 
+	 */ 
+	public IEnumerable<DFT_P11_FINANCIAL_INSURANCE> FINANCIAL_INSURANCEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < FINANCIAL_INSURANCERepetitionsUsed; rep++)
+			{
+				yield return (DFT_P11_FINANCIAL_INSURANCE)this.GetStructure("FINANCIAL_INSURANCE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DFT_P11_FINANCIAL_INSURANCE
+	///</summary>
+	public DFT_P11_FINANCIAL_INSURANCE AddFINANCIAL_INSURANCE()
+	{
+		return this.AddStructure("FINANCIAL_INSURANCE") as DFT_P11_FINANCIAL_INSURANCE;
+	}
+
+	///<summary>
+	///Removes the given DFT_P11_FINANCIAL_INSURANCE
+	///</summary>
+	public void RemoveFINANCIAL_INSURANCE(DFT_P11_FINANCIAL_INSURANCE toRemove)
+	{
+		this.RemoveStructure("FINANCIAL_INSURANCE", toRemove);
+	}
+
+	///<summary>
+	///Removes the DFT_P11_FINANCIAL_INSURANCE at the given index
+	///</summary>
+	public void RemoveFINANCIAL_INSURANCEAt(int index)
+	{
+		this.RemoveRepetition("FINANCIAL_INSURANCE", index);
+	}
 
 }
 }

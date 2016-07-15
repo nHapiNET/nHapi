@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
@@ -137,6 +138,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns MSA (Message Acknowledgment) - creates it if necessary
 	///</summary>
@@ -226,6 +265,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RRI_I12_PROVIDER_CONTACT results 
+	 */ 
+	public IEnumerable<RRI_I12_PROVIDER_CONTACT> PROVIDER_CONTACTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROVIDER_CONTACTRepetitionsUsed; rep++)
+			{
+				yield return (RRI_I12_PROVIDER_CONTACT)this.GetStructure("PROVIDER_CONTACT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RRI_I12_PROVIDER_CONTACT
+	///</summary>
+	public RRI_I12_PROVIDER_CONTACT AddPROVIDER_CONTACT()
+	{
+		return this.AddStructure("PROVIDER_CONTACT") as RRI_I12_PROVIDER_CONTACT;
+	}
+
+	///<summary>
+	///Removes the given RRI_I12_PROVIDER_CONTACT
+	///</summary>
+	public void RemovePROVIDER_CONTACT(RRI_I12_PROVIDER_CONTACT toRemove)
+	{
+		this.RemoveStructure("PROVIDER_CONTACT", toRemove);
+	}
+
+	///<summary>
+	///Removes the RRI_I12_PROVIDER_CONTACT at the given index
+	///</summary>
+	public void RemovePROVIDER_CONTACTAt(int index)
+	{
+		this.RemoveRepetition("PROVIDER_CONTACT", index);
+	}
+
 	///<summary>
 	/// Returns PID (Patient Identification) - creates it if necessary
 	///</summary>
@@ -299,6 +376,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the DG1 results 
+	 */ 
+	public IEnumerable<DG1> DG1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DG1RepetitionsUsed; rep++)
+			{
+				yield return (DG1)this.GetStructure("DG1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DG1
+	///</summary>
+	public DG1 AddDG1()
+	{
+		return this.AddStructure("DG1") as DG1;
+	}
+
+	///<summary>
+	///Removes the given DG1
+	///</summary>
+	public void RemoveDG1(DG1 toRemove)
+	{
+		this.RemoveStructure("DG1", toRemove);
+	}
+
+	///<summary>
+	///Removes the DG1 at the given index
+	///</summary>
+	public void RemoveDG1At(int index)
+	{
+		this.RemoveRepetition("DG1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of DRG (Diagnosis Related Group) - creates it if necessary
 	///</summary>
@@ -339,6 +454,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DRG results 
+	 */ 
+	public IEnumerable<DRG> DRGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DRGRepetitionsUsed; rep++)
+			{
+				yield return (DRG)this.GetStructure("DRG", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DRG
+	///</summary>
+	public DRG AddDRG()
+	{
+		return this.AddStructure("DRG") as DRG;
+	}
+
+	///<summary>
+	///Removes the given DRG
+	///</summary>
+	public void RemoveDRG(DRG toRemove)
+	{
+		this.RemoveStructure("DRG", toRemove);
+	}
+
+	///<summary>
+	///Removes the DRG at the given index
+	///</summary>
+	public void RemoveDRGAt(int index)
+	{
+		this.RemoveRepetition("DRG", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of AL1 (Patient Allergy Information) - creates it if necessary
@@ -381,6 +534,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the AL1 results 
+	 */ 
+	public IEnumerable<AL1> AL1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < AL1RepetitionsUsed; rep++)
+			{
+				yield return (AL1)this.GetStructure("AL1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new AL1
+	///</summary>
+	public AL1 AddAL1()
+	{
+		return this.AddStructure("AL1") as AL1;
+	}
+
+	///<summary>
+	///Removes the given AL1
+	///</summary>
+	public void RemoveAL1(AL1 toRemove)
+	{
+		this.RemoveStructure("AL1", toRemove);
+	}
+
+	///<summary>
+	///Removes the AL1 at the given index
+	///</summary>
+	public void RemoveAL1At(int index)
+	{
+		this.RemoveRepetition("AL1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RRI_I12_PROCEDURE (a Group object) - creates it if necessary
 	///</summary>
@@ -422,6 +613,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RRI_I12_PROCEDURE results 
+	 */ 
+	public IEnumerable<RRI_I12_PROCEDURE> PROCEDUREs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROCEDURERepetitionsUsed; rep++)
+			{
+				yield return (RRI_I12_PROCEDURE)this.GetStructure("PROCEDURE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RRI_I12_PROCEDURE
+	///</summary>
+	public RRI_I12_PROCEDURE AddPROCEDURE()
+	{
+		return this.AddStructure("PROCEDURE") as RRI_I12_PROCEDURE;
+	}
+
+	///<summary>
+	///Removes the given RRI_I12_PROCEDURE
+	///</summary>
+	public void RemovePROCEDURE(RRI_I12_PROCEDURE toRemove)
+	{
+		this.RemoveStructure("PROCEDURE", toRemove);
+	}
+
+	///<summary>
+	///Removes the RRI_I12_PROCEDURE at the given index
+	///</summary>
+	public void RemovePROCEDUREAt(int index)
+	{
+		this.RemoveRepetition("PROCEDURE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RRI_I12_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -462,6 +691,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RRI_I12_OBSERVATION results 
+	 */ 
+	public IEnumerable<RRI_I12_OBSERVATION> OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (RRI_I12_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RRI_I12_OBSERVATION
+	///</summary>
+	public RRI_I12_OBSERVATION AddOBSERVATION()
+	{
+		return this.AddStructure("OBSERVATION") as RRI_I12_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given RRI_I12_OBSERVATION
+	///</summary>
+	public void RemoveOBSERVATION(RRI_I12_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the RRI_I12_OBSERVATION at the given index
+	///</summary>
+	public void RemoveOBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION", index);
+	}
 
 	///<summary>
 	/// Returns RRI_I12_PATIENT_VISIT (a Group object) - creates it if necessary
@@ -519,6 +786,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
 
 }
 }

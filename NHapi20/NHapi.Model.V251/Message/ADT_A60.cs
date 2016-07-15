@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V251.Group;
 using NHapi.Model.V251.Segment;
@@ -121,6 +122,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns EVN (Event Type) - creates it if necessary
 	///</summary>
@@ -225,6 +264,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the IAM results 
+	 */ 
+	public IEnumerable<IAM> IAMs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < IAMRepetitionsUsed; rep++)
+			{
+				yield return (IAM)this.GetStructure("IAM", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new IAM
+	///</summary>
+	public IAM AddIAM()
+	{
+		return this.AddStructure("IAM") as IAM;
+	}
+
+	///<summary>
+	///Removes the given IAM
+	///</summary>
+	public void RemoveIAM(IAM toRemove)
+	{
+		this.RemoveStructure("IAM", toRemove);
+	}
+
+	///<summary>
+	///Removes the IAM at the given index
+	///</summary>
+	public void RemoveIAMAt(int index)
+	{
+		this.RemoveRepetition("IAM", index);
+	}
 
 }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V26.Group;
 using NHapi.Model.V26.Segment;
@@ -119,6 +120,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -191,6 +230,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the INV results 
+	 */ 
+	public IEnumerable<INV> INVs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < INVRepetitionsUsed; rep++)
+			{
+				yield return (INV)this.GetStructure("INV", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new INV
+	///</summary>
+	public INV AddINV()
+	{
+		return this.AddStructure("INV") as INV;
+	}
+
+	///<summary>
+	///Removes the given INV
+	///</summary>
+	public void RemoveINV(INV toRemove)
+	{
+		this.RemoveStructure("INV", toRemove);
+	}
+
+	///<summary>
+	///Removes the INV at the given index
+	///</summary>
+	public void RemoveINVAt(int index)
+	{
+		this.RemoveRepetition("INV", index);
+	}
 
 	///<summary>
 	/// Returns ROL (Role) - creates it if necessary

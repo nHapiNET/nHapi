@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V27.Group;
 using NHapi.Model.V27.Segment;
@@ -125,6 +126,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -230,6 +269,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OPU_R25_PATIENT_VISIT_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -271,6 +348,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OPU_R25_PATIENT_VISIT_OBSERVATION results 
+	 */ 
+	public IEnumerable<OPU_R25_PATIENT_VISIT_OBSERVATION> PATIENT_VISIT_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PATIENT_VISIT_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (OPU_R25_PATIENT_VISIT_OBSERVATION)this.GetStructure("PATIENT_VISIT_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OPU_R25_PATIENT_VISIT_OBSERVATION
+	///</summary>
+	public OPU_R25_PATIENT_VISIT_OBSERVATION AddPATIENT_VISIT_OBSERVATION()
+	{
+		return this.AddStructure("PATIENT_VISIT_OBSERVATION") as OPU_R25_PATIENT_VISIT_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given OPU_R25_PATIENT_VISIT_OBSERVATION
+	///</summary>
+	public void RemovePATIENT_VISIT_OBSERVATION(OPU_R25_PATIENT_VISIT_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("PATIENT_VISIT_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the OPU_R25_PATIENT_VISIT_OBSERVATION at the given index
+	///</summary>
+	public void RemovePATIENT_VISIT_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("PATIENT_VISIT_OBSERVATION", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OPU_R25_ACCESSION_DETAIL (a Group object) - creates it if necessary
 	///</summary>
@@ -311,6 +426,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OPU_R25_ACCESSION_DETAIL results 
+	 */ 
+	public IEnumerable<OPU_R25_ACCESSION_DETAIL> ACCESSION_DETAILs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ACCESSION_DETAILRepetitionsUsed; rep++)
+			{
+				yield return (OPU_R25_ACCESSION_DETAIL)this.GetStructure("ACCESSION_DETAIL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OPU_R25_ACCESSION_DETAIL
+	///</summary>
+	public OPU_R25_ACCESSION_DETAIL AddACCESSION_DETAIL()
+	{
+		return this.AddStructure("ACCESSION_DETAIL") as OPU_R25_ACCESSION_DETAIL;
+	}
+
+	///<summary>
+	///Removes the given OPU_R25_ACCESSION_DETAIL
+	///</summary>
+	public void RemoveACCESSION_DETAIL(OPU_R25_ACCESSION_DETAIL toRemove)
+	{
+		this.RemoveStructure("ACCESSION_DETAIL", toRemove);
+	}
+
+	///<summary>
+	///Removes the OPU_R25_ACCESSION_DETAIL at the given index
+	///</summary>
+	public void RemoveACCESSION_DETAILAt(int index)
+	{
+		this.RemoveRepetition("ACCESSION_DETAIL", index);
+	}
 
 }
 }

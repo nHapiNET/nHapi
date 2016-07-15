@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V271.Segment;
 using NHapi.Model.V271.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CSP results 
+	 */ 
+	public IEnumerable<CSP> CSPs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CSPRepetitionsUsed; rep++)
+			{
+				yield return (CSP)this.GetStructure("CSP", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CSP
+	///</summary>
+	public CSP AddCSP()
+	{
+		return this.AddStructure("CSP") as CSP;
+	}
+
+	///<summary>
+	///Removes the given CSP
+	///</summary>
+	public void RemoveCSP(CSP toRemove)
+	{
+		this.RemoveStructure("CSP", toRemove);
+	}
+
+	///<summary>
+	///Removes the CSP at the given index
+	///</summary>
+	public void RemoveCSPAt(int index)
+	{
+		this.RemoveRepetition("CSP", index);
+	}
 
 }
 }

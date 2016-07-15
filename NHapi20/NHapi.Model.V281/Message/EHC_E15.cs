@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V281.Group;
 using NHapi.Model.V281.Segment;
@@ -121,6 +122,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -161,6 +200,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the UAC results 
+	 */ 
+	public IEnumerable<UAC> UACs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < UACRepetitionsUsed; rep++)
+			{
+				yield return (UAC)this.GetStructure("UAC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new UAC
+	///</summary>
+	public UAC AddUAC()
+	{
+		return this.AddStructure("UAC") as UAC;
+	}
+
+	///<summary>
+	///Removes the given UAC
+	///</summary>
+	public void RemoveUAC(UAC toRemove)
+	{
+		this.RemoveStructure("UAC", toRemove);
+	}
+
+	///<summary>
+	///Removes the UAC at the given index
+	///</summary>
+	public void RemoveUACAt(int index)
+	{
+		this.RemoveRepetition("UAC", index);
+	}
 
 	///<summary>
 	/// Returns PMT (Payment Information) - creates it if necessary
@@ -235,6 +312,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the EHC_E15_PAYMENT_REMITTANCE_DETAIL_INFO results 
+	 */ 
+	public IEnumerable<EHC_E15_PAYMENT_REMITTANCE_DETAIL_INFO> PAYMENT_REMITTANCE_DETAIL_INFOs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PAYMENT_REMITTANCE_DETAIL_INFORepetitionsUsed; rep++)
+			{
+				yield return (EHC_E15_PAYMENT_REMITTANCE_DETAIL_INFO)this.GetStructure("PAYMENT_REMITTANCE_DETAIL_INFO", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EHC_E15_PAYMENT_REMITTANCE_DETAIL_INFO
+	///</summary>
+	public EHC_E15_PAYMENT_REMITTANCE_DETAIL_INFO AddPAYMENT_REMITTANCE_DETAIL_INFO()
+	{
+		return this.AddStructure("PAYMENT_REMITTANCE_DETAIL_INFO") as EHC_E15_PAYMENT_REMITTANCE_DETAIL_INFO;
+	}
+
+	///<summary>
+	///Removes the given EHC_E15_PAYMENT_REMITTANCE_DETAIL_INFO
+	///</summary>
+	public void RemovePAYMENT_REMITTANCE_DETAIL_INFO(EHC_E15_PAYMENT_REMITTANCE_DETAIL_INFO toRemove)
+	{
+		this.RemoveStructure("PAYMENT_REMITTANCE_DETAIL_INFO", toRemove);
+	}
+
+	///<summary>
+	///Removes the EHC_E15_PAYMENT_REMITTANCE_DETAIL_INFO at the given index
+	///</summary>
+	public void RemovePAYMENT_REMITTANCE_DETAIL_INFOAt(int index)
+	{
+		this.RemoveRepetition("PAYMENT_REMITTANCE_DETAIL_INFO", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of EHC_E15_ADJUSTMENT_PAYEE (a Group object) - creates it if necessary
 	///</summary>
@@ -275,6 +390,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the EHC_E15_ADJUSTMENT_PAYEE results 
+	 */ 
+	public IEnumerable<EHC_E15_ADJUSTMENT_PAYEE> ADJUSTMENT_PAYEEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ADJUSTMENT_PAYEERepetitionsUsed; rep++)
+			{
+				yield return (EHC_E15_ADJUSTMENT_PAYEE)this.GetStructure("ADJUSTMENT_PAYEE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EHC_E15_ADJUSTMENT_PAYEE
+	///</summary>
+	public EHC_E15_ADJUSTMENT_PAYEE AddADJUSTMENT_PAYEE()
+	{
+		return this.AddStructure("ADJUSTMENT_PAYEE") as EHC_E15_ADJUSTMENT_PAYEE;
+	}
+
+	///<summary>
+	///Removes the given EHC_E15_ADJUSTMENT_PAYEE
+	///</summary>
+	public void RemoveADJUSTMENT_PAYEE(EHC_E15_ADJUSTMENT_PAYEE toRemove)
+	{
+		this.RemoveStructure("ADJUSTMENT_PAYEE", toRemove);
+	}
+
+	///<summary>
+	///Removes the EHC_E15_ADJUSTMENT_PAYEE at the given index
+	///</summary>
+	public void RemoveADJUSTMENT_PAYEEAt(int index)
+	{
+		this.RemoveRepetition("ADJUSTMENT_PAYEE", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RDR_RDR_TIMING results 
+	 */ 
+	public IEnumerable<RDR_RDR_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (RDR_RDR_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RDR_RDR_TIMING
+	///</summary>
+	public RDR_RDR_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as RDR_RDR_TIMING;
+	}
+
+	///<summary>
+	///Removes the given RDR_RDR_TIMING
+	///</summary>
+	public void RemoveTIMING(RDR_RDR_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the RDR_RDR_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
+
 	///<summary>
 	/// Returns RDR_RDR_ENCODING (a Group object) - creates it if necessary
 	///</summary>
@@ -149,6 +188,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RDR_RDR_DISPENSE results 
+	 */ 
+	public IEnumerable<RDR_RDR_DISPENSE> DISPENSEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DISPENSERepetitionsUsed; rep++)
+			{
+				yield return (RDR_RDR_DISPENSE)this.GetStructure("DISPENSE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RDR_RDR_DISPENSE
+	///</summary>
+	public RDR_RDR_DISPENSE AddDISPENSE()
+	{
+		return this.AddStructure("DISPENSE") as RDR_RDR_DISPENSE;
+	}
+
+	///<summary>
+	///Removes the given RDR_RDR_DISPENSE
+	///</summary>
+	public void RemoveDISPENSE(RDR_RDR_DISPENSE toRemove)
+	{
+		this.RemoveStructure("DISPENSE", toRemove);
+	}
+
+	///<summary>
+	///Removes the RDR_RDR_DISPENSE at the given index
+	///</summary>
+	public void RemoveDISPENSEAt(int index)
+	{
+		this.RemoveRepetition("DISPENSE", index);
+	}
 
 }
 }

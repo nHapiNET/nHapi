@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -72,6 +73,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RRA_O18_TREATMENT results 
+	 */ 
+	public IEnumerable<RRA_O18_TREATMENT> TREATMENTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TREATMENTRepetitionsUsed; rep++)
+			{
+				yield return (RRA_O18_TREATMENT)this.GetStructure("TREATMENT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RRA_O18_TREATMENT
+	///</summary>
+	public RRA_O18_TREATMENT AddTREATMENT()
+	{
+		return this.AddStructure("TREATMENT") as RRA_O18_TREATMENT;
+	}
+
+	///<summary>
+	///Removes the given RRA_O18_TREATMENT
+	///</summary>
+	public void RemoveTREATMENT(RRA_O18_TREATMENT toRemove)
+	{
+		this.RemoveStructure("TREATMENT", toRemove);
+	}
+
+	///<summary>
+	///Removes the RRA_O18_TREATMENT at the given index
+	///</summary>
+	public void RemoveTREATMENTAt(int index)
+	{
+		this.RemoveRepetition("TREATMENT", index);
+	}
 
 	///<summary>
 	/// Returns RXR (Pharmacy/Treatment Route) - creates it if necessary

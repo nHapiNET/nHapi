@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V28.Segment;
 using NHapi.Model.V28.Datatype;
 using NHapi.Base.Model;
@@ -142,6 +143,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CCR_I16_CLINICAL_ORDER_OBSERVATION results 
+	 */ 
+	public IEnumerable<CCR_I16_CLINICAL_ORDER_OBSERVATION> CLINICAL_ORDER_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CLINICAL_ORDER_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (CCR_I16_CLINICAL_ORDER_OBSERVATION)this.GetStructure("CLINICAL_ORDER_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CCR_I16_CLINICAL_ORDER_OBSERVATION
+	///</summary>
+	public CCR_I16_CLINICAL_ORDER_OBSERVATION AddCLINICAL_ORDER_OBSERVATION()
+	{
+		return this.AddStructure("CLINICAL_ORDER_OBSERVATION") as CCR_I16_CLINICAL_ORDER_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given CCR_I16_CLINICAL_ORDER_OBSERVATION
+	///</summary>
+	public void RemoveCLINICAL_ORDER_OBSERVATION(CCR_I16_CLINICAL_ORDER_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("CLINICAL_ORDER_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the CCR_I16_CLINICAL_ORDER_OBSERVATION at the given index
+	///</summary>
+	public void RemoveCLINICAL_ORDER_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("CLINICAL_ORDER_OBSERVATION", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V28.Segment;
 using NHapi.Model.V28.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORL_O40_SPECIMEN_CONTAINER_IN_PACKAGE results 
+	 */ 
+	public IEnumerable<ORL_O40_SPECIMEN_CONTAINER_IN_PACKAGE> SPECIMEN_CONTAINER_IN_PACKAGEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPECIMEN_CONTAINER_IN_PACKAGERepetitionsUsed; rep++)
+			{
+				yield return (ORL_O40_SPECIMEN_CONTAINER_IN_PACKAGE)this.GetStructure("SPECIMEN_CONTAINER_IN_PACKAGE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORL_O40_SPECIMEN_CONTAINER_IN_PACKAGE
+	///</summary>
+	public ORL_O40_SPECIMEN_CONTAINER_IN_PACKAGE AddSPECIMEN_CONTAINER_IN_PACKAGE()
+	{
+		return this.AddStructure("SPECIMEN_CONTAINER_IN_PACKAGE") as ORL_O40_SPECIMEN_CONTAINER_IN_PACKAGE;
+	}
+
+	///<summary>
+	///Removes the given ORL_O40_SPECIMEN_CONTAINER_IN_PACKAGE
+	///</summary>
+	public void RemoveSPECIMEN_CONTAINER_IN_PACKAGE(ORL_O40_SPECIMEN_CONTAINER_IN_PACKAGE toRemove)
+	{
+		this.RemoveStructure("SPECIMEN_CONTAINER_IN_PACKAGE", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORL_O40_SPECIMEN_CONTAINER_IN_PACKAGE at the given index
+	///</summary>
+	public void RemoveSPECIMEN_CONTAINER_IN_PACKAGEAt(int index)
+	{
+		this.RemoveRepetition("SPECIMEN_CONTAINER_IN_PACKAGE", index);
+	}
 
 }
 }

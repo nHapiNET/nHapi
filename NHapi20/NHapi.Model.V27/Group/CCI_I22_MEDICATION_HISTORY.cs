@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -127,6 +128,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the CCI_I22_MEDICATION_ADMINISTRATION_DETAIL results 
+	 */ 
+	public IEnumerable<CCI_I22_MEDICATION_ADMINISTRATION_DETAIL> MEDICATION_ADMINISTRATION_DETAILs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MEDICATION_ADMINISTRATION_DETAILRepetitionsUsed; rep++)
+			{
+				yield return (CCI_I22_MEDICATION_ADMINISTRATION_DETAIL)this.GetStructure("MEDICATION_ADMINISTRATION_DETAIL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CCI_I22_MEDICATION_ADMINISTRATION_DETAIL
+	///</summary>
+	public CCI_I22_MEDICATION_ADMINISTRATION_DETAIL AddMEDICATION_ADMINISTRATION_DETAIL()
+	{
+		return this.AddStructure("MEDICATION_ADMINISTRATION_DETAIL") as CCI_I22_MEDICATION_ADMINISTRATION_DETAIL;
+	}
+
+	///<summary>
+	///Removes the given CCI_I22_MEDICATION_ADMINISTRATION_DETAIL
+	///</summary>
+	public void RemoveMEDICATION_ADMINISTRATION_DETAIL(CCI_I22_MEDICATION_ADMINISTRATION_DETAIL toRemove)
+	{
+		this.RemoveStructure("MEDICATION_ADMINISTRATION_DETAIL", toRemove);
+	}
+
+	///<summary>
+	///Removes the CCI_I22_MEDICATION_ADMINISTRATION_DETAIL at the given index
+	///</summary>
+	public void RemoveMEDICATION_ADMINISTRATION_DETAILAt(int index)
+	{
+		this.RemoveRepetition("MEDICATION_ADMINISTRATION_DETAIL", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CTI (Clinical Trial Identification) - creates it if necessary
 	///</summary>
@@ -167,6 +206,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CTI results 
+	 */ 
+	public IEnumerable<CTI> CTIs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CTIRepetitionsUsed; rep++)
+			{
+				yield return (CTI)this.GetStructure("CTI", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CTI
+	///</summary>
+	public CTI AddCTI()
+	{
+		return this.AddStructure("CTI") as CTI;
+	}
+
+	///<summary>
+	///Removes the given CTI
+	///</summary>
+	public void RemoveCTI(CTI toRemove)
+	{
+		this.RemoveStructure("CTI", toRemove);
+	}
+
+	///<summary>
+	///Removes the CTI at the given index
+	///</summary>
+	public void RemoveCTIAt(int index)
+	{
+		this.RemoveRepetition("CTI", index);
+	}
 
 }
 }

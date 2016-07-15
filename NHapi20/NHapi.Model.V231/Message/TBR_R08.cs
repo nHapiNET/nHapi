@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V231.Group;
 using NHapi.Model.V231.Segment;
@@ -184,6 +185,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RDT results 
+	 */ 
+	public IEnumerable<RDT> RDTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RDTRepetitionsUsed; rep++)
+			{
+				yield return (RDT)this.GetStructure("RDT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RDT
+	///</summary>
+	public RDT AddRDT()
+	{
+		return this.AddStructure("RDT") as RDT;
+	}
+
+	///<summary>
+	///Removes the given RDT
+	///</summary>
+	public void RemoveRDT(RDT toRemove)
+	{
+		this.RemoveStructure("RDT", toRemove);
+	}
+
+	///<summary>
+	///Removes the RDT at the given index
+	///</summary>
+	public void RemoveRDTAt(int index)
+	{
+		this.RemoveRepetition("RDT", index);
+	}
 
 	///<summary>
 	/// Returns DSC (DSC - Continuation pointer segment) - creates it if necessary

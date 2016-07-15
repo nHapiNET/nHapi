@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V28.Segment;
 using NHapi.Model.V28.Datatype;
 using NHapi.Base.Model;
@@ -95,6 +96,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SRR_S01_SERVICE results 
+	 */ 
+	public IEnumerable<SRR_S01_SERVICE> SERVICEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SERVICERepetitionsUsed; rep++)
+			{
+				yield return (SRR_S01_SERVICE)this.GetStructure("SERVICE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SRR_S01_SERVICE
+	///</summary>
+	public SRR_S01_SERVICE AddSERVICE()
+	{
+		return this.AddStructure("SERVICE") as SRR_S01_SERVICE;
+	}
+
+	///<summary>
+	///Removes the given SRR_S01_SERVICE
+	///</summary>
+	public void RemoveSERVICE(SRR_S01_SERVICE toRemove)
+	{
+		this.RemoveStructure("SERVICE", toRemove);
+	}
+
+	///<summary>
+	///Removes the SRR_S01_SERVICE at the given index
+	///</summary>
+	public void RemoveSERVICEAt(int index)
+	{
+		this.RemoveRepetition("SERVICE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of SRR_S01_GENERAL_RESOURCE (a Group object) - creates it if necessary
 	///</summary>
@@ -135,6 +174,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SRR_S01_GENERAL_RESOURCE results 
+	 */ 
+	public IEnumerable<SRR_S01_GENERAL_RESOURCE> GENERAL_RESOURCEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < GENERAL_RESOURCERepetitionsUsed; rep++)
+			{
+				yield return (SRR_S01_GENERAL_RESOURCE)this.GetStructure("GENERAL_RESOURCE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SRR_S01_GENERAL_RESOURCE
+	///</summary>
+	public SRR_S01_GENERAL_RESOURCE AddGENERAL_RESOURCE()
+	{
+		return this.AddStructure("GENERAL_RESOURCE") as SRR_S01_GENERAL_RESOURCE;
+	}
+
+	///<summary>
+	///Removes the given SRR_S01_GENERAL_RESOURCE
+	///</summary>
+	public void RemoveGENERAL_RESOURCE(SRR_S01_GENERAL_RESOURCE toRemove)
+	{
+		this.RemoveStructure("GENERAL_RESOURCE", toRemove);
+	}
+
+	///<summary>
+	///Removes the SRR_S01_GENERAL_RESOURCE at the given index
+	///</summary>
+	public void RemoveGENERAL_RESOURCEAt(int index)
+	{
+		this.RemoveRepetition("GENERAL_RESOURCE", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of SRR_S01_LOCATION_RESOURCE (a Group object) - creates it if necessary
@@ -177,6 +254,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SRR_S01_LOCATION_RESOURCE results 
+	 */ 
+	public IEnumerable<SRR_S01_LOCATION_RESOURCE> LOCATION_RESOURCEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < LOCATION_RESOURCERepetitionsUsed; rep++)
+			{
+				yield return (SRR_S01_LOCATION_RESOURCE)this.GetStructure("LOCATION_RESOURCE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SRR_S01_LOCATION_RESOURCE
+	///</summary>
+	public SRR_S01_LOCATION_RESOURCE AddLOCATION_RESOURCE()
+	{
+		return this.AddStructure("LOCATION_RESOURCE") as SRR_S01_LOCATION_RESOURCE;
+	}
+
+	///<summary>
+	///Removes the given SRR_S01_LOCATION_RESOURCE
+	///</summary>
+	public void RemoveLOCATION_RESOURCE(SRR_S01_LOCATION_RESOURCE toRemove)
+	{
+		this.RemoveStructure("LOCATION_RESOURCE", toRemove);
+	}
+
+	///<summary>
+	///Removes the SRR_S01_LOCATION_RESOURCE at the given index
+	///</summary>
+	public void RemoveLOCATION_RESOURCEAt(int index)
+	{
+		this.RemoveRepetition("LOCATION_RESOURCE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of SRR_S01_PERSONNEL_RESOURCE (a Group object) - creates it if necessary
 	///</summary>
@@ -217,6 +332,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SRR_S01_PERSONNEL_RESOURCE results 
+	 */ 
+	public IEnumerable<SRR_S01_PERSONNEL_RESOURCE> PERSONNEL_RESOURCEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PERSONNEL_RESOURCERepetitionsUsed; rep++)
+			{
+				yield return (SRR_S01_PERSONNEL_RESOURCE)this.GetStructure("PERSONNEL_RESOURCE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SRR_S01_PERSONNEL_RESOURCE
+	///</summary>
+	public SRR_S01_PERSONNEL_RESOURCE AddPERSONNEL_RESOURCE()
+	{
+		return this.AddStructure("PERSONNEL_RESOURCE") as SRR_S01_PERSONNEL_RESOURCE;
+	}
+
+	///<summary>
+	///Removes the given SRR_S01_PERSONNEL_RESOURCE
+	///</summary>
+	public void RemovePERSONNEL_RESOURCE(SRR_S01_PERSONNEL_RESOURCE toRemove)
+	{
+		this.RemoveStructure("PERSONNEL_RESOURCE", toRemove);
+	}
+
+	///<summary>
+	///Removes the SRR_S01_PERSONNEL_RESOURCE at the given index
+	///</summary>
+	public void RemovePERSONNEL_RESOURCEAt(int index)
+	{
+		this.RemoveRepetition("PERSONNEL_RESOURCE", index);
+	}
 
 }
 }

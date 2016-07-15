@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -134,6 +135,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ECD results 
+	 */ 
+	public IEnumerable<ECD> ECDs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ECDRepetitionsUsed; rep++)
+			{
+				yield return (ECD)this.GetStructure("ECD", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ECD
+	///</summary>
+	public ECD AddECD()
+	{
+		return this.AddStructure("ECD") as ECD;
+	}
+
+	///<summary>
+	///Removes the given ECD
+	///</summary>
+	public void RemoveECD(ECD toRemove)
+	{
+		this.RemoveStructure("ECD", toRemove);
+	}
+
+	///<summary>
+	///Removes the ECD at the given index
+	///</summary>
+	public void RemoveECDAt(int index)
+	{
+		this.RemoveRepetition("ECD", index);
+	}
 
 	///<summary>
 	/// Returns SAC (Specimen and container detail) - creates it if necessary

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the VAR results 
+	 */ 
+	public IEnumerable<VAR> VARs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < VARRepetitionsUsed; rep++)
+			{
+				yield return (VAR)this.GetStructure("VAR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new VAR
+	///</summary>
+	public VAR AddVAR()
+	{
+		return this.AddStructure("VAR") as VAR;
+	}
+
+	///<summary>
+	///Removes the given VAR
+	///</summary>
+	public void RemoveVAR(VAR toRemove)
+	{
+		this.RemoveStructure("VAR", toRemove);
+	}
+
+	///<summary>
+	///Removes the VAR at the given index
+	///</summary>
+	public void RemoveVARAt(int index)
+	{
+		this.RemoveRepetition("VAR", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CQU_I19_ROLE_GOAL (a Group object) - creates it if necessary
 	///</summary>
@@ -134,6 +173,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the CQU_I19_ROLE_GOAL results 
+	 */ 
+	public IEnumerable<CQU_I19_ROLE_GOAL> ROLE_GOALs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ROLE_GOALRepetitionsUsed; rep++)
+			{
+				yield return (CQU_I19_ROLE_GOAL)this.GetStructure("ROLE_GOAL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CQU_I19_ROLE_GOAL
+	///</summary>
+	public CQU_I19_ROLE_GOAL AddROLE_GOAL()
+	{
+		return this.AddStructure("ROLE_GOAL") as CQU_I19_ROLE_GOAL;
+	}
+
+	///<summary>
+	///Removes the given CQU_I19_ROLE_GOAL
+	///</summary>
+	public void RemoveROLE_GOAL(CQU_I19_ROLE_GOAL toRemove)
+	{
+		this.RemoveStructure("ROLE_GOAL", toRemove);
+	}
+
+	///<summary>
+	///Removes the CQU_I19_ROLE_GOAL at the given index
+	///</summary>
+	public void RemoveROLE_GOALAt(int index)
+	{
+		this.RemoveRepetition("ROLE_GOAL", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CQU_I19_GOAL_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -174,6 +251,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CQU_I19_GOAL_OBSERVATION results 
+	 */ 
+	public IEnumerable<CQU_I19_GOAL_OBSERVATION> GOAL_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < GOAL_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (CQU_I19_GOAL_OBSERVATION)this.GetStructure("GOAL_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CQU_I19_GOAL_OBSERVATION
+	///</summary>
+	public CQU_I19_GOAL_OBSERVATION AddGOAL_OBSERVATION()
+	{
+		return this.AddStructure("GOAL_OBSERVATION") as CQU_I19_GOAL_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given CQU_I19_GOAL_OBSERVATION
+	///</summary>
+	public void RemoveGOAL_OBSERVATION(CQU_I19_GOAL_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("GOAL_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the CQU_I19_GOAL_OBSERVATION at the given index
+	///</summary>
+	public void RemoveGOAL_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("GOAL_OBSERVATION", index);
+	}
 
 }
 }

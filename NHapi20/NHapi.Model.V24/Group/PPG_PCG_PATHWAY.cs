@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V24.Segment;
 using NHapi.Model.V24.Datatype;
 using NHapi.Base.Model;
@@ -95,6 +96,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of VAR (Variance) - creates it if necessary
 	///</summary>
@@ -135,6 +174,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the VAR results 
+	 */ 
+	public IEnumerable<VAR> VARs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < VARRepetitionsUsed; rep++)
+			{
+				yield return (VAR)this.GetStructure("VAR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new VAR
+	///</summary>
+	public VAR AddVAR()
+	{
+		return this.AddStructure("VAR") as VAR;
+	}
+
+	///<summary>
+	///Removes the given VAR
+	///</summary>
+	public void RemoveVAR(VAR toRemove)
+	{
+		this.RemoveStructure("VAR", toRemove);
+	}
+
+	///<summary>
+	///Removes the VAR at the given index
+	///</summary>
+	public void RemoveVARAt(int index)
+	{
+		this.RemoveRepetition("VAR", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of PPG_PCG_PATHWAY_ROLE (a Group object) - creates it if necessary
@@ -177,6 +254,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PPG_PCG_PATHWAY_ROLE results 
+	 */ 
+	public IEnumerable<PPG_PCG_PATHWAY_ROLE> PATHWAY_ROLEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PATHWAY_ROLERepetitionsUsed; rep++)
+			{
+				yield return (PPG_PCG_PATHWAY_ROLE)this.GetStructure("PATHWAY_ROLE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PPG_PCG_PATHWAY_ROLE
+	///</summary>
+	public PPG_PCG_PATHWAY_ROLE AddPATHWAY_ROLE()
+	{
+		return this.AddStructure("PATHWAY_ROLE") as PPG_PCG_PATHWAY_ROLE;
+	}
+
+	///<summary>
+	///Removes the given PPG_PCG_PATHWAY_ROLE
+	///</summary>
+	public void RemovePATHWAY_ROLE(PPG_PCG_PATHWAY_ROLE toRemove)
+	{
+		this.RemoveStructure("PATHWAY_ROLE", toRemove);
+	}
+
+	///<summary>
+	///Removes the PPG_PCG_PATHWAY_ROLE at the given index
+	///</summary>
+	public void RemovePATHWAY_ROLEAt(int index)
+	{
+		this.RemoveRepetition("PATHWAY_ROLE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of PPG_PCG_GOAL (a Group object) - creates it if necessary
 	///</summary>
@@ -217,6 +332,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PPG_PCG_GOAL results 
+	 */ 
+	public IEnumerable<PPG_PCG_GOAL> GOALs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < GOALRepetitionsUsed; rep++)
+			{
+				yield return (PPG_PCG_GOAL)this.GetStructure("GOAL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PPG_PCG_GOAL
+	///</summary>
+	public PPG_PCG_GOAL AddGOAL()
+	{
+		return this.AddStructure("GOAL") as PPG_PCG_GOAL;
+	}
+
+	///<summary>
+	///Removes the given PPG_PCG_GOAL
+	///</summary>
+	public void RemoveGOAL(PPG_PCG_GOAL toRemove)
+	{
+		this.RemoveStructure("GOAL", toRemove);
+	}
+
+	///<summary>
+	///Removes the PPG_PCG_GOAL at the given index
+	///</summary>
+	public void RemoveGOALAt(int index)
+	{
+		this.RemoveRepetition("GOAL", index);
+	}
 
 }
 }

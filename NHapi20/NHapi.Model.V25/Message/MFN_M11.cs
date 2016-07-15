@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V25.Group;
 using NHapi.Model.V25.Segment;
@@ -115,6 +116,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns MFI (Master File Identification) - creates it if necessary
 	///</summary>
@@ -171,6 +210,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFN_M11_MF_TEST_CALCULATED results 
+	 */ 
+	public IEnumerable<MFN_M11_MF_TEST_CALCULATED> MF_TEST_CALCULATEDs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MF_TEST_CALCULATEDRepetitionsUsed; rep++)
+			{
+				yield return (MFN_M11_MF_TEST_CALCULATED)this.GetStructure("MF_TEST_CALCULATED", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFN_M11_MF_TEST_CALCULATED
+	///</summary>
+	public MFN_M11_MF_TEST_CALCULATED AddMF_TEST_CALCULATED()
+	{
+		return this.AddStructure("MF_TEST_CALCULATED") as MFN_M11_MF_TEST_CALCULATED;
+	}
+
+	///<summary>
+	///Removes the given MFN_M11_MF_TEST_CALCULATED
+	///</summary>
+	public void RemoveMF_TEST_CALCULATED(MFN_M11_MF_TEST_CALCULATED toRemove)
+	{
+		this.RemoveStructure("MF_TEST_CALCULATED", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFN_M11_MF_TEST_CALCULATED at the given index
+	///</summary>
+	public void RemoveMF_TEST_CALCULATEDAt(int index)
+	{
+		this.RemoveRepetition("MF_TEST_CALCULATED", index);
+	}
 
 }
 }

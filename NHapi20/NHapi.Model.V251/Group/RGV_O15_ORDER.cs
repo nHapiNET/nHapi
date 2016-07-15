@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V251.Segment;
 using NHapi.Model.V251.Datatype;
 using NHapi.Base.Model;
@@ -95,6 +96,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RGV_O15_TIMING results 
+	 */ 
+	public IEnumerable<RGV_O15_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (RGV_O15_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RGV_O15_TIMING
+	///</summary>
+	public RGV_O15_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as RGV_O15_TIMING;
+	}
+
+	///<summary>
+	///Removes the given RGV_O15_TIMING
+	///</summary>
+	public void RemoveTIMING(RGV_O15_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the RGV_O15_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
+
 	///<summary>
 	/// Returns RGV_O15_ORDER_DETAIL (a Group object) - creates it if necessary
 	///</summary>
@@ -167,6 +206,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RGV_O15_GIVE results 
+	 */ 
+	public IEnumerable<RGV_O15_GIVE> GIVEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < GIVERepetitionsUsed; rep++)
+			{
+				yield return (RGV_O15_GIVE)this.GetStructure("GIVE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RGV_O15_GIVE
+	///</summary>
+	public RGV_O15_GIVE AddGIVE()
+	{
+		return this.AddStructure("GIVE") as RGV_O15_GIVE;
+	}
+
+	///<summary>
+	///Removes the given RGV_O15_GIVE
+	///</summary>
+	public void RemoveGIVE(RGV_O15_GIVE toRemove)
+	{
+		this.RemoveStructure("GIVE", toRemove);
+	}
+
+	///<summary>
+	///Removes the RGV_O15_GIVE at the given index
+	///</summary>
+	public void RemoveGIVEAt(int index)
+	{
+		this.RemoveRepetition("GIVE", index);
+	}
 
 }
 }

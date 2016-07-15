@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V28.Segment;
 using NHapi.Model.V28.Datatype;
 using NHapi.Base.Model;
@@ -99,6 +100,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RAS_O17_TIMING (a Group object) - creates it if necessary
 	///</summary>
@@ -139,6 +178,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RAS_O17_TIMING results 
+	 */ 
+	public IEnumerable<RAS_O17_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (RAS_O17_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RAS_O17_TIMING
+	///</summary>
+	public RAS_O17_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as RAS_O17_TIMING;
+	}
+
+	///<summary>
+	///Removes the given RAS_O17_TIMING
+	///</summary>
+	public void RemoveTIMING(RAS_O17_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the RAS_O17_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
 
 	///<summary>
 	/// Returns RAS_O17_ORDER_DETAIL (a Group object) - creates it if necessary
@@ -213,6 +290,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RAS_O17_ADMINISTRATION results 
+	 */ 
+	public IEnumerable<RAS_O17_ADMINISTRATION> ADMINISTRATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ADMINISTRATIONRepetitionsUsed; rep++)
+			{
+				yield return (RAS_O17_ADMINISTRATION)this.GetStructure("ADMINISTRATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RAS_O17_ADMINISTRATION
+	///</summary>
+	public RAS_O17_ADMINISTRATION AddADMINISTRATION()
+	{
+		return this.AddStructure("ADMINISTRATION") as RAS_O17_ADMINISTRATION;
+	}
+
+	///<summary>
+	///Removes the given RAS_O17_ADMINISTRATION
+	///</summary>
+	public void RemoveADMINISTRATION(RAS_O17_ADMINISTRATION toRemove)
+	{
+		this.RemoveStructure("ADMINISTRATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the RAS_O17_ADMINISTRATION at the given index
+	///</summary>
+	public void RemoveADMINISTRATIONAt(int index)
+	{
+		this.RemoveRepetition("ADMINISTRATION", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CTI (Clinical Trial Identification) - creates it if necessary
 	///</summary>
@@ -253,6 +368,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CTI results 
+	 */ 
+	public IEnumerable<CTI> CTIs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CTIRepetitionsUsed; rep++)
+			{
+				yield return (CTI)this.GetStructure("CTI", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CTI
+	///</summary>
+	public CTI AddCTI()
+	{
+		return this.AddStructure("CTI") as CTI;
+	}
+
+	///<summary>
+	///Removes the given CTI
+	///</summary>
+	public void RemoveCTI(CTI toRemove)
+	{
+		this.RemoveStructure("CTI", toRemove);
+	}
+
+	///<summary>
+	///Removes the CTI at the given index
+	///</summary>
+	public void RemoveCTIAt(int index)
+	{
+		this.RemoveRepetition("CTI", index);
+	}
 
 }
 }

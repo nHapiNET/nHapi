@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V231.Segment;
 using NHapi.Model.V231.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OM4 results 
+	 */ 
+	public IEnumerable<OM4> OM4s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OM4RepetitionsUsed; rep++)
+			{
+				yield return (OM4)this.GetStructure("OM4", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OM4
+	///</summary>
+	public OM4 AddOM4()
+	{
+		return this.AddStructure("OM4") as OM4;
+	}
+
+	///<summary>
+	///Removes the given OM4
+	///</summary>
+	public void RemoveOM4(OM4 toRemove)
+	{
+		this.RemoveStructure("OM4", toRemove);
+	}
+
+	///<summary>
+	///Removes the OM4 at the given index
+	///</summary>
+	public void RemoveOM4At(int index)
+	{
+		this.RemoveRepetition("OM4", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V231.Segment;
 using NHapi.Model.V231.Datatype;
 using NHapi.Base.Model;
@@ -108,6 +109,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RXA results 
+	 */ 
+	public IEnumerable<RXA> RXAs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RXARepetitionsUsed; rep++)
+			{
+				yield return (RXA)this.GetStructure("RXA", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RXA
+	///</summary>
+	public RXA AddRXA()
+	{
+		return this.AddStructure("RXA") as RXA;
+	}
+
+	///<summary>
+	///Removes the given RXA
+	///</summary>
+	public void RemoveRXA(RXA toRemove)
+	{
+		this.RemoveStructure("RXA", toRemove);
+	}
+
+	///<summary>
+	///Removes the RXA at the given index
+	///</summary>
+	public void RemoveRXAAt(int index)
+	{
+		this.RemoveRepetition("RXA", index);
+	}
 
 	///<summary>
 	/// Returns RXR (RXR - pharmacy/treatment route segment) - creates it if necessary

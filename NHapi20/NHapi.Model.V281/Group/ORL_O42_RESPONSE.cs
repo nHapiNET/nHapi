@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORL_O42_SPECIMEN results 
+	 */ 
+	public IEnumerable<ORL_O42_SPECIMEN> SPECIMENs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPECIMENRepetitionsUsed; rep++)
+			{
+				yield return (ORL_O42_SPECIMEN)this.GetStructure("SPECIMEN", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORL_O42_SPECIMEN
+	///</summary>
+	public ORL_O42_SPECIMEN AddSPECIMEN()
+	{
+		return this.AddStructure("SPECIMEN") as ORL_O42_SPECIMEN;
+	}
+
+	///<summary>
+	///Removes the given ORL_O42_SPECIMEN
+	///</summary>
+	public void RemoveSPECIMEN(ORL_O42_SPECIMEN toRemove)
+	{
+		this.RemoveStructure("SPECIMEN", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORL_O42_SPECIMEN at the given index
+	///</summary>
+	public void RemoveSPECIMENAt(int index)
+	{
+		this.RemoveRepetition("SPECIMEN", index);
+	}
 
 }
 }

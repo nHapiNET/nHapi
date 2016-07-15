@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
@@ -151,6 +152,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of SRM_S11_PATIENT (a Group object) - creates it if necessary
 	///</summary>
@@ -192,6 +231,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SRM_S11_PATIENT results 
+	 */ 
+	public IEnumerable<SRM_S11_PATIENT> PATIENTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PATIENTRepetitionsUsed; rep++)
+			{
+				yield return (SRM_S11_PATIENT)this.GetStructure("PATIENT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SRM_S11_PATIENT
+	///</summary>
+	public SRM_S11_PATIENT AddPATIENT()
+	{
+		return this.AddStructure("PATIENT") as SRM_S11_PATIENT;
+	}
+
+	///<summary>
+	///Removes the given SRM_S11_PATIENT
+	///</summary>
+	public void RemovePATIENT(SRM_S11_PATIENT toRemove)
+	{
+		this.RemoveStructure("PATIENT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SRM_S11_PATIENT at the given index
+	///</summary>
+	public void RemovePATIENTAt(int index)
+	{
+		this.RemoveRepetition("PATIENT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of SRM_S11_RESOURCES (a Group object) - creates it if necessary
 	///</summary>
@@ -232,6 +309,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SRM_S11_RESOURCES results 
+	 */ 
+	public IEnumerable<SRM_S11_RESOURCES> RESOURCESs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RESOURCESRepetitionsUsed; rep++)
+			{
+				yield return (SRM_S11_RESOURCES)this.GetStructure("RESOURCES", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SRM_S11_RESOURCES
+	///</summary>
+	public SRM_S11_RESOURCES AddRESOURCES()
+	{
+		return this.AddStructure("RESOURCES") as SRM_S11_RESOURCES;
+	}
+
+	///<summary>
+	///Removes the given SRM_S11_RESOURCES
+	///</summary>
+	public void RemoveRESOURCES(SRM_S11_RESOURCES toRemove)
+	{
+		this.RemoveStructure("RESOURCES", toRemove);
+	}
+
+	///<summary>
+	///Removes the SRM_S11_RESOURCES at the given index
+	///</summary>
+	public void RemoveRESOURCESAt(int index)
+	{
+		this.RemoveRepetition("RESOURCES", index);
+	}
 
 }
 }

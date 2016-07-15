@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -128,6 +129,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFN_M01_MF results 
+	 */ 
+	public IEnumerable<MFN_M01_MF> MFs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MFRepetitionsUsed; rep++)
+			{
+				yield return (MFN_M01_MF)this.GetStructure("MF", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFN_M01_MF
+	///</summary>
+	public MFN_M01_MF AddMF()
+	{
+		return this.AddStructure("MF") as MFN_M01_MF;
+	}
+
+	///<summary>
+	///Removes the given MFN_M01_MF
+	///</summary>
+	public void RemoveMF(MFN_M01_MF toRemove)
+	{
+		this.RemoveStructure("MF", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFN_M01_MF at the given index
+	///</summary>
+	public void RemoveMFAt(int index)
+	{
+		this.RemoveRepetition("MF", index);
+	}
 
 }
 }

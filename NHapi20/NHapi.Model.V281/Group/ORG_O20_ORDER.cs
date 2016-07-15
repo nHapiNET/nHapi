@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -101,6 +102,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ORG_O20_TIMING (a Group object) - creates it if necessary
 	///</summary>
@@ -141,6 +180,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORG_O20_TIMING results 
+	 */ 
+	public IEnumerable<ORG_O20_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (ORG_O20_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORG_O20_TIMING
+	///</summary>
+	public ORG_O20_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as ORG_O20_TIMING;
+	}
+
+	///<summary>
+	///Removes the given ORG_O20_TIMING
+	///</summary>
+	public void RemoveTIMING(ORG_O20_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORG_O20_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
 
 	///<summary>
 	/// Returns ORG_O20_OBSERVATION_GROUP (a Group object) - creates it if necessary
@@ -199,6 +276,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRT2s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRT2RepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT2", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT2()
+	{
+		return this.AddStructure("PRT2") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT2(PRT toRemove)
+	{
+		this.RemoveStructure("PRT2", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRT2At(int index)
+	{
+		this.RemoveRepetition("PRT2", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of NTE (Notes and Comments) - creates it if necessary
 	///</summary>
@@ -239,6 +354,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of CTI (Clinical Trial Identification) - creates it if necessary
@@ -281,6 +434,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the CTI results 
+	 */ 
+	public IEnumerable<CTI> CTIs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CTIRepetitionsUsed; rep++)
+			{
+				yield return (CTI)this.GetStructure("CTI", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CTI
+	///</summary>
+	public CTI AddCTI()
+	{
+		return this.AddStructure("CTI") as CTI;
+	}
+
+	///<summary>
+	///Removes the given CTI
+	///</summary>
+	public void RemoveCTI(CTI toRemove)
+	{
+		this.RemoveStructure("CTI", toRemove);
+	}
+
+	///<summary>
+	///Removes the CTI at the given index
+	///</summary>
+	public void RemoveCTIAt(int index)
+	{
+		this.RemoveRepetition("CTI", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ORG_O20_SPECIMEN (a Group object) - creates it if necessary
 	///</summary>
@@ -321,6 +512,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORG_O20_SPECIMEN results 
+	 */ 
+	public IEnumerable<ORG_O20_SPECIMEN> SPECIMENs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPECIMENRepetitionsUsed; rep++)
+			{
+				yield return (ORG_O20_SPECIMEN)this.GetStructure("SPECIMEN", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORG_O20_SPECIMEN
+	///</summary>
+	public ORG_O20_SPECIMEN AddSPECIMEN()
+	{
+		return this.AddStructure("SPECIMEN") as ORG_O20_SPECIMEN;
+	}
+
+	///<summary>
+	///Removes the given ORG_O20_SPECIMEN
+	///</summary>
+	public void RemoveSPECIMEN(ORG_O20_SPECIMEN toRemove)
+	{
+		this.RemoveStructure("SPECIMEN", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORG_O20_SPECIMEN at the given index
+	///</summary>
+	public void RemoveSPECIMENAt(int index)
+	{
+		this.RemoveRepetition("SPECIMEN", index);
+	}
 
 }
 }

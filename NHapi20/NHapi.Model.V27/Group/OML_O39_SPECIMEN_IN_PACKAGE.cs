@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -91,6 +92,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OML_O39_SPECIMEN_OBSERVATION results 
+	 */ 
+	public IEnumerable<OML_O39_SPECIMEN_OBSERVATION> SPECIMEN_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPECIMEN_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (OML_O39_SPECIMEN_OBSERVATION)this.GetStructure("SPECIMEN_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OML_O39_SPECIMEN_OBSERVATION
+	///</summary>
+	public OML_O39_SPECIMEN_OBSERVATION AddSPECIMEN_OBSERVATION()
+	{
+		return this.AddStructure("SPECIMEN_OBSERVATION") as OML_O39_SPECIMEN_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given OML_O39_SPECIMEN_OBSERVATION
+	///</summary>
+	public void RemoveSPECIMEN_OBSERVATION(OML_O39_SPECIMEN_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("SPECIMEN_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the OML_O39_SPECIMEN_OBSERVATION at the given index
+	///</summary>
+	public void RemoveSPECIMEN_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("SPECIMEN_OBSERVATION", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OML_O39_SPECIMEN_CONTAINER_IN_PACKAGE (a Group object) - creates it if necessary
 	///</summary>
@@ -131,6 +170,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OML_O39_SPECIMEN_CONTAINER_IN_PACKAGE results 
+	 */ 
+	public IEnumerable<OML_O39_SPECIMEN_CONTAINER_IN_PACKAGE> SPECIMEN_CONTAINER_IN_PACKAGEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPECIMEN_CONTAINER_IN_PACKAGERepetitionsUsed; rep++)
+			{
+				yield return (OML_O39_SPECIMEN_CONTAINER_IN_PACKAGE)this.GetStructure("SPECIMEN_CONTAINER_IN_PACKAGE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OML_O39_SPECIMEN_CONTAINER_IN_PACKAGE
+	///</summary>
+	public OML_O39_SPECIMEN_CONTAINER_IN_PACKAGE AddSPECIMEN_CONTAINER_IN_PACKAGE()
+	{
+		return this.AddStructure("SPECIMEN_CONTAINER_IN_PACKAGE") as OML_O39_SPECIMEN_CONTAINER_IN_PACKAGE;
+	}
+
+	///<summary>
+	///Removes the given OML_O39_SPECIMEN_CONTAINER_IN_PACKAGE
+	///</summary>
+	public void RemoveSPECIMEN_CONTAINER_IN_PACKAGE(OML_O39_SPECIMEN_CONTAINER_IN_PACKAGE toRemove)
+	{
+		this.RemoveStructure("SPECIMEN_CONTAINER_IN_PACKAGE", toRemove);
+	}
+
+	///<summary>
+	///Removes the OML_O39_SPECIMEN_CONTAINER_IN_PACKAGE at the given index
+	///</summary>
+	public void RemoveSPECIMEN_CONTAINER_IN_PACKAGEAt(int index)
+	{
+		this.RemoveRepetition("SPECIMEN_CONTAINER_IN_PACKAGE", index);
+	}
 
 }
 }

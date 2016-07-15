@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V24.Segment;
 using NHapi.Model.V24.Datatype;
 using NHapi.Base.Model;
@@ -106,6 +107,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PPV_PCA_GOAL results 
+	 */ 
+	public IEnumerable<PPV_PCA_GOAL> GOALs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < GOALRepetitionsUsed; rep++)
+			{
+				yield return (PPV_PCA_GOAL)this.GetStructure("GOAL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PPV_PCA_GOAL
+	///</summary>
+	public PPV_PCA_GOAL AddGOAL()
+	{
+		return this.AddStructure("GOAL") as PPV_PCA_GOAL;
+	}
+
+	///<summary>
+	///Removes the given PPV_PCA_GOAL
+	///</summary>
+	public void RemoveGOAL(PPV_PCA_GOAL toRemove)
+	{
+		this.RemoveStructure("GOAL", toRemove);
+	}
+
+	///<summary>
+	///Removes the PPV_PCA_GOAL at the given index
+	///</summary>
+	public void RemoveGOALAt(int index)
+	{
+		this.RemoveRepetition("GOAL", index);
+	}
 
 }
 }

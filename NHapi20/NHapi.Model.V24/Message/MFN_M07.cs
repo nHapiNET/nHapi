@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -128,6 +129,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFN_M07_MF_CLIN_STUDY_SCHED results 
+	 */ 
+	public IEnumerable<MFN_M07_MF_CLIN_STUDY_SCHED> MF_CLIN_STUDY_SCHEDs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MF_CLIN_STUDY_SCHEDRepetitionsUsed; rep++)
+			{
+				yield return (MFN_M07_MF_CLIN_STUDY_SCHED)this.GetStructure("MF_CLIN_STUDY_SCHED", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFN_M07_MF_CLIN_STUDY_SCHED
+	///</summary>
+	public MFN_M07_MF_CLIN_STUDY_SCHED AddMF_CLIN_STUDY_SCHED()
+	{
+		return this.AddStructure("MF_CLIN_STUDY_SCHED") as MFN_M07_MF_CLIN_STUDY_SCHED;
+	}
+
+	///<summary>
+	///Removes the given MFN_M07_MF_CLIN_STUDY_SCHED
+	///</summary>
+	public void RemoveMF_CLIN_STUDY_SCHED(MFN_M07_MF_CLIN_STUDY_SCHED toRemove)
+	{
+		this.RemoveStructure("MF_CLIN_STUDY_SCHED", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFN_M07_MF_CLIN_STUDY_SCHED at the given index
+	///</summary>
+	public void RemoveMF_CLIN_STUDY_SCHEDAt(int index)
+	{
+		this.RemoveRepetition("MF_CLIN_STUDY_SCHED", index);
+	}
 
 }
 }

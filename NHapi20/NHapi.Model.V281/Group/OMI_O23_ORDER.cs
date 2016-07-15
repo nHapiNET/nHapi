@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -105,6 +106,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OMI_O23_TIMING (a Group object) - creates it if necessary
 	///</summary>
@@ -145,6 +184,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OMI_O23_TIMING results 
+	 */ 
+	public IEnumerable<OMI_O23_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (OMI_O23_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OMI_O23_TIMING
+	///</summary>
+	public OMI_O23_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as OMI_O23_TIMING;
+	}
+
+	///<summary>
+	///Removes the given OMI_O23_TIMING
+	///</summary>
+	public void RemoveTIMING(OMI_O23_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the OMI_O23_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
 
 	///<summary>
 	/// Returns OBR (Observation Request) - creates it if necessary
@@ -203,6 +280,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of PRT2 (Participation Information) - creates it if necessary
 	///</summary>
@@ -243,6 +358,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRT2s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRT2RepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT2", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT2()
+	{
+		return this.AddStructure("PRT2") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT2(PRT toRemove)
+	{
+		this.RemoveStructure("PRT2", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRT2At(int index)
+	{
+		this.RemoveRepetition("PRT2", index);
+	}
 
 	///<summary>
 	/// Returns CTD (Contact Data) - creates it if necessary
@@ -301,6 +454,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the DG1 results 
+	 */ 
+	public IEnumerable<DG1> DG1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DG1RepetitionsUsed; rep++)
+			{
+				yield return (DG1)this.GetStructure("DG1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DG1
+	///</summary>
+	public DG1 AddDG1()
+	{
+		return this.AddStructure("DG1") as DG1;
+	}
+
+	///<summary>
+	///Removes the given DG1
+	///</summary>
+	public void RemoveDG1(DG1 toRemove)
+	{
+		this.RemoveStructure("DG1", toRemove);
+	}
+
+	///<summary>
+	///Removes the DG1 at the given index
+	///</summary>
+	public void RemoveDG1At(int index)
+	{
+		this.RemoveRepetition("DG1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OMI_O23_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -342,6 +533,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OMI_O23_OBSERVATION results 
+	 */ 
+	public IEnumerable<OMI_O23_OBSERVATION> OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (OMI_O23_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OMI_O23_OBSERVATION
+	///</summary>
+	public OMI_O23_OBSERVATION AddOBSERVATION()
+	{
+		return this.AddStructure("OBSERVATION") as OMI_O23_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given OMI_O23_OBSERVATION
+	///</summary>
+	public void RemoveOBSERVATION(OMI_O23_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the OMI_O23_OBSERVATION at the given index
+	///</summary>
+	public void RemoveOBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of IPC (Imaging Procedure Control Segment) - creates it if necessary
 	///</summary>
@@ -382,6 +611,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the IPC results 
+	 */ 
+	public IEnumerable<IPC> IPCs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < IPCRepetitionsUsed; rep++)
+			{
+				yield return (IPC)this.GetStructure("IPC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new IPC
+	///</summary>
+	public IPC AddIPC()
+	{
+		return this.AddStructure("IPC") as IPC;
+	}
+
+	///<summary>
+	///Removes the given IPC
+	///</summary>
+	public void RemoveIPC(IPC toRemove)
+	{
+		this.RemoveStructure("IPC", toRemove);
+	}
+
+	///<summary>
+	///Removes the IPC at the given index
+	///</summary>
+	public void RemoveIPCAt(int index)
+	{
+		this.RemoveRepetition("IPC", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V25.Segment;
 using NHapi.Model.V25.Datatype;
 using NHapi.Base.Model;
@@ -95,6 +96,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the TQ1 results 
+	 */ 
+	public IEnumerable<TQ1> TQ1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TQ1RepetitionsUsed; rep++)
+			{
+				yield return (TQ1)this.GetStructure("TQ1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new TQ1
+	///</summary>
+	public TQ1 AddTQ1()
+	{
+		return this.AddStructure("TQ1") as TQ1;
+	}
+
+	///<summary>
+	///Removes the given TQ1
+	///</summary>
+	public void RemoveTQ1(TQ1 toRemove)
+	{
+		this.RemoveStructure("TQ1", toRemove);
+	}
+
+	///<summary>
+	///Removes the TQ1 at the given index
+	///</summary>
+	public void RemoveTQ1At(int index)
+	{
+		this.RemoveRepetition("TQ1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of NTE (Notes and Comments) - creates it if necessary
 	///</summary>
@@ -135,6 +174,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
 
 	///<summary>
 	/// Returns SQR_S25_PATIENT (a Group object) - creates it if necessary
@@ -192,6 +269,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SQR_S25_RESOURCES results 
+	 */ 
+	public IEnumerable<SQR_S25_RESOURCES> RESOURCESs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RESOURCESRepetitionsUsed; rep++)
+			{
+				yield return (SQR_S25_RESOURCES)this.GetStructure("RESOURCES", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SQR_S25_RESOURCES
+	///</summary>
+	public SQR_S25_RESOURCES AddRESOURCES()
+	{
+		return this.AddStructure("RESOURCES") as SQR_S25_RESOURCES;
+	}
+
+	///<summary>
+	///Removes the given SQR_S25_RESOURCES
+	///</summary>
+	public void RemoveRESOURCES(SQR_S25_RESOURCES toRemove)
+	{
+		this.RemoveStructure("RESOURCES", toRemove);
+	}
+
+	///<summary>
+	///Removes the SQR_S25_RESOURCES at the given index
+	///</summary>
+	public void RemoveRESOURCESAt(int index)
+	{
+		this.RemoveRepetition("RESOURCES", index);
+	}
 
 }
 }

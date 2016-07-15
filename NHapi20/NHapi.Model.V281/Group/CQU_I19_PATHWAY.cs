@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the VAR results 
+	 */ 
+	public IEnumerable<VAR> VARs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < VARRepetitionsUsed; rep++)
+			{
+				yield return (VAR)this.GetStructure("VAR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new VAR
+	///</summary>
+	public VAR AddVAR()
+	{
+		return this.AddStructure("VAR") as VAR;
+	}
+
+	///<summary>
+	///Removes the given VAR
+	///</summary>
+	public void RemoveVAR(VAR toRemove)
+	{
+		this.RemoveStructure("VAR", toRemove);
+	}
+
+	///<summary>
+	///Removes the VAR at the given index
+	///</summary>
+	public void RemoveVARAt(int index)
+	{
+		this.RemoveRepetition("VAR", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CQU_I19_ROLE_PATHWAY (a Group object) - creates it if necessary
 	///</summary>
@@ -134,6 +173,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the CQU_I19_ROLE_PATHWAY results 
+	 */ 
+	public IEnumerable<CQU_I19_ROLE_PATHWAY> ROLE_PATHWAYs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ROLE_PATHWAYRepetitionsUsed; rep++)
+			{
+				yield return (CQU_I19_ROLE_PATHWAY)this.GetStructure("ROLE_PATHWAY", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CQU_I19_ROLE_PATHWAY
+	///</summary>
+	public CQU_I19_ROLE_PATHWAY AddROLE_PATHWAY()
+	{
+		return this.AddStructure("ROLE_PATHWAY") as CQU_I19_ROLE_PATHWAY;
+	}
+
+	///<summary>
+	///Removes the given CQU_I19_ROLE_PATHWAY
+	///</summary>
+	public void RemoveROLE_PATHWAY(CQU_I19_ROLE_PATHWAY toRemove)
+	{
+		this.RemoveStructure("ROLE_PATHWAY", toRemove);
+	}
+
+	///<summary>
+	///Removes the CQU_I19_ROLE_PATHWAY at the given index
+	///</summary>
+	public void RemoveROLE_PATHWAYAt(int index)
+	{
+		this.RemoveRepetition("ROLE_PATHWAY", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CQU_I19_PATHWAY_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -174,6 +251,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CQU_I19_PATHWAY_OBSERVATION results 
+	 */ 
+	public IEnumerable<CQU_I19_PATHWAY_OBSERVATION> PATHWAY_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PATHWAY_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (CQU_I19_PATHWAY_OBSERVATION)this.GetStructure("PATHWAY_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CQU_I19_PATHWAY_OBSERVATION
+	///</summary>
+	public CQU_I19_PATHWAY_OBSERVATION AddPATHWAY_OBSERVATION()
+	{
+		return this.AddStructure("PATHWAY_OBSERVATION") as CQU_I19_PATHWAY_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given CQU_I19_PATHWAY_OBSERVATION
+	///</summary>
+	public void RemovePATHWAY_OBSERVATION(CQU_I19_PATHWAY_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("PATHWAY_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the CQU_I19_PATHWAY_OBSERVATION at the given index
+	///</summary>
+	public void RemovePATHWAY_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("PATHWAY_OBSERVATION", index);
+	}
 
 }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V27.Group;
 using NHapi.Model.V27.Segment;
@@ -131,6 +132,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -252,6 +291,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the DB1 results 
+	 */ 
+	public IEnumerable<DB1> DB1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DB1RepetitionsUsed; rep++)
+			{
+				yield return (DB1)this.GetStructure("DB1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DB1
+	///</summary>
+	public DB1 AddDB1()
+	{
+		return this.AddStructure("DB1") as DB1;
+	}
+
+	///<summary>
+	///Removes the given DB1
+	///</summary>
+	public void RemoveDB1(DB1 toRemove)
+	{
+		this.RemoveStructure("DB1", toRemove);
+	}
+
+	///<summary>
+	///Removes the DB1 at the given index
+	///</summary>
+	public void RemoveDB1At(int index)
+	{
+		this.RemoveRepetition("DB1", index);
+	}
+
 	///<summary>
 	/// Returns PID2 (Patient Identification) - creates it if necessary
 	///</summary>
@@ -340,6 +417,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DB1 results 
+	 */ 
+	public IEnumerable<DB1> DB12s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DB12RepetitionsUsed; rep++)
+			{
+				yield return (DB1)this.GetStructure("DB12", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DB1
+	///</summary>
+	public DB1 AddDB12()
+	{
+		return this.AddStructure("DB12") as DB1;
+	}
+
+	///<summary>
+	///Removes the given DB1
+	///</summary>
+	public void RemoveDB12(DB1 toRemove)
+	{
+		this.RemoveStructure("DB12", toRemove);
+	}
+
+	///<summary>
+	///Removes the DB1 at the given index
+	///</summary>
+	public void RemoveDB12At(int index)
+	{
+		this.RemoveRepetition("DB12", index);
+	}
 
 }
 }

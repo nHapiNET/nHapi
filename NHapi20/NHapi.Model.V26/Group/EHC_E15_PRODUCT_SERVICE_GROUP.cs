@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V26.Segment;
 using NHapi.Model.V26.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the EHC_E15_PSL_ITEM_INFO results 
+	 */ 
+	public IEnumerable<EHC_E15_PSL_ITEM_INFO> PSL_ITEM_INFOs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PSL_ITEM_INFORepetitionsUsed; rep++)
+			{
+				yield return (EHC_E15_PSL_ITEM_INFO)this.GetStructure("PSL_ITEM_INFO", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EHC_E15_PSL_ITEM_INFO
+	///</summary>
+	public EHC_E15_PSL_ITEM_INFO AddPSL_ITEM_INFO()
+	{
+		return this.AddStructure("PSL_ITEM_INFO") as EHC_E15_PSL_ITEM_INFO;
+	}
+
+	///<summary>
+	///Removes the given EHC_E15_PSL_ITEM_INFO
+	///</summary>
+	public void RemovePSL_ITEM_INFO(EHC_E15_PSL_ITEM_INFO toRemove)
+	{
+		this.RemoveStructure("PSL_ITEM_INFO", toRemove);
+	}
+
+	///<summary>
+	///Removes the EHC_E15_PSL_ITEM_INFO at the given index
+	///</summary>
+	public void RemovePSL_ITEM_INFOAt(int index)
+	{
+		this.RemoveRepetition("PSL_ITEM_INFO", index);
+	}
 
 }
 }

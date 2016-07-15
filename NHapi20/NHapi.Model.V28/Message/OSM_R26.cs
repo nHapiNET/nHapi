@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V28.Group;
 using NHapi.Model.V28.Segment;
@@ -115,6 +116,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -171,6 +210,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OSM_R26_SHIPMENT results 
+	 */ 
+	public IEnumerable<OSM_R26_SHIPMENT> SHIPMENTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SHIPMENTRepetitionsUsed; rep++)
+			{
+				yield return (OSM_R26_SHIPMENT)this.GetStructure("SHIPMENT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OSM_R26_SHIPMENT
+	///</summary>
+	public OSM_R26_SHIPMENT AddSHIPMENT()
+	{
+		return this.AddStructure("SHIPMENT") as OSM_R26_SHIPMENT;
+	}
+
+	///<summary>
+	///Removes the given OSM_R26_SHIPMENT
+	///</summary>
+	public void RemoveSHIPMENT(OSM_R26_SHIPMENT toRemove)
+	{
+		this.RemoveStructure("SHIPMENT", toRemove);
+	}
+
+	///<summary>
+	///Removes the OSM_R26_SHIPMENT at the given index
+	///</summary>
+	public void RemoveSHIPMENTAt(int index)
+	{
+		this.RemoveRepetition("SHIPMENT", index);
+	}
 
 }
 }

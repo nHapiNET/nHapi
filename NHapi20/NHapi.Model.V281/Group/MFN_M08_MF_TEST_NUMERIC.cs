@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -113,6 +114,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns OM2 (Numeric Observation) - creates it if necessary
 	///</summary>
@@ -185,6 +224,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OM4 results 
+	 */ 
+	public IEnumerable<OM4> OM4s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OM4RepetitionsUsed; rep++)
+			{
+				yield return (OM4)this.GetStructure("OM4", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OM4
+	///</summary>
+	public OM4 AddOM4()
+	{
+		return this.AddStructure("OM4") as OM4;
+	}
+
+	///<summary>
+	///Removes the given OM4
+	///</summary>
+	public void RemoveOM4(OM4 toRemove)
+	{
+		this.RemoveStructure("OM4", toRemove);
+	}
+
+	///<summary>
+	///Removes the OM4 at the given index
+	///</summary>
+	public void RemoveOM4At(int index)
+	{
+		this.RemoveRepetition("OM4", index);
+	}
 
 }
 }

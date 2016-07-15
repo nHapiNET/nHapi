@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V25.Segment;
 using NHapi.Model.V25.Datatype;
 using NHapi.Base.Model;
@@ -106,6 +107,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PRC results 
+	 */ 
+	public IEnumerable<PRC> PRCs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRCRepetitionsUsed; rep++)
+			{
+				yield return (PRC)this.GetStructure("PRC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRC
+	///</summary>
+	public PRC AddPRC()
+	{
+		return this.AddStructure("PRC") as PRC;
+	}
+
+	///<summary>
+	///Removes the given PRC
+	///</summary>
+	public void RemovePRC(PRC toRemove)
+	{
+		this.RemoveStructure("PRC", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRC at the given index
+	///</summary>
+	public void RemovePRCAt(int index)
+	{
+		this.RemoveRepetition("PRC", index);
+	}
 
 }
 }

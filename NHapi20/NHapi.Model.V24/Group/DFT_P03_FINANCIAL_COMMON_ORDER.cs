@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V24.Segment;
 using NHapi.Model.V24.Datatype;
 using NHapi.Base.Model;
@@ -106,6 +107,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DFT_P03_FINANCIAL_OBSERVATION results 
+	 */ 
+	public IEnumerable<DFT_P03_FINANCIAL_OBSERVATION> FINANCIAL_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < FINANCIAL_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (DFT_P03_FINANCIAL_OBSERVATION)this.GetStructure("FINANCIAL_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DFT_P03_FINANCIAL_OBSERVATION
+	///</summary>
+	public DFT_P03_FINANCIAL_OBSERVATION AddFINANCIAL_OBSERVATION()
+	{
+		return this.AddStructure("FINANCIAL_OBSERVATION") as DFT_P03_FINANCIAL_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given DFT_P03_FINANCIAL_OBSERVATION
+	///</summary>
+	public void RemoveFINANCIAL_OBSERVATION(DFT_P03_FINANCIAL_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("FINANCIAL_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the DFT_P03_FINANCIAL_OBSERVATION at the given index
+	///</summary>
+	public void RemoveFINANCIAL_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("FINANCIAL_OBSERVATION", index);
+	}
 
 }
 }

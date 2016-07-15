@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V23.Segment;
 using NHapi.Model.V23.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of SRR_S05_PATIENT (a Group object) - creates it if necessary
 	///</summary>
@@ -134,6 +173,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SRR_S05_PATIENT results 
+	 */ 
+	public IEnumerable<SRR_S05_PATIENT> PATIENTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PATIENTRepetitionsUsed; rep++)
+			{
+				yield return (SRR_S05_PATIENT)this.GetStructure("PATIENT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SRR_S05_PATIENT
+	///</summary>
+	public SRR_S05_PATIENT AddPATIENT()
+	{
+		return this.AddStructure("PATIENT") as SRR_S05_PATIENT;
+	}
+
+	///<summary>
+	///Removes the given SRR_S05_PATIENT
+	///</summary>
+	public void RemovePATIENT(SRR_S05_PATIENT toRemove)
+	{
+		this.RemoveStructure("PATIENT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SRR_S05_PATIENT at the given index
+	///</summary>
+	public void RemovePATIENTAt(int index)
+	{
+		this.RemoveRepetition("PATIENT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of SRR_S05_RESOURCES (a Group object) - creates it if necessary
 	///</summary>
@@ -174,6 +251,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SRR_S05_RESOURCES results 
+	 */ 
+	public IEnumerable<SRR_S05_RESOURCES> RESOURCESs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RESOURCESRepetitionsUsed; rep++)
+			{
+				yield return (SRR_S05_RESOURCES)this.GetStructure("RESOURCES", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SRR_S05_RESOURCES
+	///</summary>
+	public SRR_S05_RESOURCES AddRESOURCES()
+	{
+		return this.AddStructure("RESOURCES") as SRR_S05_RESOURCES;
+	}
+
+	///<summary>
+	///Removes the given SRR_S05_RESOURCES
+	///</summary>
+	public void RemoveRESOURCES(SRR_S05_RESOURCES toRemove)
+	{
+		this.RemoveStructure("RESOURCES", toRemove);
+	}
+
+	///<summary>
+	///Removes the SRR_S05_RESOURCES at the given index
+	///</summary>
+	public void RemoveRESOURCESAt(int index)
+	{
+		this.RemoveRepetition("RESOURCES", index);
+	}
 
 }
 }

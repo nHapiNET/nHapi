@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -130,6 +131,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the EAN_U09_NOTIFICATION results 
+	 */ 
+	public IEnumerable<EAN_U09_NOTIFICATION> NOTIFICATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NOTIFICATIONRepetitionsUsed; rep++)
+			{
+				yield return (EAN_U09_NOTIFICATION)this.GetStructure("NOTIFICATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EAN_U09_NOTIFICATION
+	///</summary>
+	public EAN_U09_NOTIFICATION AddNOTIFICATION()
+	{
+		return this.AddStructure("NOTIFICATION") as EAN_U09_NOTIFICATION;
+	}
+
+	///<summary>
+	///Removes the given EAN_U09_NOTIFICATION
+	///</summary>
+	public void RemoveNOTIFICATION(EAN_U09_NOTIFICATION toRemove)
+	{
+		this.RemoveStructure("NOTIFICATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the EAN_U09_NOTIFICATION at the given index
+	///</summary>
+	public void RemoveNOTIFICATIONAt(int index)
+	{
+		this.RemoveRepetition("NOTIFICATION", index);
+	}
 
 	///<summary>
 	/// Returns ROL (Role) - creates it if necessary

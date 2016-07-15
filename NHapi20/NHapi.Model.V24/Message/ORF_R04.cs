@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -170,6 +171,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORF_R04_RESPONSE results 
+	 */ 
+	public IEnumerable<ORF_R04_RESPONSE> RESPONSEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RESPONSERepetitionsUsed; rep++)
+			{
+				yield return (ORF_R04_RESPONSE)this.GetStructure("RESPONSE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORF_R04_RESPONSE
+	///</summary>
+	public ORF_R04_RESPONSE AddRESPONSE()
+	{
+		return this.AddStructure("RESPONSE") as ORF_R04_RESPONSE;
+	}
+
+	///<summary>
+	///Removes the given ORF_R04_RESPONSE
+	///</summary>
+	public void RemoveRESPONSE(ORF_R04_RESPONSE toRemove)
+	{
+		this.RemoveStructure("RESPONSE", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORF_R04_RESPONSE at the given index
+	///</summary>
+	public void RemoveRESPONSEAt(int index)
+	{
+		this.RemoveRepetition("RESPONSE", index);
+	}
 
 	///<summary>
 	/// Returns ERR (Error) - creates it if necessary

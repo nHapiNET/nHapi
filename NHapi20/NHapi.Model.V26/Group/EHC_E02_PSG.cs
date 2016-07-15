@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V26.Segment;
 using NHapi.Model.V26.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PSL results 
+	 */ 
+	public IEnumerable<PSL> PSLs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PSLRepetitionsUsed; rep++)
+			{
+				yield return (PSL)this.GetStructure("PSL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PSL
+	///</summary>
+	public PSL AddPSL()
+	{
+		return this.AddStructure("PSL") as PSL;
+	}
+
+	///<summary>
+	///Removes the given PSL
+	///</summary>
+	public void RemovePSL(PSL toRemove)
+	{
+		this.RemoveStructure("PSL", toRemove);
+	}
+
+	///<summary>
+	///Removes the PSL at the given index
+	///</summary>
+	public void RemovePSLAt(int index)
+	{
+		this.RemoveRepetition("PSL", index);
+	}
 
 }
 }

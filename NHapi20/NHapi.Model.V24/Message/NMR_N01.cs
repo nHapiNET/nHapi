@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -164,6 +165,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the NMR_N01_CLOCK_AND_STATS_WITH_NOTES_ALT results 
+	 */ 
+	public IEnumerable<NMR_N01_CLOCK_AND_STATS_WITH_NOTES_ALT> CLOCK_AND_STATS_WITH_NOTES_ALTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CLOCK_AND_STATS_WITH_NOTES_ALTRepetitionsUsed; rep++)
+			{
+				yield return (NMR_N01_CLOCK_AND_STATS_WITH_NOTES_ALT)this.GetStructure("CLOCK_AND_STATS_WITH_NOTES_ALT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NMR_N01_CLOCK_AND_STATS_WITH_NOTES_ALT
+	///</summary>
+	public NMR_N01_CLOCK_AND_STATS_WITH_NOTES_ALT AddCLOCK_AND_STATS_WITH_NOTES_ALT()
+	{
+		return this.AddStructure("CLOCK_AND_STATS_WITH_NOTES_ALT") as NMR_N01_CLOCK_AND_STATS_WITH_NOTES_ALT;
+	}
+
+	///<summary>
+	///Removes the given NMR_N01_CLOCK_AND_STATS_WITH_NOTES_ALT
+	///</summary>
+	public void RemoveCLOCK_AND_STATS_WITH_NOTES_ALT(NMR_N01_CLOCK_AND_STATS_WITH_NOTES_ALT toRemove)
+	{
+		this.RemoveStructure("CLOCK_AND_STATS_WITH_NOTES_ALT", toRemove);
+	}
+
+	///<summary>
+	///Removes the NMR_N01_CLOCK_AND_STATS_WITH_NOTES_ALT at the given index
+	///</summary>
+	public void RemoveCLOCK_AND_STATS_WITH_NOTES_ALTAt(int index)
+	{
+		this.RemoveRepetition("CLOCK_AND_STATS_WITH_NOTES_ALT", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -113,6 +114,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ARV (Access Restriction) - creates it if necessary
 	///</summary>
@@ -154,6 +193,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ARV results 
+	 */ 
+	public IEnumerable<ARV> ARVs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ARVRepetitionsUsed; rep++)
+			{
+				yield return (ARV)this.GetStructure("ARV", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ARV
+	///</summary>
+	public ARV AddARV()
+	{
+		return this.AddStructure("ARV") as ARV;
+	}
+
+	///<summary>
+	///Removes the given ARV
+	///</summary>
+	public void RemoveARV(ARV toRemove)
+	{
+		this.RemoveStructure("ARV", toRemove);
+	}
+
+	///<summary>
+	///Removes the ARV at the given index
+	///</summary>
+	public void RemoveARVAt(int index)
+	{
+		this.RemoveRepetition("ARV", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of NTE (Notes and Comments) - creates it if necessary
 	///</summary>
@@ -194,6 +271,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
 
 	///<summary>
 	/// Returns BPS_O29_PATIENT_VISIT (a Group object) - creates it if necessary

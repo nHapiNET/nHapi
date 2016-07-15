@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V24.Segment;
 using NHapi.Model.V24.Datatype;
 using NHapi.Base.Model;
@@ -106,6 +107,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DFT_P11_OBSERVATION results 
+	 */ 
+	public IEnumerable<DFT_P11_OBSERVATION> OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (DFT_P11_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DFT_P11_OBSERVATION
+	///</summary>
+	public DFT_P11_OBSERVATION AddOBSERVATION()
+	{
+		return this.AddStructure("OBSERVATION") as DFT_P11_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given DFT_P11_OBSERVATION
+	///</summary>
+	public void RemoveOBSERVATION(DFT_P11_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the DFT_P11_OBSERVATION at the given index
+	///</summary>
+	public void RemoveOBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION", index);
+	}
 
 }
 }

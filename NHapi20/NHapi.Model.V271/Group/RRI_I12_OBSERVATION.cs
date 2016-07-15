@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V271.Segment;
 using NHapi.Model.V271.Datatype;
 using NHapi.Base.Model;
@@ -91,6 +92,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RRI_I12_RESULTS_NOTES (a Group object) - creates it if necessary
 	///</summary>
@@ -131,6 +170,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RRI_I12_RESULTS_NOTES results 
+	 */ 
+	public IEnumerable<RRI_I12_RESULTS_NOTES> RESULTS_NOTESs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RESULTS_NOTESRepetitionsUsed; rep++)
+			{
+				yield return (RRI_I12_RESULTS_NOTES)this.GetStructure("RESULTS_NOTES", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RRI_I12_RESULTS_NOTES
+	///</summary>
+	public RRI_I12_RESULTS_NOTES AddRESULTS_NOTES()
+	{
+		return this.AddStructure("RESULTS_NOTES") as RRI_I12_RESULTS_NOTES;
+	}
+
+	///<summary>
+	///Removes the given RRI_I12_RESULTS_NOTES
+	///</summary>
+	public void RemoveRESULTS_NOTES(RRI_I12_RESULTS_NOTES toRemove)
+	{
+		this.RemoveStructure("RESULTS_NOTES", toRemove);
+	}
+
+	///<summary>
+	///Removes the RRI_I12_RESULTS_NOTES at the given index
+	///</summary>
+	public void RemoveRESULTS_NOTESAt(int index)
+	{
+		this.RemoveRepetition("RESULTS_NOTES", index);
+	}
 
 }
 }

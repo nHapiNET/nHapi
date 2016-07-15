@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -91,6 +92,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OBR results 
+	 */ 
+	public IEnumerable<OBR> OBRs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBRRepetitionsUsed; rep++)
+			{
+				yield return (OBR)this.GetStructure("OBR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OBR
+	///</summary>
+	public OBR AddOBR()
+	{
+		return this.AddStructure("OBR") as OBR;
+	}
+
+	///<summary>
+	///Removes the given OBR
+	///</summary>
+	public void RemoveOBR(OBR toRemove)
+	{
+		this.RemoveStructure("OBR", toRemove);
+	}
+
+	///<summary>
+	///Removes the OBR at the given index
+	///</summary>
+	public void RemoveOBRAt(int index)
+	{
+		this.RemoveRepetition("OBR", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of SPM (Specimen) - creates it if necessary
 	///</summary>
@@ -131,6 +170,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SPM results 
+	 */ 
+	public IEnumerable<SPM> SPMs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPMRepetitionsUsed; rep++)
+			{
+				yield return (SPM)this.GetStructure("SPM", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SPM
+	///</summary>
+	public SPM AddSPM()
+	{
+		return this.AddStructure("SPM") as SPM;
+	}
+
+	///<summary>
+	///Removes the given SPM
+	///</summary>
+	public void RemoveSPM(SPM toRemove)
+	{
+		this.RemoveStructure("SPM", toRemove);
+	}
+
+	///<summary>
+	///Removes the SPM at the given index
+	///</summary>
+	public void RemoveSPMAt(int index)
+	{
+		this.RemoveRepetition("SPM", index);
+	}
 
 }
 }

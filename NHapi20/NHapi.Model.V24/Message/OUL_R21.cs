@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -166,6 +167,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OUL_R21_ORDER_OBSERVATION results 
+	 */ 
+	public IEnumerable<OUL_R21_ORDER_OBSERVATION> ORDER_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDER_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (OUL_R21_ORDER_OBSERVATION)this.GetStructure("ORDER_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OUL_R21_ORDER_OBSERVATION
+	///</summary>
+	public OUL_R21_ORDER_OBSERVATION AddORDER_OBSERVATION()
+	{
+		return this.AddStructure("ORDER_OBSERVATION") as OUL_R21_ORDER_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given OUL_R21_ORDER_OBSERVATION
+	///</summary>
+	public void RemoveORDER_OBSERVATION(OUL_R21_ORDER_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("ORDER_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the OUL_R21_ORDER_OBSERVATION at the given index
+	///</summary>
+	public void RemoveORDER_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("ORDER_OBSERVATION", index);
+	}
 
 	///<summary>
 	/// Returns DSC (Continuation Pointer) - creates it if necessary

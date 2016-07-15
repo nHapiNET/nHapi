@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V24.Segment;
 using NHapi.Model.V24.Datatype;
 using NHapi.Base.Model;
@@ -124,6 +125,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RGV_O15_GIVE results 
+	 */ 
+	public IEnumerable<RGV_O15_GIVE> GIVEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < GIVERepetitionsUsed; rep++)
+			{
+				yield return (RGV_O15_GIVE)this.GetStructure("GIVE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RGV_O15_GIVE
+	///</summary>
+	public RGV_O15_GIVE AddGIVE()
+	{
+		return this.AddStructure("GIVE") as RGV_O15_GIVE;
+	}
+
+	///<summary>
+	///Removes the given RGV_O15_GIVE
+	///</summary>
+	public void RemoveGIVE(RGV_O15_GIVE toRemove)
+	{
+		this.RemoveStructure("GIVE", toRemove);
+	}
+
+	///<summary>
+	///Removes the RGV_O15_GIVE at the given index
+	///</summary>
+	public void RemoveGIVEAt(int index)
+	{
+		this.RemoveRepetition("GIVE", index);
+	}
 
 }
 }

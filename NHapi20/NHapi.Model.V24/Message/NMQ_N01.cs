@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -128,6 +129,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the NMQ_N01_CLOCK_AND_STATISTICS results 
+	 */ 
+	public IEnumerable<NMQ_N01_CLOCK_AND_STATISTICS> CLOCK_AND_STATISTICSs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CLOCK_AND_STATISTICSRepetitionsUsed; rep++)
+			{
+				yield return (NMQ_N01_CLOCK_AND_STATISTICS)this.GetStructure("CLOCK_AND_STATISTICS", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NMQ_N01_CLOCK_AND_STATISTICS
+	///</summary>
+	public NMQ_N01_CLOCK_AND_STATISTICS AddCLOCK_AND_STATISTICS()
+	{
+		return this.AddStructure("CLOCK_AND_STATISTICS") as NMQ_N01_CLOCK_AND_STATISTICS;
+	}
+
+	///<summary>
+	///Removes the given NMQ_N01_CLOCK_AND_STATISTICS
+	///</summary>
+	public void RemoveCLOCK_AND_STATISTICS(NMQ_N01_CLOCK_AND_STATISTICS toRemove)
+	{
+		this.RemoveStructure("CLOCK_AND_STATISTICS", toRemove);
+	}
+
+	///<summary>
+	///Removes the NMQ_N01_CLOCK_AND_STATISTICS at the given index
+	///</summary>
+	public void RemoveCLOCK_AND_STATISTICSAt(int index)
+	{
+		this.RemoveRepetition("CLOCK_AND_STATISTICS", index);
+	}
 
 }
 }

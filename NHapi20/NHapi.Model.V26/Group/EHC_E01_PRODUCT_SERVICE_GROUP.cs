@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V26.Segment;
 using NHapi.Model.V26.Datatype;
 using NHapi.Base.Model;
@@ -99,6 +100,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the LOC results 
+	 */ 
+	public IEnumerable<LOC> LOCs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < LOCRepetitionsUsed; rep++)
+			{
+				yield return (LOC)this.GetStructure("LOC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new LOC
+	///</summary>
+	public LOC AddLOC()
+	{
+		return this.AddStructure("LOC") as LOC;
+	}
+
+	///<summary>
+	///Removes the given LOC
+	///</summary>
+	public void RemoveLOC(LOC toRemove)
+	{
+		this.RemoveStructure("LOC", toRemove);
+	}
+
+	///<summary>
+	///Removes the LOC at the given index
+	///</summary>
+	public void RemoveLOCAt(int index)
+	{
+		this.RemoveRepetition("LOC", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ROL (Role) - creates it if necessary
 	///</summary>
@@ -139,6 +178,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ROL results 
+	 */ 
+	public IEnumerable<ROL> ROLs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ROLRepetitionsUsed; rep++)
+			{
+				yield return (ROL)this.GetStructure("ROL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ROL
+	///</summary>
+	public ROL AddROL()
+	{
+		return this.AddStructure("ROL") as ROL;
+	}
+
+	///<summary>
+	///Removes the given ROL
+	///</summary>
+	public void RemoveROL(ROL toRemove)
+	{
+		this.RemoveStructure("ROL", toRemove);
+	}
+
+	///<summary>
+	///Removes the ROL at the given index
+	///</summary>
+	public void RemoveROLAt(int index)
+	{
+		this.RemoveRepetition("ROL", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of EHC_E01_PATIENT_INFO (a Group object) - creates it if necessary
@@ -181,6 +258,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the EHC_E01_PATIENT_INFO results 
+	 */ 
+	public IEnumerable<EHC_E01_PATIENT_INFO> PATIENT_INFOs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PATIENT_INFORepetitionsUsed; rep++)
+			{
+				yield return (EHC_E01_PATIENT_INFO)this.GetStructure("PATIENT_INFO", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EHC_E01_PATIENT_INFO
+	///</summary>
+	public EHC_E01_PATIENT_INFO AddPATIENT_INFO()
+	{
+		return this.AddStructure("PATIENT_INFO") as EHC_E01_PATIENT_INFO;
+	}
+
+	///<summary>
+	///Removes the given EHC_E01_PATIENT_INFO
+	///</summary>
+	public void RemovePATIENT_INFO(EHC_E01_PATIENT_INFO toRemove)
+	{
+		this.RemoveStructure("PATIENT_INFO", toRemove);
+	}
+
+	///<summary>
+	///Removes the EHC_E01_PATIENT_INFO at the given index
+	///</summary>
+	public void RemovePATIENT_INFOAt(int index)
+	{
+		this.RemoveRepetition("PATIENT_INFO", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of EHC_E01_PRODUCT_SERVICE_LINE_ITEM (a Group object) - creates it if necessary
 	///</summary>
@@ -221,6 +336,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the EHC_E01_PRODUCT_SERVICE_LINE_ITEM results 
+	 */ 
+	public IEnumerable<EHC_E01_PRODUCT_SERVICE_LINE_ITEM> PRODUCT_SERVICE_LINE_ITEMs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRODUCT_SERVICE_LINE_ITEMRepetitionsUsed; rep++)
+			{
+				yield return (EHC_E01_PRODUCT_SERVICE_LINE_ITEM)this.GetStructure("PRODUCT_SERVICE_LINE_ITEM", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EHC_E01_PRODUCT_SERVICE_LINE_ITEM
+	///</summary>
+	public EHC_E01_PRODUCT_SERVICE_LINE_ITEM AddPRODUCT_SERVICE_LINE_ITEM()
+	{
+		return this.AddStructure("PRODUCT_SERVICE_LINE_ITEM") as EHC_E01_PRODUCT_SERVICE_LINE_ITEM;
+	}
+
+	///<summary>
+	///Removes the given EHC_E01_PRODUCT_SERVICE_LINE_ITEM
+	///</summary>
+	public void RemovePRODUCT_SERVICE_LINE_ITEM(EHC_E01_PRODUCT_SERVICE_LINE_ITEM toRemove)
+	{
+		this.RemoveStructure("PRODUCT_SERVICE_LINE_ITEM", toRemove);
+	}
+
+	///<summary>
+	///Removes the EHC_E01_PRODUCT_SERVICE_LINE_ITEM at the given index
+	///</summary>
+	public void RemovePRODUCT_SERVICE_LINE_ITEMAt(int index)
+	{
+		this.RemoveRepetition("PRODUCT_SERVICE_LINE_ITEM", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of EHC_E01_PROCEDURE (a Group object) - creates it if necessary
@@ -263,6 +416,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the EHC_E01_PROCEDURE results 
+	 */ 
+	public IEnumerable<EHC_E01_PROCEDURE> PROCEDUREs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROCEDURERepetitionsUsed; rep++)
+			{
+				yield return (EHC_E01_PROCEDURE)this.GetStructure("PROCEDURE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EHC_E01_PROCEDURE
+	///</summary>
+	public EHC_E01_PROCEDURE AddPROCEDURE()
+	{
+		return this.AddStructure("PROCEDURE") as EHC_E01_PROCEDURE;
+	}
+
+	///<summary>
+	///Removes the given EHC_E01_PROCEDURE
+	///</summary>
+	public void RemovePROCEDURE(EHC_E01_PROCEDURE toRemove)
+	{
+		this.RemoveStructure("PROCEDURE", toRemove);
+	}
+
+	///<summary>
+	///Removes the EHC_E01_PROCEDURE at the given index
+	///</summary>
+	public void RemovePROCEDUREAt(int index)
+	{
+		this.RemoveRepetition("PROCEDURE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of EHC_E01_INVOICE_PROCESSING (a Group object) - creates it if necessary
 	///</summary>
@@ -303,6 +494,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the EHC_E01_INVOICE_PROCESSING results 
+	 */ 
+	public IEnumerable<EHC_E01_INVOICE_PROCESSING> INVOICE_PROCESSINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < INVOICE_PROCESSINGRepetitionsUsed; rep++)
+			{
+				yield return (EHC_E01_INVOICE_PROCESSING)this.GetStructure("INVOICE_PROCESSING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EHC_E01_INVOICE_PROCESSING
+	///</summary>
+	public EHC_E01_INVOICE_PROCESSING AddINVOICE_PROCESSING()
+	{
+		return this.AddStructure("INVOICE_PROCESSING") as EHC_E01_INVOICE_PROCESSING;
+	}
+
+	///<summary>
+	///Removes the given EHC_E01_INVOICE_PROCESSING
+	///</summary>
+	public void RemoveINVOICE_PROCESSING(EHC_E01_INVOICE_PROCESSING toRemove)
+	{
+		this.RemoveStructure("INVOICE_PROCESSING", toRemove);
+	}
+
+	///<summary>
+	///Removes the EHC_E01_INVOICE_PROCESSING at the given index
+	///</summary>
+	public void RemoveINVOICE_PROCESSINGAt(int index)
+	{
+		this.RemoveRepetition("INVOICE_PROCESSING", index);
+	}
 
 }
 }

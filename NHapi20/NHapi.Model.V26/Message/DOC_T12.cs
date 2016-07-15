@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V26.Group;
 using NHapi.Model.V26.Segment;
@@ -184,6 +185,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DOC_T12_RESULT results 
+	 */ 
+	public IEnumerable<DOC_T12_RESULT> RESULTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RESULTRepetitionsUsed; rep++)
+			{
+				yield return (DOC_T12_RESULT)this.GetStructure("RESULT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DOC_T12_RESULT
+	///</summary>
+	public DOC_T12_RESULT AddRESULT()
+	{
+		return this.AddStructure("RESULT") as DOC_T12_RESULT;
+	}
+
+	///<summary>
+	///Removes the given DOC_T12_RESULT
+	///</summary>
+	public void RemoveRESULT(DOC_T12_RESULT toRemove)
+	{
+		this.RemoveStructure("RESULT", toRemove);
+	}
+
+	///<summary>
+	///Removes the DOC_T12_RESULT at the given index
+	///</summary>
+	public void RemoveRESULTAt(int index)
+	{
+		this.RemoveRepetition("RESULT", index);
+	}
 
 	///<summary>
 	/// Returns DSC (Continuation Pointer) - creates it if necessary

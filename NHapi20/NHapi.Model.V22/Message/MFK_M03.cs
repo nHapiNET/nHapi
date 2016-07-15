@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V22.Group;
 using NHapi.Model.V22.Segment;
@@ -164,6 +165,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFA results 
+	 */ 
+	public IEnumerable<MFA> MFAs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MFARepetitionsUsed; rep++)
+			{
+				yield return (MFA)this.GetStructure("MFA", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFA
+	///</summary>
+	public MFA AddMFA()
+	{
+		return this.AddStructure("MFA") as MFA;
+	}
+
+	///<summary>
+	///Removes the given MFA
+	///</summary>
+	public void RemoveMFA(MFA toRemove)
+	{
+		this.RemoveStructure("MFA", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFA at the given index
+	///</summary>
+	public void RemoveMFAAt(int index)
+	{
+		this.RemoveRepetition("MFA", index);
+	}
 
 }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V271.Group;
 using NHapi.Model.V271.Segment;
@@ -143,6 +144,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -248,6 +287,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ROL results 
+	 */ 
+	public IEnumerable<ROL> ROLs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ROLRepetitionsUsed; rep++)
+			{
+				yield return (ROL)this.GetStructure("ROL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ROL
+	///</summary>
+	public ROL AddROL()
+	{
+		return this.AddStructure("ROL") as ROL;
+	}
+
+	///<summary>
+	///Removes the given ROL
+	///</summary>
+	public void RemoveROL(ROL toRemove)
+	{
+		this.RemoveStructure("ROL", toRemove);
+	}
+
+	///<summary>
+	///Removes the ROL at the given index
+	///</summary>
+	public void RemoveROLAt(int index)
+	{
+		this.RemoveRepetition("ROL", index);
+	}
+
 	///<summary>
 	/// Returns PV1 (Patient Visit) - creates it if necessary
 	///</summary>
@@ -321,6 +398,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ROL results 
+	 */ 
+	public IEnumerable<ROL> ROL2s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ROL2RepetitionsUsed; rep++)
+			{
+				yield return (ROL)this.GetStructure("ROL2", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ROL
+	///</summary>
+	public ROL AddROL2()
+	{
+		return this.AddStructure("ROL2") as ROL;
+	}
+
+	///<summary>
+	///Removes the given ROL
+	///</summary>
+	public void RemoveROL2(ROL toRemove)
+	{
+		this.RemoveStructure("ROL2", toRemove);
+	}
+
+	///<summary>
+	///Removes the ROL at the given index
+	///</summary>
+	public void RemoveROL2At(int index)
+	{
+		this.RemoveRepetition("ROL2", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of DB1 (Disability) - creates it if necessary
 	///</summary>
@@ -361,6 +476,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DB1 results 
+	 */ 
+	public IEnumerable<DB1> DB1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DB1RepetitionsUsed; rep++)
+			{
+				yield return (DB1)this.GetStructure("DB1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DB1
+	///</summary>
+	public DB1 AddDB1()
+	{
+		return this.AddStructure("DB1") as DB1;
+	}
+
+	///<summary>
+	///Removes the given DB1
+	///</summary>
+	public void RemoveDB1(DB1 toRemove)
+	{
+		this.RemoveStructure("DB1", toRemove);
+	}
+
+	///<summary>
+	///Removes the DB1 at the given index
+	///</summary>
+	public void RemoveDB1At(int index)
+	{
+		this.RemoveRepetition("DB1", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of DFT_P03_COMMON_ORDER (a Group object) - creates it if necessary
@@ -403,6 +556,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the DFT_P03_COMMON_ORDER results 
+	 */ 
+	public IEnumerable<DFT_P03_COMMON_ORDER> COMMON_ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < COMMON_ORDERRepetitionsUsed; rep++)
+			{
+				yield return (DFT_P03_COMMON_ORDER)this.GetStructure("COMMON_ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DFT_P03_COMMON_ORDER
+	///</summary>
+	public DFT_P03_COMMON_ORDER AddCOMMON_ORDER()
+	{
+		return this.AddStructure("COMMON_ORDER") as DFT_P03_COMMON_ORDER;
+	}
+
+	///<summary>
+	///Removes the given DFT_P03_COMMON_ORDER
+	///</summary>
+	public void RemoveCOMMON_ORDER(DFT_P03_COMMON_ORDER toRemove)
+	{
+		this.RemoveStructure("COMMON_ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the DFT_P03_COMMON_ORDER at the given index
+	///</summary>
+	public void RemoveCOMMON_ORDERAt(int index)
+	{
+		this.RemoveRepetition("COMMON_ORDER", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of DFT_P03_FINANCIAL (a Group object) - creates it if necessary
 	///</summary>
@@ -444,6 +635,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the DFT_P03_FINANCIAL results 
+	 */ 
+	public IEnumerable<DFT_P03_FINANCIAL> FINANCIALs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < FINANCIALRepetitionsUsed; rep++)
+			{
+				yield return (DFT_P03_FINANCIAL)this.GetStructure("FINANCIAL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DFT_P03_FINANCIAL
+	///</summary>
+	public DFT_P03_FINANCIAL AddFINANCIAL()
+	{
+		return this.AddStructure("FINANCIAL") as DFT_P03_FINANCIAL;
+	}
+
+	///<summary>
+	///Removes the given DFT_P03_FINANCIAL
+	///</summary>
+	public void RemoveFINANCIAL(DFT_P03_FINANCIAL toRemove)
+	{
+		this.RemoveStructure("FINANCIAL", toRemove);
+	}
+
+	///<summary>
+	///Removes the DFT_P03_FINANCIAL at the given index
+	///</summary>
+	public void RemoveFINANCIALAt(int index)
+	{
+		this.RemoveRepetition("FINANCIAL", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of DG1 (Diagnosis) - creates it if necessary
 	///</summary>
@@ -484,6 +713,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DG1 results 
+	 */ 
+	public IEnumerable<DG1> DG1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DG1RepetitionsUsed; rep++)
+			{
+				yield return (DG1)this.GetStructure("DG1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DG1
+	///</summary>
+	public DG1 AddDG1()
+	{
+		return this.AddStructure("DG1") as DG1;
+	}
+
+	///<summary>
+	///Removes the given DG1
+	///</summary>
+	public void RemoveDG1(DG1 toRemove)
+	{
+		this.RemoveStructure("DG1", toRemove);
+	}
+
+	///<summary>
+	///Removes the DG1 at the given index
+	///</summary>
+	public void RemoveDG1At(int index)
+	{
+		this.RemoveRepetition("DG1", index);
+	}
 
 	///<summary>
 	/// Returns DRG (Diagnosis Related Group) - creates it if necessary
@@ -542,6 +809,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the GT1 results 
+	 */ 
+	public IEnumerable<GT1> GT1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < GT1RepetitionsUsed; rep++)
+			{
+				yield return (GT1)this.GetStructure("GT1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new GT1
+	///</summary>
+	public GT1 AddGT1()
+	{
+		return this.AddStructure("GT1") as GT1;
+	}
+
+	///<summary>
+	///Removes the given GT1
+	///</summary>
+	public void RemoveGT1(GT1 toRemove)
+	{
+		this.RemoveStructure("GT1", toRemove);
+	}
+
+	///<summary>
+	///Removes the GT1 at the given index
+	///</summary>
+	public void RemoveGT1At(int index)
+	{
+		this.RemoveRepetition("GT1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of DFT_P03_INSURANCE (a Group object) - creates it if necessary
 	///</summary>
@@ -582,6 +887,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DFT_P03_INSURANCE results 
+	 */ 
+	public IEnumerable<DFT_P03_INSURANCE> INSURANCEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < INSURANCERepetitionsUsed; rep++)
+			{
+				yield return (DFT_P03_INSURANCE)this.GetStructure("INSURANCE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DFT_P03_INSURANCE
+	///</summary>
+	public DFT_P03_INSURANCE AddINSURANCE()
+	{
+		return this.AddStructure("INSURANCE") as DFT_P03_INSURANCE;
+	}
+
+	///<summary>
+	///Removes the given DFT_P03_INSURANCE
+	///</summary>
+	public void RemoveINSURANCE(DFT_P03_INSURANCE toRemove)
+	{
+		this.RemoveStructure("INSURANCE", toRemove);
+	}
+
+	///<summary>
+	///Removes the DFT_P03_INSURANCE at the given index
+	///</summary>
+	public void RemoveINSURANCEAt(int index)
+	{
+		this.RemoveRepetition("INSURANCE", index);
+	}
 
 	///<summary>
 	/// Returns ACC (Accident) - creates it if necessary

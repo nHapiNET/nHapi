@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -142,6 +143,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CCR_I16_RESOURCE_OBSERVATION results 
+	 */ 
+	public IEnumerable<CCR_I16_RESOURCE_OBSERVATION> RESOURCE_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RESOURCE_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (CCR_I16_RESOURCE_OBSERVATION)this.GetStructure("RESOURCE_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CCR_I16_RESOURCE_OBSERVATION
+	///</summary>
+	public CCR_I16_RESOURCE_OBSERVATION AddRESOURCE_OBSERVATION()
+	{
+		return this.AddStructure("RESOURCE_OBSERVATION") as CCR_I16_RESOURCE_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given CCR_I16_RESOURCE_OBSERVATION
+	///</summary>
+	public void RemoveRESOURCE_OBSERVATION(CCR_I16_RESOURCE_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("RESOURCE_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the CCR_I16_RESOURCE_OBSERVATION at the given index
+	///</summary>
+	public void RemoveRESOURCE_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("RESOURCE_OBSERVATION", index);
+	}
 
 }
 }

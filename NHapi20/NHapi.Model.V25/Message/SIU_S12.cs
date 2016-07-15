@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V25.Group;
 using NHapi.Model.V25.Segment;
@@ -135,6 +136,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the TQ1 results 
+	 */ 
+	public IEnumerable<TQ1> TQ1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TQ1RepetitionsUsed; rep++)
+			{
+				yield return (TQ1)this.GetStructure("TQ1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new TQ1
+	///</summary>
+	public TQ1 AddTQ1()
+	{
+		return this.AddStructure("TQ1") as TQ1;
+	}
+
+	///<summary>
+	///Removes the given TQ1
+	///</summary>
+	public void RemoveTQ1(TQ1 toRemove)
+	{
+		this.RemoveStructure("TQ1", toRemove);
+	}
+
+	///<summary>
+	///Removes the TQ1 at the given index
+	///</summary>
+	public void RemoveTQ1At(int index)
+	{
+		this.RemoveRepetition("TQ1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of NTE (Notes and Comments) - creates it if necessary
 	///</summary>
@@ -175,6 +214,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of SIU_S12_PATIENT (a Group object) - creates it if necessary
@@ -217,6 +294,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SIU_S12_PATIENT results 
+	 */ 
+	public IEnumerable<SIU_S12_PATIENT> PATIENTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PATIENTRepetitionsUsed; rep++)
+			{
+				yield return (SIU_S12_PATIENT)this.GetStructure("PATIENT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SIU_S12_PATIENT
+	///</summary>
+	public SIU_S12_PATIENT AddPATIENT()
+	{
+		return this.AddStructure("PATIENT") as SIU_S12_PATIENT;
+	}
+
+	///<summary>
+	///Removes the given SIU_S12_PATIENT
+	///</summary>
+	public void RemovePATIENT(SIU_S12_PATIENT toRemove)
+	{
+		this.RemoveStructure("PATIENT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SIU_S12_PATIENT at the given index
+	///</summary>
+	public void RemovePATIENTAt(int index)
+	{
+		this.RemoveRepetition("PATIENT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of SIU_S12_RESOURCES (a Group object) - creates it if necessary
 	///</summary>
@@ -257,6 +372,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SIU_S12_RESOURCES results 
+	 */ 
+	public IEnumerable<SIU_S12_RESOURCES> RESOURCESs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RESOURCESRepetitionsUsed; rep++)
+			{
+				yield return (SIU_S12_RESOURCES)this.GetStructure("RESOURCES", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SIU_S12_RESOURCES
+	///</summary>
+	public SIU_S12_RESOURCES AddRESOURCES()
+	{
+		return this.AddStructure("RESOURCES") as SIU_S12_RESOURCES;
+	}
+
+	///<summary>
+	///Removes the given SIU_S12_RESOURCES
+	///</summary>
+	public void RemoveRESOURCES(SIU_S12_RESOURCES toRemove)
+	{
+		this.RemoveStructure("RESOURCES", toRemove);
+	}
+
+	///<summary>
+	///Removes the SIU_S12_RESOURCES at the given index
+	///</summary>
+	public void RemoveRESOURCESAt(int index)
+	{
+		this.RemoveRepetition("RESOURCES", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V25.Segment;
 using NHapi.Model.V25.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the BRP_O30_TIMING results 
+	 */ 
+	public IEnumerable<BRP_O30_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (BRP_O30_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new BRP_O30_TIMING
+	///</summary>
+	public BRP_O30_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as BRP_O30_TIMING;
+	}
+
+	///<summary>
+	///Removes the given BRP_O30_TIMING
+	///</summary>
+	public void RemoveTIMING(BRP_O30_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the BRP_O30_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
+
 	///<summary>
 	/// Returns BPO (Blood product order) - creates it if necessary
 	///</summary>
@@ -149,6 +188,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the BPX results 
+	 */ 
+	public IEnumerable<BPX> BPXs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < BPXRepetitionsUsed; rep++)
+			{
+				yield return (BPX)this.GetStructure("BPX", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new BPX
+	///</summary>
+	public BPX AddBPX()
+	{
+		return this.AddStructure("BPX") as BPX;
+	}
+
+	///<summary>
+	///Removes the given BPX
+	///</summary>
+	public void RemoveBPX(BPX toRemove)
+	{
+		this.RemoveStructure("BPX", toRemove);
+	}
+
+	///<summary>
+	///Removes the BPX at the given index
+	///</summary>
+	public void RemoveBPXAt(int index)
+	{
+		this.RemoveRepetition("BPX", index);
+	}
 
 }
 }

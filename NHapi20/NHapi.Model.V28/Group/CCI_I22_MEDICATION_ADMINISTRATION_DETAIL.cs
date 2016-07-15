@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V28.Segment;
 using NHapi.Model.V28.Datatype;
 using NHapi.Base.Model;
@@ -75,6 +76,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RXA results 
+	 */ 
+	public IEnumerable<RXA> RXAs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RXARepetitionsUsed; rep++)
+			{
+				yield return (RXA)this.GetStructure("RXA", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RXA
+	///</summary>
+	public RXA AddRXA()
+	{
+		return this.AddStructure("RXA") as RXA;
+	}
+
+	///<summary>
+	///Removes the given RXA
+	///</summary>
+	public void RemoveRXA(RXA toRemove)
+	{
+		this.RemoveStructure("RXA", toRemove);
+	}
+
+	///<summary>
+	///Removes the RXA at the given index
+	///</summary>
+	public void RemoveRXAAt(int index)
+	{
+		this.RemoveRepetition("RXA", index);
+	}
+
 	///<summary>
 	/// Returns RXR (Pharmacy/Treatment Route) - creates it if necessary
 	///</summary>
@@ -131,6 +170,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CCI_I22_MEDICATION_ADMINISTRATION_OBSERVATION results 
+	 */ 
+	public IEnumerable<CCI_I22_MEDICATION_ADMINISTRATION_OBSERVATION> MEDICATION_ADMINISTRATION_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MEDICATION_ADMINISTRATION_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (CCI_I22_MEDICATION_ADMINISTRATION_OBSERVATION)this.GetStructure("MEDICATION_ADMINISTRATION_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CCI_I22_MEDICATION_ADMINISTRATION_OBSERVATION
+	///</summary>
+	public CCI_I22_MEDICATION_ADMINISTRATION_OBSERVATION AddMEDICATION_ADMINISTRATION_OBSERVATION()
+	{
+		return this.AddStructure("MEDICATION_ADMINISTRATION_OBSERVATION") as CCI_I22_MEDICATION_ADMINISTRATION_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given CCI_I22_MEDICATION_ADMINISTRATION_OBSERVATION
+	///</summary>
+	public void RemoveMEDICATION_ADMINISTRATION_OBSERVATION(CCI_I22_MEDICATION_ADMINISTRATION_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("MEDICATION_ADMINISTRATION_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the CCI_I22_MEDICATION_ADMINISTRATION_OBSERVATION at the given index
+	///</summary>
+	public void RemoveMEDICATION_ADMINISTRATION_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("MEDICATION_ADMINISTRATION_OBSERVATION", index);
+	}
 
 }
 }

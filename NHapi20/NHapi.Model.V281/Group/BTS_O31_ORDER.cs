@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -97,6 +98,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of BTS_O31_TIMING (a Group object) - creates it if necessary
 	///</summary>
@@ -137,6 +176,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the BTS_O31_TIMING results 
+	 */ 
+	public IEnumerable<BTS_O31_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (BTS_O31_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new BTS_O31_TIMING
+	///</summary>
+	public BTS_O31_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as BTS_O31_TIMING;
+	}
+
+	///<summary>
+	///Removes the given BTS_O31_TIMING
+	///</summary>
+	public void RemoveTIMING(BTS_O31_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the BTS_O31_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
 
 	///<summary>
 	/// Returns BPO (Blood product order) - creates it if necessary
@@ -195,6 +272,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of BTS_O31_PRODUCT_STATUS (a Group object) - creates it if necessary
 	///</summary>
@@ -235,6 +350,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the BTS_O31_PRODUCT_STATUS results 
+	 */ 
+	public IEnumerable<BTS_O31_PRODUCT_STATUS> PRODUCT_STATUSs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRODUCT_STATUSRepetitionsUsed; rep++)
+			{
+				yield return (BTS_O31_PRODUCT_STATUS)this.GetStructure("PRODUCT_STATUS", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new BTS_O31_PRODUCT_STATUS
+	///</summary>
+	public BTS_O31_PRODUCT_STATUS AddPRODUCT_STATUS()
+	{
+		return this.AddStructure("PRODUCT_STATUS") as BTS_O31_PRODUCT_STATUS;
+	}
+
+	///<summary>
+	///Removes the given BTS_O31_PRODUCT_STATUS
+	///</summary>
+	public void RemovePRODUCT_STATUS(BTS_O31_PRODUCT_STATUS toRemove)
+	{
+		this.RemoveStructure("PRODUCT_STATUS", toRemove);
+	}
+
+	///<summary>
+	///Removes the BTS_O31_PRODUCT_STATUS at the given index
+	///</summary>
+	public void RemovePRODUCT_STATUSAt(int index)
+	{
+		this.RemoveRepetition("PRODUCT_STATUS", index);
+	}
 
 }
 }

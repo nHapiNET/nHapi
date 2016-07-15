@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V231.Segment;
 using NHapi.Model.V231.Datatype;
 using NHapi.Base.Model;
@@ -106,6 +107,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PRR_PC5_PROBLEM results 
+	 */ 
+	public IEnumerable<PRR_PC5_PROBLEM> PROBLEMs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROBLEMRepetitionsUsed; rep++)
+			{
+				yield return (PRR_PC5_PROBLEM)this.GetStructure("PROBLEM", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRR_PC5_PROBLEM
+	///</summary>
+	public PRR_PC5_PROBLEM AddPROBLEM()
+	{
+		return this.AddStructure("PROBLEM") as PRR_PC5_PROBLEM;
+	}
+
+	///<summary>
+	///Removes the given PRR_PC5_PROBLEM
+	///</summary>
+	public void RemovePROBLEM(PRR_PC5_PROBLEM toRemove)
+	{
+		this.RemoveStructure("PROBLEM", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRR_PC5_PROBLEM at the given index
+	///</summary>
+	public void RemovePROBLEMAt(int index)
+	{
+		this.RemoveRepetition("PROBLEM", index);
+	}
 
 }
 }

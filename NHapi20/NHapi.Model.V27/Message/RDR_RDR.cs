@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V27.Group;
 using NHapi.Model.V27.Segment;
@@ -137,6 +138,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ERR results 
+	 */ 
+	public IEnumerable<ERR> ERRs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ERRRepetitionsUsed; rep++)
+			{
+				yield return (ERR)this.GetStructure("ERR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ERR
+	///</summary>
+	public ERR AddERR()
+	{
+		return this.AddStructure("ERR") as ERR;
+	}
+
+	///<summary>
+	///Removes the given ERR
+	///</summary>
+	public void RemoveERR(ERR toRemove)
+	{
+		this.RemoveStructure("ERR", toRemove);
+	}
+
+	///<summary>
+	///Removes the ERR at the given index
+	///</summary>
+	public void RemoveERRAt(int index)
+	{
+		this.RemoveRepetition("ERR", index);
+	}
+
 	///<summary>
 	/// Returns SFT (Software Segment) - creates it if necessary
 	///</summary>
@@ -209,6 +248,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RDR_RDR_DEFINITION results 
+	 */ 
+	public IEnumerable<RDR_RDR_DEFINITION> DEFINITIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DEFINITIONRepetitionsUsed; rep++)
+			{
+				yield return (RDR_RDR_DEFINITION)this.GetStructure("DEFINITION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RDR_RDR_DEFINITION
+	///</summary>
+	public RDR_RDR_DEFINITION AddDEFINITION()
+	{
+		return this.AddStructure("DEFINITION") as RDR_RDR_DEFINITION;
+	}
+
+	///<summary>
+	///Removes the given RDR_RDR_DEFINITION
+	///</summary>
+	public void RemoveDEFINITION(RDR_RDR_DEFINITION toRemove)
+	{
+		this.RemoveStructure("DEFINITION", toRemove);
+	}
+
+	///<summary>
+	///Removes the RDR_RDR_DEFINITION at the given index
+	///</summary>
+	public void RemoveDEFINITIONAt(int index)
+	{
+		this.RemoveRepetition("DEFINITION", index);
+	}
 
 	///<summary>
 	/// Returns DSC (Continuation Pointer) - creates it if necessary

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V27.Group;
 using NHapi.Model.V27.Segment;
@@ -130,6 +131,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ERR results 
+	 */ 
+	public IEnumerable<ERR> ERRs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ERRRepetitionsUsed; rep++)
+			{
+				yield return (ERR)this.GetStructure("ERR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ERR
+	///</summary>
+	public ERR AddERR()
+	{
+		return this.AddStructure("ERR") as ERR;
+	}
+
+	///<summary>
+	///Removes the given ERR
+	///</summary>
+	public void RemoveERR(ERR toRemove)
+	{
+		this.RemoveStructure("ERR", toRemove);
+	}
+
+	///<summary>
+	///Removes the ERR at the given index
+	///</summary>
+	public void RemoveERRAt(int index)
+	{
+		this.RemoveRepetition("ERR", index);
+	}
 
 	///<summary>
 	/// Returns SRR_S01_SCHEDULE (a Group object) - creates it if necessary

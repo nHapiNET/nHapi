@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V25.Segment;
 using NHapi.Model.V25.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OBX results 
+	 */ 
+	public IEnumerable<OBX> OBXs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBXRepetitionsUsed; rep++)
+			{
+				yield return (OBX)this.GetStructure("OBX", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OBX
+	///</summary>
+	public OBX AddOBX()
+	{
+		return this.AddStructure("OBX") as OBX;
+	}
+
+	///<summary>
+	///Removes the given OBX
+	///</summary>
+	public void RemoveOBX(OBX toRemove)
+	{
+		this.RemoveStructure("OBX", toRemove);
+	}
+
+	///<summary>
+	///Removes the OBX at the given index
+	///</summary>
+	public void RemoveOBXAt(int index)
+	{
+		this.RemoveRepetition("OBX", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of SAC (Specimen Container detail) - creates it if necessary
 	///</summary>
@@ -134,6 +173,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SAC results 
+	 */ 
+	public IEnumerable<SAC> SACs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SACRepetitionsUsed; rep++)
+			{
+				yield return (SAC)this.GetStructure("SAC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SAC
+	///</summary>
+	public SAC AddSAC()
+	{
+		return this.AddStructure("SAC") as SAC;
+	}
+
+	///<summary>
+	///Removes the given SAC
+	///</summary>
+	public void RemoveSAC(SAC toRemove)
+	{
+		this.RemoveStructure("SAC", toRemove);
+	}
+
+	///<summary>
+	///Removes the SAC at the given index
+	///</summary>
+	public void RemoveSACAt(int index)
+	{
+		this.RemoveRepetition("SAC", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ORL_O34_ORDER (a Group object) - creates it if necessary
 	///</summary>
@@ -174,6 +251,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORL_O34_ORDER results 
+	 */ 
+	public IEnumerable<ORL_O34_ORDER> ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDERRepetitionsUsed; rep++)
+			{
+				yield return (ORL_O34_ORDER)this.GetStructure("ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORL_O34_ORDER
+	///</summary>
+	public ORL_O34_ORDER AddORDER()
+	{
+		return this.AddStructure("ORDER") as ORL_O34_ORDER;
+	}
+
+	///<summary>
+	///Removes the given ORL_O34_ORDER
+	///</summary>
+	public void RemoveORDER(ORL_O34_ORDER toRemove)
+	{
+		this.RemoveStructure("ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORL_O34_ORDER at the given index
+	///</summary>
+	public void RemoveORDERAt(int index)
+	{
+		this.RemoveRepetition("ORDER", index);
+	}
 
 }
 }

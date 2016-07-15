@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V22.Group;
 using NHapi.Model.V22.Segment;
@@ -202,6 +203,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFR_M03_MF_TEST results 
+	 */ 
+	public IEnumerable<MFR_M03_MF_TEST> MF_TESTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MF_TESTRepetitionsUsed; rep++)
+			{
+				yield return (MFR_M03_MF_TEST)this.GetStructure("MF_TEST", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFR_M03_MF_TEST
+	///</summary>
+	public MFR_M03_MF_TEST AddMF_TEST()
+	{
+		return this.AddStructure("MF_TEST") as MFR_M03_MF_TEST;
+	}
+
+	///<summary>
+	///Removes the given MFR_M03_MF_TEST
+	///</summary>
+	public void RemoveMF_TEST(MFR_M03_MF_TEST toRemove)
+	{
+		this.RemoveStructure("MF_TEST", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFR_M03_MF_TEST at the given index
+	///</summary>
+	public void RemoveMF_TESTAt(int index)
+	{
+		this.RemoveRepetition("MF_TEST", index);
+	}
 
 	///<summary>
 	/// Returns DSC (CONTINUATION POINTER) - creates it if necessary

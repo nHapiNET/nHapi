@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -77,6 +78,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RXA results 
+	 */ 
+	public IEnumerable<RXA> RXAs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RXARepetitionsUsed; rep++)
+			{
+				yield return (RXA)this.GetStructure("RXA", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RXA
+	///</summary>
+	public RXA AddRXA()
+	{
+		return this.AddStructure("RXA") as RXA;
+	}
+
+	///<summary>
+	///Removes the given RXA
+	///</summary>
+	public void RemoveRXA(RXA toRemove)
+	{
+		this.RemoveStructure("RXA", toRemove);
+	}
+
+	///<summary>
+	///Removes the RXA at the given index
+	///</summary>
+	public void RemoveRXAAt(int index)
+	{
+		this.RemoveRepetition("RXA", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of PRT (Participation Information) - creates it if necessary
 	///</summary>
@@ -117,6 +156,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
 
 	///<summary>
 	/// Returns RXR (Pharmacy/Treatment Route) - creates it if necessary
@@ -174,6 +251,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RAS_O17_OBSERVATION results 
+	 */ 
+	public IEnumerable<RAS_O17_OBSERVATION> OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (RAS_O17_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RAS_O17_OBSERVATION
+	///</summary>
+	public RAS_O17_OBSERVATION AddOBSERVATION()
+	{
+		return this.AddStructure("OBSERVATION") as RAS_O17_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given RAS_O17_OBSERVATION
+	///</summary>
+	public void RemoveOBSERVATION(RAS_O17_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the RAS_O17_OBSERVATION at the given index
+	///</summary>
+	public void RemoveOBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION", index);
+	}
 
 }
 }

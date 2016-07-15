@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V27.Group;
 using NHapi.Model.V27.Segment;
@@ -117,6 +118,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -189,6 +228,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFN_M16_MATERIAL_ITEM_RECORD results 
+	 */ 
+	public IEnumerable<MFN_M16_MATERIAL_ITEM_RECORD> MATERIAL_ITEM_RECORDs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MATERIAL_ITEM_RECORDRepetitionsUsed; rep++)
+			{
+				yield return (MFN_M16_MATERIAL_ITEM_RECORD)this.GetStructure("MATERIAL_ITEM_RECORD", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFN_M16_MATERIAL_ITEM_RECORD
+	///</summary>
+	public MFN_M16_MATERIAL_ITEM_RECORD AddMATERIAL_ITEM_RECORD()
+	{
+		return this.AddStructure("MATERIAL_ITEM_RECORD") as MFN_M16_MATERIAL_ITEM_RECORD;
+	}
+
+	///<summary>
+	///Removes the given MFN_M16_MATERIAL_ITEM_RECORD
+	///</summary>
+	public void RemoveMATERIAL_ITEM_RECORD(MFN_M16_MATERIAL_ITEM_RECORD toRemove)
+	{
+		this.RemoveStructure("MATERIAL_ITEM_RECORD", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFN_M16_MATERIAL_ITEM_RECORD at the given index
+	///</summary>
+	public void RemoveMATERIAL_ITEM_RECORDAt(int index)
+	{
+		this.RemoveRepetition("MATERIAL_ITEM_RECORD", index);
+	}
 
 }
 }

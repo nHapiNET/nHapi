@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V231.Group;
 using NHapi.Model.V231.Segment;
@@ -220,6 +221,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFR_M01_MF_QUERY results 
+	 */ 
+	public IEnumerable<MFR_M01_MF_QUERY> MF_QUERYs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MF_QUERYRepetitionsUsed; rep++)
+			{
+				yield return (MFR_M01_MF_QUERY)this.GetStructure("MF_QUERY", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFR_M01_MF_QUERY
+	///</summary>
+	public MFR_M01_MF_QUERY AddMF_QUERY()
+	{
+		return this.AddStructure("MF_QUERY") as MFR_M01_MF_QUERY;
+	}
+
+	///<summary>
+	///Removes the given MFR_M01_MF_QUERY
+	///</summary>
+	public void RemoveMF_QUERY(MFR_M01_MF_QUERY toRemove)
+	{
+		this.RemoveStructure("MF_QUERY", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFR_M01_MF_QUERY at the given index
+	///</summary>
+	public void RemoveMF_QUERYAt(int index)
+	{
+		this.RemoveRepetition("MF_QUERY", index);
+	}
 
 	///<summary>
 	/// Returns DSC (DSC - Continuation pointer segment) - creates it if necessary

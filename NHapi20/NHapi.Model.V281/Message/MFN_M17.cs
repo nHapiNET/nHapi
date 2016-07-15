@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V281.Group;
 using NHapi.Model.V281.Segment;
@@ -117,6 +118,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -189,6 +228,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFN_M17_MF_DRG results 
+	 */ 
+	public IEnumerable<MFN_M17_MF_DRG> MF_DRGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MF_DRGRepetitionsUsed; rep++)
+			{
+				yield return (MFN_M17_MF_DRG)this.GetStructure("MF_DRG", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFN_M17_MF_DRG
+	///</summary>
+	public MFN_M17_MF_DRG AddMF_DRG()
+	{
+		return this.AddStructure("MF_DRG") as MFN_M17_MF_DRG;
+	}
+
+	///<summary>
+	///Removes the given MFN_M17_MF_DRG
+	///</summary>
+	public void RemoveMF_DRG(MFN_M17_MF_DRG toRemove)
+	{
+		this.RemoveStructure("MF_DRG", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFN_M17_MF_DRG at the given index
+	///</summary>
+	public void RemoveMF_DRGAt(int index)
+	{
+		this.RemoveRepetition("MF_DRG", index);
+	}
 
 }
 }

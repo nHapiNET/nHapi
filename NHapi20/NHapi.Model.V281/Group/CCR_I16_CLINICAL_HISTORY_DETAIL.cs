@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -268,6 +269,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CCR_I16_CLINICAL_HISTORY_OBSERVATION results 
+	 */ 
+	public IEnumerable<CCR_I16_CLINICAL_HISTORY_OBSERVATION> CLINICAL_HISTORY_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CLINICAL_HISTORY_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (CCR_I16_CLINICAL_HISTORY_OBSERVATION)this.GetStructure("CLINICAL_HISTORY_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CCR_I16_CLINICAL_HISTORY_OBSERVATION
+	///</summary>
+	public CCR_I16_CLINICAL_HISTORY_OBSERVATION AddCLINICAL_HISTORY_OBSERVATION()
+	{
+		return this.AddStructure("CLINICAL_HISTORY_OBSERVATION") as CCR_I16_CLINICAL_HISTORY_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given CCR_I16_CLINICAL_HISTORY_OBSERVATION
+	///</summary>
+	public void RemoveCLINICAL_HISTORY_OBSERVATION(CCR_I16_CLINICAL_HISTORY_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("CLINICAL_HISTORY_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the CCR_I16_CLINICAL_HISTORY_OBSERVATION at the given index
+	///</summary>
+	public void RemoveCLINICAL_HISTORY_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("CLINICAL_HISTORY_OBSERVATION", index);
+	}
 
 }
 }

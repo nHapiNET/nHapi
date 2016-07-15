@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V251.Segment;
 using NHapi.Model.V251.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CTD results 
+	 */ 
+	public IEnumerable<CTD> CTDs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CTDRepetitionsUsed; rep++)
+			{
+				yield return (CTD)this.GetStructure("CTD", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CTD
+	///</summary>
+	public CTD AddCTD()
+	{
+		return this.AddStructure("CTD") as CTD;
+	}
+
+	///<summary>
+	///Removes the given CTD
+	///</summary>
+	public void RemoveCTD(CTD toRemove)
+	{
+		this.RemoveStructure("CTD", toRemove);
+	}
+
+	///<summary>
+	///Removes the CTD at the given index
+	///</summary>
+	public void RemoveCTDAt(int index)
+	{
+		this.RemoveRepetition("CTD", index);
+	}
 
 }
 }

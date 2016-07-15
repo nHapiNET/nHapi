@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V28.Segment;
 using NHapi.Model.V28.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ARV (Access Restriction) - creates it if necessary
 	///</summary>
@@ -134,6 +173,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ARV results 
+	 */ 
+	public IEnumerable<ARV> ARVs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ARVRepetitionsUsed; rep++)
+			{
+				yield return (ARV)this.GetStructure("ARV", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ARV
+	///</summary>
+	public ARV AddARV()
+	{
+		return this.AddStructure("ARV") as ARV;
+	}
+
+	///<summary>
+	///Removes the given ARV
+	///</summary>
+	public void RemoveARV(ARV toRemove)
+	{
+		this.RemoveStructure("ARV", toRemove);
+	}
+
+	///<summary>
+	///Removes the ARV at the given index
+	///</summary>
+	public void RemoveARVAt(int index)
+	{
+		this.RemoveRepetition("ARV", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ORL_O22_ORDER (a Group object) - creates it if necessary
 	///</summary>
@@ -174,6 +251,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORL_O22_ORDER results 
+	 */ 
+	public IEnumerable<ORL_O22_ORDER> ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDERRepetitionsUsed; rep++)
+			{
+				yield return (ORL_O22_ORDER)this.GetStructure("ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORL_O22_ORDER
+	///</summary>
+	public ORL_O22_ORDER AddORDER()
+	{
+		return this.AddStructure("ORDER") as ORL_O22_ORDER;
+	}
+
+	///<summary>
+	///Removes the given ORL_O22_ORDER
+	///</summary>
+	public void RemoveORDER(ORL_O22_ORDER toRemove)
+	{
+		this.RemoveStructure("ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORL_O22_ORDER at the given index
+	///</summary>
+	public void RemoveORDERAt(int index)
+	{
+		this.RemoveRepetition("ORDER", index);
+	}
 
 }
 }

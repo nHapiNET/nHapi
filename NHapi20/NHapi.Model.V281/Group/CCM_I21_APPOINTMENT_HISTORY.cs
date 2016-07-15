@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CCM_I21_RESOURCES results 
+	 */ 
+	public IEnumerable<CCM_I21_RESOURCES> RESOURCESs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RESOURCESRepetitionsUsed; rep++)
+			{
+				yield return (CCM_I21_RESOURCES)this.GetStructure("RESOURCES", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CCM_I21_RESOURCES
+	///</summary>
+	public CCM_I21_RESOURCES AddRESOURCES()
+	{
+		return this.AddStructure("RESOURCES") as CCM_I21_RESOURCES;
+	}
+
+	///<summary>
+	///Removes the given CCM_I21_RESOURCES
+	///</summary>
+	public void RemoveRESOURCES(CCM_I21_RESOURCES toRemove)
+	{
+		this.RemoveStructure("RESOURCES", toRemove);
+	}
+
+	///<summary>
+	///Removes the CCM_I21_RESOURCES at the given index
+	///</summary>
+	public void RemoveRESOURCESAt(int index)
+	{
+		this.RemoveRepetition("RESOURCES", index);
+	}
 
 }
 }

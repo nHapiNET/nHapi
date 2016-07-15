@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
@@ -133,6 +134,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of SIU_S20_PATIENT (a Group object) - creates it if necessary
 	///</summary>
@@ -174,6 +213,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SIU_S20_PATIENT results 
+	 */ 
+	public IEnumerable<SIU_S20_PATIENT> PATIENTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PATIENTRepetitionsUsed; rep++)
+			{
+				yield return (SIU_S20_PATIENT)this.GetStructure("PATIENT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SIU_S20_PATIENT
+	///</summary>
+	public SIU_S20_PATIENT AddPATIENT()
+	{
+		return this.AddStructure("PATIENT") as SIU_S20_PATIENT;
+	}
+
+	///<summary>
+	///Removes the given SIU_S20_PATIENT
+	///</summary>
+	public void RemovePATIENT(SIU_S20_PATIENT toRemove)
+	{
+		this.RemoveStructure("PATIENT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SIU_S20_PATIENT at the given index
+	///</summary>
+	public void RemovePATIENTAt(int index)
+	{
+		this.RemoveRepetition("PATIENT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of SIU_S20_RESOURCES (a Group object) - creates it if necessary
 	///</summary>
@@ -214,6 +291,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SIU_S20_RESOURCES results 
+	 */ 
+	public IEnumerable<SIU_S20_RESOURCES> RESOURCESs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RESOURCESRepetitionsUsed; rep++)
+			{
+				yield return (SIU_S20_RESOURCES)this.GetStructure("RESOURCES", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SIU_S20_RESOURCES
+	///</summary>
+	public SIU_S20_RESOURCES AddRESOURCES()
+	{
+		return this.AddStructure("RESOURCES") as SIU_S20_RESOURCES;
+	}
+
+	///<summary>
+	///Removes the given SIU_S20_RESOURCES
+	///</summary>
+	public void RemoveRESOURCES(SIU_S20_RESOURCES toRemove)
+	{
+		this.RemoveStructure("RESOURCES", toRemove);
+	}
+
+	///<summary>
+	///Removes the SIU_S20_RESOURCES at the given index
+	///</summary>
+	public void RemoveRESOURCESAt(int index)
+	{
+		this.RemoveRepetition("RESOURCES", index);
+	}
 
 }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -148,6 +149,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PRA results 
+	 */ 
+	public IEnumerable<PRA> PRAs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRARepetitionsUsed; rep++)
+			{
+				yield return (PRA)this.GetStructure("PRA", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRA
+	///</summary>
+	public PRA AddPRA()
+	{
+		return this.AddStructure("PRA") as PRA;
+	}
+
+	///<summary>
+	///Removes the given PRA
+	///</summary>
+	public void RemovePRA(PRA toRemove)
+	{
+		this.RemoveStructure("PRA", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRA at the given index
+	///</summary>
+	public void RemovePRAAt(int index)
+	{
+		this.RemoveRepetition("PRA", index);
+	}
 
 	///<summary>
 	/// Returns ORG (Practitioner Organization Unit) - creates it if necessary

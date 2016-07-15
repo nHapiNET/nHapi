@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
@@ -110,6 +111,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CRM_C08_PATIENT results 
+	 */ 
+	public IEnumerable<CRM_C08_PATIENT> PATIENTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PATIENTRepetitionsUsed; rep++)
+			{
+				yield return (CRM_C08_PATIENT)this.GetStructure("PATIENT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CRM_C08_PATIENT
+	///</summary>
+	public CRM_C08_PATIENT AddPATIENT()
+	{
+		return this.AddStructure("PATIENT") as CRM_C08_PATIENT;
+	}
+
+	///<summary>
+	///Removes the given CRM_C08_PATIENT
+	///</summary>
+	public void RemovePATIENT(CRM_C08_PATIENT toRemove)
+	{
+		this.RemoveStructure("PATIENT", toRemove);
+	}
+
+	///<summary>
+	///Removes the CRM_C08_PATIENT at the given index
+	///</summary>
+	public void RemovePATIENTAt(int index)
+	{
+		this.RemoveRepetition("PATIENT", index);
+	}
 
 }
 }

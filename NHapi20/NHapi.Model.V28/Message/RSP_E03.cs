@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V28.Group;
 using NHapi.Model.V28.Segment;
@@ -123,6 +124,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -163,6 +202,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the UAC results 
+	 */ 
+	public IEnumerable<UAC> UACs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < UACRepetitionsUsed; rep++)
+			{
+				yield return (UAC)this.GetStructure("UAC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new UAC
+	///</summary>
+	public UAC AddUAC()
+	{
+		return this.AddStructure("UAC") as UAC;
+	}
+
+	///<summary>
+	///Removes the given UAC
+	///</summary>
+	public void RemoveUAC(UAC toRemove)
+	{
+		this.RemoveStructure("UAC", toRemove);
+	}
+
+	///<summary>
+	///Removes the UAC at the given index
+	///</summary>
+	public void RemoveUACAt(int index)
+	{
+		this.RemoveRepetition("UAC", index);
+	}
 
 	///<summary>
 	/// Returns MSA (Message Acknowledgment) - creates it if necessary
@@ -220,6 +297,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ERR results 
+	 */ 
+	public IEnumerable<ERR> ERRs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ERRRepetitionsUsed; rep++)
+			{
+				yield return (ERR)this.GetStructure("ERR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ERR
+	///</summary>
+	public ERR AddERR()
+	{
+		return this.AddStructure("ERR") as ERR;
+	}
+
+	///<summary>
+	///Removes the given ERR
+	///</summary>
+	public void RemoveERR(ERR toRemove)
+	{
+		this.RemoveStructure("ERR", toRemove);
+	}
+
+	///<summary>
+	///Removes the ERR at the given index
+	///</summary>
+	public void RemoveERRAt(int index)
+	{
+		this.RemoveRepetition("ERR", index);
+	}
 
 	///<summary>
 	/// Returns QAK (Query Acknowledgment) - creates it if necessary
@@ -293,6 +408,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the IPR results 
+	 */ 
+	public IEnumerable<IPR> IPRs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < IPRRepetitionsUsed; rep++)
+			{
+				yield return (IPR)this.GetStructure("IPR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new IPR
+	///</summary>
+	public IPR AddIPR()
+	{
+		return this.AddStructure("IPR") as IPR;
+	}
+
+	///<summary>
+	///Removes the given IPR
+	///</summary>
+	public void RemoveIPR(IPR toRemove)
+	{
+		this.RemoveStructure("IPR", toRemove);
+	}
+
+	///<summary>
+	///Removes the IPR at the given index
+	///</summary>
+	public void RemoveIPRAt(int index)
+	{
+		this.RemoveRepetition("IPR", index);
+	}
 
 }
 }

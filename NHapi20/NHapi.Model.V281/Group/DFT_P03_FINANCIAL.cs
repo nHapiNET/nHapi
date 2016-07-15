@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -97,6 +98,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ROL (Role) - creates it if necessary
 	///</summary>
@@ -137,6 +176,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ROL results 
+	 */ 
+	public IEnumerable<ROL> ROLs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ROLRepetitionsUsed; rep++)
+			{
+				yield return (ROL)this.GetStructure("ROL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ROL
+	///</summary>
+	public ROL AddROL()
+	{
+		return this.AddStructure("ROL") as ROL;
+	}
+
+	///<summary>
+	///Removes the given ROL
+	///</summary>
+	public void RemoveROL(ROL toRemove)
+	{
+		this.RemoveStructure("ROL", toRemove);
+	}
+
+	///<summary>
+	///Removes the ROL at the given index
+	///</summary>
+	public void RemoveROLAt(int index)
+	{
+		this.RemoveRepetition("ROL", index);
+	}
 
 	///<summary>
 	/// Returns NTE (Notes and Comments) - creates it if necessary
@@ -195,6 +272,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the DFT_P03_FINANCIAL_PROCEDURE results 
+	 */ 
+	public IEnumerable<DFT_P03_FINANCIAL_PROCEDURE> FINANCIAL_PROCEDUREs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < FINANCIAL_PROCEDURERepetitionsUsed; rep++)
+			{
+				yield return (DFT_P03_FINANCIAL_PROCEDURE)this.GetStructure("FINANCIAL_PROCEDURE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DFT_P03_FINANCIAL_PROCEDURE
+	///</summary>
+	public DFT_P03_FINANCIAL_PROCEDURE AddFINANCIAL_PROCEDURE()
+	{
+		return this.AddStructure("FINANCIAL_PROCEDURE") as DFT_P03_FINANCIAL_PROCEDURE;
+	}
+
+	///<summary>
+	///Removes the given DFT_P03_FINANCIAL_PROCEDURE
+	///</summary>
+	public void RemoveFINANCIAL_PROCEDURE(DFT_P03_FINANCIAL_PROCEDURE toRemove)
+	{
+		this.RemoveStructure("FINANCIAL_PROCEDURE", toRemove);
+	}
+
+	///<summary>
+	///Removes the DFT_P03_FINANCIAL_PROCEDURE at the given index
+	///</summary>
+	public void RemoveFINANCIAL_PROCEDUREAt(int index)
+	{
+		this.RemoveRepetition("FINANCIAL_PROCEDURE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of DFT_P03_FINANCIAL_COMMON_ORDER (a Group object) - creates it if necessary
 	///</summary>
@@ -235,6 +350,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DFT_P03_FINANCIAL_COMMON_ORDER results 
+	 */ 
+	public IEnumerable<DFT_P03_FINANCIAL_COMMON_ORDER> FINANCIAL_COMMON_ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < FINANCIAL_COMMON_ORDERRepetitionsUsed; rep++)
+			{
+				yield return (DFT_P03_FINANCIAL_COMMON_ORDER)this.GetStructure("FINANCIAL_COMMON_ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DFT_P03_FINANCIAL_COMMON_ORDER
+	///</summary>
+	public DFT_P03_FINANCIAL_COMMON_ORDER AddFINANCIAL_COMMON_ORDER()
+	{
+		return this.AddStructure("FINANCIAL_COMMON_ORDER") as DFT_P03_FINANCIAL_COMMON_ORDER;
+	}
+
+	///<summary>
+	///Removes the given DFT_P03_FINANCIAL_COMMON_ORDER
+	///</summary>
+	public void RemoveFINANCIAL_COMMON_ORDER(DFT_P03_FINANCIAL_COMMON_ORDER toRemove)
+	{
+		this.RemoveStructure("FINANCIAL_COMMON_ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the DFT_P03_FINANCIAL_COMMON_ORDER at the given index
+	///</summary>
+	public void RemoveFINANCIAL_COMMON_ORDERAt(int index)
+	{
+		this.RemoveRepetition("FINANCIAL_COMMON_ORDER", index);
+	}
 
 }
 }

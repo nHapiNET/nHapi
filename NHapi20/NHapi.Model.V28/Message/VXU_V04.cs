@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V28.Group;
 using NHapi.Model.V28.Segment;
@@ -131,6 +132,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -220,6 +259,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NK1 results 
+	 */ 
+	public IEnumerable<NK1> NK1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NK1RepetitionsUsed; rep++)
+			{
+				yield return (NK1)this.GetStructure("NK1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NK1
+	///</summary>
+	public NK1 AddNK1()
+	{
+		return this.AddStructure("NK1") as NK1;
+	}
+
+	///<summary>
+	///Removes the given NK1
+	///</summary>
+	public void RemoveNK1(NK1 toRemove)
+	{
+		this.RemoveStructure("NK1", toRemove);
+	}
+
+	///<summary>
+	///Removes the NK1 at the given index
+	///</summary>
+	public void RemoveNK1At(int index)
+	{
+		this.RemoveRepetition("NK1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ARV (Access Restriction) - creates it if necessary
 	///</summary>
@@ -260,6 +337,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ARV results 
+	 */ 
+	public IEnumerable<ARV> ARVs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ARVRepetitionsUsed; rep++)
+			{
+				yield return (ARV)this.GetStructure("ARV", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ARV
+	///</summary>
+	public ARV AddARV()
+	{
+		return this.AddStructure("ARV") as ARV;
+	}
+
+	///<summary>
+	///Removes the given ARV
+	///</summary>
+	public void RemoveARV(ARV toRemove)
+	{
+		this.RemoveStructure("ARV", toRemove);
+	}
+
+	///<summary>
+	///Removes the ARV at the given index
+	///</summary>
+	public void RemoveARVAt(int index)
+	{
+		this.RemoveRepetition("ARV", index);
+	}
 
 	///<summary>
 	/// Returns VXU_V04_PATIENT_VISIT (a Group object) - creates it if necessary
@@ -318,6 +433,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the GT1 results 
+	 */ 
+	public IEnumerable<GT1> GT1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < GT1RepetitionsUsed; rep++)
+			{
+				yield return (GT1)this.GetStructure("GT1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new GT1
+	///</summary>
+	public GT1 AddGT1()
+	{
+		return this.AddStructure("GT1") as GT1;
+	}
+
+	///<summary>
+	///Removes the given GT1
+	///</summary>
+	public void RemoveGT1(GT1 toRemove)
+	{
+		this.RemoveStructure("GT1", toRemove);
+	}
+
+	///<summary>
+	///Removes the GT1 at the given index
+	///</summary>
+	public void RemoveGT1At(int index)
+	{
+		this.RemoveRepetition("GT1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of VXU_V04_INSURANCE (a Group object) - creates it if necessary
 	///</summary>
@@ -358,6 +511,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the VXU_V04_INSURANCE results 
+	 */ 
+	public IEnumerable<VXU_V04_INSURANCE> INSURANCEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < INSURANCERepetitionsUsed; rep++)
+			{
+				yield return (VXU_V04_INSURANCE)this.GetStructure("INSURANCE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new VXU_V04_INSURANCE
+	///</summary>
+	public VXU_V04_INSURANCE AddINSURANCE()
+	{
+		return this.AddStructure("INSURANCE") as VXU_V04_INSURANCE;
+	}
+
+	///<summary>
+	///Removes the given VXU_V04_INSURANCE
+	///</summary>
+	public void RemoveINSURANCE(VXU_V04_INSURANCE toRemove)
+	{
+		this.RemoveStructure("INSURANCE", toRemove);
+	}
+
+	///<summary>
+	///Removes the VXU_V04_INSURANCE at the given index
+	///</summary>
+	public void RemoveINSURANCEAt(int index)
+	{
+		this.RemoveRepetition("INSURANCE", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of VXU_V04_PERSON_OBSERVATION (a Group object) - creates it if necessary
@@ -400,6 +591,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the VXU_V04_PERSON_OBSERVATION results 
+	 */ 
+	public IEnumerable<VXU_V04_PERSON_OBSERVATION> PERSON_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PERSON_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (VXU_V04_PERSON_OBSERVATION)this.GetStructure("PERSON_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new VXU_V04_PERSON_OBSERVATION
+	///</summary>
+	public VXU_V04_PERSON_OBSERVATION AddPERSON_OBSERVATION()
+	{
+		return this.AddStructure("PERSON_OBSERVATION") as VXU_V04_PERSON_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given VXU_V04_PERSON_OBSERVATION
+	///</summary>
+	public void RemovePERSON_OBSERVATION(VXU_V04_PERSON_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("PERSON_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the VXU_V04_PERSON_OBSERVATION at the given index
+	///</summary>
+	public void RemovePERSON_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("PERSON_OBSERVATION", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of VXU_V04_ORDER (a Group object) - creates it if necessary
 	///</summary>
@@ -440,6 +669,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the VXU_V04_ORDER results 
+	 */ 
+	public IEnumerable<VXU_V04_ORDER> ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDERRepetitionsUsed; rep++)
+			{
+				yield return (VXU_V04_ORDER)this.GetStructure("ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new VXU_V04_ORDER
+	///</summary>
+	public VXU_V04_ORDER AddORDER()
+	{
+		return this.AddStructure("ORDER") as VXU_V04_ORDER;
+	}
+
+	///<summary>
+	///Removes the given VXU_V04_ORDER
+	///</summary>
+	public void RemoveORDER(VXU_V04_ORDER toRemove)
+	{
+		this.RemoveStructure("ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the VXU_V04_ORDER at the given index
+	///</summary>
+	public void RemoveORDERAt(int index)
+	{
+		this.RemoveRepetition("ORDER", index);
+	}
 
 }
 }

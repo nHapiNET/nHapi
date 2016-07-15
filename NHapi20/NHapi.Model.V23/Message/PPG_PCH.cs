@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
@@ -146,6 +147,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PPG_PCH_PATHWAY results 
+	 */ 
+	public IEnumerable<PPG_PCH_PATHWAY> PATHWAYs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PATHWAYRepetitionsUsed; rep++)
+			{
+				yield return (PPG_PCH_PATHWAY)this.GetStructure("PATHWAY", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PPG_PCH_PATHWAY
+	///</summary>
+	public PPG_PCH_PATHWAY AddPATHWAY()
+	{
+		return this.AddStructure("PATHWAY") as PPG_PCH_PATHWAY;
+	}
+
+	///<summary>
+	///Removes the given PPG_PCH_PATHWAY
+	///</summary>
+	public void RemovePATHWAY(PPG_PCH_PATHWAY toRemove)
+	{
+		this.RemoveStructure("PATHWAY", toRemove);
+	}
+
+	///<summary>
+	///Removes the PPG_PCH_PATHWAY at the given index
+	///</summary>
+	public void RemovePATHWAYAt(int index)
+	{
+		this.RemoveRepetition("PATHWAY", index);
+	}
 
 }
 }

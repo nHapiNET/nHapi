@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V281.Group;
 using NHapi.Model.V281.Segment;
@@ -123,6 +124,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns MSA (Message Acknowledgment) - creates it if necessary
 	///</summary>
@@ -227,6 +266,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RSP_K32_QUERY_RESPONSE results 
+	 */ 
+	public IEnumerable<RSP_K32_QUERY_RESPONSE> QUERY_RESPONSEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < QUERY_RESPONSERepetitionsUsed; rep++)
+			{
+				yield return (RSP_K32_QUERY_RESPONSE)this.GetStructure("QUERY_RESPONSE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RSP_K32_QUERY_RESPONSE
+	///</summary>
+	public RSP_K32_QUERY_RESPONSE AddQUERY_RESPONSE()
+	{
+		return this.AddStructure("QUERY_RESPONSE") as RSP_K32_QUERY_RESPONSE;
+	}
+
+	///<summary>
+	///Removes the given RSP_K32_QUERY_RESPONSE
+	///</summary>
+	public void RemoveQUERY_RESPONSE(RSP_K32_QUERY_RESPONSE toRemove)
+	{
+		this.RemoveStructure("QUERY_RESPONSE", toRemove);
+	}
+
+	///<summary>
+	///Removes the RSP_K32_QUERY_RESPONSE at the given index
+	///</summary>
+	public void RemoveQUERY_RESPONSEAt(int index)
+	{
+		this.RemoveRepetition("QUERY_RESPONSE", index);
+	}
 
 	///<summary>
 	/// Returns DSC (Continuation Pointer) - creates it if necessary

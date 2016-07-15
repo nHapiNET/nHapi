@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V271.Segment;
 using NHapi.Model.V271.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CSU_C09_STUDY_SCHEDULE results 
+	 */ 
+	public IEnumerable<CSU_C09_STUDY_SCHEDULE> STUDY_SCHEDULEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < STUDY_SCHEDULERepetitionsUsed; rep++)
+			{
+				yield return (CSU_C09_STUDY_SCHEDULE)this.GetStructure("STUDY_SCHEDULE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CSU_C09_STUDY_SCHEDULE
+	///</summary>
+	public CSU_C09_STUDY_SCHEDULE AddSTUDY_SCHEDULE()
+	{
+		return this.AddStructure("STUDY_SCHEDULE") as CSU_C09_STUDY_SCHEDULE;
+	}
+
+	///<summary>
+	///Removes the given CSU_C09_STUDY_SCHEDULE
+	///</summary>
+	public void RemoveSTUDY_SCHEDULE(CSU_C09_STUDY_SCHEDULE toRemove)
+	{
+		this.RemoveStructure("STUDY_SCHEDULE", toRemove);
+	}
+
+	///<summary>
+	///Removes the CSU_C09_STUDY_SCHEDULE at the given index
+	///</summary>
+	public void RemoveSTUDY_SCHEDULEAt(int index)
+	{
+		this.RemoveRepetition("STUDY_SCHEDULE", index);
+	}
 
 }
 }

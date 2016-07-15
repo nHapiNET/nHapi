@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
@@ -166,6 +167,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SQR_S25_SCHEDULE results 
+	 */ 
+	public IEnumerable<SQR_S25_SCHEDULE> SCHEDULEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SCHEDULERepetitionsUsed; rep++)
+			{
+				yield return (SQR_S25_SCHEDULE)this.GetStructure("SCHEDULE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SQR_S25_SCHEDULE
+	///</summary>
+	public SQR_S25_SCHEDULE AddSCHEDULE()
+	{
+		return this.AddStructure("SCHEDULE") as SQR_S25_SCHEDULE;
+	}
+
+	///<summary>
+	///Removes the given SQR_S25_SCHEDULE
+	///</summary>
+	public void RemoveSCHEDULE(SQR_S25_SCHEDULE toRemove)
+	{
+		this.RemoveStructure("SCHEDULE", toRemove);
+	}
+
+	///<summary>
+	///Removes the SQR_S25_SCHEDULE at the given index
+	///</summary>
+	public void RemoveSCHEDULEAt(int index)
+	{
+		this.RemoveRepetition("SCHEDULE", index);
+	}
 
 	///<summary>
 	/// Returns DSC (Continuation pointer segment) - creates it if necessary

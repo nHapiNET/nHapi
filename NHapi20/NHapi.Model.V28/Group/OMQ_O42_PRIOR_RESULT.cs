@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V28.Segment;
 using NHapi.Model.V28.Datatype;
 using NHapi.Base.Model;
@@ -109,6 +110,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the AL1 results 
+	 */ 
+	public IEnumerable<AL1> AL1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < AL1RepetitionsUsed; rep++)
+			{
+				yield return (AL1)this.GetStructure("AL1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new AL1
+	///</summary>
+	public AL1 AddAL1()
+	{
+		return this.AddStructure("AL1") as AL1;
+	}
+
+	///<summary>
+	///Removes the given AL1
+	///</summary>
+	public void RemoveAL1(AL1 toRemove)
+	{
+		this.RemoveStructure("AL1", toRemove);
+	}
+
+	///<summary>
+	///Removes the AL1 at the given index
+	///</summary>
+	public void RemoveAL1At(int index)
+	{
+		this.RemoveRepetition("AL1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OMQ_O42_ORDER_PRIOR (a Group object) - creates it if necessary
 	///</summary>
@@ -149,6 +188,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OMQ_O42_ORDER_PRIOR results 
+	 */ 
+	public IEnumerable<OMQ_O42_ORDER_PRIOR> ORDER_PRIORs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDER_PRIORRepetitionsUsed; rep++)
+			{
+				yield return (OMQ_O42_ORDER_PRIOR)this.GetStructure("ORDER_PRIOR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OMQ_O42_ORDER_PRIOR
+	///</summary>
+	public OMQ_O42_ORDER_PRIOR AddORDER_PRIOR()
+	{
+		return this.AddStructure("ORDER_PRIOR") as OMQ_O42_ORDER_PRIOR;
+	}
+
+	///<summary>
+	///Removes the given OMQ_O42_ORDER_PRIOR
+	///</summary>
+	public void RemoveORDER_PRIOR(OMQ_O42_ORDER_PRIOR toRemove)
+	{
+		this.RemoveStructure("ORDER_PRIOR", toRemove);
+	}
+
+	///<summary>
+	///Removes the OMQ_O42_ORDER_PRIOR at the given index
+	///</summary>
+	public void RemoveORDER_PRIORAt(int index)
+	{
+		this.RemoveRepetition("ORDER_PRIOR", index);
+	}
 
 }
 }

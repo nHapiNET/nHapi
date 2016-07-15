@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V21.Group;
 using NHapi.Model.V21.Segment;
@@ -128,6 +129,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the BAR_P02_PATIENT results 
+	 */ 
+	public IEnumerable<BAR_P02_PATIENT> PATIENTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PATIENTRepetitionsUsed; rep++)
+			{
+				yield return (BAR_P02_PATIENT)this.GetStructure("PATIENT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new BAR_P02_PATIENT
+	///</summary>
+	public BAR_P02_PATIENT AddPATIENT()
+	{
+		return this.AddStructure("PATIENT") as BAR_P02_PATIENT;
+	}
+
+	///<summary>
+	///Removes the given BAR_P02_PATIENT
+	///</summary>
+	public void RemovePATIENT(BAR_P02_PATIENT toRemove)
+	{
+		this.RemoveStructure("PATIENT", toRemove);
+	}
+
+	///<summary>
+	///Removes the BAR_P02_PATIENT at the given index
+	///</summary>
+	public void RemovePATIENTAt(int index)
+	{
+		this.RemoveRepetition("PATIENT", index);
+	}
 
 }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V23.Group;
 using NHapi.Model.V23.Segment;
@@ -146,6 +147,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PPR_PC2_PROBLEM results 
+	 */ 
+	public IEnumerable<PPR_PC2_PROBLEM> PROBLEMs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROBLEMRepetitionsUsed; rep++)
+			{
+				yield return (PPR_PC2_PROBLEM)this.GetStructure("PROBLEM", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PPR_PC2_PROBLEM
+	///</summary>
+	public PPR_PC2_PROBLEM AddPROBLEM()
+	{
+		return this.AddStructure("PROBLEM") as PPR_PC2_PROBLEM;
+	}
+
+	///<summary>
+	///Removes the given PPR_PC2_PROBLEM
+	///</summary>
+	public void RemovePROBLEM(PPR_PC2_PROBLEM toRemove)
+	{
+		this.RemoveStructure("PROBLEM", toRemove);
+	}
+
+	///<summary>
+	///Removes the PPR_PC2_PROBLEM at the given index
+	///</summary>
+	public void RemovePROBLEMAt(int index)
+	{
+		this.RemoveRepetition("PROBLEM", index);
+	}
 
 }
 }

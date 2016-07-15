@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the CCM_I21_CLINICAL_HISTORY_DETAIL results 
+	 */ 
+	public IEnumerable<CCM_I21_CLINICAL_HISTORY_DETAIL> CLINICAL_HISTORY_DETAILs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CLINICAL_HISTORY_DETAILRepetitionsUsed; rep++)
+			{
+				yield return (CCM_I21_CLINICAL_HISTORY_DETAIL)this.GetStructure("CLINICAL_HISTORY_DETAIL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CCM_I21_CLINICAL_HISTORY_DETAIL
+	///</summary>
+	public CCM_I21_CLINICAL_HISTORY_DETAIL AddCLINICAL_HISTORY_DETAIL()
+	{
+		return this.AddStructure("CLINICAL_HISTORY_DETAIL") as CCM_I21_CLINICAL_HISTORY_DETAIL;
+	}
+
+	///<summary>
+	///Removes the given CCM_I21_CLINICAL_HISTORY_DETAIL
+	///</summary>
+	public void RemoveCLINICAL_HISTORY_DETAIL(CCM_I21_CLINICAL_HISTORY_DETAIL toRemove)
+	{
+		this.RemoveStructure("CLINICAL_HISTORY_DETAIL", toRemove);
+	}
+
+	///<summary>
+	///Removes the CCM_I21_CLINICAL_HISTORY_DETAIL at the given index
+	///</summary>
+	public void RemoveCLINICAL_HISTORY_DETAILAt(int index)
+	{
+		this.RemoveRepetition("CLINICAL_HISTORY_DETAIL", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CCM_I21_ROLE_CLINICAL_HISTORY (a Group object) - creates it if necessary
 	///</summary>
@@ -134,6 +173,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the CCM_I21_ROLE_CLINICAL_HISTORY results 
+	 */ 
+	public IEnumerable<CCM_I21_ROLE_CLINICAL_HISTORY> ROLE_CLINICAL_HISTORYs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ROLE_CLINICAL_HISTORYRepetitionsUsed; rep++)
+			{
+				yield return (CCM_I21_ROLE_CLINICAL_HISTORY)this.GetStructure("ROLE_CLINICAL_HISTORY", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CCM_I21_ROLE_CLINICAL_HISTORY
+	///</summary>
+	public CCM_I21_ROLE_CLINICAL_HISTORY AddROLE_CLINICAL_HISTORY()
+	{
+		return this.AddStructure("ROLE_CLINICAL_HISTORY") as CCM_I21_ROLE_CLINICAL_HISTORY;
+	}
+
+	///<summary>
+	///Removes the given CCM_I21_ROLE_CLINICAL_HISTORY
+	///</summary>
+	public void RemoveROLE_CLINICAL_HISTORY(CCM_I21_ROLE_CLINICAL_HISTORY toRemove)
+	{
+		this.RemoveStructure("ROLE_CLINICAL_HISTORY", toRemove);
+	}
+
+	///<summary>
+	///Removes the CCM_I21_ROLE_CLINICAL_HISTORY at the given index
+	///</summary>
+	public void RemoveROLE_CLINICAL_HISTORYAt(int index)
+	{
+		this.RemoveRepetition("ROLE_CLINICAL_HISTORY", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CTI (Clinical Trial Identification) - creates it if necessary
 	///</summary>
@@ -174,6 +251,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CTI results 
+	 */ 
+	public IEnumerable<CTI> CTIs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CTIRepetitionsUsed; rep++)
+			{
+				yield return (CTI)this.GetStructure("CTI", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CTI
+	///</summary>
+	public CTI AddCTI()
+	{
+		return this.AddStructure("CTI") as CTI;
+	}
+
+	///<summary>
+	///Removes the given CTI
+	///</summary>
+	public void RemoveCTI(CTI toRemove)
+	{
+		this.RemoveStructure("CTI", toRemove);
+	}
+
+	///<summary>
+	///Removes the CTI at the given index
+	///</summary>
+	public void RemoveCTIAt(int index)
+	{
+		this.RemoveRepetition("CTI", index);
+	}
 
 }
 }

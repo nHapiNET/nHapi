@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V231.Segment;
 using NHapi.Model.V231.Datatype;
 using NHapi.Base.Model;
@@ -106,6 +107,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the IN3 results 
+	 */ 
+	public IEnumerable<IN3> IN3s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < IN3RepetitionsUsed; rep++)
+			{
+				yield return (IN3)this.GetStructure("IN3", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new IN3
+	///</summary>
+	public IN3 AddIN3()
+	{
+		return this.AddStructure("IN3") as IN3;
+	}
+
+	///<summary>
+	///Removes the given IN3
+	///</summary>
+	public void RemoveIN3(IN3 toRemove)
+	{
+		this.RemoveStructure("IN3", toRemove);
+	}
+
+	///<summary>
+	///Removes the IN3 at the given index
+	///</summary>
+	public void RemoveIN3At(int index)
+	{
+		this.RemoveRepetition("IN3", index);
+	}
 
 }
 }

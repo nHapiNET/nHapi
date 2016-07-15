@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V25.Segment;
 using NHapi.Model.V25.Datatype;
 using NHapi.Base.Model;
@@ -111,6 +112,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the LCH results 
+	 */ 
+	public IEnumerable<LCH> LCHs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < LCHRepetitionsUsed; rep++)
+			{
+				yield return (LCH)this.GetStructure("LCH", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new LCH
+	///</summary>
+	public LCH AddLCH()
+	{
+		return this.AddStructure("LCH") as LCH;
+	}
+
+	///<summary>
+	///Removes the given LCH
+	///</summary>
+	public void RemoveLCH(LCH toRemove)
+	{
+		this.RemoveStructure("LCH", toRemove);
+	}
+
+	///<summary>
+	///Removes the LCH at the given index
+	///</summary>
+	public void RemoveLCHAt(int index)
+	{
+		this.RemoveRepetition("LCH", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of LRL (Location Relationship) - creates it if necessary
 	///</summary>
@@ -152,6 +191,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the LRL results 
+	 */ 
+	public IEnumerable<LRL> LRLs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < LRLRepetitionsUsed; rep++)
+			{
+				yield return (LRL)this.GetStructure("LRL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new LRL
+	///</summary>
+	public LRL AddLRL()
+	{
+		return this.AddStructure("LRL") as LRL;
+	}
+
+	///<summary>
+	///Removes the given LRL
+	///</summary>
+	public void RemoveLRL(LRL toRemove)
+	{
+		this.RemoveStructure("LRL", toRemove);
+	}
+
+	///<summary>
+	///Removes the LRL at the given index
+	///</summary>
+	public void RemoveLRLAt(int index)
+	{
+		this.RemoveRepetition("LRL", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RSP_Q11_MF_LOC_DEPT (a Group object) - creates it if necessary
 	///</summary>
@@ -192,6 +269,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RSP_Q11_MF_LOC_DEPT results 
+	 */ 
+	public IEnumerable<RSP_Q11_MF_LOC_DEPT> MF_LOC_DEPTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MF_LOC_DEPTRepetitionsUsed; rep++)
+			{
+				yield return (RSP_Q11_MF_LOC_DEPT)this.GetStructure("MF_LOC_DEPT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RSP_Q11_MF_LOC_DEPT
+	///</summary>
+	public RSP_Q11_MF_LOC_DEPT AddMF_LOC_DEPT()
+	{
+		return this.AddStructure("MF_LOC_DEPT") as RSP_Q11_MF_LOC_DEPT;
+	}
+
+	///<summary>
+	///Removes the given RSP_Q11_MF_LOC_DEPT
+	///</summary>
+	public void RemoveMF_LOC_DEPT(RSP_Q11_MF_LOC_DEPT toRemove)
+	{
+		this.RemoveStructure("MF_LOC_DEPT", toRemove);
+	}
+
+	///<summary>
+	///Removes the RSP_Q11_MF_LOC_DEPT at the given index
+	///</summary>
+	public void RemoveMF_LOC_DEPTAt(int index)
+	{
+		this.RemoveRepetition("MF_LOC_DEPT", index);
+	}
 
 }
 }

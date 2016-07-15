@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V23.Segment;
 using NHapi.Model.V23.Datatype;
 using NHapi.Base.Model;
@@ -113,6 +114,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns CSU_C09_VISIT (a Group object) - creates it if necessary
 	///</summary>
@@ -185,6 +224,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CSU_C09_STUDY_PHASE results 
+	 */ 
+	public IEnumerable<CSU_C09_STUDY_PHASE> STUDY_PHASEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < STUDY_PHASERepetitionsUsed; rep++)
+			{
+				yield return (CSU_C09_STUDY_PHASE)this.GetStructure("STUDY_PHASE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CSU_C09_STUDY_PHASE
+	///</summary>
+	public CSU_C09_STUDY_PHASE AddSTUDY_PHASE()
+	{
+		return this.AddStructure("STUDY_PHASE") as CSU_C09_STUDY_PHASE;
+	}
+
+	///<summary>
+	///Removes the given CSU_C09_STUDY_PHASE
+	///</summary>
+	public void RemoveSTUDY_PHASE(CSU_C09_STUDY_PHASE toRemove)
+	{
+		this.RemoveStructure("STUDY_PHASE", toRemove);
+	}
+
+	///<summary>
+	///Removes the CSU_C09_STUDY_PHASE at the given index
+	///</summary>
+	public void RemoveSTUDY_PHASEAt(int index)
+	{
+		this.RemoveRepetition("STUDY_PHASE", index);
+	}
 
 }
 }

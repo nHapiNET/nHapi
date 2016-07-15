@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V24.Segment;
 using NHapi.Model.V24.Datatype;
 using NHapi.Base.Model;
@@ -91,6 +92,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the CSU_C09_STUDY_OBSERVATION results 
+	 */ 
+	public IEnumerable<CSU_C09_STUDY_OBSERVATION> STUDY_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < STUDY_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (CSU_C09_STUDY_OBSERVATION)this.GetStructure("STUDY_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CSU_C09_STUDY_OBSERVATION
+	///</summary>
+	public CSU_C09_STUDY_OBSERVATION AddSTUDY_OBSERVATION()
+	{
+		return this.AddStructure("STUDY_OBSERVATION") as CSU_C09_STUDY_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given CSU_C09_STUDY_OBSERVATION
+	///</summary>
+	public void RemoveSTUDY_OBSERVATION(CSU_C09_STUDY_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("STUDY_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the CSU_C09_STUDY_OBSERVATION at the given index
+	///</summary>
+	public void RemoveSTUDY_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("STUDY_OBSERVATION", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CSU_C09_STUDY_PHARM (a Group object) - creates it if necessary
 	///</summary>
@@ -131,6 +170,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CSU_C09_STUDY_PHARM results 
+	 */ 
+	public IEnumerable<CSU_C09_STUDY_PHARM> STUDY_PHARMs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < STUDY_PHARMRepetitionsUsed; rep++)
+			{
+				yield return (CSU_C09_STUDY_PHARM)this.GetStructure("STUDY_PHARM", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CSU_C09_STUDY_PHARM
+	///</summary>
+	public CSU_C09_STUDY_PHARM AddSTUDY_PHARM()
+	{
+		return this.AddStructure("STUDY_PHARM") as CSU_C09_STUDY_PHARM;
+	}
+
+	///<summary>
+	///Removes the given CSU_C09_STUDY_PHARM
+	///</summary>
+	public void RemoveSTUDY_PHARM(CSU_C09_STUDY_PHARM toRemove)
+	{
+		this.RemoveStructure("STUDY_PHARM", toRemove);
+	}
+
+	///<summary>
+	///Removes the CSU_C09_STUDY_PHARM at the given index
+	///</summary>
+	public void RemoveSTUDY_PHARMAt(int index)
+	{
+		this.RemoveRepetition("STUDY_PHARM", index);
+	}
 
 }
 }

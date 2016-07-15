@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V26.Segment;
 using NHapi.Model.V26.Datatype;
 using NHapi.Base.Model;
@@ -91,6 +92,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the LCH results 
+	 */ 
+	public IEnumerable<LCH> LCHs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < LCHRepetitionsUsed; rep++)
+			{
+				yield return (LCH)this.GetStructure("LCH", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new LCH
+	///</summary>
+	public LCH AddLCH()
+	{
+		return this.AddStructure("LCH") as LCH;
+	}
+
+	///<summary>
+	///Removes the given LCH
+	///</summary>
+	public void RemoveLCH(LCH toRemove)
+	{
+		this.RemoveStructure("LCH", toRemove);
+	}
+
+	///<summary>
+	///Removes the LCH at the given index
+	///</summary>
+	public void RemoveLCHAt(int index)
+	{
+		this.RemoveRepetition("LCH", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of LCC (Location Charge Code) - creates it if necessary
 	///</summary>
@@ -131,6 +170,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the LCC results 
+	 */ 
+	public IEnumerable<LCC> LCCs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < LCCRepetitionsUsed; rep++)
+			{
+				yield return (LCC)this.GetStructure("LCC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new LCC
+	///</summary>
+	public LCC AddLCC()
+	{
+		return this.AddStructure("LCC") as LCC;
+	}
+
+	///<summary>
+	///Removes the given LCC
+	///</summary>
+	public void RemoveLCC(LCC toRemove)
+	{
+		this.RemoveStructure("LCC", toRemove);
+	}
+
+	///<summary>
+	///Removes the LCC at the given index
+	///</summary>
+	public void RemoveLCCAt(int index)
+	{
+		this.RemoveRepetition("LCC", index);
+	}
 
 }
 }

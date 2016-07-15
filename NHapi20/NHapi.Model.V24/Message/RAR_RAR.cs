@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -148,6 +149,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RAR_RAR_DEFINITION results 
+	 */ 
+	public IEnumerable<RAR_RAR_DEFINITION> DEFINITIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DEFINITIONRepetitionsUsed; rep++)
+			{
+				yield return (RAR_RAR_DEFINITION)this.GetStructure("DEFINITION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RAR_RAR_DEFINITION
+	///</summary>
+	public RAR_RAR_DEFINITION AddDEFINITION()
+	{
+		return this.AddStructure("DEFINITION") as RAR_RAR_DEFINITION;
+	}
+
+	///<summary>
+	///Removes the given RAR_RAR_DEFINITION
+	///</summary>
+	public void RemoveDEFINITION(RAR_RAR_DEFINITION toRemove)
+	{
+		this.RemoveStructure("DEFINITION", toRemove);
+	}
+
+	///<summary>
+	///Removes the RAR_RAR_DEFINITION at the given index
+	///</summary>
+	public void RemoveDEFINITIONAt(int index)
+	{
+		this.RemoveRepetition("DEFINITION", index);
+	}
 
 	///<summary>
 	/// Returns DSC (Continuation Pointer) - creates it if necessary

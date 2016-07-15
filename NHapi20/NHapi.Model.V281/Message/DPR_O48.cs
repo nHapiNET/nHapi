@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V281.Group;
 using NHapi.Model.V281.Segment;
@@ -119,6 +120,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -191,6 +230,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DPR_O48_OBRNTE results 
+	 */ 
+	public IEnumerable<DPR_O48_OBRNTE> OBRNTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBRNTERepetitionsUsed; rep++)
+			{
+				yield return (DPR_O48_OBRNTE)this.GetStructure("OBRNTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DPR_O48_OBRNTE
+	///</summary>
+	public DPR_O48_OBRNTE AddOBRNTE()
+	{
+		return this.AddStructure("OBRNTE") as DPR_O48_OBRNTE;
+	}
+
+	///<summary>
+	///Removes the given DPR_O48_OBRNTE
+	///</summary>
+	public void RemoveOBRNTE(DPR_O48_OBRNTE toRemove)
+	{
+		this.RemoveStructure("OBRNTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the DPR_O48_OBRNTE at the given index
+	///</summary>
+	public void RemoveOBRNTEAt(int index)
+	{
+		this.RemoveRepetition("OBRNTE", index);
+	}
 
 	///<summary>
 	/// Returns DPR_O48_DONATION (a Group object) - creates it if necessary

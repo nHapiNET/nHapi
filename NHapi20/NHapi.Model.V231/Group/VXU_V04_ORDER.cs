@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V231.Segment;
 using NHapi.Model.V231.Datatype;
 using NHapi.Base.Model;
@@ -124,6 +125,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the VXU_V04_OBSERVATION results 
+	 */ 
+	public IEnumerable<VXU_V04_OBSERVATION> OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (VXU_V04_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new VXU_V04_OBSERVATION
+	///</summary>
+	public VXU_V04_OBSERVATION AddOBSERVATION()
+	{
+		return this.AddStructure("OBSERVATION") as VXU_V04_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given VXU_V04_OBSERVATION
+	///</summary>
+	public void RemoveOBSERVATION(VXU_V04_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the VXU_V04_OBSERVATION at the given index
+	///</summary>
+	public void RemoveOBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION", index);
+	}
 
 }
 }

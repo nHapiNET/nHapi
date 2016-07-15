@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V28.Segment;
 using NHapi.Model.V28.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SAC results 
+	 */ 
+	public IEnumerable<SAC> SACs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SACRepetitionsUsed; rep++)
+			{
+				yield return (SAC)this.GetStructure("SAC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SAC
+	///</summary>
+	public SAC AddSAC()
+	{
+		return this.AddStructure("SAC") as SAC;
+	}
+
+	///<summary>
+	///Removes the given SAC
+	///</summary>
+	public void RemoveSAC(SAC toRemove)
+	{
+		this.RemoveStructure("SAC", toRemove);
+	}
+
+	///<summary>
+	///Removes the SAC at the given index
+	///</summary>
+	public void RemoveSACAt(int index)
+	{
+		this.RemoveRepetition("SAC", index);
+	}
 
 }
 }

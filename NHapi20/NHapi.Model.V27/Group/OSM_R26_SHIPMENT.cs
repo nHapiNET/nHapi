@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OSM_R26_SHIPPING_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -134,6 +173,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OSM_R26_SHIPPING_OBSERVATION results 
+	 */ 
+	public IEnumerable<OSM_R26_SHIPPING_OBSERVATION> SHIPPING_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SHIPPING_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (OSM_R26_SHIPPING_OBSERVATION)this.GetStructure("SHIPPING_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OSM_R26_SHIPPING_OBSERVATION
+	///</summary>
+	public OSM_R26_SHIPPING_OBSERVATION AddSHIPPING_OBSERVATION()
+	{
+		return this.AddStructure("SHIPPING_OBSERVATION") as OSM_R26_SHIPPING_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given OSM_R26_SHIPPING_OBSERVATION
+	///</summary>
+	public void RemoveSHIPPING_OBSERVATION(OSM_R26_SHIPPING_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("SHIPPING_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the OSM_R26_SHIPPING_OBSERVATION at the given index
+	///</summary>
+	public void RemoveSHIPPING_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("SHIPPING_OBSERVATION", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OSM_R26_PACKAGE (a Group object) - creates it if necessary
 	///</summary>
@@ -174,6 +251,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OSM_R26_PACKAGE results 
+	 */ 
+	public IEnumerable<OSM_R26_PACKAGE> PACKAGEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PACKAGERepetitionsUsed; rep++)
+			{
+				yield return (OSM_R26_PACKAGE)this.GetStructure("PACKAGE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OSM_R26_PACKAGE
+	///</summary>
+	public OSM_R26_PACKAGE AddPACKAGE()
+	{
+		return this.AddStructure("PACKAGE") as OSM_R26_PACKAGE;
+	}
+
+	///<summary>
+	///Removes the given OSM_R26_PACKAGE
+	///</summary>
+	public void RemovePACKAGE(OSM_R26_PACKAGE toRemove)
+	{
+		this.RemoveStructure("PACKAGE", toRemove);
+	}
+
+	///<summary>
+	///Removes the OSM_R26_PACKAGE at the given index
+	///</summary>
+	public void RemovePACKAGEAt(int index)
+	{
+		this.RemoveRepetition("PACKAGE", index);
+	}
 
 }
 }

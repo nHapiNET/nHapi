@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V25.Group;
 using NHapi.Model.V25.Segment;
@@ -115,6 +116,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns MFI (Master File Identification) - creates it if necessary
 	///</summary>
@@ -171,6 +210,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the MFN_M01_MF results 
+	 */ 
+	public IEnumerable<MFN_M01_MF> MFs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < MFRepetitionsUsed; rep++)
+			{
+				yield return (MFN_M01_MF)this.GetStructure("MF", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new MFN_M01_MF
+	///</summary>
+	public MFN_M01_MF AddMF()
+	{
+		return this.AddStructure("MF") as MFN_M01_MF;
+	}
+
+	///<summary>
+	///Removes the given MFN_M01_MF
+	///</summary>
+	public void RemoveMF(MFN_M01_MF toRemove)
+	{
+		this.RemoveStructure("MF", toRemove);
+	}
+
+	///<summary>
+	///Removes the MFN_M01_MF at the given index
+	///</summary>
+	public void RemoveMFAt(int index)
+	{
+		this.RemoveRepetition("MF", index);
+	}
 
 }
 }

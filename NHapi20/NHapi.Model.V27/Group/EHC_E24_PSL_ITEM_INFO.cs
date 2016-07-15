@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -106,6 +107,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the EHC_E24_PAYER_ADJUSTMENT results 
+	 */ 
+	public IEnumerable<EHC_E24_PAYER_ADJUSTMENT> PAYER_ADJUSTMENTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PAYER_ADJUSTMENTRepetitionsUsed; rep++)
+			{
+				yield return (EHC_E24_PAYER_ADJUSTMENT)this.GetStructure("PAYER_ADJUSTMENT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EHC_E24_PAYER_ADJUSTMENT
+	///</summary>
+	public EHC_E24_PAYER_ADJUSTMENT AddPAYER_ADJUSTMENT()
+	{
+		return this.AddStructure("PAYER_ADJUSTMENT") as EHC_E24_PAYER_ADJUSTMENT;
+	}
+
+	///<summary>
+	///Removes the given EHC_E24_PAYER_ADJUSTMENT
+	///</summary>
+	public void RemovePAYER_ADJUSTMENT(EHC_E24_PAYER_ADJUSTMENT toRemove)
+	{
+		this.RemoveStructure("PAYER_ADJUSTMENT", toRemove);
+	}
+
+	///<summary>
+	///Removes the EHC_E24_PAYER_ADJUSTMENT at the given index
+	///</summary>
+	public void RemovePAYER_ADJUSTMENTAt(int index)
+	{
+		this.RemoveRepetition("PAYER_ADJUSTMENT", index);
+	}
 
 }
 }

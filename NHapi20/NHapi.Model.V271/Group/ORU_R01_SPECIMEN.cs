@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V271.Segment;
 using NHapi.Model.V271.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORU_R01_PATIENT_OBSERVATION results 
+	 */ 
+	public IEnumerable<ORU_R01_PATIENT_OBSERVATION> PATIENT_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PATIENT_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (ORU_R01_PATIENT_OBSERVATION)this.GetStructure("PATIENT_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORU_R01_PATIENT_OBSERVATION
+	///</summary>
+	public ORU_R01_PATIENT_OBSERVATION AddPATIENT_OBSERVATION()
+	{
+		return this.AddStructure("PATIENT_OBSERVATION") as ORU_R01_PATIENT_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given ORU_R01_PATIENT_OBSERVATION
+	///</summary>
+	public void RemovePATIENT_OBSERVATION(ORU_R01_PATIENT_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("PATIENT_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORU_R01_PATIENT_OBSERVATION at the given index
+	///</summary>
+	public void RemovePATIENT_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("PATIENT_OBSERVATION", index);
+	}
 
 }
 }

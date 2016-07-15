@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V271.Group;
 using NHapi.Model.V271.Segment;
@@ -119,6 +120,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -192,6 +231,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the CCQ_I19_PROVIDER_CONTACT results 
+	 */ 
+	public IEnumerable<CCQ_I19_PROVIDER_CONTACT> PROVIDER_CONTACTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PROVIDER_CONTACTRepetitionsUsed; rep++)
+			{
+				yield return (CCQ_I19_PROVIDER_CONTACT)this.GetStructure("PROVIDER_CONTACT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CCQ_I19_PROVIDER_CONTACT
+	///</summary>
+	public CCQ_I19_PROVIDER_CONTACT AddPROVIDER_CONTACT()
+	{
+		return this.AddStructure("PROVIDER_CONTACT") as CCQ_I19_PROVIDER_CONTACT;
+	}
+
+	///<summary>
+	///Removes the given CCQ_I19_PROVIDER_CONTACT
+	///</summary>
+	public void RemovePROVIDER_CONTACT(CCQ_I19_PROVIDER_CONTACT toRemove)
+	{
+		this.RemoveStructure("PROVIDER_CONTACT", toRemove);
+	}
+
+	///<summary>
+	///Removes the CCQ_I19_PROVIDER_CONTACT at the given index
+	///</summary>
+	public void RemovePROVIDER_CONTACTAt(int index)
+	{
+		this.RemoveRepetition("PROVIDER_CONTACT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of REL (Clinical Relationship Segment) - creates it if necessary
 	///</summary>
@@ -232,6 +309,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the REL results 
+	 */ 
+	public IEnumerable<REL> RELs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RELRepetitionsUsed; rep++)
+			{
+				yield return (REL)this.GetStructure("REL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new REL
+	///</summary>
+	public REL AddREL()
+	{
+		return this.AddStructure("REL") as REL;
+	}
+
+	///<summary>
+	///Removes the given REL
+	///</summary>
+	public void RemoveREL(REL toRemove)
+	{
+		this.RemoveStructure("REL", toRemove);
+	}
+
+	///<summary>
+	///Removes the REL at the given index
+	///</summary>
+	public void RemoveRELAt(int index)
+	{
+		this.RemoveRepetition("REL", index);
+	}
 
 }
 }

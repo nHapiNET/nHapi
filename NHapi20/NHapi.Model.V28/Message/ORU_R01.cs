@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V28.Group;
 using NHapi.Model.V28.Segment;
@@ -117,6 +118,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -173,6 +212,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORU_R01_PATIENT_RESULT results 
+	 */ 
+	public IEnumerable<ORU_R01_PATIENT_RESULT> PATIENT_RESULTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PATIENT_RESULTRepetitionsUsed; rep++)
+			{
+				yield return (ORU_R01_PATIENT_RESULT)this.GetStructure("PATIENT_RESULT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORU_R01_PATIENT_RESULT
+	///</summary>
+	public ORU_R01_PATIENT_RESULT AddPATIENT_RESULT()
+	{
+		return this.AddStructure("PATIENT_RESULT") as ORU_R01_PATIENT_RESULT;
+	}
+
+	///<summary>
+	///Removes the given ORU_R01_PATIENT_RESULT
+	///</summary>
+	public void RemovePATIENT_RESULT(ORU_R01_PATIENT_RESULT toRemove)
+	{
+		this.RemoveStructure("PATIENT_RESULT", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORU_R01_PATIENT_RESULT at the given index
+	///</summary>
+	public void RemovePATIENT_RESULTAt(int index)
+	{
+		this.RemoveRepetition("PATIENT_RESULT", index);
+	}
 
 	///<summary>
 	/// Returns DSC (Continuation Pointer) - creates it if necessary

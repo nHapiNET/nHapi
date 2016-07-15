@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V23.Segment;
 using NHapi.Model.V23.Datatype;
 using NHapi.Base.Model;
@@ -95,6 +96,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RXR (Pharmacy route segment) - creates it if necessary
 	///</summary>
@@ -135,6 +174,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RXR results 
+	 */ 
+	public IEnumerable<RXR> RXRs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RXRRepetitionsUsed; rep++)
+			{
+				yield return (RXR)this.GetStructure("RXR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RXR
+	///</summary>
+	public RXR AddRXR()
+	{
+		return this.AddStructure("RXR") as RXR;
+	}
+
+	///<summary>
+	///Removes the given RXR
+	///</summary>
+	public void RemoveRXR(RXR toRemove)
+	{
+		this.RemoveStructure("RXR", toRemove);
+	}
+
+	///<summary>
+	///Removes the RXR at the given index
+	///</summary>
+	public void RemoveRXRAt(int index)
+	{
+		this.RemoveRepetition("RXR", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of RXC (Pharmacy component order segment) - creates it if necessary
@@ -177,6 +254,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RXC results 
+	 */ 
+	public IEnumerable<RXC> RXCs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RXCRepetitionsUsed; rep++)
+			{
+				yield return (RXC)this.GetStructure("RXC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RXC
+	///</summary>
+	public RXC AddRXC()
+	{
+		return this.AddStructure("RXC") as RXC;
+	}
+
+	///<summary>
+	///Removes the given RXC
+	///</summary>
+	public void RemoveRXC(RXC toRemove)
+	{
+		this.RemoveStructure("RXC", toRemove);
+	}
+
+	///<summary>
+	///Removes the RXC at the given index
+	///</summary>
+	public void RemoveRXCAt(int index)
+	{
+		this.RemoveRepetition("RXC", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of NTE2 (Notes and comments segment) - creates it if necessary
 	///</summary>
@@ -217,6 +332,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTE2s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTE2RepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE2", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE2()
+	{
+		return this.AddStructure("NTE2") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE2(NTE toRemove)
+	{
+		this.RemoveStructure("NTE2", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTE2At(int index)
+	{
+		this.RemoveRepetition("NTE2", index);
+	}
 
 }
 }

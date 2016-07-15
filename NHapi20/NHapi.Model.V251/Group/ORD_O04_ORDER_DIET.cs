@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V251.Segment;
 using NHapi.Model.V251.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ORD_O04_TIMING_DIET results 
+	 */ 
+	public IEnumerable<ORD_O04_TIMING_DIET> TIMING_DIETs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMING_DIETRepetitionsUsed; rep++)
+			{
+				yield return (ORD_O04_TIMING_DIET)this.GetStructure("TIMING_DIET", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORD_O04_TIMING_DIET
+	///</summary>
+	public ORD_O04_TIMING_DIET AddTIMING_DIET()
+	{
+		return this.AddStructure("TIMING_DIET") as ORD_O04_TIMING_DIET;
+	}
+
+	///<summary>
+	///Removes the given ORD_O04_TIMING_DIET
+	///</summary>
+	public void RemoveTIMING_DIET(ORD_O04_TIMING_DIET toRemove)
+	{
+		this.RemoveStructure("TIMING_DIET", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORD_O04_TIMING_DIET at the given index
+	///</summary>
+	public void RemoveTIMING_DIETAt(int index)
+	{
+		this.RemoveRepetition("TIMING_DIET", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ODS (Dietary Orders, Supplements, and Preferences) - creates it if necessary
 	///</summary>
@@ -134,6 +173,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ODS results 
+	 */ 
+	public IEnumerable<ODS> ODSs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ODSRepetitionsUsed; rep++)
+			{
+				yield return (ODS)this.GetStructure("ODS", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ODS
+	///</summary>
+	public ODS AddODS()
+	{
+		return this.AddStructure("ODS") as ODS;
+	}
+
+	///<summary>
+	///Removes the given ODS
+	///</summary>
+	public void RemoveODS(ODS toRemove)
+	{
+		this.RemoveStructure("ODS", toRemove);
+	}
+
+	///<summary>
+	///Removes the ODS at the given index
+	///</summary>
+	public void RemoveODSAt(int index)
+	{
+		this.RemoveRepetition("ODS", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of NTE (Notes and Comments) - creates it if necessary
 	///</summary>
@@ -174,6 +251,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V28.Segment;
 using NHapi.Model.V28.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SPM results 
+	 */ 
+	public IEnumerable<SPM> SPMs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPMRepetitionsUsed; rep++)
+			{
+				yield return (SPM)this.GetStructure("SPM", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SPM
+	///</summary>
+	public SPM AddSPM()
+	{
+		return this.AddStructure("SPM") as SPM;
+	}
+
+	///<summary>
+	///Removes the given SPM
+	///</summary>
+	public void RemoveSPM(SPM toRemove)
+	{
+		this.RemoveStructure("SPM", toRemove);
+	}
+
+	///<summary>
+	///Removes the SPM at the given index
+	///</summary>
+	public void RemoveSPMAt(int index)
+	{
+		this.RemoveRepetition("SPM", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -90,6 +91,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OMD_O03_TIMING_DIET results 
+	 */ 
+	public IEnumerable<OMD_O03_TIMING_DIET> TIMING_DIETs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMING_DIETRepetitionsUsed; rep++)
+			{
+				yield return (OMD_O03_TIMING_DIET)this.GetStructure("TIMING_DIET", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OMD_O03_TIMING_DIET
+	///</summary>
+	public OMD_O03_TIMING_DIET AddTIMING_DIET()
+	{
+		return this.AddStructure("TIMING_DIET") as OMD_O03_TIMING_DIET;
+	}
+
+	///<summary>
+	///Removes the given OMD_O03_TIMING_DIET
+	///</summary>
+	public void RemoveTIMING_DIET(OMD_O03_TIMING_DIET toRemove)
+	{
+		this.RemoveStructure("TIMING_DIET", toRemove);
+	}
+
+	///<summary>
+	///Removes the OMD_O03_TIMING_DIET at the given index
+	///</summary>
+	public void RemoveTIMING_DIETAt(int index)
+	{
+		this.RemoveRepetition("TIMING_DIET", index);
+	}
 
 	///<summary>
 	/// Returns OMD_O03_DIET (a Group object) - creates it if necessary

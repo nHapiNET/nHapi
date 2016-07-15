@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -130,6 +131,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ISD results 
+	 */ 
+	public IEnumerable<ISD> ISDs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ISDRepetitionsUsed; rep++)
+			{
+				yield return (ISD)this.GetStructure("ISD", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ISD
+	///</summary>
+	public ISD AddISD()
+	{
+		return this.AddStructure("ISD") as ISD;
+	}
+
+	///<summary>
+	///Removes the given ISD
+	///</summary>
+	public void RemoveISD(ISD toRemove)
+	{
+		this.RemoveStructure("ISD", toRemove);
+	}
+
+	///<summary>
+	///Removes the ISD at the given index
+	///</summary>
+	public void RemoveISDAt(int index)
+	{
+		this.RemoveRepetition("ISD", index);
+	}
 
 	///<summary>
 	/// Returns ROL (Role) - creates it if necessary

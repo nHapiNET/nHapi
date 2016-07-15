@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the VAR results 
+	 */ 
+	public IEnumerable<VAR> VARs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < VARRepetitionsUsed; rep++)
+			{
+				yield return (VAR)this.GetStructure("VAR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new VAR
+	///</summary>
+	public VAR AddVAR()
+	{
+		return this.AddStructure("VAR") as VAR;
+	}
+
+	///<summary>
+	///Removes the given VAR
+	///</summary>
+	public void RemoveVAR(VAR toRemove)
+	{
+		this.RemoveStructure("VAR", toRemove);
+	}
+
+	///<summary>
+	///Removes the VAR at the given index
+	///</summary>
+	public void RemoveVARAt(int index)
+	{
+		this.RemoveRepetition("VAR", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CCI_I22_ROLE_GOAL (a Group object) - creates it if necessary
 	///</summary>
@@ -134,6 +173,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the CCI_I22_ROLE_GOAL results 
+	 */ 
+	public IEnumerable<CCI_I22_ROLE_GOAL> ROLE_GOALs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ROLE_GOALRepetitionsUsed; rep++)
+			{
+				yield return (CCI_I22_ROLE_GOAL)this.GetStructure("ROLE_GOAL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CCI_I22_ROLE_GOAL
+	///</summary>
+	public CCI_I22_ROLE_GOAL AddROLE_GOAL()
+	{
+		return this.AddStructure("ROLE_GOAL") as CCI_I22_ROLE_GOAL;
+	}
+
+	///<summary>
+	///Removes the given CCI_I22_ROLE_GOAL
+	///</summary>
+	public void RemoveROLE_GOAL(CCI_I22_ROLE_GOAL toRemove)
+	{
+		this.RemoveStructure("ROLE_GOAL", toRemove);
+	}
+
+	///<summary>
+	///Removes the CCI_I22_ROLE_GOAL at the given index
+	///</summary>
+	public void RemoveROLE_GOALAt(int index)
+	{
+		this.RemoveRepetition("ROLE_GOAL", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OBX (Observation/Result) - creates it if necessary
 	///</summary>
@@ -174,6 +251,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OBX results 
+	 */ 
+	public IEnumerable<OBX> OBXs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBXRepetitionsUsed; rep++)
+			{
+				yield return (OBX)this.GetStructure("OBX", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OBX
+	///</summary>
+	public OBX AddOBX()
+	{
+		return this.AddStructure("OBX") as OBX;
+	}
+
+	///<summary>
+	///Removes the given OBX
+	///</summary>
+	public void RemoveOBX(OBX toRemove)
+	{
+		this.RemoveStructure("OBX", toRemove);
+	}
+
+	///<summary>
+	///Removes the OBX at the given index
+	///</summary>
+	public void RemoveOBXAt(int index)
+	{
+		this.RemoveRepetition("OBX", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V23.Segment;
 using NHapi.Model.V23.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PEX_P08_PEX_OBSERVATION results 
+	 */ 
+	public IEnumerable<PEX_P08_PEX_OBSERVATION> PEX_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PEX_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (PEX_P08_PEX_OBSERVATION)this.GetStructure("PEX_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PEX_P08_PEX_OBSERVATION
+	///</summary>
+	public PEX_P08_PEX_OBSERVATION AddPEX_OBSERVATION()
+	{
+		return this.AddStructure("PEX_OBSERVATION") as PEX_P08_PEX_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given PEX_P08_PEX_OBSERVATION
+	///</summary>
+	public void RemovePEX_OBSERVATION(PEX_P08_PEX_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("PEX_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the PEX_P08_PEX_OBSERVATION at the given index
+	///</summary>
+	public void RemovePEX_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("PEX_OBSERVATION", index);
+	}
 
 }
 }

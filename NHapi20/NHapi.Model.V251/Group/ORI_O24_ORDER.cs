@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V251.Segment;
 using NHapi.Model.V251.Datatype;
 using NHapi.Base.Model;
@@ -95,6 +96,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ORI_O24_TIMING results 
+	 */ 
+	public IEnumerable<ORI_O24_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (ORI_O24_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORI_O24_TIMING
+	///</summary>
+	public ORI_O24_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as ORI_O24_TIMING;
+	}
+
+	///<summary>
+	///Removes the given ORI_O24_TIMING
+	///</summary>
+	public void RemoveTIMING(ORI_O24_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORI_O24_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
+
 	///<summary>
 	/// Returns OBR (Observation Request) - creates it if necessary
 	///</summary>
@@ -152,6 +191,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of IPC (Imaging Procedure Control Segment) - creates it if necessary
 	///</summary>
@@ -192,6 +269,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the IPC results 
+	 */ 
+	public IEnumerable<IPC> IPCs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < IPCRepetitionsUsed; rep++)
+			{
+				yield return (IPC)this.GetStructure("IPC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new IPC
+	///</summary>
+	public IPC AddIPC()
+	{
+		return this.AddStructure("IPC") as IPC;
+	}
+
+	///<summary>
+	///Removes the given IPC
+	///</summary>
+	public void RemoveIPC(IPC toRemove)
+	{
+		this.RemoveStructure("IPC", toRemove);
+	}
+
+	///<summary>
+	///Removes the IPC at the given index
+	///</summary>
+	public void RemoveIPCAt(int index)
+	{
+		this.RemoveRepetition("IPC", index);
+	}
 
 }
 }

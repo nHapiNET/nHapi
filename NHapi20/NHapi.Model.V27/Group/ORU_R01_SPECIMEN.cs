@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORU_R01_SPECIMEN_OBSERVATION results 
+	 */ 
+	public IEnumerable<ORU_R01_SPECIMEN_OBSERVATION> SPECIMEN_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPECIMEN_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (ORU_R01_SPECIMEN_OBSERVATION)this.GetStructure("SPECIMEN_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORU_R01_SPECIMEN_OBSERVATION
+	///</summary>
+	public ORU_R01_SPECIMEN_OBSERVATION AddSPECIMEN_OBSERVATION()
+	{
+		return this.AddStructure("SPECIMEN_OBSERVATION") as ORU_R01_SPECIMEN_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given ORU_R01_SPECIMEN_OBSERVATION
+	///</summary>
+	public void RemoveSPECIMEN_OBSERVATION(ORU_R01_SPECIMEN_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("SPECIMEN_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORU_R01_SPECIMEN_OBSERVATION at the given index
+	///</summary>
+	public void RemoveSPECIMEN_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("SPECIMEN_OBSERVATION", index);
+	}
 
 }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -130,6 +131,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the TCC results 
+	 */ 
+	public IEnumerable<TCC> TCCs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TCCRepetitionsUsed; rep++)
+			{
+				yield return (TCC)this.GetStructure("TCC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new TCC
+	///</summary>
+	public TCC AddTCC()
+	{
+		return this.AddStructure("TCC") as TCC;
+	}
+
+	///<summary>
+	///Removes the given TCC
+	///</summary>
+	public void RemoveTCC(TCC toRemove)
+	{
+		this.RemoveStructure("TCC", toRemove);
+	}
+
+	///<summary>
+	///Removes the TCC at the given index
+	///</summary>
+	public void RemoveTCCAt(int index)
+	{
+		this.RemoveRepetition("TCC", index);
+	}
 
 	///<summary>
 	/// Returns ROL (Role) - creates it if necessary

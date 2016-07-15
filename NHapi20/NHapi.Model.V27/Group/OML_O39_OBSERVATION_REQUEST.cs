@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -117,6 +118,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of PRT (Participation Information) - creates it if necessary
 	///</summary>
@@ -157,6 +196,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
 
 	///<summary>
 	/// Returns CTD (Contact Data) - creates it if necessary
@@ -215,6 +292,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the DG1 results 
+	 */ 
+	public IEnumerable<DG1> DG1s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < DG1RepetitionsUsed; rep++)
+			{
+				yield return (DG1)this.GetStructure("DG1", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DG1
+	///</summary>
+	public DG1 AddDG1()
+	{
+		return this.AddStructure("DG1") as DG1;
+	}
+
+	///<summary>
+	///Removes the given DG1
+	///</summary>
+	public void RemoveDG1(DG1 toRemove)
+	{
+		this.RemoveStructure("DG1", toRemove);
+	}
+
+	///<summary>
+	///Removes the DG1 at the given index
+	///</summary>
+	public void RemoveDG1At(int index)
+	{
+		this.RemoveRepetition("DG1", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OML_O39_OBSERVATION (a Group object) - creates it if necessary
 	///</summary>
@@ -256,6 +371,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OML_O39_OBSERVATION results 
+	 */ 
+	public IEnumerable<OML_O39_OBSERVATION> OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (OML_O39_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OML_O39_OBSERVATION
+	///</summary>
+	public OML_O39_OBSERVATION AddOBSERVATION()
+	{
+		return this.AddStructure("OBSERVATION") as OML_O39_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given OML_O39_OBSERVATION
+	///</summary>
+	public void RemoveOBSERVATION(OML_O39_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the OML_O39_OBSERVATION at the given index
+	///</summary>
+	public void RemoveOBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OML_O39_SPECIMEN_SHIPMENT (a Group object) - creates it if necessary
 	///</summary>
@@ -296,6 +449,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OML_O39_SPECIMEN_SHIPMENT results 
+	 */ 
+	public IEnumerable<OML_O39_SPECIMEN_SHIPMENT> SPECIMEN_SHIPMENTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPECIMEN_SHIPMENTRepetitionsUsed; rep++)
+			{
+				yield return (OML_O39_SPECIMEN_SHIPMENT)this.GetStructure("SPECIMEN_SHIPMENT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OML_O39_SPECIMEN_SHIPMENT
+	///</summary>
+	public OML_O39_SPECIMEN_SHIPMENT AddSPECIMEN_SHIPMENT()
+	{
+		return this.AddStructure("SPECIMEN_SHIPMENT") as OML_O39_SPECIMEN_SHIPMENT;
+	}
+
+	///<summary>
+	///Removes the given OML_O39_SPECIMEN_SHIPMENT
+	///</summary>
+	public void RemoveSPECIMEN_SHIPMENT(OML_O39_SPECIMEN_SHIPMENT toRemove)
+	{
+		this.RemoveStructure("SPECIMEN_SHIPMENT", toRemove);
+	}
+
+	///<summary>
+	///Removes the OML_O39_SPECIMEN_SHIPMENT at the given index
+	///</summary>
+	public void RemoveSPECIMEN_SHIPMENTAt(int index)
+	{
+		this.RemoveRepetition("SPECIMEN_SHIPMENT", index);
+	}
 
 }
 }

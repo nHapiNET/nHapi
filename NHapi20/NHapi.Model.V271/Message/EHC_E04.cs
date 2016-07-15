@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V271.Group;
 using NHapi.Model.V271.Segment;
@@ -119,6 +120,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the SFT results 
+	 */ 
+	public IEnumerable<SFT> SFTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SFTRepetitionsUsed; rep++)
+			{
+				yield return (SFT)this.GetStructure("SFT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SFT
+	///</summary>
+	public SFT AddSFT()
+	{
+		return this.AddStructure("SFT") as SFT;
+	}
+
+	///<summary>
+	///Removes the given SFT
+	///</summary>
+	public void RemoveSFT(SFT toRemove)
+	{
+		this.RemoveStructure("SFT", toRemove);
+	}
+
+	///<summary>
+	///Removes the SFT at the given index
+	///</summary>
+	public void RemoveSFTAt(int index)
+	{
+		this.RemoveRepetition("SFT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of UAC (User Authentication Credential Segment) - creates it if necessary
 	///</summary>
@@ -159,6 +198,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the UAC results 
+	 */ 
+	public IEnumerable<UAC> UACs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < UACRepetitionsUsed; rep++)
+			{
+				yield return (UAC)this.GetStructure("UAC", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new UAC
+	///</summary>
+	public UAC AddUAC()
+	{
+		return this.AddStructure("UAC") as UAC;
+	}
+
+	///<summary>
+	///Removes the given UAC
+	///</summary>
+	public void RemoveUAC(UAC toRemove)
+	{
+		this.RemoveStructure("UAC", toRemove);
+	}
+
+	///<summary>
+	///Removes the UAC at the given index
+	///</summary>
+	public void RemoveUACAt(int index)
+	{
+		this.RemoveRepetition("UAC", index);
+	}
 
 	///<summary>
 	/// Returns IVC (Invoice Segment) - creates it if necessary
@@ -217,6 +294,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of EHC_E04_PRODUCT_SERVICE_SECTION (a Group object) - creates it if necessary
 	///</summary>
@@ -257,6 +372,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the EHC_E04_PRODUCT_SERVICE_SECTION results 
+	 */ 
+	public IEnumerable<EHC_E04_PRODUCT_SERVICE_SECTION> PRODUCT_SERVICE_SECTIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRODUCT_SERVICE_SECTIONRepetitionsUsed; rep++)
+			{
+				yield return (EHC_E04_PRODUCT_SERVICE_SECTION)this.GetStructure("PRODUCT_SERVICE_SECTION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EHC_E04_PRODUCT_SERVICE_SECTION
+	///</summary>
+	public EHC_E04_PRODUCT_SERVICE_SECTION AddPRODUCT_SERVICE_SECTION()
+	{
+		return this.AddStructure("PRODUCT_SERVICE_SECTION") as EHC_E04_PRODUCT_SERVICE_SECTION;
+	}
+
+	///<summary>
+	///Removes the given EHC_E04_PRODUCT_SERVICE_SECTION
+	///</summary>
+	public void RemovePRODUCT_SERVICE_SECTION(EHC_E04_PRODUCT_SERVICE_SECTION toRemove)
+	{
+		this.RemoveStructure("PRODUCT_SERVICE_SECTION", toRemove);
+	}
+
+	///<summary>
+	///Removes the EHC_E04_PRODUCT_SERVICE_SECTION at the given index
+	///</summary>
+	public void RemovePRODUCT_SERVICE_SECTIONAt(int index)
+	{
+		this.RemoveRepetition("PRODUCT_SERVICE_SECTION", index);
+	}
 
 }
 }

@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the DFT_P11_FINANCIAL_TIMING_QUANTITY results 
+	 */ 
+	public IEnumerable<DFT_P11_FINANCIAL_TIMING_QUANTITY> FINANCIAL_TIMING_QUANTITYs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < FINANCIAL_TIMING_QUANTITYRepetitionsUsed; rep++)
+			{
+				yield return (DFT_P11_FINANCIAL_TIMING_QUANTITY)this.GetStructure("FINANCIAL_TIMING_QUANTITY", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DFT_P11_FINANCIAL_TIMING_QUANTITY
+	///</summary>
+	public DFT_P11_FINANCIAL_TIMING_QUANTITY AddFINANCIAL_TIMING_QUANTITY()
+	{
+		return this.AddStructure("FINANCIAL_TIMING_QUANTITY") as DFT_P11_FINANCIAL_TIMING_QUANTITY;
+	}
+
+	///<summary>
+	///Removes the given DFT_P11_FINANCIAL_TIMING_QUANTITY
+	///</summary>
+	public void RemoveFINANCIAL_TIMING_QUANTITY(DFT_P11_FINANCIAL_TIMING_QUANTITY toRemove)
+	{
+		this.RemoveStructure("FINANCIAL_TIMING_QUANTITY", toRemove);
+	}
+
+	///<summary>
+	///Removes the DFT_P11_FINANCIAL_TIMING_QUANTITY at the given index
+	///</summary>
+	public void RemoveFINANCIAL_TIMING_QUANTITYAt(int index)
+	{
+		this.RemoveRepetition("FINANCIAL_TIMING_QUANTITY", index);
+	}
+
 	///<summary>
 	/// Returns DFT_P11_FINANCIAL_ORDER (a Group object) - creates it if necessary
 	///</summary>
@@ -149,6 +188,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DFT_P11_FINANCIAL_OBSERVATION results 
+	 */ 
+	public IEnumerable<DFT_P11_FINANCIAL_OBSERVATION> FINANCIAL_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < FINANCIAL_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (DFT_P11_FINANCIAL_OBSERVATION)this.GetStructure("FINANCIAL_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DFT_P11_FINANCIAL_OBSERVATION
+	///</summary>
+	public DFT_P11_FINANCIAL_OBSERVATION AddFINANCIAL_OBSERVATION()
+	{
+		return this.AddStructure("FINANCIAL_OBSERVATION") as DFT_P11_FINANCIAL_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given DFT_P11_FINANCIAL_OBSERVATION
+	///</summary>
+	public void RemoveFINANCIAL_OBSERVATION(DFT_P11_FINANCIAL_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("FINANCIAL_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the DFT_P11_FINANCIAL_OBSERVATION at the given index
+	///</summary>
+	public void RemoveFINANCIAL_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("FINANCIAL_OBSERVATION", index);
+	}
 
 }
 }

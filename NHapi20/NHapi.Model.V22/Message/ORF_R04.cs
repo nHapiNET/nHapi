@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V22.Group;
 using NHapi.Model.V22.Segment;
@@ -133,6 +134,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ORF_R04_QUERY_RESPONSE results 
+	 */ 
+	public IEnumerable<ORF_R04_QUERY_RESPONSE> QUERY_RESPONSEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < QUERY_RESPONSERepetitionsUsed; rep++)
+			{
+				yield return (ORF_R04_QUERY_RESPONSE)this.GetStructure("QUERY_RESPONSE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORF_R04_QUERY_RESPONSE
+	///</summary>
+	public ORF_R04_QUERY_RESPONSE AddQUERY_RESPONSE()
+	{
+		return this.AddStructure("QUERY_RESPONSE") as ORF_R04_QUERY_RESPONSE;
+	}
+
+	///<summary>
+	///Removes the given ORF_R04_QUERY_RESPONSE
+	///</summary>
+	public void RemoveQUERY_RESPONSE(ORF_R04_QUERY_RESPONSE toRemove)
+	{
+		this.RemoveStructure("QUERY_RESPONSE", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORF_R04_QUERY_RESPONSE at the given index
+	///</summary>
+	public void RemoveQUERY_RESPONSEAt(int index)
+	{
+		this.RemoveRepetition("QUERY_RESPONSE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ORF_R04_ORDER (a Group object) - creates it if necessary
 	///</summary>
@@ -173,6 +212,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORF_R04_ORDER results 
+	 */ 
+	public IEnumerable<ORF_R04_ORDER> ORDERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDERRepetitionsUsed; rep++)
+			{
+				yield return (ORF_R04_ORDER)this.GetStructure("ORDER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORF_R04_ORDER
+	///</summary>
+	public ORF_R04_ORDER AddORDER()
+	{
+		return this.AddStructure("ORDER") as ORF_R04_ORDER;
+	}
+
+	///<summary>
+	///Removes the given ORF_R04_ORDER
+	///</summary>
+	public void RemoveORDER(ORF_R04_ORDER toRemove)
+	{
+		this.RemoveStructure("ORDER", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORF_R04_ORDER at the given index
+	///</summary>
+	public void RemoveORDERAt(int index)
+	{
+		this.RemoveRepetition("ORDER", index);
+	}
 
 	///<summary>
 	/// Returns DSC (CONTINUATION POINTER) - creates it if necessary

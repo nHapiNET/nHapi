@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V26.Group;
 using NHapi.Model.V26.Segment;
@@ -135,6 +136,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ERR results 
+	 */ 
+	public IEnumerable<ERR> ERRs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ERRRepetitionsUsed; rep++)
+			{
+				yield return (ERR)this.GetStructure("ERR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ERR
+	///</summary>
+	public ERR AddERR()
+	{
+		return this.AddStructure("ERR") as ERR;
+	}
+
+	///<summary>
+	///Removes the given ERR
+	///</summary>
+	public void RemoveERR(ERR toRemove)
+	{
+		this.RemoveStructure("ERR", toRemove);
+	}
+
+	///<summary>
+	///Removes the ERR at the given index
+	///</summary>
+	public void RemoveERRAt(int index)
+	{
+		this.RemoveRepetition("ERR", index);
+	}
+
 	///<summary>
 	/// Returns QAK (Query Acknowledgment) - creates it if necessary
 	///</summary>
@@ -191,6 +230,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the SQR_S25_SCHEDULE results 
+	 */ 
+	public IEnumerable<SQR_S25_SCHEDULE> SCHEDULEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SCHEDULERepetitionsUsed; rep++)
+			{
+				yield return (SQR_S25_SCHEDULE)this.GetStructure("SCHEDULE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new SQR_S25_SCHEDULE
+	///</summary>
+	public SQR_S25_SCHEDULE AddSCHEDULE()
+	{
+		return this.AddStructure("SCHEDULE") as SQR_S25_SCHEDULE;
+	}
+
+	///<summary>
+	///Removes the given SQR_S25_SCHEDULE
+	///</summary>
+	public void RemoveSCHEDULE(SQR_S25_SCHEDULE toRemove)
+	{
+		this.RemoveStructure("SCHEDULE", toRemove);
+	}
+
+	///<summary>
+	///Removes the SQR_S25_SCHEDULE at the given index
+	///</summary>
+	public void RemoveSCHEDULEAt(int index)
+	{
+		this.RemoveRepetition("SCHEDULE", index);
+	}
 
 	///<summary>
 	/// Returns DSC (Continuation Pointer) - creates it if necessary

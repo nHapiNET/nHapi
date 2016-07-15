@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V24.Segment;
 using NHapi.Model.V24.Datatype;
 using NHapi.Base.Model;
@@ -131,6 +132,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RXA results 
+	 */ 
+	public IEnumerable<RXA> RXAs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RXARepetitionsUsed; rep++)
+			{
+				yield return (RXA)this.GetStructure("RXA", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RXA
+	///</summary>
+	public RXA AddRXA()
+	{
+		return this.AddStructure("RXA") as RXA;
+	}
+
+	///<summary>
+	///Removes the given RXA
+	///</summary>
+	public void RemoveRXA(RXA toRemove)
+	{
+		this.RemoveStructure("RXA", toRemove);
+	}
+
+	///<summary>
+	///Removes the RXA at the given index
+	///</summary>
+	public void RemoveRXAAt(int index)
+	{
+		this.RemoveRepetition("RXA", index);
+	}
+
 	///<summary>
 	/// Returns RXR (Pharmacy/Treatment Route) - creates it if necessary
 	///</summary>
@@ -188,6 +227,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RAS_O17_OBSERVATION results 
+	 */ 
+	public IEnumerable<RAS_O17_OBSERVATION> OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (RAS_O17_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RAS_O17_OBSERVATION
+	///</summary>
+	public RAS_O17_OBSERVATION AddOBSERVATION()
+	{
+		return this.AddStructure("OBSERVATION") as RAS_O17_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given RAS_O17_OBSERVATION
+	///</summary>
+	public void RemoveOBSERVATION(RAS_O17_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the RAS_O17_OBSERVATION at the given index
+	///</summary>
+	public void RemoveOBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CTI (Clinical Trial Identification) - creates it if necessary
 	///</summary>
@@ -228,6 +305,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CTI results 
+	 */ 
+	public IEnumerable<CTI> CTIs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CTIRepetitionsUsed; rep++)
+			{
+				yield return (CTI)this.GetStructure("CTI", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CTI
+	///</summary>
+	public CTI AddCTI()
+	{
+		return this.AddStructure("CTI") as CTI;
+	}
+
+	///<summary>
+	///Removes the given CTI
+	///</summary>
+	public void RemoveCTI(CTI toRemove)
+	{
+		this.RemoveStructure("CTI", toRemove);
+	}
+
+	///<summary>
+	///Removes the CTI at the given index
+	///</summary>
+	public void RemoveCTIAt(int index)
+	{
+		this.RemoveRepetition("CTI", index);
+	}
 
 }
 }

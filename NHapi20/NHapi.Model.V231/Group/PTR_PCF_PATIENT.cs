@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V231.Segment;
 using NHapi.Model.V231.Datatype;
 using NHapi.Base.Model;
@@ -106,6 +107,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the PTR_PCF_PATHWAY results 
+	 */ 
+	public IEnumerable<PTR_PCF_PATHWAY> PATHWAYs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PATHWAYRepetitionsUsed; rep++)
+			{
+				yield return (PTR_PCF_PATHWAY)this.GetStructure("PATHWAY", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PTR_PCF_PATHWAY
+	///</summary>
+	public PTR_PCF_PATHWAY AddPATHWAY()
+	{
+		return this.AddStructure("PATHWAY") as PTR_PCF_PATHWAY;
+	}
+
+	///<summary>
+	///Removes the given PTR_PCF_PATHWAY
+	///</summary>
+	public void RemovePATHWAY(PTR_PCF_PATHWAY toRemove)
+	{
+		this.RemoveStructure("PATHWAY", toRemove);
+	}
+
+	///<summary>
+	///Removes the PTR_PCF_PATHWAY at the given index
+	///</summary>
+	public void RemovePATHWAYAt(int index)
+	{
+		this.RemoveRepetition("PATHWAY", index);
+	}
 
 }
 }

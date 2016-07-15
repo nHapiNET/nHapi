@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -93,6 +94,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the DFT_P11_TIMING_QUANTITY results 
+	 */ 
+	public IEnumerable<DFT_P11_TIMING_QUANTITY> TIMING_QUANTITYs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMING_QUANTITYRepetitionsUsed; rep++)
+			{
+				yield return (DFT_P11_TIMING_QUANTITY)this.GetStructure("TIMING_QUANTITY", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DFT_P11_TIMING_QUANTITY
+	///</summary>
+	public DFT_P11_TIMING_QUANTITY AddTIMING_QUANTITY()
+	{
+		return this.AddStructure("TIMING_QUANTITY") as DFT_P11_TIMING_QUANTITY;
+	}
+
+	///<summary>
+	///Removes the given DFT_P11_TIMING_QUANTITY
+	///</summary>
+	public void RemoveTIMING_QUANTITY(DFT_P11_TIMING_QUANTITY toRemove)
+	{
+		this.RemoveStructure("TIMING_QUANTITY", toRemove);
+	}
+
+	///<summary>
+	///Removes the DFT_P11_TIMING_QUANTITY at the given index
+	///</summary>
+	public void RemoveTIMING_QUANTITYAt(int index)
+	{
+		this.RemoveRepetition("TIMING_QUANTITY", index);
+	}
+
 	///<summary>
 	/// Returns DFT_P11_ORDER (a Group object) - creates it if necessary
 	///</summary>
@@ -149,6 +188,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the DFT_P11_OBSERVATION results 
+	 */ 
+	public IEnumerable<DFT_P11_OBSERVATION> OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (DFT_P11_OBSERVATION)this.GetStructure("OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new DFT_P11_OBSERVATION
+	///</summary>
+	public DFT_P11_OBSERVATION AddOBSERVATION()
+	{
+		return this.AddStructure("OBSERVATION") as DFT_P11_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given DFT_P11_OBSERVATION
+	///</summary>
+	public void RemoveOBSERVATION(DFT_P11_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the DFT_P11_OBSERVATION at the given index
+	///</summary>
+	public void RemoveOBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("OBSERVATION", index);
+	}
 
 }
 }

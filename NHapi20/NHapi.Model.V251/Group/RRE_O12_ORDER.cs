@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V251.Segment;
 using NHapi.Model.V251.Datatype;
 using NHapi.Base.Model;
@@ -90,6 +91,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RRE_O12_TIMING results 
+	 */ 
+	public IEnumerable<RRE_O12_TIMING> TIMINGs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMINGRepetitionsUsed; rep++)
+			{
+				yield return (RRE_O12_TIMING)this.GetStructure("TIMING", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RRE_O12_TIMING
+	///</summary>
+	public RRE_O12_TIMING AddTIMING()
+	{
+		return this.AddStructure("TIMING") as RRE_O12_TIMING;
+	}
+
+	///<summary>
+	///Removes the given RRE_O12_TIMING
+	///</summary>
+	public void RemoveTIMING(RRE_O12_TIMING toRemove)
+	{
+		this.RemoveStructure("TIMING", toRemove);
+	}
+
+	///<summary>
+	///Removes the RRE_O12_TIMING at the given index
+	///</summary>
+	public void RemoveTIMINGAt(int index)
+	{
+		this.RemoveRepetition("TIMING", index);
+	}
 
 	///<summary>
 	/// Returns RRE_O12_ENCODING (a Group object) - creates it if necessary

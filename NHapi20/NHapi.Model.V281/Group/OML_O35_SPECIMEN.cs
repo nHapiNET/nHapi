@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V281.Segment;
 using NHapi.Model.V281.Datatype;
 using NHapi.Base.Model;
@@ -91,6 +92,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OML_O35_SPECIMEN_OBSERVATION results 
+	 */ 
+	public IEnumerable<OML_O35_SPECIMEN_OBSERVATION> SPECIMEN_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPECIMEN_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (OML_O35_SPECIMEN_OBSERVATION)this.GetStructure("SPECIMEN_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OML_O35_SPECIMEN_OBSERVATION
+	///</summary>
+	public OML_O35_SPECIMEN_OBSERVATION AddSPECIMEN_OBSERVATION()
+	{
+		return this.AddStructure("SPECIMEN_OBSERVATION") as OML_O35_SPECIMEN_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given OML_O35_SPECIMEN_OBSERVATION
+	///</summary>
+	public void RemoveSPECIMEN_OBSERVATION(OML_O35_SPECIMEN_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("SPECIMEN_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the OML_O35_SPECIMEN_OBSERVATION at the given index
+	///</summary>
+	public void RemoveSPECIMEN_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("SPECIMEN_OBSERVATION", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OML_O35_SPECIMEN_CONTAINER (a Group object) - creates it if necessary
 	///</summary>
@@ -131,6 +170,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OML_O35_SPECIMEN_CONTAINER results 
+	 */ 
+	public IEnumerable<OML_O35_SPECIMEN_CONTAINER> SPECIMEN_CONTAINERs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPECIMEN_CONTAINERRepetitionsUsed; rep++)
+			{
+				yield return (OML_O35_SPECIMEN_CONTAINER)this.GetStructure("SPECIMEN_CONTAINER", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OML_O35_SPECIMEN_CONTAINER
+	///</summary>
+	public OML_O35_SPECIMEN_CONTAINER AddSPECIMEN_CONTAINER()
+	{
+		return this.AddStructure("SPECIMEN_CONTAINER") as OML_O35_SPECIMEN_CONTAINER;
+	}
+
+	///<summary>
+	///Removes the given OML_O35_SPECIMEN_CONTAINER
+	///</summary>
+	public void RemoveSPECIMEN_CONTAINER(OML_O35_SPECIMEN_CONTAINER toRemove)
+	{
+		this.RemoveStructure("SPECIMEN_CONTAINER", toRemove);
+	}
+
+	///<summary>
+	///Removes the OML_O35_SPECIMEN_CONTAINER at the given index
+	///</summary>
+	public void RemoveSPECIMEN_CONTAINERAt(int index)
+	{
+		this.RemoveRepetition("SPECIMEN_CONTAINER", index);
+	}
 
 }
 }

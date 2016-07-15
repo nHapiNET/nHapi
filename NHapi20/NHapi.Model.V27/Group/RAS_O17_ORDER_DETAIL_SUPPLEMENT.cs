@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V27.Segment;
 using NHapi.Model.V27.Datatype;
 using NHapi.Base.Model;
@@ -75,6 +76,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RXR (Pharmacy/Treatment Route) - creates it if necessary
 	///</summary>
@@ -116,6 +155,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the RXR results 
+	 */ 
+	public IEnumerable<RXR> RXRs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RXRRepetitionsUsed; rep++)
+			{
+				yield return (RXR)this.GetStructure("RXR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RXR
+	///</summary>
+	public RXR AddRXR()
+	{
+		return this.AddStructure("RXR") as RXR;
+	}
+
+	///<summary>
+	///Removes the given RXR
+	///</summary>
+	public void RemoveRXR(RXR toRemove)
+	{
+		this.RemoveStructure("RXR", toRemove);
+	}
+
+	///<summary>
+	///Removes the RXR at the given index
+	///</summary>
+	public void RemoveRXRAt(int index)
+	{
+		this.RemoveRepetition("RXR", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of RAS_O17_COMPONENTS (a Group object) - creates it if necessary
 	///</summary>
@@ -156,6 +233,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RAS_O17_COMPONENTS results 
+	 */ 
+	public IEnumerable<RAS_O17_COMPONENTS> COMPONENTSs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < COMPONENTSRepetitionsUsed; rep++)
+			{
+				yield return (RAS_O17_COMPONENTS)this.GetStructure("COMPONENTS", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RAS_O17_COMPONENTS
+	///</summary>
+	public RAS_O17_COMPONENTS AddCOMPONENTS()
+	{
+		return this.AddStructure("COMPONENTS") as RAS_O17_COMPONENTS;
+	}
+
+	///<summary>
+	///Removes the given RAS_O17_COMPONENTS
+	///</summary>
+	public void RemoveCOMPONENTS(RAS_O17_COMPONENTS toRemove)
+	{
+		this.RemoveStructure("COMPONENTS", toRemove);
+	}
+
+	///<summary>
+	///Removes the RAS_O17_COMPONENTS at the given index
+	///</summary>
+	public void RemoveCOMPONENTSAt(int index)
+	{
+		this.RemoveRepetition("COMPONENTS", index);
+	}
 
 }
 }

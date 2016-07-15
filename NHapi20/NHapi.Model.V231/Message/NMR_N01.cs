@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V231.Group;
 using NHapi.Model.V231.Segment;
@@ -133,6 +134,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the ERR results 
+	 */ 
+	public IEnumerable<ERR> ERRs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ERRRepetitionsUsed; rep++)
+			{
+				yield return (ERR)this.GetStructure("ERR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ERR
+	///</summary>
+	public ERR AddERR()
+	{
+		return this.AddStructure("ERR") as ERR;
+	}
+
+	///<summary>
+	///Removes the given ERR
+	///</summary>
+	public void RemoveERR(ERR toRemove)
+	{
+		this.RemoveStructure("ERR", toRemove);
+	}
+
+	///<summary>
+	///Removes the ERR at the given index
+	///</summary>
+	public void RemoveERRAt(int index)
+	{
+		this.RemoveRepetition("ERR", index);
+	}
+
 	///<summary>
 	/// Returns QRD (QRD - original-style query definition segment) - creates it if necessary
 	///</summary>
@@ -189,6 +228,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the NMR_N01_CLOCK_AND_STATS_WITH_NOTES_ALT results 
+	 */ 
+	public IEnumerable<NMR_N01_CLOCK_AND_STATS_WITH_NOTES_ALT> CLOCK_AND_STATS_WITH_NOTES_ALTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CLOCK_AND_STATS_WITH_NOTES_ALTRepetitionsUsed; rep++)
+			{
+				yield return (NMR_N01_CLOCK_AND_STATS_WITH_NOTES_ALT)this.GetStructure("CLOCK_AND_STATS_WITH_NOTES_ALT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NMR_N01_CLOCK_AND_STATS_WITH_NOTES_ALT
+	///</summary>
+	public NMR_N01_CLOCK_AND_STATS_WITH_NOTES_ALT AddCLOCK_AND_STATS_WITH_NOTES_ALT()
+	{
+		return this.AddStructure("CLOCK_AND_STATS_WITH_NOTES_ALT") as NMR_N01_CLOCK_AND_STATS_WITH_NOTES_ALT;
+	}
+
+	///<summary>
+	///Removes the given NMR_N01_CLOCK_AND_STATS_WITH_NOTES_ALT
+	///</summary>
+	public void RemoveCLOCK_AND_STATS_WITH_NOTES_ALT(NMR_N01_CLOCK_AND_STATS_WITH_NOTES_ALT toRemove)
+	{
+		this.RemoveStructure("CLOCK_AND_STATS_WITH_NOTES_ALT", toRemove);
+	}
+
+	///<summary>
+	///Removes the NMR_N01_CLOCK_AND_STATS_WITH_NOTES_ALT at the given index
+	///</summary>
+	public void RemoveCLOCK_AND_STATS_WITH_NOTES_ALTAt(int index)
+	{
+		this.RemoveRepetition("CLOCK_AND_STATS_WITH_NOTES_ALT", index);
+	}
 
 }
 }

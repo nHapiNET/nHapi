@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -130,6 +131,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the EAR_U08_COMMAND_RESPONSE results 
+	 */ 
+	public IEnumerable<EAR_U08_COMMAND_RESPONSE> COMMAND_RESPONSEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < COMMAND_RESPONSERepetitionsUsed; rep++)
+			{
+				yield return (EAR_U08_COMMAND_RESPONSE)this.GetStructure("COMMAND_RESPONSE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new EAR_U08_COMMAND_RESPONSE
+	///</summary>
+	public EAR_U08_COMMAND_RESPONSE AddCOMMAND_RESPONSE()
+	{
+		return this.AddStructure("COMMAND_RESPONSE") as EAR_U08_COMMAND_RESPONSE;
+	}
+
+	///<summary>
+	///Removes the given EAR_U08_COMMAND_RESPONSE
+	///</summary>
+	public void RemoveCOMMAND_RESPONSE(EAR_U08_COMMAND_RESPONSE toRemove)
+	{
+		this.RemoveStructure("COMMAND_RESPONSE", toRemove);
+	}
+
+	///<summary>
+	///Removes the EAR_U08_COMMAND_RESPONSE at the given index
+	///</summary>
+	public void RemoveCOMMAND_RESPONSEAt(int index)
+	{
+		this.RemoveRepetition("COMMAND_RESPONSE", index);
+	}
 
 	///<summary>
 	/// Returns ROL (Role) - creates it if necessary

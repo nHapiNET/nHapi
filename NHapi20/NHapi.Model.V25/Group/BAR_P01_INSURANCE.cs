@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V25.Segment;
 using NHapi.Model.V25.Datatype;
 using NHapi.Base.Model;
@@ -109,6 +110,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the IN3 results 
+	 */ 
+	public IEnumerable<IN3> IN3s 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < IN3RepetitionsUsed; rep++)
+			{
+				yield return (IN3)this.GetStructure("IN3", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new IN3
+	///</summary>
+	public IN3 AddIN3()
+	{
+		return this.AddStructure("IN3") as IN3;
+	}
+
+	///<summary>
+	///Removes the given IN3
+	///</summary>
+	public void RemoveIN3(IN3 toRemove)
+	{
+		this.RemoveStructure("IN3", toRemove);
+	}
+
+	///<summary>
+	///Removes the IN3 at the given index
+	///</summary>
+	public void RemoveIN3At(int index)
+	{
+		this.RemoveRepetition("IN3", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ROL (Role) - creates it if necessary
 	///</summary>
@@ -149,6 +188,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ROL results 
+	 */ 
+	public IEnumerable<ROL> ROLs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ROLRepetitionsUsed; rep++)
+			{
+				yield return (ROL)this.GetStructure("ROL", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ROL
+	///</summary>
+	public ROL AddROL()
+	{
+		return this.AddStructure("ROL") as ROL;
+	}
+
+	///<summary>
+	///Removes the given ROL
+	///</summary>
+	public void RemoveROL(ROL toRemove)
+	{
+		this.RemoveStructure("ROL", toRemove);
+	}
+
+	///<summary>
+	///Removes the ROL at the given index
+	///</summary>
+	public void RemoveROLAt(int index)
+	{
+		this.RemoveRepetition("ROL", index);
+	}
 
 }
 }

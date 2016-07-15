@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V22.Segment;
 using NHapi.Model.V22.Datatype;
 using NHapi.Base.Model;

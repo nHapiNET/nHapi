@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V28.Segment;
 using NHapi.Model.V28.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ADJ results 
+	 */ 
+	public IEnumerable<ADJ> ADJs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ADJRepetitionsUsed; rep++)
+			{
+				yield return (ADJ)this.GetStructure("ADJ", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ADJ
+	///</summary>
+	public ADJ AddADJ()
+	{
+		return this.AddStructure("ADJ") as ADJ;
+	}
+
+	///<summary>
+	///Removes the given ADJ
+	///</summary>
+	public void RemoveADJ(ADJ toRemove)
+	{
+		this.RemoveStructure("ADJ", toRemove);
+	}
+
+	///<summary>
+	///Removes the ADJ at the given index
+	///</summary>
+	public void RemoveADJAt(int index)
+	{
+		this.RemoveRepetition("ADJ", index);
+	}
 
 }
 }

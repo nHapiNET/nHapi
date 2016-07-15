@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V23.Segment;
 using NHapi.Model.V23.Datatype;
 using NHapi.Base.Model;
@@ -88,6 +89,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORU_R01_ORDER_OBSERVATION results 
+	 */ 
+	public IEnumerable<ORU_R01_ORDER_OBSERVATION> ORDER_OBSERVATIONs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < ORDER_OBSERVATIONRepetitionsUsed; rep++)
+			{
+				yield return (ORU_R01_ORDER_OBSERVATION)this.GetStructure("ORDER_OBSERVATION", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORU_R01_ORDER_OBSERVATION
+	///</summary>
+	public ORU_R01_ORDER_OBSERVATION AddORDER_OBSERVATION()
+	{
+		return this.AddStructure("ORDER_OBSERVATION") as ORU_R01_ORDER_OBSERVATION;
+	}
+
+	///<summary>
+	///Removes the given ORU_R01_ORDER_OBSERVATION
+	///</summary>
+	public void RemoveORDER_OBSERVATION(ORU_R01_ORDER_OBSERVATION toRemove)
+	{
+		this.RemoveStructure("ORDER_OBSERVATION", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORU_R01_ORDER_OBSERVATION at the given index
+	///</summary>
+	public void RemoveORDER_OBSERVATIONAt(int index)
+	{
+		this.RemoveRepetition("ORDER_OBSERVATION", index);
+	}
 
 }
 }

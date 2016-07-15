@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Log;
 using NHapi.Model.V24.Group;
 using NHapi.Model.V24.Segment;
@@ -184,6 +185,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the RSP_Z86_QUERY_RESPONSE results 
+	 */ 
+	public IEnumerable<RSP_Z86_QUERY_RESPONSE> QUERY_RESPONSEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < QUERY_RESPONSERepetitionsUsed; rep++)
+			{
+				yield return (RSP_Z86_QUERY_RESPONSE)this.GetStructure("QUERY_RESPONSE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new RSP_Z86_QUERY_RESPONSE
+	///</summary>
+	public RSP_Z86_QUERY_RESPONSE AddQUERY_RESPONSE()
+	{
+		return this.AddStructure("QUERY_RESPONSE") as RSP_Z86_QUERY_RESPONSE;
+	}
+
+	///<summary>
+	///Removes the given RSP_Z86_QUERY_RESPONSE
+	///</summary>
+	public void RemoveQUERY_RESPONSE(RSP_Z86_QUERY_RESPONSE toRemove)
+	{
+		this.RemoveStructure("QUERY_RESPONSE", toRemove);
+	}
+
+	///<summary>
+	///Removes the RSP_Z86_QUERY_RESPONSE at the given index
+	///</summary>
+	public void RemoveQUERY_RESPONSEAt(int index)
+	{
+		this.RemoveRepetition("QUERY_RESPONSE", index);
+	}
 
 	///<summary>
 	/// Returns DSC (Continuation Pointer) - creates it if necessary

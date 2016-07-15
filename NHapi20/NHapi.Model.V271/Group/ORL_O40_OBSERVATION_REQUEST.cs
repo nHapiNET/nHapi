@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V271.Segment;
 using NHapi.Model.V271.Datatype;
 using NHapi.Base.Model;
@@ -91,6 +92,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the PRT results 
+	 */ 
+	public IEnumerable<PRT> PRTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < PRTRepetitionsUsed; rep++)
+			{
+				yield return (PRT)this.GetStructure("PRT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new PRT
+	///</summary>
+	public PRT AddPRT()
+	{
+		return this.AddStructure("PRT") as PRT;
+	}
+
+	///<summary>
+	///Removes the given PRT
+	///</summary>
+	public void RemovePRT(PRT toRemove)
+	{
+		this.RemoveStructure("PRT", toRemove);
+	}
+
+	///<summary>
+	///Removes the PRT at the given index
+	///</summary>
+	public void RemovePRTAt(int index)
+	{
+		this.RemoveRepetition("PRT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of ORL_O40_SPECIMEN_SHIPMENT (a Group object) - creates it if necessary
 	///</summary>
@@ -131,6 +170,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the ORL_O40_SPECIMEN_SHIPMENT results 
+	 */ 
+	public IEnumerable<ORL_O40_SPECIMEN_SHIPMENT> SPECIMEN_SHIPMENTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPECIMEN_SHIPMENTRepetitionsUsed; rep++)
+			{
+				yield return (ORL_O40_SPECIMEN_SHIPMENT)this.GetStructure("SPECIMEN_SHIPMENT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new ORL_O40_SPECIMEN_SHIPMENT
+	///</summary>
+	public ORL_O40_SPECIMEN_SHIPMENT AddSPECIMEN_SHIPMENT()
+	{
+		return this.AddStructure("SPECIMEN_SHIPMENT") as ORL_O40_SPECIMEN_SHIPMENT;
+	}
+
+	///<summary>
+	///Removes the given ORL_O40_SPECIMEN_SHIPMENT
+	///</summary>
+	public void RemoveSPECIMEN_SHIPMENT(ORL_O40_SPECIMEN_SHIPMENT toRemove)
+	{
+		this.RemoveStructure("SPECIMEN_SHIPMENT", toRemove);
+	}
+
+	///<summary>
+	///Removes the ORL_O40_SPECIMEN_SHIPMENT at the given index
+	///</summary>
+	public void RemoveSPECIMEN_SHIPMENTAt(int index)
+	{
+		this.RemoveRepetition("SPECIMEN_SHIPMENT", index);
+	}
 
 }
 }

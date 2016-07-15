@@ -2,6 +2,7 @@ using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
 using System;
+using System.Collections.Generic;
 using NHapi.Model.V251.Segment;
 using NHapi.Model.V251.Datatype;
 using NHapi.Base.Model;
@@ -115,6 +116,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the NTE results 
+	 */ 
+	public IEnumerable<NTE> NTEs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
+			{
+				yield return (NTE)this.GetStructure("NTE", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new NTE
+	///</summary>
+	public NTE AddNTE()
+	{
+		return this.AddStructure("NTE") as NTE;
+	}
+
+	///<summary>
+	///Removes the given NTE
+	///</summary>
+	public void RemoveNTE(NTE toRemove)
+	{
+		this.RemoveStructure("NTE", toRemove);
+	}
+
+	///<summary>
+	///Removes the NTE at the given index
+	///</summary>
+	public void RemoveNTEAt(int index)
+	{
+		this.RemoveRepetition("NTE", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OUL_R24_TIMING_QTY (a Group object) - creates it if necessary
 	///</summary>
@@ -155,6 +194,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the OUL_R24_TIMING_QTY results 
+	 */ 
+	public IEnumerable<OUL_R24_TIMING_QTY> TIMING_QTYs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < TIMING_QTYRepetitionsUsed; rep++)
+			{
+				yield return (OUL_R24_TIMING_QTY)this.GetStructure("TIMING_QTY", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OUL_R24_TIMING_QTY
+	///</summary>
+	public OUL_R24_TIMING_QTY AddTIMING_QTY()
+	{
+		return this.AddStructure("TIMING_QTY") as OUL_R24_TIMING_QTY;
+	}
+
+	///<summary>
+	///Removes the given OUL_R24_TIMING_QTY
+	///</summary>
+	public void RemoveTIMING_QTY(OUL_R24_TIMING_QTY toRemove)
+	{
+		this.RemoveStructure("TIMING_QTY", toRemove);
+	}
+
+	///<summary>
+	///Removes the OUL_R24_TIMING_QTY at the given index
+	///</summary>
+	public void RemoveTIMING_QTYAt(int index)
+	{
+		this.RemoveRepetition("TIMING_QTY", index);
+	}
 
 	///<summary>
 	/// Returns  first repetition of OUL_R24_SPECIMEN (a Group object) - creates it if necessary
@@ -197,6 +274,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OUL_R24_SPECIMEN results 
+	 */ 
+	public IEnumerable<OUL_R24_SPECIMEN> SPECIMENs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < SPECIMENRepetitionsUsed; rep++)
+			{
+				yield return (OUL_R24_SPECIMEN)this.GetStructure("SPECIMEN", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OUL_R24_SPECIMEN
+	///</summary>
+	public OUL_R24_SPECIMEN AddSPECIMEN()
+	{
+		return this.AddStructure("SPECIMEN") as OUL_R24_SPECIMEN;
+	}
+
+	///<summary>
+	///Removes the given OUL_R24_SPECIMEN
+	///</summary>
+	public void RemoveSPECIMEN(OUL_R24_SPECIMEN toRemove)
+	{
+		this.RemoveStructure("SPECIMEN", toRemove);
+	}
+
+	///<summary>
+	///Removes the OUL_R24_SPECIMEN at the given index
+	///</summary>
+	public void RemoveSPECIMENAt(int index)
+	{
+		this.RemoveRepetition("SPECIMEN", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of OUL_R24_RESULT (a Group object) - creates it if necessary
 	///</summary>
@@ -238,6 +353,44 @@ get{
 	}
 	} 
 
+	/** 
+	 * Enumerate over the OUL_R24_RESULT results 
+	 */ 
+	public IEnumerable<OUL_R24_RESULT> RESULTs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < RESULTRepetitionsUsed; rep++)
+			{
+				yield return (OUL_R24_RESULT)this.GetStructure("RESULT", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OUL_R24_RESULT
+	///</summary>
+	public OUL_R24_RESULT AddRESULT()
+	{
+		return this.AddStructure("RESULT") as OUL_R24_RESULT;
+	}
+
+	///<summary>
+	///Removes the given OUL_R24_RESULT
+	///</summary>
+	public void RemoveRESULT(OUL_R24_RESULT toRemove)
+	{
+		this.RemoveStructure("RESULT", toRemove);
+	}
+
+	///<summary>
+	///Removes the OUL_R24_RESULT at the given index
+	///</summary>
+	public void RemoveRESULTAt(int index)
+	{
+		this.RemoveRepetition("RESULT", index);
+	}
+
 	///<summary>
 	/// Returns  first repetition of CTI (Clinical Trial Identification) - creates it if necessary
 	///</summary>
@@ -278,6 +431,44 @@ get{
 	    return reps; 
 	}
 	} 
+
+	/** 
+	 * Enumerate over the CTI results 
+	 */ 
+	public IEnumerable<CTI> CTIs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < CTIRepetitionsUsed; rep++)
+			{
+				yield return (CTI)this.GetStructure("CTI", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new CTI
+	///</summary>
+	public CTI AddCTI()
+	{
+		return this.AddStructure("CTI") as CTI;
+	}
+
+	///<summary>
+	///Removes the given CTI
+	///</summary>
+	public void RemoveCTI(CTI toRemove)
+	{
+		this.RemoveStructure("CTI", toRemove);
+	}
+
+	///<summary>
+	///Removes the CTI at the given index
+	///</summary>
+	public void RemoveCTIAt(int index)
+	{
+		this.RemoveRepetition("CTI", index);
+	}
 
 }
 }
