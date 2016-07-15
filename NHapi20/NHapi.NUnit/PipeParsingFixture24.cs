@@ -1,6 +1,10 @@
+using System;
+using System.Linq;
+using NHapi.Base;
 using NHapi.Base.Model;
 using NHapi.Base.Parser;
 using NHapi.Model.V24.Message;
+using NHapi.Model.V24.Segment;
 using NUnit.Framework;
 
 
@@ -259,6 +263,41 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
   </QRF>
 </QRY_R02>
 ";
+		}
+
+		/// <summary>
+		/// https://github.com/duaneedwards/nHapi/issues/24
+		/// </summary>
+		[Test]
+		public void TestGithubIssue24CantGetIN1Segment()
+		{
+			string message = @"MSH|^~\&|SUNS1|OVI02|AZIS|CMD|200606221348||ADT^A01|1049691900|P|2.4
+	EVN|A01|200601060800
+	PID||8912716038^^^51276|0216128^^^51276||BARDOUN^LEA SACHA||19981201|F|||AVENUE FRANC GOLD 8^^LUXEMBOURGH^^6780^150||053/12456789||N|S|||99120162652||^^^|||||B
+	PV1||O|^^|U|||07632^MORTELO^POL^^^DR.|^^^^^|||||N||||||0200001198
+	PV2|||^^AZIS||N|||200601060800
+	IN1|0001|2|314000|||||||||19800101|||1|BARDOUN^LEA SACHA|1|19981201|AVENUE FRANC GOLD 8^^LUXEMBOURGH^^6780^150|||||||||||||||||
+	ZIN|0164652011399|0164652011399|101|101|45789^Broken bone";
+
+			var parser = new PipeParser();
+			var abstractMessage = parser.Parse(message);
+
+			var typedMessage = abstractMessage as ADT_A01;
+
+			// This is supposed to throw an exception with error 'IN1 does not exist in the group NHapi.Model.V24.Message.ADT_A01'
+			Assert.Throws<HL7Exception>(delegate
+			{
+				var causesException = (IN1) typedMessage.GetStructure("IN1");
+			});
+
+			// This will work as the IN1 resides within the insurance group's structure
+			var in1 = (IN1) typedMessage.GetINSURANCE(0).GetStructure("IN1");
+
+			// old style of accessing the data
+			Assert.IsTrue(typedMessage.GetINSURANCE(0).IN1.SetIDIN1.Value == "0001");
+
+			// new style of accessing the data
+			Assert.IsTrue(typedMessage.INSURANCEs.First().IN1.SetIDIN1.Value == "0001");
 		}
 	}
 }
