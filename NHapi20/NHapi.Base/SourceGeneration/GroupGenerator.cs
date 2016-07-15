@@ -234,6 +234,7 @@ namespace NHapi.Base.SourceGeneration
 			preamble.Append("using NHapi.Base;\r\n");
 			preamble.Append("using NHapi.Base.Log;\r\n");
 			preamble.Append("using System;\r\n");
+			preamble.Append("using System.Collections.Generic;\r\n");
 			preamble.Append("using ");
 			preamble.Append(PackageManager.GetVersionPackageName(version));
 			preamble.Append("Segment;\r\n");
@@ -458,7 +459,55 @@ namespace NHapi.Base.SourceGeneration
 				source.Append("\t    return reps; \r\n");
 				source.Append("\t}\r\n");
 				source.Append("\t} \r\n\r\n");
-			}
+
+				// make enumerator
+				source.Append("\t/** \r\n");
+				source.Append("\t * Enumerate over the " + def.Name + " results \r\n");
+				source.Append("\t */ \r\n");
+				source.Append("\tpublic IEnumerable<" + def.Name + "> " + getterName + "s \r\n");
+				source.Append("\t{ \r\n");
+				source.Append("\t\tget\r\n");
+				source.Append("\t\t{\r\n");
+				source.Append("\t\t\tfor (int rep = 0; rep < " + getterName + "RepetitionsUsed; rep++)\r\n");
+				source.Append("\t\t\t{\r\n");
+				source.Append("\t\t\t\tyield return (" + def.Name + ")this.GetStructure(\"" + getterName + "\", rep);\r\n");
+				source.Append("\t\t\t}\r\n");
+				source.Append("\t\t}\r\n");
+				source.Append("\t}\r\n\r\n");
+
+				// make Add function
+				source.Append("\t///<summary>\r\n");
+				source.Append("\t///Adds the given " + def.Name + "\r\n");
+				source.Append("\t///</summary>\r\n");
+				source.Append("\tpublic " + def.Name + " Add" + getterName + "()\r\n");
+				source.Append("\t{\r\n");
+				source.Append("\t\treturn this.AddStructure(\"" + getterName + "\") as " + def.Name + ";\r\n");
+				source.Append("\t}\r\n");
+
+				source.Append("\r\n");
+
+				// make Remove function
+				source.Append("\t///<summary>\r\n");
+				source.Append("\t///Removes the given " + def.Name + "\r\n");
+				source.Append("\t///</summary>\r\n");
+				source.Append("\tpublic void Remove" + getterName + "(" + def.Name + " toRemove)\r\n");
+				source.Append("\t{\r\n");
+				source.Append("\t\tthis.RemoveStructure(\"" + getterName + "\", toRemove);\r\n");
+				source.Append("\t}\r\n");
+
+				source.Append("\r\n");
+
+				// make Remove At function
+				source.Append("\t///<summary>\r\n");
+				source.Append("\t///Removes the given " + def.Name + "\r\n");
+				source.Append("\t///</summary>\r\n");
+				source.Append("\tpublic void Remove" + getterName + "At(" + def.Name + " toRemove, int index)\r\n");
+				source.Append("\t{\r\n");
+				source.Append("\t\tthis.RemoveRepetition(\"" + getterName + "\", index);\r\n");
+				source.Append("\t}\r\n");
+
+				source.Append("\r\n");
+	}
 
 			return source.ToString();
 		}

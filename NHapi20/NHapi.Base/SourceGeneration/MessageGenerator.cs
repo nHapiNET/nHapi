@@ -232,6 +232,7 @@ namespace NHapi.Base.SourceGeneration
 		{
 			StringBuilder preamble = new StringBuilder();
 			preamble.Append("using System;\r\n");
+			preamble.Append("using System.Collections.Generic;\r\n");
 			preamble.Append("using NHapi.Base.Log;\r\n");
 			preamble.Append("using ");
 			preamble.Append(PackageManager.GetVersionPackageName(version));

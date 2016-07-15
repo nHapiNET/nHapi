@@ -192,6 +192,67 @@ namespace NHapi.Base.Model
 			return ret;
 		}
 
+		/// <summary> Adds a new item to the Structure. </summary>
+		/// <throws>  HL7Exception if the named Structure is not part of this group
+		/// or if the structure is not repeatable and an item already exists. </throws>
+		public virtual IStructure AddStructure(String name)
+		{
+			AbstractGroupItem item = GetGroupItem(name);
+
+			if (item == null)
+				throw new HL7Exception(name + " does not exist in the group " + GetType().FullName,
+					HL7Exception.APPLICATION_INTERNAL_ERROR);
+
+			// Verify that Structure is repeating ... 
+			bool repeats = item.IsRepeating;
+			if (!repeats && item.Structures.Count > 0)
+				throw new HL7Exception(
+					"Can't create repetition of Structure " + name + " - this Structure is non-repeating and this Structure already has an item present.",
+					HL7Exception.APPLICATION_INTERNAL_ERROR);
+
+			// Create a new Structure, add it to the list, and return it
+			Type classType = item.ClassType;
+			var ret = tryToInstantiateStructure(classType, name);
+			item.Structures.Add(ret);
+			return ret;
+		}
+
+		/// <summary> Removes the given structure from the named Structure. </summary>
+		/// <throws> HL7Exception if the named Structure is not part of this group </throws>
+		public virtual void RemoveStructure(String name, IStructure toRemove)
+		{
+			AbstractGroupItem item = GetGroupItem(name);
+
+			if (item == null)
+				throw new HL7Exception(name + " does not exist in the group " + GetType().FullName,
+					HL7Exception.APPLICATION_INTERNAL_ERROR);
+
+			item.Structures.Remove(toRemove);
+		}
+
+		/// <summary> Removes the structure at the given index from the named Structure. </summary>
+		/// <throws> HL7Exception if the named Structure is not part of this group 
+		/// or an index greater than the number of items in the structure is supplied.
+		/// </throws>
+		public virtual void RemoveRepetition(String name, int rep)
+		{
+			AbstractGroupItem item = GetGroupItem(name);
+			if (item == null)
+			{
+				throw new HL7Exception("The structure " + name + " does not exist in the group " + GetType().FullName,
+					 HL7Exception.APPLICATION_INTERNAL_ERROR);
+			}
+
+			if (rep >= item.Structures.Count)
+			{
+				throw new HL7Exception(
+					 "The structure " + name + " does not have " + rep + " repetitions. ",
+					 HL7Exception.APPLICATION_INTERNAL_ERROR);
+			}
+
+			item.Structures.RemoveAt(rep);
+		}
+
 		/// <summary> Expands the group definition to include a segment that is not 
 		/// defined by HL7 to be part of this group (eg an unregistered Z segment). 
 		/// The new segment is slotted at the end of the group.  Thenceforward if 
