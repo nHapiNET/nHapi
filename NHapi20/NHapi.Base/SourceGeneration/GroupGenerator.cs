@@ -477,7 +477,7 @@ namespace NHapi.Base.SourceGeneration
 
 				// make Add function
 				source.Append("\t///<summary>\r\n");
-				source.Append("\t///Adds the given " + def.Name + "\r\n");
+				source.Append("\t///Adds a new " + def.Name + "\r\n");
 				source.Append("\t///</summary>\r\n");
 				source.Append("\tpublic " + def.Name + " Add" + getterName + "()\r\n");
 				source.Append("\t{\r\n");
@@ -499,9 +499,9 @@ namespace NHapi.Base.SourceGeneration
 
 				// make Remove At function
 				source.Append("\t///<summary>\r\n");
-				source.Append("\t///Removes the given " + def.Name + "\r\n");
+				source.Append("\t///Removes the " + def.Name + " at the given index\r\n");
 				source.Append("\t///</summary>\r\n");
-				source.Append("\tpublic void Remove" + getterName + "At(" + def.Name + " toRemove, int index)\r\n");
+				source.Append("\tpublic void Remove" + getterName + "At(int index)\r\n");
 				source.Append("\t{\r\n");
 				source.Append("\t\tthis.RemoveRepetition(\"" + getterName + "\", index);\r\n");
 				source.Append("\t}\r\n");
