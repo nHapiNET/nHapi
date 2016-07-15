@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 ###
 -
 
+## [2.5.0.4] - 2016-07-15
+### Fixes  (Submitted by dib0)
+- Small bug in milliseconds parsing CommonTM.cs #48
+
 ## [2.5.0.3] - 2016-07-15
 ### Fixes  (Submitted by Eric-Cadwell)
 - TSComponentOne GetAsDate does not handle offset from UTC/GMT #38
