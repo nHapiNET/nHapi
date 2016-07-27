@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 ###
 -
 
+## [2.5.0.5] - 2016-07-27
+### Fixes
+- If encountering a DTM typed OBX result in a version of HL7 that does not have the DTM type, redirect to the DT type
+
 ## [2.5.0.4] - 2016-07-15
 ### Fixes  (Submitted by dib0)
 - Small bug in milliseconds parsing CommonTM.cs #48
