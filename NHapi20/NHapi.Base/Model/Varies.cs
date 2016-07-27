@@ -21,6 +21,7 @@
 /// </summary>
 
 using System;
+using System.Linq;
 using NHapi.Base.Util;
 using NHapi.Base.Parser;
 using NHapi.Base.Log;
@@ -161,6 +162,8 @@ namespace NHapi.Base.Model
 					}
 					else
 					{
+						UseDTInsteadOfDTMForEarlierVersionsOfHL7(segment, obx2);
+
 						Type c = factory.GetTypeClass(obx2.Value, segment.Message.Version);
 						v.Data = (IType) c.GetConstructor(new [] {typeof (IMessage), typeof(String)}).Invoke(new Object[] {v.Message, v.Description});
 					}
@@ -174,6 +177,16 @@ namespace NHapi.Base.Model
 			{
 				throw new HL7Exception(e.GetType().FullName + " trying to set data type of OBX-5",
 					HL7Exception.APPLICATION_INTERNAL_ERROR, e);
+			}
+		}
+
+		private static void UseDTInsteadOfDTMForEarlierVersionsOfHL7(ISegment segment, IPrimitive obx2)
+		{
+			string[] versionsWithoutDTM = new string[] {"2.1", "2.2", "2.3", "2.3.1", "2.4", "2.5"};
+			bool useDTInsteadOfDTM = obx2.Value == "DTM" && versionsWithoutDTM.Contains(segment.Message.Version);
+			if (useDTInsteadOfDTM)
+			{
+				obx2.Value = "DT";
 			}
 		}
 
