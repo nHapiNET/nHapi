@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyCompany("University Of Colorado Hospital")]
-[assembly: AssemblyCopyright("Copyright © University Of Colorado Hospital 2010")]
+[assembly: AssemblyCopyright("Copyright © University Of Colorado Hospital 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -26,5 +26,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion("2.5.0.5")]
-[assembly: AssemblyFileVersion("2.5.0.5")]
+[assembly: AssemblyVersion("2.5.0.6")]
+[assembly: AssemblyFileVersion("2.5.0.6")]

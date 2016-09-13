@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 ###
 -
 
+## [2.5.0.6] - 2016-09-13
+### Fixes
+- Resolve #11 by reverting:
+    - "Fix pipe parser and message iterator in handing white space in version and unexpected segments"
+    - "Add unknown segments to the message not child groups."
+    - "Fix pipe parser segment rep, and invalid field reps."
+    - "Fix rep code to actually read using the GetField(i, rep)"
+
 ## [2.5.0.5] - 2016-07-27
 ### Fixes
 - If encountering a DTM typed OBX result in a version of HL7 that does not have the DTM type, redirect to the DT type
