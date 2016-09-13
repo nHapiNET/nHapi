@@ -299,5 +299,108 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
 			// new style of accessing the data
 			Assert.IsTrue(typedMessage.INSURANCEs.First().IN1.SetIDIN1.Value == "0001");
 		}
+
+		/// <summary>
+		/// https://github.com/duaneedwards/nHapi/issues/58
+		/// </summary>
+		[Test]
+		public void TestGithubIssue58ProblemWithMultipleOrder_Observations()
+		{
+			var message = @"MSH|^~\&|MOLIS|TEAMW|||20040322151046||ORU^R01|2116|P|2.4||||||8859
+PID|1|1847|50381^^^^^MOLIS~^^^^^VTD||TEST A^||19711125|F|||test^^Roma^^00144^||||
+ORC|NW|FA9999020000^MOLIS|FA9999020000^MOLIS|FA99990200^MOLIS|CM||^^^20030331053409^^R|||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS||||||||||||
+OBR|1|FA9999020000^MOLIS|FA9999020000^MOLIS|00^^MOLIS||20030327000000|20030331053409|||||||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS|||||||||||^^^20030331053409^^R||||||||||||||||||||
+NTE|0||Isolierte Cardiolipin-Autoantikörper vom Typ IgM in niedriger Konzentration sind von fraglicher klinischer Relevanz. Es empfiehlt sich eine Kontrolle aus einer neuen Probe und die zusätzliche Bestimmung der beta-2-Glykoprotein-Autoantikörper.|RE
+NTE|0||Umlaute Test : ÄÖÜäöüßéèàçù|RE
+NTE|0||Ende Test Umlaute|RE
+OBX|1|FT|ALLERG^Allergie^MOLIS||vv Dies eist ein Test zum Drucke\.br\ etwas längeren Textes auf dem Allergiepass||||||C|||20030331053409|||||
+ORC|NW|FA9999020018^MOLIS|FA9999020018^MOLIS|FA99990200^MOLIS|CM||^^^20030331053409^^R|||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS||||||||||||
+OBR|2|FA9999020018^MOLIS|FA9999020018^MOLIS|18^Immunologie^MOLIS||20030327000000|20030331053409|||||||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS|||||||||||^^^20030331053409^^R||||||||||||||||||||
+OBX|1|TX|ACLAS^Anti-Cardiolipin-Screen^MOLIS||negativ|MOC^^L|(<1.0)||||C|||20030331053409|||||
+OBX|2|NM|ACLAG^Anti-Cardiolipin IgG^MOLIS||0.2|MOC^^L|(<1.0)||||F|||20030331053409|||||
+NTE|1||Bitte beachten: Normwert- und Methodenänderung zum 13.03.03.|RE
+OBX|3|NM|ACLAM^Anti-Cardiolipin IgM^MOLIS||111.3|MOC^^L|(<1.0)|H|||C|||20030331053409|||||
+NTE|1||Bitte beachten: Normwert- und Methodenänderung zum 13.03.03.|RE
+ORC|NW|FA9999020026^MOLIS|FA9999020026^MOLIS|FA99990200^MOLIS|CM||^^^20030331053409^^R|||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS||||||||||||
+OBR|3|FA9999020026^MOLIS|FA9999020026^MOLIS|26^Hormone^MOLIS||20030327000000|20030331053409|||||||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS|||||||||||^^^20030331053409^^R||||||||||||||||||||
+OBX|1|NM|FSH^FSH^MOLIS||1.0|U/l^^L|(1.6-12.0)Follikulär \ (8.0-22.0)Peak \ (0.9-12.0)Luteal \ (1.0-17.0)Kontrazeptiva \ (35-151)Menopause||||C|||20030331053409|||||
+OBX|2|NM|LH^LH^MOLIS||37.4|U/l^^L|(1.8-13.4)Follikulär \ (15.6-78.9)Peak \ (0.7-19.4)Luteal \ (1.0-15.0)Kontrazeptiva \ (10.8-61.4)Menopause||||F|||20030331053409|||||
+OBX|3|NM|LHFSHQ^LH-FSH-Quotient^MOLIS||37.4||(<2.0)|H|||F|||20030331053409|||||
+OBX|4|NM|PROL^Prolactin^MOLIS||10.3|µg/l^^L|(2.3-25.0) \ (2.3-10.0)Menopause||||F|||20030331053409|||||
+OBX|5|NM|E2^Estradiol, E2^MOLIS||39|pmol/l^^L|(70-672)Follikulär \ (551-1938)Peak \ (220-774)Luteal \ (<114)Menopause||||F|||20030331053409||||| ";
+
+			PipeParser parser = new PipeParser();
+
+			IMessage m = parser.Parse(message);
+
+			var oru_r = m as ORU_R01;
+
+			foreach (var pr in oru_r.PATIENT_RESULTs)
+			{
+				int resultSet = 1;
+
+				int expectedRepetitions = 3; // 3 orders
+				Assert.IsTrue(pr.ORDER_OBSERVATIONRepetitionsUsed == expectedRepetitions, string.Format("Expected {0} in result {1}", expectedRepetitions, resultSet));
+				foreach (var oo in pr.ORDER_OBSERVATIONs)
+				{
+
+					if (resultSet == 1)
+					{
+						expectedRepetitions = 1;
+						Assert.IsTrue(oo.OBSERVATIONRepetitionsUsed == expectedRepetitions, string.Format("Expected {0} in result {1}", expectedRepetitions, resultSet));
+
+						var obx = oo.OBSERVATIONs.First().OBX;
+						var valueType = obx.ValueType.Value;
+						string expectedValueType = "FT";
+
+						Assert.IsTrue(valueType == expectedValueType, string.Format("Expected Value Type of {0} but found {1} for result set {2}", expectedValueType, valueType, resultSet));
+
+						var data = obx.GetObservationValue(0);
+						string value = data.Data.ToString();
+						string toFind = "Allergiepass";
+
+						Assert.IsTrue(value.Contains(toFind), string.Format("Expected to find '{0}' in data '{1}' but didn't.", toFind, value));
+					}
+
+					if (resultSet == 2)
+					{
+						expectedRepetitions = 3;
+						Assert.IsTrue(oo.OBSERVATIONRepetitionsUsed == expectedRepetitions, string.Format("Expected {0} in result {1}", expectedRepetitions, resultSet));
+
+						var obx = oo.OBSERVATIONs.First().OBX;
+						var valueType = obx.ValueType.Value;
+						string expectedValueType = "TX";
+
+						Assert.IsTrue(valueType == expectedValueType, string.Format("Expected Value Type of {0} but found {1} for result set {2}", expectedValueType, valueType, resultSet));
+
+						var data = obx.GetObservationValue(0);
+						string value = data.Data.ToString();
+						string toFind = "negativ";
+
+						Assert.IsTrue(value.Contains(toFind), string.Format("Expected to find '{0}' in data '{1}' but didn't.", toFind, value));
+					}
+
+					if (resultSet == 3)
+					{
+						expectedRepetitions = 5;
+						Assert.IsTrue(oo.OBSERVATIONRepetitionsUsed == expectedRepetitions, string.Format("Expected {0} in result {1}", expectedRepetitions, resultSet));
+
+						var obx = oo.OBSERVATIONs.First().OBX;
+						var valueType = obx.ValueType.Value;
+						string expectedValueType = "NM";
+
+						Assert.IsTrue(valueType == expectedValueType, string.Format("Expected Value Type of {0} but found {1} for result set {2}", expectedValueType, valueType, resultSet));
+
+						var data = obx.GetObservationValue(0);
+						string value = data.Data.ToString();
+						string toFind = "1.0";
+
+						Assert.IsTrue(value.Contains(toFind), string.Format("Expected to find '{0}' in data '{1}' but didn't.", toFind, value));
+					}
+
+					resultSet++;
+				}
+			}
+		}
 	}
 }
