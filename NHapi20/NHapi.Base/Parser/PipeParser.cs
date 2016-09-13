@@ -287,18 +287,16 @@ namespace NHapi.Base.Parser
 			IMessage m = InstantiateMessage(structure.messageStructure, version, structure.explicitlyDefined);
 
 			//MessagePointer ptr = new MessagePointer(this, m, getEncodingChars(message));
+			MessageIterator messageIter = new MessageIterator(m, "MSH", true);
+			FilterIterator.IPredicate segmentsOnly = new AnonymousClassPredicate(this);
+			FilterIterator segmentIter = new FilterIterator(messageIter, segmentsOnly);
 
 			String[] segments = Split(message, segDelim);
 			EncodingCharacters encodingChars = GetEncodingChars(message);
 			for (int i = 0; i < segments.Length; i++)
-            {
-                // If the message iterator passes a segment that is later encountered the message object won't be properly parsed.
-                // Rebuild the iterator for each segment, or fix iterator logic in handling unexpected segments.
-                MessageIterator messageIter = new MessageIterator(m, "MSH", true);
-                FilterIterator.IPredicate segmentsOnly = new AnonymousClassPredicate(this);
-                FilterIterator segmentIter = new FilterIterator(messageIter, segmentsOnly);
-                //get rid of any leading whitespace characters ...
-                if (segments[i] != null && segments[i].Length > 0 && Char.IsWhiteSpace(segments[i][0]))
+			{
+				//get rid of any leading whitespace characters ...
+				if (segments[i] != null && segments[i].Length > 0 && Char.IsWhiteSpace(segments[i][0]))
 					segments[i] = StripLeadingWhitespace(segments[i]);
 
 				//sometimes people put extra segment delimiters at end of msg ...
@@ -881,7 +879,7 @@ namespace NHapi.Base.Parser
 				throw new HL7Exception("Can't find version ID - MSH has only " + fields.Length + " fields.",
 					HL7Exception.REQUIRED_FIELD_MISSING);
 			}
-			return version.Trim();
+			return version;
 		}
 
 		/// <summary> A struct for holding a message class string and a boolean indicating whether it 

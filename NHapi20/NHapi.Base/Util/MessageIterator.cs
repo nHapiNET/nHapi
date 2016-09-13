@@ -210,15 +210,10 @@ namespace NHapi.Base.Util
 			//assert isLast(currPos);
 			bool nextExists = true;
 
-            // Adding a unexpected segment to the closest child segment doesn't seem like the best thing to do in all cases.
-            bool skipNewSegment = makeNewSegmentIfNeeded;
-            if (currPos.parent.ParentStructure != null)
-                skipNewSegment = false;
+			//the following conditional logic is a little convoluted -- its meant as an optimization 
+			// i.e. trying to avoid calling matchExistsAfterCurrentPosition
 
-            //the following conditional logic is a little convoluted -- its meant as an optimization 
-            // i.e. trying to avoid calling matchExistsAfterCurrentPosition
-
-            if (!makeNewSegmentIfNeeded && typeof (IMessage).IsAssignableFrom(currPos.parent.GetType()))
+			if (!makeNewSegmentIfNeeded && typeof (IMessage).IsAssignableFrom(currPos.parent.GetType()))
 			{
 				nextExists = false;
 			}
