@@ -362,6 +362,8 @@ namespace NHapi.Base.Parser
 					reps[0] = fields[i];
                 }
 
+                IType[] destinationReps = destination.GetField(i + fieldOffset);
+
                 for (int j = 0; j < reps.Length; j++)
                 {
                     try
@@ -372,9 +374,18 @@ namespace NHapi.Base.Parser
                         statusMessage.Append(j);
                         log.Debug(statusMessage.ToString());
 
-                        if (i > 0 && i <= destination.NumFields() && j < destination.GetMaxCardinality(i))
+                        if (destinationReps.Length <= j)
                         {
-                            IType field = destination.GetField(i + fieldOffset, j);
+                            StringBuilder errorMessage = new StringBuilder("Unexpected repitition for field ");
+                            statusMessage.Append(i + fieldOffset);
+                            statusMessage.Append(" repetition ");
+                            statusMessage.Append(j);
+                            statusMessage.Append(", ignoring extra repititions.");
+                            log.Debug(statusMessage.ToString());
+                        }
+                        else
+                        {
+                            IType field = destinationReps[j];
                             if (isMSH2)
                             {
                                 Terser.getPrimitive(field, 1, 1).Value = reps[j];
@@ -383,15 +394,6 @@ namespace NHapi.Base.Parser
                             {
                                 Parse(field, reps[j], encodingChars);
                             }
-                        }
-                        else
-                        {
-                            StringBuilder errorMessage = new StringBuilder("Unexpected repitition for field ");
-                            statusMessage.Append(i + fieldOffset);
-                            statusMessage.Append(" repetition ");
-                            statusMessage.Append(j);
-                            statusMessage.Append(", ignoring extra repititions.");
-                            log.Debug(statusMessage.ToString());
                         }
                     }
                     catch (HL7Exception e)
