@@ -879,7 +879,7 @@ namespace NHapi.Base.Parser
 				throw new HL7Exception("Can't find version ID - MSH has only " + fields.Length + " fields.",
 					HL7Exception.REQUIRED_FIELD_MISSING);
 			}
-			return version;
+			return version.Trim();
 		}
 
 		/// <summary> A struct for holding a message class string and a boolean indicating whether it 
