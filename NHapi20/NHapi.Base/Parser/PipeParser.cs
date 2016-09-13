@@ -286,16 +286,17 @@ namespace NHapi.Base.Parser
 			MessageStructure structure = GetStructure(message);
 			IMessage m = InstantiateMessage(structure.messageStructure, version, structure.explicitlyDefined);
 
-            //MessagePointer ptr = new MessagePointer(this, m, getEncodingChars(message));
-            MessageIterator messageIter = new MessageIterator(m, "MSH", true);
-            FilterIterator.IPredicate segmentsOnly = new AnonymousClassPredicate(this);
-            FilterIterator segmentIter = new FilterIterator(messageIter, segmentsOnly);
+			//MessagePointer ptr = new MessagePointer(this, m, getEncodingChars(message));
 
-            string lastSegmentName = null;
 			String[] segments = Split(message, segDelim);
 			EncodingCharacters encodingChars = GetEncodingChars(message);
 			for (int i = 0; i < segments.Length; i++)
             {
+                // If the message iterator passes a segment that is later encountered the message object won't be properly parsed.
+                // Rebuild the iterator for each segment, or fix iterator logic in handling unexpected segments.
+                MessageIterator messageIter = new MessageIterator(m, "MSH", true);
+                FilterIterator.IPredicate segmentsOnly = new AnonymousClassPredicate(this);
+                FilterIterator segmentIter = new FilterIterator(messageIter, segmentsOnly);
                 //get rid of any leading whitespace characters ...
                 if (segments[i] != null && segments[i].Length > 0 && Char.IsWhiteSpace(segments[i][0]))
 					segments[i] = StripLeadingWhitespace(segments[i]);
@@ -305,15 +306,6 @@ namespace NHapi.Base.Parser
 				{
 					String name = segments[i].Substring(0, (3) - (0));
 					log.Debug("Parsing segment " + name);
-                    if (!name.Equals(lastSegmentName, StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        // If the message iterator passes a segment that is later encountered the message object won't be properly parsed.
-                        // Rebuild the iterator for each segment, or fix iterator logic in handling unexpected segments.
-                        messageIter = new MessageIterator(m, "MSH", true);
-                        segmentsOnly = new AnonymousClassPredicate(this);
-                        segmentIter = new FilterIterator(messageIter, segmentsOnly);
-                        lastSegmentName = name;
-                    }
 
 					messageIter.Direction = name;
 					FilterIterator.IPredicate byDirection = new AnonymousClassPredicate1(name, this);
@@ -360,52 +352,38 @@ namespace NHapi.Base.Parser
 				{
 					reps = new String[1];
 					reps[0] = fields[i];
-                }
+				}
 
-                IType[] destinationReps = destination.GetField(i + fieldOffset);
+				for (int j = 0; j < reps.Length; j++)
+				{
+					try
+					{
+						StringBuilder statusMessage = new StringBuilder("Parsing field ");
+						statusMessage.Append(i + fieldOffset);
+						statusMessage.Append(" repetition ");
+						statusMessage.Append(j);
+						log.Debug(statusMessage.ToString());
 
-                for (int j = 0; j < reps.Length; j++)
-                {
-                    try
-                    {
-                        StringBuilder statusMessage = new StringBuilder("Parsing field ");
-                        statusMessage.Append(i + fieldOffset);
-                        statusMessage.Append(" repetition ");
-                        statusMessage.Append(j);
-                        log.Debug(statusMessage.ToString());
-
-                        if (destinationReps.Length <= j)
-                        {
-                            StringBuilder errorMessage = new StringBuilder("Unexpected repitition for field ");
-                            statusMessage.Append(i + fieldOffset);
-                            statusMessage.Append(" repetition ");
-                            statusMessage.Append(j);
-                            statusMessage.Append(", ignoring extra repititions.");
-                            log.Debug(statusMessage.ToString());
-                        }
-                        else
-                        {
-                            IType field = destinationReps[j];
-                            if (isMSH2)
-                            {
-                                Terser.getPrimitive(field, 1, 1).Value = reps[j];
-                            }
-                            else
-                            {
-                                Parse(field, reps[j], encodingChars);
-                            }
-                        }
-                    }
-                    catch (HL7Exception e)
-                    {
-                        //set the field location and throw again ...
-                        e.FieldPosition = i + fieldOffset;
-                        e.SegmentRepetition = MessageIterator.getIndex(destination.ParentStructure, destination).rep;
-                        e.SegmentName = destination.GetStructureName();
-                        throw;
-                    }
-                }
-            }
+						IType field = destination.GetField(i + fieldOffset, j);
+						if (isMSH2)
+						{
+							Terser.getPrimitive(field, 1, 1).Value = reps[j];
+						}
+						else
+						{
+							Parse(field, reps[j], encodingChars);
+						}
+					}
+					catch (HL7Exception e)
+					{
+						//set the field location and throw again ...
+						e.FieldPosition = i + fieldOffset;
+						e.SegmentRepetition = MessageIterator.getIndex(destination.ParentStructure, destination).rep;
+						e.SegmentName = destination.GetStructureName();
+						throw;
+					}
+				}
+			}
 
 			//set data type of OBX-5
 			if (destination.GetType().FullName.IndexOf("OBX") >= 0)
