@@ -16,11 +16,11 @@ This project is **NOT** affiliated with the HL7 organization. This software just
 - FREE! (You can't beat that price) and open source  
 - Fast  
 
-##Requirements
+## Requirements
 
 NHapi currently targets version 3.5 of the .NET Framework
 
-##Getting Started
+## Getting Started
 
 The easiest way to get started using nHapi is to use the [NuGet package 'nHapi'](https://www.nuget.org/packages/nHapi/):
 
@@ -30,9 +30,9 @@ Using the package manager console withing visual studio, simply run the followin
 PM > Install-Package nHapi
 ```
 
-##[Change Log](https://github.com/duaneedwards/nHapi/blob/master/CHANGELOG.md)
+## [Change Log](https://github.com/duaneedwards/nHapi/blob/master/CHANGELOG.md)
 
-##Related Projects
+## Related Projects
 
 If you use nHapi you may find the following projects useful:
 
