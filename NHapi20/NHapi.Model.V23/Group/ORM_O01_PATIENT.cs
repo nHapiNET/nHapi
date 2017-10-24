@@ -19,7 +19,7 @@ namespace NHapi.Model.V23.Group
 ///<li>2: NTE (Notes and comments segment) optional repeating</li>
 ///<li>3: ORM_O01_PATIENT_VISIT (a Group object) optional </li>
 ///<li>4: ORM_O01_INSURANCE (a Group object) optional repeating</li>
-///<li>5: GT1 (Guarantor) optional </li>
+///<li>5: GT1 (Guarantor) optional repeating</li>
 ///<li>6: AL1 (Patient allergy information) optional repeating</li>
 ///</ol>
 ///</summary>
