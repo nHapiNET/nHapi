@@ -50,6 +50,7 @@ namespace NHapi.Base.Parser
 		{
 			String messageClassName = source.GetType().FullName;
 			String messageName = messageClassName.Substring(messageClassName.LastIndexOf('.') + 1);
+			messageName = messageName.Contains("+") ? messageName.Replace('+', '-') : messageName;
 			XmlDocument doc = null;
 			try
 			{
