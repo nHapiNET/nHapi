@@ -38,6 +38,9 @@ namespace NHapi.Base.Parser
 		public DefaultXMLParser(IModelClassFactory modelClassFactory) : base(modelClassFactory)
 		{
 		}
+	    
+	    /// <summary>Configuration property to remove plus sign from xml header </summary>
+	    public bool RemovePlusSignFromName { get; set; }
 
 		/// <summary> <p>Creates an XML Document that corresponds to the given Message object. </p>
 		/// <p>If you are implementing this method, you should create an XML Document, and insert XML Elements
@@ -50,7 +53,7 @@ namespace NHapi.Base.Parser
 		{
 			String messageClassName = source.GetType().FullName;
 			String messageName = messageClassName.Substring(messageClassName.LastIndexOf('.') + 1);
-			messageName = messageName.Contains("+") ? messageName.Replace('+', '-') : messageName;
+			messageName = RemovePlusSignFromName ? messageName.Replace('+', '-') : messageName;
 			XmlDocument doc = null;
 			try
 			{
