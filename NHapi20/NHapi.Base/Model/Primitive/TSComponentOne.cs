@@ -14,7 +14,7 @@
 /// Contributor(s): ______________________________________.
 /// 
 /// Alternatively, the contents of this file may be used under the terms of the
-/// GNU General Public License (the  “GPL”), in which case the provisions of the GPL are
+/// GNU General Public License (the  â€œGPLâ€), in which case the provisions of the GPL are
 /// applicable instead of those above.  If you wish to allow use of your version of this
 /// file only under the terms of the GPL and not to allow others to use your version
 /// of this file under the MPL, indicate your decision by deleting  the provisions above
@@ -279,7 +279,7 @@ namespace NHapi.Base.Model.Primitive
 		{
 			try
 			{
-				string[] dateFormats = new string[] {LongDateTimeFormat, ShortDateTimeFormat, LongDateTimeFormatWithSecond, LongDateTimeFormatWithOffset };
+				string[] dateFormats = new string[] {LongDateTimeFormat, ShortDateTimeFormat, LongDateTimeFormatWithSecond, LongDateTimeFormatWithOffset, LongDateTimeFormatWithFactionOfSecond };
 				DateTime val = DateTime.MinValue;
 				CultureInfo culture = Thread.CurrentThread.CurrentCulture;
 				if (Value != null && Value.Length > 0)
