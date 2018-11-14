@@ -66,6 +66,30 @@ namespace NHapi.Base.Model
 			{
 				c = typeof (V25);
 			}
+			else if (version.Equals("2.5.1"))
+			{
+				c = typeof(V251);
+			}
+			else if (version.Equals("2.6"))
+			{
+				c = typeof(V26);
+			}
+			else if (version.Equals("2.7"))
+			{
+				c = typeof(V27);
+			}
+			else if (version.Equals("2.7.1"))
+			{
+				c = typeof(V271);
+			}
+			else if (version.Equals("2.8"))
+			{
+				c = typeof(V28);
+			}
+			else if (version.Equals("2.8.1"))
+			{
+				c = typeof(V281);
+			}
 			return c;
 		}
 
@@ -202,6 +226,144 @@ namespace NHapi.Base.Model
 			/// </summary>
 			/// <param name="factory"></param>
 			public V25(IModelClassFactory factory)
+				: base(factory)
+			{
+			}
+		}
+
+		/// <summary>
+		/// Version 2.5.1 generic message
+		/// </summary>
+		public class V251 : GenericMessage
+		{
+			/// <summary>
+			/// Version of message
+			/// </summary>
+			public override String Version
+			{
+				get { return "2.5.1"; }
+			}
+
+			/// <summary>
+			/// Constructor
+			/// </summary>
+			/// <param name="factory"></param>
+			public V251(IModelClassFactory factory)
+				: base(factory)
+			{
+			}
+		}
+
+		/// <summary>
+		/// Version 2.6 generic message
+		/// </summary>
+		public class V26 : GenericMessage
+		{
+			/// <summary>
+			/// Version of message
+			/// </summary>
+			public override String Version
+			{
+				get { return "2.6"; }
+			}
+
+			/// <summary>
+			/// Constructor
+			/// </summary>
+			/// <param name="factory"></param>
+			public V26(IModelClassFactory factory)
+				: base(factory)
+			{
+			}
+		}
+
+		/// <summary>
+		/// Version 2.7 generic message
+		/// </summary>
+		public class V27 : GenericMessage
+		{
+			/// <summary>
+			/// Version of message
+			/// </summary>
+			public override String Version
+			{
+				get { return "2.7"; }
+			}
+
+			/// <summary>
+			/// Constructor
+			/// </summary>
+			/// <param name="factory"></param>
+			public V27(IModelClassFactory factory)
+				: base(factory)
+			{
+			}
+		}
+
+		/// <summary>
+		/// Version 2.7.1 generic message
+		/// </summary>
+		public class V271 : GenericMessage
+		{
+			/// <summary>
+			/// Version of message
+			/// </summary>
+			public override String Version
+			{
+				get { return "2.7.1"; }
+			}
+
+			/// <summary>
+			/// Constructor
+			/// </summary>
+			/// <param name="factory"></param>
+			public V271(IModelClassFactory factory)
+				: base(factory)
+			{
+			}
+		}
+
+		/// <summary>
+		/// Version 2.8 generic message
+		/// </summary>
+		public class V28 : GenericMessage
+		{
+			/// <summary>
+			/// Version of message
+			/// </summary>
+			public override String Version
+			{
+				get { return "2.8"; }
+			}
+
+			/// <summary>
+			/// Constructor
+			/// </summary>
+			/// <param name="factory"></param>
+			public V28(IModelClassFactory factory)
+				: base(factory)
+			{
+			}
+		}
+
+		/// <summary>
+		/// Version 2.8.1 generic message
+		/// </summary>
+		public class V281 : GenericMessage
+		{
+			/// <summary>
+			/// Version of message
+			/// </summary>
+			public override String Version
+			{
+				get { return "2.8.1"; }
+			}
+
+			/// <summary>
+			/// Constructor
+			/// </summary>
+			/// <param name="factory"></param>
+			public V281(IModelClassFactory factory)
 				: base(factory)
 			{
 			}
