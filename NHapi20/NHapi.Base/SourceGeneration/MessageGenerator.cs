@@ -28,10 +28,9 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Text;
-using NHapi.Base;
 using NHapi.Base.Log;
-using System.Data.OleDb;
-using System.Data;
+using System.Data.Common;
+using System.Data.Odbc;
 
 namespace NHapi.Base.SourceGeneration
 {
@@ -62,14 +61,14 @@ namespace NHapi.Base.SourceGeneration
 		public static void makeAll(String baseDirectory, String version)
 		{
 			//get list of messages ...
-			using (OleDbConnection conn = NormativeDatabase.Instance.Connection)
+			using (OdbcConnection conn = NormativeDatabase.Instance.Connection)
 			{
 				String sql = getMessageListQuery(version);
-				OleDbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
-				OleDbCommand temp_OleDbCommand;
+				DbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
+				DbCommand temp_OleDbCommand;
 				temp_OleDbCommand = stmt;
 				temp_OleDbCommand.CommandText = sql;
-				OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
+				DbDataReader rs = temp_OleDbCommand.ExecuteReader();
 				ArrayList messages = new ArrayList();
 				ArrayList chapters = new ArrayList();
 				while (rs.Read())
@@ -174,12 +173,12 @@ namespace NHapi.Base.SourceGeneration
 			String sql = getSegmentListQuery(message, version);
 			//System.out.println(sql.toString()); 	
 			SegmentDef[] segments = new SegmentDef[200]; //presumably there won't be more than 200
-			OleDbConnection conn = NormativeDatabase.Instance.Connection;
-			OleDbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
-			OleDbCommand temp_OleDbCommand;
+			OdbcConnection conn = NormativeDatabase.Instance.Connection;
+			DbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
+			DbCommand temp_OleDbCommand;
 			temp_OleDbCommand = stmt;
 			temp_OleDbCommand.CommandText = sql;
-			OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
+			DbDataReader rs = temp_OleDbCommand.ExecuteReader();
 			int c = -1;
 			while (rs.Read())
 			{

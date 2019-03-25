@@ -38,11 +38,12 @@ namespace NHapi.NUnit
 			Assert.AreEqual("\"\"", commonDt.Value);
 		}
 
-		[Test, ExpectedException(typeof (DataTypeException))]
+		[Test]
 		public void Value__Set_to_Invalid_Length()
 		{
 			var commonDt = new CommonDT();
-			commonDt.Value = "20010";
+			Assert.Throws<DataTypeException>(
+				() => commonDt.Value = "20010");
 		}
 
 		[Test]
@@ -75,26 +76,32 @@ namespace NHapi.NUnit
 			Assert.AreEqual(3, commonDt.Day);
 		}
 
-		[Test, ExpectedException(typeof (DataTypeException))]
+		[Test]
 		public void Value__Set_to_Invalid_Year()
 		{
 			var commonDt = new CommonDT();
-			commonDt.Value = "200a";
-		}
 
-		[Test, ExpectedException(typeof (DataTypeException))]
+			Assert.Throws<DataTypeException>(
+				() => commonDt.Value = "200a");
+        }
+
+		[Test]
 		public void Value__Set_to_Invalid_Month()
 		{
 			var commonDt = new CommonDT();
-			commonDt.Value = "20010a";
-		}
 
-		[Test, ExpectedException(typeof (DataTypeException))]
+			Assert.Throws<DataTypeException>(
+				() => commonDt.Value = "20010a");
+        }
+
+		[Test]
 		public void Value__Set_to_Invalid_Day()
 		{
 			var commonDt = new CommonDT();
-			commonDt.Value = "2001020a";
-		}
+
+			Assert.Throws<DataTypeException>(
+				() => commonDt.Value = "2001020a");
+        }
 
 
 		[Test]
@@ -108,12 +115,14 @@ namespace NHapi.NUnit
 			Assert.AreEqual(0, commonDt.Day);
 		}
 
-		[Test, ExpectedException(typeof (DataTypeException))]
+		[Test]
 		public void YearPrecision__Set_to_Invalid_Year()
 		{
 			var commonDt = new CommonDT();
-			commonDt.YearPrecision = 20010;
-		}
+
+			Assert.Throws<DataTypeException>(
+				() => commonDt.YearPrecision = 20010);
+        }
 
 
 		[Test]
@@ -126,19 +135,23 @@ namespace NHapi.NUnit
 			Assert.AreEqual(2, commonDt.Month);
 		}
 
-		[Test, ExpectedException(typeof (DataTypeException))]
+		[Test]
 		public void setYearMonthPrecision_With_Invalid_Year()
 		{
 			var commonDt = new CommonDT();
-			commonDt.setYearMonthPrecision(20010, 02);
-		}
 
-		[Test, ExpectedException(typeof (DataTypeException))]
+			Assert.Throws<DataTypeException>(
+				() => commonDt.setYearMonthPrecision(20010, 02));
+        }
+
+		[Test]
 		public void setYearMonthPrecision_With_Invalid_Month()
 		{
 			var commonDt = new CommonDT();
-			commonDt.setYearMonthPrecision(2001, 13);
-		}
+
+			Assert.Throws<DataTypeException>(
+				() => commonDt.setYearMonthPrecision(2001, 13));
+        }
 
 
 		[Test]
@@ -152,25 +165,31 @@ namespace NHapi.NUnit
 			Assert.AreEqual(3, commonDt.Day);
 		}
 
-		[Test, ExpectedException(typeof (DataTypeException))]
+		[Test]
 		public void setYearMonthDayPrecision_With_Invalid_Year()
 		{
 			var commonDt = new CommonDT();
-			commonDt.setYearMonthDayPrecision(20010, 2, 3);
-		}
 
-		[Test, ExpectedException(typeof (DataTypeException))]
+			Assert.Throws<DataTypeException>(
+				() => commonDt.setYearMonthDayPrecision(20010, 2, 3));
+        }
+
+		[Test]
 		public void setYearMonthDayPrecision_With_Invalid_Month()
 		{
 			var commonDt = new CommonDT();
-			commonDt.setYearMonthDayPrecision(2001, 13, 3);
-		}
 
-		[Test, ExpectedException(typeof (DataTypeException))]
+			Assert.Throws<DataTypeException>(
+				() => commonDt.setYearMonthDayPrecision(2001, 13, 3));
+        }
+
+		[Test]
 		public void setYearMonthDayPrecision_With_Invalid_Day()
 		{
 			var commonDt = new CommonDT();
-			commonDt.setYearMonthDayPrecision(2001, 2, 29);
-		}
+
+			Assert.Throws<DataTypeException>(
+				() => commonDt.setYearMonthDayPrecision(2001, 2, 29));
+        }
 	}
 }

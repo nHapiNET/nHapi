@@ -27,11 +27,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.OleDb;
+using System.Data.Common;
+using System.Data.Odbc;
 using System.IO;
 using System.Linq;
 using System.Text;
-using NHapi.Base;
 using NHapi.Base.Log;
 
 namespace NHapi.Base.SourceGeneration
@@ -62,14 +62,14 @@ namespace NHapi.Base.SourceGeneration
 				SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Segment");
 
 			//get list of data types
-			OleDbConnection conn = NormativeDatabase.Instance.Connection;
+			OdbcConnection conn = NormativeDatabase.Instance.Connection;
 			String sql =
 				"SELECT seg_code, [section] from HL7Segments, HL7Versions where HL7Segments.version_id = HL7Versions.version_id AND hl7_version = '" +
 				version + "'";
-			OleDbCommand temp_OleDbCommand = new OleDbCommand();
+			DbCommand temp_OleDbCommand = conn.CreateCommand();
 			temp_OleDbCommand.Connection = conn;
 			temp_OleDbCommand.CommandText = sql;
-			OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
+			DbDataReader rs = temp_OleDbCommand.ExecuteReader();
 
 
 			ArrayList segments = new ArrayList();
@@ -142,7 +142,7 @@ namespace NHapi.Base.SourceGeneration
 				ArrayList elements = new ArrayList();
 				SegmentElement se;
 				String segDesc = null;
-				OleDbConnection conn = NormativeDatabase.Instance.Connection;
+				OdbcConnection conn = NormativeDatabase.Instance.Connection;
 				StringBuilder sql = new StringBuilder();
 				sql.Append("SELECT HL7SegmentDataElements.seg_code, HL7SegmentDataElements.seq_no, ");
 				sql.Append("HL7SegmentDataElements.repetitional, HL7SegmentDataElements.repetitions, ");
@@ -160,11 +160,11 @@ namespace NHapi.Base.SourceGeneration
 				sql.Append("' and HL7Versions.hl7_version = '");
 				sql.Append(version);
 				sql.Append("' ORDER BY HL7SegmentDataElements.seg_code, HL7SegmentDataElements.seq_no;");
-				OleDbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
-				OleDbCommand temp_OleDbCommand;
+				DbCommand stmt = SupportClass.TransactionManager.manager.CreateStatement(conn);
+				DbCommand temp_OleDbCommand;
 				temp_OleDbCommand = stmt;
 				temp_OleDbCommand.CommandText = sql.ToString();
-				OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
+				DbDataReader rs = temp_OleDbCommand.ExecuteReader();
 
 				while (rs.Read())
 				{
@@ -492,7 +492,7 @@ namespace NHapi.Base.SourceGeneration
 
 				source.Append("\n}");
 			}
-			catch (OleDbException sqle)
+			catch (DbException sqle)
 			{
 				SupportClass.WriteStackTrace(sqle, Console.Error);
 			}
@@ -523,7 +523,7 @@ namespace NHapi.Base.SourceGeneration
 			}
 		}
 
-		private static int DetermineLength(OleDbDataReader rs)
+		private static int DetermineLength(DbDataReader rs)
 		{
 			string length = rs.GetValue(6 - 1) as string;
 			if (!string.IsNullOrEmpty(length) && length.Contains(".."))

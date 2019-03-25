@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 ###
 -
 
+## [2.6.0.0] - 2019-03-25
+### Fixes  (Submitted by haydenhall and milkshakeuk)
+- Update project to support netstandard2.0 #61
+
 ## [2.5.0.6] - 2016-09-13
 ### Fixes
 - Resolve #11 by reverting:

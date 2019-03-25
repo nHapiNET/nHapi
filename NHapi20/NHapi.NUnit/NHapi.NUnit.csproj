@@ -1,196 +1,32 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.50727</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7C7C99F0-672B-4DB1-A125-5ED7A3ADF95E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NHapi.NUnit</RootNamespace>
-    <AssemblyName>NHapi.NUnit</AssemblyName>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile />
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
+    <TargetFramework>net461</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <UseVSHostingProcess>true</UseVSHostingProcess>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <PlatformTarget>x86</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="SimpleSpeedTester">
-      <HintPath>..\packages\SimpleSpeedTester.1.1.0\lib\net40\SimpleSpeedTester.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="NUnit" Version="3.11.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
+    <PackageReference Include="SimpleSpeedTester" Version="1.1.0" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="CommonDtTest.cs" />
-    <Compile Include="CustomZSegmentTest.cs" />
-    <Compile Include="DataTypeUtilTests.cs" />
-    <Compile Include="DateTypeTest23.cs" />
-    <Compile Include="DateTypeTest231.cs" />
-    <Compile Include="DateTypeTest24.cs" />
-    <Compile Include="PipeParserLargeEmbeddedFileTest.cs" />
-    <Compile Include="ParserTest.cs" />
-    <Compile Include="PipeParsingFixture21.cs" />
-    <Compile Include="PipeParsingFixture25.cs" />
-    <Compile Include="PipeParsingFixture23.cs" />
-    <Compile Include="PipeParsingFixture231.cs" />
-    <Compile Include="PipeParsingFixture24.cs" />
-    <Compile Include="PipeParsingFixture281.cs" />
-    <Compile Include="PipeParsingFixture28.cs" />
-    <Compile Include="PipeParsingFixture271.cs" />
-    <Compile Include="PipeParsingFixture27.cs" />
-    <Compile Include="PipeParsingFixture26.cs" />
-    <Compile Include="PipeParsingFixture251.cs" />
-    <Compile Include="PipeParsingORM.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test23Orc.cs" />
-    <Compile Include="TestMSH3.cs" />
-    <Compile Include="ValidationTests.cs" />
-    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+    <ProjectReference Include="..\ModelGenerator\ModelGenerator.csproj" />
+    <ProjectReference Include="..\nHapi.Base\NHapi.Base.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V21\NHapi.Model.V21.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V22\NHapi.Model.V22.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V22_ZSegments\NHapi.Model.V22_ZSegments.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V231\NHapi.Model.V231.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V23\NHapi.Model.V23.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V24\NHapi.Model.V24.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V251\NHapi.Model.V251.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V25\NHapi.Model.V25.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V26\NHapi.Model.V26.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V271\NHapi.Model.V271.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V27\NHapi.Model.V27.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V281\NHapi.Model.V281.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V28\NHapi.Model.V28.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ModelGenerator\ModelGenerator.csproj">
-      <Project>{EBB8E9C9-7FF2-49C4-96EF-C5B87E4C2617}</Project>
-      <Name>ModelGenerator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\nHapi.Base\NHapi.Base.csproj">
-      <Project>{5A080123-0597-46C3-AE78-2007EFB0DD68}</Project>
-      <Name>NHapi.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NHapi.Model.V21\NHapi.Model.V21.csproj">
-      <Project>{4B3417BA-0090-4FA0-B04B-BB19563FC11C}</Project>
-      <Name>NHapi.Model.V21</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NHapi.Model.V22\NHapi.Model.V22.csproj">
-      <Project>{2AAFDC25-B3DF-4493-94A5-144D60122FEC}</Project>
-      <Name>NHapi.Model.V22</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NHapi.Model.V22_ZSegments\NHapi.Model.V22_ZSegments.csproj">
-      <Project>{ffecb4de-c192-4f95-9dc7-9d0a815d250a}</Project>
-      <Name>NHapi.Model.V22_ZSegments</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NHapi.Model.V231\NHapi.Model.V231.csproj">
-      <Project>{B8909698-59BA-453F-A4BC-2F4F2612F853}</Project>
-      <Name>NHapi.Model.V231</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NHapi.Model.V23\NHapi.Model.V23.csproj">
-      <Project>{796D663F-E12D-45C2-92E6-8FD050558A86}</Project>
-      <Name>NHapi.Model.V23</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NHapi.Model.V24\NHapi.Model.V24.csproj">
-      <Project>{C5DE87CB-F026-4EB3-9CE8-5017BF3FB5CC}</Project>
-      <Name>NHapi.Model.V24</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NHapi.Model.V251\NHapi.Model.V251.csproj">
-      <Project>{616c84ef-be12-47a8-a524-d8230d572163}</Project>
-      <Name>NHapi.Model.V251</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NHapi.Model.V25\NHapi.Model.V25.csproj">
-      <Project>{BE6CDFAD-560E-44CC-B23B-87252DD4392C}</Project>
-      <Name>NHapi.Model.V25</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NHapi.Model.V26\NHapi.Model.V26.csproj">
-      <Project>{a21b73c4-d18e-4bba-be6c-fd52a1f5f6c9}</Project>
-      <Name>NHapi.Model.V26</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NHapi.Model.V271\NHapi.Model.V271.csproj">
-      <Project>{5aec7ea6-d02d-4dd5-82f4-d28ecf2be1ea}</Project>
-      <Name>NHapi.Model.V271</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NHapi.Model.V27\NHapi.Model.V27.csproj">
-      <Project>{299b6f9f-2aa8-4b93-b687-21563d421735}</Project>
-      <Name>NHapi.Model.V27</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NHapi.Model.V281\NHapi.Model.V281.csproj">
-      <Project>{4cb07522-cef0-44b4-b84a-110caf19f5e0}</Project>
-      <Name>NHapi.Model.V281</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NHapi.Model.V28\NHapi.Model.V28.csproj">
-      <Project>{9b2038ca-d3df-42e2-8f85-7c141d7ccd88}</Project>
-      <Name>NHapi.Model.V28</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

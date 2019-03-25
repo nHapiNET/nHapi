@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.OleDb;
+using System.Data.Common;
+using System.Data.Odbc;
 using System.IO;
-using System.Text;
 
 namespace NHapi.Base.SourceGeneration
 {
@@ -19,14 +18,14 @@ namespace NHapi.Base.SourceGeneration
 				SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "EventMapping");
 
 			//get list of data types
-			OleDbConnection conn = NormativeDatabase.Instance.Connection;
+			OdbcConnection conn = NormativeDatabase.Instance.Connection;
 			String sql =
 				"SELECT * from HL7EventMessageTypes inner join HL7Versions on HL7EventMessageTypes.version_id = HL7Versions.version_id where HL7Versions.hl7_version = '" +
 				version + "'";
-			OleDbCommand temp_OleDbCommand = new OleDbCommand();
+			DbCommand temp_OleDbCommand = conn.CreateCommand();
 			temp_OleDbCommand.Connection = conn;
 			temp_OleDbCommand.CommandText = sql;
-			OleDbDataReader rs = temp_OleDbCommand.ExecuteReader();
+			DbDataReader rs = temp_OleDbCommand.ExecuteReader();
 
 
 			using (StreamWriter sw = new StreamWriter(targetDir.FullName + @"\EventMap.properties", false))
