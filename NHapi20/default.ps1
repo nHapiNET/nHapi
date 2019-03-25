@@ -43,11 +43,11 @@ task Test {
 
 Task Package -depends Build {
 	Remove-Item ..\NuGet\*.dll
-	Copy-Item .\NHapi.NUnit\bin\Release\*.dll ..\NuGet
-    Copy-Item .\NHapi.NUnit\bin\Release\*.xml ..\NuGet
+	Copy-Item .\NHapi.NUnit\bin\Release\net461\*.dll ..\NuGet
+    Copy-Item .\NHapi.NUnit\bin\Release\net461\*.xml ..\NuGet
 	Exec { .nuget\nuget pack ..\NuGet\nHapi.v2.nuspec }
 }
 
 Task Deploy -depends Package {
-	Exec { .nuget\nuget push *.nupkg }
+	Exec { .nuget\nuget push *.nupkg -Source https://api.nuget.org/v3/index.json }
 }
