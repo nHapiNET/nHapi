@@ -1,5 +1,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/llfc0qjtahffnpdw?svg=true)](https://ci.appveyor.com/project/DuaneEdwards/nhapi)
 
+# This repository is no longer actively maintained, if you want to become the maintainer, raise a new issue and I can add you to the organisation.
+
 # nHapi
 NHapi is a .NET port of the original Java project [HAPI](http://hl7api.sourceforge.net/).
 
