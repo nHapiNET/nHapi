@@ -40,5 +40,6 @@ If you use nHapi you may find the following projects useful:
 
 - [NHapiTools](https://github.com/dib0/NHapiTools) - Many useful extension methods, helper methods for listening on MLLP/TCP, generating ACK messages, custom segments, validation rules, too many features to list here.
 - [HL7Fuse](https://github.com/dib0/HL7Fuse) - HL7 Message Hub / Integration Engine
+- [HL7-dotnetcore](https://github.com/Efferent-Health/HL7-dotnetcore) - Lightweight library for building and parsing HL7 2.x messages, for .Net Standard and .Net Core. It is not tied to any particular version of HL7 nor validates against one.
 
 Should you know of any other projects that use or improve nHapi please let me know or send a pull request with a link to the project and I'll be happy to add it to the list.
