@@ -37,7 +37,7 @@ namespace NHapi.Base.validation.impl
 		/// </seealso>
 		public virtual String Description
 		{
-			get { return "Maxumim size <= " + myMaxChars + " characters"; }
+			get { return "Maximum size <= " + myMaxChars + " characters"; }
 		}
 
 		/// <seealso cref="NHapi.Base.validation.Rule.getSectionReference()">
