@@ -19,7 +19,7 @@ namespace NHapi.Model.V23.Group
 ///<li>2: NTE (Notes and comments segment) optional repeating</li>
 ///<li>3: ORM_O01_PATIENT_VISIT (a Group object) optional </li>
 ///<li>4: ORM_O01_INSURANCE (a Group object) optional repeating</li>
-///<li>5: GT1 (Guarantor) optional </li>
+///<li>5: GT1 (Guarantor) optional repeating</li>
 ///<li>6: AL1 (Patient allergy information) optional repeating</li>
 ///</ol>
 ///</summary>
@@ -36,7 +36,7 @@ public class ORM_O01_PATIENT : AbstractGroup {
 	      this.add(typeof(NTE), false, true);
 	      this.add(typeof(ORM_O01_PATIENT_VISIT), false, false);
 	      this.add(typeof(ORM_O01_INSURANCE), false, true);
-	      this.add(typeof(GT1), false, false);
+	      this.add(typeof(GT1), false, true);
 	      this.add(typeof(AL1), false, true);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating ORM_O01_PATIENT - this is probably a bug in the source code generator.", e);
@@ -249,26 +249,99 @@ get{
 		this.RemoveRepetition("INSURANCE", index);
 	}
 
-	///<summary>
-	/// Returns GT1 (Guarantor) - creates it if necessary
-	///</summary>
-	public GT1 GT1 { 
-get{
-	   GT1 ret = null;
-	   try {
-	      ret = (GT1)this.GetStructure("GT1");
-	   } catch(HL7Exception e) {
-	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
-	      throw new System.Exception("An unexpected error ocurred",e);
-	   }
-	   return ret;
-	}
-	}
+    ///<summary>
+    /// Returns  first repetition of GT1 (Patient Guarantor information) - creates it if necessary
+    ///</summary>
+    public GT1 GetGT1()
+    {
+        GT1 ret = null;
+        try
+        {
+            ret = (GT1) this.GetStructure("GT1");
+        }
+        catch (HL7Exception e)
+        {
+            HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
+            throw new System.Exception("An unexpected error ocurred", e);
+        }
+        return ret;
+    }
 
-	///<summary>
-	/// Returns  first repetition of AL1 (Patient allergy information) - creates it if necessary
-	///</summary>
-	public AL1 GetAL1() {
+    ///<summary>
+    ///Returns a specific repetition of GT1
+    /// * (Patient Guarantor information) - creates it if necessary
+    /// throws HL7Exception if the repetition requested is more than one 
+    ///     greater than the number of existing repetitions.
+    ///</summary>
+    public GT1 GetGT1(int rep)
+    {
+        return (GT1) this.GetStructure("GT1", rep);
+    }
+
+    /** 
+        * Returns the number of existing repetitions of GT1 
+        */
+    public int GT1RepetitionsUsed
+    {
+        get
+        {
+            int reps = -1;
+            try
+            {
+                reps = this.GetAll("GT1").Length;
+            }
+            catch (HL7Exception e)
+            {
+                string message = "Unexpected error accessing data - this is probably a bug in the source code generator.";
+                HapiLogFactory.GetHapiLog(GetType()).Error(message, e);
+                throw new System.Exception(message);
+            }
+            return reps;
+        }
+    }
+
+    /** 
+        * Enumerate over the GT1 results 
+        */
+    public IEnumerable<GT1> GT1s
+    {
+        get
+        {
+            for (int rep = 0; rep < GT1RepetitionsUsed; rep++)
+            {
+                yield return (GT1) this.GetStructure("GT1", rep);
+            }
+        }
+    }
+
+    ///<summary>
+    ///Adds a new GT1
+    ///</summary>
+    public GT1 AddGT1()
+    {
+        return this.AddStructure("GT1") as GT1;
+    }
+
+    ///<summary>
+    ///Removes the given GT1
+    ///</summary>
+    public void RemoveGT1(GT1 toRemove)
+    {
+        this.RemoveStructure("GT1", toRemove);
+    }
+
+    ///<summary>
+    ///Removes the GT1 at the given index
+    ///</summary>
+    public void RemoveGT1At(int index)
+    {
+        this.RemoveRepetition("GT1", index);
+    }
+
+        ///<summary>
+        /// Returns  first repetition of AL1 (Patient allergy information) - creates it if necessary
+        ///</summary>
+        public AL1 GetAL1() {
 	   AL1 ret = null;
 	   try {
 	      ret = (AL1)this.GetStructure("AL1");
