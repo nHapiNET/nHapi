@@ -1,6 +1,6 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/llfc0qjtahffnpdw?svg=true)](https://ci.appveyor.com/project/DuaneEdwards/nhapi)
 
-# This repository is actively maintained by Usualdosage as of 10/21/2020.
+### This repository is now being actively maintained.
 
 # Recent Updates
 
