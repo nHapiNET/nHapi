@@ -279,7 +279,7 @@ namespace NHapi.Base.Model.Primitive
 		{
 			try
 			{
-				string[] dateFormats = new string[] {LongDateTimeFormat, ShortDateTimeFormat, LongDateTimeFormatWithSecond, LongDateTimeFormatWithOffset };
+				string[] dateFormats = new string[] {LongDateTimeFormat, ShortDateTimeFormat, LongDateTimeFormatWithSecond, LongDateTimeFormatWithOffset, LongDateTimeFormatWithFactionOfSecond };
 				DateTime val = DateTime.MinValue;
 				CultureInfo culture = Thread.CurrentThread.CurrentCulture;
 				if (Value != null && Value.Length > 0)
