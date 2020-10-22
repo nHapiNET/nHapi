@@ -20,5 +20,9 @@ namespace NHapi.Model.V21.Datatype
             : base(message)
         {
         }
+
+	    public CM(IMessage message, string test) : base(message)
+	    {
+	    }
     }
 }
