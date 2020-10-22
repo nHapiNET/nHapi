@@ -1,3 +1,4 @@
+using NHapi.Base.Model.Configuration;
 using System;
 using System.Configuration;
 
@@ -20,6 +21,11 @@ namespace NHapi.Base
 		}
 
 		private static string _connectionString = string.Empty;
+
+        public static void GetAdditionalVersion(HL7PackageElement package)
+        {
+            PackageManager.Instance.AddAdditionalVersion(package);
+        }
 
 		public static string ConnectionString
 		{
