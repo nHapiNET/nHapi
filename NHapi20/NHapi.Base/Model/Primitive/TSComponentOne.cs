@@ -14,7 +14,7 @@
 /// Contributor(s): ______________________________________.
 /// 
 /// Alternatively, the contents of this file may be used under the terms of the
-/// GNU General Public License (the  “GPL”), in which case the provisions of the GPL are
+/// GNU General Public License (the  "GPL"), in which case the provisions of the GPL are
 /// applicable instead of those above.  If you wish to allow use of your version of this
 /// file only under the terms of the GPL and not to allow others to use your version
 /// of this file under the MPL, indicate your decision by deleting  the provisions above
@@ -245,20 +245,20 @@ namespace NHapi.Base.Model.Primitive
 		protected virtual string LongDateTimeFormatWithSecond
 		{
 			get { return "yyyyMMddHHmmss"; }
-        }
+		}
 
-        /// <summary>
-        /// Used for setting the format of a long date (Year, Month, Day, Hour, Minute, Second, Offset from GMT)
-        /// </summary>
-        protected virtual string LongDateTimeFormatWithOffset
-        {
-            get { return "yyyyMMddHHmmsszzz"; }
-        }
+		/// <summary>
+		/// Used for setting the format of a long date (Year, Month, Day, Hour, Minute, Second, Offset from GMT)
+		/// </summary>
+		protected virtual string LongDateTimeFormatWithOffset
+		{
+			get { return "yyyyMMddHHmmsszzz"; }
+		}
 
-        /// <summary>
-        /// Used for setting the format of a long date (Year, Month, Day, Hour, Minute, Second, Fraction of second)
-        /// </summary>
-        protected virtual string LongDateTimeFormatWithFactionOfSecond
+		/// <summary>
+		/// Used for setting the format of a long date (Year, Month, Day, Hour, Minute, Second, Fraction of second)
+		/// </summary>
+		protected virtual string LongDateTimeFormatWithFractionOfSecond
 		{
 			get { return "yyyyMMddHHmmss.FFFF"; }
 		}
@@ -279,7 +279,7 @@ namespace NHapi.Base.Model.Primitive
 		{
 			try
 			{
-				string[] dateFormats = new string[] {LongDateTimeFormat, ShortDateTimeFormat, LongDateTimeFormatWithSecond, LongDateTimeFormatWithOffset, LongDateTimeFormatWithFactionOfSecond };
+				string[] dateFormats = new string[] { LongDateTimeFormat, ShortDateTimeFormat, LongDateTimeFormatWithSecond, LongDateTimeFormatWithOffset, LongDateTimeFormatWithFractionOfSecond };
 				DateTime val = DateTime.MinValue;
 				CultureInfo culture = Thread.CurrentThread.CurrentCulture;
 				if (Value != null && Value.Length > 0)
@@ -325,7 +325,7 @@ namespace NHapi.Base.Model.Primitive
 		/// <param name="value"></param>
 		public virtual void SetLongDateWithFractionOfSecond(DateTime value)
 		{
-			Set(value, LongDateTimeFormatWithFactionOfSecond);
+			Set(value, LongDateTimeFormatWithFractionOfSecond);
 		}
 
 		/// <summary>
