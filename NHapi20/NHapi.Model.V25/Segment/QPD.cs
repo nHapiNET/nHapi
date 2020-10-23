@@ -32,7 +32,7 @@ public class QPD : AbstractSegment  {
     try {
        this.add(typeof(CE), true, 1, 250, new System.Object[]{message}, "Message Query Name");
        this.add(typeof(ST), false, 1, 32, new System.Object[]{message}, "Query Tag");
-       this.add(typeof(Varies), false, 1, 256, new System.Object[]{message}, "User Parameters (in successive fields)");
+       this.add(typeof(Varies), false, 0, 256, new System.Object[]{message}, "User Parameters (in successive fields)");
     } catch (HL7Exception he) {
         HapiLogFactory.GetHapiLog(GetType()).Error("Can't instantiate " + GetType().Name, he);
     }

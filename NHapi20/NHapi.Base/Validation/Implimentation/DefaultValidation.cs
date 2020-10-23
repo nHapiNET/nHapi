@@ -43,6 +43,7 @@ namespace NHapi.Base.validation.impl
 			IRule size200 = new SizeRule(200);
 			IRule size65536 = new SizeRule(65536);
 			PrimitiveRuleBindings.Add(new RuleBinding("*", "FT", size65536));
+			PrimitiveRuleBindings.Add(new RuleBinding("*", "ED", size65536));
 			PrimitiveRuleBindings.Add(new RuleBinding("*", "ID", size200));
 			PrimitiveRuleBindings.Add(new RuleBinding("*", "IS", size200));
 		}

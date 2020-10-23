@@ -51,6 +51,11 @@ namespace NHapi.Base
 			}
 		}
 
+        public void AddAdditionalVersion(HL7PackageElement package)
+        {
+            _packages.Insert(0, new Hl7Package(package.Name, package.Version));
+        }
+
 		private void LoadAdditionalVersions()
 		{
 			var configSection = ConfigurationManager.GetSection("Hl7PackageCollection") as HL7PackageConfigurationSection;

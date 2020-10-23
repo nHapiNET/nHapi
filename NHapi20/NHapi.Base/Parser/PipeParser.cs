@@ -383,8 +383,8 @@ namespace NHapi.Base.Parser
 				}
 			}
 
-			//set data type of OBX-5
-			if (destination.GetType().FullName.IndexOf("OBX") >= 0)
+			//set data type of OBX-5 - Except in 2.1 message, in a 2.1 Message OBX-2 is Optional and OBX-5 can only be ST
+			if (destination.GetType().FullName.IndexOf("OBX") >= 0 && destination.Message.Version != "2.1")
 			{
 				Varies.fixOBX5(destination, Factory);
 			}
