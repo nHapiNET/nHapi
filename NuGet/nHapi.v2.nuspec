@@ -1,31 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
     <metadata>
         <id>nHapi</id>
-        <version>2.5.0.6</version>
+        <version>3.0.0-preview.1</version>
         <authors>Chad Chenoweth, Duane Edwards</authors>
         <licenseUrl>http://www.mozilla.org/MPL/2.0/</licenseUrl>
         <projectUrl>https://github.com/duaneedwards/nHapi</projectUrl>
+        <repository type="git" url="https://github.com/duaneedwards/nHapi" />
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>NHapi is a port of the original project HAPI.
 
 NHapi allows Microsoft .NET developers to easily use an HL7 2.x object model. This object model allows for parsing and encoding HL7 2.x data to/from Pipe Delimited or XML formats. A very handy program for use in the health care industry.
 
 This project is NOT affiliated with the HL7 organization. This software just conforms to the HL7 2.x specifications.</description>
+        <releaseNotes>Preview support for netstandrd2.0</releaseNotes>
+    <dependencies>
+        <group targetFramework=".NETStandard2.0">
+            <dependency id="NETStandard.Library" version="2.0.0" />
+            <dependency id="System.Configuration.ConfigurationManager" version="4.7.0" />
+        </group>
+    </dependencies>
     </metadata>
     <files>
-        <file src="NHapi.Base.*" target="lib" />
-        <file src="NHapi.Model.V21.*" target="lib" />
-        <file src="NHapi.Model.V22.*" target="lib" />
-        <file src="NHapi.Model.V23.*" target="lib" />
-        <file src="NHapi.Model.V231.*" target="lib" />
-        <file src="NHapi.Model.V24.*" target="lib" />
-        <file src="NHapi.Model.V25.*" target="lib" />
-        <file src="NHapi.Model.V251.*" target="lib" />
-        <file src="NHapi.Model.V26.*" target="lib" />
-        <file src="NHapi.Model.V27.*" target="lib" />
-        <file src="NHapi.Model.V271.*" target="lib" />
-        <file src="NHapi.Model.V28.*" target="lib" />
-        <file src="NHapi.Model.V281.*" target="lib" />
+        <file src="netstandard2.0\*.*" target="lib\netstandard2.0" />
+        <file src="net35\*.*" target="lib\net35" />
     </files>
 </package>
