@@ -30,7 +30,7 @@ namespace NHapi.NUnit.SourceGeneration
 			{
 				var builder = new ModelBuilder();
 				builder.BasePath = @"D:\Checkouts\duane\nHapi_monsterclean\NHapi20";
-				builder.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\hl7_72_HQ.mdb;";
+				builder.ConnectionString = @"Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=Z:\projects\hl7\hl7db.mdb;";
 				builder.ConnectionString = @"Provider=SQLOLEDB;Data Source=lannister;Initial Catalog=HL7AllVersions;User Id=sa;Password=sa;";
 				builder.MessageTypeToBuild = ModelBuilder.MessageType.All;
 				builder.Version = versionToGenerate;

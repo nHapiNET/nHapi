@@ -3,7 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## Upcoming Release
 ###
--
+## [3.0.0.0] - TBC
+### Added  (Submitted by haydenhall and milkshakeuk)
+- Update project to add support for netstandard2.0 #61
+
+
+## Previous Releases
+###
 
 ## [2.5.0.6] - 2016-09-13
 ### Fixes
