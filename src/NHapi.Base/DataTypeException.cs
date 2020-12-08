@@ -11,7 +11,7 @@
 /// 2001.  All Rights Reserved. 
 /// Contributor(s): ______________________________________. 
 /// Alternatively, the contents of this file may be used under the terms of the 
-/// GNU General Public License (the  “GPL”), in which case the provisions of the GPL are 
+/// GNU General Public License (the  ï¿½GPLï¿½), in which case the provisions of the GPL are 
 /// applicable instead of those above.  If you wish to allow use of your version of this 
 /// file only under the terms of the GPL and not to allow others to use your version 
 /// of this file under the MPL, indicate your decision by deleting  the provisions above 
@@ -38,7 +38,19 @@ namespace NHapi.Base
 		/// </param>
 		/// <param name="cause">
 		/// </param>
-		public DataTypeException(String message, int errorCondition, Exception cause)
+		[Obsolete("Deprecated use 'public DataTypeException(string message, ErrorCode errorCondition, Exception cause)' constructor instead.")]
+		public DataTypeException(string message, int errorCondition, Exception cause)
+			: this(message, errorCondition.ToErrorCode(), cause)
+		{
+		}
+
+		/// <param name="message">
+		/// </param>
+		/// <param name="errorCondition">
+		/// </param>
+		/// <param name="cause">
+		/// </param>
+		public DataTypeException(string message, ErrorCode errorCondition, Exception cause)
 			: base(message, errorCondition, cause)
 		{
 		}
@@ -47,7 +59,17 @@ namespace NHapi.Base
 		/// </param>
 		/// <param name="errorCondition">
 		/// </param>
-		public DataTypeException(String message, int errorCondition)
+		[Obsolete("Deprecated use 'public DataTypeException(string message, ErrorCode errorCondition)' constructor instead.")]
+		public DataTypeException(string message, int errorCondition)
+			: this(message, errorCondition.ToErrorCode())
+		{
+		}
+
+		/// <param name="message">
+		/// </param>
+		/// <param name="errorCondition">
+		/// </param>
+		public DataTypeException(string message, ErrorCode errorCondition)
 			: base(message, errorCondition)
 		{
 		}
@@ -56,7 +78,7 @@ namespace NHapi.Base
 		/// </param>
 		/// <param name="cause">
 		/// </param>
-		public DataTypeException(String message, Exception cause)
+		public DataTypeException(string message, Exception cause)
 			: base(message, cause)
 		{
 		}
@@ -64,7 +86,7 @@ namespace NHapi.Base
 
 		/// <param name="message">
 		/// </param>
-		public DataTypeException(String message)
+		public DataTypeException(string message)
 			: base(message)
 		{
 		}

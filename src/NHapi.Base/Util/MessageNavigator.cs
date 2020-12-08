@@ -14,7 +14,7 @@
 /// Contributor(s): ______________________________________.
 /// 
 /// Alternatively, the contents of this file may be used under the terms of the
-/// GNU General Public License (the  “GPL”), in which case the provisions of the GPL are
+/// GNU General Public License (the  ï¿½GPLï¿½), in which case the provisions of the GPL are
 /// applicable instead of those above.  If you wish to allow use of your version of this
 /// file only under the terms of the GPL and not to allow others to use your version
 /// of this file under the MPL, indicate your decision by deleting  the provisions above
@@ -27,7 +27,6 @@
 using System;
 using System.Collections;
 using NHapi.Base.Model;
-using HL7Exception = NHapi.Base.HL7Exception;
 
 namespace NHapi.Base.Util
 {
@@ -142,7 +141,7 @@ namespace NHapi.Base.Util
 				IStructure s = currentGroup.GetStructure(childNames[childNumber], rep);
 				if (!(s is IGroup))
 				{
-					throw new HL7Exception("Can't drill into segment", HL7Exception.APPLICATION_INTERNAL_ERROR);
+					throw new HL7Exception("Can't drill into segment", ErrorCode.APPLICATION_INTERNAL_ERROR);
 				}
 				IGroup group = (IGroup) s;
 
@@ -223,7 +222,7 @@ namespace NHapi.Base.Util
 			else
 			{
 				throw new HL7Exception("Can't advance to child " + child + " -- only " + childNames.Length + " children",
-					HL7Exception.APPLICATION_INTERNAL_ERROR);
+					ErrorCode.APPLICATION_INTERNAL_ERROR);
 			}
 		}
 
@@ -299,7 +298,7 @@ namespace NHapi.Base.Util
 			else
 			{
 				throw new HL7Exception("End of message reached while iterating without loop",
-					HL7Exception.APPLICATION_INTERNAL_ERROR);
+					ErrorCode.APPLICATION_INTERNAL_ERROR);
 			}
 		}
 

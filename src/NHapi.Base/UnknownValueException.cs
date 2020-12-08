@@ -33,8 +33,8 @@ namespace NHapi.Base
 		/// Constructor
 		/// </summary>
 		/// <param name="message"></param>
-		public UnknownValueException(String message)
-			: base(message, TABLE_VALUE_NOT_FOUND)
+		public UnknownValueException(string message)
+			: base(message, ErrorCode.TABLE_VALUE_NOT_FOUND)
 		{
 		}
 	}

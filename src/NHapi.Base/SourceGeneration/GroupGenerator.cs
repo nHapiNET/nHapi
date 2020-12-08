@@ -173,7 +173,7 @@ namespace NHapi.Base.SourceGeneration
 			catch (ArgumentException e)
 			{
 				throw new HL7Exception("Problem creating nested group: " + e.GetType().FullName + ": " + e.Message,
-					HL7Exception.APPLICATION_INTERNAL_ERROR);
+					ErrorCode.APPLICATION_INTERNAL_ERROR);
 			}
 
 			if (rep_opt)
@@ -578,10 +578,10 @@ namespace NHapi.Base.SourceGeneration
 			}
 			catch (IndexOutOfRangeException)
 			{
-				throw new HL7Exception("Couldn't find end of group", HL7Exception.APPLICATION_INTERNAL_ERROR);
+				throw new HL7Exception("Couldn't find end of group", ErrorCode.APPLICATION_INTERNAL_ERROR);
 			}
 			if (!endMarker.Equals(segName))
-				throw new HL7Exception("Group markers are not nested properly", HL7Exception.APPLICATION_INTERNAL_ERROR);
+				throw new HL7Exception("Group markers are not nested properly", ErrorCode.APPLICATION_INTERNAL_ERROR);
 			return groupStart + offset;
 		}
 

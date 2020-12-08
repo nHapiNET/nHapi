@@ -46,6 +46,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHapi.Base.NUnit", "tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj", "{C26D8167-FC47-4E37-9F26-130251782761}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -116,6 +118,10 @@ Global
 		{4CB07522-CEF0-44B4-B84A-110CAF19F5E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CB07522-CEF0-44B4-B84A-110CAF19F5E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CB07522-CEF0-44B4-B84A-110CAF19F5E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C26D8167-FC47-4E37-9F26-130251782761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C26D8167-FC47-4E37-9F26-130251782761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C26D8167-FC47-4E37-9F26-130251782761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C26D8167-FC47-4E37-9F26-130251782761}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -137,6 +143,7 @@ Global
 		{9B2038CA-D3DF-42E2-8F85-7C141D7CCD88} = {9FC71692-FA33-4213-8323-E53688BCA633}
 		{5AEC7EA6-D02D-4DD5-82F4-D28ECF2BE1EA} = {9FC71692-FA33-4213-8323-E53688BCA633}
 		{4CB07522-CEF0-44B4-B84A-110CAF19F5E0} = {9FC71692-FA33-4213-8323-E53688BCA633}
+		{C26D8167-FC47-4E37-9F26-130251782761} = {65FE0FF9-296E-4C9B-A670-05D7AC663569}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0A748B98-FEF1-4CFB-951E-48F8BE10B5AB}

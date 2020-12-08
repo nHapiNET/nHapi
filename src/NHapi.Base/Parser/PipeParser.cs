@@ -14,7 +14,7 @@
 /// Contributor(s): Kenneth Beaton.
 /// 
 /// Alternatively, the contents of this file may be used under the terms of the
-/// GNU General Public License (the  “GPL”), in which case the provisions of the GPL are
+/// GNU General Public License (the  ï¿½GPLï¿½), in which case the provisions of the GPL are
 /// applicable instead of those above.  If you wish to allow use of your version of this
 /// file only under the terms of the GPL and not to allow others to use your version
 /// of this file under the MPL, indicate your decision by deleting  the provisions above
@@ -253,12 +253,12 @@ namespace NHapi.Base.Parser
 						buf.Append(comps.Length);
 						buf.Append(" of 3 components present");
 					}
-					throw new HL7Exception(buf.ToString(), HL7Exception.UNSUPPORTED_MESSAGE_TYPE);
+					throw new HL7Exception(buf.ToString(), ErrorCode.UNSUPPORTED_MESSAGE_TYPE);
 				}
 			}
 			catch (IndexOutOfRangeException e)
 			{
-				throw new HL7Exception("Can't find message structure (MSH-9-3): " + e.Message, HL7Exception.UNSUPPORTED_MESSAGE_TYPE);
+				throw new HL7Exception("Can't find message structure (MSH-9-3): " + e.Message, ErrorCode.UNSUPPORTED_MESSAGE_TYPE);
 			}
 
 			return new MessageStructure(messageStructure, explicityDefined);
@@ -622,7 +622,7 @@ namespace NHapi.Base.Parser
 
 			if (encCharString.Length != 4)
 				throw new HL7Exception("Encoding characters '" + encCharString + "' invalid -- must be 4 characters",
-					HL7Exception.DATA_TYPE_ERROR);
+					ErrorCode.DATA_TYPE_ERROR);
 			EncodingCharacters en = new EncodingCharacters(fieldSep, encCharString);
 
 			//pass down to group encoding method which will operate recursively on children ...
@@ -742,7 +742,7 @@ namespace NHapi.Base.Parser
 			//try to get MSH segment
 			int locStartMSH = message.IndexOf("MSH");
 			if (locStartMSH < 0)
-				throw new HL7Exception("Couldn't find MSH segment in message: " + message, HL7Exception.SEGMENT_SEQUENCE_ERROR);
+				throw new HL7Exception("Couldn't find MSH segment in message: " + message, ErrorCode.SEGMENT_SEQUENCE_ERROR);
 			int locEndMSH = message.IndexOf('\r', locStartMSH + 1);
 			if (locEndMSH < 0)
 				locEndMSH = message.Length;
@@ -785,7 +785,7 @@ namespace NHapi.Base.Parser
 				SupportClass.WriteStackTrace(e, Console.Error);
 				throw new HL7Exception(
 					"Can't parse critical fields from MSH segment (" + e.GetType().FullName + ": " + e.Message + "): " + mshString,
-					HL7Exception.REQUIRED_FIELD_MISSING);
+					ErrorCode.REQUIRED_FIELD_MISSING);
 			}
 
 			return msh;
@@ -853,7 +853,7 @@ namespace NHapi.Base.Parser
 			}
 			else
 			{
-				throw new HL7Exception("Can't find field separator in MSH: " + msh, HL7Exception.UNSUPPORTED_VERSION_ID);
+				throw new HL7Exception("Can't find field separator in MSH: " + msh, ErrorCode.UNSUPPORTED_VERSION_ID);
 			}
 
 			String[] fields = Split(msh, fieldSep);
@@ -866,7 +866,7 @@ namespace NHapi.Base.Parser
 			else
 			{
 				throw new HL7Exception("Can't find encoding characters - MSH has only " + fields.Length + " fields",
-					HL7Exception.REQUIRED_FIELD_MISSING);
+					ErrorCode.REQUIRED_FIELD_MISSING);
 			}
 
 			String version = null;
@@ -877,7 +877,7 @@ namespace NHapi.Base.Parser
 			else
 			{
 				throw new HL7Exception("Can't find version ID - MSH has only " + fields.Length + " fields.",
-					HL7Exception.REQUIRED_FIELD_MISSING);
+					ErrorCode.REQUIRED_FIELD_MISSING);
 			}
 			return version.Trim();
 		}

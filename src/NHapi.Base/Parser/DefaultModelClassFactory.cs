@@ -191,7 +191,7 @@ namespace NHapi.Base.Parser
 		{
 			if (ParserBase.ValidVersion(version) == false)
 			{
-				throw new HL7Exception("The HL7 version " + version + " is not recognized", HL7Exception.UNSUPPORTED_VERSION_ID);
+				throw new HL7Exception("The HL7 version " + version + " is not recognized", ErrorCode.UNSUPPORTED_VERSION_ID);
 			}
 
 			//get list of packages to search for the corresponding message class 
