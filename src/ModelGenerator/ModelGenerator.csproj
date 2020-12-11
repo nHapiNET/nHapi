@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NHapi.Base\NHapi.Base.csproj" />
+    <ProjectReference Include="..\NHapi.SourceGeneration\NHapi.SourceGeneration.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">

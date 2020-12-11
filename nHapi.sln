@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHapi.SourceGeneration", "src\NHapi.SourceGeneration\NHapi.SourceGeneration.csproj", "{D9A637CE-C1B6-499C-B81B-82AE30580394}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{7216E533-4B1E-476B-9E9A-0982F166FECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7216E533-4B1E-476B-9E9A-0982F166FECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7216E533-4B1E-476B-9E9A-0982F166FECD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9A637CE-C1B6-499C-B81B-82AE30580394}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9A637CE-C1B6-499C-B81B-82AE30580394}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9A637CE-C1B6-499C-B81B-82AE30580394}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9A637CE-C1B6-499C-B81B-82AE30580394}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{5A080123-0597-46C3-AE78-2007EFB0DD68} = {D4B8E273-F9BA-459F-8489-87420B160690}
 		{EBB8E9C9-7FF2-49C4-96EF-C5B87E4C2617} = {D4B8E273-F9BA-459F-8489-87420B160690}
 		{7216E533-4B1E-476B-9E9A-0982F166FECD} = {3F799636-AB73-4BBF-BA54-66E3C0FF7849}
+		{D9A637CE-C1B6-499C-B81B-82AE30580394} = {D4B8E273-F9BA-459F-8489-87420B160690}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D05CB0C7-76FB-4E93-AFBD-16CF7ACD5F87}

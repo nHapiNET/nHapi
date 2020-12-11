@@ -15,3 +15,4 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 
 [assembly: Guid("fb32b28b-416b-4145-992b-824afe2eb911")]
+[assembly: InternalsVisibleTo("NHapi.SourceGeneration")]

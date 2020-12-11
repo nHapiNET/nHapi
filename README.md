@@ -3,7 +3,7 @@
 # This repository is now actively maintained as of 10/21/2020.
 
 # nHapi
-NHapi is a .NET port of the original Java project [HAPI](http://hl7api.sourceforge.net/).
+NHapi is a .NET port of the original Java project [HAPI](https://github.com/hapifhir/hapi-hl7v2).
 
 NHapi allows Microsoft .NET developers to easily use an HL7 2.x object model. This object model allows for parsing and encoding HL7 2.x data to/from Pipe Delimited or XML formats. A very handy program for use in the health care industry.
 
@@ -20,7 +20,7 @@ This project is **NOT** affiliated with the HL7 organization. This software just
 
 ## Requirements
 
-NHapi currently targets version 3.5 of the .NET Framework
+NHapi currently targets version 3.5 of the .NET Framework and netstandard2.0
 
 ## Getting Started
 
