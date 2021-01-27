@@ -2,7 +2,7 @@
 using NHapi.Base.Model;
 using NUnit.Framework;
 
-namespace NHapi.NUnit
+namespace NHapi.Base.NUnit
 {
 	[TestFixture]
 	public class DataTypeUtilTests

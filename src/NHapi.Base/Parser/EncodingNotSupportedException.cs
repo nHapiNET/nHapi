@@ -10,7 +10,7 @@
 /// 2001.  All Rights Reserved. 
 /// Contributor(s): ______________________________________. 
 /// Alternatively, the contents of this file may be used under the terms of the 
-/// GNU General Public License (the  “GPL”), in which case the provisions of the GPL are 
+/// GNU General Public License (the  ï¿½GPLï¿½), in which case the provisions of the GPL are 
 /// applicable instead of those above.  If you wish to allow use of your version of this 
 /// file only under the terms of the GPL and not to allow others to use your version 
 /// of this file under the MPL, indicate your decision by deleting  the provisions above 
@@ -20,7 +20,6 @@
 /// </summary>
 
 using System;
-using HL7Exception = NHapi.Base.HL7Exception;
 
 namespace NHapi.Base.Parser
 {
@@ -35,8 +34,8 @@ namespace NHapi.Base.Parser
 		/// <summary> Constructs an <code>EncodingNotSupportedException</code> with the specified detail message.</summary>
 		/// <param name="msg">the detail message.
 		/// </param>
-		public EncodingNotSupportedException(String msg)
-			: base(msg, APPLICATION_INTERNAL_ERROR)
+		public EncodingNotSupportedException(string msg)
+			: base(msg, ErrorCode.APPLICATION_INTERNAL_ERROR)
 		{
 		}
 	}

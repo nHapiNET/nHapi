@@ -1,8 +1,7 @@
-﻿using NHapi.Base;
-using NHapi.Base.Model.Primitive;
+﻿using NHapi.Base.Model.Primitive;
 using NUnit.Framework;
 
-namespace NHapi.NUnit
+namespace NHapi.Base.NUnit
 {
 	[TestFixture]
 	public class CommonDtTest

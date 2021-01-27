@@ -11,7 +11,7 @@
 /// 2001.  All Rights Reserved. 
 /// Contributor(s): ______________________________________. 
 /// Alternatively, the contents of this file may be used under the terms of the 
-/// GNU General Public License (the  “GPL”), in which case the provisions of the GPL are 
+/// GNU General Public License (the  ï¿½GPLï¿½), in which case the provisions of the GPL are 
 /// applicable instead of those above.  If you wish to allow use of your version of this 
 /// file only under the terms of the GPL and not to allow others to use your version 
 /// of this file under the MPL, indicate your decision by deleting  the provisions above 
@@ -156,7 +156,7 @@ namespace NHapi.Base.Model
 							{
 								throw new HL7Exception(
 									"OBX-5 is valued, but OBX-2 is not.  A datatype for OBX-5 must be specified using OBX-2.",
-									HL7Exception.REQUIRED_FIELD_MISSING);
+									ErrorCode.REQUIRED_FIELD_MISSING);
 							}
 						}
 					}
@@ -176,7 +176,7 @@ namespace NHapi.Base.Model
 			catch (Exception e)
 			{
 				throw new HL7Exception(e.GetType().FullName + " trying to set data type of OBX-5",
-					HL7Exception.APPLICATION_INTERNAL_ERROR, e);
+					ErrorCode.APPLICATION_INTERNAL_ERROR, e);
 			}
 		}
 

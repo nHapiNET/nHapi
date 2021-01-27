@@ -3,7 +3,6 @@ using System.Collections;
 using System.Text;
 using NHapi.Base.Model;
 using NHapi.Base.Log;
-using HL7Exception = NHapi.Base.HL7Exception;
 
 namespace NHapi.Base.Util
 {

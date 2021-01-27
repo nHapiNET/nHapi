@@ -14,7 +14,7 @@
 /// Contributor(s): ______________________________________.
 /// 
 /// Alternatively, the contents of this file may be used under the terms of the
-/// GNU General Public License (the  “GPL”), in which case the provisions of the GPL are
+/// GNU General Public License (the  ï¿½GPLï¿½), in which case the provisions of the GPL are
 /// applicable instead of those above.  If you wish to allow use of your version of this
 /// file only under the terms of the GPL and not to allow others to use your version
 /// of this file under the MPL, indicate your decision by deleting  the provisions above
@@ -26,7 +26,6 @@
 
 using System;
 using NHapi.Base.Model;
-using HL7Exception = NHapi.Base.HL7Exception;
 using NHapi.Base.Log;
 
 namespace NHapi.Base.Util
@@ -317,7 +316,7 @@ namespace NHapi.Base.Util
 				}
 				catch (FormatException)
 				{
-					throw new HL7Exception(repString + " is not a valid rep #", HL7Exception.APPLICATION_INTERNAL_ERROR);
+					throw new HL7Exception(repString + " is not a valid rep #", ErrorCode.APPLICATION_INTERNAL_ERROR);
 				}
 			}
 			else
@@ -335,7 +334,7 @@ namespace NHapi.Base.Util
 			SupportClass.Tokenizer tok = new SupportClass.Tokenizer(spec, "-", false);
 			tok.NextToken(); //skip over segment
 			if (!tok.HasMoreTokens())
-				throw new HL7Exception("Must specify field in spec " + spec, HL7Exception.APPLICATION_INTERNAL_ERROR);
+				throw new HL7Exception("Must specify field in spec " + spec, ErrorCode.APPLICATION_INTERNAL_ERROR);
 
 			int[] ret = null;
 			try
@@ -364,7 +363,7 @@ namespace NHapi.Base.Util
 			}
 			catch (FormatException)
 			{
-				throw new HL7Exception("Invalid integer in spec " + spec, HL7Exception.APPLICATION_INTERNAL_ERROR);
+				throw new HL7Exception("Invalid integer in spec " + spec, ErrorCode.APPLICATION_INTERNAL_ERROR);
 			}
 
 			return ret;

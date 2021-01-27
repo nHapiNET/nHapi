@@ -14,7 +14,7 @@
 /// Contributor(s): ______________________________________.
 /// 
 /// Alternatively, the contents of this file may be used under the terms of the
-/// GNU General Public License (the  “GPL”), in which case the provisions of the GPL are
+/// GNU General Public License (the  ï¿½GPLï¿½), in which case the provisions of the GPL are
 /// applicable instead of those above.  If you wish to allow use of your version of this
 /// file only under the terms of the GPL and not to allow others to use your version
 /// of this file under the MPL, indicate your decision by deleting  the provisions above
@@ -109,7 +109,7 @@ namespace NHapi.Base.Util
 			IStructure s = GetStructure(namePattern, rep);
 			if (!typeof (ISegment).IsAssignableFrom(s.GetType()))
 			{
-				throw new HL7Exception(s.GetStructureName() + " is not a segment", HL7Exception.APPLICATION_INTERNAL_ERROR);
+				throw new HL7Exception(s.GetStructureName() + " is not a segment", ErrorCode.APPLICATION_INTERNAL_ERROR);
 			}
 			return (ISegment) s;
 		}
@@ -120,7 +120,7 @@ namespace NHapi.Base.Util
 			IStructure s = GetStructure(namePattern, rep);
 			if (!typeof (IGroup).IsAssignableFrom(s.GetType()))
 			{
-				throw new HL7Exception(s.GetStructureName() + " is not a group", HL7Exception.APPLICATION_INTERNAL_ERROR);
+				throw new HL7Exception(s.GetStructureName() + " is not a group", ErrorCode.APPLICATION_INTERNAL_ERROR);
 			}
 			return (IGroup) s;
 		}
@@ -143,7 +143,7 @@ namespace NHapi.Base.Util
 			}
 
 			if (s == null)
-				throw new HL7Exception("Can't find " + namePattern + " as a direct child", HL7Exception.APPLICATION_INTERNAL_ERROR);
+				throw new HL7Exception("Can't find " + namePattern + " as a direct child", ErrorCode.APPLICATION_INTERNAL_ERROR);
 
 			return s;
 		}

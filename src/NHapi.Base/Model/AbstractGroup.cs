@@ -10,7 +10,7 @@
 /// 2001.  All Rights Reserved. 
 /// Contributor(s): ______________________________________. 
 /// Alternatively, the contents of this file may be used under the terms of the 
-/// GNU General Public License (the  “GPL”), in which case the provisions of the GPL are 
+/// GNU General Public License (the  ï¿½GPLï¿½), in which case the provisions of the GPL are 
 /// applicable instead of those above.  If you wish to allow use of your version of this 
 /// file only under the terms of the GPL and not to allow others to use your version 
 /// of this file under the MPL, indicate your decision by deleting  the provisions above 
@@ -140,7 +140,7 @@ namespace NHapi.Base.Model
 		/// <summary> Returns the named structure.  If this Structure is repeating then the first 
 		/// repetition is returned.  Creates the Structure if necessary.  
 		/// </summary>
-		/// <throws>  HL7Exception if the named Structure is not part of this Group.  </throws>
+		/// <exception cref="HL7Exception">Thrown when the named Structure is not part of this Group.</exception>
 		public virtual IStructure GetStructure(String name)
 		{
 			return GetStructure(name, 0);
@@ -150,18 +150,17 @@ namespace NHapi.Base.Model
 		/// number is one greater than the existing number of repetitions then a new  
 		/// Structure is created.  
 		/// </summary>
-		/// <throws>  HL7Exception if the named Structure is not part of this group,  </throws>
-		/// <summary>    if the structure is not repeatable and the given rep is > 0,  
+		/// <exception cref="HL7Exception">Thrown when the named Structure is not part of this group or 
+		/// the structure is not repeatable and the given rep is > 0,  
 		/// or if the given repetition number is more than one greater than the 
-		/// existing number of repetitions.  
-		/// </summary>
+		/// existing number of repetitions</exception>
 		public virtual IStructure GetStructure(String name, int rep)
 		{
 			AbstractGroupItem item = GetGroupItem(name);
 
 			if (item == null)
 				throw new HL7Exception(name + " does not exist in the group " + GetType().FullName,
-					HL7Exception.APPLICATION_INTERNAL_ERROR);
+					ErrorCode.APPLICATION_INTERNAL_ERROR);
 
 			IStructure ret;
 			if (rep < item.Structures.Count)
@@ -176,7 +175,7 @@ namespace NHapi.Base.Model
 				if (!repeats && item.Structures.Count > 0)
 					throw new HL7Exception(
 						"Can't create repetition #" + rep + " of Structure " + name + " - this Structure is non-repeating",
-						HL7Exception.APPLICATION_INTERNAL_ERROR);
+						ErrorCode.APPLICATION_INTERNAL_ERROR);
 
 				//create a new Structure, add it to the list, and return it
 				Type classType = item.ClassType;
@@ -187,28 +186,28 @@ namespace NHapi.Base.Model
 			{
 				throw new HL7Exception(
 					"Can't return repetition #" + rep + " of " + name + " - there are only " + _items.Count + " repetitions.",
-					HL7Exception.APPLICATION_INTERNAL_ERROR);
+					ErrorCode.APPLICATION_INTERNAL_ERROR);
 			}
 			return ret;
 		}
 
 		/// <summary> Adds a new item to the Structure. </summary>
-		/// <throws>  HL7Exception if the named Structure is not part of this group
-		/// or if the structure is not repeatable and an item already exists. </throws>
+		/// <exception cref="HL7Exception">Thrown when the named Structure is not part of this group
+		/// or if the structure is not repeatable and an item already exists. </exception>
 		public virtual IStructure AddStructure(String name)
 		{
 			AbstractGroupItem item = GetGroupItem(name);
 
 			if (item == null)
 				throw new HL7Exception(name + " does not exist in the group " + GetType().FullName,
-					HL7Exception.APPLICATION_INTERNAL_ERROR);
+					ErrorCode.APPLICATION_INTERNAL_ERROR);
 
 			// Verify that Structure is repeating ... 
 			bool repeats = item.IsRepeating;
 			if (!repeats && item.Structures.Count > 0)
 				throw new HL7Exception(
 					"Can't create repetition of Structure " + name + " - this Structure is non-repeating and this Structure already has an item present.",
-					HL7Exception.APPLICATION_INTERNAL_ERROR);
+					ErrorCode.APPLICATION_INTERNAL_ERROR);
 
 			// Create a new Structure, add it to the list, and return it
 			Type classType = item.ClassType;
@@ -218,36 +217,36 @@ namespace NHapi.Base.Model
 		}
 
 		/// <summary> Removes the given structure from the named Structure. </summary>
-		/// <throws> HL7Exception if the named Structure is not part of this group </throws>
+		/// <exception cref="HL7Exception">Thrown when the named Structure is not part of this Group.</exception>
 		public virtual void RemoveStructure(String name, IStructure toRemove)
 		{
 			AbstractGroupItem item = GetGroupItem(name);
 
 			if (item == null)
 				throw new HL7Exception(name + " does not exist in the group " + GetType().FullName,
-					HL7Exception.APPLICATION_INTERNAL_ERROR);
+					ErrorCode.APPLICATION_INTERNAL_ERROR);
 
 			item.Structures.Remove(toRemove);
 		}
 
 		/// <summary> Removes the structure at the given index from the named Structure. </summary>
-		/// <throws> HL7Exception if the named Structure is not part of this group 
+		/// <exception cref = "HL7Exception" > Thrown when the named Structure is not part of this Group
 		/// or an index greater than the number of items in the structure is supplied.
-		/// </throws>
+		/// </exception>
 		public virtual void RemoveRepetition(String name, int rep)
 		{
 			AbstractGroupItem item = GetGroupItem(name);
 			if (item == null)
 			{
 				throw new HL7Exception("The structure " + name + " does not exist in the group " + GetType().FullName,
-					 HL7Exception.APPLICATION_INTERNAL_ERROR);
+					 ErrorCode.APPLICATION_INTERNAL_ERROR);
 			}
 
 			if (rep >= item.Structures.Count)
 			{
 				throw new HL7Exception(
 					 "The structure " + name + " does not have " + rep + " repetitions. ",
-					 HL7Exception.APPLICATION_INTERNAL_ERROR);
+					 ErrorCode.APPLICATION_INTERNAL_ERROR);
 			}
 
 			item.Structures.RemoveAt(rep);
@@ -260,6 +259,7 @@ namespace NHapi.Base.Model
 		/// If the segment name is unrecognized a GenericSegment is used.  The 
 		/// segment is defined as repeating and not required.  
 		/// </summary>
+		/// <exception cref="HL7Exception">Thrown when 'Message.Version' returns null</exception>
 		public virtual String addNonstandardSegment(String name)
 		{
 			String version = Message.Version;
@@ -369,7 +369,7 @@ namespace NHapi.Base.Model
 					if (!(o is IStructure))
 					{
 						throw new HL7Exception("Class " + c.FullName + " does not implement " + "ca.on.uhn.hl7.message.Structure",
-							HL7Exception.APPLICATION_INTERNAL_ERROR);
+							ErrorCode.APPLICATION_INTERNAL_ERROR);
 					}
 					s = (IStructure) o;
 				}
@@ -382,7 +382,7 @@ namespace NHapi.Base.Model
 				}
 				else
 				{
-					throw new HL7Exception("Can't instantiate class " + c.FullName, HL7Exception.APPLICATION_INTERNAL_ERROR, e);
+					throw new HL7Exception("Can't instantiate class " + c.FullName, ErrorCode.APPLICATION_INTERNAL_ERROR, e);
 				}
 			}
 			return s;
@@ -394,7 +394,7 @@ namespace NHapi.Base.Model
 			AbstractGroupItem item = GetGroupItem(name);
 			if (item == null)
 				throw new HL7Exception("The structure " + name + " does not exist in the group " + GetType().FullName,
-					HL7Exception.APPLICATION_INTERNAL_ERROR);
+					ErrorCode.APPLICATION_INTERNAL_ERROR);
 			return item.IsRequired;
 		}
 
@@ -404,7 +404,7 @@ namespace NHapi.Base.Model
 			AbstractGroupItem item = GetGroupItem(name);
 			if (item == null)
 				throw new HL7Exception("The structure " + name + " does not exist in the group " + GetType().FullName,
-					HL7Exception.APPLICATION_INTERNAL_ERROR);
+					ErrorCode.APPLICATION_INTERNAL_ERROR);
 			return item.IsRepeating;
 		}
 
@@ -414,7 +414,7 @@ namespace NHapi.Base.Model
 			AbstractGroupItem item = GetGroupItem(name);
 			if (item == null)
 				throw new HL7Exception("The structure " + name + " does not exist in the group " + GetType().FullName,
-					HL7Exception.APPLICATION_INTERNAL_ERROR);
+					ErrorCode.APPLICATION_INTERNAL_ERROR);
 			return item.Structures.Count;
 		}
 
@@ -430,7 +430,7 @@ namespace NHapi.Base.Model
 			AbstractGroupItem item = GetGroupItem(name);
 			if (item == null)
 				throw new HL7Exception("The structure " + name + " does not exist in the group " + GetType().FullName,
-					HL7Exception.APPLICATION_INTERNAL_ERROR);
+					ErrorCode.APPLICATION_INTERNAL_ERROR);
 			IStructure[] all = new IStructure[item.Structures.Count];
 			for (int i = 0; i < item.Structures.Count; i++)
 			{

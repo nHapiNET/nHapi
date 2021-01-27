@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Threading;
 using NHapi.Base;
 using NHapi.Base.Model;
-using NHapi.Base.SourceGeneration;
 using NHapi.Base.Log;
 using NHapi.Base.Model.Configuration;
 
@@ -191,7 +190,7 @@ namespace NHapi.Base.Parser
 		{
 			if (ParserBase.ValidVersion(version) == false)
 			{
-				throw new HL7Exception("The HL7 version " + version + " is not recognized", HL7Exception.UNSUPPORTED_VERSION_ID);
+				throw new HL7Exception("The HL7 version " + version + " is not recognized", ErrorCode.UNSUPPORTED_VERSION_ID);
 			}
 
 			//get list of packages to search for the corresponding message class 

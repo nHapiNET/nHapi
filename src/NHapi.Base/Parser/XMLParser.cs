@@ -15,7 +15,7 @@
 /// Contributor(s): ______________________________________.
 /// 
 /// Alternatively, the contents of this file may be used under the terms of the
-/// GNU General Public License (the  “GPL”), in which case the provisions of the GPL are
+/// GNU General Public License (the  ï¿½GPLï¿½), in which case the provisions of the GPL are
 /// applicable instead of those above.  If you wish to allow use of your version of this
 /// file only under the terms of the GPL and not to allow others to use your version
 /// of this file under the MPL, indicate your decision by deleting  the provisions above
@@ -214,11 +214,11 @@ namespace NHapi.Base.Parser
 			}
 			catch (XmlException e)
 			{
-				throw new HL7Exception("XmlException parsing XML", HL7Exception.APPLICATION_INTERNAL_ERROR, e);
+				throw new HL7Exception("XmlException parsing XML", ErrorCode.APPLICATION_INTERNAL_ERROR, e);
 			}
 			catch (IOException e)
 			{
-				throw new HL7Exception("IOException parsing XML", HL7Exception.APPLICATION_INTERNAL_ERROR, e);
+				throw new HL7Exception("IOException parsing XML", ErrorCode.APPLICATION_INTERNAL_ERROR, e);
 			}
 
 			return m;
@@ -349,7 +349,7 @@ namespace NHapi.Base.Parser
 						}
 						catch (Exception e)
 						{
-							throw new HL7Exception("DOMException encoding Segment: ", HL7Exception.APPLICATION_INTERNAL_ERROR, e);
+							throw new HL7Exception("DOMException encoding Segment: ", ErrorCode.APPLICATION_INTERNAL_ERROR, e);
 						}
 						hasValue = true;
 					}
@@ -739,7 +739,7 @@ namespace NHapi.Base.Parser
 			{
 				throw new HL7Exception(
 					"Couldn't find " + tagName + " in message beginning: " +
-					message.Substring(0, (Math.Min(150, message.Length)) - (0)), HL7Exception.REQUIRED_FIELD_MISSING);
+					message.Substring(0, (Math.Min(150, message.Length)) - (0)), ErrorCode.REQUIRED_FIELD_MISSING);
 			}
 
 			return value_Renamed;

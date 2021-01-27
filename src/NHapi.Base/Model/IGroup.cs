@@ -25,7 +25,6 @@
 /// </author>
 
 using System;
-using HL7Exception = NHapi.Base.HL7Exception;
 
 namespace NHapi.Base.Model
 {

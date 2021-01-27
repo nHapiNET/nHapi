@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Configuration;
-using NHapi.Base;
-using NHapi.Base.SourceGeneration;
-using ConfigurationSettings = NHapi.Base.ConfigurationSettings;
+using NHapi.SourceGeneration;
+using NHapi.SourceGeneration.Generators;
+using ConfigurationSettings = NHapi.SourceGeneration.ConfigurationSettings;
 
 namespace ModelGenerator
 {
