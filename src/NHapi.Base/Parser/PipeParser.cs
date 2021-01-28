@@ -1,47 +1,47 @@
-/// <summary> The contents of this file are subject to the Mozilla Public License Version 1.1
-/// (the "License"); you may not use this file except in compliance with the License.
-/// You may obtain a copy of the License at http://www.mozilla.org/MPL/
-/// Software distributed under the License is distributed on an "AS IS" basis,
-/// WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
-/// specific language governing rights and limitations under the License.
-/// 
-/// The Original Code is "PipeParser.java".  Description:
-/// "An implementation of Parser that supports traditionally encoded (i.e"
-/// 
-/// The Initial Developer of the Original Code is University Health Network. Copyright (C)
-/// 2001.  All Rights Reserved.
-/// 
-/// Contributor(s): Kenneth Beaton.
-/// 
-/// Alternatively, the contents of this file may be used under the terms of the
-/// GNU General Public License (the  �GPL�), in which case the provisions of the GPL are
-/// applicable instead of those above.  If you wish to allow use of your version of this
-/// file only under the terms of the GPL and not to allow others to use your version
-/// of this file under the MPL, indicate your decision by deleting  the provisions above
-/// and replace  them with the notice and other provisions required by the GPL License.
-/// If you do not delete the provisions above, a recipient may use your version of
-/// this file under either the MPL or the GPL.
-/// 
-/// </summary>
+/*
+ * The contents of this file are subject to the Mozilla Public License Version 1.1
+ * (the "License"); you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.mozilla.org/MPL/
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
+ * specific language governing rights and limitations under the License.
+ * 
+ * The Original Code is "PipeParser.java".  Description:
+ * "An implementation of Parser that supports traditionally encoded (i.e"
+ * 
+ * The Initial Developer of the Original Code is University Health Network. Copyright (C)
+ * 2001.  All Rights Reserved.
+ * 
+ * Contributor(s): Kenneth Beaton.
+ * 
+ * Alternatively, the contents of this file may be used under the terms of the
+ * GNU General Public License (the  �GPL�), in which case the provisions of the GPL are
+ * applicable instead of those above.  If you wish to allow use of your version of this
+ * file only under the terms of the GPL and not to allow others to use your version
+ * of this file under the MPL, indicate your decision by deleting  the provisions above
+ * and replace  them with the notice and other provisions required by the GPL License.
+ * If you do not delete the provisions above, a recipient may use your version of
+ * this file under either the MPL or the GPL.
+**/
 
 using System;
 using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
-using NHapi.Base;
+
+using NHapi.Base.Log;
 using NHapi.Base.Model;
 using NHapi.Base.Util;
-using NHapi.Base.Log;
 
 namespace NHapi.Base.Parser
 {
-	/// <summary> An implementation of Parser that supports traditionally encoded (ie delimited with characters
-	/// like |, ^, and ~) HL7 messages.  Unexpected segments and fields are parsed into generic elements
-	/// that are added to the message.  
-	/// </summary>
-	/// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
-	/// </author>
-	public class PipeParser : ParserBase
+   /// <summary> An implementation of Parser that supports traditionally encoded (ie delimited with characters
+   /// like |, ^, and ~) HL7 messages.  Unexpected segments and fields are parsed into generic elements
+   /// that are added to the message.  
+   /// </summary>
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// </author>
+   public class PipeParser : ParserBase
 	{
 		private class AnonymousClassPredicate : FilterIterator.IPredicate
 		{
@@ -64,7 +64,7 @@ namespace NHapi.Base.Parser
 
 			public virtual bool evaluate(Object obj)
 			{
-				if (typeof (ISegment).IsAssignableFrom(obj.GetType()))
+				if (typeof(ISegment).IsAssignableFrom(obj.GetType()))
 				{
 					return true;
 				}
@@ -98,7 +98,7 @@ namespace NHapi.Base.Parser
 
 			public virtual bool evaluate(Object obj)
 			{
-				IStructure s = (IStructure) obj;
+				IStructure s = (IStructure)obj;
 				log.Debug("PipeParser iterating message in direction " + name + " at " + s.GetStructureName());
 				if (Regex.IsMatch(s.GetStructureName(), name + "\\d*"))
 				{
@@ -176,7 +176,7 @@ namespace NHapi.Base.Parser
 			int nextFieldDelimLoc = 0;
 			for (int i = 0; i < 11; i++)
 			{
-				nextFieldDelimLoc = message.IndexOf((Char) fourthChar, nextFieldDelimLoc + 1);
+				nextFieldDelimLoc = message.IndexOf((Char)fourthChar, nextFieldDelimLoc + 1);
 				if (nextFieldDelimLoc < 0)
 					return null;
 			}
@@ -240,9 +240,9 @@ namespace NHapi.Base.Parser
 					explicityDefined = false;
 					messageStructure = comps[0] + "_" + comps[1];
 				}
-					/*else if (comps.length == 1 && comps[0] != null && comps[0].equals("ACK")) {
-                messageStructure = "ACK"; //it's common for people to only populate component 1 in an ACK msg
-                }*/
+				/*else if (comps.length == 1 && comps[0] != null && comps[0].equals("ACK")) {
+				 messageStructure = "ACK"; //it's common for people to only populate component 1 in an ACK msg
+				 }*/
 				else
 				{
 					StringBuilder buf = new StringBuilder("Can't determine message structure from MSH-9: ");
@@ -310,7 +310,7 @@ namespace NHapi.Base.Parser
 					FilterIterator dirIter = new FilterIterator(segmentIter, byDirection);
 					if (dirIter.MoveNext())
 					{
-						Parse((ISegment) dirIter.Current, segments[i], encodingChars);
+						Parse((ISegment)dirIter.Current, segments[i], encodingChars);
 					}
 				}
 			}
@@ -479,7 +479,7 @@ namespace NHapi.Base.Parser
 			String[] ret = new String[components.Count];
 			for (int i = 0; i < components.Count; i++)
 			{
-				ret[i] = ((String) components[i]);
+				ret[i] = ((String)components[i]);
 			}
 
 			return ret;
@@ -509,7 +509,7 @@ namespace NHapi.Base.Parser
 
 		private static String EncodePrimitive(IPrimitive p, EncodingCharacters encodingChars)
 		{
-			String val = ((IPrimitive) p).Value;
+			String val = ((IPrimitive)p).Value;
 			if (val == null)
 			{
 				val = "";
@@ -570,7 +570,7 @@ namespace NHapi.Base.Parser
 		protected internal override String DoEncode(IMessage source)
 		{
 			//get encoding characters ...
-			ISegment msh = (ISegment) source.GetStructure("MSH");
+			ISegment msh = (ISegment)source.GetStructure("MSH");
 			String fieldSepString = Terser.Get(msh, 1, 0, 1, 1);
 			if (fieldSepString == null)
 			{
@@ -626,7 +626,7 @@ namespace NHapi.Base.Parser
 			EncodingCharacters en = new EncodingCharacters(fieldSep, encCharString);
 
 			//pass down to group encoding method which will operate recursively on children ...
-			return Encode((IGroup) source, en);
+			return Encode((IGroup)source, en);
 		}
 
 		/// <summary> Returns given group serialized as a pipe-encoded string - this method is called
@@ -644,11 +644,11 @@ namespace NHapi.Base.Parser
 				{
 					if (reps[rep] is IGroup)
 					{
-						result.Append(Encode((IGroup) reps[rep], encodingChars));
+						result.Append(Encode((IGroup)reps[rep], encodingChars));
 					}
 					else
 					{
-						String segString = Encode((ISegment) reps[rep], encodingChars);
+						String segString = Encode((ISegment)reps[rep], encodingChars);
 						if (segString.Length >= 4)
 						{
 							result.Append(segString);
@@ -807,8 +807,8 @@ namespace NHapi.Base.Parser
 			{
 				int startFieldOne = startMSA + 5;
 				char fieldDelim = message[startFieldOne - 1];
-				int start = message.IndexOf((Char) fieldDelim, startFieldOne) + 1;
-				int end = message.IndexOf((Char) fieldDelim, start);
+				int start = message.IndexOf((Char)fieldDelim, startFieldOne) + 1;
+				int end = message.IndexOf((Char)fieldDelim, start);
 				int segEnd = message.IndexOf(Convert.ToString(segDelim), start);
 				if (segEnd > start && segEnd < end)
 					end = segEnd;
@@ -899,7 +899,7 @@ namespace NHapi.Base.Parser
 
 		static PipeParser()
 		{
-			log = HapiLogFactory.GetHapiLog(typeof (PipeParser));
+			log = HapiLogFactory.GetHapiLog(typeof(PipeParser));
 		}
 	}
 }
