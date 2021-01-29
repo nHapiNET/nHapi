@@ -170,8 +170,28 @@ namespace NHapi.Base.Model
 					{
 						UseDTInsteadOfDTMForEarlierVersionsOfHL7(segment, obx2);
 
-						Type c = factory.GetTypeClass(obx2.Value, segment.Message.Version);
-						v.Data = (IType)c.GetConstructor(new[] { typeof(IMessage), typeof(String) }).Invoke(new Object[] { v.Message, v.Description });
+						Type type = factory.GetTypeClass(obx2.Value, segment.Message.Version);
+
+						if(type == null)
+						{
+							var obx1 = (IPrimitive) segment.GetField(1, 0);
+							var hl7Exception = new HL7Exception(
+								$"'{obx2.Value}' in record {obx1.Value} is invalid for version {segment.Message.Version}");
+
+							hl7Exception.SegmentName = ((AbstractSegment)segment).GetStructureName();
+							hl7Exception.FieldPosition = 2;
+
+							throw hl7Exception;
+						}
+						
+						try {
+							var constructor = type.GetConstructor(new[] {typeof(IMessage), typeof(String)});
+							v.Data = (IType) constructor.Invoke(new Object[] {v.Message, v.Description});
+						} catch (NullReferenceException _)
+						{
+							var constructor = type.GetConstructor(new[] {typeof(IMessage)});
+							v.Data = (IType) constructor.Invoke(new Object[] {v.Message});
+						}
 					}
 				}
 			}
@@ -181,7 +201,8 @@ namespace NHapi.Base.Model
 			}
 			catch (Exception e)
 			{
-				throw new HL7Exception(e.GetType().FullName + " trying to set data type of OBX-5",
+				throw new HL7Exception(
+					$"{e.GetType().FullName} trying to set data type of OBX-5",
 					ErrorCode.APPLICATION_INTERNAL_ERROR, e);
 			}
 		}

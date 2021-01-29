@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using NHapi.Base.Model;
 using NHapi.Base.Parser;
+using NHapi.Model.V21.Datatype;
 using NHapi.Model.V21.Message;
 using NUnit.Framework;
 
@@ -29,5 +31,46 @@ Z01|1||S|NOUVEAU-NE||FATHER NAME^D|||||0||||A||||||N|||1|GFATHER NAME|G-PERE||(4
 			Assert.IsNotNull(parsedMessage);
 			Assert.AreEqual("1144270", parsedMessage.PID.PATIENTIDEXTERNALEXTERNALID.IDNumber.Value);
 		}
+
+		/// <summary>
+		/// https://github.com/nHapiNET/nHapi/issues/135
+		/// </summary>
+		[TestCaseSource(nameof(_validV21ValueTypes))]
+		public void TestObx5DataTypeIsSetFromObx2_AndAllDataTypesAreConstructable(Type expectedObservationValueType)
+		{
+			var message = $@"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.1|||AL|||ASCII
+PID|1||1711114||Appt^Test||19720501||||||||||||001020006
+ORC|||||F
+OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
+OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}Value||||||F";
+
+			var parser = new PipeParser();
+
+			var parsed = (ORU_R01)parser.Parse(message);
+
+			var actualObservationValueInstance = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.OBSERVATIONRESULTS.Data;
+
+			Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueInstance);
+		}
+
+		/// <summary>
+		/// Specified in Table 0125
+		/// </summary>
+		private static IEnumerable<Type> _validV21ValueTypes = new List<Type>
+		{
+			typeof(AD),
+			typeof(CE),
+			typeof(CK),
+			typeof(CN),
+			typeof(DT),
+			typeof(FT),
+			typeof(NM),
+			typeof(PN),
+			typeof(ST),
+			typeof(TM),
+			typeof(TN),
+			typeof(TS),
+			typeof(TX),
+		};
 	}
 }

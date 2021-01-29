@@ -35,11 +35,19 @@ namespace NHapi.Base.Model
 		private ArrayList components;
 		private IMessage message;
 
-		/// <summary>Creates a new instance of GenericComposite </summary>
-		public GenericComposite(IMessage message)
-			: base(message)
+		/// <summary>Creates a new instance of GenericComposite</summary>
+		/// <param name="theMessage">message to which this Type belongs</param>
+		public GenericComposite(IMessage theMessage)
+			: this(theMessage, null)
 		{
-			this.message = message;
+		}
+
+		/// <summary>Creates a new instance of GenericComposite</summary>
+		/// <param name="theMessage">message to which this Type belongs</param>
+		/// <param name="description">The description of this type</param>
+		public GenericComposite(IMessage theMessage, string description)
+			: base(theMessage, description)
+		{
 			components = new ArrayList(20);
 		}
 
