@@ -1,72 +1,73 @@
-/// <summary> The contents of this file are subject to the Mozilla Public License Version 1.1
-/// (the "License"); you may not use this file except in compliance with the License.
-/// You may obtain a copy of the License at http://www.mozilla.org/MPL/
-/// Software distributed under the License is distributed on an "AS IS" basis,
-/// WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
-/// specific language governing rights and limitations under the License.
-/// 
-/// The Original Code is "Terser.java".  Description:
-/// "Wraps a message to provide access to fields using a more terse syntax."
-/// 
-/// The Initial Developer of the Original Code is University Health Network. Copyright (C)
-/// 2002.  All Rights Reserved.
-/// 
-/// Contributor(s): ______________________________________.
-/// 
-/// Alternatively, the contents of this file may be used under the terms of the
-/// GNU General Public License (the  �GPL�), in which case the provisions of the GPL are
-/// applicable instead of those above.  If you wish to allow use of your version of this
-/// file only under the terms of the GPL and not to allow others to use your version
-/// of this file under the MPL, indicate your decision by deleting  the provisions above
-/// and replace  them with the notice and other provisions required by the GPL License.
-/// If you do not delete the provisions above, a recipient may use your version of
-/// this file under either the MPL or the GPL.
-/// 
-/// </summary>
+/*
+  The contents of this file are subject to the Mozilla Public License Version 1.1
+  (the "License"); you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at http://www.mozilla.org/MPL/
+  Software distributed under the License is distributed on an "AS IS" basis,
+  WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
+  specific language governing rights and limitations under the License.
+  
+  The Original Code is "Terser.java".  Description:
+  "Wraps a message to provide access to fields using a more terse syntax."
+  
+  The Initial Developer of the Original Code is University Health Network. Copyright (C)
+  2002.  All Rights Reserved.
+  
+  Contributor(s): ______________________________________.
+  
+  Alternatively, the contents of this file may be used under the terms of the
+  GNU General Public License (the "GPL"), in which case the provisions of the GPL are
+  applicable instead of those above.  If you wish to allow use of your version of this
+  file only under the terms of the GPL and not to allow others to use your version
+  of this file under the MPL, indicate your decision by deleting  the provisions above
+  and replace  them with the notice and other provisions required by the GPL License.
+  If you do not delete the provisions above, a recipient may use your version of
+  this file under either the MPL or the GPL.
+*/
 
 using System;
-using NHapi.Base.Model;
+
 using NHapi.Base.Log;
+using NHapi.Base.Model;
 
 namespace NHapi.Base.Util
 {
-	/// <summary> <p>Wraps a message to provide access to fields using a terse location
-	/// specification syntax.  For example: </p>
-	/// <p><code>terser.set("MSH-9-3", "ADT_A01");</code>  <br/>
-	/// can be used instead of <br/>
-	/// <code>message.getMSH().getMessageType().getMessageStructure().setValue("ADT_A01"); </code> </p>
-	/// <p>The syntax of a location spec is as follows: </p>
-	/// <p>location_spec: <code>segment_path_spec "-" field ["(" rep ")"] ["-" component ["-" subcomponent]] </code></p>
-	/// <p>... where rep, field, component, and subcomponent are integers (representing, respectively,
-	/// the field repetition (starting at 0), and the field number, component number, and subcomponent
-	/// numbers (starting at 1).  Omitting the rep is equivalent to specifying 0; omitting the
-	/// component or subcomponent is equivalent to specifying 1.</p>
-	/// <p>The syntax for the segment_path_spec is as follows: </p>
-	/// <p>segment_path_spec: </code> ["/"] (group_spec ["(" rep ")"] "/")* segment_spec ["(" rep ")"]</code></p>
-	/// <p> ... where rep has the same meaning as for fields.  A leading "/" indicates that navigation to the
-	/// location begins at the root of the message; ommitting this indicates that navigation begins at the
-	/// current location of the underlying SegmentFinder (see getFinder() -- this allows manual navigation
-	/// if desired).  The syntax for group_spec is: </p>
-	/// <p>group_spec: <code>["."] group_name_pattern</code></p>
-	/// <p>Here, a . indicates that the group should be searched for (using a SegmentFinder) starting at the
-	/// current location in the message.  The wildcards "*" and "?" represent any number of arbitrary characters, 
-	/// and a single arbitrary character, respectively.  For example, "M*" and "?S?" match MSH.  The first
-	/// group with a name that matches the given group_name_pattern will be matched.  </p>
-	/// <p>The segment_spec is analogous to the group_spec. </p>
-	/// <p>As another example, the following subcomponent in an SIU_S12 message: <p>
-	/// <p><code>msg.getSIU_S12_RGSAISNTEAIGNTEAILNTEAIPNTE(1).getSIU_S12_AIGNTE().getAIG().getResourceGroup(1).getIdentifier();</code></p>
-	/// </p> ... is referenced by all of the following location_spec: </p>
-	/// <p><code>/SIU_S12_RGSAISNTEAIGNTEAILNTEAIPNTE(1)/SIU_S12_AIGNTE/AIG-5(1)-1 <br/>
-	/// /*AIG*(1)/SIU_S12_AIGNTE/AIG-5(1)-1 <br/>
-	/// /*AIG*(1)/.AIG-5(1) </code></p>
-	/// <p>The search function only iterates through rep 0 of each group.  Thus if rep 0 of the first group
-	/// in this example was desired instead of rep 1, the following syntax would also work (since there is
-	/// only one AIG segment position in SUI_S12): </p>
-	/// <p><code>/.AIG-5(1)</code></p>
-	/// </summary>
-	/// <author>  Bryan Tripp
-	/// </author>
-	public class Terser
+   /// <summary> <p>Wraps a message to provide access to fields using a terse location
+   /// specification syntax.  For example: </p>
+   /// <p><code>terser.set("MSH-9-3", "ADT_A01");</code>  <br/>
+   /// can be used instead of <br/>
+   /// <code>message.getMSH().getMessageType().getMessageStructure().setValue("ADT_A01"); </code> </p>
+   /// <p>The syntax of a location spec is as follows: </p>
+   /// <p>location_spec: <code>segment_path_spec "-" field ["(" rep ")"] ["-" component ["-" subcomponent]] </code></p>
+   /// <p>... where rep, field, component, and subcomponent are integers (representing, respectively,
+   /// the field repetition (starting at 0), and the field number, component number, and subcomponent
+   /// numbers (starting at 1).  Omitting the rep is equivalent to specifying 0; omitting the
+   /// component or subcomponent is equivalent to specifying 1.</p>
+   /// <p>The syntax for the segment_path_spec is as follows: </p>
+   /// <p>segment_path_spec: </code> ["/"] (group_spec ["(" rep ")"] "/")* segment_spec ["(" rep ")"]</code></p>
+   /// <p> ... where rep has the same meaning as for fields.  A leading "/" indicates that navigation to the
+   /// location begins at the root of the message; ommitting this indicates that navigation begins at the
+   /// current location of the underlying SegmentFinder (see getFinder() -- this allows manual navigation
+   /// if desired).  The syntax for group_spec is: </p>
+   /// <p>group_spec: <code>["."] group_name_pattern</code></p>
+   /// <p>Here, a . indicates that the group should be searched for (using a SegmentFinder) starting at the
+   /// current location in the message.  The wildcards "*" and "?" represent any number of arbitrary characters, 
+   /// and a single arbitrary character, respectively.  For example, "M*" and "?S?" match MSH.  The first
+   /// group with a name that matches the given group_name_pattern will be matched.  </p>
+   /// <p>The segment_spec is analogous to the group_spec. </p>
+   /// <p>As another example, the following subcomponent in an SIU_S12 message: <p>
+   /// <p><code>msg.getSIU_S12_RGSAISNTEAIGNTEAILNTEAIPNTE(1).getSIU_S12_AIGNTE().getAIG().getResourceGroup(1).getIdentifier();</code></p>
+   /// </p> ... is referenced by all of the following location_spec: </p>
+   /// <p><code>/SIU_S12_RGSAISNTEAIGNTEAILNTEAIPNTE(1)/SIU_S12_AIGNTE/AIG-5(1)-1 <br/>
+   /// /*AIG*(1)/SIU_S12_AIGNTE/AIG-5(1)-1 <br/>
+   /// /*AIG*(1)/.AIG-5(1) </code></p>
+   /// <p>The search function only iterates through rep 0 of each group.  Thus if rep 0 of the first group
+   /// in this example was desired instead of rep 1, the following syntax would also work (since there is
+   /// only one AIG segment position in SUI_S12): </p>
+   /// <p><code>/.AIG-5(1)</code></p>
+   /// </summary>
+   /// <author>  Bryan Tripp
+   /// </author>
+   public class Terser
 	{
 		/// <summary> Returns the segment finder used by this Terser.  Navigating the
 		/// finder will influence the behaviour of the Terser accordingly.  Ie
@@ -136,15 +137,15 @@ namespace NHapi.Base.Util
 		private static IPrimitive getPrimitive(IType type)
 		{
 			IPrimitive p = null;
-			if (typeof (Varies).IsAssignableFrom(type.GetType()))
+			if (typeof(Varies).IsAssignableFrom(type.GetType()))
 			{
-				p = getPrimitive(((Varies) type).Data);
+				p = getPrimitive(((Varies)type).Data);
 			}
-			else if (typeof (IComposite).IsAssignableFrom(type.GetType()))
+			else if (typeof(IComposite).IsAssignableFrom(type.GetType()))
 			{
 				try
 				{
-					p = getPrimitive(((IComposite) type)[0]);
+					p = getPrimitive(((IComposite)type)[0]);
 				}
 				catch (HL7Exception)
 				{
@@ -153,7 +154,7 @@ namespace NHapi.Base.Util
 			}
 			else if (type is IPrimitive)
 			{
-				p = (IPrimitive) type;
+				p = (IPrimitive)type;
 			}
 			return p;
 		}
@@ -168,13 +169,13 @@ namespace NHapi.Base.Util
 		private static IType getComponent(IType type, int comp)
 		{
 			IType ret = null;
-			if (typeof (Varies).IsAssignableFrom(type.GetType()))
+			if (typeof(Varies).IsAssignableFrom(type.GetType()))
 			{
-				Varies v = (Varies) type;
+				Varies v = (Varies)type;
 
 				try
 				{
-					if (comp > 1 && typeof (GenericPrimitive).IsAssignableFrom(v.Data.GetType()))
+					if (comp > 1 && typeof(GenericPrimitive).IsAssignableFrom(v.Data.GetType()))
 						v.Data = new GenericComposite(v.Message);
 				}
 				catch (DataTypeException de)
@@ -188,18 +189,18 @@ namespace NHapi.Base.Util
 			}
 			else
 			{
-				if (typeof (IPrimitive).IsAssignableFrom(type.GetType()) && comp == 1)
+				if (typeof(IPrimitive).IsAssignableFrom(type.GetType()) && comp == 1)
 				{
 					ret = type;
 				}
-				else if (typeof (GenericComposite).IsAssignableFrom(type.GetType()) ||
-				         (typeof (IComposite).IsAssignableFrom(type.GetType()) && comp <= numStandardComponents(type)))
+				else if (typeof(GenericComposite).IsAssignableFrom(type.GetType()) ||
+							(typeof(IComposite).IsAssignableFrom(type.GetType()) && comp <= numStandardComponents(type)))
 				{
 					//note that GenericComposite can return components > number of standard components
 
 					try
 					{
-						ret = ((IComposite) type)[comp - 1];
+						ret = ((IComposite)type)[comp - 1];
 					}
 					catch (Exception e)
 					{
@@ -358,7 +359,7 @@ namespace NHapi.Base.Util
 				{
 					subcomponent = Int32.Parse(tok.NextToken());
 				}
-				int[] result = new int[] {fieldNum, fieldRep, component, subcomponent};
+				int[] result = new int[] { fieldNum, fieldRep, component, subcomponent };
 				ret = result;
 			}
 			catch (FormatException)
@@ -379,7 +380,7 @@ namespace NHapi.Base.Util
 			if (log.DebugEnabled)
 			{
 				log.Debug("Setting " + spec + " seg: " + segment.GetStructureName() + " ind: " + ind[0] + " " + ind[1] + " " +
-				          ind[2] + " " + ind[3]);
+							 ind[2] + " " + ind[3]);
 			}
 			Set(segment, ind[0], ind[1], ind[2], ind[3], value_Renamed);
 		}
@@ -401,7 +402,7 @@ namespace NHapi.Base.Util
 		public static int numSubComponents(IType type, int component)
 		{
 			int n = -1;
-			if (component == 1 && typeof (IPrimitive).IsAssignableFrom(type.GetType()))
+			if (component == 1 && typeof(IPrimitive).IsAssignableFrom(type.GetType()))
 			{
 				//note that getComponent(primitive, 1) below returns the primitive 
 				//itself -- if we do numComponents on it, we'll end up with the 
@@ -435,9 +436,9 @@ namespace NHapi.Base.Util
 		/// </summary>
 		public static int numComponents(IType type)
 		{
-			if (typeof (Varies).IsAssignableFrom(type.GetType()))
+			if (typeof(Varies).IsAssignableFrom(type.GetType()))
 			{
-				return numComponents(((Varies) type).Data);
+				return numComponents(((Varies)type).Data);
 			}
 			else
 			{
@@ -448,13 +449,13 @@ namespace NHapi.Base.Util
 		private static int numStandardComponents(IType t)
 		{
 			int n = 0;
-			if (typeof (Varies).IsAssignableFrom(t.GetType()))
+			if (typeof(Varies).IsAssignableFrom(t.GetType()))
 			{
-				n = numStandardComponents(((Varies) t).Data);
+				n = numStandardComponents(((Varies)t).Data);
 			}
-			else if (typeof (IComposite).IsAssignableFrom(t.GetType()))
+			else if (typeof(IComposite).IsAssignableFrom(t.GetType()))
 			{
-				n = ((IComposite) t).Components.Length;
+				n = ((IComposite)t).Components.Length;
 			}
 			else
 			{
@@ -491,7 +492,7 @@ namespace NHapi.Base.Util
 
 		static Terser()
 		{
-			log = HapiLogFactory.GetHapiLog(typeof (Terser));
+			log = HapiLogFactory.GetHapiLog(typeof(Terser));
 		}
 	}
 }

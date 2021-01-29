@@ -1,42 +1,47 @@
-/* The contents of this file are subject to the Mozilla Public License Version 1.1 
-/// (the "License"); you may not use this file except in compliance with the License. 
-/// You may obtain a copy of the License at http://www.mozilla.org/MPL/ 
-/// Software distributed under the License is distributed on an "AS IS" basis, 
-/// WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the 
-/// specific language governing rights and limitations under the License. 
-/// The Original Code is "AbstractGroup.java".  Description: 
-/// "A partial implementation of Group" 
-/// The Initial Developer of the Original Code is University Health Network. Copyright (C) 
-/// 2001.  All Rights Reserved. 
-/// Contributor(s): ______________________________________. 
-/// Alternatively, the contents of this file may be used under the terms of the 
-/// GNU General Public License (the  �GPL�), in which case the provisions of the GPL are 
-/// applicable instead of those above.  If you wish to allow use of your version of this 
-/// file only under the terms of the GPL and not to allow others to use your version 
-/// of this file under the MPL, indicate your decision by deleting  the provisions above 
-/// and replace  them with the notice and other provisions required by the GPL License.  
-/// If you do not delete the provisions above, a recipient may use your version of 
-/// this file under either the MPL or the GPL. 
- * */
+/*
+  The contents of this file are subject to the Mozilla Public License Version 1.1 
+  (the "License"); you may not use this file except in compliance with the License. 
+  You may obtain a copy of the License at http://www.mozilla.org/MPL/ 
+  Software distributed under the License is distributed on an "AS IS" basis, 
+  WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the 
+  specific language governing rights and limitations under the License. 
+  
+  The Original Code is "AbstractGroup.java".  Description: 
+  "A partial implementation of Group" 
+  
+  The Initial Developer of the Original Code is University Health Network. Copyright (C) 
+  2001.  All Rights Reserved. 
+  
+  Contributor(s): ______________________________________. 
+  
+  Alternatively, the contents of this file may be used under the terms of the 
+  GNU General Public License (the "GPL"), in which case the provisions of the GPL are 
+  applicable instead of those above.  If you wish to allow use of your version of this 
+  file only under the terms of the GPL and not to allow others to use your version 
+  of this file under the MPL, indicate your decision by deleting  the provisions above 
+  and replace  them with the notice and other provisions required by the GPL License.  
+  If you do not delete the provisions above, a recipient may use your version of 
+  this file under either the MPL or the GPL. 
+*/
 
 using System;
-using System.Reflection;
-using NHapi.Base;
-using NHapi.Base.Parser;
-using NHapi.Base.Log;
 using System.Collections.Generic;
+using System.Reflection;
+
+using NHapi.Base.Log;
+using NHapi.Base.Parser;
 
 namespace NHapi.Base.Model
 {
-	/// <summary> A partial implementation of Group.  Subclasses correspond to specific
-	/// groups of segments (and/or other sub-groups) that are implicitely defined by message structures  
-	/// in the HL7 specification.  A subclass should define it's group structure by putting repeated calls to 
-	/// the add(...) method in it's constructor.  Each call to add(...) adds a specific component to the 
-	/// Group.  
-	/// </summary>
-	/// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
-	/// </author>
-	public abstract class AbstractGroup : IGroup
+   /// <summary> A partial implementation of Group.  Subclasses correspond to specific
+   /// groups of segments (and/or other sub-groups) that are implicitely defined by message structures  
+   /// in the HL7 specification.  A subclass should define it's group structure by putting repeated calls to 
+   /// the add(...) method in it's constructor.  Each call to add(...) adds a specific component to the 
+   /// Group.  
+   /// </summary>
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// </author>
+   public abstract class AbstractGroup : IGroup
 	{
 		private List<AbstractGroupItem> _items;
 		private IGroup parentStructure;
@@ -45,7 +50,7 @@ namespace NHapi.Base.Model
 
 		static AbstractGroup()
 		{
-			log = HapiLogFactory.GetHapiLog(typeof (AbstractGroup));
+			log = HapiLogFactory.GetHapiLog(typeof(AbstractGroup));
 		}
 
 		/// <summary>
@@ -90,11 +95,11 @@ namespace NHapi.Base.Model
 			get
 			{
 				IStructure s = this;
-				while (!typeof (IMessage).IsAssignableFrom(s.GetType()))
+				while (!typeof(IMessage).IsAssignableFrom(s.GetType()))
 				{
 					s = s.ParentStructure;
 				}
-				return (IMessage) s;
+				return (IMessage)s;
 			}
 		}
 
@@ -267,7 +272,7 @@ namespace NHapi.Base.Model
 				throw new HL7Exception("Need message version to add segment by name; message.getVersion() returns null");
 			Type c = myFactory.GetSegmentClass(name, version);
 			if (c == null)
-				c = typeof (GenericSegment);
+				c = typeof(GenericSegment);
 
 			int index = Names.Length;
 
@@ -344,11 +349,11 @@ namespace NHapi.Base.Model
 			try
 			{
 				Object o = null;
-				if (typeof (GenericSegment).IsAssignableFrom(c))
+				if (typeof(GenericSegment).IsAssignableFrom(c))
 				{
 					s = new GenericSegment(this, name);
 				}
-				else if (typeof (GenericGroup).IsAssignableFrom(c))
+				else if (typeof(GenericGroup).IsAssignableFrom(c))
 				{
 					s = new GenericGroup(this, name, myFactory);
 				}
@@ -357,8 +362,8 @@ namespace NHapi.Base.Model
 					//first try to instantiate using contructor w/ Message arg ...
 					try
 					{
-						Type[] argClasses = new Type[] {typeof (IGroup), typeof (IModelClassFactory)};
-						Object[] argObjects = new Object[] {this, myFactory};
+						Type[] argClasses = new Type[] { typeof(IGroup), typeof(IModelClassFactory) };
+						Object[] argObjects = new Object[] { this, myFactory };
 						ConstructorInfo con = c.GetConstructor(argClasses);
 						o = con.Invoke(argObjects);
 					}
@@ -371,14 +376,14 @@ namespace NHapi.Base.Model
 						throw new HL7Exception("Class " + c.FullName + " does not implement " + "ca.on.uhn.hl7.message.Structure",
 							ErrorCode.APPLICATION_INTERNAL_ERROR);
 					}
-					s = (IStructure) o;
+					s = (IStructure)o;
 				}
 			}
 			catch (Exception e)
 			{
 				if (e is HL7Exception)
 				{
-					throw (HL7Exception) e;
+					throw (HL7Exception)e;
 				}
 				else
 				{
@@ -465,7 +470,7 @@ namespace NHapi.Base.Model
 			String name = fullName.Substring(dotLoc + 1, (fullName.Length) - (dotLoc + 1));
 
 			//remove message name prefix from group names for compatibility with getters ...
-			if (typeof (IGroup).IsAssignableFrom(c) && !typeof (IMessage).IsAssignableFrom(c))
+			if (typeof(IGroup).IsAssignableFrom(c) && !typeof(IMessage).IsAssignableFrom(c))
 			{
 				String messageName = Message.GetStructureName();
 				if (name.StartsWith(messageName) && name.Length > messageName.Length)
