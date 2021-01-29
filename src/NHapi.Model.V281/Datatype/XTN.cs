@@ -7,29 +7,29 @@ using NHapi.Base.Model.Primitive;
 namespace NHapi.Model.V281.Datatype
 {
 
-///<summary>
-/// <p>The HL7 XTN (Extended Telecommunication Number) data type.  Consists of the following components: </p><ol>
-/// <li>Telephone Number (XTN)</li>
-/// <li>Telecommunication Use Code (ID)</li>
-/// <li>Telecommunication Equipment Type (ID)</li>
-/// <li>Communication Address (ST)</li>
-/// <li>Country Code (SNM)</li>
-/// <li>Area/City Code (SNM)</li>
-/// <li>Local Number (SNM)</li>
-/// <li>Extension (SNM)</li>
-/// <li>Any Text (ST)</li>
-/// <li>Extension Prefix (ST)</li>
-/// <li>Speed Dial Code (ST)</li>
-/// <li>Unformatted Telephone number (ST)</li>
-/// <li>Effective Start Date (DTM)</li>
-/// <li>Expiration Date (DTM)</li>
-/// <li>Expiration Reason (CWE)</li>
-/// <li>Protection Code (CWE)</li>
-/// <li>Shared Telecommunication Identifier (EI)</li>
-/// <li>Preference Order (NM)</li>
-/// </ol>
-///</summary>
-[Serializable]
+	///<summary>
+	/// <p>The HL7 XTN (Extended Telecommunication Number) data type.  Consists of the following components: </p><ol>
+	/// <li>Telephone Number (ST)</li>
+	/// <li>Telecommunication Use Code (ID)</li>
+	/// <li>Telecommunication Equipment Type (ID)</li>
+	/// <li>Communication Address (ST)</li>
+	/// <li>Country Code (SNM)</li>
+	/// <li>Area/City Code (SNM)</li>
+	/// <li>Local Number (SNM)</li>
+	/// <li>Extension (SNM)</li>
+	/// <li>Any Text (ST)</li>
+	/// <li>Extension Prefix (ST)</li>
+	/// <li>Speed Dial Code (ST)</li>
+	/// <li>Unformatted Telephone number (ST)</li>
+	/// <li>Effective Start Date (DTM)</li>
+	/// <li>Expiration Date (DTM)</li>
+	/// <li>Expiration Reason (CWE)</li>
+	/// <li>Protection Code (CWE)</li>
+	/// <li>Shared Telecommunication Identifier (EI)</li>
+	/// <li>Preference Order (NM)</li>
+	/// </ol>
+	///</summary>
+	[Serializable]
 public class XTN : AbstractType, IComposite{
 	private IType[] data;
 
@@ -46,7 +46,7 @@ public class XTN : AbstractType, IComposite{
 	///</summary>
 	public XTN(IMessage message, string description) : base(message, description){
 		data = new IType[18];
-		data[0] = new XTN(message,"Telephone Number");
+		data[0] = new ST(message,"Telephone Number");
 		data[1] = new ID(message, 201,"Telecommunication Use Code");
 		data[2] = new ID(message, 202,"Telecommunication Equipment Type");
 		data[3] = new ST(message,"Communication Address");
@@ -96,11 +96,11 @@ get{
 	/// Returns Telephone Number (component #0).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public XTN TelephoneNumber {
+	public ST TelephoneNumber {
 get{
-	   XTN ret = null;
+		ST ret = null;
 	   try {
-	      ret = (XTN)this[0];
+	      ret = (ST)this[0];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);

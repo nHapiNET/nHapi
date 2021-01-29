@@ -11,9 +11,9 @@ namespace NHapi.Model.V28.Datatype
 /// <p>The HL7 XON (Extended Composite Name and Identification Number for Organizations) data type.  Consists of the following components: </p><ol>
 /// <li>Organization Name (ST)</li>
 /// <li>Organization Name Type Code (CWE)</li>
-/// <li>ID Number (XON)</li>
-/// <li>Identifier Check Digit (XON)</li>
-/// <li>Check Digit Scheme (XON)</li>
+/// <li>ID Number (ST)</li>
+/// <li>Identifier Check Digit (ST)</li>
+/// <li>Check Digit Scheme (ST)</li>
 /// <li>Assigning Authority (HD)</li>
 /// <li>Identifier Type Code (ID)</li>
 /// <li>Assigning Facility (HD)</li>
@@ -40,9 +40,9 @@ public class XON : AbstractType, IComposite{
 		data = new IType[10];
 		data[0] = new ST(message,"Organization Name");
 		data[1] = new CWE(message,"Organization Name Type Code");
-		data[2] = new XON(message,"ID Number");
-		data[3] = new XON(message,"Identifier Check Digit");
-		data[4] = new XON(message,"Check Digit Scheme");
+		data[2] = new ST(message,"ID Number");
+		data[3] = new ST(message,"Identifier Check Digit");
+		data[4] = new ST(message,"Check Digit Scheme");
 		data[5] = new HD(message,"Assigning Authority");
 		data[6] = new ID(message, 203,"Identifier Type Code");
 		data[7] = new HD(message,"Assigning Facility");
@@ -114,11 +114,11 @@ get{
 	/// Returns ID Number (component #2).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public XON IDNumber {
+	public ST IDNumber {
 get{
-	   XON ret = null;
+	   ST ret = null;
 	   try {
-	      ret = (XON)this[2];
+	      ret = (ST)this[2];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -131,11 +131,11 @@ get{
 	/// Returns Identifier Check Digit (component #3).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public XON IdentifierCheckDigit {
+	public ST IdentifierCheckDigit {
 get{
-	   XON ret = null;
+	   ST ret = null;
 	   try {
-	      ret = (XON)this[3];
+	      ret = (ST)this[3];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
@@ -148,11 +148,11 @@ get{
 	/// Returns Check Digit Scheme (component #4).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public XON CheckDigitScheme {
+	public ST CheckDigitScheme {
 get{
-	   XON ret = null;
+	   ST ret = null;
 	   try {
-	      ret = (XON)this[4];
+	      ret = (ST)this[4];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);

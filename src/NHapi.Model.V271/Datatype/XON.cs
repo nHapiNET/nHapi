@@ -11,7 +11,7 @@ namespace NHapi.Model.V271.Datatype
 /// <p>The HL7 XON (Extended Composite Name and Identification Number for Organizations) data type.  Consists of the following components: </p><ol>
 /// <li>Organization Name (ST)</li>
 /// <li>Organization Name Type Code (CWE)</li>
-/// <li>ID Number (XON)</li>
+/// <li>ID Number (ST)</li>
 /// <li>Identifier Check Digit (NM)</li>
 /// <li>Check Digit Scheme (ID)</li>
 /// <li>Assigning Authority (HD)</li>
@@ -40,7 +40,7 @@ public class XON : AbstractType, IComposite{
 		data = new IType[10];
 		data[0] = new ST(message,"Organization Name");
 		data[1] = new CWE(message,"Organization Name Type Code");
-		data[2] = new XON(message,"ID Number");
+		data[2] = new ST(message,"ID Number");
 		data[3] = new NM(message,"Identifier Check Digit");
 		data[4] = new ID(message, 61,"Check Digit Scheme");
 		data[5] = new HD(message,"Assigning Authority");
@@ -114,11 +114,11 @@ get{
 	/// Returns ID Number (component #2).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public XON IDNumber {
+	public ST IDNumber {
 get{
-	   XON ret = null;
+	   ST ret = null;
 	   try {
-	      ret = (XON)this[2];
+	      ret = (ST)this[2];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);

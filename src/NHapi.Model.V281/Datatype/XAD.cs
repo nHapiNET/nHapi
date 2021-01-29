@@ -7,34 +7,34 @@ using NHapi.Base.Model.Primitive;
 namespace NHapi.Model.V281.Datatype
 {
 
-///<summary>
-/// <p>The HL7 XAD (Extended Address) data type.  Consists of the following components: </p><ol>
-/// <li>Street Address (SAD)</li>
-/// <li>Other Designation (ST)</li>
-/// <li>City (ST)</li>
-/// <li>State or Province (ST)</li>
-/// <li>Zip or Postal Code (ST)</li>
-/// <li>Country (ID)</li>
-/// <li>Address Type (ID)</li>
-/// <li>Other Geographic Designation (ST)</li>
-/// <li>County/Parish Code (CWE)</li>
-/// <li>Census Tract (CWE)</li>
-/// <li>Address Representation Code (ID)</li>
-/// <li>Address Validity Range (XAD)</li>
-/// <li>Effective Date (DTM)</li>
-/// <li>Expiration Date (DTM)</li>
-/// <li>Expiration Reason (CWE)</li>
-/// <li>Temporary Indicator (ID)</li>
-/// <li>Bad Address Indicator (ID)</li>
-/// <li>Address Usage (ID)</li>
-/// <li>Addressee (ST)</li>
-/// <li>Comment (ST)</li>
-/// <li>Preference Order (NM)</li>
-/// <li>Protection Code (CWE)</li>
-/// <li>Address Identifier (EI)</li>
-/// </ol>
-///</summary>
-[Serializable]
+	///<summary>
+	/// <p>The HL7 XAD (Extended Address) data type.  Consists of the following components: </p><ol>
+	/// <li>Street Address (SAD)</li>
+	/// <li>Other Designation (ST)</li>
+	/// <li>City (ST)</li>
+	/// <li>State or Province (ST)</li>
+	/// <li>Zip or Postal Code (ST)</li>
+	/// <li>Country (ID)</li>
+	/// <li>Address Type (ID)</li>
+	/// <li>Other Geographic Designation (ST)</li>
+	/// <li>County/Parish Code (CWE)</li>
+	/// <li>Census Tract (CWE)</li>
+	/// <li>Address Representation Code (ID)</li>
+	/// <li>Address Validity Range (ST)</li>
+	/// <li>Effective Date (DTM)</li>
+	/// <li>Expiration Date (DTM)</li>
+	/// <li>Expiration Reason (CWE)</li>
+	/// <li>Temporary Indicator (ID)</li>
+	/// <li>Bad Address Indicator (ID)</li>
+	/// <li>Address Usage (ID)</li>
+	/// <li>Addressee (ST)</li>
+	/// <li>Comment (ST)</li>
+	/// <li>Preference Order (NM)</li>
+	/// <li>Protection Code (CWE)</li>
+	/// <li>Address Identifier (EI)</li>
+	/// </ol>
+	///</summary>
+	[Serializable]
 public class XAD : AbstractType, IComposite{
 	private IType[] data;
 
@@ -62,7 +62,7 @@ public class XAD : AbstractType, IComposite{
 		data[8] = new CWE(message,"County/Parish Code");
 		data[9] = new CWE(message,"Census Tract");
 		data[10] = new ID(message, 465,"Address Representation Code");
-		data[11] = new XAD(message,"Address Validity Range");
+		data[11] = new ST(message,"Address Validity Range");
 		data[12] = new DTM(message,"Effective Date");
 		data[13] = new DTM(message,"Expiration Date");
 		data[14] = new CWE(message,"Expiration Reason");
@@ -293,11 +293,11 @@ get{
 	/// Returns Address Validity Range (component #11).  This is a convenience method that saves you from 
 	/// casting and handling an exception.
 	///</summary>
-	public XAD AddressValidityRange {
+	public ST AddressValidityRange {
 get{
-	   XAD ret = null;
+		ST ret = null;
 	   try {
-	      ret = (XAD)this[11];
+	      ret = (ST)this[11];
 	   } catch (DataTypeException e) {
 	      HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
 	      throw new System.Exception("An unexpected error ocurred",e);
