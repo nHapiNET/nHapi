@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
 using System.Xml;
 using NHapi.Base.Model;
 using NHapi.Base.Parser;
+using NHapi.Model.V231.Datatype;
 using NHapi.Model.V231.Message;
 using NUnit.Framework;
 
@@ -591,5 +594,59 @@ OBX|6|TX|O2SAT||(Ref Range: 91-95 %)|%|91-95||||F
 OBX|7|NM|FIO2||100.0||||||F
 ";
 		}
+
+		/// <summary>
+		/// https://github.com/nHapiNET/nHapi/issues/135
+		/// </summary>
+		[TestCaseSource(nameof(_validV231DataTypes))]
+		public void TestObx5DataTypeIsSetFromObx2_AndAllDataTypesAreConstructable(Type expectedObservationValueType)
+		{
+			var message = $@"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.3.1|||AL|||ASCII
+PID|1||1711114||Appt^Test||19720501||||||||||||001020006
+ORC|||||F
+OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
+OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}Value||||||F";
+
+			var parser = new PipeParser();
+
+			var parsed = (ORU_R01)parser.Parse(message);
+
+			var actualObservationValueType = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
+
+			Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
+		}
+
+		/// <summary>
+		/// Specified in Table 0125
+		/// </summary>
+		private static IEnumerable<Type> _validV231DataTypes = new List<Type>
+		{
+			typeof(AD),
+			typeof(CE),
+			typeof(CF),
+			typeof(CK),
+			typeof(CN),
+			typeof(CP),
+			typeof(CX),
+			typeof(DT),
+			typeof(ED),
+			typeof(FT),
+			typeof(ID),
+			typeof(MO),
+			typeof(NM),
+			typeof(PN),
+			typeof(RP),
+			typeof(SN),
+			typeof(ST),
+			typeof(TM),
+			typeof(TN),
+			typeof(TS),
+			typeof(TX),
+			typeof(XAD),
+			typeof(XCN),
+			typeof(XON),
+			typeof(XPN),
+			typeof(XTN)
+		};
 	}
 }

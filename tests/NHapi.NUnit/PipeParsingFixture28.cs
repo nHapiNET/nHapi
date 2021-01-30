@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NHapi.Base.Model;
 using NHapi.Base.Parser;
@@ -110,5 +111,53 @@ PV1|1";
 			isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
 			Assert.IsTrue(isSame, "ADT_A01 returns ADT_A01");
 		}
+
+		/// <summary>
+		/// https://github.com/nHapiNET/nHapi/issues/135
+		/// </summary>
+		[TestCaseSource(nameof(_validV28ValueTypes))]
+		public void TestObx5DataTypeIsSetFromObx2_AndAllDataTypesAreConstructable(Type expectedObservationValueType)
+		{
+			var message = $@"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.8|||AL|||ASCII
+PID|1||1711114||Appt^Test||19720501||||||||||||001020006
+ORC|||||F
+OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
+OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}Value||||||F";
+
+			var parser = new PipeParser();
+
+			var parsed = (ORU_R01)parser.Parse(message);
+
+			var actualObservationValueType = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
+
+			Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
+		}
+
+		/// <summary>
+		/// Specified in Table 0125
+		/// </summary>
+		private static IEnumerable<Type> _validV28ValueTypes = new List<Type>
+		{
+			typeof(AD),
+			typeof(CF),
+			typeof(CP),
+			typeof(CX),
+			typeof(DT),
+			typeof(ED),
+			typeof(FT),
+			typeof(ID),
+			typeof(MO),
+			typeof(NM),
+			typeof(RP),
+			typeof(SN),
+			typeof(ST),
+			typeof(TM),
+			typeof(TX),
+			typeof(XAD),
+			typeof(XCN),
+			typeof(XON),
+			typeof(XPN),
+			typeof(XTN)
+		};
 	}
 }

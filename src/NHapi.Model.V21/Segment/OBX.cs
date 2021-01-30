@@ -43,7 +43,7 @@ public class OBX : AbstractSegment  {
        this.add(typeof(ID), false, 1, 2, new System.Object[]{message, 125}, "VALUE TYPE");
        this.add(typeof(CE), true, 1, 80, new System.Object[]{message}, "OBSERVATION IDENTIFIER");
        this.add(typeof(NM), false, 1, 20, new System.Object[]{message}, "OBSERVATION SUB-ID");
-       this.add(typeof(ST), true, 1, 65, new System.Object[]{message}, "OBSERVATION RESULTS");
+       this.add(typeof(Varies), true, 1, 65, new System.Object[]{message}, "OBSERVATION RESULTS");
        this.add(typeof(ID), false, 1, 20, new System.Object[]{message, 0}, "UNITS");
        this.add(typeof(ST), false, 1, 60, new System.Object[]{message}, "REFERENCES RANGE");
        this.add(typeof(ST), false, 5, 10, new System.Object[]{message}, "ABNORMAL FLAGS");
@@ -151,25 +151,29 @@ public class OBX : AbstractSegment  {
 	///<summary>
 	/// Returns OBSERVATION RESULTS(OBX-5).
 	///</summary>
-	public ST OBSERVATIONRESULTS
+	public Varies OBSERVATIONRESULTS
 	{
-		get{
-			ST ret = null;
-			try
+			get
 			{
-			IType t = this.GetField(5, 0);
-				ret = (ST)t;
+				Varies ret = null;
+				try
+				{
+					IType t = this.GetField(5, 0);
+					ret = (Varies)t;
+				}
+				catch (HL7Exception he)
+				{
+					HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+					throw new System.Exception("An unexpected error ocurred", he);
+				}
+				catch (System.Exception ex)
+				{
+					HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+					throw new System.Exception("An unexpected error ocurred", ex);
+				}
+				return ret;
 			}
-			 catch (HL7Exception he) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-				throw new System.Exception("An unexpected error ocurred", he);
-		} catch (System.Exception ex) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
-				throw new System.Exception("An unexpected error ocurred", ex);
-    }
-			return ret;
-	}
-  }
+		}
 
 	///<summary>
 	/// Returns UNITS(OBX-6).

@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using NHapi.Base;
 using NHapi.Base.Model;
 using NHapi.Base.Parser;
+using NHapi.Model.V24.Datatype;
 using NHapi.Model.V24.Message;
 using NHapi.Model.V24.Segment;
 using NUnit.Framework;
@@ -310,24 +312,24 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
 PID|1|1847|50381^^^^^MOLIS~^^^^^VTD||TEST A^||19711125|F|||test^^Roma^^00144^||||
 ORC|NW|FA9999020000^MOLIS|FA9999020000^MOLIS|FA99990200^MOLIS|CM||^^^20030331053409^^R|||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS||||||||||||
 OBR|1|FA9999020000^MOLIS|FA9999020000^MOLIS|00^^MOLIS||20030327000000|20030331053409|||||||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS|||||||||||^^^20030331053409^^R||||||||||||||||||||
-NTE|0||Isolierte Cardiolipin-Autoantikörper vom Typ IgM in niedriger Konzentration sind von fraglicher klinischer Relevanz. Es empfiehlt sich eine Kontrolle aus einer neuen Probe und die zusätzliche Bestimmung der beta-2-Glykoprotein-Autoantikörper.|RE
-NTE|0||Umlaute Test : ÄÖÜäöüßéèàçù|RE
+NTE|0||Isolierte Cardiolipin-Autoantikï¿½rper vom Typ IgM in niedriger Konzentration sind von fraglicher klinischer Relevanz. Es empfiehlt sich eine Kontrolle aus einer neuen Probe und die zusï¿½tzliche Bestimmung der beta-2-Glykoprotein-Autoantikï¿½rper.|RE
+NTE|0||Umlaute Test : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½|RE
 NTE|0||Ende Test Umlaute|RE
-OBX|1|FT|ALLERG^Allergie^MOLIS||vv Dies eist ein Test zum Drucke\.br\ etwas längeren Textes auf dem Allergiepass||||||C|||20030331053409|||||
+OBX|1|FT|ALLERG^Allergie^MOLIS||vv Dies eist ein Test zum Drucke\.br\ etwas lï¿½ngeren Textes auf dem Allergiepass||||||C|||20030331053409|||||
 ORC|NW|FA9999020018^MOLIS|FA9999020018^MOLIS|FA99990200^MOLIS|CM||^^^20030331053409^^R|||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS||||||||||||
 OBR|2|FA9999020018^MOLIS|FA9999020018^MOLIS|18^Immunologie^MOLIS||20030327000000|20030331053409|||||||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS|||||||||||^^^20030331053409^^R||||||||||||||||||||
 OBX|1|TX|ACLAS^Anti-Cardiolipin-Screen^MOLIS||negativ|MOC^^L|(<1.0)||||C|||20030331053409|||||
 OBX|2|NM|ACLAG^Anti-Cardiolipin IgG^MOLIS||0.2|MOC^^L|(<1.0)||||F|||20030331053409|||||
-NTE|1||Bitte beachten: Normwert- und Methodenänderung zum 13.03.03.|RE
+NTE|1||Bitte beachten: Normwert- und Methodenï¿½nderung zum 13.03.03.|RE
 OBX|3|NM|ACLAM^Anti-Cardiolipin IgM^MOLIS||111.3|MOC^^L|(<1.0)|H|||C|||20030331053409|||||
-NTE|1||Bitte beachten: Normwert- und Methodenänderung zum 13.03.03.|RE
+NTE|1||Bitte beachten: Normwert- und Methodenï¿½nderung zum 13.03.03.|RE
 ORC|NW|FA9999020026^MOLIS|FA9999020026^MOLIS|FA99990200^MOLIS|CM||^^^20030331053409^^R|||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS||||||||||||
 OBR|3|FA9999020026^MOLIS|FA9999020026^MOLIS|26^Hormone^MOLIS||20030327000000|20030331053409|||||||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS|||||||||||^^^20030331053409^^R||||||||||||||||||||
-OBX|1|NM|FSH^FSH^MOLIS||1.0|U/l^^L|(1.6-12.0)Follikulär \ (8.0-22.0)Peak \ (0.9-12.0)Luteal \ (1.0-17.0)Kontrazeptiva \ (35-151)Menopause||||C|||20030331053409|||||
-OBX|2|NM|LH^LH^MOLIS||37.4|U/l^^L|(1.8-13.4)Follikulär \ (15.6-78.9)Peak \ (0.7-19.4)Luteal \ (1.0-15.0)Kontrazeptiva \ (10.8-61.4)Menopause||||F|||20030331053409|||||
+OBX|1|NM|FSH^FSH^MOLIS||1.0|U/l^^L|(1.6-12.0)Follikulï¿½r \ (8.0-22.0)Peak \ (0.9-12.0)Luteal \ (1.0-17.0)Kontrazeptiva \ (35-151)Menopause||||C|||20030331053409|||||
+OBX|2|NM|LH^LH^MOLIS||37.4|U/l^^L|(1.8-13.4)Follikulï¿½r \ (15.6-78.9)Peak \ (0.7-19.4)Luteal \ (1.0-15.0)Kontrazeptiva \ (10.8-61.4)Menopause||||F|||20030331053409|||||
 OBX|3|NM|LHFSHQ^LH-FSH-Quotient^MOLIS||37.4||(<2.0)|H|||F|||20030331053409|||||
-OBX|4|NM|PROL^Prolactin^MOLIS||10.3|µg/l^^L|(2.3-25.0) \ (2.3-10.0)Menopause||||F|||20030331053409|||||
-OBX|5|NM|E2^Estradiol, E2^MOLIS||39|pmol/l^^L|(70-672)Follikulär \ (551-1938)Peak \ (220-774)Luteal \ (<114)Menopause||||F|||20030331053409||||| ";
+OBX|4|NM|PROL^Prolactin^MOLIS||10.3|ï¿½g/l^^L|(2.3-25.0) \ (2.3-10.0)Menopause||||F|||20030331053409|||||
+OBX|5|NM|E2^Estradiol, E2^MOLIS||39|pmol/l^^L|(70-672)Follikulï¿½r \ (551-1938)Peak \ (220-774)Luteal \ (<114)Menopause||||F|||20030331053409||||| ";
 
 			PipeParser parser = new PipeParser();
 
@@ -402,5 +404,59 @@ OBX|5|NM|E2^Estradiol, E2^MOLIS||39|pmol/l^^L|(70-672)Follikulär \ (551-1938)Pea
 				}
 			}
 		}
+
+		/// <summary>
+		/// https://github.com/nHapiNET/nHapi/issues/135
+		/// </summary>
+		[TestCaseSource(nameof(_validV24ValueTypes))]
+		public void TestObx5DataTypeIsSetFromObx2_AndAllDataTypesAreConstructable(Type expectedObservationValueType)
+		{
+			var message = $@"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.4|||AL|||ASCII
+PID|1||1711114||Appt^Test||19720501||||||||||||001020006
+ORC|||||F
+OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
+OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}Value||||||F";
+
+			var parser = new PipeParser();
+
+			var parsed = (ORU_R01)parser.Parse(message);
+
+			var actualObservationValueType = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
+
+			Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
+		}
+
+		/// <summary>
+		/// Specified in Table 0125
+		/// </summary>
+		private static IEnumerable<Type> _validV24ValueTypes = new List<Type>
+		{
+			typeof(AD),
+			typeof(CE),
+			typeof(CF),
+			typeof(CK),
+			typeof(CN),
+			typeof(CP),
+			typeof(CX),
+			typeof(DT),
+			typeof(ED),
+			typeof(FT),
+			typeof(ID),
+			typeof(MO),
+			typeof(NM),
+			typeof(PN),
+			typeof(RP),
+			typeof(SN),
+			typeof(ST),
+			typeof(TM),
+			typeof(TN),
+			typeof(TS),
+			typeof(TX),
+			typeof(XAD),
+			typeof(XCN),
+			typeof(XON),
+			typeof(XPN),
+			typeof(XTN)
+		};
 	}
 }
