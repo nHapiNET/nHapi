@@ -34,7 +34,7 @@ using System;
 namespace NHapi.Base.Model
 {
    /// <summary> An abstraction representing >1 message parts which may repeated together.
-   /// An implementation of Group should enforce contraints about on the contents of the group
+   /// An implementation of Group should enforce constraints about on the contents of the group
    /// and throw an exception if an attempt is made to add a Structure that the Group instance
    /// does not recognize.
    /// </summary>
@@ -83,30 +83,13 @@ namespace NHapi.Base.Model
 		/// <summary> Returns the Class of the Structure at the given name index.  </summary>
 		Type GetClass(String name);
 
-		/// <summary> Expands the group by introducing a new child Structure (i.e. 
-		/// a new Segment or Group).  This method is used to support handling 
-		/// of unexpected segments (e.g. Z-segments).  
-		/// </summary>
-		/// <param name="c">class of the structure to insert (e.g. NTE.class) 
-		/// </param>
-		/// <param name="required">whether the child is required 
-		/// </param>
-		/// <param name="repeating">whether the child is repeating 
-		/// </param>
-		/// <param name="index">index at which to insert the new child
-		/// </param>
-		/// <param name="name">the child name (e.g. "NTE")
-		/// </param>
-		/// <returns> the name used to index the structure (may be appended with a number if 
-		/// name already used)
-		/// </returns>
-		//public String insert(Class c, boolean required, boolean repeating, int index, String name) throws HL7Exception;
-		/// <summary> Expands the group definition to include a segment that is not 
-		/// defined by HL7 to be part of this group (eg an unregistered Z segment). 
-		/// The new segment is slotted at the end of the group.  Thenceforward if 
-		/// such a segment is encountered it will be parsed into this location. 
-		/// If the segment name is unrecognized a GenericSegment is used.  The 
-		/// segment is defined as repeating and not required.  
+		/// <summary>
+		/// Expands the group definition to include a segment that is not
+		/// defined by HL7 to be part of this group (eg: an unregistered Z segment).
+		/// The new segment is slotted at the end of the group.  Thenceforward if
+		/// such a segment is encountered it will be parsed into this location.
+		/// If the segment name is unrecognized a GenericSegment is used.  The
+		/// segment is defined as repeating and not required.
 		/// </summary>
 		String addNonstandardSegment(String name);
 	}

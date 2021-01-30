@@ -30,19 +30,30 @@ using System.Threading;
 
 namespace NHapi.Base.Model.Primitive
 {
-   /// <summary> Represents an HL7 timestamp, which is related to the HL7 TS type.  In version 2.5, 
-   /// TS is a composite type.  The first component is type DTM, which corresponds to this class
-   /// (actually Model.v25.datatype.DTM inherits from this class at time of writing).  In HL7 versions 
-   /// 2.2-2.4, it wasn't perfectly clear whether TS was composite or primitive.  HAPI interprets  
-   /// it as composite, with the first component having a type that isn't defined by HL7, and we call 
-   /// this type TSComponentOne.  In v2.1, TS is primitive, and corresponds one-to-one with this class.   
+   /// <summary>
+   /// <para>
+   /// Represents an HL7 timestamp, which is related to the HL7 TS type.
+   /// </para>
    /// 
+   /// <para>
+   /// In version 2.5, TS is a composite type. The first component is type DTM, which corresponds to this class
+   /// (actually Model.v25.datatype.DTM inherits from this class at time of writing).
+   /// </para>
+   /// 
+   /// <para>
+   /// In HL7 versions 2.2-2.4, it wasn't perfectly clear whether TS was composite or primitive. HAPI interprets
+   /// it as composite, with the first component having a type that isn't defined by HL7, and we call
+   /// this type TSComponentOne.
+   /// </para>
+   /// 
+   /// <para>
+   /// In v2.1, TS is primitive, and corresponds one-to-one with this class.
+   /// </para>
    /// </summary>
-   /// <author>  <a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a>
-   /// </author>
-   /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
-   /// </author>
-   /// <version>  $Revision: 1.4 $ updated on $Date: 2005/06/14 20:09:39 $ by $Author: bryan_tripp $
+   /// <author><a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a></author>
+   /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
+   /// <version>
+   /// $Revision: 1.4 $ updated on $Date: 2005/06/14 20:09:39 $ by $Author: bryan_tripp $
    /// </version>
    public class TSComponentOne : AbstractPrimitive
 	{
@@ -58,10 +69,6 @@ namespace NHapi.Base.Model.Primitive
 			}
 		}
 
-		/// <throws>  DataTypeException if the value is incorrectly formatted and either validation is  </throws>
-		/// <summary>      enabled for this primitive or detail setters / getters have been called, forcing further
-		/// parsing.   
-		/// </summary>
 		public override String Value
 		{
 			get
@@ -87,100 +94,76 @@ namespace NHapi.Base.Model.Primitive
 			}
 		}
 
-		/// <seealso cref="CommonTS.setOffset(int)">
-		/// </seealso>
-		/// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-		/// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-		/// this method is called.  
+		/// <summary>
+		/// <seealso cref="CommonTS.Offset" />
 		/// </summary>
 		public virtual int Offset
 		{
 			set { Detail.Offset = value; }
 		}
 
-		/// <summary> Returns the year as an integer.</summary>
-		/// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-		/// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-		/// this method is called.  
+		/// <summary>
+		/// Returns the year as an integer.
 		/// </summary>
 		public virtual int Year
 		{
 			get { return Detail.Year; }
 		}
 
-		/// <summary> Returns the month as an integer.</summary>
-		/// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-		/// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-		/// this method is called.  
+		/// <summary>
+		/// Returns the month as an integer.
 		/// </summary>
 		public virtual int Month
 		{
 			get { return Detail.Month; }
 		}
 
-		/// <summary> Returns the day as an integer.</summary>
-		/// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-		/// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-		/// this method is called.  
+		/// <summary>
+		/// Returns the day as an integer.
 		/// </summary>
 		public virtual int Day
 		{
 			get { return Detail.Day; }
 		}
 
-		/// <summary> Returns the hour as an integer.</summary>
-		/// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-		/// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-		/// this method is called.  
+		/// <summary>
+		/// Returns the hour as an integer.
 		/// </summary>
 		public virtual int Hour
 		{
 			get { return Detail.Hour; }
 		}
 
-		/// <summary> Returns the minute as an integer.</summary>
-		/// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-		/// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-		/// this method is called.  
+		/// <summary>
+		/// Returns the minute as an integer.
 		/// </summary>
 		public virtual int Minute
 		{
 			get { return Detail.Minute; }
 		}
 
-		/// <summary> Returns the second as an integer.</summary>
-		/// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-		/// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-		/// this method is called.  
+		/// <summary>
+		/// Returns the second as an integer.
 		/// </summary>
 		public virtual int Second
 		{
 			get { return Detail.Second; }
 		}
 
-		/// <summary> Returns the fractional second value as a float.</summary>
-		/// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-		/// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-		/// this method is called.  
+		/// <summary>
+		/// Returns the fractional second value as a float.
 		/// </summary>
 		public virtual float FractSecond
 		{
 			get { return Detail.FractSecond; }
 		}
 
-		/// <summary> Returns the GMT offset value as an integer.</summary>
-		/// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-		/// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-		/// this method is called.  
+		/// <summary>
+		/// Returns the GMT offset value as an integer.
 		/// </summary>
 		public virtual int GMTOffset
 		{
 			get { return Detail.GMTOffset; }
-
-			/// <summary>Returns the name of the type (used in XML encoding and profile checking)  </summary>
-			//    public String getName() {
-			//        return "NM"; //seems to be called an NM in XML representation prior to 2.5  
-			//    }
 		}
 
 		private CommonTS myDetail;
@@ -311,7 +294,7 @@ namespace NHapi.Base.Model.Primitive
 		}
 
 		/// <summary>
-		/// Set the value as a lond date with second
+		/// Set the value as a long date with second
 		/// </summary>
 		/// <param name="value"></param>
 		public virtual void SetLongDateWithSecond(DateTime value)
@@ -320,7 +303,7 @@ namespace NHapi.Base.Model.Primitive
 		}
 
 		/// <summary>
-		/// Set the value as a lond date with fraction of second
+		/// Set the value as a long date with fraction of second
 		/// </summary>
 		/// <param name="value"></param>
 		public virtual void SetLongDateWithFractionOfSecond(DateTime value)

@@ -31,46 +31,63 @@ using NHapi.Base.Model;
 
 namespace NHapi.Base.Util
 {
-   /// <summary> <p>Wraps a message to provide access to fields using a terse location
-   /// specification syntax.  For example: </p>
-   /// <p><code>terser.set("MSH-9-3", "ADT_A01");</code>  <br/>
-   /// can be used instead of <br/>
-   /// <code>message.getMSH().getMessageType().getMessageStructure().setValue("ADT_A01"); </code> </p>
-   /// <p>The syntax of a location spec is as follows: </p>
-   /// <p>location_spec: <code>segment_path_spec "-" field ["(" rep ")"] ["-" component ["-" subcomponent]] </code></p>
-   /// <p>... where rep, field, component, and subcomponent are integers (representing, respectively,
+   /// <summary>
+   /// Wraps a message to provide access to fields using a terse location specification syntax.
+   /// </summary>
+   /// <example>
+   /// <para>
+   /// For example:
+   /// <code>terser.set("MSH-9-3", "ADT_A01");</code> <br />
+   /// can be used instead of <br />
+   /// <code>message.getMSH().getMessageType().getMessageStructure().setValue("ADT_A01"); </code>
+   /// </para>
+   /// <para>
+   /// The syntax of a location spec is as follows: <br />
+   /// location_spec: <code>segment_path_spec "-" field ["(" rep ")"] ["-" component ["-" subcomponent]] </code> <br />
+   /// ... where rep, field, component, and subcomponent are integers (representing, respectively,
    /// the field repetition (starting at 0), and the field number, component number, and subcomponent
    /// numbers (starting at 1).  Omitting the rep is equivalent to specifying 0; omitting the
-   /// component or subcomponent is equivalent to specifying 1.</p>
-   /// <p>The syntax for the segment_path_spec is as follows: </p>
-   /// <p>segment_path_spec: </code> ["/"] (group_spec ["(" rep ")"] "/")* segment_spec ["(" rep ")"]</code></p>
-   /// <p> ... where rep has the same meaning as for fields.  A leading "/" indicates that navigation to the
-   /// location begins at the root of the message; ommitting this indicates that navigation begins at the
+   /// component or subcomponent is equivalent to specifying 1.
+   /// </para>
+   /// <para>
+   /// The syntax for the segment_path_spec is as follows: <br />
+   /// segment_path_spec: <code> ["/"] (group_spec ["(" rep ")"] "/")* segment_spec ["(" rep ")"]</code><br />
+   /// ... where rep has the same meaning as for fields.  A leading "/" indicates that navigation to the
+   /// location begins at the root of the message; omitting this indicates that navigation begins at the
    /// current location of the underlying SegmentFinder (see getFinder() -- this allows manual navigation
-   /// if desired).  The syntax for group_spec is: </p>
-   /// <p>group_spec: <code>["."] group_name_pattern</code></p>
-   /// <p>Here, a . indicates that the group should be searched for (using a SegmentFinder) starting at the
+   /// if desired).
+   /// </para>
+   /// <para>
+   /// The syntax for group_spec is: <br />
+   /// group_spec: <code>["."] group_name_pattern</code><br />
+   /// Here, a . indicates that the group should be searched for (using a SegmentFinder) starting at the
    /// current location in the message.  The wildcards "*" and "?" represent any number of arbitrary characters, 
    /// and a single arbitrary character, respectively.  For example, "M*" and "?S?" match MSH.  The first
-   /// group with a name that matches the given group_name_pattern will be matched.  </p>
-   /// <p>The segment_spec is analogous to the group_spec. </p>
-   /// <p>As another example, the following subcomponent in an SIU_S12 message: <p>
-   /// <p><code>msg.getSIU_S12_RGSAISNTEAIGNTEAILNTEAIPNTE(1).getSIU_S12_AIGNTE().getAIG().getResourceGroup(1).getIdentifier();</code></p>
-   /// </p> ... is referenced by all of the following location_spec: </p>
-   /// <p><code>/SIU_S12_RGSAISNTEAIGNTEAILNTEAIPNTE(1)/SIU_S12_AIGNTE/AIG-5(1)-1 <br/>
+   /// group with a name that matches the given group_name_pattern will be matched.
+   /// </para>
+   /// <para>
+   /// The segment_spec is analogous to the group_spec. <br />
+   /// As another example, the following subcomponent in an SIU_S12 message: <br />
+   /// <code>msg.getSIU_S12_RGSAISNTEAIGNTEAILNTEAIPNTE(1).getSIU_S12_AIGNTE().getAIG().getResourceGroup(1).getIdentifier();</code><br />
+   /// ... is referenced by all of the following location_spec: <br />
+   /// <code>
+   /// /SIU_S12_RGSAISNTEAIGNTEAILNTEAIPNTE(1)/SIU_S12_AIGNTE/AIG-5(1)-1 <br/>
    /// /*AIG*(1)/SIU_S12_AIGNTE/AIG-5(1)-1 <br/>
-   /// /*AIG*(1)/.AIG-5(1) </code></p>
-   /// <p>The search function only iterates through rep 0 of each group.  Thus if rep 0 of the first group
+   /// /*AIG*(1)/.AIG-5(1)
+   /// </code>
+   /// </para>
+   /// <para>
+   /// The search function only iterates through rep 0 of each group. Thus if rep 0 of the first group
    /// in this example was desired instead of rep 1, the following syntax would also work (since there is
-   /// only one AIG segment position in SUI_S12): </p>
-   /// <p><code>/.AIG-5(1)</code></p>
-   /// </summary>
-   /// <author>  Bryan Tripp
-   /// </author>
+   /// only one AIG segment position in SUI_S12): <code>/.AIG-5(1)</code>
+   /// </para>
+   /// </example>
+   /// <author>Bryan Tripp</author>
    public class Terser
 	{
-		/// <summary> Returns the segment finder used by this Terser.  Navigating the
-		/// finder will influence the behaviour of the Terser accordingly.  Ie
+		/// <summary>
+		/// Returns the segment finder used by this Terser.  Navigating the
+		/// finder will influence the behaviour of the Terser accordingly. ie:
 		/// when the full path of the segment is not specified the segment will
 		/// be sought beginning at the current location of the finder.
 		/// </summary>
@@ -217,12 +234,15 @@ namespace NHapi.Base.Util
 			return ret;
 		}
 
-		/// <summary> <p>Gets the string value of the field specified.  See the class docs for syntax
-		/// of the location spec.  </p>
-		/// <p>If a repetition is omitted for a repeating segment or field, the first rep is used.
+		/// <summary>
+		/// Gets the string value of the field specified. See the class docs for syntax
+		/// of the location spec.
+		/// <para>
+		/// If a repetition is omitted for a repeating segment or field, the first rep is used.
 		/// If the component or subcomponent is not specified for a composite field, the first
 		/// component is used (this allows one to write code that will work with later versions of
 		/// the HL7 standard).
+		/// </para>
 		/// </summary>
 		public virtual String Get(String spec)
 		{
@@ -327,7 +347,8 @@ namespace NHapi.Base.Util
 			return ps;
 		}
 
-		/// <summary> Given a Terser path, returns an array containing field num, field rep, 
+		/// <summary>
+		/// Given a Terser path, returns an array containing field num, field rep, 
 		/// component, and subcomponent.  
 		/// </summary>
 		public static int[] getIndices(String spec)
@@ -385,20 +406,13 @@ namespace NHapi.Base.Util
 			Set(segment, ind[0], ind[1], ind[2], ind[3], value_Renamed);
 		}
 
-		/// <summary> Returns the number of components in the given field, i.e. the
-		/// number of standard components (e.g. 6 for CE) plus any extra components that
-		/// have been added at runtime.  This may vary by repetition, as different reps
-		/// may have different extra components.
-		/// </summary>
-		/*public static int numComponents(Type field) throws HL7Exception {
-        return numComponents(seg.GetField(field, rep));
-        }*/
-		/// <summary> Returns the number of sub-components in the specified component, i.e. 
+		/// <summary>
+		/// Returns the number of sub-components in the specified component, ie: 
 		/// the number of standard sub-components (e.g. 6 for CE) plus any extra components that
 		/// that have been added at runtime.
 		/// </summary>
-		/// <param name="component">numbered from 1 
-		/// </param>
+		/// <param name="type"></param>
+		/// <param name="component">numbered from 1.</param>
 		public static int numSubComponents(IType type, int component)
 		{
 			int n = -1;

@@ -28,16 +28,15 @@ using System;
 
 namespace NHapi.Base.Model.Primitive
 {
-	/// <summary>
-	///	Represents an HL7 DT (date) datatype.
-	/// </summary>
-	/// <author>  <a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a>
-	/// </author>
-	/// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
-	/// </author>
-	/// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/08 00:28:25 $ by $Author: bryan_tripp $
-	/// </version>
-	public abstract class DT : AbstractPrimitive
+   /// <summary>
+   /// Represents an HL7 DT (date) datatype.
+   /// </summary>
+   /// <author><a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a></author>
+   /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
+   /// <version>
+   /// $Revision: 1.3 $ updated on $Date: 2005/06/08 00:28:25 $ by $Author: bryan_tripp $
+   /// </version>
+   public abstract class DT : AbstractPrimitive
 	{
 		private CommonDT Detail
 		{
@@ -51,12 +50,6 @@ namespace NHapi.Base.Model.Primitive
 			}
 		}
 
-		
-		/// <value>
-		/// enabled for this primitive or detail setters / getters have been
-		/// called, forcing further parsing.
-		/// </value>
-		/// <throws ref="DataTypeException"/>if the value is incorrectly formatted and either validation is</throws>
 		public override String Value
 		{
 			get
@@ -82,10 +75,6 @@ namespace NHapi.Base.Model.Primitive
 			}
 		}
 
-		/// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-		/// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-		/// this method is called.  
-		/// </summary>
 		public virtual int YearPrecision
 		{
 			set { Detail.YearPrecision = value; }

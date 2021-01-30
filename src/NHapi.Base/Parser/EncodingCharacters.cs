@@ -32,13 +32,9 @@ namespace NHapi.Base.Parser
 {
    /// <summary> 
    /// Represents the set of special characters used to encode traditionally
-   /// 
    /// encoded HL7 messages.
-   /// 
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
-   /// 
-   /// </author>
+   /// <author>Bryan Tripp (bryan_tripp@sourceforge.net)</author>
    public class EncodingCharacters : Object, ICloneable
 	{
 		/// <summary> 
@@ -104,20 +100,15 @@ namespace NHapi.Base.Parser
 
 		/// <summary> 
 		/// Creates new EncodingCharacters object with the given character
-		/// 
 		/// values. If the encodingCharacters argument is null, the default
-		/// 
 		/// values are used.
-		/// 
 		/// </summary>
-		/// <param name="encodingCharacters">consists of the characters that appear in
-		/// 
-		/// MSH-2 (see section 2.8 of the HL7 spec).  The characters are
-		/// 
+		/// <param name="fieldSeparator">The field separator.</param>
+		/// <param name="encodingCharacters">
+		/// Consists of the characters that appear in
+		/// MSH-2 (see section 2.8 of the HL7 spec). The characters are
 		/// Component Separator, Repetition Separator, Escape Character, and
-		/// 
 		/// Subcomponent Separator (in that order).
-		/// 
 		/// </param>
 		public EncodingCharacters(char fieldSeparator, String encodingCharacters)
 		{
@@ -167,7 +158,6 @@ namespace NHapi.Base.Parser
 			encChars[3] = other.SubcomponentSeparator;
 		}
 
-
 		/// <summary> 
 		/// Returns the encoding characters (not including field separator)
 		/// 
@@ -186,14 +176,11 @@ namespace NHapi.Base.Parser
 			return ret.ToString();
 		}
 
-
 		public virtual Object Clone()
 		{
 			return new EncodingCharacters(this);
 		}
 
-		/// <seealso cref="java.lang.Object.equals">
-		/// </seealso>
 		public override bool Equals(Object o)
 		{
 			if (o is EncodingCharacters)
@@ -216,41 +203,10 @@ namespace NHapi.Base.Parser
 			}
 		}
 
-		/// <seealso cref="java.lang.Object.hashCode">
-		/// </seealso>
 		public override int GetHashCode()
 		{
 			return 7 * (int)ComponentSeparator * (int)EscapeCharacter * (int)FieldSeparator * (int)RepetitionSeparator *
 					 (int)SubcomponentSeparator;
 		}
-
-		/// <summary> 
-		/// Test harness ...
-		/// 
-		/// </summary>
-
-		/*
-		
-        public static void main(String args[]) {
-		
-        String testChars = "^~\\&";
-		
-        String testChars2 = "$%*+";
-		
-		
-		
-        EncodingCharacters ec = new EncodingCharacters('|', testChars);
-		
-        System.out.println("test 1: " + ec.getFieldSeparator() + ec.toString());
-		
-        ec = new EncodingCharacters('|', testChars2);
-		
-        System.out.println("test 2: " + ec.getFieldSeparator() + ec.getComponentSeparator() + ec.getRepetitionSeparator() + ec.getEscapeCharacter() + ec.getSubcomponentSeparator());
-		
-        ec = new EncodingCharacters('[', null);
-		
-        System.out.println("test 3: " + ec.getFieldSeparator() + ec.toString());
-		
-        }*/
 	}
 }

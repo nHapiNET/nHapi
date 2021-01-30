@@ -34,29 +34,39 @@ using NHapi.Base.Util;
 
 namespace NHapi.Base.Model
 {
-   /// <summary> <p>Varies is a Type used as a placeholder for another Type in cases where 
+   /// <summary>
+   /// Varies is a Type used as a placeholder for another Type in cases where 
    /// the appropriate Type is not known until run-time (e.g. OBX-5).  
    /// Parsers and validators may have logic that enforces restrictions on the 
-   /// Type based on other features of a segment.</p>  
-   /// <p>If you want to set both the type and the values of a Varies object, you should
+   /// Type based on other features of a segment.
+   /// <para>
+   /// If you want to set both the type and the values of a Varies object, you should
    /// set the type first by calling setData(Type t), keeping a reference to your Type, 
-   /// and then set values by calling methods on the Type.  Here is an example:</p>
-   /// <p><code>CN cn = new CN();<br>
-   /// variesObject.setData(cn);<br>
-   /// cn.getIDNumber().setValue("foo");</code></p>
+   /// and then set values by calling methods on the Type.
+   /// </para>
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@users.sourceforge.net) 
-   /// </author>
+   /// <example>
+   /// <code>
+   /// CN cn = new CN();
+   /// variesObject.setData(cn);
+   /// cn.getIDNumber().setValue("foo");
+   /// </code>
+   /// </example>
+   /// <author>Bryan Tripp (bryan_tripp@users.sourceforge.net)</author>
    public class Varies : IType
 	{
-		/// <summary> Returns the data contained by this instance of Varies.  Returns a GenericPrimitive unless 
-		/// setData() has been called. 
-		/// </summary>
-		/// <summary> Sets the data contained by this instance of Varies.  If a data object already exists, 
-		/// then its values are copied to the incoming data object before the old one is replaced.  
-		/// For example, if getData() returns an ST with the value "19901012" and you call 
-		/// setData(new DT()), then subsequent calls to getData() will return the same DT, with the value 
-		/// set to "19901012".   
+		/// <summary>
+		/// <para>
+		/// GET => Returns the data contained by this instance of Varies.  Returns a GenericPrimitive unless
+		/// setData() has been called.
+		/// </para>
+		/// <para>
+		/// SET => Sets the data contained by this instance of Varies.  If a data object already exists,
+		/// then its values are copied to the incoming data object before the old one is replaced.
+		/// For example, if getData() returns an ST with the value "19901012" and you call
+		/// setData(new DT()), then subsequent calls to getData() will return the same DT, with the value
+		/// set to "19901012".
+		/// </para>
 		/// </summary>
 		public virtual IType Data
 		{
@@ -75,8 +85,6 @@ namespace NHapi.Base.Model
 			}
 		}
 
-		/// <seealso cref="Type.getName">
-		/// </seealso>
 		public virtual String TypeName
 		{
 			get
@@ -130,9 +138,8 @@ namespace NHapi.Base.Model
 		/// <summary> Creates new Varies. 
 		/// 
 		/// </summary>
-		/// <param name="message">message to which this type belongs
-		/// <param name="description">description of what this Type represents
-		/// </param>
+		/// <param name="message">message to which this type belongs</param>
+		/// <param name="description">description of what this Type represents</param>
 		public Varies(IMessage message, string description)
 		{
 			data = new GenericPrimitive(message);
@@ -172,9 +179,9 @@ namespace NHapi.Base.Model
 
 						Type type = factory.GetTypeClass(obx2.Value, segment.Message.Version);
 
-						if(type == null)
+						if (type == null)
 						{
-							var obx1 = (IPrimitive) segment.GetField(1, 0);
+							var obx1 = (IPrimitive)segment.GetField(1, 0);
 							var hl7Exception = new HL7Exception(
 								$"'{obx2.Value}' in record {obx1.Value} is invalid for version {segment.Message.Version}");
 
@@ -183,14 +190,16 @@ namespace NHapi.Base.Model
 
 							throw hl7Exception;
 						}
-						
-						try {
-							var constructor = type.GetConstructor(new[] {typeof(IMessage), typeof(String)});
-							v.Data = (IType) constructor.Invoke(new Object[] {v.Message, v.Description});
-						} catch (NullReferenceException _)
+
+						try
 						{
-							var constructor = type.GetConstructor(new[] {typeof(IMessage)});
-							v.Data = (IType) constructor.Invoke(new Object[] {v.Message});
+							var constructor = type.GetConstructor(new[] { typeof(IMessage), typeof(String) });
+							v.Data = (IType)constructor.Invoke(new Object[] { v.Message, v.Description });
+						}
+						catch (NullReferenceException _)
+						{
+							var constructor = type.GetConstructor(new[] { typeof(IMessage) });
+							v.Data = (IType)constructor.Invoke(new Object[] { v.Message });
 						}
 					}
 				}

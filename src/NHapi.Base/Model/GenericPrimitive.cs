@@ -2,13 +2,13 @@ using System;
 
 namespace NHapi.Base.Model
 {
-	/// <summary> An unspecified Primitive datatype that imposes no constraints on its string 
-	/// value.  This is used to store Varies data, when the data type is unknown.  It is also 
-	/// used to store unrecognized message constituents.  
-	/// </summary>
-	/// <author>  Bryan Tripp
-	/// </author>
-	public class GenericPrimitive : AbstractPrimitive, IPrimitive
+   /// <summary> An unspecified Primitive datatype that imposes no constraints on its string 
+   /// value.  This is used to store Varies data, when the data type is unknown.  It is also 
+   /// used to store unrecognized message constituents.  
+   /// </summary>
+   /// <author>  Bryan Tripp
+   /// </author>
+   public class GenericPrimitive : AbstractPrimitive, IPrimitive
 	{
 		/// <summary> Returns a String representation of the value of this field.</summary>
 		/// <summary> Sets the value of this field if the given value is legal in the context of the
@@ -28,8 +28,6 @@ namespace NHapi.Base.Model
 			get { return "UNKNOWN"; }
 		}
 
-		/// <seealso cref="NHapi.Base.Model.Primitive.getVersion()">
-		/// </seealso>
 		public virtual String Version
 		{
 			get { return null; }

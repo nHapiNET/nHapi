@@ -37,15 +37,17 @@ namespace NHapi.Base.validation.impl
    /// </version>
    public class SizeRule : IPrimitiveTypeRule
 	{
-		/// <seealso cref="NHapi.Base.validation.Rule.getDescription()">
-		/// </seealso>
+		/// <summary>
+		/// <seealso cref="IRule.Description" />
+		/// </summary>
 		public virtual String Description
 		{
 			get { return "Maximum size <= " + myMaxChars + " characters"; }
 		}
 
-		/// <seealso cref="NHapi.Base.validation.Rule.getSectionReference()">
-		/// </seealso>
+		/// <summary>
+		/// <seealso cref="IRule.SectionReference" />
+		/// </summary>
 		public virtual String SectionReference
 		{
 			get { return null; }
@@ -61,19 +63,18 @@ namespace NHapi.Base.validation.impl
 			myMaxChars = theMaxChars;
 		}
 
-		/// <summary> Does nothing.  If what you wanted was to trim the value to the max size, you should
+		/// <summary>
+		/// Does nothing. If what you wanted was to trim the value to the max size, you should
 		/// make a separate rule for that.  
-		/// 
 		/// </summary>
-		/// <seealso cref="NHapi.Base.validation.PrimitiveTypeRule.correct(java.lang.String)">
-		/// </seealso>
+		/// <seealso cref="IPrimitiveTypeRule.correct" />
+		/// <returns>The value that was passed in as <paramref name="value_Renamed"/>.</returns>
 		public virtual String correct(String value_Renamed)
 		{
 			return value_Renamed;
 		}
 
-		/// <seealso cref="NHapi.Base.validation.PrimitiveTypeRule.test(java.lang.String)">
-		/// </seealso>
+		/// <seealso cref="IPrimitiveTypeRule.test" />
 		public virtual bool test(String value_Renamed)
 		{
 			bool ok = true;

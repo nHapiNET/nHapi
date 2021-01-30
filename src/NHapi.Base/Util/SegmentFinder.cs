@@ -44,16 +44,17 @@ namespace NHapi.Base.Util
 		{
 		}
 
-		/// <summary> Returns the first segment with a name that matches the given pattern, in a depth-first search.  
+		/// <summary>
+		/// Returns the first segment with a name that matches the given pattern, in a depth-first search.
 		/// Repeated searches are initiated from the location just AFTER where the last segment was found.
 		/// Call reset() is this is not desired.  Note: this means that the current location will not be found.
 		/// </summary>
-		/// <param name="segmentName">the name of the segment to find.  The wildcad * means any number 
-		/// of arbitrary characters; the wildard ? one arbitrary character
+		/// <param name="namePattern">
+		/// The name of the segment to find. The wildcard * means any number 
+		/// of arbitrary characters; the wildcard ? one arbitrary character
 		/// (eg "P*" or "*ID" or "???" or "P??" would match on PID).
 		/// </param>
-		/// <param name="rep">the repetition of the segment to return
-		/// </param>
+		/// <param name="rep">the repetition of the segment to return.</param>
 		public virtual ISegment findSegment(String namePattern, int rep)
 		{
 			IStructure s = null;
@@ -92,18 +93,19 @@ namespace NHapi.Base.Util
 			return s;
 		}
 
-		/// <summary> Returns the first segment with a name matching the given pattern that is a sibling of
-		/// the structure at the current location.  Other parts of the message are
+		/// <summary>
+		/// Returns the first segment with a name matching the given pattern that is a sibling of
+		/// the structure at the current location. Other parts of the message are
 		/// not searched (in contrast to findSegment).
 		/// As a special case, if the pointer is at the root, the children of the root
 		/// are searched.
 		/// </summary>
-		/// <param name="segmentName">the name of the segment to get.  The wildcad * means any number 
-		/// of arbitrary characters; the wildard ? one arbitrary character
+		/// <param name="namePattern">
+		/// The name of the segment to get. The wildcard * means any number 
+		/// of arbitrary characters; the wildcard ? one arbitrary character
 		/// (eg "P*" or "*ID" or "???" or "P??" would match on PID).
 		/// </param>
-		/// <param name="rep">the repetition of the segment to return
-		/// </param>
+		/// <param name="rep">the repetition of the segment to return.</param>
 		public virtual ISegment getSegment(String namePattern, int rep)
 		{
 			IStructure s = GetStructure(namePattern, rep);
@@ -148,22 +150,6 @@ namespace NHapi.Base.Util
 			return s;
 		}
 
-		/// <summary> Tests whether the given name matches the given pattern.</summary>
-		/*private boolean matches(String pattern, String candidate) {
-        boolean matches = false;
-        boolean substring = false;
-        if (pattern.substring(0, 1).equals("*")) {
-        substring = true;
-        pattern = pattern.substring(1);
-        }
-		
-        if (substring && (candidate.indexOf(pattern) >= 0)) {
-        matches = true;
-        } else if (!substring && candidate.equals(pattern)) {
-        matches = true;
-        }
-        return matches;
-        }*/
 		/// <summary> Tests whether the given name matches the given pattern.</summary>
 		private bool matches(String pattern, String candidate)
 		{

@@ -3,29 +3,31 @@ using System.Collections;
 using System.IO;
 using System.Text;
 using System.Xml;
-using NHapi.Base;
-using NHapi.Base.Model;
+
 using NHapi.Base.Log;
+using NHapi.Base.Model;
 
 namespace NHapi.Base.Parser
 {
-	/// <summary> <p>A default XMLParser.  This class assigns segment elements (in an XML-encoded message) 
-	/// to Segment objects (in a Message object) using the name of a segment and the names 
-	/// of any groups in which the segment is nested.  The names of group classes must correspond
-	/// to the names of group elements (they must be identical except that a dot in the element 
-	/// name, following the message name, is replaced with an underscore, in order to consitute a 
-	/// valid class name). </p>
-	/// <p>At the time of writing, the group names in the XML spec are changing.  Many of the group 
-	/// names have been automatically generated based on the group contents.  However, these automatic 
-	/// names are gradually being replaced with manually assigned names.  This process is expected to 
-	/// be complete by November 2002.  As a result, mismatches are likely.  Messages could be  
-	/// transformed prior to parsing (using XSLT) as a work-around.  Alternatively the group class names 
-	/// could be changed to reflect updates in the XML spec.  Ultimately, HAPI group classes will be 
-	/// changed to correspond with the official group names, once these are all assigned.  </p>
-	/// </summary>
-	/// <author>  Bryan Tripp
-	/// </author>
-	public class DefaultXMLParser : XMLParser
+   /// <summary>
+   /// A default XMLParser. This class assigns segment elements (in an XML-encoded message) 
+   /// to Segment objects (in a Message object) using the name of a segment and the names 
+   /// of any groups in which the segment is nested. The names of group classes must correspond
+   /// to the names of group elements (they must be identical except that a dot in the element 
+   /// name, following the message name, is replaced with an underscore, in order to constitute a 
+   /// valid class name).
+   /// </summary>
+   /// <remarks>
+   /// At the time of writing, the group names in the XML spec are changing. Many of the group 
+   /// names have been automatically generated based on the group contents. However, these automatic 
+   /// names are gradually being replaced with manually assigned names. This process is expected to 
+   /// be complete by November 2002. As a result, mismatches are likely. Messages could be  
+   /// transformed prior to parsing (using XSLT) as a work-around. Alternatively the group class names 
+   /// could be changed to reflect updates in the XML spec.  Ultimately, HAPI group classes will be 
+   /// changed to correspond with the official group names, once these are all assigned.
+   /// </remarks>
+   /// <author>Bryan Tripp</author>
+   public class DefaultXMLParser : XMLParser
 	{
 		private static readonly IHapiLog log;
 
@@ -62,7 +64,7 @@ namespace NHapi.Base.Parser
 				throw new HL7Exception("Can't create XML document - " + e.GetType().FullName,
 					ErrorCode.APPLICATION_INTERNAL_ERROR, e);
 			}
-			Encode(source, (XmlElement) doc.DocumentElement);
+			Encode(source, (XmlElement)doc.DocumentElement);
 			return doc;
 		}
 
@@ -88,11 +90,11 @@ namespace NHapi.Base.Parser
 						if (reps[j] is IGroup)
 						{
 							hasValue = true;
-							Encode((IGroup) reps[j], childElement);
+							Encode((IGroup)reps[j], childElement);
 						}
 						else if (reps[j] is ISegment)
 						{
-							hasValue = Encode((ISegment) reps[j], childElement);
+							hasValue = Encode((ISegment)reps[j], childElement);
 						}
 
 						if (hasValue)
@@ -126,9 +128,9 @@ namespace NHapi.Base.Parser
 		/// </summary>
 		public override IMessage ParseDocument(XmlDocument XMLMessage, String version)
 		{
-			String messageName = ((XmlElement) XMLMessage.DocumentElement).Name;
+			String messageName = ((XmlElement)XMLMessage.DocumentElement).Name;
 			IMessage message = InstantiateMessage(messageName, version, true);
-			Parse(message, (XmlElement) XMLMessage.DocumentElement);
+			Parse(message, (XmlElement)XMLMessage.DocumentElement);
 			return message;
 		}
 
@@ -146,13 +148,13 @@ namespace NHapi.Base.Parser
 			{
 				XmlNode node = allChildNodes.Item(i);
 				String name = node.Name;
-				if (Convert.ToInt16(node.NodeType) == (short) XmlNodeType.Element && !unparsedElementList.Contains(name))
+				if (Convert.ToInt16(node.NodeType) == (short)XmlNodeType.Element && !unparsedElementList.Contains(name))
 				{
 					unparsedElementList.Add(name);
 				}
 			}
 
-			//we're not too fussy about order here (all occurances get parsed as repetitions) ... 
+			//we're not too fussy about order here (all occurrences get parsed as repetitions) ... 
 			for (int i = 0; i < childNames.Length; i++)
 			{
 				SupportClass.ICollectionSupport.Remove(unparsedElementList, childNames[i]);
@@ -161,7 +163,7 @@ namespace NHapi.Base.Parser
 
 			for (int i = 0; i < unparsedElementList.Count; i++)
 			{
-				String segName = (String) unparsedElementList[i];
+				String segName = (String)unparsedElementList[i];
 				String segIndexName = groupObject.addNonstandardSegment(segName);
 				ParseReps(groupElement, groupObject, messageName, segName, segIndexName);
 			}
@@ -178,14 +180,14 @@ namespace NHapi.Base.Parser
 			{
 				for (int i = 0; i < reps.Count; i++)
 				{
-					ParseRep((XmlElement) reps[i], groupObject.GetStructure(childIndexName, i));
+					ParseRep((XmlElement)reps[i], groupObject.GetStructure(childIndexName, i));
 				}
 			}
 			else
 			{
 				if (reps.Count > 0)
 				{
-					ParseRep((XmlElement) reps[0], groupObject.GetStructure(childIndexName, 0));
+					ParseRep((XmlElement)reps[0], groupObject.GetStructure(childIndexName, 0));
 				}
 
 				if (reps.Count > 1)
@@ -193,7 +195,7 @@ namespace NHapi.Base.Parser
 					String newIndexName = groupObject.addNonstandardSegment(childName);
 					for (int i = 1; i < reps.Count; i++)
 					{
-						ParseRep((XmlElement) reps[i], groupObject.GetStructure(newIndexName, i - 1));
+						ParseRep((XmlElement)reps[i], groupObject.GetStructure(newIndexName, i - 1));
 					}
 				}
 			}
@@ -203,11 +205,11 @@ namespace NHapi.Base.Parser
 		{
 			if (theObj is IGroup)
 			{
-				Parse((IGroup) theObj, theElem);
+				Parse((IGroup)theObj, theElem);
 			}
 			else if (theObj is ISegment)
 			{
-				Parse((ISegment) theObj, theElem);
+				Parse((ISegment)theObj, theElem);
 			}
 			log.Debug("Parsed element: " + theElem.Name);
 		}
@@ -221,7 +223,7 @@ namespace NHapi.Base.Parser
 			for (int i = 0; i < children.Count; i++)
 			{
 				XmlNode child = children.Item(i);
-				if (Convert.ToInt16(child.NodeType) == (short) XmlNodeType.Element && child.Name.Equals(theName))
+				if (Convert.ToInt16(child.NodeType) == (short)XmlNodeType.Element && child.Name.Equals(theName))
 				{
 					result.Add(child);
 				}
@@ -230,20 +232,13 @@ namespace NHapi.Base.Parser
 			return result;
 		}
 
-		/// <summary> Given the name of a group element in an XML message, returns the corresponding 
-		/// group class name.  This name is identical except in order to be a valid class 
-		/// name, the dot character immediately following the message name is replaced with 
-		/// an underscore.  For example, there is a group element called ADT_A01.INSURANCE and the 
-		/// corresponding group Class is called ADT_A01_INSURANCE. 
-		/// </summary>
-		//    protected static String makeGroupClassName(String elementName) {
-		//        return elementName.replace('.', '_');
-		//    }
-		/// <summary> Given the name of a message and a Group class, returns the corresponding group element name in an 
-		/// XML-encoded message.  This is the message name and group name separated by a dot. For example, 
+		/// <summary>
+		/// Given the name of a message and a Group class, returns the corresponding group element name in an 
+		/// XML-encoded message. This is the message name and group name separated by a dot. For example, 
 		/// ADT_A01.INSURANCE.
-		/// 
-		/// If it looks like a segment name (i.e. has 3 characters), no change is made. 
+		/// <para>
+		/// If it looks like a segment name (ie: has 3 characters), no change is made.
+		/// </para>
 		/// </summary>
 		protected internal static String MakeGroupElementName(String messageName, String className)
 		{
@@ -285,9 +280,9 @@ namespace NHapi.Base.Parser
 				FileInfo messageFile = new FileInfo(args[0]);
 				long fileLength = SupportClass.FileLength(messageFile);
 				StreamReader r = new StreamReader(messageFile.FullName, Encoding.Default);
-				char[] cbuf = new char[(int) fileLength];
-				Console.Out.WriteLine("Reading message file ... " + r.Read((Char[]) cbuf, 0, cbuf.Length) + " of " + fileLength +
-				                      " chars");
+				char[] cbuf = new char[(int)fileLength];
+				Console.Out.WriteLine("Reading message file ... " + r.Read((Char[])cbuf, 0, cbuf.Length) + " of " + fileLength +
+											 " chars");
 				r.Close();
 				String messString = Convert.ToString(cbuf);
 
@@ -321,7 +316,7 @@ namespace NHapi.Base.Parser
 
 		static DefaultXMLParser()
 		{
-			log = HapiLogFactory.GetHapiLog(typeof (DefaultXMLParser));
+			log = HapiLogFactory.GetHapiLog(typeof(DefaultXMLParser));
 		}
 	}
 }

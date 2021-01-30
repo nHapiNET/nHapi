@@ -82,11 +82,9 @@ namespace NHapi.Base.Parser
 			get { return _modelClassFactory; }
 		}
 
-		/// <returns> the set of validation rules that is applied to messages parsed or encoded by this parser
-		/// </returns>
-		/// <param name="theContext">the set of validation rules to be applied to messages parsed or 
-		/// encoded by this parser (defaults to ValidationContextFactory.DefaultValidation)
-		/// </param>
+		/// <summary>
+		/// Gets or sets the set of validation rules that is applied to messages parsed or encoded by this parser.
+		/// </summary>
 		public virtual IValidationContext ValidationContext
 		{
 			get { return _validationContext; }
@@ -225,14 +223,7 @@ namespace NHapi.Base.Parser
 		/// </summary>
 		/// <param name="source">a Message object from which to construct an encoded message string 
 		/// </param>
-		/// <param name="encoding">the name of the encoding to use (eg "XML"; most implementations support only one 
-		/// encoding) 
-		/// </param>
-		/// <returns> the encoded message 
-		/// </returns>
-		/// <throws>  HL7Exception if the data fields in the message do not permit encoding  </throws>
-		/// <summary>      (e.g. required fields are null)
-		/// </summary>
+		/// <returns>The encoded message.</returns>
 		public virtual String Encode(IMessage source)
 		{
 			String encoding = DefaultEncoding;
@@ -376,7 +367,7 @@ namespace NHapi.Base.Parser
 			}
 			catch (IOException ioe)
 			{
-				throw new HL7Exception("Unable to access message strutures", ioe);
+				throw new HL7Exception("Unable to access message structures", ioe);
 			}
 
 			if (p == null)
@@ -393,23 +384,18 @@ namespace NHapi.Base.Parser
 		}
 
 
-		/// <summary> Note that the validation context of the resulting message is set to this parser's validation 
-		/// context.  The validation context is used within Primitive.setValue().
-		/// 
+		/// <summary>
+		/// Note that the validation context of the resulting message is set to this parser's validation 
+		/// context. The validation context is used within Primitive.setValue().
 		/// </summary>
-		/// <param name="name">name of the desired structure in the form XXX_YYY
-		/// </param>
-		/// <param name="version">HL7 version (e.g. "2.3")  
-		/// </param>
-		/// <param name="isExplicit">true if the structure was specified explicitly in MSH-9-3, false if it 
+		/// <param name="theName">name of the desired structure in the form XXX_YYY.</param>
+		/// <param name="theVersion">HL7 version (e.g. "2.3").</param>
+		/// <param name="isExplicit">
+		/// true if the structure was specified explicitly in MSH-9-3, false if it 
 		/// was inferred from MSH-9-1 and MSH-9-2.  If false, a lookup may be performed to find 
-		/// an alternate structure corresponding to that message type and event.   
+		/// an alternate structure corresponding to that message type and event.
 		/// </param>
-		/// <returns> a Message instance 
-		/// </returns>
-		/// <throws>  HL7Exception if the version is not recognized or no appropriate class can be found or the Message  </throws>
-		/// <summary>      class throws an exception on instantiation (e.g. if args are not as expected) 
-		/// </summary>
+		/// <returns>a Message instance.</returns>
 		protected internal virtual IMessage InstantiateMessage(String theName, String theVersion, bool isExplicit)
 		{
 			IMessage result = null;

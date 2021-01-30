@@ -27,30 +27,36 @@
 
 namespace NHapi.Base.Model.Primitive
 {
-   /// <summary> This class contains functionality used by the ID class
+   /// <summary>
+   /// <para>
+   /// This class contains functionality used by the ID class
    /// in the version 2.3.0, 2.3.1, 2.4, and 2.5 packages
+   /// </para>
    /// 
+   /// <para>
    /// Note: The class description below has been excerpted from the Hl7 2.4 documentation. Sectional
    /// references made below also refer to the same documentation.
+   /// </para>
    /// 
+   /// <para>
    /// The value of such a field follows the formatting rules for an ST field except
    /// that it is drawn from a table of legal values. There shall be an HL7 table number
    /// associated with ID data types. An example of an ID field is OBR-25-result status.
    /// This data type should be used only for HL7 tables (see Section 2.7.6, "Table").
    /// The reverse is not true, since in some circumstances it is more appropriate to use
    /// the CE data type for HL7 tables.
-   /// 
+   /// </para>
    /// </summary>
-   /// <author>  <a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a>
-   /// </author>
-   /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
-   /// </author>
-   /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/08 00:28:25 $ by $Author: bryan_tripp $
+   /// <author><a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a></author>
+   /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
+   /// <version>
+   /// $Revision: 1.3 $ updated on $Date: 2005/06/08 00:28:25 $ by $Author: bryan_tripp $
    /// </version>
    public abstract class ID : AbstractPrimitive
 	{
-		/// <returns> number of HL7 table from which values should be drawn (defaults to 0) 
-		/// </returns>
+		/// <summary>
+		/// Gets or sets the number of the HL7 table from which values should be drawn (defaults to 0).
+		/// </summary>
 		public virtual int Table
 		{
 			get { return myTable; }
@@ -60,14 +66,18 @@ namespace NHapi.Base.Model.Primitive
 
 		private int myTable = 0;
 
-		/// <summary>Construct the type</summary>
-		/// <param name="theMessage">message to which this Type belongs</param>
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ID"/> class.
+		/// </summary>
+		/// <param name="theMessage">message to which this Type belongs.</param>
 		protected ID(IMessage theMessage)
 			: base(theMessage)
 		{
 		}
 
-		///<summary>Construct the type</summary>
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ID"/> class.
+		/// </summary>
 		///<param name="theMessage">message to which this Type belongs</param>
 		///<param name="description">The description of this type</param>
 		protected ID(IMessage theMessage, string description)
@@ -75,6 +85,9 @@ namespace NHapi.Base.Model.Primitive
 		{
 		}
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ID"/> class.
+		/// </summary>
 		/// <param name="theMessage">message to which this Type belongs</param>
 		/// <param name="theTable">HL7 table from which values are to be drawn</param>
 		protected ID(IMessage theMessage, int theTable)
@@ -83,8 +96,12 @@ namespace NHapi.Base.Model.Primitive
 			myTable = theTable;
 		}
 
-		/// <param name="theMessage">message to which this Type belongs</param>
-		/// <param name="theTable">HL7 table from which values are to be drawn</param>
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ID"/> class.
+		/// </summary>
+		/// <param name="message">message to which this Type belongs.</param>
+		/// <param name="theTable">HL7 table from which values are to be drawn.</param>
+		/// <param name="description"></param>
 		protected ID(IMessage message, int theTable, string description)
 			: base(message, description)
 		{
