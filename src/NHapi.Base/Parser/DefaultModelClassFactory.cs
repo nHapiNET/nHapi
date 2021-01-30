@@ -176,7 +176,9 @@ namespace NHapi.Base.Parser
 				}
 			}
 
-			//There is a bug when you start loading the hash table, another thread can start to access the table before it finishes loading.  
+			// There is a bug when you start loading the hash table, another thread
+			// can start to access the table before it finishes loading.
+			// TODO: Consider using Lazy<T> instead.
 			if (_isLoadingPackages)
 			{
 				Thread.Sleep(100);

@@ -48,8 +48,8 @@ namespace NHapi.Base.Model
    /// <example>
    /// <code>
    /// CN cn = new CN();
-   /// variesObject.setData(cn);
-   /// cn.getIDNumber().setValue("foo");
+   /// variesObject.Data = cn;
+   /// cn.IDNumber.Value = "foo";
    /// </code>
    /// </example>
    /// <author>Bryan Tripp (bryan_tripp@users.sourceforge.net)</author>

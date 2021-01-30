@@ -396,6 +396,7 @@ namespace NHapi.Base.Parser
 		/// an alternate structure corresponding to that message type and event.
 		/// </param>
 		/// <returns>a Message instance.</returns>
+		/// <exception cref="HL7Exception">Thrown when the version is not recognized or no appropriate class can be found or the Message.</exception>
 		protected internal virtual IMessage InstantiateMessage(String theName, String theVersion, bool isExplicit)
 		{
 			IMessage result = null;

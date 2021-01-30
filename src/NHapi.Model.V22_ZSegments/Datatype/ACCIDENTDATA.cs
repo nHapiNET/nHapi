@@ -1,19 +1,20 @@
 using System;
-using NHapi.Base.Model;
-using NHapi.Base.Log;
+
 using NHapi.Base;
-using NHapi.Model.V22;
+using NHapi.Base.Log;
+using NHapi.Base.Model;
 using NHapi.Model.V22.Datatype;
 
 namespace NHapi.Model.V22_ZSegments.Datatype
 {
-	///<summary>
-	/// <p>The HL7 ACCIDENTDATA data type.  Consists of the following components: </p><ol>
-	/// <li>file number (ID)</li>
-	/// <li>text (ST)</li>
-	/// </ol>
-	///</summary>
-	[Serializable]
+   ///<summary>
+   /// The HL7 ACCIDENTDATA data type.  Consists of the following components:
+   /// <ol>
+   /// <li>file number (ID)</li>
+   /// <li>text (ST)</li>
+   /// </ol>
+   ///</summary>
+   [Serializable]
 	public class ACCIDENTDATA : AbstractType, IComposite
 	{
 		#region Fields
@@ -23,18 +24,20 @@ namespace NHapi.Model.V22_ZSegments.Datatype
 		#endregion
 
 		#region Constructor
-		
-		///<summary>
-		/// Creates a ACCIDENTDATA.
-		/// <param name="message">The Message to which this Type belongs</param>
-		///</summary>
-		public ACCIDENTDATA(IMessage message) : this(message, null){}		
 
 		///<summary>
 		/// Creates a ACCIDENTDATA.
 		/// <param name="message">The Message to which this Type belongs</param>
+		///</summary>
+		public ACCIDENTDATA(IMessage message) : this(message, null) { }
+
+		///<summary>
+		/// Creates a ACCIDENTDATA.
 		///</summary>		
-		public ACCIDENTDATA(IMessage message, string description) : base(message, description){
+		/// <param name="message">The Message to which this Type belongs</param>
+		/// <param name="description"></param>
+		public ACCIDENTDATA(IMessage message, string description) : base(message, description)
+		{
 			data = new IType[2];
 			data[0] = new ID(message, 0, "File number");
 			data[1] = new ST(message, "Text");
@@ -48,34 +51,33 @@ namespace NHapi.Model.V22_ZSegments.Datatype
 		/// Returns an array containing the data elements.
 		///</summary>
 		public IType[] Components
-		{ 
+		{
 			get
 			{
-				return this.data; 
+				return this.data;
 			}
 		}
 
 		///<summary>
 		/// Returns an individual data component.
-		/// @throws DataTypeException if the given element number is out of range.
-		///<param name="number">The ordinal item to get</param>
+		///</summary>
 		///<returns>The data component (as a type) at the requested number (ordinal)</returns>
-		///<summary>
-		public IType this[int index] 
+		///<exception cref="DataTypeException">Thrown if the given element number is out of range.</exception>
+		public IType this[int index]
 		{
 			get
 			{
-				try 
+				try
 				{
-					return this.data[index]; 
-				} 
+					return this.data[index];
+				}
 				catch (System.ArgumentOutOfRangeException)
 				{
-					throw new DataTypeException("Element " + index + " doesn't exist in 8 element AD composite"); 
-				} 
-			} 
+					throw new DataTypeException("Element " + index + " doesn't exist in 8 element AD composite");
+				}
+			}
 		}
-		
+
 		///<summary>
 		/// Returns file number (component #1).  
 		/// This is a convenience method that saves you from 
@@ -93,7 +95,7 @@ namespace NHapi.Model.V22_ZSegments.Datatype
 				catch (DataTypeException e)
 				{
 					HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
-					throw new System.Exception("An unexpected error ocurred",e);
+					throw new System.Exception("An unexpected error occurred", e);
 				}
 				return ret;
 			}
@@ -116,7 +118,7 @@ namespace NHapi.Model.V22_ZSegments.Datatype
 				catch (DataTypeException e)
 				{
 					HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem accessing known data type component - this is a bug.", e);
-					throw new System.Exception("An unexpected error ocurred",e);
+					throw new System.Exception("An unexpected error occurred", e);
 				}
 				return ret;
 			}

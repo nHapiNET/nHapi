@@ -50,12 +50,12 @@ namespace NHapi.Base.Model
 			return comps.Count;
 		}
 
-		/// <summary>Returns the number of existing reps of a given extra component </summary>
-		/// <summary> Returns the component at the given location, creating it 
-		/// and all preceding components if necessary.  
+		/// <summary>
+		/// Returns the component at the given location, creating it 
+		/// and all preceding components if necessary.
 		/// </summary>
-		/// <param name="comp">the extra component number starting at 0 (i.e. 0 is the first 
-		/// extra component)
+		/// <param name="comp">
+		/// The extra component number starting at 0 (i.e. 0 is the first extra component).
 		/// </param>
 		public virtual Varies getComponent(int comp)
 		{

@@ -50,6 +50,7 @@ namespace NHapi.Base.Model.Primitive
 			}
 		}
 
+		/// <inheritdoc />
 		public override String Value
 		{
 			get

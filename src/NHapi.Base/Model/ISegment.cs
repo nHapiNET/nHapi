@@ -37,7 +37,7 @@ namespace NHapi.Base.Model
 		/// Returns the array of Fields at the specified index.  The array will be of length 1 for
 		/// non-repeating fields, and >1 for repeating fields.  Fields are numbered from 1.
 		/// </summary>
-		/// <throws>  HL7Exception if field index is out of range. </throws>
+		/// <exception cref="HL7Exception">Thrown when field index is out of range.</exception>
 		IType[] GetField(int number);
 
 		/// <summary>

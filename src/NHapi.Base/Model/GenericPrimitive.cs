@@ -28,6 +28,9 @@ namespace NHapi.Base.Model
 			get { return "UNKNOWN"; }
 		}
 
+		/// <summary>
+		/// Gets the version.
+		/// </summary>
 		public virtual String Version
 		{
 			get { return null; }
