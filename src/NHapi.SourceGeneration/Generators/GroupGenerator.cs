@@ -1,44 +1,50 @@
-/// <summary>The contents of this file are subject to the Mozilla Public License Version 1.1 
-/// (the "License"); you may not use this file except in compliance with the License. 
-/// You may obtain a copy of the License at http://www.mozilla.org/MPL/ 
-/// Software distributed under the License is distributed on an "AS IS" basis, 
-/// WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the 
-/// specific language governing rights and limitations under the License. 
-/// The Original Code is "GroupGenerator.java".  Description: 
-/// "Creates source code for Group classes - these are aggregations of 
-/// segments and/or other groups that may repeat together within a message.
-/// Source code is generated from the normative database" 
-/// The Initial Developer of the Original Code is University Health Network. Copyright (C) 
-/// 2001.  All Rights Reserved. 
-/// Contributor(s):  Eric Poiseau. 
-/// Alternatively, the contents of this file may be used under the terms of the 
-/// GNU General Public License (the  “GPL”), in which case the provisions of the GPL are 
-/// applicable instead of those above.  If you wish to allow use of your version of this 
-/// file only under the terms of the GPL and not to allow others to use your version 
-/// of this file under the MPL, indicate your decision by deleting  the provisions above 
-/// and replace  them with the notice and other provisions required by the GPL License.  
-/// If you do not delete the provisions above, a recipient may use your version of 
-/// this file under either the MPL or the GPL. 
-/// </summary>
+/*
+  The contents of this file are subject to the Mozilla Public License Version 1.1 
+  (the "License"); you may not use this file except in compliance with the License. 
+  You may obtain a copy of the License at http://www.mozilla.org/MPL/ 
+  Software distributed under the License is distributed on an "AS IS" basis, 
+  WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the 
+  specific language governing rights and limitations under the License. 
+  
+  The Original Code is "GroupGenerator.java".  Description: 
+  "Creates source code for Group classes - these are aggregations of 
+  segments and/or other groups that may repeat together within a message.
+  Source code is generated from the normative database" 
+  
+  The Initial Developer of the Original Code is University Health Network. Copyright (C) 
+  2001.  All Rights Reserved. 
+  
+  Contributor(s):  Eric Poiseau. 
+  
+  Alternatively, the contents of this file may be used under the terms of the 
+  GNU General Public License (the "GPL"), in which case the provisions of the GPL are 
+  applicable instead of those above.  If you wish to allow use of your version of this 
+  file only under the terms of the GPL and not to allow others to use your version 
+  of this file under the MPL, indicate your decision by deleting  the provisions above 
+  and replace  them with the notice and other provisions required by the GPL License.  
+  If you do not delete the provisions above, a recipient may use your version of 
+  this file under either the MPL or the GPL. 
+*/
 
 using System;
 using System.IO;
 using System.Text;
+
 using NHapi.Base;
 using NHapi.Base.Log;
 
 namespace NHapi.SourceGeneration.Generators
 {
-	/// <summary> Creates source code for Group classes - these are aggregations of 
-	/// segments and/or other groups that may repeat together within a message.
-	/// Source code is generated from the normative database.  
-	/// 
-	/// </summary>
-	/// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
-	/// </author>
-	/// <author>  Eric Poiseau
-	/// </author>
-	public class GroupGenerator : Object
+   /// <summary> Creates source code for Group classes - these are aggregations of 
+   /// segments and/or other groups that may repeat together within a message.
+   /// Source code is generated from the normative database.  
+   /// 
+   /// </summary>
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// </author>
+   /// <author>  Eric Poiseau
+   /// </author>
+   public class GroupGenerator : Object
 	{
 		private static readonly IHapiLog log;
 
@@ -51,7 +57,7 @@ namespace NHapi.SourceGeneration.Generators
 		/// describes the Group's name, optionality, repeatability.  The source 
 		/// code is written under the given directory.
 		/// The structures list may contain [] and {} pairs representing 
-		/// nested groups and their optionality and repeastability.  In these cases
+		/// nested groups and their optionality and repeatability.  In these cases
 		/// this method is called recursively.
 		/// If the given structures list begins and ends with repetition and/or 
 		/// optionality markers the repetition and optionality of the returned 
@@ -154,7 +160,7 @@ namespace NHapi.SourceGeneration.Generators
 					if (currSegName.Equals("[") || currSegName.Equals("{") || currSegName.Equals("[{"))
 					{
 						//this is the opening of a new group ... 
-						String name = ((SegmentDef) structures[currLongListPos]).GroupName;
+						String name = ((SegmentDef)structures[currLongListPos]).GroupName;
 						int endOfNewGroup = findGroupEnd(structures, currLongListPos);
 						IStructureDef[] newGroupStructures = new IStructureDef[endOfNewGroup - currLongListPos + 1];
 						Array.Copy(structures, currLongListPos, newGroupStructures, 0, newGroupStructures.Length);
@@ -236,14 +242,14 @@ namespace NHapi.SourceGeneration.Generators
 			preamble.Append("using System;\r\n");
 			preamble.Append("using System.Collections.Generic;\r\n");
 			preamble.Append("using ");
-			preamble.Append((string) PackageManager.GetVersionPackageName(version));
+			preamble.Append((string)PackageManager.GetVersionPackageName(version));
 			preamble.Append("Segment;\r\n");
 			preamble.Append("using ");
-			preamble.Append((string) PackageManager.GetVersionPackageName(version));
+			preamble.Append((string)PackageManager.GetVersionPackageName(version));
 			preamble.Append("Datatype;\r\n");
 			preamble.Append("using NHapi.Base.Model;\r\n\r\n");
 			preamble.Append("namespace ");
-			preamble.Append((string) PackageManager.GetVersionPackageName(version));
+			preamble.Append((string)PackageManager.GetVersionPackageName(version));
 			preamble.Append("Group\n");
 			preamble.Append("{\r\n");
 			preamble.Append("///<summary>\r\n");
@@ -362,7 +368,7 @@ namespace NHapi.SourceGeneration.Generators
 
 			if (def is GroupDef)
 			{
-				String unqualifiedName = ((GroupDef) def).UnqualifiedName;
+				String unqualifiedName = ((GroupDef)def).UnqualifiedName;
 				getterName = group.getIndexName(unqualifiedName);
 			}
 
@@ -507,7 +513,7 @@ namespace NHapi.SourceGeneration.Generators
 				source.Append("\t}\r\n");
 
 				source.Append("\r\n");
-	}
+			}
 
 			return source.ToString();
 		}
@@ -587,7 +593,7 @@ namespace NHapi.SourceGeneration.Generators
 
 		static GroupGenerator()
 		{
-			log = HapiLogFactory.GetHapiLog(typeof (GroupGenerator));
+			log = HapiLogFactory.GetHapiLog(typeof(GroupGenerator));
 		}
 	}
 }

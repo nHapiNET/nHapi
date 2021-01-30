@@ -1,28 +1,28 @@
-/// <summary> The contents of this file are subject to the Mozilla Public License Version 1.1
-/// (the "License"); you may not use this file except in compliance with the License.
-/// You may obtain a copy of the License at http://www.mozilla.org/MPL/
-/// Software distributed under the License is distributed on an "AS IS" basis,
-/// WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
-/// specific language governing rights and limitations under the License.
-/// 
-/// The Original Code is "MessageGenerator.java".  Description:
-/// "Creates source code for HL7 Message objects, using the normative DB"
-/// 
-/// The Initial Developer of the Original Code is University Health Network. Copyright (C)
-/// 2001.  All Rights Reserved.
-/// 
-/// Contributor(s):  Eric Poiseau. 
-/// 
-/// Alternatively, the contents of this file may be used under the terms of the
-/// GNU General Public License (the  “GPL”), in which case the provisions of the GPL are
-/// applicable instead of those above.  If you wish to allow use of your version of this
-/// file only under the terms of the GPL and not to allow others to use your version
-/// of this file under the MPL, indicate your decision by deleting  the provisions above
-/// and replace  them with the notice and other provisions required by the GPL License.
-/// If you do not delete the provisions above, a recipient may use your version of
-/// this file under either the MPL or the GPL.
-/// 
-/// </summary>
+/*
+  The contents of this file are subject to the Mozilla Public License Version 1.1
+  (the "License"); you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at http://www.mozilla.org/MPL/
+  Software distributed under the License is distributed on an "AS IS" basis,
+  WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
+  specific language governing rights and limitations under the License.
+  
+  The Original Code is "MessageGenerator.java".  Description:
+  "Creates source code for HL7 Message objects, using the normative DB"
+  
+  The Initial Developer of the Original Code is University Health Network. Copyright (C)
+  2001.  All Rights Reserved.
+  
+  Contributor(s):  Eric Poiseau. 
+  
+  Alternatively, the contents of this file may be used under the terms of the
+  GNU General Public License (the  “GPL”), in which case the provisions of the GPL are
+  applicable instead of those above.  If you wish to allow use of your version of this
+  file only under the terms of the GPL and not to allow others to use your version
+  of this file under the MPL, indicate your decision by deleting  the provisions above
+  and replace  them with the notice and other provisions required by the GPL License.
+  If you do not delete the provisions above, a recipient may use your version of
+  this file under either the MPL or the GPL.
+*/
 
 using System;
 using System.Collections;
@@ -30,20 +30,21 @@ using System.Data.Common;
 using System.Data.Odbc;
 using System.IO;
 using System.Text;
+
 using NHapi.Base;
 using NHapi.Base.Log;
 
 namespace NHapi.SourceGeneration.Generators
 {
-	/// <summary> Creates source code for HL7 Message objects, using the normative DB.  HL7 Group
-	/// objects are also created as a byproduct.
-	/// 
-	/// </summary>
-	/// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
-	/// </author>
-	/// <author>  Eric Poiseau
-	/// </author>
-	public class MessageGenerator : Object
+   /// <summary> Creates source code for HL7 Message objects, using the normative DB.  HL7 Group
+   /// objects are also created as a byproduct.
+   /// 
+   /// </summary>
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// </author>
+   /// <author>  Eric Poiseau
+   /// </author>
+   public class MessageGenerator : Object
 	{
 		/// <summary> If the system property by this name is true, groups are generated to use a ModelClassFactory
 		/// for segment class lookup.  This makes segment creation more flexible, but may slow down parsing 
@@ -87,8 +88,8 @@ namespace NHapi.SourceGeneration.Generators
 
 				for (int i = 0; i < messages.Count; i++)
 				{
-					string message = (String) messages[i];
-					string chapter = (String) chapters[i];
+					string message = (String)messages[i];
+					string chapter = (String)chapters[i];
 					make(message, baseDirectory, chapter, version);
 				}
 			}
@@ -101,13 +102,13 @@ namespace NHapi.SourceGeneration.Generators
 		{
 			// UNION because the messages are defined in different tables for different versions.
 			return "SELECT distinct  [message_type]+'_'+[event_code] AS msg_struct, '[AAA]'" +
-			       " FROM HL7Versions RIGHT JOIN HL7EventMessageTypeSegments ON HL7EventMessageTypeSegments.version_id = HL7Versions.version_id " +
-			       "WHERE HL7Versions.hl7_version ='" + version + "' and Not (message_type='ACK') " + "UNION " +
-			       "select distinct HL7MsgStructIDs.message_structure, [section] from HL7Versions RIGHT JOIN (HL7MsgStructIDSegments " +
-			       " inner join HL7MsgStructIDs on HL7MsgStructIDSegments.message_structure = HL7MsgStructIDs.message_structure " +
-			       " and HL7MsgStructIDSegments.version_id = HL7MsgStructIDs.version_id) " +
-			       " ON HL7MsgStructIDSegments.version_id = HL7Versions.version_id " + " where HL7Versions.hl7_version = '" +
-			       version + "' and HL7MsgStructIDs.message_structure not like 'ACK_%'"; //note: allows "ACK" itself
+					 " FROM HL7Versions RIGHT JOIN HL7EventMessageTypeSegments ON HL7EventMessageTypeSegments.version_id = HL7Versions.version_id " +
+					 "WHERE HL7Versions.hl7_version ='" + version + "' and Not (message_type='ACK') " + "UNION " +
+					 "select distinct HL7MsgStructIDs.message_structure, [section] from HL7Versions RIGHT JOIN (HL7MsgStructIDSegments " +
+					 " inner join HL7MsgStructIDs on HL7MsgStructIDSegments.message_structure = HL7MsgStructIDs.message_structure " +
+					 " and HL7MsgStructIDSegments.version_id = HL7MsgStructIDs.version_id) " +
+					 " ON HL7MsgStructIDSegments.version_id = HL7Versions.version_id " + " where HL7Versions.hl7_version = '" +
+					 version + "' and HL7MsgStructIDs.message_structure not like 'ACK_%'"; //note: allows "ACK" itself
 		}
 
 		/// <summary> Creates source code for a specific message structure and
@@ -154,7 +155,7 @@ namespace NHapi.SourceGeneration.Generators
 				log.Error("Error while creating source code", e);
 
 				log.Warn("Warning: could not write source code for message structure " + message + " - " + e.GetType().FullName +
-				         ": " + e.Message);
+							": " + e.Message);
 			}
 		}
 
@@ -213,15 +214,15 @@ namespace NHapi.SourceGeneration.Generators
 			String sql = null;
 
 			sql = "SELECT HL7Segments.seg_code, repetitional, optional, HL7Segments.description, seq_no, groupname " +
-			      "FROM HL7Versions RIGHT JOIN (HL7Segments INNER JOIN HL7EventMessageTypeSegments ON (HL7Segments.version_id = HL7EventMessageTypeSegments.version_id) " +
-			      "AND (HL7Segments.seg_code = HL7EventMessageTypeSegments.seg_code)) " +
-			      "ON HL7Segments.version_id = HL7Versions.version_id " + "WHERE (((HL7Versions.hl7_version)= '" + version +
-			      "') " + "AND (([message_type]+'_'+[event_code])='" + message + "')) UNION " +
-			      "select HL7Segments.seg_code, repetitional, optional, HL7Segments.description, seq_no, groupname  " +
-			      "from HL7Versions RIGHT JOIN (HL7MsgStructIDSegments inner join HL7Segments on HL7MsgStructIDSegments.seg_code = HL7Segments.seg_code " +
-			      "and HL7MsgStructIDSegments.version_id = HL7Segments.version_id) " +
-			      "ON HL7Segments.version_id = HL7Versions.version_id " + "where HL7Versions.hl7_version = '" + version +
-			      "' and message_structure = '" + message + "' order by seq_no";
+					"FROM HL7Versions RIGHT JOIN (HL7Segments INNER JOIN HL7EventMessageTypeSegments ON (HL7Segments.version_id = HL7EventMessageTypeSegments.version_id) " +
+					"AND (HL7Segments.seg_code = HL7EventMessageTypeSegments.seg_code)) " +
+					"ON HL7Segments.version_id = HL7Versions.version_id " + "WHERE (((HL7Versions.hl7_version)= '" + version +
+					"') " + "AND (([message_type]+'_'+[event_code])='" + message + "')) UNION " +
+					"select HL7Segments.seg_code, repetitional, optional, HL7Segments.description, seq_no, groupname  " +
+					"from HL7Versions RIGHT JOIN (HL7MsgStructIDSegments inner join HL7Segments on HL7MsgStructIDSegments.seg_code = HL7Segments.seg_code " +
+					"and HL7MsgStructIDSegments.version_id = HL7Segments.version_id) " +
+					"ON HL7Segments.version_id = HL7Versions.version_id " + "where HL7Versions.hl7_version = '" + version +
+					"' and message_structure = '" + message + "' order by seq_no";
 			return sql;
 		}
 
@@ -235,20 +236,20 @@ namespace NHapi.SourceGeneration.Generators
 			preamble.Append("using System.Collections.Generic;\r\n");
 			preamble.Append("using NHapi.Base.Log;\r\n");
 			preamble.Append("using ");
-			preamble.Append((string) PackageManager.GetVersionPackageName(version));
+			preamble.Append((string)PackageManager.GetVersionPackageName(version));
 			preamble.Append("Group;\r\n");
 			preamble.Append("using ");
-			preamble.Append((string) PackageManager.GetVersionPackageName(version));
+			preamble.Append((string)PackageManager.GetVersionPackageName(version));
 			preamble.Append("Segment;\r\n");
 			preamble.Append("using ");
-			preamble.Append((string) PackageManager.GetVersionPackageName(version));
+			preamble.Append((string)PackageManager.GetVersionPackageName(version));
 			preamble.Append("Datatype;\r\n");
 			preamble.Append("using NHapi.Base;\r\n");
 			preamble.Append("using NHapi.Base.Parser;\r\n");
 			preamble.Append("using NHapi.Base.Model;\r\n\r\n");
 
 			preamble.Append("namespace ");
-			preamble.Append((string) PackageManager.GetVersionPackageName(version));
+			preamble.Append((string)PackageManager.GetVersionPackageName(version));
 			preamble.Append("Message\r\n\r\n");
 			preamble.Append("{\r\n");
 			preamble.Append("///<summary>\r\n");
@@ -354,7 +355,7 @@ namespace NHapi.SourceGeneration.Generators
 
 		static MessageGenerator()
 		{
-			log = HapiLogFactory.GetHapiLog(typeof (MessageGenerator));
+			log = HapiLogFactory.GetHapiLog(typeof(MessageGenerator));
 		}
 	}
 }
