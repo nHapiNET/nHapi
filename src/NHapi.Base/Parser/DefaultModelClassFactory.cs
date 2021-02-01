@@ -157,7 +157,6 @@ namespace NHapi.Base.Parser
         public static List<string> PackageList(String version)
         {
             // load package lists if necessary ...
-
             if (packages == null)
             {
                 lock (_lockObject)
@@ -268,7 +267,6 @@ namespace NHapi.Base.Parser
             // TODO: pull this information out of the config file
             // have to add assembly name since models are broken out into separate assemblies
             //
-
             string assemblyName =
                 classNameToTry += ", " + p.Substring(0, p.Length - 1);
             return classNameToTry;

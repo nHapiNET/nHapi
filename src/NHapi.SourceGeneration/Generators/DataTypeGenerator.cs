@@ -82,7 +82,6 @@ namespace NHapi.SourceGeneration.Generators
 
             rs.Close();
             // get CF, CK, CM, CN, CQ sub-types ...
-
             DbCommand temp_OleDbCommand2;
             temp_OleDbCommand2 = stmt;
             temp_OleDbCommand2.CommandText = "select data_structure from HL7DataStructures, HL7Versions where (" +

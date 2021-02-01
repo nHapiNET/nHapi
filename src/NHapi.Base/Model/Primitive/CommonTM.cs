@@ -120,7 +120,6 @@ namespace NHapi.Base.Model.Primitive
                 {
                     // check to see if any of the following characters exist: "." or "+/-"
                     // this will help us determine the acceptable lengths
-
                     int d = value.IndexOf(".");
                     int sp = value.IndexOf("+");
                     int sm = value.IndexOf("-");

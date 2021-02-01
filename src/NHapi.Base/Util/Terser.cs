@@ -217,7 +217,6 @@ namespace NHapi.Base.Util
                             (typeof(IComposite).IsAssignableFrom(type.GetType()) && comp <= numStandardComponents(type)))
                 {
                     // note that GenericComposite can return components > number of standard components
-
                     try
                     {
                         ret = ((IComposite)type)[comp - 1];

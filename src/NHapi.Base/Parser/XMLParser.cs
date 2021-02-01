@@ -291,7 +291,6 @@ namespace NHapi.Base.Parser
             //            done.add(elementName);
             //            parseReps(segmentObject, segmentElement, elementName, i);
             //        }
-
             XmlNodeList all = segmentElement.ChildNodes;
             for (int i = 0; i < all.Count; i++)
             {

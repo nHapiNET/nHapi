@@ -123,7 +123,6 @@ namespace NHapi.SourceGeneration.Generators
             {
                 SegmentDef[] segments = getSegments(message, version);
                 // System.out.println("Making: " + message + " with " + segments.length + " segments (not writing message code - just groups)");
-
                 GroupDef group = GroupGenerator.getGroupDef(segments, null, baseDirectory, version, message);
                 IStructureDef[] contents = group.Structures;
 

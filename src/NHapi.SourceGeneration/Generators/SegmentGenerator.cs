@@ -504,7 +504,6 @@ namespace NHapi.SourceGeneration.Generators
 
                 // add adapter method code for control package if it exists
                 // source.append(Control.getImplementation(correspondingControlInterface, version));
-
                 source.Append("\n}");
             }
             catch (DbException sqle)

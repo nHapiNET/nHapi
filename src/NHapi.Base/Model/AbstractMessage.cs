@@ -59,7 +59,6 @@ namespace NHapi.Base.Model
                 String version = null;
 
                 // TODO: Revisit.
-
                 Regex p = new Regex("\\.(V2[0-9][0-9]?)\\.");
                 Match m = p.Match(GetType().FullName);
                 if (m.Success)

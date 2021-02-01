@@ -215,7 +215,6 @@ namespace NHapi.Base.Util
 
             // the following conditional logic is a little convoluted -- its meant as an optimization
             // i.e. trying to avoid calling matchExistsAfterCurrentPosition
-
             if (!makeNewSegmentIfNeeded && typeof(IMessage).IsAssignableFrom(currPos.parent.GetType()))
             {
                 nextExists = false;
