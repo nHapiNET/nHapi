@@ -50,8 +50,8 @@ namespace NHapi.Base.Parser
         /// </summary>
         public override XmlDocument EncodeDocument(IMessage source)
         {
-            String messageClassName = source.GetType().FullName;
-            String messageName = messageClassName.Substring(messageClassName.LastIndexOf('.') + 1);
+            string messageClassName = source.GetType().FullName;
+            string messageName = messageClassName.Substring(messageClassName.LastIndexOf('.') + 1);
             XmlDocument doc = null;
             try
             {
@@ -74,8 +74,8 @@ namespace NHapi.Base.Parser
         /// </summary>
         private void Encode(IGroup groupObject, XmlElement groupElement)
         {
-            String[] childNames = groupObject.Names;
-            String messageName = groupObject.Message.GetStructureName();
+            string[] childNames = groupObject.Names;
+            string messageName = groupObject.Message.GetStructureName();
 
             try
             {
@@ -127,9 +127,9 @@ namespace NHapi.Base.Parser
         /// <throws>  EncodingNotSupportedException if the message encoded </throws>
         /// <summary>     is not supported by this parser.
         /// </summary>
-        public override IMessage ParseDocument(XmlDocument XMLMessage, String version)
+        public override IMessage ParseDocument(XmlDocument XMLMessage, string version)
         {
-            String messageName = ((XmlElement)XMLMessage.DocumentElement).Name;
+            string messageName = ((XmlElement)XMLMessage.DocumentElement).Name;
             IMessage message = InstantiateMessage(messageName, version, true);
             Parse(message, (XmlElement)XMLMessage.DocumentElement);
             return message;
@@ -140,15 +140,15 @@ namespace NHapi.Base.Parser
         /// </summary>
         private void Parse(IGroup groupObject, XmlElement groupElement)
         {
-            String[] childNames = groupObject.Names;
-            String messageName = groupObject.Message.GetStructureName();
+            string[] childNames = groupObject.Names;
+            string messageName = groupObject.Message.GetStructureName();
 
             XmlNodeList allChildNodes = groupElement.ChildNodes;
             ArrayList unparsedElementList = new ArrayList();
             for (int i = 0; i < allChildNodes.Count; i++)
             {
                 XmlNode node = allChildNodes.Item(i);
-                String name = node.Name;
+                string name = node.Name;
                 if (Convert.ToInt16(node.NodeType) == (short)XmlNodeType.Element && !unparsedElementList.Contains(name))
                 {
                     unparsedElementList.Add(name);
@@ -164,15 +164,15 @@ namespace NHapi.Base.Parser
 
             for (int i = 0; i < unparsedElementList.Count; i++)
             {
-                String segName = (String)unparsedElementList[i];
-                String segIndexName = groupObject.addNonstandardSegment(segName);
+                string segName = (string)unparsedElementList[i];
+                string segIndexName = groupObject.addNonstandardSegment(segName);
                 ParseReps(groupElement, groupObject, messageName, segName, segIndexName);
             }
         }
 
         // param childIndexName may have an integer on the end if >1 sibling with same name (e.g. NTE2)
-        private void ParseReps(XmlElement groupElement, IGroup groupObject, String messageName, String childName,
-            String childIndexName)
+        private void ParseReps(XmlElement groupElement, IGroup groupObject, string messageName, string childName,
+            string childIndexName)
         {
             IList reps = GetChildElementsByTagName(groupElement, MakeGroupElementName(messageName, childName));
             log.Debug("# of elements matching " + MakeGroupElementName(messageName, childName) + ": " + reps.Count);
@@ -193,7 +193,7 @@ namespace NHapi.Base.Parser
 
                 if (reps.Count > 1)
                 {
-                    String newIndexName = groupObject.addNonstandardSegment(childName);
+                    string newIndexName = groupObject.addNonstandardSegment(childName);
                     for (int i = 1; i < reps.Count; i++)
                     {
                         ParseRep((XmlElement)reps[i], groupObject.GetStructure(newIndexName, i - 1));
@@ -217,7 +217,7 @@ namespace NHapi.Base.Parser
         }
 
         // includes direct children only
-        private IList GetChildElementsByTagName(XmlElement theElement, String theName)
+        private IList GetChildElementsByTagName(XmlElement theElement, string theName)
         {
             IList result = new ArrayList(10);
             XmlNodeList children = theElement.ChildNodes;
@@ -242,9 +242,9 @@ namespace NHapi.Base.Parser
         /// If it looks like a segment name (ie: has 3 characters), no change is made.
         /// </para>
         /// </summary>
-        protected internal static String MakeGroupElementName(String messageName, String className)
+        protected internal static string MakeGroupElementName(string messageName, string className)
         {
-            String ret = null;
+            string ret = null;
 
             if (className.Length > 4)
             {
@@ -268,7 +268,7 @@ namespace NHapi.Base.Parser
 
         /// <summary>Test harness </summary>
         [STAThread]
-        public new static void Main(String[] args)
+        public new static void Main(string[] args)
         {
             if (args.Length != 1)
             {
@@ -283,10 +283,10 @@ namespace NHapi.Base.Parser
                 long fileLength = SupportClass.FileLength(messageFile);
                 StreamReader r = new StreamReader(messageFile.FullName, Encoding.Default);
                 char[] cbuf = new char[(int)fileLength];
-                Console.Out.WriteLine("Reading message file ... " + r.Read((Char[])cbuf, 0, cbuf.Length) + " of " + fileLength +
+                Console.Out.WriteLine("Reading message file ... " + r.Read((char[])cbuf, 0, cbuf.Length) + " of " + fileLength +
                                              " chars");
                 r.Close();
-                String messString = Convert.ToString(cbuf);
+                string messString = Convert.ToString(cbuf);
 
                 ParserBase inParser = null;
                 ParserBase outParser = null;
@@ -307,7 +307,7 @@ namespace NHapi.Base.Parser
                 IMessage mess = inParser.Parse(messString);
                 Console.Out.WriteLine("Got message of type " + mess.GetType().FullName);
 
-                String otherEncoding = outParser.Encode(mess);
+                string otherEncoding = outParser.Encode(mess);
                 Console.Out.WriteLine(otherEncoding);
             }
             catch (Exception e)

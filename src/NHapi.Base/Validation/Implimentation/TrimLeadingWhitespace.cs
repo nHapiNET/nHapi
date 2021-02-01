@@ -40,7 +40,7 @@ namespace NHapi.Base.validation.impl
         /// <summary>
         /// Description of the rule
         /// </summary>
-        public virtual String Description
+        public virtual string Description
         {
             get { return "Leading whitespace removed"; }
         }
@@ -48,23 +48,23 @@ namespace NHapi.Base.validation.impl
         /// <summary>
         /// Section reference
         /// </summary>
-        public virtual String SectionReference
+        public virtual string SectionReference
         {
             get { return null; }
         }
 
         /// <summary> Removes leading whitespace.</summary>
-        public virtual String correct(String value_Renamed)
+        public virtual string correct(string value_Renamed)
         {
-            String trmValue = null;
+            string trmValue = null;
             if (value_Renamed != null)
             {
                 char[] stringChr = value_Renamed.ToCharArray();
                 for (int i = 0; i < stringChr.Length && trmValue == null; i++)
                 {
-                    if (!Char.IsWhiteSpace(stringChr[i]))
+                    if (!char.IsWhiteSpace(stringChr[i]))
                     {
-                        trmValue = new String(stringChr, i, (stringChr.Length - i));
+                        trmValue = new string(stringChr, i, (stringChr.Length - i));
                     }
                 }
             }
@@ -73,7 +73,7 @@ namespace NHapi.Base.validation.impl
         }
 
         /// <summary> Returns true. </summary>
-        public virtual bool test(String value_Renamed)
+        public virtual bool test(string value_Renamed)
         {
             return true;
         }

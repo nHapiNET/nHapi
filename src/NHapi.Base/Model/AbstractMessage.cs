@@ -52,18 +52,18 @@ namespace NHapi.Base.Model
         /// </summary>
         /// <returns>s 2.4 if not obvious from package name
         /// </returns>
-        public virtual String Version
+        public virtual string Version
         {
             get
             {
-                String version = null;
+                string version = null;
 
                 // TODO: Revisit.
                 Regex p = new Regex("\\.(V2[0-9][0-9]?)\\.");
                 Match m = p.Match(GetType().FullName);
                 if (m.Success)
                 {
-                    String verFolder = m.Groups[1].Value;
+                    string verFolder = m.Groups[1].Value;
                     if (verFolder.Length > 0)
                     {
                         char[] chars = verFolder.ToCharArray();

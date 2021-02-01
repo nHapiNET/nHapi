@@ -95,11 +95,11 @@ namespace NHapi.Base.Model.Primitive
         /// time zone (using standard time zone format which is not modified for daylight savings)
         /// will be stored as a default.
         /// </summary>
-        public virtual String Value
+        public virtual string Value
         {
             get
             {
-                String value_Renamed = null;
+                string value_Renamed = null;
                 if (dt != null)
                 {
                     value_Renamed = dt.Value;
@@ -127,7 +127,7 @@ namespace NHapi.Base.Model.Primitive
                         // here we know we both have the date and just the time offset value
                         // change the offset value from an integer to a signed string
                         int offset = tm.GMTOffset;
-                        String offsetStr = "";
+                        string offsetStr = "";
                         if (offset > -99)
                         {
                             offsetStr = DataTypeUtil.preAppendZeroes(Math.Abs(offset), 4);
@@ -161,7 +161,7 @@ namespace NHapi.Base.Model.Primitive
                         // 8 characters in length
                         if (value.Length < 4)
                         {
-                            String msg = "The length of the TS datatype value must be at least 4 characters in length.";
+                            string msg = "The length of the TS datatype value must be at least 4 characters in length.";
                             DataTypeException e = new DataTypeException(msg);
                             throw e;
                         }
@@ -170,16 +170,16 @@ namespace NHapi.Base.Model.Primitive
                         // than 24 characters in length
                         if (value.Length > 24)
                         {
-                            String msg = "The length of the TS datatype value must not be more than 24 characters in length.";
+                            string msg = "The length of the TS datatype value must not be more than 24 characters in length.";
                             DataTypeException e = new DataTypeException(msg);
                             throw e;
                         }
 
                         // at this point we know that we have a value that should conform to the DT
                         // datatype and possibly a value that should conform to the TM datatype
-                        String dateVal = null;
-                        String timeVal = null;
-                        String timeValLessOffset = null;
+                        string dateVal = null;
+                        string timeVal = null;
+                        string timeValLessOffset = null;
                         int sp = value.IndexOf("+");
                         int sm = value.IndexOf("-");
                         int indexOfSign = -1;
@@ -250,7 +250,7 @@ namespace NHapi.Base.Model.Primitive
                             // at the very least -- must be at least 4chars in length.
                             if (timeValLessOffset.Length < 4)
                             {
-                                String msg = "The length of the time component for the TM datatype" +
+                                string msg = "The length of the time component for the TM datatype" +
                                                  " value does not conform to the allowable format" +
                                                  " YYYY[MM[DD[HHMM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ].";
                                 DataTypeException e = new DataTypeException(msg);
@@ -270,7 +270,7 @@ namespace NHapi.Base.Model.Primitive
                             // offset field in the tm object
                             if (timeVal.Length != 5)
                             {
-                                String msg = "The length of the GMT offset for the TM datatype value does" +
+                                string msg = "The length of the GMT offset for the TM datatype value does" +
                                                  " not conform to the allowable format [+/-ZZZZ]";
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
@@ -284,7 +284,7 @@ namespace NHapi.Base.Model.Primitive
                                 timeVal = timeVal.Substring(1);
                             } // end if
 
-                            int signedOffset = Int32.Parse(timeVal);
+                            int signedOffset = int.Parse(timeVal);
                             tm.Offset = signedOffset;
                         } // end if
                     }
@@ -501,7 +501,7 @@ namespace NHapi.Base.Model.Primitive
         /// The stored value will be in the following
         /// format YYYY[MM[DD[HHMM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ]
         /// </summary>
-        public CommonTS(String val)
+        public CommonTS(string val)
         {
             Value = val;
         } // end constructor
@@ -618,9 +618,9 @@ namespace NHapi.Base.Model.Primitive
         /// <summary> Returns a string value representing the input Gregorian Calendar object in
         /// an Hl7 TimeStamp Format.
         /// </summary>
-        public static String toHl7TSFormat(GregorianCalendar cal)
+        public static string toHl7TSFormat(GregorianCalendar cal)
         {
-            String val = "";
+            string val = "";
             try
             {
                 // set the input cal object so that it can report errors

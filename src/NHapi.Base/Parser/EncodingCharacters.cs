@@ -35,7 +35,7 @@ namespace NHapi.Base.Parser
    /// encoded HL7 messages.
    /// </summary>
    /// <author>Bryan Tripp (bryan_tripp@sourceforge.net)</author>
-   public class EncodingCharacters : Object, ICloneable
+   public class EncodingCharacters : object, ICloneable
     {
         /// <summary>
         /// Returns the field separator.
@@ -110,7 +110,7 @@ namespace NHapi.Base.Parser
         /// Component Separator, Repetition Separator, Escape Character, and
         /// Subcomponent Separator (in that order).
         /// </param>
-        public EncodingCharacters(char fieldSeparator, String encodingCharacters)
+        public EncodingCharacters(char fieldSeparator, string encodingCharacters)
         {
             fieldSep = fieldSeparator;
 
@@ -164,7 +164,7 @@ namespace NHapi.Base.Parser
         /// as a string.
         ///
         /// </summary>
-        public override String ToString()
+        public override string ToString()
         {
             StringBuilder ret = new StringBuilder();
 
@@ -176,12 +176,12 @@ namespace NHapi.Base.Parser
             return ret.ToString();
         }
 
-        public virtual Object Clone()
+        public virtual object Clone()
         {
             return new EncodingCharacters(this);
         }
 
-        public override bool Equals(Object o)
+        public override bool Equals(object o)
         {
             if (o is EncodingCharacters)
             {

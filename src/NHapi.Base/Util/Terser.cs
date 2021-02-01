@@ -118,14 +118,14 @@ namespace NHapi.Base.Util
         /// </param>
         /// <param name="subcomponent">the subcomponent number (use 1 for primitive component)
         /// </param>
-        public static String Get(ISegment segment, int field, int rep, int component, int subcomponent)
+        public static string Get(ISegment segment, int field, int rep, int component, int subcomponent)
         {
             IPrimitive prim = getPrimitive(segment, field, rep, component, subcomponent);
             return prim.Value;
         }
 
         /// <summary> Sets the string value of the Primitive at the given location.</summary>
-        public static void Set(ISegment segment, int field, int rep, int component, int subcomponent, String value_Renamed)
+        public static void Set(ISegment segment, int field, int rep, int component, int subcomponent, string value_Renamed)
         {
             IPrimitive prim = getPrimitive(segment, field, rep, component, subcomponent);
             prim.Value = value_Renamed;
@@ -200,7 +200,7 @@ namespace NHapi.Base.Util
                 }
                 catch (DataTypeException de)
                 {
-                    String message = "Unexpected exception copying data to generic composite: " + de.Message;
+                    string message = "Unexpected exception copying data to generic composite: " + de.Message;
                     log.Error(message, de);
                     throw new ApplicationException(message);
                 }
@@ -247,7 +247,7 @@ namespace NHapi.Base.Util
         /// the HL7 standard).
         /// </para>
         /// </summary>
-        public virtual String Get(String spec)
+        public virtual string Get(string spec)
         {
             SupportClass.Tokenizer tok = new SupportClass.Tokenizer(spec, "-", false);
             ISegment segment = getSegment(tok.NextToken());
@@ -257,7 +257,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary> Returns the segment specified in the given segment_path_spec. </summary>
-        public virtual ISegment getSegment(String segSpec)
+        public virtual ISegment getSegment(string segSpec)
         {
             ISegment seg = null;
 
@@ -270,7 +270,7 @@ namespace NHapi.Base.Util
             SegmentFinder finder = Finder;
             while (tok.HasMoreTokens())
             {
-                String pathSpec = tok.NextToken();
+                string pathSpec = tok.NextToken();
                 PathSpec ps = parsePathSpec(pathSpec);
                 if (tok.HasMoreTokens())
                 {
@@ -312,7 +312,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary>Gets path information from a path spec. </summary>
-        private PathSpec parsePathSpec(String spec)
+        private PathSpec parsePathSpec(string spec)
         {
             PathSpec ps = new PathSpec(this);
 
@@ -335,10 +335,10 @@ namespace NHapi.Base.Util
             ps.pattern = tok.NextToken();
             if (tok.HasMoreTokens())
             {
-                String repString = tok.NextToken();
+                string repString = tok.NextToken();
                 try
                 {
-                    ps.rep = Int32.Parse(repString);
+                    ps.rep = int.Parse(repString);
                 }
                 catch (FormatException)
                 {
@@ -357,7 +357,7 @@ namespace NHapi.Base.Util
         /// Given a Terser path, returns an array containing field num, field rep,
         /// component, and subcomponent.
         /// </summary>
-        public static int[] getIndices(String spec)
+        public static int[] getIndices(string spec)
         {
             SupportClass.Tokenizer tok = new SupportClass.Tokenizer(spec, "-", false);
             tok.NextToken(); // skip over segment
@@ -368,23 +368,23 @@ namespace NHapi.Base.Util
             try
             {
                 SupportClass.Tokenizer fieldSpec = new SupportClass.Tokenizer(tok.NextToken(), "()", false);
-                int fieldNum = Int32.Parse(fieldSpec.NextToken());
+                int fieldNum = int.Parse(fieldSpec.NextToken());
                 int fieldRep = 0;
                 if (fieldSpec.HasMoreTokens())
                 {
-                    fieldRep = Int32.Parse(fieldSpec.NextToken());
+                    fieldRep = int.Parse(fieldSpec.NextToken());
                 }
 
                 int component = 1;
                 if (tok.HasMoreTokens())
                 {
-                    component = Int32.Parse(tok.NextToken());
+                    component = int.Parse(tok.NextToken());
                 }
 
                 int subcomponent = 1;
                 if (tok.HasMoreTokens())
                 {
-                    subcomponent = Int32.Parse(tok.NextToken());
+                    subcomponent = int.Parse(tok.NextToken());
                 }
 
                 int[] result = new int[] { fieldNum, fieldRep, component, subcomponent };
@@ -399,7 +399,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary> Sets the string value of the field specified.  See class docs for location spec syntax.</summary>
-        public virtual void Set(String spec, String value_Renamed)
+        public virtual void Set(string spec, string value_Renamed)
         {
             SupportClass.Tokenizer tok = new SupportClass.Tokenizer(spec, "-", false);
             ISegment segment = getSegment(tok.NextToken());
@@ -508,7 +508,7 @@ namespace NHapi.Base.Util
                 get { return enclosingInstance; }
             }
 
-            public String pattern;
+            public string pattern;
             public bool isGroup;
             public bool find;
             public int rep;

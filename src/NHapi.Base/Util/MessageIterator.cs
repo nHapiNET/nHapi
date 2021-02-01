@@ -46,7 +46,7 @@ namespace NHapi.Base.Util
         /// <li>"First descendents" means first child, or first child of the first child,
         /// or first child of the first child of the first child, etc. </li> </ol>
         /// </summary>
-        public virtual Object Current
+        public virtual object Current
         {
             get
             {
@@ -73,7 +73,7 @@ namespace NHapi.Base.Util
         /// <summary>
         /// The direction
         /// </summary>
-        public virtual String Direction
+        public virtual string Direction
         {
             get { return direction; }
 
@@ -85,7 +85,7 @@ namespace NHapi.Base.Util
         }
 
         private IStructure currentStructure;
-        private String direction;
+        private string direction;
         private Position next_Renamed_Field;
         private bool handleUnexpectedSegments;
 
@@ -101,7 +101,7 @@ namespace NHapi.Base.Util
         */
 
         /// <summary>Creates a new instance of MessageIterator </summary>
-        public MessageIterator(IStructure start, String direction, bool handleUnexpectedSegments)
+        public MessageIterator(IStructure start, string direction, bool handleUnexpectedSegments)
         {
             currentStructure = start;
             this.direction = direction;
@@ -192,7 +192,7 @@ namespace NHapi.Base.Util
         /// which could be the next sibling, a new segment, or the next rep
         /// of the parent.  See next() for details.
         /// </summary>
-        private bool nextPosition(Position currPos, String direction, bool makeNewSegmentIfNeeded)
+        private bool nextPosition(Position currPos, string direction, bool makeNewSegmentIfNeeded)
         {
             bool nextExists = true;
             if (isLast(currPos))
@@ -208,7 +208,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary>Navigates from end of group </summary>
-        private bool nextFromGroupEnd(Position currPos, String direction, bool makeNewSegmentIfNeeded)
+        private bool nextFromGroupEnd(Position currPos, string direction, bool makeNewSegmentIfNeeded)
         {
             // assert isLast(currPos);
             bool nextExists = true;
@@ -266,7 +266,7 @@ namespace NHapi.Base.Util
         /// if the message is correct then it can't go after a required position of a
         /// different name.
         /// </param>
-        public static bool matchExistsAfterPosition(Position pos, String name, bool firstDescendentsOnly,
+        public static bool matchExistsAfterPosition(Position pos, string name, bool firstDescendentsOnly,
             bool upToFirstRequired)
         {
             bool matchExists = false;
@@ -281,7 +281,7 @@ namespace NHapi.Base.Util
             // check later siblings (if any)
             if (!matchExists)
             {
-                String[] siblings = pos.parent.Names;
+                string[] siblings = pos.parent.Names;
                 bool after = false;
                 for (int i = 0; i < siblings.Length && !matchExists; i++)
                 {
@@ -312,7 +312,7 @@ namespace NHapi.Base.Util
         /// <summary> Sets the next position to a new segment of the given name, within the
         /// given group.
         /// </summary>
-        private void newSegment(IGroup parent, String name)
+        private void newSegment(IGroup parent, string name)
         {
             log.Info("MessageIterator creating new segment: " + name);
             parent.addNonstandardSegment(name);
@@ -336,7 +336,7 @@ namespace NHapi.Base.Util
         /// up to the first required one.  This may be needed because in practice
         /// some first children of groups are not required.
         /// </param>
-        public static bool contains(IStructure s, String name, bool firstDescendentsOnly, bool upToFirstRequired)
+        public static bool contains(IStructure s, string name, bool firstDescendentsOnly, bool upToFirstRequired)
         {
             bool contains = false;
             if (typeof(ISegment).IsAssignableFrom(s.GetType()))
@@ -347,7 +347,7 @@ namespace NHapi.Base.Util
             else
             {
                 IGroup g = (IGroup)s;
-                String[] names = g.Names;
+                string[] names = g.Names;
                 for (int i = 0; i < names.Length && !contains; i++)
                 {
                     try
@@ -373,7 +373,7 @@ namespace NHapi.Base.Util
         /// </summary>
         public static bool isLast(Position p)
         {
-            String[] names = p.parent.Names;
+            string[] names = p.parent.Names;
             return names[names.Length - 1].Equals(p.index.name);
         }
 
@@ -382,13 +382,13 @@ namespace NHapi.Base.Util
         /// </summary>
         private void nextSibling(Position pos)
         {
-            String[] names = pos.parent.Names;
+            string[] names = pos.parent.Names;
             int i = 0;
             for (; i < names.Length && !names[i].Equals(pos.index.name); i++)
             {
             }
 
-            String nextName = names[i + 1];
+            string nextName = names[i + 1];
 
             next_Renamed_Field = new Position(pos.parent, nextName, 0);
         }
@@ -410,7 +410,7 @@ namespace NHapi.Base.Util
         public static Index getIndex(IGroup parent, IStructure child)
         {
             Index index = null;
-            String[] names = parent.Names;
+            string[] names = parent.Names;
             for (int i = 0; i < names.Length; i++)
             {
                 if (names[i].StartsWith(child.GetStructureName()))
@@ -446,7 +446,7 @@ namespace NHapi.Base.Util
             /// <summary>
             /// The name
             /// </summary>
-            public String name;
+            public string name;
 
             /// <summary>
             /// The repetition
@@ -458,7 +458,7 @@ namespace NHapi.Base.Util
             /// </summary>
             /// <param name="name">name</param>
             /// <param name="rep">repetition</param>
-            public Index(String name, int rep)
+            public Index(string name, int rep)
             {
                 this.name = name;
                 this.rep = rep;
@@ -469,7 +469,7 @@ namespace NHapi.Base.Util
             /// </summary>
             /// <param name="o"></param>
             /// <returns></returns>
-            public override bool Equals(Object o)
+            public override bool Equals(object o)
             {
                 bool equals = false;
                 if (o != null && o is Index)
@@ -495,7 +495,7 @@ namespace NHapi.Base.Util
             /// Override to string
             /// </summary>
             /// <returns></returns>
-            public override String ToString()
+            public override string ToString()
             {
                 return name + ":" + rep;
             }
@@ -520,7 +520,7 @@ namespace NHapi.Base.Util
             /// <param name="parent">Parent</param>
             /// <param name="name">Name</param>
             /// <param name="rep">Repetition</param>
-            public Position(IGroup parent, String name, int rep)
+            public Position(IGroup parent, string name, int rep)
             {
                 this.parent = parent;
                 index = new Index(name, rep);
@@ -542,7 +542,7 @@ namespace NHapi.Base.Util
             /// </summary>
             /// <param name="o">Object o</param>
             /// <returns>true if objects are equal</returns>
-            public override bool Equals(Object o)
+            public override bool Equals(object o)
             {
                 bool equals = false;
                 if (o != null && o is Position)
@@ -568,7 +568,7 @@ namespace NHapi.Base.Util
             /// Override to string
             /// </summary>
             /// <returns></returns>
-            public override String ToString()
+            public override string ToString()
             {
                 StringBuilder ret = new StringBuilder(parent.GetStructureName());
                 ret.Append(":");

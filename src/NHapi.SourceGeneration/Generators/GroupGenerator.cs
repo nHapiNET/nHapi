@@ -44,7 +44,7 @@ namespace NHapi.SourceGeneration.Generators
    /// </author>
    /// <author>  Eric Poiseau
    /// </author>
-   public class GroupGenerator : Object
+   public class GroupGenerator : object
     {
         private static readonly IHapiLog log;
 
@@ -73,8 +73,8 @@ namespace NHapi.SourceGeneration.Generators
         /// </param>
         /// <throws>  HL7Exception if the repetition and optionality markers are not  </throws>
         /// </summary>
-        public static GroupDef writeGroup(IStructureDef[] structures, String groupName, String baseDirectory, String version,
-            String message)
+        public static GroupDef writeGroup(IStructureDef[] structures, string groupName, string baseDirectory, string version,
+            string message)
         {
             // make base directory
             if (!(baseDirectory.EndsWith("\\") || baseDirectory.EndsWith("/")))
@@ -117,8 +117,8 @@ namespace NHapi.SourceGeneration.Generators
         /// <p>This method calls writeGroup(...) where necessary in order to create source code for
         /// any nested groups before returning corresponding GroupDefs.</p>
         /// </summary>
-        public static GroupDef getGroupDef(IStructureDef[] structures, String groupName, String baseDirectory, String version,
-            String message)
+        public static GroupDef getGroupDef(IStructureDef[] structures, string groupName, string baseDirectory, string version,
+            string message)
         {
             GroupDef ret = null;
             bool required = true;
@@ -159,11 +159,11 @@ namespace NHapi.SourceGeneration.Generators
                 currLongListPos = skip;
                 while (currLongListPos < len - skip)
                 {
-                    String currSegName = structures[currLongListPos].Name;
+                    string currSegName = structures[currLongListPos].Name;
                     if (currSegName.Equals("[") || currSegName.Equals("{") || currSegName.Equals("[{"))
                     {
                         // this is the opening of a new group ...
-                        String name = ((SegmentDef)structures[currLongListPos]).GroupName;
+                        string name = ((SegmentDef)structures[currLongListPos]).GroupName;
                         int endOfNewGroup = findGroupEnd(structures, currLongListPos);
                         IStructureDef[] newGroupStructures = new IStructureDef[endOfNewGroup - currLongListPos + 1];
                         Array.Copy(structures, currLongListPos, newGroupStructures, 0, newGroupStructures.Length);
@@ -201,7 +201,7 @@ namespace NHapi.SourceGeneration.Generators
         }
 
         /// <summary> Returns true if opening is "[{" and closing is "}]"</summary>
-        private static bool repoptMarkers(String opening, String closing)
+        private static bool repoptMarkers(string opening, string closing)
         {
             bool ret = false;
             if (opening.Equals("[{") && closing.Equals("}]"))
@@ -214,7 +214,7 @@ namespace NHapi.SourceGeneration.Generators
 
 
         /// <summary> Returns true if opening is "[" and closing is "]"</summary>
-        private static bool optMarkers(String opening, String closing)
+        private static bool optMarkers(string opening, string closing)
         {
             bool ret = false;
             if (opening.Equals("[") && closing.Equals("]"))
@@ -226,7 +226,7 @@ namespace NHapi.SourceGeneration.Generators
         }
 
         /// <summary> Returns true if opening is "{" and closing is "}"</summary>
-        private static bool repMarkers(String opening, String closing)
+        private static bool repMarkers(string opening, string closing)
         {
             bool ret = false;
             if (opening.Equals("{") && closing.Equals("}"))
@@ -240,7 +240,7 @@ namespace NHapi.SourceGeneration.Generators
         /// <summary> Returns heading material for class source code (package, imports, JavaDoc, class
         /// declaration).
         /// </summary>
-        public static String makePreamble(GroupDef group, String version)
+        public static string makePreamble(GroupDef group, string version)
         {
             StringBuilder preamble = new StringBuilder();
             preamble.Append("using NHapi.Base.Parser;\r\n");
@@ -276,7 +276,7 @@ namespace NHapi.SourceGeneration.Generators
 
 
         /// <summary> Returns source code for the contructor for this Group class. </summary>
-        public static String makeConstructor(GroupDef group, String version)
+        public static string makeConstructor(GroupDef group, string version)
         {
             bool useFactory = ConfigurationSettings.UseFactory;
 
@@ -339,7 +339,7 @@ namespace NHapi.SourceGeneration.Generators
         /// <summary> Returns source code for a JavaDoc snippet listing the contents of a Group
         /// or Message.
         /// </summary>
-        public static String makeElementsDoc(IStructureDef[] structures)
+        public static string makeElementsDoc(IStructureDef[] structures)
         {
             StringBuilder elements = new StringBuilder();
             elements.Append("///<ol>\r\n");
@@ -365,19 +365,19 @@ namespace NHapi.SourceGeneration.Generators
         }
 
         /// <summary> Returns source code for an accessor method for a particular Structure. </summary>
-        public static String makeAccessor(GroupDef group, int structure)
+        public static string makeAccessor(GroupDef group, int structure)
         {
             StringBuilder source = new StringBuilder();
 
             IStructureDef def = group.Structures[structure];
 
-            String name = def.Name;
-            String indexName = group.getIndexName(name);
-            String getterName = indexName;
+            string name = def.Name;
+            string indexName = group.getIndexName(name);
+            string getterName = indexName;
 
             if (def is GroupDef)
             {
-                String unqualifiedName = ((GroupDef)def).UnqualifiedName;
+                string unqualifiedName = ((GroupDef)def).UnqualifiedName;
                 getterName = group.getIndexName(unqualifiedName);
             }
 
@@ -541,10 +541,10 @@ namespace NHapi.SourceGeneration.Generators
         public static int findGroupEnd(IStructureDef[] structures, int groupStart)
         {
             // {} is rep; [] is optionality
-            String endMarker = null;
+            string endMarker = null;
             try
             {
-                String startMarker = structures[groupStart].Name;
+                string startMarker = structures[groupStart].Name;
                 if (startMarker.Equals("["))
                 {
                     endMarker = "]";
@@ -574,7 +574,7 @@ namespace NHapi.SourceGeneration.Generators
             }
 
             // loop, increment and decrement opening and closing markers until we get back to 0
-            String segName = null;
+            string segName = null;
             int offset = 0;
             try
             {

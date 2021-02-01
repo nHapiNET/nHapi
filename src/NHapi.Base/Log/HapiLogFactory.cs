@@ -51,7 +51,7 @@ namespace NHapi.Base.Log
         /// returned (the meaning of this name is only known to the underlying
         /// logging implementation that is being wrapped).
         /// </param>
-        public static IHapiLog GetHapiLog(String name)
+        public static IHapiLog GetHapiLog(string name)
         {
             IHapiLog retVal = null;
 

@@ -86,11 +86,11 @@ namespace NHapi.Base.Model
             }
         }
 
-        public virtual String TypeName
+        public virtual string TypeName
         {
             get
             {
-                String name = "*";
+                string name = "*";
                 if (data != null)
                 {
                     name = data.TypeName;
@@ -195,13 +195,13 @@ namespace NHapi.Base.Model
 
                         try
                         {
-                            var constructor = type.GetConstructor(new[] { typeof(IMessage), typeof(String) });
-                            v.Data = (IType)constructor.Invoke(new Object[] { v.Message, v.Description });
+                            var constructor = type.GetConstructor(new[] { typeof(IMessage), typeof(string) });
+                            v.Data = (IType)constructor.Invoke(new object[] { v.Message, v.Description });
                         }
                         catch (NullReferenceException _)
                         {
                             var constructor = type.GetConstructor(new[] { typeof(IMessage) });
-                            v.Data = (IType)constructor.Invoke(new Object[] { v.Message });
+                            v.Data = (IType)constructor.Invoke(new object[] { v.Message });
                         }
                     }
                 }

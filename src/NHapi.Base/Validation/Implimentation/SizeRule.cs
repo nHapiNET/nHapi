@@ -40,7 +40,7 @@ namespace NHapi.Base.validation.impl
         /// <summary>
         /// <seealso cref="IRule.Description" />
         /// </summary>
-        public virtual String Description
+        public virtual string Description
         {
             get { return "Maximum size <= " + myMaxChars + " characters"; }
         }
@@ -48,7 +48,7 @@ namespace NHapi.Base.validation.impl
         /// <summary>
         /// <seealso cref="IRule.SectionReference" />
         /// </summary>
-        public virtual String SectionReference
+        public virtual string SectionReference
         {
             get { return null; }
         }
@@ -69,13 +69,13 @@ namespace NHapi.Base.validation.impl
         /// </summary>
         /// <seealso cref="IPrimitiveTypeRule.correct" />
         /// <returns>The value that was passed in as <paramref name="value_Renamed"/>.</returns>
-        public virtual String correct(String value_Renamed)
+        public virtual string correct(string value_Renamed)
         {
             return value_Renamed;
         }
 
         /// <seealso cref="IPrimitiveTypeRule.test" />
-        public virtual bool test(String value_Renamed)
+        public virtual bool test(string value_Renamed)
         {
             bool ok = true;
             if (value_Renamed != null && value_Renamed.Length > myMaxChars)

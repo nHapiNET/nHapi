@@ -7,7 +7,7 @@ namespace NHapi.SourceGeneration.Generators
 {
     internal class BaseDataTypeGenerator
     {
-        public static void BuildBaseDataTypes(string baseDirectory, String version)
+        public static void BuildBaseDataTypes(string baseDirectory, string version)
         {
             string targetDir = baseDirectory + @"\" + PackageManager.GetVersionPackagePath(version) + "Datatype";
 

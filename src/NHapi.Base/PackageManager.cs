@@ -84,7 +84,7 @@ namespace NHapi.Base
         /// This package should have the packages datatype, segment, group, and message
         /// under it. The path ends in with a slash.
         /// </summary>
-        public static String GetVersionPackagePath(String ver)
+        public static string GetVersionPackagePath(string ver)
         {
             StringBuilder path = new StringBuilder("NHapi.Model.V");
             char[] versionChars = new char[ver.Length];
@@ -105,10 +105,10 @@ namespace NHapi.Base
         /// is identical to <code>getVersionPackagePath(...)</code> except that path
         /// separators are replaced with dots.
         /// </summary>
-        public static String GetVersionPackageName(String ver)
+        public static string GetVersionPackageName(string ver)
         {
-            String path = GetVersionPackagePath(ver);
-            String packg = path.Replace('/', '.');
+            string path = GetVersionPackagePath(ver);
+            string packg = path.Replace('/', '.');
             packg = packg.Replace('\\', '.');
             return packg;
         }

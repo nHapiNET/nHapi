@@ -40,11 +40,11 @@ namespace NHapi.SourceGeneration.Generators
     {
         /// <returns> name of segment
         /// </returns>
-        public virtual String Name
+        public virtual string Name
         {
             get
             {
-                String result = name;
+                string result = name;
                 if (result != null && result.Equals("?"))
                 {
                     result = "GenericSegment";
@@ -56,7 +56,7 @@ namespace NHapi.SourceGeneration.Generators
 
         /// <returns> name of group, if this is not really a segment but a group start indicator
         /// </returns>
-        public virtual String GroupName
+        public virtual string GroupName
         {
             get { return groupName; }
         }
@@ -74,7 +74,7 @@ namespace NHapi.SourceGeneration.Generators
         }
 
         /// <summary> Returns a text description of the structure.</summary>
-        public virtual String Description
+        public virtual string Description
         {
             get { return description; }
         }
@@ -85,23 +85,23 @@ namespace NHapi.SourceGeneration.Generators
         /// in subgroups (depth first).  This method is used to support the XML SIG's convention
         /// for deriving group names.
         /// </summary>
-        public virtual String[] ChildSegments
+        public virtual string[] ChildSegments
         {
             get
             {
-                String[] result = new String[] { Name };
+                string[] result = new string[] { Name };
                 return result;
             }
         }
 
-        private String name;
-        private String groupName;
-        private String description;
+        private string name;
+        private string groupName;
+        private string description;
         private bool required;
         private bool repeating;
 
         /// <summary>Creates new SegmentDef </summary>
-        public SegmentDef(String name, String groupName, bool required, bool repeating, String description)
+        public SegmentDef(string name, string groupName, bool required, bool repeating, string description)
         {
             this.name = name;
             this.groupName = groupName;

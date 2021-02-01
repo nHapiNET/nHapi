@@ -150,7 +150,7 @@ namespace NHapi.SourceGeneration
 
         // test
         [STAThread]
-        public static void Main(String[] args)
+        public static void Main(string[] args)
         {
             try
             {
@@ -162,9 +162,9 @@ namespace NHapi.SourceGeneration
                 DbDataReader rs = temp_OleDbCommand.ExecuteReader();
                 while (rs.Read())
                 {
-                    Object tabNum = rs.GetValue(1 - 1);
-                    Object val = rs.GetValue(3 - 1);
-                    Object desc = rs.GetValue(4 - 1);
+                    object tabNum = rs.GetValue(1 - 1);
+                    object val = rs.GetValue(3 - 1);
+                    object desc = rs.GetValue(4 - 1);
                     Console.Out.WriteLine("Table: " + tabNum + " Value: " + val + " Description: " + desc);
                 }
             }

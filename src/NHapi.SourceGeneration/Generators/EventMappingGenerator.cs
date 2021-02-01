@@ -8,7 +8,7 @@ namespace NHapi.SourceGeneration.Generators
 {
     public class EventMappingGenerator
     {
-        public static void makeAll(String baseDirectory, String version)
+        public static void makeAll(string baseDirectory, string version)
         {
             // make base directory
             if (!(baseDirectory.EndsWith("\\") || baseDirectory.EndsWith("/")))
@@ -21,7 +21,7 @@ namespace NHapi.SourceGeneration.Generators
 
             // get list of data types
             OdbcConnection conn = NormativeDatabase.Instance.Connection;
-            String sql =
+            string sql =
                 "SELECT * from HL7EventMessageTypes inner join HL7Versions on HL7EventMessageTypes.version_id = HL7Versions.version_id where HL7Versions.hl7_version = '" +
                 version + "'";
             DbCommand temp_OleDbCommand = conn.CreateCommand();

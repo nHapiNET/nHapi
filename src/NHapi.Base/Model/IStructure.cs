@@ -49,6 +49,6 @@ namespace NHapi.Base.Model
         IGroup ParentStructure { get; }
 
         /// <summary> Returns the structure's name. </summary>
-        String GetStructureName();
+        string GetStructureName();
     }
 }

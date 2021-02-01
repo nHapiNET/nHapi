@@ -44,11 +44,11 @@ namespace NHapi.SourceGeneration.Generators
         /// message structure and the group elements.  This should only be called
         /// after all the elements are added.
         /// </summary>
-        public virtual String Name
+        public virtual string Name
         {
             get
             {
-                String result = null;
+                string result = null;
 
                 if (groupName != null && groupName.Length > 0)
                 {
@@ -59,7 +59,7 @@ namespace NHapi.SourceGeneration.Generators
                     StringBuilder name = new StringBuilder();
                     name.Append(messageName);
                     name.Append("_");
-                    String[] children = ChildSegments;
+                    string[] children = ChildSegments;
                     for (int i = 0; i < children.Length; i++)
                     {
                         name.Append(children[i]);
@@ -74,11 +74,11 @@ namespace NHapi.SourceGeneration.Generators
 
         /// <returns> group name without message name prepended
         /// </returns>
-        public virtual String UnqualifiedName
+        public virtual string UnqualifiedName
         {
             get
             {
-                String name = Name;
+                string name = Name;
                 return name.Substring(messageName.Length + 1);
             }
         }
@@ -111,7 +111,7 @@ namespace NHapi.SourceGeneration.Generators
         }
 
         /// <summary> Returns a text description of the structure.</summary>
-        public virtual String Description
+        public virtual string Description
         {
             get { return description; }
         }
@@ -122,7 +122,7 @@ namespace NHapi.SourceGeneration.Generators
         /// in subgroups (depth first).  This method is used to support the XML SIG's convention
         /// for deriving group names.
         /// </summary>
-        public virtual String[] ChildSegments
+        public virtual string[] ChildSegments
         {
             get
             {
@@ -130,17 +130,17 @@ namespace NHapi.SourceGeneration.Generators
                 for (int i = 0; i < elements.Count; i++)
                 {
                     IStructureDef childStruct = (IStructureDef)elements[i];
-                    String[] childStructChildren = childStruct.ChildSegments;
+                    string[] childStructChildren = childStruct.ChildSegments;
                     for (int j = 0; j < childStructChildren.Length; j++)
                     {
                         deepChildList.Add(childStructChildren[j]);
                     }
                 }
 
-                String[] result = new String[deepChildList.Count];
+                string[] result = new string[deepChildList.Count];
                 for (int i = 0; i < result.Length; i++)
                 {
-                    result[i] = ((String)deepChildList[i]);
+                    result[i] = ((string)deepChildList[i]);
                 }
 
                 return result;
@@ -148,16 +148,16 @@ namespace NHapi.SourceGeneration.Generators
         }
 
         private ArrayList elements;
-        private String messageName;
-        private String groupName;
-        private String description;
+        private string messageName;
+        private string groupName;
+        private string description;
         private bool required;
         private bool repeating;
         private Hashtable existingNames;
 
 
         /// <summary>Creates new GroupDef </summary>
-        public GroupDef(String messageName, String groupName, bool required, bool repeating, String description)
+        public GroupDef(string messageName, string groupName, bool required, bool repeating, string description)
         {
             this.messageName = messageName;
             this.groupName = groupName;
@@ -183,12 +183,12 @@ namespace NHapi.SourceGeneration.Generators
         /// method is called matters: it should be called ONCE for each element of the group in the
         /// order in which they appear.
         /// </summary>
-        protected internal virtual String getIndexName(String name)
+        protected internal virtual string getIndexName(string name)
         {
             // see if this name is already being used
-            Object o = existingNames[name];
+            object o = existingNames[name];
             int c = 2;
-            String newName = name;
+            string newName = name;
             while (o != null)
             {
                 newName = name + c++;

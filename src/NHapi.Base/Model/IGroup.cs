@@ -46,7 +46,7 @@ namespace NHapi.Base.Model
         /// Group.  These names can be used to iterate through the group using
         /// repeated calls to <code>get(name)</code>.
         /// </summary>
-        String[] Names { get; }
+        string[] Names { get; }
 
         /// <summary> Returns an array of Structure objects by name.  For example, if the Group contains
         /// an MSH segment and "MSH" is supplied then this call would return a 1-element array
@@ -55,13 +55,13 @@ namespace NHapi.Base.Model
         /// yet using the get(...) methods.
         /// </summary>
         /// <throws>  HL7Exception if the named Structure is not part of this Group.  </throws>
-        IStructure[] GetAll(String name);
+        IStructure[] GetAll(string name);
 
         /// <summary> Returns the named structure.  If this Structure is repeating then the first
         /// repetition is returned.  Creates the Structure if necessary.
         /// </summary>
         /// <throws>  HL7Exception if the named Structure is not part of this Group.  </throws>
-        IStructure GetStructure(String name);
+        IStructure GetStructure(string name);
 
         /// <summary> Returns a particular repetition of the named Structure. If the given repetition
         /// number is one greater than the existing number of repetitions then a new
@@ -72,16 +72,16 @@ namespace NHapi.Base.Model
         /// or if the given repetition number is more than one greater than the
         /// existing number of repetitions.
         /// </summary>
-        IStructure GetStructure(String name, int rep);
+        IStructure GetStructure(string name, int rep);
 
         /// <summary> Returns true if the named structure is required. </summary>
-        bool IsRequired(String name);
+        bool IsRequired(string name);
 
         /// <summary> Returns true if the named structure is repeating. </summary>
-        bool IsRepeating(String name);
+        bool IsRepeating(string name);
 
         /// <summary> Returns the Class of the Structure at the given name index.  </summary>
-        Type GetClass(String name);
+        Type GetClass(string name);
 
         /// <summary>
         /// Expands the group definition to include a segment that is not
@@ -91,7 +91,7 @@ namespace NHapi.Base.Model
         /// If the segment name is unrecognized a GenericSegment is used.  The
         /// segment is defined as repeating and not required.
         /// </summary>
-        String addNonstandardSegment(String name);
+        string addNonstandardSegment(string name);
     }
 
     // sample code ...

@@ -100,7 +100,7 @@ namespace NHapi.SourceGeneration
                 }
             }
 
-            public DbCommand PrepareStatement(OdbcConnection connection, String sql)
+            public DbCommand PrepareStatement(OdbcConnection connection, string sql)
             {
                 DbCommand command = CreateStatement(connection);
                 command.CommandText = sql;
@@ -108,7 +108,7 @@ namespace NHapi.SourceGeneration
                 return command;
             }
 
-            public DbCommand PrepareCall(OdbcConnection connection, String sql)
+            public DbCommand PrepareCall(OdbcConnection connection, string sql)
             {
                 DbCommand command = CreateStatement(connection);
                 command.CommandText = sql;
@@ -171,7 +171,7 @@ namespace NHapi.SourceGeneration
             /// <param name="command">Command object to be changed.</param>
             /// <param name="parameterIndex">One-based index of the parameter to be set.</param>
             /// <param name="parameter">The object containing the input parameter value.</param>
-            public void SetValue(DbCommand command, int parameterIndex, Object parameter)
+            public void SetValue(DbCommand command, int parameterIndex, object parameter)
             {
                 if (command.Parameters.Count < parameterIndex)
                     command.Parameters.Add(command.CreateParameter());
@@ -200,7 +200,7 @@ namespace NHapi.SourceGeneration
             /// <param name="parameterIndex">One-based index of the parameter to be set.</param>
             /// <param name="parameter">The object containing the input parameter value.</param>
             /// <param name="targetSqlType">The SQL type to be sent to the database.</param>
-            public void SetObject(DbCommand command, int parameterIndex, Object parameter, int targetSqlType)
+            public void SetObject(DbCommand command, int parameterIndex, object parameter, int targetSqlType)
             {
                 if (command.Parameters.Count < parameterIndex)
                     command.Parameters.Add(command.CreateParameter());
@@ -215,7 +215,7 @@ namespace NHapi.SourceGeneration
             /// <param name="command">Command object to be changed.</param>
             /// <param name="parameterIndex">One-based index of the parameter to be set.</param>
             /// <param name="parameter">The object containing the input parameter value.</param>
-            public void SetObject(DbCommand command, int parameterIndex, Object parameter)
+            public void SetObject(DbCommand command, int parameterIndex, object parameter)
             {
                 if (command.Parameters.Count < parameterIndex)
                     command.Parameters.Add(command.CreateParameter());

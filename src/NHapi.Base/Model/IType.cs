@@ -34,7 +34,7 @@ namespace NHapi.Base.Model
    public interface IType
     {
         /// <summary>Returns the name of the type (used in XML encoding and profile checking) </summary>
-        String TypeName { get; }
+        string TypeName { get; }
 
         /// <summary> Returns an object containing any extra (non-standard) components that
         /// have been added to this type at run-time.  This object can also be used

@@ -49,7 +49,7 @@ namespace NHapi.Base.Util
     {
         private IPredicate predicate;
         private IEnumerator iter;
-        private Object nextObject;
+        private object nextObject;
         private bool nextObjectSet = false;
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace NHapi.Base.Util
         /// <summary>
         /// The current item
         /// </summary>
-        public virtual Object Current
+        public virtual object Current
         {
             get
             {
@@ -107,7 +107,7 @@ namespace NHapi.Base.Util
         {
             while (iter.MoveNext())
             {
-                Object object_Renamed = iter.Current;
+                object object_Renamed = iter.Current;
                 if (predicate.evaluate(object_Renamed))
                 {
                     nextObject = object_Renamed;
@@ -135,7 +135,7 @@ namespace NHapi.Base.Util
             /// </summary>
             /// <param name="obj"></param>
             /// <returns></returns>
-            bool evaluate(Object obj);
+            bool evaluate(object obj);
         }
 
         /// <summary>

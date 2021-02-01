@@ -47,7 +47,7 @@ namespace NHapi.Base.validation
         /// </param>
         /// <returns> active rules for checking the given type in the given version
         /// </returns>
-        IPrimitiveTypeRule[] getPrimitiveRules(String theVersion, String theTypeName, IPrimitive theType);
+        IPrimitiveTypeRule[] getPrimitiveRules(string theVersion, string theTypeName, IPrimitive theType);
 
         /// <param name="theVersion">an HL7 version (eg "2.1")
         /// </param>
@@ -58,7 +58,7 @@ namespace NHapi.Base.validation
         /// <returns> the active rules that apply to message of the given version, message type,
         /// and trigger event
         /// </returns>
-        IMessageRule[] getMessageRules(String theVersion, String theMessageType, String theTriggerEvent);
+        IMessageRule[] getMessageRules(string theVersion, string theMessageType, string theTriggerEvent);
 
         /// <param name="theVersion">an HL7 version (eg "2.1")
         /// </param>
@@ -66,6 +66,6 @@ namespace NHapi.Base.validation
         /// </param>
         /// <returns> the active encoding rules that apply to the given version and encoding
         /// </returns>
-        IEncodingRule[] getEncodingRules(String theVersion, String theEncoding);
+        IEncodingRule[] getEncodingRules(string theVersion, string theEncoding);
     }
 }

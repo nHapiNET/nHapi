@@ -96,11 +96,11 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary> Returns true if the given value exists in the given table.</summary>
-        public override bool checkValue(int table, String value_Renamed)
+        public override bool checkValue(int table, string value_Renamed)
         {
             bool exists = false;
 
-            String[] values = getValues(table);
+            string[] values = getValues(table);
 
             int c = 0;
             while (c < values.Length && !exists)
@@ -113,23 +113,23 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary> Returns a list of the values for the given table in the normative database. </summary>
-        public override String[] getValues(int table)
+        public override string[] getValues(int table)
         {
-            Int32 key = (Int32)table;
-            String[] values = null;
+            int key = (int)table;
+            string[] values = null;
 
             // see if the value list exists in the cache
-            Object o = tables[key];
+            object o = tables[key];
 
             if (o != null)
             {
-                values = (String[])o;
+                values = (string[])o;
             }
             else
             {
                 // not cached yet ...
                 int c;
-                String[] roomyValues = new String[bufferSize];
+                string[] roomyValues = new string[bufferSize];
 
                 try
                 {
@@ -159,7 +159,7 @@ namespace NHapi.SourceGeneration
                 if (c == 0)
                     throw new UndefinedTableException("No values found for table " + table);
 
-                values = new String[c];
+                values = new string[c];
                 Array.Copy(roomyValues, 0, values, 0, c);
 
                 tables[key] = values;
@@ -172,9 +172,9 @@ namespace NHapi.SourceGeneration
         /// this method performs a database call each time - caching should probably be added,
         /// although this method will probably not be used very often.
         /// </summary>
-        public override String getDescription(int table, String value_Renamed)
+        public override string getDescription(int table, string value_Renamed)
         {
-            String description = null;
+            string description = null;
 
             StringBuilder sql = new StringBuilder("select Description from TableValues where table_id = ");
             sql.Append(table);

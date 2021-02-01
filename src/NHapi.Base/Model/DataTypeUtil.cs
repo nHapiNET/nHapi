@@ -63,11 +63,11 @@ namespace NHapi.Base.Model
         /// <summary> This method will preappend the zeros to the beginning of num such that the total length
         /// equals totalDigitLength. It will also return the string representation of the new number.
         /// </summary>
-        public static String preAppendZeroes(int num, int totalDigitLength)
+        public static string preAppendZeroes(int num, int totalDigitLength)
         {
             /* preappend the zeros to the beginning of num such that the total length
             equals totalDigitLength. Return the string representation of the new number*/
-            String a = Convert.ToString(num);
+            string a = Convert.ToString(num);
             if (a.Length >= totalDigitLength)
                 return a;
             else

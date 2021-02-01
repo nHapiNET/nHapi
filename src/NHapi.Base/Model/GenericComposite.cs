@@ -28,7 +28,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>Returns the name of the type (used in XML encoding and profile checking)  </summary>
-        public override String TypeName
+        public override string TypeName
         {
             get { return "UNKNOWN"; }
         }

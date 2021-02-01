@@ -23,29 +23,29 @@ namespace NHapi.Base.Log
         bool WarnEnabled { get; }
 
 
-        void Debug(Object message);
+        void Debug(object message);
 
-        void Debug(Object message, Exception t);
+        void Debug(object message, Exception t);
 
-        void Error(Object message);
+        void Error(object message);
 
-        void Error(Object message, Exception t);
+        void Error(object message, Exception t);
 
-        void Fatal(Object message);
+        void Fatal(object message);
 
-        void Fatal(Object message, Exception t);
+        void Fatal(object message, Exception t);
 
-        void Info(Object message);
+        void Info(object message);
 
-        void Info(Object message, Exception t);
+        void Info(object message, Exception t);
 
-        void Trace(Object message);
+        void Trace(object message);
 
-        void Trace(Object message, Exception t);
+        void Trace(object message, Exception t);
 
-        void Warn(Object message);
+        void Warn(object message);
 
-        void Warn(Object message, Exception t);
+        void Warn(object message, Exception t);
     }
 
     /// <summary>

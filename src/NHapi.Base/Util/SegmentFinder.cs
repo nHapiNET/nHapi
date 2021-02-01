@@ -55,7 +55,7 @@ namespace NHapi.Base.Util
         /// (eg "P*" or "*ID" or "???" or "P??" would match on PID).
         /// </param>
         /// <param name="rep">the repetition of the segment to return.</param>
-        public virtual ISegment findSegment(String namePattern, int rep)
+        public virtual ISegment findSegment(string namePattern, int rep)
         {
             IStructure s = null;
             do
@@ -66,7 +66,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary> As findSegment(), but will only return a group.</summary>
-        public virtual IGroup findGroup(String namePattern, int rep)
+        public virtual IGroup findGroup(string namePattern, int rep)
         {
             IStructure s = null;
             do
@@ -77,14 +77,14 @@ namespace NHapi.Base.Util
         }
 
         /// <summary> Returns the first matching structure AFTER the current position</summary>
-        private IStructure findStructure(String namePattern, int rep)
+        private IStructure findStructure(string namePattern, int rep)
         {
             IStructure s = null;
 
             while (s == null)
             {
                 iterate(false, false);
-                String currentName = getCurrentStructure(0).GetStructureName();
+                string currentName = getCurrentStructure(0).GetStructureName();
                 if (matches(namePattern, currentName))
                 {
                     s = getCurrentStructure(rep);
@@ -107,7 +107,7 @@ namespace NHapi.Base.Util
         /// (eg "P*" or "*ID" or "???" or "P??" would match on PID).
         /// </param>
         /// <param name="rep">the repetition of the segment to return.</param>
-        public virtual ISegment getSegment(String namePattern, int rep)
+        public virtual ISegment getSegment(string namePattern, int rep)
         {
             IStructure s = GetStructure(namePattern, rep);
             if (!typeof(ISegment).IsAssignableFrom(s.GetType()))
@@ -119,7 +119,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary> As getSegment() but will only return a group.</summary>
-        public virtual IGroup getGroup(String namePattern, int rep)
+        public virtual IGroup getGroup(string namePattern, int rep)
         {
             IStructure s = GetStructure(namePattern, rep);
             if (!typeof(IGroup).IsAssignableFrom(s.GetType()))
@@ -130,14 +130,14 @@ namespace NHapi.Base.Util
             return (IGroup)s;
         }
 
-        private IStructure GetStructure(String namePattern, int rep)
+        private IStructure GetStructure(string namePattern, int rep)
         {
             IStructure s = null;
 
             if (getCurrentStructure(0).Equals(Root))
                 drillDown(0);
 
-            String[] names = getCurrentStructure(0).ParentStructure.Names;
+            string[] names = getCurrentStructure(0).ParentStructure.Names;
             for (int i = 0; i < names.Length && s == null; i++)
             {
                 if (matches(namePattern, names[i]))
@@ -154,7 +154,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary> Tests whether the given name matches the given pattern.</summary>
-        private bool matches(String pattern, String candidate)
+        private bool matches(string pattern, string candidate)
         {
             // shortcut ...
             if (pattern.Equals(candidate))

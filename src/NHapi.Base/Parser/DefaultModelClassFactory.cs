@@ -23,7 +23,7 @@ namespace NHapi.Base.Parser
     {
         private static readonly object _lockObject = new object();
         private static readonly IHapiLog log;
-        private const String CUSTOM_PACKAGES_RESOURCE_NAME_TEMPLATE = "custom_packages/{0}";
+        private const string CUSTOM_PACKAGES_RESOURCE_NAME_TEMPLATE = "custom_packages/{0}";
         private static Hashtable packages = null;
         private static bool _isLoadingPackages = false;
 
@@ -61,7 +61,7 @@ namespace NHapi.Base.Parser
         /// <returns>
         /// corresponding message subclass if found; GenericMessage otherwise
         /// </returns>
-        public virtual Type GetMessageClass(String theName, String theVersion, bool isExplicit)
+        public virtual Type GetMessageClass(string theName, string theVersion, bool isExplicit)
         {
             Type mc = null;
             if (!isExplicit)
@@ -81,7 +81,7 @@ namespace NHapi.Base.Parser
         /// <param name="theName"></param>
         /// <param name="theVersion"></param>
         /// <returns></returns>
-        public virtual Type GetGroupClass(String theName, String theVersion)
+        public virtual Type GetGroupClass(string theName, string theVersion)
         {
             return findClass(theName, theVersion, ClassType.Group);
         }
@@ -92,7 +92,7 @@ namespace NHapi.Base.Parser
         /// <param name="theName"></param>
         /// <param name="theVersion"></param>
         /// <returns></returns>
-        public virtual Type GetSegmentClass(String theName, String theVersion)
+        public virtual Type GetSegmentClass(string theName, string theVersion)
         {
             return findClass(theName, theVersion, ClassType.Segment);
         }
@@ -103,7 +103,7 @@ namespace NHapi.Base.Parser
         /// <param name="theName"></param>
         /// <param name="theVersion"></param>
         /// <returns></returns>
-        public virtual Type GetTypeClass(String theName, String theVersion)
+        public virtual Type GetTypeClass(string theName, string theVersion)
         {
             return findClass(theName, theVersion, ClassType.Datatype);
         }
@@ -154,7 +154,7 @@ namespace NHapi.Base.Parser
         /// class, rather than being looked up (using findMessageClass() ) based on the String value of MSH-9.
         /// </para>
         /// </summary>
-        public static List<string> PackageList(String version)
+        public static List<string> PackageList(string version)
         {
             // load package lists if necessary ...
             if (packages == null)
@@ -207,7 +207,7 @@ namespace NHapi.Base.Parser
         /// </param>
         /// <param name="type">'message', 'group', 'segment', or 'datatype'
         /// </param>
-        private static Type findClass(String name, String version, ClassType type)
+        private static Type findClass(string name, string version, ClassType type)
         {
             if (ParserBase.ValidVersion(version) == false)
             {
@@ -219,7 +219,7 @@ namespace NHapi.Base.Parser
 
             // get sub-package for component type
             string typeString = type.ToString();
-            String subpackage = typeString.Substring(0, 1).ToUpper() + typeString.Substring(1);
+            string subpackage = typeString.Substring(0, 1).ToUpper() + typeString.Substring(1);
 
             // try to load class from each package
             Type compClass = null;
@@ -228,10 +228,10 @@ namespace NHapi.Base.Parser
             {
                 try
                 {
-                    String p = packages[c];
+                    string p = packages[c];
                     if (!p.EndsWith("."))
                         p = p + ".";
-                    String classNameToTry = p + subpackage + "." + name;
+                    string classNameToTry = p + subpackage + "." + name;
 
                     classNameToTry = AddAssemblyName(p, classNameToTry);
                     if (log.DebugEnabled)
@@ -262,7 +262,7 @@ namespace NHapi.Base.Parser
         /// <param name="p"></param>
         /// <param name="classNameToTry"></param>
         /// <returns>Assembly name qualified name</returns>
-        private static String AddAssemblyName(String p, String classNameToTry)
+        private static string AddAssemblyName(string p, string classNameToTry)
         {
             // TODO: pull this information out of the config file
             // have to add assembly name since models are broken out into separate assemblies

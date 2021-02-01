@@ -39,14 +39,14 @@ namespace NHapi.SourceGeneration.Generators
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   public class SourceGenerator : Object
+   public class SourceGenerator : object
     {
         /// <summary>Creates new SourceGenerator </summary>
         public SourceGenerator()
         {
         }
 
-        public static void MakeEventMapping(String baseDirectory, String version)
+        public static void MakeEventMapping(string baseDirectory, string version)
         {
             EventMappingGenerator.makeAll(baseDirectory, version);
         }
@@ -56,7 +56,7 @@ namespace NHapi.SourceGeneration.Generators
         /// </summary>
         /// <param name="baseDirectory">the directory where source should be written.</param>
         /// <param name="version"></param>
-        public static void makeAll(String baseDirectory, String version)
+        public static void makeAll(string baseDirectory, string version)
         {
             try
             {
@@ -108,7 +108,7 @@ namespace NHapi.SourceGeneration.Generators
                 if (chars[i] == ')')
                     inBrackets--;
 
-                if (Char.IsLetterOrDigit(chars[i]))
+                if (char.IsLetterOrDigit(chars[i]))
                 {
                     if (inBrackets > 0)
                     {
@@ -127,7 +127,7 @@ namespace NHapi.SourceGeneration.Generators
                         if (lastCharWasNotLetter)
                         {
                             // first letter of each word is upper-case
-                            aName.Append(Char.ToUpper(chars[i]));
+                            aName.Append(char.ToUpper(chars[i]));
                         }
                         else
                         {
@@ -144,7 +144,7 @@ namespace NHapi.SourceGeneration.Generators
             }
 
             aName.Append(capitalize(filterBracketedText(bracketContents.ToString())));
-            if (Char.IsDigit(aName[0]))
+            if (char.IsDigit(aName[0]))
             {
                 return "Get" + aName.ToString();
             }
@@ -166,7 +166,7 @@ namespace NHapi.SourceGeneration.Generators
         /// information is in brackets, so we can't omit everything in brackets.  The approach
         /// taken here is to eliminate bracketed text if a it looks like a data type.
         /// </summary>
-        public static String MakeAccessorName(String fieldDesc)
+        public static string MakeAccessorName(string fieldDesc)
         {
             return MakeName(fieldDesc);
         }
@@ -178,7 +178,7 @@ namespace NHapi.SourceGeneration.Generators
         /// information is in brackets, so we can't omit everything in brackets.  The approach
         /// taken here is to eliminate bracketed text if a it looks like a data type.
         /// </summary>
-        public static String MakeAccessorName(String fieldDesc, int repitions)
+        public static string MakeAccessorName(string fieldDesc, int repitions)
         {
             string name = MakeName(fieldDesc);
             if (repitions != 1 && !name.StartsWith("Get"))
@@ -196,9 +196,9 @@ namespace NHapi.SourceGeneration.Generators
         /// text actually corresponds to a data type name, so we are going to conclude that
         /// it is a data type if and only if it is all caps and has 2 or 3 characters.
         /// </summary>
-        private static String filterBracketedText(String text)
+        private static string filterBracketedText(string text)
         {
-            String filtered = "";
+            string filtered = "";
             bool isDataType = true;
             if (!text.Equals(text.ToUpper()))
                 isDataType = false;
@@ -211,12 +211,12 @@ namespace NHapi.SourceGeneration.Generators
         }
 
         /// <summary>Capitalizes first character of the given text. </summary>
-        private static String capitalize(String text)
+        private static string capitalize(string text)
         {
             StringBuilder cap = new StringBuilder();
             if (text.Length > 0)
             {
-                cap.Append(Char.ToUpper(text[0]));
+                cap.Append(char.ToUpper(text[0]));
                 cap.Append(text.Substring(1, (text.Length) - (1)));
             }
 
@@ -224,7 +224,7 @@ namespace NHapi.SourceGeneration.Generators
         }
 
         /// <summary> Creates the given directory if it does not exist.</summary>
-        public static FileInfo makeDirectory(String directory)
+        public static FileInfo makeDirectory(string directory)
         {
             SupportClass.Tokenizer tok = new SupportClass.Tokenizer(directory, "\\/", false);
             if (!Directory.Exists(directory))
@@ -243,9 +243,9 @@ namespace NHapi.SourceGeneration.Generators
         /// <p>Also converts "varies" to Varies which is an implementation of Type that contains
         /// a Type that can be set at run-time.</p>
         /// </summary>
-        public static String getAlternateType(String dataTypeName, String version)
+        public static string getAlternateType(string dataTypeName, string version)
         {
-            String ret = dataTypeName;
+            string ret = dataTypeName;
 
             // convert to varies to Varies
             if (ret.Equals("varies"))
@@ -266,7 +266,7 @@ namespace NHapi.SourceGeneration.Generators
 
 
         [STAThread]
-        public static void Main(String[] args)
+        public static void Main(string[] args)
         {
             if (args.Length != 2)
             {

@@ -58,14 +58,14 @@ namespace NHapi.SourceGeneration
         private static TableRepository rep = null;
 
         /// <summary> Returns true if the given value exists in the given table.</summary>
-        public abstract bool checkValue(int table, String value_Renamed);
+        public abstract bool checkValue(int table, string value_Renamed);
 
         /// <summary> Returns a list of the values in the given table. </summary>
-        public abstract String[] getValues(int table);
+        public abstract string[] getValues(int table);
 
         /// <summary> Returns the value corresponding to the given table and key.</summary>
         /// <throws>  UnknownValueException if the value can not be found.  This may be an UnknownTableException.   </throws>
-        public abstract String getDescription(int table, String value_Renamed);
+        public abstract string getDescription(int table, string value_Renamed);
 
         // test
         /*

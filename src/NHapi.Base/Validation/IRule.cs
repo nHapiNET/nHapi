@@ -62,12 +62,12 @@ namespace NHapi.Base.validation
         /// in exceptions generated if validation against the rule fails, or in a user
         /// interface for rule configuration.
         /// </summary>
-        String Description { get; }
+        string Description { get; }
 
         /// <summary> A string indicating the section of the HL7 standard from which this rule
         /// is derived (if applicable).  Like the description, this may be used in an exception
         /// message or configuration UI.
         /// </summary>
-        String SectionReference { get; }
+        string SectionReference { get; }
     }
 }

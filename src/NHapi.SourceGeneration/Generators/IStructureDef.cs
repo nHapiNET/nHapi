@@ -36,10 +36,10 @@ namespace NHapi.SourceGeneration.Generators
    public interface IStructureDef
     {
         /// <summary> Returns the name of the structure.</summary>
-        String Name { get; }
+        string Name { get; }
 
         /// <summary> Returns a text description of the structure.</summary>
-        String Description { get; }
+        string Description { get; }
 
         /// <summary> Returns true if this structure is required in the Group.  </summary>
         bool Required { get; }
@@ -53,6 +53,6 @@ namespace NHapi.SourceGeneration.Generators
         /// in subgroups (depth first).  This method is used to support the XML SIG's convention
         /// for deriving group names.
         /// </summary>
-        String[] ChildSegments { get; }
+        string[] ChildSegments { get; }
     }
 }

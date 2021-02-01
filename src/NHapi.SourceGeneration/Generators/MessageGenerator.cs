@@ -44,13 +44,13 @@ namespace NHapi.SourceGeneration.Generators
    /// </author>
    /// <author>  Eric Poiseau
    /// </author>
-   public class MessageGenerator : Object
+   public class MessageGenerator : object
     {
         /// <summary> If the system property by this name is true, groups are generated to use a ModelClassFactory
         /// for segment class lookup.  This makes segment creation more flexible, but may slow down parsing
         /// substantially.
         /// </summary>
-        public static String MODEL_CLASS_FACTORY_KEY = "NHapi.Base.Sourcegen.modelclassfactory";
+        public static string MODEL_CLASS_FACTORY_KEY = "NHapi.Base.Sourcegen.modelclassfactory";
 
         private static readonly IHapiLog log;
 
@@ -60,12 +60,12 @@ namespace NHapi.SourceGeneration.Generators
         }
 
         /// <summary> Creates and writes source code for all Messages and Groups.</summary>
-        public static void makeAll(String baseDirectory, String version)
+        public static void makeAll(string baseDirectory, string version)
         {
             // get list of messages ...
             using (OdbcConnection conn = NormativeDatabase.Instance.Connection)
             {
-                String sql = getMessageListQuery(version);
+                string sql = getMessageListQuery(version);
                 DbCommand stmt = TransactionManager.manager.CreateStatement(conn);
                 DbCommand temp_OleDbCommand;
                 temp_OleDbCommand = stmt;
@@ -89,8 +89,8 @@ namespace NHapi.SourceGeneration.Generators
 
                 for (int i = 0; i < messages.Count; i++)
                 {
-                    string message = (String)messages[i];
-                    string chapter = (String)chapters[i];
+                    string message = (string)messages[i];
+                    string chapter = (string)chapters[i];
                     make(message, baseDirectory, chapter, version);
                 }
             }
@@ -99,7 +99,7 @@ namespace NHapi.SourceGeneration.Generators
         /// <summary> Returns an SQL query with which to get a list of messages from the normative
         /// database.
         /// </summary>
-        private static String getMessageListQuery(String version)
+        private static string getMessageListQuery(string version)
         {
             // UNION because the messages are defined in different tables for different versions.
             return "SELECT distinct  [message_type]+'_'+[event_code] AS msg_struct, '[AAA]'" +
@@ -117,7 +117,7 @@ namespace NHapi.SourceGeneration.Generators
         /// throws IllegalArgumentException if there is no message structure
         /// for this message in the normative database
         /// </summary>
-        public static void make(String message, String baseDirectory, String chapter, String version)
+        public static void make(string message, string baseDirectory, string chapter, string version)
         {
             try
             {
@@ -167,13 +167,13 @@ namespace NHapi.SourceGeneration.Generators
         /// structure allows all choices.  The matter of enforcing that only a single choice is
         /// populated can't be handled by the class structure, and should be handled elsewhere.
         /// </summary>
-        private static SegmentDef[] getSegments(String message, String version)
+        private static SegmentDef[] getSegments(string message, string version)
         {
             /*String sql = "select HL7Segments.seg_code, repetitional, optional, description " +
             "from (HL7MsgStructIDSegments inner join HL7Segments on HL7MsgStructIDSegments.seg_code = HL7Segments.seg_code " +
             "and HL7MsgStructIDSegments.version_id = HL7Segments.version_id) " +
             "where HL7Segments.version_id = 6 and message_structure = '" + message + "' order by seq_no";*/
-            String sql = getSegmentListQuery(message, version);
+            string sql = getSegmentListQuery(message, version);
 
             // System.out.println(sql.toString());
             SegmentDef[] segments = new SegmentDef[200]; // presumably there won't be more than 200
@@ -186,11 +186,11 @@ namespace NHapi.SourceGeneration.Generators
             int c = -1;
             while (rs.Read())
             {
-                String name = SegmentGenerator.altSegName(Convert.ToString(rs[1 - 1]));
+                string name = SegmentGenerator.altSegName(Convert.ToString(rs[1 - 1]));
                 bool repeating = rs.GetBoolean(2 - 1);
                 bool optional = rs.GetBoolean(3 - 1);
-                String desc = Convert.ToString(rs[4 - 1]);
-                String groupName = Convert.ToString(rs[6 - 1]);
+                string desc = Convert.ToString(rs[4 - 1]);
+                string groupName = Convert.ToString(rs[6 - 1]);
 
                 // ignore the "choice" directives ... the message class structure has to include all choices ...
                 //  if this is enforced (i.e. exception thrown if >1 choice populated) this will have to be done separately.
@@ -212,9 +212,9 @@ namespace NHapi.SourceGeneration.Generators
         /// varies with different versions.  The fields returned are as follows:
         /// segment_code, repetitional, optional, description
         /// </summary>
-        private static String getSegmentListQuery(String message, String version)
+        private static string getSegmentListQuery(string message, string version)
         {
-            String sql = null;
+            string sql = null;
 
             sql = "SELECT HL7Segments.seg_code, repetitional, optional, HL7Segments.description, seq_no, groupname " +
                     "FROM HL7Versions RIGHT JOIN (HL7Segments INNER JOIN HL7EventMessageTypeSegments ON (HL7Segments.version_id = HL7EventMessageTypeSegments.version_id) " +
@@ -232,7 +232,7 @@ namespace NHapi.SourceGeneration.Generators
         /// <summary> Returns header material for the source code of a Message class (including
         /// package, imports, JavaDoc, and class declaration).
         /// </summary>
-        public static String makePreamble(IStructureDef[] contents, String message, String chapter, String version)
+        public static string makePreamble(IStructureDef[] contents, string message, string chapter, string version)
         {
             StringBuilder preamble = new StringBuilder();
             preamble.Append("using System;\r\n");
@@ -282,7 +282,7 @@ namespace NHapi.SourceGeneration.Generators
         }
 
         /// <summary> Returns source code for the contructor for this Message class.</summary>
-        public static String makeConstructor(IStructureDef[] structs, String messageName, String version)
+        public static string makeConstructor(IStructureDef[] structs, string messageName, string version)
         {
             bool useFactory = ConfigurationSettings.UseFactory;
 

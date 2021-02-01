@@ -46,14 +46,14 @@ namespace NHapi.SourceGeneration.Generators
    /// </author>
    /// <author>  Eric Poiseau
    /// </author>
-   public class SegmentGenerator : Object
+   public class SegmentGenerator : object
     {
         private static readonly IHapiLog log;
 
         /// <summary> <p>Creates skeletal source code (without correct data structure but no business
         /// logic) for all segments found in the normative database.  </p>
         /// </summary>
-        public static void makeAll(String baseDirectory, String version)
+        public static void makeAll(string baseDirectory, string version)
         {
             // make base directory
             if (!(baseDirectory.EndsWith("\\") || baseDirectory.EndsWith("/")))
@@ -66,7 +66,7 @@ namespace NHapi.SourceGeneration.Generators
 
             // get list of data types
             OdbcConnection conn = NormativeDatabase.Instance.Connection;
-            String sql =
+            string sql =
                 "SELECT seg_code, [section] from HL7Segments, HL7Versions where HL7Segments.version_id = HL7Versions.version_id AND hl7_version = '" +
                 version + "'";
             DbCommand temp_OleDbCommand = conn.CreateCommand();
@@ -78,8 +78,8 @@ namespace NHapi.SourceGeneration.Generators
             ArrayList segments = new ArrayList();
             while (rs.Read())
             {
-                String segName = Convert.ToString(rs[1 - 1]);
-                if (Char.IsLetter(segName[0]))
+                string segName = Convert.ToString(rs[1 - 1]);
+                if (char.IsLetter(segName[0]))
                     segments.Add(altSegName(segName));
             }
 
@@ -95,8 +95,8 @@ namespace NHapi.SourceGeneration.Generators
             {
                 try
                 {
-                    String seg = (String)segments[i];
-                    String source = makeSegment(seg, version);
+                    string seg = (string)segments[i];
+                    string source = makeSegment(seg, version);
                     using (StreamWriter w = new StreamWriter(targetDir.ToString() + @"\" + GetSpecialFilename(seg) + ".cs"))
                     {
                         w.Write(source);
@@ -128,16 +128,16 @@ namespace NHapi.SourceGeneration.Generators
         /// <ul><li>Replacing Z.. with Z</li>
         /// <li>Replacing ??? with ???</li></ul>
         /// </summary>
-        public static String altSegName(String segmentName)
+        public static string altSegName(string segmentName)
         {
-            String ret = segmentName;
+            string ret = segmentName;
             if (ret.Equals("Z.."))
                 ret = "Z";
             return ret;
         }
 
         /// <summary> Returns the Java source code for a class that represents the specified segment.</summary>
-        public static String makeSegment(String name, String version)
+        public static string makeSegment(string name, string version)
         {
             Console.WriteLine("Making segment " + name);
             StringBuilder source = new StringBuilder();
@@ -145,7 +145,7 @@ namespace NHapi.SourceGeneration.Generators
             {
                 ArrayList elements = new ArrayList();
                 SegmentElement se;
-                String segDesc = null;
+                string segDesc = null;
                 OdbcConnection conn = NormativeDatabase.Instance.Connection;
                 StringBuilder sql = new StringBuilder();
                 sql.Append("SELECT HL7SegmentDataElements.seg_code, HL7SegmentDataElements.seq_no, ");
@@ -290,7 +290,7 @@ namespace NHapi.SourceGeneration.Generators
                     for (int i = 0; i < elements.Count; i++)
                     {
                         se = (SegmentElement)elements[i];
-                        String type = SourceGenerator.getAlternateType(se.type, version);
+                        string type = SourceGenerator.getAlternateType(se.type, version);
                         source.Append("       this.add(");
                         source.Append("typeof(" + type + ")");
 
@@ -361,7 +361,7 @@ namespace NHapi.SourceGeneration.Generators
                     if (!se.desc.ToUpper().Equals("UNUSED".ToUpper()))
                     {
                         // some entries in 2.1 DB say "unused"
-                        String type = SourceGenerator.getAlternateType(se.type, version);
+                        string type = SourceGenerator.getAlternateType(se.type, version);
                         source.Append("\t///<summary>\r\n");
                         source.Append("\t/// Returns ");
                         if (se.repetitions != 1)
@@ -560,7 +560,7 @@ namespace NHapi.SourceGeneration.Generators
         /// </summary>
         /// <param name="args"></param>
         [STAThread]
-        public static void Main(String[] args)
+        public static void Main(string[] args)
         {
             if (args.Length != 1 && args.Length != 2)
             {
@@ -577,7 +577,7 @@ namespace NHapi.SourceGeneration.Generators
                 }
                 else
                 {
-                    String source = makeSegment(args[1], "2.4");
+                    string source = makeSegment(args[1], "2.4");
                     StreamWriter w =
                         new StreamWriter(new StreamWriter(args[0] + "/" + args[1] + ".java", false, Encoding.Default).BaseStream,
                             new StreamWriter(args[0] + "/" + args[1] + ".java", false, Encoding.Default).Encoding);

@@ -42,11 +42,11 @@ namespace NHapi.Base.validation
         /// </param>
         /// <returns> a corrected version of the given value
         /// </returns>
-        String correct(String originalValue);
+        string correct(string originalValue);
 
         /// <summary> Tests the given string against the criteria defined by this
         /// rule -- returns true if it passes the test, false otherwise.
         /// </summary>
-        bool test(String testValu);
+        bool test(string testValu);
     }
 }

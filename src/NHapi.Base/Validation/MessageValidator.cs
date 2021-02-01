@@ -98,7 +98,7 @@ namespace NHapi.Base.validation
         /// <returns> true if the message is OK
         /// </returns>
         /// <throws>  HL7Exception if there is at least one error and this validator is set to fail on errors </throws>
-        public virtual bool validate(String message, bool isXML, String version)
+        public virtual bool validate(string message, bool isXML, string version)
         {
             IEncodingRule[] rules = myContext.getEncodingRules(version, isXML ? "XML" : "ER7");
             ValidationException toThrow = null;

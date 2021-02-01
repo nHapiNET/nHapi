@@ -25,7 +25,7 @@ namespace NHapi.Base.Model
         /// if new instances of this class are created (use null for zero-arg constructor)</param>
         /// <throws>  HL7Exception if the given class does not inherit from IType or if it cannot be instantiated. </throws>
         /// </summary>
-        public AbstractSegmentItem(Type t, bool required, int maxReps, int length, Object[] constructorArgs)
+        public AbstractSegmentItem(Type t, bool required, int maxReps, int length, object[] constructorArgs)
             : this(t, required, maxReps, length, constructorArgs, string.Empty)
         {
         }
@@ -42,7 +42,7 @@ namespace NHapi.Base.Model
         /// if new instances of this class are created (use null for zero-arg constructor)</param>
         /// <param name="description">Description of the segment</param>
         /// <throws>  HL7Exception if the given class does not inherit from IType or if it cannot be instantiated. </throws>
-        public AbstractSegmentItem(Type t, bool required, int maxReps, int length, Object[] constructorArgs,
+        public AbstractSegmentItem(Type t, bool required, int maxReps, int length, object[] constructorArgs,
             string description)
         {
             if (!typeof(IType).IsAssignableFrom(t))

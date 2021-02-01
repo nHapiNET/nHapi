@@ -42,7 +42,7 @@ namespace NHapi.Base.validation.impl
         /// <summary>
         /// The description
         /// </summary>
-        public virtual String Description
+        public virtual string Description
         {
             get { return "Matches the regular expression " + myPattern.ToString(); }
         }
@@ -50,20 +50,20 @@ namespace NHapi.Base.validation.impl
         /// <summary>
         /// The section reference
         /// </summary>
-        public virtual String SectionReference
+        public virtual string SectionReference
         {
             get { return mySectionReference; }
         }
 
         private Regex myPattern;
-        private String mySectionReference;
+        private string mySectionReference;
 
         /// <param name="theRegex">a regular expression against which to validate primitive
         /// values
         /// </param>
         /// <param name="theSectionReference">to be returned by <code>getSectionReference()</code>
         /// </param>
-        public RegexPrimitiveRule(String theRegex, String theSectionReference)
+        public RegexPrimitiveRule(string theRegex, string theSectionReference)
         {
             myPattern = new Regex(theRegex);
             mySectionReference = theSectionReference;
@@ -72,7 +72,7 @@ namespace NHapi.Base.validation.impl
         /// <summary> Empty string, null, and the HL7 explicit null (two double-quotes) are passed.
         ///
         /// </summary>
-        public virtual bool test(String value_Renamed)
+        public virtual bool test(string value_Renamed)
         {
             if (value_Renamed == null || value_Renamed.Equals("\"\"") || value_Renamed.Equals(""))
             {
@@ -89,7 +89,7 @@ namespace NHapi.Base.validation.impl
         /// </summary>
         /// <param name="value_Renamed"></param>
         /// <returns></returns>
-        public virtual String correct(String value_Renamed)
+        public virtual string correct(string value_Renamed)
         {
             return value_Renamed;
         }

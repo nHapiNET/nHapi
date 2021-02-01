@@ -199,7 +199,7 @@ namespace NHapi.Base.Model
             IType newType = null;
             try
             {
-                Object[] args = getArgs(number, description);
+                object[] args = getArgs(number, description);
                 Type[] argClasses = new Type[args.Length];
                 for (int i = 0; i < args.Length; i++)
                 {
@@ -244,16 +244,16 @@ namespace NHapi.Base.Model
         // defaults to {this.getMessage}
         private object[] getArgs(int fieldNum, string description)
         {
-            Object[] result = null;
+            object[] result = null;
 
-            Object o = _items[fieldNum].Args;
-            if (o != null && o is Object[] && ((object[])o).Length > 0)
+            object o = _items[fieldNum].Args;
+            if (o != null && o is object[] && ((object[])o).Length > 0)
             {
                 result = o as object[];
             }
             else
             {
-                result = new Object[] { Message };
+                result = new object[] { Message };
             }
 
             bool appendDescription = !string.IsNullOrEmpty(description);
@@ -365,7 +365,7 @@ namespace NHapi.Base.Model
         /// <throws>  HL7Exception if the given class does not inherit from Type or if it can  </throws>
         /// <summary>    not be instantiated.
         /// </summary>
-        protected internal virtual void add(Type c, bool required, int maxReps, int length, Object[] constructorArgs)
+        protected internal virtual void add(Type c, bool required, int maxReps, int length, object[] constructorArgs)
         {
             add(c, required, maxReps, length, constructorArgs, null);
         }
@@ -379,7 +379,7 @@ namespace NHapi.Base.Model
         /// <param name="length"></param>
         /// <param name="constructorArgs"></param>
         /// <param name="description"></param>
-        protected internal virtual void add(Type c, bool required, int maxReps, int length, Object[] constructorArgs,
+        protected internal virtual void add(Type c, bool required, int maxReps, int length, object[] constructorArgs,
             string description)
         {
             if (!typeof(IType).IsAssignableFrom(c))
@@ -491,9 +491,9 @@ namespace NHapi.Base.Model
         }
 
         /// <summary> Returns the class name (excluding package). </summary>
-        public virtual String GetStructureName()
+        public virtual string GetStructureName()
         {
-            String fullName = GetType().FullName;
+            string fullName = GetType().FullName;
             return fullName.Substring(fullName.LastIndexOf('.') + 1, (fullName.Length) - (fullName.LastIndexOf('.') + 1));
         }
     }

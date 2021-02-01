@@ -45,7 +45,7 @@ namespace NHapi.SourceGeneration.Generators
    /// </author>
    /// <author>  Eric Poiseau
    /// </author>
-   public class DataTypeGenerator : Object
+   public class DataTypeGenerator : object
     {
         private static readonly IHapiLog log;
 
@@ -53,7 +53,7 @@ namespace NHapi.SourceGeneration.Generators
         /// logic) for all data types found in the normative database.  For versions > 2.2, Primitive data types
         /// are not generated, because they are coded manually (as of HAPI 0.3).
         /// </summary>
-        public static void makeAll(String baseDirectory, String version)
+        public static void makeAll(string baseDirectory, string version)
         {
             // make base directory
             if (!(baseDirectory.EndsWith("\\") || baseDirectory.EndsWith("/")))
@@ -121,7 +121,7 @@ namespace NHapi.SourceGeneration.Generators
         /// <param name="targetDirectory">the directory into which the file will be written.</param>
         /// <param name="dataType">the name (e.g. ST, ID, etc.) of the data type to be created.</param>
         /// <param name="version">the HL7 version of the intended data type.</param>
-        public static void make(FileInfo targetDirectory, String dataType, String version)
+        public static void make(FileInfo targetDirectory, string dataType, string version)
         {
             Console.WriteLine(" Writing " + targetDirectory.FullName + dataType);
 
@@ -159,14 +159,14 @@ namespace NHapi.SourceGeneration.Generators
             ArrayList dataTypes = new ArrayList(20);
             ArrayList descriptions = new ArrayList(20);
             ArrayList tables = new ArrayList(20);
-            String description = null;
+            string description = null;
             while (rs.Read())
             {
                 if (description == null)
                     description = Convert.ToString(rs[3 - 1]);
 
-                String de = Convert.ToString(rs[5 - 1]);
-                String dt = Convert.ToString(rs[8 - 1]);
+                string de = Convert.ToString(rs[5 - 1]);
+                string dt = Convert.ToString(rs[8 - 1]);
                 int ta = -1;
                 if (!rs.IsDBNull(4 - 1))
                     ta = rs.GetInt32(4 - 1);
@@ -192,7 +192,7 @@ namespace NHapi.SourceGeneration.Generators
             NormativeDatabase.Instance.returnConnection(conn);
 
             // if there is only one component make a Primitive, otherwise make a Composite
-            String source = null;
+            string source = null;
             if (dataTypes.Count == 1)
             {
                 if (dataType.Equals("FT") || dataType.Equals("ST") || dataType.Equals("TX") || dataType.Equals("NM") ||
@@ -210,14 +210,14 @@ namespace NHapi.SourceGeneration.Generators
                 int numComponents = dataTypes.Count;
 
                 // copy data into arrays ...
-                String[] type = new String[numComponents];
-                String[] desc = new String[numComponents];
+                string[] type = new string[numComponents];
+                string[] desc = new string[numComponents];
                 int[] table = new int[numComponents];
                 for (int i = 0; i < numComponents; i++)
                 {
-                    type[i] = ((String)dataTypes[i]);
-                    desc[i] = ((String)descriptions[i]);
-                    table[i] = ((Int32)tables[i]);
+                    type[i] = ((string)dataTypes[i]);
+                    desc[i] = ((string)descriptions[i]);
+                    table[i] = ((int)tables[i]);
                 }
 
                 source = makeComposite(dataType, description, type, desc, table, version);
@@ -234,7 +234,7 @@ namespace NHapi.SourceGeneration.Generators
             // write to file ...
             if (source != null)
             {
-                String targetFile = targetDirectory + "/" + dataType + ".cs";
+                string targetFile = targetDirectory + "/" + dataType + ".cs";
                 using (StreamWriter writer = new StreamWriter(targetFile))
                 {
                     writer.Write(source);
@@ -248,7 +248,7 @@ namespace NHapi.SourceGeneration.Generators
         /// <summary> Returns a String containing the complete source code for a Primitive HL7 data
         /// type.  Note: this method is no longer used, as all Primitives are now coded manually.
         /// </summary>
-        private static String makePrimitive(String datatype, String description, String version)
+        private static string makePrimitive(string datatype, string description, string version)
         {
             StringBuilder source = new StringBuilder();
 
@@ -320,8 +320,8 @@ namespace NHapi.SourceGeneration.Generators
         /// dataTypes array contains the data type names (e.g. ST) of each component.
         /// The descriptions array contains the corresponding descriptions (e.g. string).
         /// </summary>
-        private static String makeComposite(String dataType, String description, String[] dataTypes, String[] descriptions,
-            int[] tables, String version)
+        private static string makeComposite(string dataType, string description, string[] dataTypes, string[] descriptions,
+            int[] tables, string version)
         {
             StringBuilder source = new StringBuilder();
             source.Append("using System;\n");
@@ -439,7 +439,7 @@ namespace NHapi.SourceGeneration.Generators
             // make type-specific accessors ...
             for (int i = 0; i < dataTypes.Length; i++)
             {
-                String dtName = SourceGenerator.getAlternateType(dataTypes[i], version);
+                string dtName = SourceGenerator.getAlternateType(dataTypes[i], version);
                 source.Append("\t///<summary>\r\n");
                 source.Append("\t/// Returns ");
                 source.Append(GetDescription(descriptions[i]));
@@ -496,7 +496,7 @@ namespace NHapi.SourceGeneration.Generators
 
         // test
         [STAThread]
-        public static void Main(String[] args)
+        public static void Main(string[] args)
         {
             // System.out.println(makePrimitive("ID", "identifier"));
             try

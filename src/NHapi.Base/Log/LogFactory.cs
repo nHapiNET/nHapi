@@ -14,7 +14,7 @@ namespace NHapi.Base.Log
             return new EntLibLogger();
         }
 
-        public static ILog GetLog(String name)
+        public static ILog GetLog(string name)
         {
             return new EntLibLogger();
         }

@@ -71,7 +71,7 @@ namespace NHapi.Base.Log
 
         /// <param name="message">
         /// </param>
-        public virtual void Debug(Object message)
+        public virtual void Debug(object message)
         {
             innerLog.Debug(message);
         }
@@ -80,14 +80,14 @@ namespace NHapi.Base.Log
         /// </param>
         /// <param name="t">
         /// </param>
-        public virtual void Debug(Object message, Exception t)
+        public virtual void Debug(object message, Exception t)
         {
             innerLog.Debug(message, t);
         }
 
         /// <param name="message">
         /// </param>
-        public virtual void Error(Object message)
+        public virtual void Error(object message)
         {
             innerLog.Error(message);
         }
@@ -96,7 +96,7 @@ namespace NHapi.Base.Log
         /// </param>
         /// <param name="t">
         /// </param>
-        public virtual void Error(Object message, Exception t)
+        public virtual void Error(object message, Exception t)
         {
             innerLog.Error(message, t);
         }
@@ -105,7 +105,7 @@ namespace NHapi.Base.Log
         /// fatal
         /// </summary>
         /// <param name="message"></param>
-        public virtual void Fatal(Object message)
+        public virtual void Fatal(object message)
         {
             innerLog.Fatal(message);
         }
@@ -115,7 +115,7 @@ namespace NHapi.Base.Log
         /// </summary>
         /// <param name="message"></param>
         /// <param name="t"></param>
-        public virtual void Fatal(Object message, Exception t)
+        public virtual void Fatal(object message, Exception t)
         {
             innerLog.Fatal(message, t);
         }
@@ -124,7 +124,7 @@ namespace NHapi.Base.Log
         /// info
         /// </summary>
         /// <param name="message"></param>
-        public virtual void Info(Object message)
+        public virtual void Info(object message)
         {
             innerLog.Info(message);
         }
@@ -134,7 +134,7 @@ namespace NHapi.Base.Log
         /// </summary>
         /// <param name="message"></param>
         /// <param name="t"></param>
-        public virtual void Info(Object message, Exception t)
+        public virtual void Info(object message, Exception t)
         {
             innerLog.Info(message, t);
         }
@@ -143,14 +143,14 @@ namespace NHapi.Base.Log
         /// To string
         /// </summary>
         /// <returns></returns>
-        public override String ToString()
+        public override string ToString()
         {
             return innerLog.ToString();
         }
 
         /// <param name="message">
         /// </param>
-        public virtual void Trace(Object message)
+        public virtual void Trace(object message)
         {
             innerLog.Trace(message);
         }
@@ -160,7 +160,7 @@ namespace NHapi.Base.Log
         /// </summary>
         /// <param name="message"></param>
         /// <param name="t"></param>
-        public virtual void Trace(Object message, Exception t)
+        public virtual void Trace(object message, Exception t)
         {
             innerLog.Trace(message, t);
         }
@@ -169,7 +169,7 @@ namespace NHapi.Base.Log
         /// Warn
         /// </summary>
         /// <param name="message"></param>
-        public virtual void Warn(Object message)
+        public virtual void Warn(object message)
         {
             innerLog.Warn(message);
         }
@@ -179,7 +179,7 @@ namespace NHapi.Base.Log
         /// </summary>
         /// <param name="message"></param>
         /// <param name="t"></param>
-        public virtual void Warn(Object message, Exception t)
+        public virtual void Warn(object message, Exception t)
         {
             innerLog.Warn(message, t);
         }
@@ -191,9 +191,9 @@ namespace NHapi.Base.Log
         /// <param name="msgPattern"></param>
         /// <param name="values"></param>
         /// <param name="t"></param>
-        public virtual void Debug(String msgPattern, Object[] values, Exception t)
+        public virtual void Debug(string msgPattern, object[] values, Exception t)
         {
-            String message = String.Format(msgPattern, values);
+            string message = string.Format(msgPattern, values);
             innerLog.Debug(message, t);
         }
     }

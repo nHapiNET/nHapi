@@ -14,10 +14,10 @@ namespace NHapi.Base.Model
    /// </author>
    public class GenericSegment : AbstractSegment
     {
-        private String name;
+        private string name;
 
         /// <summary>Creates a new instance of GenericSegment </summary>
-        public GenericSegment(IGroup parent, String name)
+        public GenericSegment(IGroup parent, string name)
             : base(parent, null)
         {
             this.name = name;
@@ -25,7 +25,7 @@ namespace NHapi.Base.Model
 
         /// <summary> Returns the name specified at construction time. </summary>
         /// <seealso cref="IStructure.GetStructureName" />
-        public override String GetStructureName()
+        public override string GetStructureName()
         {
             return name;
         }

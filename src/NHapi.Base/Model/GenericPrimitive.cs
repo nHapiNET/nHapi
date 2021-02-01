@@ -15,7 +15,7 @@ namespace NHapi.Base.Model
         /// implementing class.
         /// </summary>
         /// <throws>  DataTypeException if the given value is not valid in this context. </throws>
-        public override String Value
+        public override string Value
         {
             get { return value_Renamed; }
 
@@ -23,7 +23,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>Returns the name of the type (used in XML encoding and profile checking)  </summary>
-        public override String TypeName
+        public override string TypeName
         {
             get { return "UNKNOWN"; }
         }
@@ -31,12 +31,12 @@ namespace NHapi.Base.Model
         /// <summary>
         /// Gets the version.
         /// </summary>
-        public virtual String Version
+        public virtual string Version
         {
             get { return null; }
         }
 
-        internal String value_Renamed = null;
+        internal string value_Renamed = null;
 
         /// <summary> Creates a new instance of GenericPrimitive </summary>
         public GenericPrimitive(IMessage message)

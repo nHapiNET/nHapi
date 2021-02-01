@@ -51,7 +51,7 @@ namespace NHapi.Base.validation.impl
         /// <summary>
         /// Gets the version to which the binding applies (* means all versions).
         /// </summary>
-        public virtual String Version
+        public virtual string Version
         {
             get { return myVersion; }
         }
@@ -71,7 +71,7 @@ namespace NHapi.Base.validation.impl
         /// For <see cref="IEncodingRule"/> this is the encoding name (again, * means any).
         /// </para>
         /// </remarks>
-        public virtual String Scope
+        public virtual string Scope
         {
             get { return myScope; }
         }
@@ -85,8 +85,8 @@ namespace NHapi.Base.validation.impl
         }
 
         private bool myActiveFlag;
-        private String myVersion;
-        private String myScope;
+        private string myVersion;
+        private string myScope;
         private IRule myRule;
 
         /// <summary> Active by default.
@@ -98,7 +98,7 @@ namespace NHapi.Base.validation.impl
         /// </param>
         /// <param name="theRule">see {@link #getRule()}
         /// </param>
-        public RuleBinding(String theVersion, String theScope, IRule theRule)
+        public RuleBinding(string theVersion, string theScope, IRule theRule)
         {
             myActiveFlag = true;
             myVersion = theVersion;
@@ -110,7 +110,7 @@ namespace NHapi.Base.validation.impl
         /// </param>
         /// <returns> true if this binding applies to the given version (ie getVersion() matches or is *)
         /// </returns>
-        public virtual bool appliesToVersion(String theVersion)
+        public virtual bool appliesToVersion(string theVersion)
         {
             return applies(Version, theVersion);
         }
@@ -119,7 +119,7 @@ namespace NHapi.Base.validation.impl
         /// </param>
         /// <returns> true if the given type is within scope, ie if it matches getScope() or getScope() is *
         /// </returns>
-        public virtual bool appliesToScope(String theType)
+        public virtual bool appliesToScope(string theType)
         {
             return applies(Scope, theType);
         }
@@ -133,7 +133,7 @@ namespace NHapi.Base.validation.impl
         /// </param>
         /// <returns>
         /// </returns>
-        protected internal virtual bool applies(String theBindingData, String theItemData)
+        protected internal virtual bool applies(string theBindingData, string theItemData)
         {
             bool applies = false;
             if (theBindingData.Equals(theItemData) || theBindingData.Equals("*"))

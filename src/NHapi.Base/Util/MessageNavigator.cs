@@ -67,7 +67,7 @@ namespace NHapi.Base.Util
                 get { return enclosingInstance; }
             }
 
-            public virtual bool evaluate(Object obj)
+            public virtual bool evaluate(object obj)
             {
                 if (typeof(ISegment).IsAssignableFrom(obj.GetType()))
                 {
@@ -106,7 +106,7 @@ namespace NHapi.Base.Util
                 if (currentGroup == root && currentChild == -1)
                     throw new HL7Exception("Pointer is at root of navigator: there is no current child");
 
-                String childName = childNames[currentChild];
+                string childName = childNames[currentChild];
                 return currentGroup.GetAll(childName);
             }
         }
@@ -115,7 +115,7 @@ namespace NHapi.Base.Util
         private ArrayList ancestors;
         private int currentChild; // -1 means current structure is current group (special case used for root)
         private IGroup currentGroup;
-        private String[] childNames;
+        private string[] childNames;
 
         /// <summary> Creates a new instance of MessageNavigator</summary>
         /// <param name="root">the root of navigation -- may be a message or a group
@@ -245,7 +245,7 @@ namespace NHapi.Base.Util
             IStructure ret = null;
             if (currentChild != -1)
             {
-                String childName = childNames[currentChild];
+                string childName = childNames[currentChild];
                 ret = currentGroup.GetStructure(childName, rep);
             }
             else
@@ -344,7 +344,7 @@ namespace NHapi.Base.Util
         /// <summary>Like Arrays.binarySearch, only probably slower and doesn't require
         /// a sorted list.  Also just returns -1 if item isn't found.
         /// </summary>
-        private int search(Object[] list, Object item)
+        private int search(object[] list, object item)
         {
             int found = -1;
             for (int i = 0; i < list.Length && found == -1; i++)

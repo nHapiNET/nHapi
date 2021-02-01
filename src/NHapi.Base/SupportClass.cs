@@ -69,7 +69,7 @@ namespace NHapi.Base
     {
         private Stream bytes;
         private StreamReader characters;
-        private String uri;
+        private string uri;
 
         /// <summary>
         /// Constructs an empty XmlSourceSupport instance.
@@ -107,7 +107,7 @@ namespace NHapi.Base
         /// Construct a XmlSource instance with the specified source Uri string.
         /// </summary>
         /// <param name="source">The source containing the document.</param>
-        public XmlSourceSupport(String source)
+        public XmlSourceSupport(string source)
         {
             bytes = null;
             characters = null;
@@ -135,7 +135,7 @@ namespace NHapi.Base
         /// <summary>
         /// Represents the source URI of the XmlSource.
         /// </summary>
-        public String Uri
+        public string Uri
         {
             get { return uri; }
             set { uri = value; }
@@ -155,7 +155,7 @@ namespace NHapi.Base
         /// <param name="publicId">The public identifier of the external entity being referenced, or null if none was supplied.</param>
         /// <param name="systemId">The system identifier of the external entity being referenced.</param>
         /// <returns>A XmlSourceSupport object describing the new input source, or null to request that the parser open a regular URI connection to the system identifier.</returns>
-        XmlSourceSupport resolveEntity(String publicId, String systemId);
+        XmlSourceSupport resolveEntity(string publicId, string systemId);
     }
 
     /*******************************/
@@ -184,13 +184,13 @@ namespace NHapi.Base
         /// <param name="namespaceURI">The namespace URI of the element.</param>
         /// <param name="localName">The local name of the element.</param>
         /// <param name="qName">The long (qualified) name of the element.</param>
-        void endElement(String namespaceURI, String localName, String qName);
+        void endElement(string namespaceURI, string localName, string qName);
 
         /// <summary>
         /// This method manage the event when an area of expecific URI prefix was ended.
         /// </summary>
         /// <param name="prefix">The prefix that ends.</param>
-        void endPrefixMapping(String prefix);
+        void endPrefixMapping(string prefix);
 
         /// <summary>
         /// This method manage the event when a ignorable whitespace node was found.
@@ -205,7 +205,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="target">The processing instruction target.</param>
         /// <param name="data">The processing instruction data.</param>
-        void processingInstruction(String target, String data);
+        void processingInstruction(string target, string data);
 
         /// <summary>
         /// This method is not supported, it is included for compatibility.
@@ -216,7 +216,7 @@ namespace NHapi.Base
         /// This method manage the event when a skipped entity was found.
         /// </summary>
         /// <param name="name">The name of the skipped entity.</param>
-        void skippedEntity(String name);
+        void skippedEntity(string name);
 
         /// <summary>
         /// This method manage the event when a start document node was found.
@@ -230,14 +230,14 @@ namespace NHapi.Base
         /// <param name="localName">The local name of the element.</param>
         /// <param name="qName">The long (qualified) name of the element.</param>
         /// <param name="atts">The list of attributes of the element.</param>
-        void startElement(String namespaceURI, String localName, String qName, SaxAttributesSupport atts);
+        void startElement(string namespaceURI, string localName, string qName, SaxAttributesSupport atts);
 
         /// <summary>
         /// This methods indicates the start of a prefix area in the XML document.
         /// </summary>
         /// <param name="prefix">The prefix of the area.</param>
         /// <param name="uri">The namespace URI of the prefix area.</param>
-        void startPrefixMapping(String prefix, String uri);
+        void startPrefixMapping(string prefix, string uri);
     }
 
     /*******************************/
@@ -263,13 +263,13 @@ namespace NHapi.Base
         /// This method is not supported, it is included for compatibility.
         /// </summary>
         /// <returns>The saved public identifier.</returns>
-        String getPublicId();
+        string getPublicId();
 
         /// <summary>
         /// This method is not supported, it is included for compatibility.
         /// </summary>
         /// <returns>The saved system identifier.</returns>
-        String getSystemId();
+        string getSystemId();
     }
 
     /*******************************/
@@ -306,7 +306,7 @@ namespace NHapi.Base
         /// Return the saved public identifier.
         /// </summary>
         /// <returns>The saved public identifier.</returns>
-        public virtual String getPublicId()
+        public virtual string getPublicId()
         {
             return publicId;
         }
@@ -316,7 +316,7 @@ namespace NHapi.Base
         /// Return the saved system identifier.
         /// </summary>
         /// <returns>The saved system identifier.</returns>
-        public virtual String getSystemId()
+        public virtual string getSystemId()
         {
             return systemId;
         }
@@ -344,7 +344,7 @@ namespace NHapi.Base
         /// Set the public identifier for this locator.
         /// </summary>
         /// <param name="publicId">The new public identifier.</param>
-        public virtual void setPublicId(String publicId)
+        public virtual void setPublicId(string publicId)
         {
             this.publicId = publicId;
         }
@@ -354,7 +354,7 @@ namespace NHapi.Base
         /// Set the system identifier for this locator.
         /// </summary>
         /// <param name="systemId">The new system identifier.</param>
-        public virtual void setSystemId(String systemId)
+        public virtual void setSystemId(string systemId)
         {
             this.systemId = systemId;
         }
@@ -378,8 +378,8 @@ namespace NHapi.Base
         }
 
         // Internal state.
-        private String publicId;
-        private String systemId;
+        private string publicId;
+        private string systemId;
         private int lineNumber;
         private int columnNumber;
     }
@@ -413,7 +413,7 @@ namespace NHapi.Base
         /// This method report the end of an entity.
         /// </summary>
         /// <param name="name">The name of the entity that is ending.</param>
-        void endEntity(String name);
+        void endEntity(string name);
 
         /// <summary>
         /// This method manage the notification when the start of a CDATA section were found.
@@ -426,13 +426,13 @@ namespace NHapi.Base
         /// <param name="name">The name of the DTD entity.</param>
         /// <param name="publicId">The public identifier.</param>
         /// <param name="systemId">The system identifier.</param>
-        void startDTD(String name, String publicId, String systemId);
+        void startDTD(string name, string publicId, string systemId);
 
         /// <summary>
         /// This method report the start of an entity.
         /// </summary>
         /// <param name="name">The name of the entity that is ending.</param>
-        void startEntity(String name);
+        void startEntity(string name);
     }
 
     /*******************************/
@@ -471,7 +471,7 @@ namespace NHapi.Base
         /// <param name="Qname">The Long(qualify) name of the attribute to be added.</param>
         /// <param name="Type">The type of the attribute to be added.</param>
         /// <param name="Value">The value of the attribute to be added.</param>
-        public virtual void Add(String Uri, String Lname, String Qname, String Type, String Value)
+        public virtual void Add(string Uri, string Lname, string Qname, string Type, string Value)
         {
             Att_Instance temp_Attributes = new Att_Instance(Uri, Lname, Qname, Type, Value);
             MainList.Add(temp_Attributes);
@@ -490,7 +490,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="Qname">The qualified name of the attribute to search.</param>
         /// <returns>An zero-based index of the attribute if it is found, otherwise it returns -1.</returns>
-        public virtual int GetIndex(String Qname)
+        public virtual int GetIndex(string Qname)
         {
             int index = GetLength() - 1;
             while ((index >= 0) && !(((Att_Instance)(MainList[index])).att_fullName.Equals(Qname)))
@@ -507,7 +507,7 @@ namespace NHapi.Base
         /// <param name="Uri">The namespace URI of the attribute to search.</param>
         /// <param name="Lname">The local name of the attribute to search.</param>
         /// <returns>An zero-based index of the attribute if it is found, otherwise it returns -1.</returns>
-        public virtual int GetIndex(String Uri, String Lname)
+        public virtual int GetIndex(string Uri, string Lname)
         {
             int index = GetLength() - 1;
             while ((index >= 0) &&
@@ -534,7 +534,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="index">The attribute index.</param>
         /// <returns>The local name of the attribute indicated by the index or null if the index is out of bounds.</returns>
-        public virtual String GetLocalName(int index)
+        public virtual string GetLocalName(int index)
         {
             try
             {
@@ -551,7 +551,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="index">The attribute index.</param>
         /// <returns>The qualified name of the attribute indicated by the index or null if the index is out of bounds.</returns>
-        public virtual String GetFullName(int index)
+        public virtual string GetFullName(int index)
         {
             try
             {
@@ -568,7 +568,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="index">The attribute index.</param>
         /// <returns>The type of the attribute indicated by the index or null if the index is out of bounds.</returns>
-        public virtual String GetType(int index)
+        public virtual string GetType(int index)
         {
             try
             {
@@ -585,7 +585,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="index">The attribute index.</param>
         /// <returns>The namespace URI of the attribute indicated by the index or null if the index is out of bounds.</returns>
-        public virtual String GetURI(int index)
+        public virtual string GetURI(int index)
         {
             try
             {
@@ -602,7 +602,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="index">The attribute index.</param>
         /// <returns>The value of the attribute indicated by the index or null if the index is out of bounds.</returns>
-        public virtual String GetValue(int index)
+        public virtual string GetValue(int index)
         {
             try
             {
@@ -619,7 +619,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="index">The attribute index.</param>
         /// <param name="LocalName">The new Local name for the attribute.</param>
-        public virtual void SetLocalName(int index, String LocalName)
+        public virtual void SetLocalName(int index, string LocalName)
         {
             ((Att_Instance)MainList[index]).att_localName = LocalName;
         }
@@ -629,7 +629,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="index">The attribute index.</param>
         /// <param name="FullName">The new qualified name for the attribute.</param>
-        public virtual void SetFullName(int index, String FullName)
+        public virtual void SetFullName(int index, string FullName)
         {
             ((Att_Instance)MainList[index]).att_fullName = FullName;
         }
@@ -639,7 +639,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="index">The attribute index.</param>
         /// <param name="Type">The new type for the attribute.</param>
-        public virtual void SetType(int index, String Type)
+        public virtual void SetType(int index, string Type)
         {
             ((Att_Instance)MainList[index]).att_type = Type;
         }
@@ -649,7 +649,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="index">The attribute index.</param>
         /// <param name="URI">The new namespace URI for the attribute.</param>
-        public virtual void SetURI(int index, String URI)
+        public virtual void SetURI(int index, string URI)
         {
             ((Att_Instance)MainList[index]).att_URI = URI;
         }
@@ -659,7 +659,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="index">The attribute index.</param>
         /// <param name="Value">The new value for the attribute.</param>
-        public virtual void SetValue(int index, String Value)
+        public virtual void SetValue(int index, string Value)
         {
             ((Att_Instance)MainList[index]).att_value = Value;
         }
@@ -684,7 +684,7 @@ namespace NHapi.Base
         /// This method eliminates the Att_Instance instance in the specified index.
         /// </summary>
         /// <param name="indexName">The index name of the attribute.</param>
-        public virtual void RemoveAttribute(String indexName)
+        public virtual void RemoveAttribute(string indexName)
         {
             try
             {
@@ -709,7 +709,7 @@ namespace NHapi.Base
         /// <param name="Qname">The namespace URI of the new Att_Instance.</param>
         /// <param name="Type">The type of the new Att_Instance.</param>
         /// <param name="Value">The value of the new Att_Instance.</param>
-        public virtual void SetAttribute(int index, String Uri, String Lname, String Qname, String Type, String Value)
+        public virtual void SetAttribute(int index, string Uri, string Lname, string Qname, string Type, string Value)
         {
             MainList[index] = new Att_Instance(Uri, Lname, Qname, Type, Value);
         }
@@ -728,7 +728,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="Qname">The qualified name of the attribute to search.</param>
         /// <returns>The type of the attribute if it exist otherwise returns null.</returns>
-        public virtual String GetType(String Qname)
+        public virtual string GetType(string Qname)
         {
             int temp_Index = GetIndex(Qname);
             if (temp_Index != -1)
@@ -743,7 +743,7 @@ namespace NHapi.Base
         /// <param name="Uri">The namespace URI of the attribute to search.</param>
         /// <param name="Lname">The local name of the attribute to search.</param>
         /// <returns>The type of the attribute if it exist otherwise returns null.</returns>
-        public virtual String GetType(String Uri, String Lname)
+        public virtual string GetType(string Uri, string Lname)
         {
             int temp_Index = GetIndex(Uri, Lname);
             if (temp_Index != -1)
@@ -757,7 +757,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="Qname">The qualified name of the attribute to search.</param>
         /// <returns>The value of the attribute if it exist otherwise returns null.</returns>
-        public virtual String GetValue(String Qname)
+        public virtual string GetValue(string Qname)
         {
             int temp_Index = GetIndex(Qname);
             if (temp_Index != -1)
@@ -772,7 +772,7 @@ namespace NHapi.Base
         /// <param name="Uri">The namespace URI of the attribute to search.</param>
         /// <param name="Lname">The local name of the attribute to search.</param>
         /// <returns>The value of the attribute if it exist otherwise returns null.</returns>
-        public virtual String GetValue(String Uri, String Lname)
+        public virtual string GetValue(string Uri, string Lname)
         {
             int temp_Index = GetIndex(Uri, Lname);
             if (temp_Index != -1)
@@ -788,11 +788,11 @@ namespace NHapi.Base
         /// </summary>
         public class Att_Instance
         {
-            public String att_URI;
-            public String att_localName;
-            public String att_fullName;
-            public String att_type;
-            public String att_value;
+            public string att_URI;
+            public string att_localName;
+            public string att_fullName;
+            public string att_type;
+            public string att_value;
 
             /// <summary>
             /// This is the constructor of the Att_Instance
@@ -802,7 +802,7 @@ namespace NHapi.Base
             /// <param name="Qname">The long(Qualify) name of attribute</param>
             /// <param name="Type">The type of the attribute</param>
             /// <param name="Value">The value of the attribute</param>
-            public Att_Instance(String Uri, String Lname, String Qname, String Type, String Value)
+            public Att_Instance(string Uri, string Lname, string Qname, string Type, string Value)
             {
                 att_URI = Uri;
                 att_localName = Lname;
@@ -825,7 +825,7 @@ namespace NHapi.Base
         /// Creates a new ManagerNotRecognizedException with the message specified.
         /// </summary>
         /// <param name="Message">Error message of the exception.</param>
-        public ManagerNotRecognizedException(String Message)
+        public ManagerNotRecognizedException(string Message)
             : base(Message)
         {
         }
@@ -843,7 +843,7 @@ namespace NHapi.Base
         /// Creates a new ManagerNotSupportedException with the message specified.
         /// </summary>
         /// <param name="Message">Error message of the exception.</param>
-        public ManagerNotSupportedException(String Message)
+        public ManagerNotSupportedException(string Message)
             : base(Message)
         {
         }
@@ -879,7 +879,7 @@ namespace NHapi.Base
         /// <param name="uri">The namespace URI of the element</param>
         /// <param name="localName">The local name of the element</param>
         /// <param name="qName">The long name (qualify name) of the element</param>
-        public virtual void endElement(String uri, String localName, String qName)
+        public virtual void endElement(string uri, string localName, string qName)
         {
         }
 
@@ -887,7 +887,7 @@ namespace NHapi.Base
         /// This method manage the event when an area of expecific URI prefix was ended.
         /// </summary>
         /// <param name="prefix">The prefix that ends</param>
-        public virtual void endPrefixMapping(String prefix)
+        public virtual void endPrefixMapping(string prefix)
         {
         }
 
@@ -920,7 +920,7 @@ namespace NHapi.Base
         /// <summary>
         /// This method is not supported only is created for compatibility
         /// </summary>
-        public virtual void notationDecl(String name, String publicId, String systemId)
+        public virtual void notationDecl(string name, string publicId, string systemId)
         {
         }
 
@@ -929,7 +929,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="target">The processing instruction target</param>
         /// <param name="data">The processing instruction data</param>
-        public virtual void processingInstruction(String target, String data)
+        public virtual void processingInstruction(string target, string data)
         {
         }
 
@@ -939,7 +939,7 @@ namespace NHapi.Base
         /// <param name="publicId">The public identifier of the external entity being referenced, or null if none was supplied.</param>
         /// <param name="systemId">The system identifier of the external entity being referenced.</param>
         /// <returns>A XmlSourceSupport object describing the new input source, or null to request that the parser open a regular URI connection to the system identifier.</returns>
-        public virtual XmlSourceSupport resolveEntity(String publicId, String systemId)
+        public virtual XmlSourceSupport resolveEntity(string publicId, string systemId)
         {
             return null;
         }
@@ -955,7 +955,7 @@ namespace NHapi.Base
         /// This method manage the event when a skipped entity were found
         /// </summary>
         /// <param name="name">The name of the skipped entity</param>
-        public virtual void skippedEntity(String name)
+        public virtual void skippedEntity(string name)
         {
         }
 
@@ -973,7 +973,7 @@ namespace NHapi.Base
         /// <param name="localName">The local name of the element</param>
         /// <param name="qName">The Qualify (long) name of the element</param>
         /// <param name="attributes">The list of attributes of the element</param>
-        public virtual void startElement(String uri, String localName, String qName, SaxAttributesSupport attributes)
+        public virtual void startElement(string uri, string localName, string qName, SaxAttributesSupport attributes)
         {
         }
 
@@ -982,14 +982,14 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="prefix">The prefix of the area</param>
         /// <param name="uri">The namespace uri of the prefix area</param>
-        public virtual void startPrefixMapping(String prefix, String uri)
+        public virtual void startPrefixMapping(string prefix, string uri)
         {
         }
 
         /// <summary>
         /// This method is not supported only is created for compatibility
         /// </summary>
-        public virtual void unparsedEntityDecl(String name, String publicId, String systemId, String notationName)
+        public virtual void unparsedEntityDecl(string name, string publicId, string systemId, string notationName)
         {
         }
 
@@ -1032,7 +1032,7 @@ namespace NHapi.Base
         /// <param name="namespaceURI">The namespace URI of the element</param>
         /// <param name="localName">The local name of the element</param>
         /// <param name="qName">The long name (qualify name) of the element</param>
-        public virtual void endElement(String namespaceURI, String localName, String qName)
+        public virtual void endElement(string namespaceURI, string localName, string qName)
         {
         }
 
@@ -1040,7 +1040,7 @@ namespace NHapi.Base
         /// This method manage the event when an area of expecific URI prefix was ended.
         /// </summary>
         /// <param name="prefix">The prefix that ends.</param>
-        public virtual void endPrefixMapping(String prefix)
+        public virtual void endPrefixMapping(string prefix)
         {
         }
 
@@ -1059,7 +1059,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="target">The processing instruction target</param>
         /// <param name="data">The processing instruction data</param>
-        public virtual void processingInstruction(String target, String data)
+        public virtual void processingInstruction(string target, string data)
         {
         }
 
@@ -1075,7 +1075,7 @@ namespace NHapi.Base
         /// This method manage the event when a skipped entity was found.
         /// </summary>
         /// <param name="name">The name of the skipped entity.</param>
-        public virtual void skippedEntity(String name)
+        public virtual void skippedEntity(string name)
         {
         }
 
@@ -1093,7 +1093,7 @@ namespace NHapi.Base
         /// <param name="localName">The local name of the element</param>
         /// <param name="qName">The Qualify (long) name of the element</param>
         /// <param name="qAtts">The list of attributes of the element</param>
-        public virtual void startElement(String namespaceURI, String localName, String qName, SaxAttributesSupport qAtts)
+        public virtual void startElement(string namespaceURI, string localName, string qName, SaxAttributesSupport qAtts)
         {
         }
 
@@ -1102,7 +1102,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="prefix">The prefix of the area.</param>
         /// <param name="uri">The namespace URI of the prefix area.</param>
-        public virtual void startPrefixMapping(String prefix, String uri)
+        public virtual void startPrefixMapping(string prefix, string uri)
         {
         }
     }
@@ -1125,7 +1125,7 @@ namespace NHapi.Base
         protected XmlSaxLocatorImpl locator;
         protected IXmlSaxLexicalHandler lexical;
         protected IXmlSaxEntityResolver entityResolver;
-        protected String parserFileName;
+        protected string parserFileName;
 
         /// <summary>
         /// Public constructor for the class.
@@ -1217,7 +1217,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="name">The feature name, which is a fully-qualified URI.</param>
         /// <param name="value">The requested value for the feature.</param>
-        public virtual void setFeature(String name, bool value)
+        public virtual void setFeature(string name, bool value)
         {
             switch (name)
             {
@@ -1270,7 +1270,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="name">The feature name, which is a fully-qualified URI.</param>
         /// <returns>The requested value for the feature.</returns>
-        public virtual bool getFeature(String name)
+        public virtual bool getFeature(string name)
         {
             switch (name)
             {
@@ -1320,7 +1320,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="name">The property name, which is a fully-qualified URI.</param>
         /// <param name="value">The requested value for the property.</param>
-        public virtual void setProperty(String name, Object value)
+        public virtual void setProperty(string name, object value)
         {
             switch (name)
             {
@@ -1348,7 +1348,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="name">The property name, which is a fully-qualified URI.</param>
         /// <returns>The requested value for the property.</returns>
-        public virtual Object getProperty(String name)
+        public virtual object getProperty(string name)
         {
             switch (name)
             {
@@ -1391,25 +1391,25 @@ namespace NHapi.Base
                     {
                         case XmlNodeType.Element:
                             bool Empty = reader.IsEmptyElement;
-                            String namespaceURI = "";
-                            String localName = "";
+                            string namespaceURI = "";
+                            string localName = "";
                             if (namespaceAllowed)
                             {
                                 namespaceURI = reader.NamespaceURI;
                                 localName = reader.LocalName;
                             }
 
-                            String name = reader.Name;
+                            string name = reader.Name;
                             SaxAttributesSupport attributes = new SaxAttributesSupport();
                             if (reader.HasAttributes)
                             {
                                 for (int i = 0; i < reader.AttributeCount; i++)
                                 {
                                     reader.MoveToAttribute(i);
-                                    String prefixName = (reader.Name.IndexOf(":") > 0)
+                                    string prefixName = (reader.Name.IndexOf(":") > 0)
                                         ? reader.Name.Substring(reader.Name.IndexOf(":") + 1, reader.Name.Length - reader.Name.IndexOf(":") - 1)
                                         : "";
-                                    String prefix = (reader.Name.IndexOf(":") > 0)
+                                    string prefix = (reader.Name.IndexOf(":") > 0)
                                         ? reader.Name.Substring(0, reader.Name.IndexOf(":"))
                                         : reader.Name;
                                     bool IsXmlns = prefix.ToLower().Equals("xmlns");
@@ -1422,7 +1422,7 @@ namespace NHapi.Base
                                         attributes.Add("", "", reader.Name, "" + reader.NodeType, reader.Value);
                                     if (IsXmlns)
                                     {
-                                        String namespaceTemp = "";
+                                        string namespaceTemp = "";
                                         namespaceTemp = (namespaceURI.Length == 0) ? reader.Value : namespaceURI;
                                         if (namespaceAllowed && !prefixes.ContainsKey(namespaceTemp) && namespaceTemp.Length > 0)
                                         {
@@ -1476,7 +1476,7 @@ namespace NHapi.Base
                                 Stack namespaceStack = (Stack)prefixes[reader.NamespaceURI];
                                 while (namespaceStack.Count > 0)
                                 {
-                                    String tempString = (String)namespaceStack.Pop();
+                                    string tempString = (string)namespaceStack.Pop();
                                     if (callBackHandler != null)
                                         ((IXmlSaxContentHandler)callBackHandler).endPrefixMapping(tempString);
                                 }
@@ -1520,8 +1520,8 @@ namespace NHapi.Base
                         case XmlNodeType.DocumentType:
                             if (lexical != null)
                             {
-                                String lname = reader.Name;
-                                String systemId = null;
+                                string lname = reader.Name;
+                                string systemId = null;
                                 if (reader.AttributeCount > 0)
                                     systemId = reader.GetAttribute(0);
                                 lexical.startDTD(lname, null, systemId);
@@ -1622,7 +1622,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="filepath">The path of the file to be used.</param>
         /// <param name="handler">The handler that manage the parser events.</param>
-        public virtual void parse(String filepath, IXmlSaxContentHandler handler)
+        public virtual void parse(string filepath, IXmlSaxContentHandler handler)
         {
             try
             {
@@ -1692,7 +1692,7 @@ namespace NHapi.Base
         /// <param name="stream">The stream with the XML.</param>
         /// <param name="handler">The handler that manage the parser events.</param>
         /// <param name="URI">The namespace URI for resolve external entities.</param>
-        public virtual void parse(Stream stream, IXmlSaxContentHandler handler, String URI)
+        public virtual void parse(Stream stream, IXmlSaxContentHandler handler, string URI)
         {
             try
             {
@@ -1768,7 +1768,7 @@ namespace NHapi.Base
         /// Parses the specified file path and processes the events over previously specified handler.
         /// </summary>
         /// <param name="filepath">The path of the file with the XML.</param>
-        public virtual void parse(String filepath)
+        public virtual void parse(string filepath)
         {
             try
             {
@@ -1808,7 +1808,7 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="stream">The stream with the XML.</param>
         /// <param name="URI">The namespace URI for resolve external entities.</param>
-        public virtual void parse(Stream stream, String URI)
+        public virtual void parse(Stream stream, string URI)
         {
             try
             {
@@ -1849,7 +1849,7 @@ namespace NHapi.Base
         /// <summary>
         /// Manages all the exceptions that were thrown when the validation over XML fails.
         /// </summary>
-        public void ValidationEventHandle(Object sender, ValidationEventArgs args)
+        public void ValidationEventHandle(object sender, ValidationEventArgs args)
         {
             XmlSchemaException tempException = args.Exception;
             if (args.Severity == XmlSeverityType.Warning)
@@ -1957,9 +1957,9 @@ namespace NHapi.Base
             /// </summary>
             /// <param name="stack">The stack where the element at the top will be returned and removed.</param>
             /// <returns>The element at the top of the stack.</returns>
-            public static Object Pop(ArrayList stack)
+            public static object Pop(ArrayList stack)
             {
-                Object obj = stack[stack.Count - 1];
+                object obj = stack[stack.Count - 1];
                 stack.RemoveAt(stack.Count - 1);
 
                 return obj;
@@ -1977,7 +1977,7 @@ namespace NHapi.Base
         /// <param name="destinationArray">Array to return the chars</param>
         /// <param name="destinationStart">Position of the destination array of chars to start storing the chars</param>
         /// <returns>An array of chars</returns>
-        public static void GetCharsFromString(String sourceString, int sourceStart, int sourceEnd, char[] destinationArray,
+        public static void GetCharsFromString(string sourceString, int sourceStart, int sourceEnd, char[] destinationArray,
             int destinationStart)
         {
             int sourceCounter;
@@ -2006,7 +2006,7 @@ namespace NHapi.Base
             /// <param name="c">Collection where the new element will be added.</param>
             /// <param name="obj">Object to add.</param>
             /// <returns>true</returns>
-            public static bool Add(ICollection c, Object obj)
+            public static bool Add(ICollection c, object obj)
             {
                 bool added = false;
 
@@ -2018,7 +2018,7 @@ namespace NHapi.Base
                     method = c.GetType().GetMethod("Add");
                     if (method == null)
                         method = c.GetType().GetMethod("add");
-                    int index = (int)method.Invoke(c, new Object[] { obj });
+                    int index = (int)method.Invoke(c, new object[] { obj });
                     if (index >= 0)
                         added = true;
                 }
@@ -2048,13 +2048,13 @@ namespace NHapi.Base
                     method = target.GetType().GetMethod("addAll");
 
                     if (method != null)
-                        added = (bool)method.Invoke(target, new Object[] { c });
+                        added = (bool)method.Invoke(target, new object[] { c });
                     else
                     {
                         method = target.GetType().GetMethod("Add");
                         while (e.MoveNext() == true)
                         {
-                            bool tempBAdded = (int)method.Invoke(target, new Object[] { e.Current }) >= 0;
+                            bool tempBAdded = (int)method.Invoke(target, new object[] { e.Current }) >= 0;
                             added = added ? added : tempBAdded;
                         }
                     }
@@ -2082,7 +2082,7 @@ namespace NHapi.Base
                     if (method == null)
                         method = c.GetType().GetMethod("clear");
 
-                    method.Invoke(c, new Object[] { });
+                    method.Invoke(c, new object[] { });
                 }
                 catch (Exception e)
                 {
@@ -2096,7 +2096,7 @@ namespace NHapi.Base
             /// <param name="c">The collection to check.</param>
             /// <param name="obj">The object to locate in the collection.</param>
             /// <returns>true if the element is in the collection.</returns>
-            public static bool Contains(ICollection c, Object obj)
+            public static bool Contains(ICollection c, object obj)
             {
                 bool contains = false;
 
@@ -2109,7 +2109,7 @@ namespace NHapi.Base
                     if (method == null)
                         method = c.GetType().GetMethod("contains");
 
-                    contains = (bool)method.Invoke(c, new Object[] { obj });
+                    contains = (bool)method.Invoke(c, new object[] { obj });
                 }
                 catch (Exception e)
                 {
@@ -2138,13 +2138,13 @@ namespace NHapi.Base
                     method = target.GetType().GetMethod("containsAll");
 
                     if (method != null)
-                        contains = (bool)method.Invoke(target, new Object[] { c });
+                        contains = (bool)method.Invoke(target, new object[] { c });
                     else
                     {
                         method = target.GetType().GetMethod("Contains");
                         while (e.MoveNext() == true)
                         {
-                            if ((contains = (bool)method.Invoke(target, new Object[] { e.Current })) == false)
+                            if ((contains = (bool)method.Invoke(target, new object[] { e.Current })) == false)
                                 break;
                         }
                     }
@@ -2162,7 +2162,7 @@ namespace NHapi.Base
             /// </summary>
             /// <param name="c">The collection where the element will be removed.</param>
             /// <param name="obj">The element to remove from the collection.</param>
-            public static bool Remove(ICollection c, Object obj)
+            public static bool Remove(ICollection c, object obj)
             {
                 bool changed = false;
 
@@ -2173,13 +2173,13 @@ namespace NHapi.Base
                     method = c.GetType().GetMethod("remove");
 
                     if (method != null)
-                        method.Invoke(c, new Object[] { obj });
+                        method.Invoke(c, new object[] { obj });
                     else
                     {
                         method = c.GetType().GetMethod("Contains");
-                        changed = (bool)method.Invoke(c, new Object[] { obj });
+                        changed = (bool)method.Invoke(c, new object[] { obj });
                         method = c.GetType().GetMethod("Remove");
-                        method.Invoke(c, new Object[] { obj });
+                        method.Invoke(c, new object[] { obj });
                     }
                 }
                 catch (Exception e)
@@ -2208,7 +2208,7 @@ namespace NHapi.Base
                     method = target.GetType().GetMethod("removeAll");
 
                     if (method != null)
-                        method.Invoke(target, new Object[] { al });
+                        method.Invoke(target, new object[] { al });
                     else
                     {
                         method = target.GetType().GetMethod("Remove");
@@ -2216,8 +2216,8 @@ namespace NHapi.Base
 
                         while (e.MoveNext() == true)
                         {
-                            while ((bool)methodContains.Invoke(target, new Object[] { e.Current }) == true)
-                                method.Invoke(target, new Object[] { e.Current });
+                            while ((bool)methodContains.Invoke(target, new object[] { e.Current }) == true)
+                                method.Invoke(target, new object[] { e.Current });
                         }
                     }
                 }
@@ -2247,7 +2247,7 @@ namespace NHapi.Base
                     method = c.GetType().GetMethod("retainAll");
 
                     if (method != null)
-                        method.Invoke(target, new Object[] { c });
+                        method.Invoke(target, new object[] { c });
                     else
                     {
                         method = c.GetType().GetMethod("Remove");
@@ -2255,7 +2255,7 @@ namespace NHapi.Base
                         while (e.MoveNext() == true)
                         {
                             if (al.Contains(e.Current) == false)
-                                method.Invoke(target, new Object[] { e.Current });
+                                method.Invoke(target, new object[] { e.Current });
                         }
                     }
                 }
@@ -2271,10 +2271,10 @@ namespace NHapi.Base
             /// Returns an array containing all the elements of the collection.
             /// </summary>
             /// <returns>The array containing all the elements of the collection.</returns>
-            public static Object[] ToArray(ICollection c)
+            public static object[] ToArray(ICollection c)
             {
                 int index = 0;
-                Object[] objects = new Object[c.Count];
+                object[] objects = new object[c.Count];
                 IEnumerator e = c.GetEnumerator();
 
                 while (e.MoveNext())
@@ -2289,12 +2289,12 @@ namespace NHapi.Base
             /// <param name="objects">The array into which the elements of the collection will be stored.</param>
             /// <param name="c"></param>
             /// <returns>The array containing all the elements of the collection.</returns>
-            public static Object[] ToArray(ICollection c, Object[] objects)
+            public static object[] ToArray(ICollection c, object[] objects)
             {
                 int index = 0;
 
                 Type type = objects.GetType().GetElementType();
-                Object[] objs = (Object[])Array.CreateInstance(type, c.Count);
+                object[] objs = (object[])Array.CreateInstance(type, c.Count);
 
                 IEnumerator e = c.GetEnumerator();
 
@@ -2335,7 +2335,7 @@ namespace NHapi.Base
             /// </summary>
             /// <param name="obj">The object to add to the collection.</param>
             /// <returns>Returns true if the object was added to the collection, otherwise false.</returns>
-            new bool Add(Object obj);
+            new bool Add(object obj);
 
             /// <summary>
             /// Adds all the elements of the specified collection to the Set.
@@ -2374,7 +2374,7 @@ namespace NHapi.Base
             /// </summary>
             /// <param name="obj">Element to insert to the ArrayList.</param>
             /// <returns>Returns true if the new element was inserted, false otherwise.</returns>
-            public new virtual bool Add(Object obj)
+            public new virtual bool Add(object obj)
             {
                 bool inserted;
 
@@ -2409,7 +2409,7 @@ namespace NHapi.Base
             /// Returns a copy of the HashSet instance.
             /// </summary>
             /// <returns>Returns a shallow copy of the current HashSet.</returns>
-            public override Object Clone()
+            public override object Clone()
             {
                 return base.MemberwiseClone();
             }
@@ -2895,7 +2895,7 @@ namespace NHapi.Base
             /// Initializes a new instance of the Thread class.
             /// </summary>
             /// <param name="Name">The name of the thread</param>
-            public ThreadClass(String Name)
+            public ThreadClass(string Name)
             {
                 threadField = new Thread(new ThreadStart(Run));
                 this.Name = Name;
@@ -2915,7 +2915,7 @@ namespace NHapi.Base
             /// </summary>
             /// <param name="Start">A ThreadStart delegate that references the methods to be invoked when this thread begins executing</param>
             /// <param name="Name">The name of the thread</param>
-            public ThreadClass(ThreadStart Start, String Name)
+            public ThreadClass(ThreadStart Start, string Name)
             {
                 threadField = new Thread(Start);
                 this.Name = Name;
@@ -2956,7 +2956,7 @@ namespace NHapi.Base
             /// <summary>
             /// Gets or sets the name of the thread
             /// </summary>
-            public String Name
+            public string Name
             {
                 get { return threadField.Name; }
 
@@ -3043,7 +3043,7 @@ namespace NHapi.Base
             /// Calling this method usually terminates the thread.
             /// </summary>
             /// <param name="stateInfo">An object that contains application-specific information, such as state, which can be used by the thread being aborted</param>
-            public void Abort(Object stateInfo)
+            public void Abort(object stateInfo)
             {
                 lock (this)
                 {
@@ -3055,7 +3055,7 @@ namespace NHapi.Base
             /// Obtain a String that represents the current Object
             /// </summary>
             /// <returns>A String that represents the current Object</returns>
-            public override String ToString()
+            public override string ToString()
             {
                 return "Thread[" + Name + "," + Priority.ToString() + "," + "" + "]";
             }
@@ -3096,7 +3096,7 @@ namespace NHapi.Base
             /// Initializes a new class instance with a specified string to process
             /// </summary>
             /// <param name="source">String to tokenize</param>
-            public Tokenizer(String source)
+            public Tokenizer(string source)
             {
                 chars = source.ToCharArray();
             }
@@ -3107,7 +3107,7 @@ namespace NHapi.Base
             /// </summary>
             /// <param name="source">String to tokenize</param>
             /// <param name="delimiters">String containing the delimiters</param>
-            public Tokenizer(String source, String delimiters)
+            public Tokenizer(string source, string delimiters)
                 : this(source)
             {
                 this.delimiters = delimiters;
@@ -3121,7 +3121,7 @@ namespace NHapi.Base
             /// <param name="source">String to tokenize</param>
             /// <param name="delimiters">String containing the delimiters</param>
             /// <param name="includeDelims">Determines if delimiters are included in the results.</param>
-            public Tokenizer(String source, String delimiters, bool includeDelims)
+            public Tokenizer(string source, string delimiters, bool includeDelims)
                 : this(source, delimiters)
             {
                 this.includeDelims = includeDelims;
@@ -3132,7 +3132,7 @@ namespace NHapi.Base
             /// Returns the next token from the token list
             /// </summary>
             /// <returns>The string value of the token</returns>
-            public String NextToken()
+            public string NextToken()
             {
                 if (cache_HasNextToken)
                 {
@@ -3150,7 +3150,7 @@ namespace NHapi.Base
             /// </summary>
             /// <param name="delimiters">String containing the delimiters to use</param>
             /// <returns>The string value of the token</returns>
-            public String NextToken(String delimiters)
+            public string NextToken(string delimiters)
             {
                 // According to documentation, the usage of the received delimiters should be temporary (only for this call).
                 // However, it seems it is not true, so the following line is necessary.
@@ -3171,7 +3171,7 @@ namespace NHapi.Base
             }
 
             // Returns the nextToken wo delimiters
-            private String nextToken(char[] delimiters)
+            private string nextToken(char[] delimiters)
             {
                 StringBuilder token = new StringBuilder();
                 long pos = currentPos;
@@ -3267,9 +3267,9 @@ namespace NHapi.Base
             /// <summary>
             ///  Performs the same action as NextToken.
             /// </summary>
-            public Object Current
+            public object Current
             {
-                get { return (Object)NextToken(); }
+                get { return (object)NextToken(); }
             }
 
             /// <summary>

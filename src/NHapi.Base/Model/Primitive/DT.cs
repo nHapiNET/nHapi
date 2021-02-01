@@ -52,11 +52,11 @@ namespace NHapi.Base.Model.Primitive
         }
 
         /// <inheritdoc />
-        public override String Value
+        public override string Value
         {
             get
             {
-                String result = base.Value;
+                string result = base.Value;
 
                 if (myDetail != null)
                 {

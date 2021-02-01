@@ -38,7 +38,7 @@ namespace NHapi.Base.Model
         /// <summary> Returns the version number of the HL7 version in which this
         /// message structure is defined (e.g. "2.4")
         /// </summary>
-        String Version { get; }
+        string Version { get; }
 
         /// <summary>
         /// The validation context of the message

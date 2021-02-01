@@ -34,7 +34,7 @@ namespace NHapi.SourceGeneration
     [Serializable]
     public class UndefinedTableException : UnknownValueException
     {
-        public UndefinedTableException(String message)
+        public UndefinedTableException(string message)
             : base(message)
         {
         }

@@ -55,7 +55,7 @@ namespace NHapi.Base.Model.Primitive
         /// format YYYY[MM[DD]].
         ///
         /// </summary>
-        public virtual String Value
+        public virtual string Value
         {
             get { return value_Renamed; }
 
@@ -80,7 +80,7 @@ namespace NHapi.Base.Model.Primitive
                         if (value.Length >= 4)
                         {
                             // extract the year from the input value
-                            int yrInt = Int32.Parse(value.Substring(0, (4) - (0)));
+                            int yrInt = int.Parse(value.Substring(0, (4) - (0)));
 
                             // check to see if the year is valid by creating a DateTime value with the Gregorian calendar and
                             // this value.  If an error occurs then processing will stop in this try block
@@ -91,7 +91,7 @@ namespace NHapi.Base.Model.Primitive
                         if (value.Length >= 6)
                         {
                             // extract the month from the input value
-                            int mnthInt = Int32.Parse(value.Substring(4, (6) - (4)));
+                            int mnthInt = int.Parse(value.Substring(4, (6) - (4)));
 
                             // check to see if the month is valid by creating a DateTime value with the Gregorian calendar and
                             // this value.  If an error occurs then processing will stop in this try block
@@ -102,7 +102,7 @@ namespace NHapi.Base.Model.Primitive
                         if (value.Length == 8)
                         {
                             // extract the day from the input value
-                            int dayInt = Int32.Parse(value.Substring(6, (8) - (6)));
+                            int dayInt = int.Parse(value.Substring(6, (8) - (6)));
 
                             // check to see if the day is valid by creating a DateTime value with the Gregorian calendar and
                             // the year/month/day combination.  If an error occurs then processing will stop
@@ -150,7 +150,7 @@ namespace NHapi.Base.Model.Primitive
                     // ensure that the year field is four digits long
                     if (Convert.ToString(value).Length != 4)
                     {
-                        String msg = "The input year value must be four digits long";
+                        string msg = "The input year value must be four digits long";
                         DataTypeException e = new DataTypeException(msg);
                         throw e;
                     }
@@ -199,7 +199,7 @@ namespace NHapi.Base.Model.Primitive
 
         private static readonly IHapiLog log;
 
-        private String value_Renamed;
+        private string value_Renamed;
         private int year;
         private int month;
         private int day;
@@ -220,7 +220,7 @@ namespace NHapi.Base.Model.Primitive
         /// The stored value will be in the following
         /// format YYYY[MM[DD]].
         /// </summary>
-        public CommonDT(String val)
+        public CommonDT(string val)
         {
             Value = val;
         }
@@ -237,7 +237,7 @@ namespace NHapi.Base.Model.Primitive
                 // ensure that the year field is four digits long
                 if (Convert.ToString(yr).Length != 4)
                 {
-                    String msg = "The input year value must be four digits long";
+                    string msg = "The input year value must be four digits long";
                     DataTypeException e = new DataTypeException(msg);
                     throw e;
                 }
@@ -272,7 +272,7 @@ namespace NHapi.Base.Model.Primitive
                 // ensure that the year field is four digits long
                 if (Convert.ToString(yr).Length != 4)
                 {
-                    String msg = "The input year value must be four digits long";
+                    string msg = "The input year value must be four digits long";
                     DataTypeException e = new DataTypeException(msg);
                     throw e;
                 }
@@ -299,9 +299,9 @@ namespace NHapi.Base.Model.Primitive
         /// <summary> Returns a string value representing the input Gregorian Calendar object in
         /// an Hl7 Date Format.
         /// </summary>
-        public static String toHl7DTFormat(GregorianCalendar cal)
+        public static string toHl7DTFormat(GregorianCalendar cal)
         {
-            String val = "";
+            string val = "";
             try
             {
                 // set the input cal object so that it can report errors

@@ -42,7 +42,7 @@ namespace NHapi.Base.Model
         /// if getMessage() returns null.
         ///
         /// </summary>
-        public virtual String Value
+        public virtual string Value
         {
             get { return myValue; }
 
@@ -53,7 +53,7 @@ namespace NHapi.Base.Model
                 if (message != null)
                 {
                     IValidationContext context = message.ValidationContext;
-                    String version = message.Version;
+                    string version = message.Version;
 
                     if (context != null)
                     {
@@ -99,10 +99,10 @@ namespace NHapi.Base.Model
         {
         }
 
-        private String myValue;
+        private string myValue;
 
         /// <summary> Returns the value of getValue() </summary>
-        public override String ToString()
+        public override string ToString()
         {
             return Value;
         }

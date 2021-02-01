@@ -76,11 +76,11 @@ namespace NHapi.Base.Model
         /// <summary>
         /// A string[] of group names
         /// </summary>
-        public virtual String[] Names
+        public virtual string[] Names
         {
             get
             {
-                String[] retVal = new String[_items.Count];
+                string[] retVal = new string[_items.Count];
                 for (int i = 0; i < _items.Count; i++)
                 {
                     AbstractGroupItem item = _items[i];
@@ -149,7 +149,7 @@ namespace NHapi.Base.Model
         /// repetition is returned.  Creates the Structure if necessary.
         /// </summary>
         /// <exception cref="HL7Exception">Thrown when the named Structure is not part of this Group.</exception>
-        public virtual IStructure GetStructure(String name)
+        public virtual IStructure GetStructure(string name)
         {
             return GetStructure(name, 0);
         }
@@ -162,7 +162,7 @@ namespace NHapi.Base.Model
         /// the structure is not repeatable and the given rep is > 0,
         /// or if the given repetition number is more than one greater than the
         /// existing number of repetitions</exception>
-        public virtual IStructure GetStructure(String name, int rep)
+        public virtual IStructure GetStructure(string name, int rep)
         {
             AbstractGroupItem item = GetGroupItem(name);
 
@@ -203,7 +203,7 @@ namespace NHapi.Base.Model
         /// <summary> Adds a new item to the Structure. </summary>
         /// <exception cref="HL7Exception">Thrown when the named Structure is not part of this group
         /// or if the structure is not repeatable and an item already exists. </exception>
-        public virtual IStructure AddStructure(String name)
+        public virtual IStructure AddStructure(string name)
         {
             AbstractGroupItem item = GetGroupItem(name);
 
@@ -227,7 +227,7 @@ namespace NHapi.Base.Model
 
         /// <summary> Removes the given structure from the named Structure. </summary>
         /// <exception cref="HL7Exception">Thrown when the named Structure is not part of this Group.</exception>
-        public virtual void RemoveStructure(String name, IStructure toRemove)
+        public virtual void RemoveStructure(string name, IStructure toRemove)
         {
             AbstractGroupItem item = GetGroupItem(name);
 
@@ -242,7 +242,7 @@ namespace NHapi.Base.Model
         /// <exception cref = "HL7Exception" > Thrown when the named Structure is not part of this Group
         /// or an index greater than the number of items in the structure is supplied.
         /// </exception>
-        public virtual void RemoveRepetition(String name, int rep)
+        public virtual void RemoveRepetition(string name, int rep)
         {
             AbstractGroupItem item = GetGroupItem(name);
             if (item == null)
@@ -269,9 +269,9 @@ namespace NHapi.Base.Model
         /// segment is defined as repeating and not required.
         /// </summary>
         /// <exception cref="HL7Exception">Thrown when 'Message.Version' returns null</exception>
-        public virtual String addNonstandardSegment(String name)
+        public virtual string addNonstandardSegment(string name)
         {
-            String version = Message.Version;
+            string version = Message.Version;
             if (version == null)
                 throw new HL7Exception("Need message version to add segment by name; message.getVersion() returns null");
             Type c = myFactory.GetSegmentClass(name, version);
@@ -298,9 +298,9 @@ namespace NHapi.Base.Model
         /// <returns> the actual name used to store this structure (may be appended with
         /// an integer if there are duplcates in the same Group).
         /// </returns>
-        protected internal virtual String add(Type c, bool required, bool repeating)
+        protected internal virtual string add(Type c, bool required, bool repeating)
         {
-            String name = getStructureName(c);
+            string name = getStructureName(c);
 
             return insert(c, required, repeating, _items.Count, name);
         }
@@ -311,13 +311,13 @@ namespace NHapi.Base.Model
         /// of the group's normal children should be done at construction time, using the
         /// add(...) method.
         /// </summary>
-        private String insert(Type classType, bool required, bool repeating, int index, String name)
+        private string insert(Type classType, bool required, bool repeating, int index, string name)
         {
             // see if there is already something by this name and make a new name if necessary ...
             if (nameExists(name))
             {
                 int version = 2;
-                String newName = name;
+                string newName = name;
                 while (nameExists(newName))
                 {
                     newName = name + version++;
@@ -332,7 +332,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary> Returns true if the class name is already being used. </summary>
-        private bool nameExists(String name)
+        private bool nameExists(string name)
         {
             bool exists = false;
             AbstractGroupItem item = GetGroupItem(name);
@@ -348,12 +348,12 @@ namespace NHapi.Base.Model
         /// </param>
         /// <param name="name">an optional name of the structure (used by Generic structures; may be null)
         /// </param>
-        private IStructure tryToInstantiateStructure(Type c, String name)
+        private IStructure tryToInstantiateStructure(Type c, string name)
         {
             IStructure s = null;
             try
             {
-                Object o = null;
+                object o = null;
                 if (typeof(GenericSegment).IsAssignableFrom(c))
                 {
                     s = new GenericSegment(this, name);
@@ -368,7 +368,7 @@ namespace NHapi.Base.Model
                     try
                     {
                         Type[] argClasses = new Type[] { typeof(IGroup), typeof(IModelClassFactory) };
-                        Object[] argObjects = new Object[] { this, myFactory };
+                        object[] argObjects = new object[] { this, myFactory };
                         ConstructorInfo con = c.GetConstructor(argClasses);
                         o = con.Invoke(argObjects);
                     }
@@ -402,7 +402,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary> Returns true if the named structure is required. </summary>
-        public virtual bool IsRequired(String name)
+        public virtual bool IsRequired(string name)
         {
             AbstractGroupItem item = GetGroupItem(name);
             if (item == null)
@@ -412,7 +412,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary> Returns true if the named structure is required. </summary>
-        public virtual bool IsRepeating(String name)
+        public virtual bool IsRepeating(string name)
         {
             AbstractGroupItem item = GetGroupItem(name);
             if (item == null)
@@ -422,7 +422,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary> Returns the number of existing repetitions of the named structure.</summary>
-        public virtual int currentReps(String name)
+        public virtual int currentReps(string name)
         {
             AbstractGroupItem item = GetGroupItem(name);
             if (item == null)
@@ -438,7 +438,7 @@ namespace NHapi.Base.Model
         /// yet using the get(...) methods.
         /// </summary>
         /// <throws>  HL7Exception if the named Structure is not part of this Group.  </throws>
-        public virtual IStructure[] GetAll(String name)
+        public virtual IStructure[] GetAll(string name)
         {
             AbstractGroupItem item = GetGroupItem(name);
             if (item == null)
@@ -454,14 +454,14 @@ namespace NHapi.Base.Model
         }
 
         /// <summary> Returns the Class of the Structure at the given name index.  </summary>
-        public virtual Type GetClass(String name)
+        public virtual Type GetClass(string name)
         {
             AbstractGroupItem item = GetGroupItem(name);
             return item.ClassType;
         }
 
         /// <summary> Returns the class name (excluding package). </summary>
-        public virtual String GetStructureName()
+        public virtual string GetStructureName()
         {
             return getStructureName(GetType());
         }
@@ -472,16 +472,16 @@ namespace NHapi.Base.Model
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        private String getStructureName(Type c)
+        private string getStructureName(Type c)
         {
-            String fullName = c.FullName;
+            string fullName = c.FullName;
             int dotLoc = fullName.LastIndexOf('.');
-            String name = fullName.Substring(dotLoc + 1, (fullName.Length) - (dotLoc + 1));
+            string name = fullName.Substring(dotLoc + 1, (fullName.Length) - (dotLoc + 1));
 
             // remove message name prefix from group names for compatibility with getters ...
             if (typeof(IGroup).IsAssignableFrom(c) && !typeof(IMessage).IsAssignableFrom(c))
             {
-                String messageName = Message.GetStructureName();
+                string messageName = Message.GetStructureName();
                 if (name.StartsWith(messageName) && name.Length > messageName.Length)
                 {
                     name = name.Substring(messageName.Length + 1);

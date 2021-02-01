@@ -79,18 +79,18 @@ namespace NHapi.Base.Model.Primitive
         /// time zone (using standard time zone format which is not modified for daylight savings)
         /// will be stored as a default.
         /// </summary>
-        public virtual String Value
+        public virtual string Value
         {
             get
             {
                 // combine the value field with the offSet field and return it
-                String returnVal = null;
+                string returnVal = null;
                 if (value_Renamed != null && !value_Renamed.Equals(""))
                 {
                     if (omitOffsetFg == 'n' && !value_Renamed.Equals("\"\""))
                     {
                         int absOffset = Math.Abs(offSet);
-                        String sign = "";
+                        string sign = "";
                         if (offSet >= 0)
                         {
                             sign = "+";
@@ -138,8 +138,8 @@ namespace NHapi.Base.Model.Primitive
                         // in another variable called tempOffset. Also, store the time value
                         // (without the offset)in a separate variable called timeVal.
                         // If there is no GMT offset then simply set timeVal to val.
-                        String timeVal = value;
-                        String tempOffset = null;
+                        string timeVal = value;
+                        string tempOffset = null;
                         if (offsetExists)
                         {
                             timeVal = value.Substring(0, (indexOfSign) - (0));
@@ -149,7 +149,7 @@ namespace NHapi.Base.Model.Primitive
                         if (offsetExists && (tempOffset.Length != 5))
                         {
                             // The length of the GMT offset must be 5 characters (including the sign)
-                            String msg = "The length of the TM datatype value does not conform to an allowable" +
+                            string msg = "The length of the TM datatype value does not conform to an allowable" +
                                              " format. Format should conform to HH[MM[SS[.S[S[S[S]]]]]][+/-ZZZZ]";
                             DataTypeException e = new DataTypeException(msg);
                             throw e;
@@ -161,7 +161,7 @@ namespace NHapi.Base.Model.Primitive
                             // thus length of the time value can be between 8 and 11 characters
                             if ((timeVal.Length < 8) || (timeVal.Length > 11))
                             {
-                                String msg = "The length of the TM datatype value does not conform to an allowable" +
+                                string msg = "The length of the TM datatype value does not conform to an allowable" +
                                                  " format. Format should conform to HH[MM[SS[.S[S[S[S]]]]]][+/-ZZZZ]";
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
@@ -174,7 +174,7 @@ namespace NHapi.Base.Model.Primitive
                             // thus length of the time value can be 2 or 4 or 6 characters
                             if ((timeVal.Length != 2) && (timeVal.Length != 4) && (timeVal.Length != 6))
                             {
-                                String msg = "The length of the TM datatype value does not conform to an allowable" +
+                                string msg = "The length of the TM datatype value does not conform to an allowable" +
                                                  " format. Format should conform to HH[MM[SS[.S[S[S[S]]]]]][+/-ZZZZ]";
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
@@ -186,12 +186,12 @@ namespace NHapi.Base.Model.Primitive
                         {
                             // extract the hour data from the input value.  If the first 2 characters
                             // are not numeric then a number format exception will be generated
-                            int hrInt = Int32.Parse(timeVal.Substring(0, (2) - (0)));
+                            int hrInt = int.Parse(timeVal.Substring(0, (2) - (0)));
 
                             // check to see if the hour value is valid
                             if ((hrInt < 0) || (hrInt > 23))
                             {
-                                String msg = "The hour value of the TM datatype must be >=0 and <=23";
+                                string msg = "The hour value of the TM datatype must be >=0 and <=23";
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
                             } // end if
@@ -204,12 +204,12 @@ namespace NHapi.Base.Model.Primitive
                             // extract the minute data from the input value
                             // If these characters are not numeric then a number
                             // format exception will be generated
-                            int minInt = Int32.Parse(timeVal.Substring(2, (4) - (2)));
+                            int minInt = int.Parse(timeVal.Substring(2, (4) - (2)));
 
                             // check to see if the minute value is valid
                             if ((minInt < 0) || (minInt > 59))
                             {
-                                String msg = "The minute value of the TM datatype must be >=0 and <=59";
+                                string msg = "The minute value of the TM datatype must be >=0 and <=59";
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
                             } // end if
@@ -222,12 +222,12 @@ namespace NHapi.Base.Model.Primitive
                             // extract the seconds data from the input value
                             // If these characters are not numeric then a number
                             // format exception will be generated
-                            int secInt = Int32.Parse(timeVal.Substring(4, (6) - (4)));
+                            int secInt = int.Parse(timeVal.Substring(4, (6) - (4)));
 
                             // check to see if the seconds value is valid
                             if ((secInt < 0) || (secInt > 59))
                             {
-                                String msg = "The seconds value of the TM datatype must be >=0 and <=59";
+                                string msg = "The seconds value of the TM datatype must be >=0 and <=59";
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
                             } // end if
@@ -240,12 +240,12 @@ namespace NHapi.Base.Model.Primitive
                             // extract the fractional second value from the input value
                             // If these characters are not numeric then a number
                             // format exception will be generated
-                            float fract = Single.Parse(timeVal.Substring(6), CultureInfo.InvariantCulture);
+                            float fract = float.Parse(timeVal.Substring(6), CultureInfo.InvariantCulture);
 
                             // check to see if the fractional second value is valid
                             if ((fract < 0) || (fract >= 1))
                             {
-                                String msg = "The fractional second value of the TM datatype must be >= 0 and < 1";
+                                string msg = "The fractional second value of the TM datatype must be >= 0 and < 1";
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
                             } // end if
@@ -261,34 +261,34 @@ namespace NHapi.Base.Model.Primitive
                             omitOffsetFg = 'n';
 
                             // remove the sign from the temp offset
-                            String tempOffsetNoS = tempOffset.Substring(1);
+                            string tempOffsetNoS = tempOffset.Substring(1);
 
                             // extract the hour data from the offset value.  If the first 2 characters
                             // are not numeric then a number format exception will be generated
-                            int offsetInt = Int32.Parse(tempOffsetNoS.Substring(0, (2) - (0)));
+                            int offsetInt = int.Parse(tempOffsetNoS.Substring(0, (2) - (0)));
 
                             // check to see if the hour value is valid
                             if ((offsetInt < 0) || (offsetInt > 23))
                             {
-                                String msg = "The GMT offset hour value of the TM datatype must be >=0 and <=23";
+                                string msg = "The GMT offset hour value of the TM datatype must be >=0 and <=23";
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
                             } // end if
 
                               // extract the minute data from the offset value.  If these characters
                               // are not numeric then a number format exception will be generated
-                            offsetInt = Int32.Parse(tempOffsetNoS.Substring(2, (4) - (2)));
+                            offsetInt = int.Parse(tempOffsetNoS.Substring(2, (4) - (2)));
 
                             // check to see if the minute value is valid
                             if ((offsetInt < 0) || (offsetInt > 59))
                             {
-                                String msg = "The GMT offset minute value of the TM datatype must be >=0 and <=59";
+                                string msg = "The GMT offset minute value of the TM datatype must be >=0 and <=59";
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
                             } // end if
 
                               // validation done, update the offSet field
-                            offSet = Int32.Parse(tempOffsetNoS);
+                            offSet = int.Parse(tempOffsetNoS);
 
                             // add the sign back to the offset if it is negative
                             if (sm != -1)
@@ -347,7 +347,7 @@ namespace NHapi.Base.Model.Primitive
                     // validate input value
                     if ((value < 0) || (value > 23))
                     {
-                        String msg = "The hour value of the TM datatype must be >=0 and <=23";
+                        string msg = "The hour value of the TM datatype must be >=0 and <=23";
                         DataTypeException e = new DataTypeException(msg);
                         throw e;
                     } // end if
@@ -391,11 +391,11 @@ namespace NHapi.Base.Model.Primitive
                     // we should not omit displaying it in the return value from
                     // the getValue() method
                     omitOffsetFg = 'n';
-                    String offsetStr = Convert.ToString(value);
+                    string offsetStr = Convert.ToString(value);
                     if ((value >= 0 && offsetStr.Length > 4) || (value < 0 && offsetStr.Length > 5))
                     {
                         // The length of the GMT offset must be no greater than 5 characters (including the sign)
-                        String msg = "The length of the GMT offset for the TM datatype value does" +
+                        string msg = "The length of the GMT offset for the TM datatype value does" +
                                          " not conform to the allowable format [+/-ZZZZ]. Value: " + value;
                         DataTypeException e = new DataTypeException(msg);
                         throw e;
@@ -407,23 +407,23 @@ namespace NHapi.Base.Model.Primitive
                     // extract the hour data from the offset value.
                     // first preappend zeros so we have a 4 char offset value (without sign)
                     offsetStr = DataTypeUtil.preAppendZeroes(absOffset, 4);
-                    int hrOffsetInt = Int32.Parse(offsetStr.Substring(0, (2) - (0)));
+                    int hrOffsetInt = int.Parse(offsetStr.Substring(0, (2) - (0)));
 
                     // check to see if the hour value is valid
                     if ((hrOffsetInt < 0) || (hrOffsetInt > 23))
                     {
-                        String msg = "The GMT offset hour value of the TM datatype must be >=0 and <=23";
+                        string msg = "The GMT offset hour value of the TM datatype must be >=0 and <=23";
                         DataTypeException e = new DataTypeException(msg);
                         throw e;
                     } // end if
 
                       // extract the minute data from the offset value.
-                    int minOffsetInt = Int32.Parse(offsetStr.Substring(2, (4) - (2)));
+                    int minOffsetInt = int.Parse(offsetStr.Substring(2, (4) - (2)));
 
                     // check to see if the minute value is valid
                     if ((minOffsetInt < 0) || (minOffsetInt > 59))
                     {
-                        String msg = "The GMT offset minute value of the TM datatype must be >=0 and <=59";
+                        string msg = "The GMT offset minute value of the TM datatype must be >=0 and <=59";
                         DataTypeException e = new DataTypeException(msg);
                         throw e;
                     } // end if
@@ -478,7 +478,7 @@ namespace NHapi.Base.Model.Primitive
 
         private static readonly IHapiLog log;
 
-        private String value_Renamed;
+        private string value_Renamed;
         private int hour;
         private int minute;
         private int second;
@@ -504,7 +504,7 @@ namespace NHapi.Base.Model.Primitive
         /// The stored value will be in the following
         /// format HH[MM[SS[.S[S[S[S]]]]]][+/-ZZZZ].
         /// </summary>
-        public CommonTM(String val)
+        public CommonTM(string val)
         {
             Value = val;
         } // end constructor
@@ -522,7 +522,7 @@ namespace NHapi.Base.Model.Primitive
                 // validate input minute value
                 if ((min < 0) || (min > 59))
                 {
-                    String msg = "The minute value of the TM datatype must be >=0 and <=59";
+                    string msg = "The minute value of the TM datatype must be >=0 and <=59";
                     DataTypeException e = new DataTypeException(msg);
                     throw e;
                 } // end if
@@ -578,14 +578,14 @@ namespace NHapi.Base.Model.Primitive
                 // validate input seconds value
                 if ((second < 0) || (second >= 60))
                 {
-                    String msg = "The (rounded) second value of the TM datatype must be >=0 and <60";
+                    string msg = "The (rounded) second value of the TM datatype must be >=0 and <60";
                     DataTypeException e = new DataTypeException(msg);
                     throw e;
                 } // end if
 
                 int fractionOfSecInt = (int)(secMultRound - (second * 10000));
                 fractionOfSec = fractionOfSecInt / 10000F;
-                String fractString = "";
+                string fractString = "";
 
                 // Now convert the fractionOfSec field to a string without the leading zero
                 if (fractionOfSec != 0.0F)
@@ -618,9 +618,9 @@ namespace NHapi.Base.Model.Primitive
         /// <summary> Returns a string value representing the input Gregorian Calendar object in
         /// an Hl7 Time Format.
         /// </summary>
-        public static String toHl7TMFormat(GregorianCalendar cal)
+        public static string toHl7TMFormat(GregorianCalendar cal)
         {
-            String val = "";
+            string val = "";
             try
             {
                 // set the input cal object so that it can report errors

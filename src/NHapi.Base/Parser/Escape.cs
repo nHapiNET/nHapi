@@ -93,7 +93,7 @@ namespace NHapi.Base.Parser
         /// <param name="text"></param>
         /// <param name="encChars"></param>
         /// <returns></returns>
-        public static String escape(String text, EncodingCharacters encChars)
+        public static string escape(string text, EncodingCharacters encChars)
         {
             // Note: Special character sequences are like \.br\.  Items like this should not
             // be escaped using the \E\ method for the \'s.  Instead, just tell the encoding to
@@ -208,7 +208,7 @@ namespace NHapi.Base.Parser
         /// <param name="text"></param>
         /// <param name="encChars"></param>
         /// <returns></returns>
-        public static String unescape(String text, EncodingCharacters encChars)
+        public static string unescape(string text, EncodingCharacters encChars)
         {
             // is there an escape character in the text at all?
             if (text.IndexOf(encChars.EscapeCharacter) == -1)
@@ -220,7 +220,7 @@ namespace NHapi.Base.Parser
             int textLength = text.Length;
             Hashtable esc = getEscapeSequences(encChars);
             SupportClass.ISetSupport keys = new SupportClass.HashSetSupport(esc.Keys);
-            String escChar = Convert.ToString(encChars.EscapeCharacter);
+            string escChar = Convert.ToString(encChars.EscapeCharacter);
             int position = 0;
             while (position < textLength)
             {
@@ -228,8 +228,8 @@ namespace NHapi.Base.Parser
                 bool isReplaced = false;
                 while (it.MoveNext() && !isReplaced)
                 {
-                    String seq = (String)it.Current;
-                    String val = (String)esc[seq];
+                    string seq = (string)it.Current;
+                    string val = (string)esc[seq];
                     int seqLength = seq.Length;
                     if (position + seqLength <= textLength)
                     {
@@ -260,7 +260,7 @@ namespace NHapi.Base.Parser
             // escape sequence strings must be assembled using the given escape character
             // see if this has already been done for this set of encoding characters
             Hashtable escapeSequences = null;
-            Object o = variousEncChars[encChars];
+            object o = variousEncChars[encChars];
             if (o == null)
             {
                 // this means we haven't got the sequences for these encoding characters yet - let's make them
@@ -303,9 +303,9 @@ namespace NHapi.Base.Parser
 
         /// <summary> Test harness</summary>
         [STAThread]
-        public static void Main(String[] args)
+        public static void Main(string[] args)
         {
-            String testString = "foo$r$this is $ $p$test$r$r$ string";
+            string testString = "foo$r$this is $ $p$test$r$r$ string";
 
             // System.out.println(testString);
             // System.out.println(replace(testString, "$r$", "***"));
@@ -353,7 +353,7 @@ namespace NHapi.Base.Parser
             // test escape:
             testString = "this | is ^ a field \\T\\ with & some ~ bad stuff \\T\\";
             Console.Out.WriteLine("Original:  " + testString);
-            String escaped = escape(testString, ec);
+            string escaped = escape(testString, ec);
             Console.Out.WriteLine("Escaped:   " + escaped);
             Console.Out.WriteLine("Unescaped: " + unescape(escaped, ec));
         }

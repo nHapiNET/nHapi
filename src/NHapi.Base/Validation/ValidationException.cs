@@ -43,7 +43,7 @@ namespace NHapi.Base.validation
         /// </param>
         /// <param name="cause">
         /// </param>
-        public ValidationException(String message, Exception cause)
+        public ValidationException(string message, Exception cause)
             : base(message, cause)
         {
         }
@@ -52,7 +52,7 @@ namespace NHapi.Base.validation
         /// <summary> Constructs an instance of <code>ValidationException</code> with the specified detail message.</summary>
         /// <param name="msg">the detail message.
         /// </param>
-        public ValidationException(String msg)
+        public ValidationException(string msg)
             : base(msg)
         {
         }

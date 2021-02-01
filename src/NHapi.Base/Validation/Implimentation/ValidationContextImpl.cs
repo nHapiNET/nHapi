@@ -86,12 +86,12 @@ namespace NHapi.Base.validation.impl
             myEncodingRuleBindings = new ArrayList(10);
         }
 
-        public virtual IPrimitiveTypeRule[] getPrimitiveRules(String theVersion, String theTypeName, IPrimitive theType)
+        public virtual IPrimitiveTypeRule[] getPrimitiveRules(string theVersion, string theTypeName, IPrimitive theType)
         {
             IList active = new ArrayList(myPrimitiveRuleBindings.Count);
             for (int i = 0; i < myPrimitiveRuleBindings.Count; i++)
             {
-                Object o = myPrimitiveRuleBindings[i];
+                object o = myPrimitiveRuleBindings[i];
                 if (!(o is RuleBinding))
                 {
                     throw new InvalidCastException("Item in rule binding list is not a RuleBinding");
@@ -107,12 +107,12 @@ namespace NHapi.Base.validation.impl
             return (IPrimitiveTypeRule[])SupportClass.ICollectionSupport.ToArray(active, new IPrimitiveTypeRule[0]);
         }
 
-        public virtual IMessageRule[] getMessageRules(String theVersion, String theMessageType, String theTriggerEvent)
+        public virtual IMessageRule[] getMessageRules(string theVersion, string theMessageType, string theTriggerEvent)
         {
             IList active = new ArrayList(myMessageRuleBindings.Count);
             for (int i = 0; i < myMessageRuleBindings.Count; i++)
             {
-                Object o = myMessageRuleBindings[i];
+                object o = myMessageRuleBindings[i];
                 if (!(o is RuleBinding))
                 {
                     throw new InvalidCastException("Item in rule binding list is not a RuleBinding");
@@ -129,12 +129,12 @@ namespace NHapi.Base.validation.impl
             return (IMessageRule[])SupportClass.ICollectionSupport.ToArray(active, new IMessageRule[0]);
         }
 
-        public virtual IEncodingRule[] getEncodingRules(String theVersion, String theEncoding)
+        public virtual IEncodingRule[] getEncodingRules(string theVersion, string theEncoding)
         {
             IList active = new ArrayList(myEncodingRuleBindings.Count);
             for (int i = 0; i < myEncodingRuleBindings.Count; i++)
             {
-                Object o = myEncodingRuleBindings[i];
+                object o = myEncodingRuleBindings[i];
                 if (!(o is RuleBinding))
                 {
                     throw new InvalidCastException("Item in rule binding list is not a RuleBinding");
