@@ -4,24 +4,24 @@ namespace NHapi.Base.Model
 {
    /// <summary>
    /// <para>
-   /// A set of "extra" components (sub-components) that are not a standard part 
-   /// of a field (component) but have been added at runtime.  The purpose is to allow 
-   /// processing of locally-defined extensions to datatypes without the need for a 
+   /// A set of "extra" components (sub-components) that are not a standard part
+   /// of a field (component) but have been added at runtime.  The purpose is to allow
+   /// processing of locally-defined extensions to datatypes without the need for a
    /// custom message definition.
    /// </para>
-   /// 
+   ///
    /// <para>
-   /// Extra components are not treated uniformly with standard components (e.g. 
-   /// they are not accessible through methods like Primitive.getValue() and 
-   /// Composite.getComponent()).  To do so would blur the distinction between 
-   /// primitive and composite types (i.e. leaf and non-leaf nodes), which seems 
+   /// Extra components are not treated uniformly with standard components (e.g.
+   /// they are not accessible through methods like Primitive.getValue() and
+   /// Composite.getComponent()).  To do so would blur the distinction between
+   /// primitive and composite types (i.e. leaf and non-leaf nodes), which seems
    /// nice and polymorphic for a moment but actually isn't helpful.
-   /// Furthermore, the auto-generated classes do not define accessors to extra 
-   /// components, because they are meant to encourage and enforce use of the standard 
-   /// message structure -- stepping outside the standard structure must be 
+   /// Furthermore, the auto-generated classes do not define accessors to extra
+   /// components, because they are meant to encourage and enforce use of the standard
+   /// message structure -- stepping outside the standard structure must be
    /// deliberate.
    /// </para>
-   /// 
+   ///
    /// <para>
    /// Note that a uniformity of access to standard and extra components is provided
    /// by Terser.
@@ -51,7 +51,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Returns the component at the given location, creating it 
+        /// Returns the component at the given location, creating it
         /// and all preceding components if necessary.
         /// </summary>
         /// <param name="comp">
@@ -63,8 +63,8 @@ namespace NHapi.Base.Model
             return (Varies)comps[comp];
         }
 
-        /// <summary> Checks that the component at the given location exists, and that 
-        /// all preceding components exist, creating any missing ones.  
+        /// <summary> Checks that the component at the given location exists, and that
+        /// all preceding components exist, creating any missing ones.
         /// </summary>
         private void ensureComponentAndPredecessorsExist(int comp)
         {

@@ -5,15 +5,15 @@
   Software distributed under the License is distributed on an "AS IS" basis,
   WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
   specific language governing rights and limitations under the License.
-  
+
   The Original Code is "TSComponentOne.java".  Description:
   "Represents an HL7 timestamp, which is related to the HL7 TS type."
-  
+
   The Initial Developer of the Original Code is University Health Network. Copyright (C)
   2005.  All Rights Reserved.
-  
+
   Contributor(s): ______________________________________.
-  
+
   Alternatively, the contents of this file may be used under the terms of the
   GNU General Public License (the "GPL"), in which case the provisions of the GPL are
   applicable instead of those above.  If you wish to allow use of your version of this
@@ -34,18 +34,18 @@ namespace NHapi.Base.Model.Primitive
    /// <para>
    /// Represents an HL7 timestamp, which is related to the HL7 TS type.
    /// </para>
-   /// 
+   ///
    /// <para>
    /// In version 2.5, TS is a composite type. The first component is type DTM, which corresponds to this class
    /// (actually Model.v25.datatype.DTM inherits from this class at time of writing).
    /// </para>
-   /// 
+   ///
    /// <para>
    /// In HL7 versions 2.2-2.4, it wasn't perfectly clear whether TS was composite or primitive. HAPI interprets
    /// it as composite, with the first component having a type that isn't defined by HL7, and we call
    /// this type TSComponentOne.
    /// </para>
-   /// 
+   ///
    /// <para>
    /// In v2.1, TS is primitive, and corresponds one-to-one with this class.
    /// </para>
@@ -184,8 +184,8 @@ namespace NHapi.Base.Model.Primitive
         /// <seealso cref="CommonTS.setDatePrecision(int, int, int)">
         /// </seealso>
         /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-        /// this method is called.  
+        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
+        /// this method is called.
         /// </summary>
         public virtual void setDatePrecision(int yr, int mnth, int dy)
         {
@@ -195,8 +195,8 @@ namespace NHapi.Base.Model.Primitive
         /// <seealso cref="CommonTS.setDateMinutePrecision(int, int, int, int, int)">
         /// </seealso>
         /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-        /// this method is called.  
+        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
+        /// this method is called.
         /// </summary>
         public virtual void setDateMinutePrecision(int yr, int mnth, int dy, int hr, int min)
         {
@@ -206,8 +206,8 @@ namespace NHapi.Base.Model.Primitive
         /// <seealso cref="CommonTS.setDateSecondPrecision(int, int, int, int, int, float)">
         /// </seealso>
         /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-        /// this method is called.  
+        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
+        /// this method is called.
         /// </summary>
         public virtual void setDateSecondPrecision(int yr, int mnth, int dy, int hr, int min, float sec)
         {

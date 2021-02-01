@@ -6,44 +6,44 @@ using NHapi.Base.Log;
 
 namespace NHapi.Base.Util
 {
-    /// <summary> Iterates over all defined nodes (ie segments, groups) in a message, 
-    /// regardless of whether they have been instantiated previously.  This is a 
-    /// tricky process, because the number of nodes is infinite, due to infinitely 
-    /// repeating segments and groups.  See <code>next()</code> for details on 
-    /// how this is handled. 
-    /// 
+    /// <summary> Iterates over all defined nodes (ie segments, groups) in a message,
+    /// regardless of whether they have been instantiated previously.  This is a
+    /// tricky process, because the number of nodes is infinite, due to infinitely
+    /// repeating segments and groups.  See <code>next()</code> for details on
+    /// how this is handled.
+    ///
     /// This implementation assumes that the first segment in each group is present (as per
-    /// HL7 rules).  Specifically, when looking for a segment location, an empty group that has 
-    /// a spot for the segment will be overlooked if there is anything else before that spot. 
-    /// This may result in surprising (but sensible) behaviour if a message is missing the 
-    /// first segment in a group. 
-    /// 
+    /// HL7 rules).  Specifically, when looking for a segment location, an empty group that has
+    /// a spot for the segment will be overlooked if there is anything else before that spot.
+    /// This may result in surprising (but sensible) behaviour if a message is missing the
+    /// first segment in a group.
+    ///
     /// </summary>
     /// <author>  Bryan Tripp
     /// </author>
     public class MessageIterator : IEnumerator
     {
-        /// <summary> <p>Returns the next node in the message.  Sometimes the next node is 
-        /// ambiguous.  For example at the end of a repeating group, the next node 
-        /// may be the first segment in the next repetition of the group, or the 
-        /// next sibling, or an undeclared segment locally added to the group's end.  
-        /// Cases like this are disambiguated using getDirection(), which returns  
-        /// the name of the structure that we are "iterating towards".  
-        /// Usually we are "iterating towards" a segment of a certain name because we 
-        /// have a segment string that we would like to parse into that node. 
+        /// <summary> <p>Returns the next node in the message.  Sometimes the next node is
+        /// ambiguous.  For example at the end of a repeating group, the next node
+        /// may be the first segment in the next repetition of the group, or the
+        /// next sibling, or an undeclared segment locally added to the group's end.
+        /// Cases like this are disambiguated using getDirection(), which returns
+        /// the name of the structure that we are "iterating towards".
+        /// Usually we are "iterating towards" a segment of a certain name because we
+        /// have a segment string that we would like to parse into that node.
         /// Here are the rules: </p>
         /// <ol><li>If at a group, next means first child.</li>
         /// <li>If at a non-repeating segment, next means next "position"</li>
-        /// <li>If at a repeating segment: if segment name matches 
+        /// <li>If at a repeating segment: if segment name matches
         /// direction then next means next rep, otherwise next means next "position".</li>
-        /// <li>If at a segment within a group (not at the end of the group), next "position" 
+        /// <li>If at a segment within a group (not at the end of the group), next "position"
         /// means next sibling</li>
-        /// <li>If at the end of a group: If name of group or any of its "first 
-        /// decendents" matches direction, then next position means next rep of group.  Otherwise 
-        /// if direction matches name of next sibling of the group, or any of its first 
-        /// descendents, next position means next sibling of the group.  Otherwise, next means a 
+        /// <li>If at the end of a group: If name of group or any of its "first
+        /// decendents" matches direction, then next position means next rep of group.  Otherwise
+        /// if direction matches name of next sibling of the group, or any of its first
+        /// descendents, next position means next sibling of the group.  Otherwise, next means a
         /// new segment added to the group (with a name that matches "direction").  </li>
-        /// <li>"First descendents" means first child, or first child of the first child, 
+        /// <li>"First descendents" means first child, or first child of the first child,
         /// or first child of the first child of the first child, etc. </li> </ol>
         /// </summary>
         public virtual Object Current
@@ -89,10 +89,10 @@ namespace NHapi.Base.Util
 
         private static readonly IHapiLog log;
 
-        /* may add configurability later ... 
+        /* may add configurability later ...
         private boolean findUpToFirstRequired;
         private boolean findFirstDescendentsOnly;
-        
+
         public static final String WHOLE_GROUP;
         public static final String FIRST_DESCENDENTS_ONLY;
         public static final String UP_TO_FIRST_REQUIRED;
@@ -107,7 +107,7 @@ namespace NHapi.Base.Util
         }
 
         /* for configurability (maybe to add later, replacing hard-coded options
-        in nextFromEndOfGroup) ... 
+        in nextFromEndOfGroup) ...
         public void setSearchLevel(String level) {
         if (WHOLE_GROUP.equals(level)) {
         this.findUpToFirstRequired = false;
@@ -120,9 +120,9 @@ namespace NHapi.Base.Util
         this.findFirstDescendentsOnly = false;
         } else {
         throw IllegalArgumentException(level + " is not a valid search level.  Should be WHOLE_GROUP, etc.");
-        }     
         }
-        
+        }
+
         public String getSearchLevel() {
         String level = WHOLE_GROUP;
         if (this.findFirstDescendentsOnly) {
@@ -171,8 +171,8 @@ namespace NHapi.Base.Util
             return has;
         }
 
-        /// <summary> Sets next to the first child of the given group (iteration 
-        /// always proceeds from group to first child). 
+        /// <summary> Sets next to the first child of the given group (iteration
+        /// always proceeds from group to first child).
         /// </summary>
         private void groupNext(IGroup current)
         {
@@ -185,9 +185,9 @@ namespace NHapi.Base.Util
             next_Renamed_Field = new Position(current.parent, current.index.name, current.index.rep + 1);
         }
 
-        /// <summary> Sets this.next to the next position in the message (from the given position), 
-        /// which could be the next sibling, a new segment, or the next rep 
-        /// of the parent.  See next() for details. 
+        /// <summary> Sets this.next to the next position in the message (from the given position),
+        /// which could be the next sibling, a new segment, or the next rep
+        /// of the parent.  See next() for details.
         /// </summary>
         private bool nextPosition(Position currPos, String direction, bool makeNewSegmentIfNeeded)
         {
@@ -209,7 +209,7 @@ namespace NHapi.Base.Util
             //assert isLast(currPos);
             bool nextExists = true;
 
-            //the following conditional logic is a little convoluted -- its meant as an optimization 
+            //the following conditional logic is a little convoluted -- its meant as an optimization
             // i.e. trying to avoid calling matchExistsAfterCurrentPosition
 
             if (!makeNewSegmentIfNeeded && typeof (IMessage).IsAssignableFrom(currPos.parent.GetType()))
@@ -246,21 +246,21 @@ namespace NHapi.Base.Util
             return nextExists;
         }
 
-        /// <summary> A match exists for the given name somewhere after the given position (in the 
-        /// normal serialization order).  
+        /// <summary> A match exists for the given name somewhere after the given position (in the
+        /// normal serialization order).
         /// </summary>
-        /// <param name="pos">the message position after which to look (note that this specifies 
+        /// <param name="pos">the message position after which to look (note that this specifies
         /// the message instance)
         /// </param>
         /// <param name="name">the name of the structure to look for
         /// </param>
-        /// <param name="firstDescendentsOnly">only searches the first children of a group 
+        /// <param name="firstDescendentsOnly">only searches the first children of a group
         /// </param>
-        /// <param name="upToFirstRequired">only searches the children of a group up to the first 
-        /// required child (normally the first one).  This is used when we are parsing 
-        /// a message in order and looking for a place to parse a particular segment -- 
-        /// if the message is correct then it can't go after a required position of a 
-        /// different name. 
+        /// <param name="upToFirstRequired">only searches the children of a group up to the first
+        /// required child (normally the first one).  This is used when we are parsing
+        /// a message in order and looking for a place to parse a particular segment --
+        /// if the message is correct then it can't go after a required position of a
+        /// different name.
         /// </param>
         public static bool matchExistsAfterPosition(Position pos, String name, bool firstDescendentsOnly,
             bool upToFirstRequired)
@@ -274,7 +274,7 @@ namespace NHapi.Base.Util
                 matchExists = contains(s, name, firstDescendentsOnly, upToFirstRequired);
             }
 
-            //check later siblings (if any) 
+            //check later siblings (if any)
             if (!matchExists)
             {
                 String[] siblings = pos.parent.Names;
@@ -303,8 +303,8 @@ namespace NHapi.Base.Util
             return matchExists;
         }
 
-        /// <summary> Sets the next position to a new segment of the given name, within the 
-        /// given group. 
+        /// <summary> Sets the next position to a new segment of the given name, within the
+        /// given group.
         /// </summary>
         private void newSegment(IGroup parent, String name)
         {
@@ -313,22 +313,22 @@ namespace NHapi.Base.Util
             next_Renamed_Field = new Position(parent, parent.Names[parent.Names.Length - 1], 0);
         }
 
-        /// <summary> Determines whether the given structure matches the given name, or contains 
-        /// a child that does.  
+        /// <summary> Determines whether the given structure matches the given name, or contains
+        /// a child that does.
         /// </summary>
-        /// <param name="s">the structure to check 
+        /// <param name="s">the structure to check
         /// </param>
-        /// <param name="name">the name to look for 
+        /// <param name="name">the name to look for
         /// </param>
-        /// <param name="firstDescendentsOnly">only checks first descendents (i.e. first 
-        /// child, first child of first child, etc.)  In theory the first child 
-        /// of a group should always be present, and we don't use this method with 
-        /// subsequent children because finding the next position within a group is 
-        /// straightforward.  
+        /// <param name="firstDescendentsOnly">only checks first descendents (i.e. first
+        /// child, first child of first child, etc.)  In theory the first child
+        /// of a group should always be present, and we don't use this method with
+        /// subsequent children because finding the next position within a group is
+        /// straightforward.
         /// </param>
-        /// <param name="upToFirstRequired">only checks first descendents and of their siblings 
-        /// up to the first required one.  This may be needed because in practice 
-        /// some first children of groups are not required.  
+        /// <param name="upToFirstRequired">only checks first descendents and of their siblings
+        /// up to the first required one.  This may be needed because in practice
+        /// some first children of groups are not required.
         /// </param>
         public static bool contains(IStructure s, String name, bool firstDescendentsOnly, bool upToFirstRequired)
         {
@@ -361,8 +361,8 @@ namespace NHapi.Base.Util
             return contains;
         }
 
-        /// <summary> Tests whether the name of the given Index matches 
-        /// the name of the last child of the given group. 
+        /// <summary> Tests whether the name of the given Index matches
+        /// the name of the last child of the given group.
         /// </summary>
         public static bool isLast(Position p)
         {
@@ -370,8 +370,8 @@ namespace NHapi.Base.Util
             return names[names.Length - 1].Equals(p.index.name);
         }
 
-        /// <summary> Sets the next location to the next sibling of the given 
-        /// index.  
+        /// <summary> Sets the next location to the next sibling of the given
+        /// index.
         /// </summary>
         private void nextSibling(Position pos)
         {
@@ -396,8 +396,8 @@ namespace NHapi.Base.Util
             next_Renamed_Field = null;
         }
 
-        /// <summary> Returns the index of the given structure as a child of the 
-        /// given parent.  Returns null if the child isn't found. 
+        /// <summary> Returns the index of the given structure as a child of the
+        /// given parent.  Returns null if the child isn't found.
         /// </summary>
         public static Index getIndex(IGroup parent, IStructure child)
         {
@@ -429,7 +429,7 @@ namespace NHapi.Base.Util
             return index;
         }
 
-        /// <summary> An index of a child structure within a group, consisting of the name and rep of 
+        /// <summary> An index of a child structure within a group, consisting of the name and rep of
         /// of the child.
         /// </summary>
         public class Index

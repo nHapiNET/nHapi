@@ -5,16 +5,16 @@
     Software distributed under the License is distributed on an "AS IS" basis,
     WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
     specific language governing rights and limitations under the License.
-    
+
     The Original Code is "ID.java".  Description:
     "This class contains functionality used by the ID class
     in the version 2.3.0, 2.3.1, 2.4, and 2.5 packages"
-    
+
     The Initial Developer of the Original Code is University Health Network. Copyright (C)
     2005.  All Rights Reserved.
-    
+
     Contributor(s): ______________________________________.
-    
+
     Alternatively, the contents of this file may be used under the terms of the
     GNU General Public License (the "GPL"), in which case the provisions of the GPL are
     applicable instead of those above.  If you wish to allow use of your version of this
@@ -32,12 +32,12 @@ namespace NHapi.Base.Model.Primitive
    /// This class contains functionality used by the ID class
    /// in the version 2.3.0, 2.3.1, 2.4, and 2.5 packages
    /// </para>
-   /// 
+   ///
    /// <para>
    /// Note: The class description below has been excerpted from the Hl7 2.4 documentation. Sectional
    /// references made below also refer to the same documentation.
    /// </para>
-   /// 
+   ///
    /// <para>
    /// The value of such a field follows the formatting rules for an ST field except
    /// that it is drawn from a table of legal values. There shall be an HL7 table number

@@ -2,9 +2,9 @@ using System;
 
 namespace NHapi.Base.Model
 {
-   /// <summary> An unspecified Primitive datatype that imposes no constraints on its string 
-   /// value.  This is used to store Varies data, when the data type is unknown.  It is also 
-   /// used to store unrecognized message constituents.  
+   /// <summary> An unspecified Primitive datatype that imposes no constraints on its string
+   /// value.  This is used to store Varies data, when the data type is unknown.  It is also
+   /// used to store unrecognized message constituents.
    /// </summary>
    /// <author>  Bryan Tripp
    /// </author>

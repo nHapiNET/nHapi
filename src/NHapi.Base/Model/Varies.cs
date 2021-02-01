@@ -1,28 +1,28 @@
 /*
-  The contents of this file are subject to the Mozilla Public License Version 1.1 
-  (the "License"); you may not use this file except in compliance with the License. 
-  You may obtain a copy of the License at http://www.mozilla.org/MPL/ 
-  Software distributed under the License is distributed on an "AS IS" basis, 
-  WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the 
-  specific language governing rights and limitations under the License. 
-  
-  The Original Code is "Varies.java".  Description: 
-  "Varies is a Type used as a placeholder for another Type in cases where 
-  the appropriate Type is not known until run-time (e.g" 
-  
-  The Initial Developer of the Original Code is University Health Network. Copyright (C) 
-  2001.  All Rights Reserved. 
-  
-  Contributor(s): ______________________________________. 
-  
-  Alternatively, the contents of this file may be used under the terms of the 
-  GNU General Public License (the "GPL"), in which case the provisions of the GPL are 
-  applicable instead of those above.  If you wish to allow use of your version of this 
-  file only under the terms of the GPL and not to allow others to use your version 
-  of this file under the MPL, indicate your decision by deleting  the provisions above 
-  and replace  them with the notice and other provisions required by the GPL License.  
-  If you do not delete the provisions above, a recipient may use your version of 
-  this file under either the MPL or the GPL. 
+  The contents of this file are subject to the Mozilla Public License Version 1.1
+  (the "License"); you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at http://www.mozilla.org/MPL/
+  Software distributed under the License is distributed on an "AS IS" basis,
+  WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
+  specific language governing rights and limitations under the License.
+
+  The Original Code is "Varies.java".  Description:
+  "Varies is a Type used as a placeholder for another Type in cases where
+  the appropriate Type is not known until run-time (e.g"
+
+  The Initial Developer of the Original Code is University Health Network. Copyright (C)
+  2001.  All Rights Reserved.
+
+  Contributor(s): ______________________________________.
+
+  Alternatively, the contents of this file may be used under the terms of the
+  GNU General Public License (the "GPL"), in which case the provisions of the GPL are
+  applicable instead of those above.  If you wish to allow use of your version of this
+  file only under the terms of the GPL and not to allow others to use your version
+  of this file under the MPL, indicate your decision by deleting  the provisions above
+  and replace  them with the notice and other provisions required by the GPL License.
+  If you do not delete the provisions above, a recipient may use your version of
+  this file under either the MPL or the GPL.
 */
 
 using System;
@@ -35,13 +35,13 @@ using NHapi.Base.Util;
 namespace NHapi.Base.Model
 {
    /// <summary>
-   /// Varies is a Type used as a placeholder for another Type in cases where 
-   /// the appropriate Type is not known until run-time (e.g. OBX-5).  
-   /// Parsers and validators may have logic that enforces restrictions on the 
+   /// Varies is a Type used as a placeholder for another Type in cases where
+   /// the appropriate Type is not known until run-time (e.g. OBX-5).
+   /// Parsers and validators may have logic that enforces restrictions on the
    /// Type based on other features of a segment.
    /// <para>
    /// If you want to set both the type and the values of a Varies object, you should
-   /// set the type first by calling setData(Type t), keeping a reference to your Type, 
+   /// set the type first by calling setData(Type t), keeping a reference to your Type,
    /// and then set values by calling methods on the Type.
    /// </para>
    /// </summary>
@@ -124,8 +124,8 @@ namespace NHapi.Base.Model
         private IMessage message;
         private string description;
 
-        /// <summary> Creates new Varies. 
-        /// 
+        /// <summary> Creates new Varies.
+        ///
         /// </summary>
         /// <param name="message">message to which this type belongs
         /// </param>
@@ -135,8 +135,8 @@ namespace NHapi.Base.Model
             this.message = message;
         }
 
-        /// <summary> Creates new Varies. 
-        /// 
+        /// <summary> Creates new Varies.
+        ///
         /// </summary>
         /// <param name="message">message to which this type belongs</param>
         /// <param name="description">description of what this Type represents</param>
@@ -147,8 +147,8 @@ namespace NHapi.Base.Model
             this.description = description;
         }
 
-        /// <summary> Sets the data type of field 5 in the given OBX segment to the value of OBX-2.  The argument 
-        /// is a Segment as opposed to a particular OBX because it is meant to work with any version.  
+        /// <summary> Sets the data type of field 5 in the given OBX segment to the value of OBX-2.  The argument
+        /// is a Segment as opposed to a particular OBX because it is meant to work with any version.
         /// </summary>
         public static void fixOBX5(ISegment segment, IModelClassFactory factory)
         {

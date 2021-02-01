@@ -1,11 +1,11 @@
 /*
   In order to convert some functionality to Visual C#, the Java Language Conversion Assistant
-  creates "support classes" that duplicate the original functionality.  
-  
-  Support classes replicate the functionality of the original code, but in some cases they are 
-  substantially different architecturally. Although every effort is made to preserve the 
-  original architecture of the application in the converted project, the user should be aware that 
-  the primary goal of these support classes is to replicate functionality, and that at times 
+  creates "support classes" that duplicate the original functionality.
+
+  Support classes replicate the functionality of the original code, but in some cases they are
+  substantially different architecturally. Although every effort is made to preserve the
+  original architecture of the application in the converted project, the user should be aware that
+  the primary goal of these support classes is to replicate functionality, and that at times
   the architecture of the resulting solution may differ somewhat.
 */
 
@@ -22,13 +22,13 @@ using System.Xml.Schema;
 namespace NHapi.Base
 {
    /// <summary>
-   /// This interface should be implemented by any class whose instances are intended 
+   /// This interface should be implemented by any class whose instances are intended
    /// to be executed by a thread.
    /// </summary>
    public interface IThreadRunnable
     {
         /// <summary>
-        /// This method has to be implemented in order that starting of the thread causes the object's 
+        /// This method has to be implemented in order that starting of the thread causes the object's
         /// run method to be called in that separately executing thread.
         /// </summary>
         void Run();
@@ -260,13 +260,13 @@ namespace NHapi.Base
         int getLineNumber();
 
         /// <summary>
-        /// This method is not supported, it is included for compatibility. 
+        /// This method is not supported, it is included for compatibility.
         /// </summary>
         /// <returns>The saved public identifier.</returns>
         String getPublicId();
 
         /// <summary>
-        /// This method is not supported, it is included for compatibility.     
+        /// This method is not supported, it is included for compatibility.
         /// </summary>
         /// <returns>The saved system identifier.</returns>
         String getSystemId();
@@ -626,7 +626,7 @@ namespace NHapi.Base
 
         /// <summary>
         /// Modifies the qualified name of the attribute in the given SaxAttributesSupport instance.
-        /// </summary>  
+        /// </summary>
         /// <param name="index">The attribute index.</param>
         /// <param name="FullName">The new qualified name for the attribute.</param>
         public virtual void SetFullName(int index, String FullName)
@@ -816,7 +816,7 @@ namespace NHapi.Base
     /*******************************/
 
     /// <summary>
-    /// This exception is thrown by the XmlSaxDocumentManager in the SetProperty and SetFeature 
+    /// This exception is thrown by the XmlSaxDocumentManager in the SetProperty and SetFeature
     /// methods if a property or method couldn't be found.
     /// </summary>
     public class ManagerNotRecognizedException : Exception
@@ -834,7 +834,7 @@ namespace NHapi.Base
     /*******************************/
 
     /// <summary>
-    /// This exception is thrown by the XmlSaxDocumentManager in the SetProperty and SetFeature methods 
+    /// This exception is thrown by the XmlSaxDocumentManager in the SetProperty and SetFeature methods
     /// if a property or method couldn't be supported.
     /// </summary>
     public class ManagerNotSupportedException : Exception
@@ -946,7 +946,7 @@ namespace NHapi.Base
 
         /// <summary>
         /// This method is not supported, is include for compatibility
-        /// </summary>       
+        /// </summary>
         public virtual void setDocumentLocator(IXmlSaxLocator locator)
         {
         }
@@ -960,7 +960,7 @@ namespace NHapi.Base
         }
 
         /// <summary>
-        /// This method manage the event when a start document node were found 
+        /// This method manage the event when a start document node were found
         /// </summary>
         public virtual void startDocument()
         {
@@ -988,7 +988,7 @@ namespace NHapi.Base
 
         /// <summary>
         /// This method is not supported only is created for compatibility
-        /// </summary>        
+        /// </summary>
         public virtual void unparsedEntityDecl(String name, String publicId, String systemId, String notationName)
         {
         }
@@ -1080,7 +1080,7 @@ namespace NHapi.Base
         }
 
         /// <summary>
-        /// This method manage the event when a start document node were found 
+        /// This method manage the event when a start document node were found
         /// </summary>
         public virtual void startDocument()
         {
@@ -1662,7 +1662,7 @@ namespace NHapi.Base
         }
 
         /// <summary>
-        /// Parses the specified stream and process the events over the specified handler, and resolves the 
+        /// Parses the specified stream and process the events over the specified handler, and resolves the
         /// entities with the specified URI.
         /// </summary>
         /// <param name="stream">The stream with the XML.</param>
@@ -1696,7 +1696,7 @@ namespace NHapi.Base
         }
 
         /// <summary>
-        /// Parses the specified 'XmlSourceSupport' instance and process the events over the specified handler, 
+        /// Parses the specified 'XmlSourceSupport' instance and process the events over the specified handler,
         /// and resolves the entities with the specified URI.
         /// </summary>
         /// <param name="source">The 'XmlSourceSupport' that contains the XML.</param>
@@ -1777,7 +1777,7 @@ namespace NHapi.Base
         }
 
         /// <summary>
-        /// Parses the specified stream and processes the events over previously specified handler, and resolves the 
+        /// Parses the specified stream and processes the events over previously specified handler, and resolves the
         /// external entities with the specified URI.
         /// </summary>
         /// <param name="stream">The stream with the XML.</param>
@@ -1798,7 +1798,7 @@ namespace NHapi.Base
         }
 
         /// <summary>
-        /// Parses the specified 'XmlSourceSupport' and processes the events over the specified handler, and 
+        /// Parses the specified 'XmlSourceSupport' and processes the events over the specified handler, and
         /// resolves the entities with the specified URI.
         /// </summary>
         /// <param name="source">The 'XmlSourceSupport' instance with the XML.</param>
@@ -1853,7 +1853,7 @@ namespace NHapi.Base
         }
 
         /// <summary>
-        /// Assigns the object that will handle all the error events. 
+        /// Assigns the object that will handle all the error events.
         /// </summary>
         /// <param name="handler">The object that handles the errors events.</param>
         public virtual void setErrorHandler(IXmlSaxErrorHandler handler)
@@ -1874,7 +1874,7 @@ namespace NHapi.Base
         }
 
         /// <summary>
-        /// Assigns the object that will handle all the error events. 
+        /// Assigns the object that will handle all the error events.
         /// </summary>
         /// <returns>The object that handles the error events.</returns>
         public virtual IXmlSaxErrorHandler getErrorHandler()
@@ -2297,7 +2297,7 @@ namespace NHapi.Base
 
         /// <summary>
         /// Represents a collection ob objects that contains no duplicate elements.
-        /// </summary>  
+        /// </summary>
         public interface ISetSupport : ICollection, IList
         {
             /// <summary>
@@ -2341,7 +2341,7 @@ namespace NHapi.Base
 
             /// <summary>
             /// Adds a new element to the ArrayList if it is not already present.
-            /// </summary>      
+            /// </summary>
             /// <param name="obj">Element to insert to the ArrayList.</param>
             /// <returns>Returns true if the new element was inserted, false otherwise.</returns>
             public new virtual bool Add(Object obj)
@@ -2377,7 +2377,7 @@ namespace NHapi.Base
 
             /// <summary>
             /// Returns a copy of the HashSet instance.
-            /// </summary>      
+            /// </summary>
             /// <returns>Returns a shallow copy of the current HashSet.</returns>
             public override Object Clone()
             {
@@ -2474,8 +2474,8 @@ namespace NHapi.Base
 
             /// <summary>
             /// Internal class that inherits from HashTable to manage the different calendars.
-            /// This structure will contain an instance of System.Globalization.Calendar that represents 
-            /// a type of calendar and its properties (represented by an instance of CalendarProperties 
+            /// This structure will contain an instance of System.Globalization.Calendar that represents
+            /// a type of calendar and its properties (represented by an instance of CalendarProperties
             /// class).
             /// </summary>
             public class CalendarHashTable : Hashtable
@@ -2484,7 +2484,7 @@ namespace NHapi.Base
                 /// Gets the calendar current date and time.
                 /// </summary>
                 /// <param name="calendar">The calendar to get its current date and time.</param>
-                /// <returns>A System.DateTime value that indicates the current date and time for the 
+                /// <returns>A System.DateTime value that indicates the current date and time for the
                 /// calendar given.</returns>
                 public DateTime GetDateTime(Calendar calendar)
                 {
@@ -2520,8 +2520,8 @@ namespace NHapi.Base
 
                 /// <summary>
                 /// Sets the corresponding field in an specified calendar with the value given.
-                /// If the specified calendar does not have exist in the hash table, it creates a 
-                /// new instance of the calendar with the current date and time and then assigns it 
+                /// If the specified calendar does not have exist in the hash table, it creates a
+                /// new instance of the calendar with the current date and time and then assigns it
                 /// the new specified value.
                 /// </summary>
                 /// <param name="calendar">The calendar to set its date or time.</param>
@@ -2585,7 +2585,7 @@ namespace NHapi.Base
 
                 /// <summary>
                 /// Sets the corresponding date (day, month and year) to the calendar specified.
-                /// If the calendar does not exist in the hash table, it creates a new instance and sets 
+                /// If the calendar does not exist in the hash table, it creates a new instance and sets
                 /// its values.
                 /// </summary>
                 /// <param name="calendar">The calendar to set its date.</param>
@@ -2610,9 +2610,9 @@ namespace NHapi.Base
                 }
 
                 /// <summary>
-                /// Sets the corresponding date (day, month and year) and hour (hour and minute) 
+                /// Sets the corresponding date (day, month and year) and hour (hour and minute)
                 /// to the calendar specified.
-                /// If the calendar does not exist in the hash table, it creates a new instance and sets 
+                /// If the calendar does not exist in the hash table, it creates a new instance and sets
                 /// its values.
                 /// </summary>
                 /// <param name="calendar">The calendar to set its date and time.</param>
@@ -2641,9 +2641,9 @@ namespace NHapi.Base
                 }
 
                 /// <summary>
-                /// Sets the corresponding date (day, month and year) and hour (hour, minute and second) 
+                /// Sets the corresponding date (day, month and year) and hour (hour, minute and second)
                 /// to the calendar specified.
-                /// If the calendar does not exist in the hash table, it creates a new instance and sets 
+                /// If the calendar does not exist in the hash table, it creates a new instance and sets
                 /// its values.
                 /// </summary>
                 /// <param name="calendar">The calendar to set its date and time.</param>
@@ -2731,7 +2731,7 @@ namespace NHapi.Base
                 /// Sets the time in the specified calendar with the long value.
                 /// </summary>
                 /// <param name="calendar">The calendar to set its date and time.</param>
-                /// <param name="milliseconds">A long value that indicates the milliseconds to be set to 
+                /// <param name="milliseconds">A long value that indicates the milliseconds to be set to
                 /// the hour for the calendar.</param>
                 public void SetTimeInMilliseconds(Calendar calendar, long milliseconds)
                 {
@@ -2994,8 +2994,8 @@ namespace NHapi.Base
             }
 
             /// <summary>
-            /// Raises a ThreadAbortException in the thread on which it is invoked, 
-            /// to begin the process of terminating the thread. Calling this method 
+            /// Raises a ThreadAbortException in the thread on which it is invoked,
+            /// to begin the process of terminating the thread. Calling this method
             /// usually terminates the thread
             /// </summary>
             public void Abort()
@@ -3004,9 +3004,9 @@ namespace NHapi.Base
             }
 
             /// <summary>
-            /// Raises a ThreadAbortException in the thread on which it is invoked, 
+            /// Raises a ThreadAbortException in the thread on which it is invoked,
             /// to begin the process of terminating the thread while also providing
-            /// exception information about the thread termination. 
+            /// exception information about the thread termination.
             /// Calling this method usually terminates the thread.
             /// </summary>
             /// <param name="stateInfo">An object that contains application-specific information, such as state, which can be used by the thread being aborted</param>
@@ -3082,7 +3082,7 @@ namespace NHapi.Base
 
 
             /// <summary>
-            /// Initializes a new class instance with a specified string to process, the specified token 
+            /// Initializes a new class instance with a specified string to process, the specified token
             /// delimiters to use, and whether the delimiters must be included in the results.
             /// </summary>
             /// <param name="source">String to tokenize</param>
@@ -3123,7 +3123,7 @@ namespace NHapi.Base
                 //However, it seems it is not true, so the following line is necessary.
                 this.delimiters = delimiters;
 
-                //at the end 
+                //at the end
                 if (currentPos == chars.Length)
                     throw new ArgumentOutOfRangeException();
                 //if over a delimiter and delimiters must be returned

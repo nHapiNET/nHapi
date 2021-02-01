@@ -5,15 +5,15 @@
   Software distributed under the License is distributed on an "AS IS" basis,
   WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
   specific language governing rights and limitations under the License.
-  
+
   The Original Code is "PipeParser.java".  Description:
   "An implementation of Parser that supports traditionally encoded (i.e"
-  
+
   The Initial Developer of the Original Code is University Health Network. Copyright (C)
   2001.  All Rights Reserved.
-  
+
   Contributor(s): Kenneth Beaton.
-  
+
   Alternatively, the contents of this file may be used under the terms of the
   GNU General Public License (the "GPL"), in which case the provisions of the GPL are
   applicable instead of those above.  If you wish to allow use of your version of this
@@ -37,7 +37,7 @@ namespace NHapi.Base.Parser
 {
    /// <summary> An implementation of Parser that supports traditionally encoded (ie delimited with characters
    /// like |, ^, and ~) HL7 messages.  Unexpected segments and fields are parsed into generic elements
-   /// that are added to the message.  
+   /// that are added to the message.
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
@@ -198,7 +198,7 @@ namespace NHapi.Base.Parser
             return supports;
         }
 
-        /// <deprecated> this method should not be public 
+        /// <deprecated> this method should not be public
         /// </deprecated>
         /// <param name="message">
         /// </param>
@@ -273,8 +273,8 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary> Parses a message string and returns the corresponding Message
-        /// object.  Unexpected segments added at the end of their group.  
-        /// 
+        /// object.  Unexpected segments added at the end of their group.
+        ///
         /// </summary>
         /// <throws>  HL7Exception if the message is not correctly formatted. </throws>
         /// <throws>  EncodingNotSupportedException if the message encoded </throws>
@@ -318,8 +318,8 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary> Parses a segment string and populates the given Segment object.  Unexpected fields are
-        /// added as Varies' at the end of the segment.  
-        /// 
+        /// added as Varies' at the end of the segment.
+        ///
         /// </summary>
         /// <throws>  HL7Exception if the given string does not contain the </throws>
         /// <summary>      given segment or if the string is not encoded properly
@@ -390,7 +390,7 @@ namespace NHapi.Base.Parser
             }
         }
 
-        /// <returns> true if the segment is MSH, FHS, or BHS.  These need special treatment 
+        /// <returns> true if the segment is MSH, FHS, or BHS.  These need special treatment
         /// because they define delimiters.
         /// </returns>
         /// <param name="theSegmentName">
@@ -485,7 +485,7 @@ namespace NHapi.Base.Parser
             return ret;
         }
 
-        /// <summary> Encodes the given Type, using the given encoding characters. 
+        /// <summary> Encodes the given Type, using the given encoding characters.
         /// It is assumed that the Type represents a complete field rather than a component.
         /// </summary>
         public static String Encode(IType source, EncodingCharacters encodingChars)
@@ -885,8 +885,8 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary>
-        /// A struct for holding a message class string and a boolean indicating whether it 
-        /// was defined explicitly.  
+        /// A struct for holding a message class string and a boolean indicating whether it
+        /// was defined explicitly.
         /// </summary>
         private class MessageStructure
         {

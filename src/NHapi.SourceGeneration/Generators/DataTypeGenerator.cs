@@ -1,28 +1,28 @@
 /*
-  The contents of this file are subject to the Mozilla Public License Version 1.1 
-  (the "License"); you may not use this file except in compliance with the License. 
-  You may obtain a copy of the License at http://www.mozilla.org/MPL/ 
-  Software distributed under the License is distributed on an "AS IS" basis, 
-  WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the 
-  specific language governing rights and limitations under the License. 
-  
-  The Original Code is "DataTypeGenerator.java".  Description: 
-  "Generates skeletal source code for Datatype classes based on the 
-  HL7 database" 
-  
-  The Initial Developer of the Original Code is University Health Network. Copyright (C) 
-  2001.  All Rights Reserved. 
-  
-  Contributor(s):  Eric Poiseau. 
-  
-  Alternatively, the contents of this file may be used under the terms of the 
-  GNU General Public License (the "GPL"), in which case the provisions of the GPL are 
-  applicable instead of those above.  If you wish to allow use of your version of this 
-  file only under the terms of the GPL and not to allow others to use your version 
-  of this file under the MPL, indicate your decision by deleting  the provisions above 
-  and replace  them with the notice and other provisions required by the GPL License.  
-  If you do not delete the provisions above, a recipient may use your version of 
-  this file under either the MPL or the GPL. 
+  The contents of this file are subject to the Mozilla Public License Version 1.1
+  (the "License"); you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at http://www.mozilla.org/MPL/
+  Software distributed under the License is distributed on an "AS IS" basis,
+  WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
+  specific language governing rights and limitations under the License.
+
+  The Original Code is "DataTypeGenerator.java".  Description:
+  "Generates skeletal source code for Datatype classes based on the
+  HL7 database"
+
+  The Initial Developer of the Original Code is University Health Network. Copyright (C)
+  2001.  All Rights Reserved.
+
+  Contributor(s):  Eric Poiseau.
+
+  Alternatively, the contents of this file may be used under the terms of the
+  GNU General Public License (the "GPL"), in which case the provisions of the GPL are
+  applicable instead of those above.  If you wish to allow use of your version of this
+  file only under the terms of the GPL and not to allow others to use your version
+  of this file under the MPL, indicate your decision by deleting  the provisions above
+  and replace  them with the notice and other provisions required by the GPL License.
+  If you do not delete the provisions above, a recipient may use your version of
+  this file under either the MPL or the GPL.
 */
 
 using System;
@@ -38,8 +38,8 @@ using NHapi.Base.Log;
 
 namespace NHapi.SourceGeneration.Generators
 {
-   /// <summary> Generates skeletal source code for Datatype classes based on the 
-   /// HL7 database.  
+   /// <summary> Generates skeletal source code for Datatype classes based on the
+   /// HL7 database.
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
@@ -51,7 +51,7 @@ namespace NHapi.SourceGeneration.Generators
 
         /// <summary> Creates skeletal source code (without correct data structure but no business
         /// logic) for all data types found in the normative database.  For versions > 2.2, Primitive data types
-        /// are not generated, because they are coded manually (as of HAPI 0.3).  
+        /// are not generated, because they are coded manually (as of HAPI 0.3).
         /// </summary>
         public static void makeAll(String baseDirectory, String version)
         {
@@ -67,7 +67,7 @@ namespace NHapi.SourceGeneration.Generators
             ArrayList types = new ArrayList();
             OdbcConnection conn = NormativeDatabase.Instance.Connection;
             DbCommand stmt = TransactionManager.manager.CreateStatement(conn);
-            //get normal data types ... 
+            //get normal data types ...
             DbCommand temp_OleDbCommand;
             temp_OleDbCommand = stmt;
             temp_OleDbCommand.CommandText =
@@ -79,7 +79,7 @@ namespace NHapi.SourceGeneration.Generators
                 types.Add(Convert.ToString(rs[1 - 1]));
             }
             rs.Close();
-            //get CF, CK, CM, CN, CQ sub-types ... 
+            //get CF, CK, CM, CN, CQ sub-types ...
 
             DbCommand temp_OleDbCommand2;
             temp_OleDbCommand2 = stmt;
@@ -112,7 +112,7 @@ namespace NHapi.SourceGeneration.Generators
         }
 
         /// <summary>
-        /// Creates source code for a single data type in the HL7 normative database. 
+        /// Creates source code for a single data type in the HL7 normative database.
         /// </summary>
         /// <param name="targetDirectory">the directory into which the file will be written.</param>
         /// <param name="dataType">the name (e.g. ST, ID, etc.) of the data type to be created.</param>
@@ -120,7 +120,7 @@ namespace NHapi.SourceGeneration.Generators
         public static void make(FileInfo targetDirectory, String dataType, String version)
         {
             Console.WriteLine(" Writing " + targetDirectory.FullName + dataType);
-            //make sure that targetDirectory is a directory ... 
+            //make sure that targetDirectory is a directory ...
             if (!Directory.Exists(targetDirectory.FullName))
                 throw new IOException("Can't create file in " + targetDirectory + " - it is not a directory.");
 
@@ -199,7 +199,7 @@ namespace NHapi.SourceGeneration.Generators
             else if (dataTypes.Count > 1)
             {
                 int numComponents = dataTypes.Count;
-                //copy data into arrays ... 
+                //copy data into arrays ...
                 String[] type = new String[numComponents];
                 String[] desc = new String[numComponents];
                 int[] table = new int[numComponents];
@@ -213,13 +213,13 @@ namespace NHapi.SourceGeneration.Generators
             }
             else
             {
-                //no components?  
+                //no components?
                 //throw new DataTypeException("The data type " + dataType + " could not be found");
                 Console.WriteLine("No components for " + dataType);
             }
             //System.out.println(source);
 
-            //write to file ... 
+            //write to file ...
             if (source != null)
             {
                 String targetFile = targetDirectory + "/" + dataType + ".cs";
@@ -234,7 +234,7 @@ namespace NHapi.SourceGeneration.Generators
         }
 
         /// <summary> Returns a String containing the complete source code for a Primitive HL7 data
-        /// type.  Note: this method is no longer used, as all Primitives are now coded manually.  
+        /// type.  Note: this method is no longer used, as all Primitives are now coded manually.
         /// </summary>
         private static String makePrimitive(String datatype, String description, String version)
         {
@@ -303,8 +303,8 @@ namespace NHapi.SourceGeneration.Generators
             return source.ToString();
         }
 
-        /// <summary> Returns a String containing source code for a Composite data type. The 
-        /// dataTypes array contains the data type names (e.g. ST) of each component. 
+        /// <summary> Returns a String containing source code for a Composite data type. The
+        /// dataTypes array contains the data type names (e.g. ST) of each component.
         /// The descriptions array contains the corresponding descriptions (e.g. string).
         /// </summary>
         private static String makeComposite(String dataType, String description, String[] dataTypes, String[] descriptions,
@@ -418,7 +418,7 @@ namespace NHapi.SourceGeneration.Generators
             source.Append("\t\t} \r\n");
             source.Append("\t} \r\n");
             source.Append("\t} \r\n");
-            //make type-specific accessors ... 
+            //make type-specific accessors ...
             for (int i = 0; i < dataTypes.Length; i++)
             {
                 String dtName = SourceGenerator.getAlternateType(dataTypes[i], version);
@@ -482,7 +482,7 @@ namespace NHapi.SourceGeneration.Generators
             try
             {
                 Type.GetType("sun.jdbc.odbc.JdbcOdbcDriver");
-                //System.setProperty("ca.on.uhn.hl7.database.url", "jdbc:odbc:hl7v25");        
+                //System.setProperty("ca.on.uhn.hl7.database.url", "jdbc:odbc:hl7v25");
                 //make(new File("c:/testsourcegen"), args[0], args[1]);
                 //make(new File("c:/testsourcegen"), "CE_0048", "2.3");
                 makeAll("c:/testsourcegen", "2.5");

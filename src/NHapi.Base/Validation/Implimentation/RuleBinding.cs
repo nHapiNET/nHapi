@@ -1,36 +1,36 @@
 /*
-  The contents of this file are subject to the Mozilla Public License Version 1.1 
-  (the "License"); you may not use this file except in compliance with the License. 
-  You may obtain a copy of the License at http://www.mozilla.org/MPL/ 
-  Software distributed under the License is distributed on an "AS IS" basis, 
-  WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the 
-  specific language governing rights and limitations under the License. 
-  
-  The Original Code is "RuleBinding.java".  Description: 
-  "An association between a type of item to be validated (eg a datatype or message) and a validation Rule." 
-  
-  The Initial Developer of the Original Code is University Health Network. Copyright (C) 
-  2004.  All Rights Reserved. 
-  
-  Contributor(s): ______________________________________. 
-  
-  Alternatively, the contents of this file may be used under the terms of the 
-  GNU General Public License (the "GPL"), in which case the provisions of the GPL are 
-  applicable instead of those above.  If you wish to allow use of your version of this 
-  file only under the terms of the GPL and not to allow others to use your version 
-  of this file under the MPL, indicate your decision by deleting  the provisions above 
-  and replace  them with the notice and other provisions required by the GPL License.  
-  If you do not delete the provisions above, a recipient may use your version of 
-  this file under either the MPL or the GPL. 
+  The contents of this file are subject to the Mozilla Public License Version 1.1
+  (the "License"); you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at http://www.mozilla.org/MPL/
+  Software distributed under the License is distributed on an "AS IS" basis,
+  WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
+  specific language governing rights and limitations under the License.
+
+  The Original Code is "RuleBinding.java".  Description:
+  "An association between a type of item to be validated (eg a datatype or message) and a validation Rule."
+
+  The Initial Developer of the Original Code is University Health Network. Copyright (C)
+  2004.  All Rights Reserved.
+
+  Contributor(s): ______________________________________.
+
+  Alternatively, the contents of this file may be used under the terms of the
+  GNU General Public License (the "GPL"), in which case the provisions of the GPL are
+  applicable instead of those above.  If you wish to allow use of your version of this
+  file only under the terms of the GPL and not to allow others to use your version
+  of this file under the MPL, indicate your decision by deleting  the provisions above
+  and replace  them with the notice and other provisions required by the GPL License.
+  If you do not delete the provisions above, a recipient may use your version of
+  this file under either the MPL or the GPL.
 */
 
 using System;
 
 namespace NHapi.Base.validation.impl
 {
-   /// <summary> An association between a type of item to be validated (eg a datatype or 
-   /// message) and a validation <code>Rule</code>.  
-   /// 
+   /// <summary> An association between a type of item to be validated (eg a datatype or
+   /// message) and a validation <code>Rule</code>.
+   ///
    /// </summary>
    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
    /// </author>
@@ -89,8 +89,8 @@ namespace NHapi.Base.validation.impl
         private String myScope;
         private IRule myRule;
 
-        /// <summary> Active by default.  
-        /// 
+        /// <summary> Active by default.
+        ///
         /// </summary>
         /// <param name="theVersion">see {@link #getVersion()}
         /// </param>
@@ -108,24 +108,24 @@ namespace NHapi.Base.validation.impl
 
         /// <param name="theVersion">an HL7 version
         /// </param>
-        /// <returns> true if this binding applies to the given version (ie getVersion() matches or is *)  
+        /// <returns> true if this binding applies to the given version (ie getVersion() matches or is *)
         /// </returns>
         public virtual bool appliesToVersion(String theVersion)
         {
             return applies(Version, theVersion);
         }
 
-        /// <param name="theType">an item description to be checked against getScope()  
+        /// <param name="theType">an item description to be checked against getScope()
         /// </param>
-        /// <returns> true if the given type is within scope, ie if it matches getScope() or getScope() is * 
+        /// <returns> true if the given type is within scope, ie if it matches getScope() or getScope() is *
         /// </returns>
         public virtual bool appliesToScope(String theType)
         {
             return applies(Scope, theType);
         }
 
-        /// <summary> An abstraction of appliesToVersion() and appliesToScope(). 
-        /// 
+        /// <summary> An abstraction of appliesToVersion() and appliesToScope().
+        ///
         /// </summary>
         /// <param name="theBindingData">
         /// </param>

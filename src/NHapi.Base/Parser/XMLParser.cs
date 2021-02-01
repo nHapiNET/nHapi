@@ -5,16 +5,16 @@
   Software distributed under the License is distributed on an "AS IS" basis,
   WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
   specific language governing rights and limitations under the License.
-  
+
   The Original Code is "XMLParser.java".  Description:
   "Parses and encodes HL7 messages in XML form, according to HL7's normative XML encoding
   specification."
-  
+
   The Initial Developer of the Original Code is University Health Network. Copyright (C)
   2002.  All Rights Reserved.
-  
+
   Contributor(s): ______________________________________.
-  
+
   Alternatively, the contents of this file may be used under the terms of the
   GNU General Public License (the "GPL"), in which case the provisions of the GPL are
   applicable instead of those above.  If you wish to allow use of your version of this
@@ -76,7 +76,7 @@ namespace NHapi.Base.Parser
         /// <summary>
         /// Sets the <i>keepAsOriginalNodes</i>.
         /// <para>
-        /// The nodes whose names match the <i>keepAsOriginalNodes</i> will be kept as original, 
+        /// The nodes whose names match the <i>keepAsOriginalNodes</i> will be kept as original,
         /// meaning that no white space trimming will occur on them
         /// </para>
         /// </summary>
@@ -90,7 +90,7 @@ namespace NHapi.Base.Parser
 
                 if (value.Length != 0)
                 {
-                    //initializes the         
+                    //initializes the
                     StringBuilder strBuf = new StringBuilder(value[0]);
                     for (int i = 1; i < value.Length; i++)
                     {
@@ -111,7 +111,7 @@ namespace NHapi.Base.Parser
         private XmlDocument parser;
 
         /// <summary>
-        /// The nodes whose names match these strings will be kept as original, 
+        /// The nodes whose names match these strings will be kept as original,
         /// meaning that no white space trimming will occur on them.
         /// </summary>
         private String[] keepAsOriginalNodes;
@@ -145,7 +145,7 @@ namespace NHapi.Base.Parser
         {
             String encoding = null;
 
-            //check for a number of expected strings 
+            //check for a number of expected strings
             String[] expected = new String[] { "<MSH.1", "<MSH.2", "</MSH>" };
             bool isXML = true;
             for (int i = 0; i < expected.Length; i++)
@@ -201,7 +201,7 @@ namespace NHapi.Base.Parser
         {
             IMessage m = null;
 
-            //parse message string into a DOM document 
+            //parse message string into a DOM document
             try
             {
                 XmlDocument doc = new XmlDocument();
@@ -313,7 +313,7 @@ namespace NHapi.Base.Parser
                 }
             }
 
-            //set data type of OBX-5        
+            //set data type of OBX-5
             if (segmentObject.GetType().FullName.IndexOf("OBX") >= 0)
             {
                 Varies.fixOBX5(segmentObject, Factory);
@@ -330,8 +330,8 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary> Populates the given Element with data from the given Segment, by inserting
-        /// Elements corresponding to the Segment's fields, their components, etc.  Returns 
-        /// true if there is at least one data value in the segment.   
+        /// Elements corresponding to the Segment's fields, their components, etc.  Returns
+        /// true if there is at least one data value in the segment.
         /// </summary>
         public virtual bool Encode(ISegment segmentObject, XmlElement segmentElement)
         {
@@ -379,22 +379,22 @@ namespace NHapi.Base.Parser
             }
         }
 
-        /// <summary> Parses an XML element into a Varies by determining whether the element is primitive or 
-        /// composite, calling setData() on the Varies with a new generic primitive or composite as appropriate, 
-        /// and then calling parse again with the new Type object.  
+        /// <summary> Parses an XML element into a Varies by determining whether the element is primitive or
+        /// composite, calling setData() on the Varies with a new generic primitive or composite as appropriate,
+        /// and then calling parse again with the new Type object.
         /// </summary>
         private void ParseVaries(Varies datatypeObject, XmlElement datatypeElement)
         {
-            //figure out what data type it holds 
-            //short nodeType = datatypeElement.getFirstChild().getNodeType();        
+            //figure out what data type it holds
+            //short nodeType = datatypeElement.getFirstChild().getNodeType();
             if (!HasChildElement(datatypeElement))
             {
-                //it's a primitive 
+                //it's a primitive
                 datatypeObject.Data = new GenericPrimitive(datatypeObject.Message);
             }
             else
             {
-                //it's a composite ... almost know what type, except that we don't have the version here 
+                //it's a composite ... almost know what type, except that we don't have the version here
                 datatypeObject.Data = new GenericComposite(datatypeObject.Message);
             }
             Parse(datatypeObject.Data, datatypeElement);
@@ -452,11 +452,11 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary> Checks if <code>Node</code> content should be kept as original (ie.: whitespaces won't be removed)
-        /// 
+        ///
         /// </summary>
-        /// <param name="node">The target <code>Node</code> 
+        /// <param name="node">The target <code>Node</code>
         /// </param>
-        /// <returns> boolean <code>true</code> if whitespaces should not be removed from node content, 
+        /// <returns> boolean <code>true</code> if whitespaces should not be removed from node content,
         /// <code>false</code> otherwise
         /// </returns>
         protected internal virtual bool KeepAsOriginal(XmlNode node)
@@ -466,9 +466,9 @@ namespace NHapi.Base.Parser
             return concatKeepAsOriginalNodes.IndexOf(node.Name) != -1;
         }
 
-        /// <summary> Removes all unnecessary whitespace from the given String (intended to be used with Primitive values).  
-        /// This includes leading and trailing whitespace, and repeated space characters.  Carriage returns, 
-        /// line feeds, and tabs are replaced with spaces. 
+        /// <summary> Removes all unnecessary whitespace from the given String (intended to be used with Primitive values).
+        /// This includes leading and trailing whitespace, and repeated space characters.  Carriage returns,
+        /// line feeds, and tabs are replaced with spaces.
         /// </summary>
         protected internal virtual String RemoveWhitespace(String s)
         {
@@ -496,7 +496,7 @@ namespace NHapi.Base.Parser
             return s.Trim();
         }
 
-        /// <summary> Populates a Composite type by looping through it's children, finding corresponding 
+        /// <summary> Populates a Composite type by looping through it's children, finding corresponding
         /// Elements among the children of the given Element, and calling parse(Type, Element) for
         /// each.
         /// </summary>
@@ -543,9 +543,9 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary> Populates the given Element with data from the given Type, by inserting
-        /// Elements corresponding to the Type's components and values.  Returns true if 
-        /// the given type contains a value (i.e. for Primitives, if getValue() doesn't 
-        /// return null, and for Composites, if at least one underlying Primitive doesn't 
+        /// Elements corresponding to the Type's components and values.  Returns true if
+        /// the given type contains a value (i.e. for Primitives, if getValue() doesn't
+        /// return null, and for Composites, if at least one underlying Primitive doesn't
         /// return null).
         /// </summary>
         private bool Encode(IType datatypeObject, XmlElement datatypeElement)
@@ -566,8 +566,8 @@ namespace NHapi.Base.Parser
             return hasData;
         }
 
-        /// <summary> Encodes a Varies type by extracting it's data field and encoding that.  Returns true 
-        /// if the data field (or one of its components) contains a value.  
+        /// <summary> Encodes a Varies type by extracting it's data field and encoding that.  Returns true
+        /// if the data field (or one of its components) contains a value.
         /// </summary>
         private bool EncodeVaries(Varies datatypeObject, XmlElement datatypeElement)
         {
@@ -579,8 +579,8 @@ namespace NHapi.Base.Parser
             return hasData;
         }
 
-        /// <summary> Encodes a Primitive in XML by adding it's value as a child of the given Element.  
-        /// Returns true if the given Primitive contains a value.  
+        /// <summary> Encodes a Primitive in XML by adding it's value as a child of the given Element.
+        /// Returns true if the given Primitive contains a value.
         /// </summary>
         private bool EncodePrimitive(IPrimitive datatypeObject, XmlElement datatypeElement)
         {
@@ -603,10 +603,10 @@ namespace NHapi.Base.Parser
             return hasValue;
         }
 
-        /// <summary> Encodes a Composite in XML by looping through it's components, creating new 
-        /// children for each of them (with the appropriate names) and populating them by 
-        /// calling encode(Type, Element) using these children.  Returns true if at least 
-        /// one component contains a value.  
+        /// <summary> Encodes a Composite in XML by looping through it's components, creating new
+        /// children for each of them (with the appropriate names) and populating them by
+        /// calling encode(Type, Element) using these children.  Returns true if at least
+        /// one component contains a value.
         /// </summary>
         private bool EncodeComposite(IComposite datatypeObject, XmlElement datatypeElement)
         {
@@ -672,7 +672,7 @@ namespace NHapi.Base.Parser
         /// parse exceptions are thrown to the correct thread.  Implementers of Parsers should
         /// take care to make the implementation of this method very fast and robust.
         /// Returns null if MSA-2 can not be found (e.g. if the message is not a
-        /// response message).  Trims whitespace from around the MSA-2 field.  
+        /// response message).  Trims whitespace from around the MSA-2 field.
         /// </summary>
         public override String GetAckID(String message)
         {
@@ -698,12 +698,12 @@ namespace NHapi.Base.Parser
             return version;
         }
 
-        /// <summary> Attempts to retrieve the value of a leaf tag without using DOM or SAX.  
-        /// This method searches the given message string for the given tag name, and returns 
+        /// <summary> Attempts to retrieve the value of a leaf tag without using DOM or SAX.
+        /// This method searches the given message string for the given tag name, and returns
         /// everything after the given tag and before the start of the next tag.  Whitespace
-        /// is stripped.  This is intended only for lead nodes, as the value is considered to 
-        /// end at the start of the next tag, regardless of whether it is the matching end 
-        /// tag or some other nested tag.  
+        /// is stripped.  This is intended only for lead nodes, as the value is considered to
+        /// end at the start of the next tag, regardless of whether it is the matching end
+        /// tag or some other nested tag.
         /// </summary>
         /// <param name="message">a string message in XML form
         /// </param>
@@ -748,7 +748,7 @@ namespace NHapi.Base.Parser
                 Environment.Exit(1);
             }
 
-            //read and parse message from file 
+            //read and parse message from file
             try
             {
                 PipeParser parser = new PipeParser();

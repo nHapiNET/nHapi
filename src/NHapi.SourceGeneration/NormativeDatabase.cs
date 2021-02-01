@@ -1,27 +1,27 @@
 /*
-  The contents of this file are subject to the Mozilla Public License Version 1.1 
-  (the "License"); you may not use this file except in compliance with the License. 
-  You may obtain a copy of the License at http://www.mozilla.org/MPL/ 
-  Software distributed under the License is distributed on an "AS IS" basis, 
-  WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the 
-  specific language governing rights and limitations under the License. 
-  
-  The Original Code is "NormativeDatabase.java".  Description: 
-  "Point of access to a copy of the HL7 normative database" 
-  
-  The Initial Developer of the Original Code is University Health Network. Copyright (C) 
-  2001.  All Rights Reserved. 
-  
-  Contributor(s): ______________________________________. 
-  
-  Alternatively, the contents of this file may be used under the terms of the 
-  GNU General Public License (the  "GPL"), in which case the provisions of the GPL are 
-  applicable instead of those above.  If you wish to allow use of your version of this 
-  file only under the terms of the GPL and not to allow others to use your version 
-  of this file under the MPL, indicate your decision by deleting  the provisions above 
-  and replace  them with the notice and other provisions required by the GPL License.  
-  If you do not delete the provisions above, a recipient may use your version of 
-  this file under either the MPL or the GPL. 
+  The contents of this file are subject to the Mozilla Public License Version 1.1
+  (the "License"); you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at http://www.mozilla.org/MPL/
+  Software distributed under the License is distributed on an "AS IS" basis,
+  WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
+  specific language governing rights and limitations under the License.
+
+  The Original Code is "NormativeDatabase.java".  Description:
+  "Point of access to a copy of the HL7 normative database"
+
+  The Initial Developer of the Original Code is University Health Network. Copyright (C)
+  2001.  All Rights Reserved.
+
+  Contributor(s): ______________________________________.
+
+  Alternatively, the contents of this file may be used under the terms of the
+  GNU General Public License (the "GPL"), in which case the provisions of the GPL are
+  applicable instead of those above.  If you wish to allow use of your version of this
+  file only under the terms of the GPL and not to allow others to use your version
+  of this file under the MPL, indicate your decision by deleting  the provisions above
+  and replace  them with the notice and other provisions required by the GPL License.
+  If you do not delete the provisions above, a recipient may use your version of
+  this file under either the MPL or the GPL.
 */
 
 using System;
@@ -54,8 +54,8 @@ namespace NHapi.SourceGeneration
    /// <code>ca.on.uhn.hl7.database.passsword</code> - the password associated with the above user (if required)<br />
    /// </para>
    /// <para>
-   /// The required JDBC driver must also be loaded (this can be done by ensuring that the 
-   /// required driver appears in the classpath and appending the class name to the 
+   /// The required JDBC driver must also be loaded (this can be done by ensuring that the
+   /// required driver appears in the classpath and appending the class name to the
    /// "jdbc.drivers" system property.
    /// </para>
    /// </example>
@@ -80,7 +80,7 @@ namespace NHapi.SourceGeneration
             }
         }
 
-        /// <summary> Provides a Connection to the normative database. 
+        /// <summary> Provides a Connection to the normative database.
         /// A new connection may be created if none are available.
         /// </summary>
         public virtual OdbcConnection Connection
@@ -127,7 +127,7 @@ namespace NHapi.SourceGeneration
         private static NormativeDatabase db = null;
         private string _connectionString;
 
-        /// <summary> Private constructor ... checks system properties for connection 
+        /// <summary> Private constructor ... checks system properties for connection
         /// information
         /// </summary>
         private NormativeDatabase()
@@ -139,11 +139,11 @@ namespace NHapi.SourceGeneration
 
         /// <summary> Used to return an HL7 normative database connection to the connection pool.  If the
         /// given connection is not in fact a connection to the normative database, it is
-        /// discarded. 
+        /// discarded.
         /// </summary>
         public virtual void returnConnection(OdbcConnection conn)
         {
-            //check if this is a normative DB connection 
+            //check if this is a normative DB connection
             _conn.Close();
         }
 

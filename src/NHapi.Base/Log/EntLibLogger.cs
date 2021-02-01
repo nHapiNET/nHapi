@@ -16,7 +16,7 @@ namespace NHapi.Base.Log
         #region Log Members
 
         /// <summary>
-        /// EntLib does not allow us to check for DebugEnabled, so we return true always.  
+        /// EntLib does not allow us to check for DebugEnabled, so we return true always.
         /// This can be filtered out at the configuration level.
         /// </summary>
         public bool DebugEnabled
@@ -57,7 +57,7 @@ namespace NHapi.Base.Log
         public void Debug(object message, Exception t)
         {
             // Instead of setting a category, we use the Verbose severity to indicate
-            // the need for debugging.  This avoids the need to have a consumer of 
+            // the need for debugging.  This avoids the need to have a consumer of
             // the library setup a category in the logging configuration.
             WriteLog(message, t, TraceLevel.Verbose);
         }

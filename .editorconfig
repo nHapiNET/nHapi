@@ -1,4 +1,5 @@
 ### Editor config file taken from https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options
+### Changes to the defaults documented in-line with ##
 ### 31/01/2021
 
 # Remove the line below if you want to inherit .editorconfig settings from higher directories
@@ -21,8 +22,8 @@ insert_final_newline = false
 #### .NET Coding Conventions ####
 
 # Organize usings
-dotnet_separate_import_directive_groups = false
-dotnet_sort_system_directives_first = false
+dotnet_separate_import_directive_groups = true ## default: false
+dotnet_sort_system_directives_first = true ## default: false
 file_header_template = unset
 
 # this. and Me. preferences

@@ -5,15 +5,15 @@
   Software distributed under the License is distributed on an "AS IS" basis,
   WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
   specific language governing rights and limitations under the License.
-  
+
   The Original Code is "CommmonTM.java".  Description:
   "Note: The class description below has been excerpted from the Hl7 2.4 documentation"
-  
+
   The Initial Developer of the Original Code is University Health Network. Copyright (C)
   2001.  All Rights Reserved.
-  
+
   Contributor(s): ______________________________________.
-  
+
   Alternatively, the contents of this file may be used under the terms of the
    GNU General Public License (the "GPL"), in which case the provisions of the GPL are
   applicable instead of those above.  If you wish to allow use of your version of this
@@ -33,10 +33,10 @@ namespace NHapi.Base.Model.Primitive
 {
    /// <summary> This class contains functionality used by the TM class
    /// in the version 2.3.0, 2.3.1, and 2.4 packages
-   /// 
+   ///
    /// Note: The class description below has been excerpted from the Hl7 2.4 documentation. Sectional
    /// references made below also refer to the same documentation.
-   /// 
+   ///
    /// Format: HH[MM[SS[.S[S[S[S]]]]]][+/-ZZZZ]
    /// In prior versions of HL7, this data type was always specified to be in the
    /// format HHMM[SS[.SSSS]][+/-ZZZZ] using a 24 hour clock notation. In the

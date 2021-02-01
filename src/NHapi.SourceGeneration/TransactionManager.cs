@@ -240,7 +240,7 @@ namespace NHapi.SourceGeneration
             /// <summary>
             /// This method Closes the connection, and if the property of auto commit is true make the commit operation
             /// </summary>
-            /// <param name="Connection"> The command to be closed</param>      
+            /// <param name="Connection"> The command to be closed</param>
             public void Close(OdbcConnection Connection)
             {
                 if ((this[Connection] != null) && !(((ConnectionProperties)this[Connection]).AutoCommit))

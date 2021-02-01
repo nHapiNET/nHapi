@@ -83,8 +83,8 @@ namespace NHapi.Base.Model.Primitive
 
         /// <summary> Returns the year as an integer.</summary>
         /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-        /// this method is called.  
+        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
+        /// this method is called.
         /// </summary>
         public virtual int Year
         {
@@ -93,8 +93,8 @@ namespace NHapi.Base.Model.Primitive
 
         /// <summary> Returns the month as an integer.</summary>
         /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-        /// this method is called.  
+        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
+        /// this method is called.
         /// </summary>
         public virtual int Month
         {
@@ -103,8 +103,8 @@ namespace NHapi.Base.Model.Primitive
 
         /// <summary> Returns the day as an integer.</summary>
         /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-        /// this method is called.  
+        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
+        /// this method is called.
         /// </summary>
         public virtual int Day
         {
@@ -131,8 +131,8 @@ namespace NHapi.Base.Model.Primitive
         /// <seealso cref="CommonDT.setYearMonthPrecision(int, int)">
         /// </seealso>
         /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-        /// this method is called.  
+        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
+        /// this method is called.
         /// </summary>
         public virtual void setYearMonthPrecision(int yr, int mnth)
         {
@@ -142,8 +142,8 @@ namespace NHapi.Base.Model.Primitive
         /// <seealso cref="CommonDT.setYearMonthDayPrecision(int, int, int)">
         /// </seealso>
         /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-        /// this method is called.  
+        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
+        /// this method is called.
         /// </summary>
         public virtual void setYearMonthDayPrecision(int yr, int mnth, int dy)
         {

@@ -5,15 +5,15 @@
   Software distributed under the License is distributed on an "AS IS" basis,
   WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
   specific language governing rights and limitations under the License.
-  
+
   The Original Code is "Terser.java".  Description:
   "Wraps a message to provide access to fields using a more terse syntax."
-  
+
   The Initial Developer of the Original Code is University Health Network. Copyright (C)
   2002.  All Rights Reserved.
-  
+
   Contributor(s): ______________________________________.
-  
+
   Alternatively, the contents of this file may be used under the terms of the
   GNU General Public License (the "GPL"), in which case the provisions of the GPL are
   applicable instead of those above.  If you wish to allow use of your version of this
@@ -63,7 +63,7 @@ namespace NHapi.Base.Util
    /// The syntax for group_spec is: <br />
    /// group_spec: <code>["."] group_name_pattern</code><br />
    /// Here, a . indicates that the group should be searched for (using a SegmentFinder) starting at the
-   /// current location in the message.  The wildcards "*" and "?" represent any number of arbitrary characters, 
+   /// current location in the message.  The wildcards "*" and "?" represent any number of arbitrary characters,
    /// and a single arbitrary character, respectively.  For example, "M*" and "?S?" match MSH.  The first
    /// group with a name that matches the given group_name_pattern will be matched.
    /// </para>
@@ -138,9 +138,9 @@ namespace NHapi.Base.Util
             return getPrimitive(type, component, subcomponent);
         }
 
-        /// <summary> Returns the Primitive object at the given location in the given field.  
-        /// It is intended that the given type be at the field level, although extra components 
-        /// will be added blindly if, for example, you provide a primitive subcomponent instead 
+        /// <summary> Returns the Primitive object at the given location in the given field.
+        /// It is intended that the given type be at the field level, although extra components
+        /// will be added blindly if, for example, you provide a primitive subcomponent instead
         /// and specify component or subcomponent > 1
         /// </summary>
         public static IPrimitive getPrimitive(IType type, int component, int subcomponent)
@@ -150,8 +150,8 @@ namespace NHapi.Base.Util
             return getPrimitive(sub);
         }
 
-        /// <summary> Attempts to extract a Primitive from the given type. If it's a composite, 
-        /// drills down through first components until a primitive is reached. 
+        /// <summary> Attempts to extract a Primitive from the given type. If it's a composite,
+        /// drills down through first components until a primitive is reached.
         /// </summary>
         private static IPrimitive getPrimitive(IType type)
         {
@@ -179,11 +179,11 @@ namespace NHapi.Base.Util
         }
 
         /// <summary> Returns the component (or sub-component, as the case may be) at the given
-        /// index.  If it does not exist, it is added as an "extra component".  
-        /// If comp > 1 is requested from a Varies with GenericPrimitive data, the 
-        /// data is set to GenericComposite (this avoids the creation of a chain of 
-        /// ExtraComponents on GenericPrimitives).  
-        /// Components are numbered from 1.  
+        /// index.  If it does not exist, it is added as an "extra component".
+        /// If comp > 1 is requested from a Varies with GenericPrimitive data, the
+        /// data is set to GenericComposite (this avoids the creation of a chain of
+        /// ExtraComponents on GenericPrimitives).
+        /// Components are numbered from 1.
         /// </summary>
         private static IType getComponent(IType type, int comp)
         {
@@ -350,8 +350,8 @@ namespace NHapi.Base.Util
         }
 
         /// <summary>
-        /// Given a Terser path, returns an array containing field num, field rep, 
-        /// component, and subcomponent.  
+        /// Given a Terser path, returns an array containing field num, field rep,
+        /// component, and subcomponent.
         /// </summary>
         public static int[] getIndices(String spec)
         {
@@ -409,7 +409,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary>
-        /// Returns the number of sub-components in the specified component, ie: 
+        /// Returns the number of sub-components in the specified component, ie:
         /// the number of standard sub-components (e.g. 6 for CE) plus any extra components that
         /// that have been added at runtime.
         /// </summary>
@@ -420,8 +420,8 @@ namespace NHapi.Base.Util
             int n = -1;
             if (component == 1 && typeof(IPrimitive).IsAssignableFrom(type.GetType()))
             {
-                //note that getComponent(primitive, 1) below returns the primitive 
-                //itself -- if we do numComponents on it, we'll end up with the 
+                //note that getComponent(primitive, 1) below returns the primitive
+                //itself -- if we do numComponents on it, we'll end up with the
                 //number of components in the field, not the number of subcomponents
                 n = 1;
             }
@@ -436,7 +436,7 @@ namespace NHapi.Base.Util
             if (Varies.class.isAssignableFrom(type.GetClass())) {
             return numSubComponents(((Varies) type).getData(), component);
             } else if (Primitive.class.isAssignableFrom(type.GetClass()) && component == 1) {
-            n = 1;  
+            n = 1;
             } else if (Composite.class.isAssignableFrom(type.GetClass()) && component <= numStandardComponents(t)) {
             n = numComponents(((Composite) type).getComponent(component - 1));
             } else { //we're being asked about subcomponents of an extra component
@@ -448,7 +448,7 @@ namespace NHapi.Base.Util
 
         /// <summary> Returns the number of components in the given type, i.e. the
         /// number of standard components (e.g. 6 for CE) plus any extra components that
-        /// have been added at runtime.  
+        /// have been added at runtime.
         /// </summary>
         public static int numComponents(IType type)
         {

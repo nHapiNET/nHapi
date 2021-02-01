@@ -5,15 +5,15 @@
   Software distributed under the License is distributed on an "AS IS" basis,
   WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
   specific language governing rights and limitations under the License.
-  
+
   The Original Code is "SegmentGenerator.java".  Description:
   "This class is responsible for generating source code for HL7 segment objects"
-  
+
   The Initial Developer of the Original Code is University Health Network. Copyright (C)
   2001.  All Rights Reserved.
-  
-  Contributor(s):  Eric Poiseau. 
-  
+
+  Contributor(s):  Eric Poiseau.
+
   Alternatively, the contents of this file may be used under the terms of the
   GNU General Public License (the  "GPL"), in which case the provisions of the GPL are
   applicable instead of those above.  If you wish to allow use of your version of this
@@ -40,7 +40,7 @@ namespace NHapi.SourceGeneration.Generators
 {
    /// <summary> This class is responsible for generating source code for HL7 segment objects.
    /// Each automatically generated segment inherits from AbstractSegment.
-   /// 
+   ///
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>

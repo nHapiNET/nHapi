@@ -5,15 +5,15 @@
   Software distributed under the License is distributed on an "AS IS" basis,
   WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
   specific language governing rights and limitations under the License.
-  
+
   The Original Code is "CommonDT.java".  Description:
   "Note: The class description below has been excerpted from the Hl7 2.4 documentation"
-  
+
   The Initial Developer of the Original Code is University Health Network. Copyright (C)
   2001.  All Rights Reserved.
-  
+
   Contributor(s): ______________________________________.
-  
+
   Alternatively, the contents of this file may be used under the terms of the
   GNU General Public License (the "GPL"), in which case the provisions of the GPL are
   applicable instead of those above.  If you wish to allow use of your version of this
@@ -33,10 +33,10 @@ namespace NHapi.Base.Model.Primitive
 {
    /// <summary> This class contains functionality used by the DT class
    /// in the version 2.3.0, 2.3.1, and 2.4 packages
-   /// 
+   ///
    /// Note: The class description below has been excerpted from the Hl7 2.4 documentation. Sectional
    /// references made below also refer to the same documentation.
-   /// 
+   ///
    /// Format: YYYY[MM[DD]]
    /// In prior versions of HL7, this data type was always specified to be in the format YYYYMMDD. In the current and future
    /// versions, the precision of a date may be expressed by limiting the number of digits used with the format specification
@@ -53,7 +53,7 @@ namespace NHapi.Base.Model.Primitive
         /// <summary> This method takes in a string HL7 date value and performs validations
         /// then sets the value field. The stored value will be in the following
         /// format YYYY[MM[DD]].
-        /// 
+        ///
         /// </summary>
         public virtual String Value
         {
@@ -126,7 +126,7 @@ namespace NHapi.Base.Model.Primitive
                 {
                     //set the private value field to null or empty space.
                     value_Renamed = value;
-                } //end else       
+                } //end else
             }
         }
 

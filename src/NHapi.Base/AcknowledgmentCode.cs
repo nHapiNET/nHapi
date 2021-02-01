@@ -38,6 +38,6 @@ namespace NHapi.Base
         /// Commit Reject
         /// </summary>
         [Description("Commit Reject")]
-        CR = 7 
+        CR = 7
     }
 }

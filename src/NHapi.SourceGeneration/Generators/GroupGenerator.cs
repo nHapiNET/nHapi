@@ -1,29 +1,29 @@
 /*
-  The contents of this file are subject to the Mozilla Public License Version 1.1 
-  (the "License"); you may not use this file except in compliance with the License. 
-  You may obtain a copy of the License at http://www.mozilla.org/MPL/ 
-  Software distributed under the License is distributed on an "AS IS" basis, 
-  WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the 
-  specific language governing rights and limitations under the License. 
-  
-  The Original Code is "GroupGenerator.java".  Description: 
-  "Creates source code for Group classes - these are aggregations of 
+  The contents of this file are subject to the Mozilla Public License Version 1.1
+  (the "License"); you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at http://www.mozilla.org/MPL/
+  Software distributed under the License is distributed on an "AS IS" basis,
+  WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
+  specific language governing rights and limitations under the License.
+
+  The Original Code is "GroupGenerator.java".  Description:
+  "Creates source code for Group classes - these are aggregations of
   segments and/or other groups that may repeat together within a message.
-  Source code is generated from the normative database" 
-  
-  The Initial Developer of the Original Code is University Health Network. Copyright (C) 
-  2001.  All Rights Reserved. 
-  
-  Contributor(s):  Eric Poiseau. 
-  
-  Alternatively, the contents of this file may be used under the terms of the 
-  GNU General Public License (the "GPL"), in which case the provisions of the GPL are 
-  applicable instead of those above.  If you wish to allow use of your version of this 
-  file only under the terms of the GPL and not to allow others to use your version 
-  of this file under the MPL, indicate your decision by deleting  the provisions above 
-  and replace  them with the notice and other provisions required by the GPL License.  
-  If you do not delete the provisions above, a recipient may use your version of 
-  this file under either the MPL or the GPL. 
+  Source code is generated from the normative database"
+
+  The Initial Developer of the Original Code is University Health Network. Copyright (C)
+  2001.  All Rights Reserved.
+
+  Contributor(s):  Eric Poiseau.
+
+  Alternatively, the contents of this file may be used under the terms of the
+  GNU General Public License (the "GPL"), in which case the provisions of the GPL are
+  applicable instead of those above.  If you wish to allow use of your version of this
+  file only under the terms of the GPL and not to allow others to use your version
+  of this file under the MPL, indicate your decision by deleting  the provisions above
+  and replace  them with the notice and other provisions required by the GPL License.
+  If you do not delete the provisions above, a recipient may use your version of
+  this file under either the MPL or the GPL.
 */
 
 using System;
@@ -35,10 +35,10 @@ using NHapi.Base.Log;
 
 namespace NHapi.SourceGeneration.Generators
 {
-   /// <summary> Creates source code for Group classes - these are aggregations of 
+   /// <summary> Creates source code for Group classes - these are aggregations of
    /// segments and/or other groups that may repeat together within a message.
-   /// Source code is generated from the normative database.  
-   /// 
+   /// Source code is generated from the normative database.
+   ///
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
@@ -53,16 +53,16 @@ namespace NHapi.SourceGeneration.Generators
         {
         }
 
-        /// <summary> Creates source code for a Group and returns a GroupDef object that 
-        /// describes the Group's name, optionality, repeatability.  The source 
+        /// <summary> Creates source code for a Group and returns a GroupDef object that
+        /// describes the Group's name, optionality, repeatability.  The source
         /// code is written under the given directory.
-        /// The structures list may contain [] and {} pairs representing 
+        /// The structures list may contain [] and {} pairs representing
         /// nested groups and their optionality and repeatability.  In these cases
         /// this method is called recursively.
-        /// If the given structures list begins and ends with repetition and/or 
-        /// optionality markers the repetition and optionality of the returned 
-        /// GroupDef are set accordingly.  
-        /// <param name="structures">a list of the structures that comprise this group - must 
+        /// If the given structures list begins and ends with repetition and/or
+        /// optionality markers the repetition and optionality of the returned
+        /// GroupDef are set accordingly.
+        /// <param name="structures">a list of the structures that comprise this group - must
         /// be at least 2 long
         /// </param>
         /// <param name="groupName">The group name</param>
@@ -104,14 +104,14 @@ namespace NHapi.SourceGeneration.Generators
             return group;
         }
 
-        /// <summary> <p>Given a list of structures defining the deep content of a group (as provided in 
+        /// <summary> <p>Given a list of structures defining the deep content of a group (as provided in
         /// the normative database, some being pairs of optionality and repetition markers
-        /// and segments nested within) returns a GroupDef including a short list of the shallow contents of the 
-        /// group (including segments and groups that are immediate children).</p> 
-        /// <p>For example given MSH [PID PV1] {[ERR NTE]}, short list would be something like 
-        /// MSH PID_GROUP ERR_GROUP (with PID_GROUP marked as optional and ERR_GROUP marked as 
+        /// and segments nested within) returns a GroupDef including a short list of the shallow contents of the
+        /// group (including segments and groups that are immediate children).</p>
+        /// <p>For example given MSH [PID PV1] {[ERR NTE]}, short list would be something like
+        /// MSH PID_GROUP ERR_GROUP (with PID_GROUP marked as optional and ERR_GROUP marked as
         /// optional and repeating).</p>
-        /// <p>This method calls writeGroup(...) where necessary in order to create source code for 
+        /// <p>This method calls writeGroup(...) where necessary in order to create source code for
         /// any nested groups before returning corresponding GroupDefs.</p>
         /// </summary>
         public static GroupDef getGroupDef(IStructureDef[] structures, String groupName, String baseDirectory, String version,
@@ -129,7 +129,7 @@ namespace NHapi.SourceGeneration.Generators
 
             try
             {
-                //check for rep and opt (see if start & end elements are [] or {} AND they are each others' pair) ... 
+                //check for rep and opt (see if start & end elements are [] or {} AND they are each others' pair) ...
                 //System.out.println(len + " " + structures[0].getName() +structures[1].getName()+ ".." +structures[len-2].getName() + structures[len-1].getName()+ " " + message);
                 if (optMarkers(structures[0].Name, structures[len - 1].Name) && (findGroupEnd(structures, 0) == len - 1))
                     required = false;
@@ -159,7 +159,7 @@ namespace NHapi.SourceGeneration.Generators
                     String currSegName = structures[currLongListPos].Name;
                     if (currSegName.Equals("[") || currSegName.Equals("{") || currSegName.Equals("[{"))
                     {
-                        //this is the opening of a new group ... 
+                        //this is the opening of a new group ...
                         String name = ((SegmentDef)structures[currLongListPos]).GroupName;
                         int endOfNewGroup = findGroupEnd(structures, currLongListPos);
                         IStructureDef[] newGroupStructures = new IStructureDef[endOfNewGroup - currLongListPos + 1];
@@ -169,7 +169,7 @@ namespace NHapi.SourceGeneration.Generators
                     }
                     else
                     {
-                        //copy verbatim into short list ... 
+                        //copy verbatim into short list ...
                         shortList[currShortListPos] = structures[currLongListPos];
                         currLongListPos++;
                     }
@@ -328,8 +328,8 @@ namespace NHapi.SourceGeneration.Generators
             return source.ToString();
         }
 
-        /// <summary> Returns source code for a JavaDoc snippet listing the contents of a Group 
-        /// or Message.  
+        /// <summary> Returns source code for a JavaDoc snippet listing the contents of a Group
+        /// or Message.
         /// </summary>
         public static String makeElementsDoc(IStructureDef[] structures)
         {
@@ -372,7 +372,7 @@ namespace NHapi.SourceGeneration.Generators
                 getterName = group.getIndexName(unqualifiedName);
             }
 
-            //make accessor for first (or only) rep ... 
+            //make accessor for first (or only) rep ...
             source.Append("\t///<summary>\r\n");
             source.Append("\t/// Returns ");
             if (def.Repeating)
@@ -418,7 +418,7 @@ namespace NHapi.SourceGeneration.Generators
 
             if (def.Repeating)
             {
-                //make accessor for specific rep ... 
+                //make accessor for specific rep ...
                 source.Append("\t///<summary>\r\n");
                 source.Append("\t///Returns a specific repetition of ");
                 source.Append(indexName);
@@ -518,15 +518,15 @@ namespace NHapi.SourceGeneration.Generators
             return source.ToString();
         }
 
-        /// <summary> Given a list of structures and the position of a SegmentDef that 
+        /// <summary> Given a list of structures and the position of a SegmentDef that
         /// indicates the start of a group (ie "{" or "["), returns the position
-        /// of the corresponding end of the group.  Nested group markers are ignored.  
+        /// of the corresponding end of the group.  Nested group markers are ignored.
         /// </summary>
         /// <throws>  IllegalArgumentException if groupStart is out of range or does not  </throws>
-        /// <summary>      point to a group opening marker. 
+        /// <summary>      point to a group opening marker.
         /// </summary>
         /// <throws>  HL7Exception if the end of the group is not found or if other pairs  </throws>
-        /// <summary>      are not properly nested inside this one.  
+        /// <summary>      are not properly nested inside this one.
         /// </summary>
         public static int findGroupEnd(IStructureDef[] structures, int groupStart)
         {
@@ -562,7 +562,7 @@ namespace NHapi.SourceGeneration.Generators
                 throw new ArgumentException("The given start location is out of bounds");
             }
 
-            //loop, increment and decrement opening and closing markers until we get back to 0 
+            //loop, increment and decrement opening and closing markers until we get back to 0
             String segName = null;
             int offset = 0;
             try

@@ -32,12 +32,12 @@ namespace NHapi.Base.Model.Primitive
    /// This class contains functionality used by the IS class
    /// in the version 2.3.0, 2.3.1, 2.4, and 2.5 packages
    /// </para>
-   /// 
+   ///
    /// <para>
    /// Note: The class description below has been excerpted from the Hl7 2.4 documentation. Sectional
    /// references made below also refer to the same documentation.
    /// </para>
-   /// 
+   ///
    /// <para>
    /// The value of such a field follows the formatting rules for a ST field except that it is
    /// drawn from a site-defined (or user-defined) table of legal values. There shall be an HL7

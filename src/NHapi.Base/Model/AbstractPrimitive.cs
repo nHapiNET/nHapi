@@ -5,15 +5,15 @@
   Software distributed under the License is distributed on an "AS IS" basis,
   WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
   specific language governing rights and limitations under the License.
-  
+
   The Original Code is "AbstractPrimitive.java".  Description:
   "Base class for Primitives.  Performs validation in setValue()."
-  
+
   The Initial Developer of the Original Code is University Health Network. Copyright (C)
   2001-2005.  All Rights Reserved.
-  
+
   Contributor(s): ______________________________________.
-  
+
   Alternatively, the contents of this file may be used under the terms of the
   GNU General Public License (the "GPL"), in which case the provisions of the GPL are
   applicable instead of those above.  If you wish to allow use of your version of this
@@ -31,16 +31,16 @@ using NHapi.Base.validation;
 namespace NHapi.Base.Model
 {
    /// <summary> Base class for Primitives.  Performs validation in setValue().
-   /// 
+   ///
    /// </summary>
    /// <author>  Bryan Tripp
    /// </author>
    public abstract class AbstractPrimitive : AbstractType, IPrimitive
     {
-        /// <summary> Sets the value of this Primitive, first performing validation as specified 
-        /// by <code>getMessage().getValidationContext()</code>.  No validation is performed 
-        /// if getMessage() returns null. 
-        /// 
+        /// <summary> Sets the value of this Primitive, first performing validation as specified
+        /// by <code>getMessage().getValidationContext()</code>.  No validation is performed
+        /// if getMessage() returns null.
+        ///
         /// </summary>
         public virtual String Value
         {

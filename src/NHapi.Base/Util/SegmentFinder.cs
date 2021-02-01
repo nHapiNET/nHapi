@@ -5,15 +5,15 @@
   Software distributed under the License is distributed on an "AS IS" basis,
   WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
   specific language governing rights and limitations under the License.
-  
+
   The Original Code is "SegmentFinder.java".  Description:
   "A tool for getting segments by name within a message or part of a message."
-  
+
   The Initial Developer of the Original Code is University Health Network. Copyright (C)
   2002.  All Rights Reserved.
-  
+
   Contributor(s): ______________________________________.
-  
+
   Alternatively, the contents of this file may be used under the terms of the
   GNU General Public License (the "GPL"), in which case the provisions of the GPL are
   applicable instead of those above.  If you wish to allow use of your version of this
@@ -50,7 +50,7 @@ namespace NHapi.Base.Util
         /// Call reset() is this is not desired.  Note: this means that the current location will not be found.
         /// </summary>
         /// <param name="namePattern">
-        /// The name of the segment to find. The wildcard * means any number 
+        /// The name of the segment to find. The wildcard * means any number
         /// of arbitrary characters; the wildcard ? one arbitrary character
         /// (eg "P*" or "*ID" or "???" or "P??" would match on PID).
         /// </param>
@@ -101,7 +101,7 @@ namespace NHapi.Base.Util
         /// are searched.
         /// </summary>
         /// <param name="namePattern">
-        /// The name of the segment to get. The wildcard * means any number 
+        /// The name of the segment to get. The wildcard * means any number
         /// of arbitrary characters; the wildcard ? one arbitrary character
         /// (eg "P*" or "*ID" or "???" or "P??" would match on PID).
         /// </param>

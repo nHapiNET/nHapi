@@ -5,7 +5,7 @@ using System.Text;
 namespace NHapi.Base.Log
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <remarks>Added for conversion will need to replace.</remarks>
     public interface ILog

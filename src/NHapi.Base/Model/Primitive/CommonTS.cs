@@ -5,15 +5,15 @@
   Software distributed under the License is distributed on an "AS IS" basis,
   WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
   specific language governing rights and limitations under the License.
-  
+
   The Original Code is "CommonTS.java".  Description:
-  
-  
+
+
   The Initial Developer of the Original Code is University Health Network. Copyright (C)
   2001.  All Rights Reserved.
-  
+
   Contributor(s): ______________________________________.
-  
+
   Alternatively, the contents of this file may be used under the terms of the
   GNU General Public License (the "GPL"), in which case the provisions of the GPL are
   applicable instead of those above.  If you wish to allow use of your version of this
@@ -31,13 +31,13 @@ using NHapi.Base.Log;
 
 namespace NHapi.Base.Model.Primitive
 {
-   /// <summary> 
+   /// <summary>
    /// This class contains functionality used by the TS class
    /// in the version 2.3.0, 2.3.1, and 2.4 packages
-   /// 
+   ///
    /// Note: The class description below has been excerpted from the Hl7 2.4 documentation. Sectional
    /// references made below also refer to the same documentation.
-   /// 
+   ///
    /// Format: YYYY[MM[DD[HHMM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ]^[Degree of precision]
    /// Contains the exact time of an event, including the date and time. The date portion of a time stamp follows the rules of a
    /// date field and the time portion follows the rules of a time field. The time zone (+/-ZZZZ) is represented as +/-HHMM
@@ -265,7 +265,7 @@ namespace NHapi.Base.Model.Primitive
                                                  " not conform to the allowable format [+/-ZZZZ]";
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
-                            } //end if 
+                            } //end if
                             tm = new CommonTM();
                             //first extract the + sign from the offset value string if it exists
                             if (timeVal.IndexOf("+") == 0)
@@ -310,7 +310,7 @@ namespace NHapi.Base.Model.Primitive
                         tm = new CommonTM();
                         tm.Value = "\"\"";
                     } //end if
-                } //end else    
+                } //end else
             }
             // end method
         }
@@ -481,7 +481,7 @@ namespace NHapi.Base.Model.Primitive
         /// <summary> This method takes in integer values for the year and month and day
         /// and performs validations, it then sets the value in the object
         /// formatted as an HL7 Time Stamp value with year and month and day precision (YYYYMMDD).
-        /// 
+        ///
         /// </summary>
         public virtual void setDatePrecision(int yr, int mnth, int dy)
         {

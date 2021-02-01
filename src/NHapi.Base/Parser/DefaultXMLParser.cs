@@ -10,20 +10,20 @@ using NHapi.Base.Model;
 namespace NHapi.Base.Parser
 {
    /// <summary>
-   /// A default XMLParser. This class assigns segment elements (in an XML-encoded message) 
-   /// to Segment objects (in a Message object) using the name of a segment and the names 
+   /// A default XMLParser. This class assigns segment elements (in an XML-encoded message)
+   /// to Segment objects (in a Message object) using the name of a segment and the names
    /// of any groups in which the segment is nested. The names of group classes must correspond
-   /// to the names of group elements (they must be identical except that a dot in the element 
-   /// name, following the message name, is replaced with an underscore, in order to constitute a 
+   /// to the names of group elements (they must be identical except that a dot in the element
+   /// name, following the message name, is replaced with an underscore, in order to constitute a
    /// valid class name).
    /// </summary>
    /// <remarks>
-   /// At the time of writing, the group names in the XML spec are changing. Many of the group 
-   /// names have been automatically generated based on the group contents. However, these automatic 
-   /// names are gradually being replaced with manually assigned names. This process is expected to 
-   /// be complete by November 2002. As a result, mismatches are likely. Messages could be  
-   /// transformed prior to parsing (using XSLT) as a work-around. Alternatively the group class names 
-   /// could be changed to reflect updates in the XML spec.  Ultimately, HAPI group classes will be 
+   /// At the time of writing, the group names in the XML spec are changing. Many of the group
+   /// names have been automatically generated based on the group contents. However, these automatic
+   /// names are gradually being replaced with manually assigned names. This process is expected to
+   /// be complete by November 2002. As a result, mismatches are likely. Messages could be
+   /// transformed prior to parsing (using XSLT) as a work-around. Alternatively the group class names
+   /// could be changed to reflect updates in the XML spec.  Ultimately, HAPI group classes will be
    /// changed to correspond with the official group names, once these are all assigned.
    /// </remarks>
    /// <author>Bryan Tripp</author>
@@ -68,8 +68,8 @@ namespace NHapi.Base.Parser
             return doc;
         }
 
-        /// <summary> Copies data from a group object into the corresponding group element, creating any 
-        /// necessary child nodes.  
+        /// <summary> Copies data from a group object into the corresponding group element, creating any
+        /// necessary child nodes.
         /// </summary>
         private void Encode(IGroup groupObject, XmlElement groupElement)
         {
@@ -134,8 +134,8 @@ namespace NHapi.Base.Parser
             return message;
         }
 
-        /// <summary> Populates the given group object with data from the given group element, ignoring 
-        /// any unrecognized nodes.  
+        /// <summary> Populates the given group object with data from the given group element, ignoring
+        /// any unrecognized nodes.
         /// </summary>
         private void Parse(IGroup groupObject, XmlElement groupElement)
         {
@@ -154,7 +154,7 @@ namespace NHapi.Base.Parser
                 }
             }
 
-            //we're not too fussy about order here (all occurrences get parsed as repetitions) ... 
+            //we're not too fussy about order here (all occurrences get parsed as repetitions) ...
             for (int i = 0; i < childNames.Length; i++)
             {
                 SupportClass.ICollectionSupport.Remove(unparsedElementList, childNames[i]);
@@ -169,7 +169,7 @@ namespace NHapi.Base.Parser
             }
         }
 
-        //param childIndexName may have an integer on the end if >1 sibling with same name (e.g. NTE2) 
+        //param childIndexName may have an integer on the end if >1 sibling with same name (e.g. NTE2)
         private void ParseReps(XmlElement groupElement, IGroup groupObject, String messageName, String childName,
             String childIndexName)
         {
@@ -233,8 +233,8 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary>
-        /// Given the name of a message and a Group class, returns the corresponding group element name in an 
-        /// XML-encoded message. This is the message name and group name separated by a dot. For example, 
+        /// Given the name of a message and a Group class, returns the corresponding group element name in an
+        /// XML-encoded message. This is the message name and group name separated by a dot. For example,
         /// ADT_A01.INSURANCE.
         /// <para>
         /// If it looks like a segment name (ie: has 3 characters), no change is made.
@@ -274,7 +274,7 @@ namespace NHapi.Base.Parser
                 Environment.Exit(1);
             }
 
-            //read and parse message from file 
+            //read and parse message from file
             try
             {
                 FileInfo messageFile = new FileInfo(args[0]);

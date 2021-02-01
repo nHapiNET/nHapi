@@ -5,15 +5,15 @@
   Software distributed under the License is distributed on an "AS IS" basis,
   WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
   specific language governing rights and limitations under the License.
-  
+
   The Original Code is "MessageGenerator.java".  Description:
   "Creates source code for HL7 Message objects, using the normative DB"
-  
+
   The Initial Developer of the Original Code is University Health Network. Copyright (C)
   2001.  All Rights Reserved.
-  
-  Contributor(s):  Eric Poiseau. 
-  
+
+  Contributor(s):  Eric Poiseau.
+
   Alternatively, the contents of this file may be used under the terms of the
   GNU General Public License (the  "GPL"), in which case the provisions of the GPL are
   applicable instead of those above.  If you wish to allow use of your version of this
@@ -38,7 +38,7 @@ namespace NHapi.SourceGeneration.Generators
 {
    /// <summary> Creates source code for HL7 Message objects, using the normative DB.  HL7 Group
    /// objects are also created as a byproduct.
-   /// 
+   ///
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
@@ -47,8 +47,8 @@ namespace NHapi.SourceGeneration.Generators
    public class MessageGenerator : Object
     {
         /// <summary> If the system property by this name is true, groups are generated to use a ModelClassFactory
-        /// for segment class lookup.  This makes segment creation more flexible, but may slow down parsing 
-        /// substantially.  
+        /// for segment class lookup.  This makes segment creation more flexible, but may slow down parsing
+        /// substantially.
         /// </summary>
         public static String MODEL_CLASS_FACTORY_KEY = "NHapi.Base.Sourcegen.modelclassfactory";
 
@@ -96,7 +96,7 @@ namespace NHapi.SourceGeneration.Generators
         }
 
         /// <summary> Returns an SQL query with which to get a list of messages from the normative
-        /// database.  
+        /// database.
         /// </summary>
         private static String getMessageListQuery(String version)
         {
@@ -173,7 +173,7 @@ namespace NHapi.SourceGeneration.Generators
             "and HL7MsgStructIDSegments.version_id = HL7Segments.version_id) " +
             "where HL7Segments.version_id = 6 and message_structure = '" + message + "' order by seq_no";*/
             String sql = getSegmentListQuery(message, version);
-            //System.out.println(sql.toString());   
+            //System.out.println(sql.toString());
             SegmentDef[] segments = new SegmentDef[200]; //presumably there won't be more than 200
             OdbcConnection conn = NormativeDatabase.Instance.Connection;
             DbCommand stmt = TransactionManager.manager.CreateStatement(conn);

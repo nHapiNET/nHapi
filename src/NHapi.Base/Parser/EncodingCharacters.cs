@@ -5,16 +5,16 @@
   Software distributed under the License is distributed on an "AS IS" basis,
   WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
   specific language governing rights and limitations under the License.
-  
+
   The Original Code is "EncodingCharacters.java".  Description:
   "Represents the set of special characters used to encode traditionally
   encoded HL7 messages"
-  
+
   The Initial Developer of the Original Code is University Health Network. Copyright (C)
   2001.  All Rights Reserved.
-  
+
   Contributor(s): ______________________________________.
-  
+
   Alternatively, the contents of this file may be used under the terms of the
   GNU General Public License (the "GPL"), in which case the provisions of the GPL are
   applicable instead of those above.  If you wish to allow use of your version of this
@@ -30,16 +30,16 @@ using System.Text;
 
 namespace NHapi.Base.Parser
 {
-   /// <summary> 
+   /// <summary>
    /// Represents the set of special characters used to encode traditionally
    /// encoded HL7 messages.
    /// </summary>
    /// <author>Bryan Tripp (bryan_tripp@sourceforge.net)</author>
    public class EncodingCharacters : Object, ICloneable
     {
-        /// <summary> 
+        /// <summary>
         /// Returns the field separator.
-        /// 
+        ///
         /// </summary>
         public virtual char FieldSeparator
         {
@@ -48,9 +48,9 @@ namespace NHapi.Base.Parser
             set { fieldSep = value; }
         }
 
-        /// <summary> 
+        /// <summary>
         /// Returns the component separator.
-        /// 
+        ///
         /// </summary>
         public virtual char ComponentSeparator
         {
@@ -59,9 +59,9 @@ namespace NHapi.Base.Parser
             set { encChars[0] = value; }
         }
 
-        /// <summary> 
+        /// <summary>
         /// Returns the repetition separator.
-        /// 
+        ///
         /// </summary>
         public virtual char RepetitionSeparator
         {
@@ -70,9 +70,9 @@ namespace NHapi.Base.Parser
             set { encChars[1] = value; }
         }
 
-        /// <summary> 
+        /// <summary>
         /// Returns the escape character.
-        /// 
+        ///
         /// </summary>
         public virtual char EscapeCharacter
         {
@@ -81,9 +81,9 @@ namespace NHapi.Base.Parser
             set { encChars[2] = value; }
         }
 
-        /// <summary> 
+        /// <summary>
         /// Returns the subcomponent separator.
-        /// 
+        ///
         /// </summary>
         public virtual char SubcomponentSeparator
         {
@@ -98,7 +98,7 @@ namespace NHapi.Base.Parser
         private char[] encChars;
 
 
-        /// <summary> 
+        /// <summary>
         /// Creates new EncodingCharacters object with the given character
         /// values. If the encodingCharacters argument is null, the default
         /// values are used.
@@ -158,11 +158,11 @@ namespace NHapi.Base.Parser
             encChars[3] = other.SubcomponentSeparator;
         }
 
-        /// <summary> 
+        /// <summary>
         /// Returns the encoding characters (not including field separator)
-        /// 
+        ///
         /// as a string.
-        /// 
+        ///
         /// </summary>
         public override String ToString()
         {

@@ -5,15 +5,15 @@
   Software distributed under the License is distributed on an "AS IS" basis,
   WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
   specific language governing rights and limitations under the License.
-  
+
   The Original Code is "MessageNaviagtor.java".  Description:
   "Used to navigate the nested group structure of a message."
-  
+
   The Initial Developer of the Original Code is University Health Network. Copyright (C)
   2002.  All Rights Reserved.
-  
+
   Contributor(s): ______________________________________.
-  
+
   Alternatively, the contents of this file may be used under the terms of the
   GNU General Public License (the "GPL"), in which case the provisions of the GPL are
   applicable instead of those above.  If you wish to allow use of your version of this
@@ -88,16 +88,16 @@ namespace NHapi.Base.Util
             get { return root; }
         }
 
-        /// <summary> Returns the group within which the pointer is currently located. 
-        /// If at the root, the root is returned.  
+        /// <summary> Returns the group within which the pointer is currently located.
+        /// If at the root, the root is returned.
         /// </summary>
         public virtual IGroup CurrentGroup
         {
             get { return currentGroup; }
         }
 
-        /// <summary> Returns the array of structures at the current location.  
-        /// Throws an exception if pointer is at root.  
+        /// <summary> Returns the array of structures at the current location.
+        /// Throws an exception if pointer is at root.
         /// </summary>
         public virtual IStructure[] CurrentChildReps
         {
@@ -236,8 +236,8 @@ namespace NHapi.Base.Util
             childNames = currentGroup.Names;
         }
 
-        /// <summary> Returns the given rep of the structure at the current location.  
-        /// If at root, always returns the root (the rep is ignored).  
+        /// <summary> Returns the given rep of the structure at the current location.
+        /// If at root, always returns the root (the rep is ignored).
         /// </summary>
         public virtual IStructure getCurrentStructure(int rep)
         {
@@ -340,7 +340,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary>Like Arrays.binarySearch, only probably slower and doesn't require
-        /// a sorted list.  Also just returns -1 if item isn't found. 
+        /// a sorted list.  Also just returns -1 if item isn't found.
         /// </summary>
         private int search(Object[] list, Object item)
         {

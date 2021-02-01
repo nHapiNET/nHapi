@@ -5,16 +5,16 @@
   Software distributed under the License is distributed on an "AS IS" basis,
   WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
   specific language governing rights and limitations under the License.
-  
+
   The Original Code is "SourceGenerator.java".  Description:
   "Manages automatic generation of HL7 API source code for all data types,
   segments, groups, and message structures"
-  
+
   The Initial Developer of the Original Code is University Health Network. Copyright (C)
   2001.  All Rights Reserved.
-  
+
   Contributor(s): ______________________________________.
-  
+
   Alternatively, the contents of this file may be used under the terms of the
   GNU General Public License (the  "GPL"), in which case the provisions of the GPL are
   applicable instead of those above.  If you wish to allow use of your version of this
@@ -117,7 +117,7 @@ namespace NHapi.SourceGeneration.Generators
                     }
                     else
                     {
-                        //add capitalized bracketed text if appropriate 
+                        //add capitalized bracketed text if appropriate
                         if (bracketContents.Length > 0)
                         {
                             aName.Append(capitalize(filterBracketedText(bracketContents.ToString())));
@@ -185,13 +185,13 @@ namespace NHapi.SourceGeneration.Generators
             return name;
         }
 
-        /// <summary> Bracketed text in a field description should be included in the accessor 
-        /// name unless it corresponds to a data type name. Given the text that appears in 
-        /// brackets in a field description, this method returns an empty string if it 
-        /// corresponds to a data type name, or returns original text if not.  It isn't 
-        /// convenient to actually check (e.g. with DataTypeGenerator) whether the given 
-        /// text actually corresponds to a data type name, so we are going to conclude that 
-        /// it is a data type if and only if it is all caps and has 2 or 3 characters.  
+        /// <summary> Bracketed text in a field description should be included in the accessor
+        /// name unless it corresponds to a data type name. Given the text that appears in
+        /// brackets in a field description, this method returns an empty string if it
+        /// corresponds to a data type name, or returns original text if not.  It isn't
+        /// convenient to actually check (e.g. with DataTypeGenerator) whether the given
+        /// text actually corresponds to a data type name, so we are going to conclude that
+        /// it is a data type if and only if it is all caps and has 2 or 3 characters.
         /// </summary>
         private static String filterBracketedText(String text)
         {
@@ -254,7 +254,7 @@ namespace NHapi.SourceGeneration.Generators
             } catch (Exception e) {
             // fine ... there isn't a ValidX implementation
             // I don't like using Class.forName here but I don't know a better way to
-            // search for the class 
+            // search for the class
             }*/
 
             return ret;

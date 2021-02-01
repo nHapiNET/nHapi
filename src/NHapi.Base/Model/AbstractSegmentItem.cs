@@ -17,11 +17,11 @@ namespace NHapi.Base.Model
         ///<summary>
         /// Constructor
         /// <param name="t">the class of the data for this field - this should inherit from IType</param>
-        /// <param name="required">whether a value for this field is required in order for the segment 
+        /// <param name="required">whether a value for this field is required in order for the segment
         /// to be valid</param>
         /// <param name="maxReps">the maximum number of repetitions - 0 implies that there is no limit</param>
         /// <param name="length">the maximum length of each repetition of the field (in characters) </param>
-        /// <param name="constructorArgs">an array of objects that will be used as constructor arguments 
+        /// <param name="constructorArgs">an array of objects that will be used as constructor arguments
         /// if new instances of this class are created (use null for zero-arg constructor)</param>
         /// <throws>  HL7Exception if the given class does not inherit from IType or if it cannot be instantiated. </throws>
         /// </summary>
@@ -34,11 +34,11 @@ namespace NHapi.Base.Model
         /// Constructor
         /// </summary>
         /// <param name="t">the class of the data for this field - this should inherit from IType</param>
-        /// <param name="required">whether a value for this field is required in order for the segment 
+        /// <param name="required">whether a value for this field is required in order for the segment
         /// to be valid</param>
         /// <param name="maxReps">the maximum number of repetitions - 0 implies that there is no limit</param>
         /// <param name="length">the maximum length of each repetition of the field (in characters) </param>
-        /// <param name="constructorArgs">an array of objects that will be used as constructor arguments 
+        /// <param name="constructorArgs">an array of objects that will be used as constructor arguments
         /// if new instances of this class are created (use null for zero-arg constructor)</param>
         /// <param name="description">Description of the segment</param>
         /// <throws>  HL7Exception if the given class does not inherit from IType or if it cannot be instantiated. </throws>
@@ -127,7 +127,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public IList<IType> Fields
         {

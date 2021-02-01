@@ -1,6 +1,6 @@
 /*
 * HapiLogFactory.java
-* 
+*
 * Created on May 7, 2003 at 2:19:17 PM
 */
 

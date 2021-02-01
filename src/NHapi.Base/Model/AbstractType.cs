@@ -5,16 +5,16 @@
   Software distributed under the License is distributed on an "AS IS" basis,
   WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
   specific language governing rights and limitations under the License.
-  
+
   The Original Code is "AbstractType.java".  Description:
-  
-  "An abstract Type that provides a default implementation of getName()" 
-  
+
+  "An abstract Type that provides a default implementation of getName()"
+
   The Initial Developer of the Original Code is University Health Network. Copyright (C)
   2001.  All Rights Reserved.
-  
+
   Contributor(s): ______________________________________.
-  
+
   Alternatively, the contents of this file may be used under the terms of the
   GNU General Public License (the "GPL"), in which case the provisions of the GPL are
   applicable instead of those above.  If you wish to allow use of your version of this
@@ -29,8 +29,8 @@ using System;
 
 namespace NHapi.Base.Model
 {
-   /// <summary> An abstract Type that provides a default implementation of getName(). 
-   /// 
+   /// <summary> An abstract Type that provides a default implementation of getName().
+   ///
    /// </summary>
    /// <author>  Bryan Tripp
    /// </author>
@@ -42,7 +42,7 @@ namespace NHapi.Base.Model
 
 
         /// <summary>
-        /// Returns the name of the type (used in XML encoding and profile checking)  
+        /// Returns the name of the type (used in XML encoding and profile checking)
         /// </summary>
         public virtual String TypeName
         {
@@ -78,7 +78,7 @@ namespace NHapi.Base.Model
 
 
         /// <summary> Creates a new instance of AbstractType</summary>
-        /// <param name="message">message to which this type belongs 
+        /// <param name="message">message to which this type belongs
         /// </param>
         public AbstractType(IMessage message)
             : this(message, null)
@@ -86,7 +86,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary> Creates a new instance of AbstractType</summary>
-        /// <param name="message">message to which this type belongs 
+        /// <param name="message">message to which this type belongs
         /// <param name="description">The type description</param>
         /// </param>
         public AbstractType(IMessage message, string description)

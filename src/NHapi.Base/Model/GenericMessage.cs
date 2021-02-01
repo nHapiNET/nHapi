@@ -12,10 +12,10 @@ namespace NHapi.Base.Model
     /// </author>
     public abstract class GenericMessage : AbstractMessage
     {
-        /// <summary> Creates a new instance of GenericMessage. 
-        /// 
+        /// <summary> Creates a new instance of GenericMessage.
+        ///
         /// </summary>
-        /// <param name="factory">class factory for contained structures 
+        /// <param name="factory">class factory for contained structures
         /// </param>
         public GenericMessage(IModelClassFactory factory)
             : base(factory)
@@ -32,9 +32,9 @@ namespace NHapi.Base.Model
             }
         }
 
-        /// <summary> Returns a subclass of GenericMessage corresponding to a certain version.  
+        /// <summary> Returns a subclass of GenericMessage corresponding to a certain version.
         /// This is needed so that version-specific segments can be added as the message
-        /// is parsed.  
+        /// is parsed.
         /// </summary>
         public static Type getGenericMessageClass(String version)
         {

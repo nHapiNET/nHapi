@@ -1,27 +1,27 @@
 /*
-  The contents of this file are subject to the Mozilla Public License Version 1.1 
-  (the "License"); you may not use this file except in compliance with the License. 
-  You may obtain a copy of the License at http://www.mozilla.org/MPL/ 
-  Software distributed under the License is distributed on an "AS IS" basis, 
-  WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the 
-  specific language governing rights and limitations under the License. 
-  
-  The Original Code is "AbstractGroup.java".  Description: 
-  "A partial implementation of Group" 
-  
-  The Initial Developer of the Original Code is University Health Network. Copyright (C) 
-  2001.  All Rights Reserved. 
-  
-  Contributor(s): ______________________________________. 
-  
-  Alternatively, the contents of this file may be used under the terms of the 
-  GNU General Public License (the "GPL"), in which case the provisions of the GPL are 
-  applicable instead of those above.  If you wish to allow use of your version of this 
-  file only under the terms of the GPL and not to allow others to use your version 
-  of this file under the MPL, indicate your decision by deleting  the provisions above 
-  and replace  them with the notice and other provisions required by the GPL License.  
-  If you do not delete the provisions above, a recipient may use your version of 
-  this file under either the MPL or the GPL. 
+  The contents of this file are subject to the Mozilla Public License Version 1.1
+  (the "License"); you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at http://www.mozilla.org/MPL/
+  Software distributed under the License is distributed on an "AS IS" basis,
+  WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
+  specific language governing rights and limitations under the License.
+
+  The Original Code is "AbstractGroup.java".  Description:
+  "A partial implementation of Group"
+
+  The Initial Developer of the Original Code is University Health Network. Copyright (C)
+  2001.  All Rights Reserved.
+
+  Contributor(s): ______________________________________.
+
+  Alternatively, the contents of this file may be used under the terms of the
+  GNU General Public License (the "GPL"), in which case the provisions of the GPL are
+  applicable instead of those above.  If you wish to allow use of your version of this
+  file only under the terms of the GPL and not to allow others to use your version
+  of this file under the MPL, indicate your decision by deleting  the provisions above
+  and replace  them with the notice and other provisions required by the GPL License.
+  If you do not delete the provisions above, a recipient may use your version of
+  this file under either the MPL or the GPL.
 */
 
 using System;
@@ -34,10 +34,10 @@ using NHapi.Base.Parser;
 namespace NHapi.Base.Model
 {
    /// <summary> A partial implementation of Group.  Subclasses correspond to specific
-   /// groups of segments (and/or other sub-groups) that are implicitely defined by message structures  
-   /// in the HL7 specification.  A subclass should define it's group structure by putting repeated calls to 
-   /// the add(...) method in it's constructor.  Each call to add(...) adds a specific component to the 
-   /// Group.  
+   /// groups of segments (and/or other sub-groups) that are implicitely defined by message structures
+   /// in the HL7 specification.  A subclass should define it's group structure by putting repeated calls to
+   /// the add(...) method in it's constructor.  Each call to add(...) adds a specific component to the
+   /// Group.
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
@@ -111,9 +111,9 @@ namespace NHapi.Base.Model
             get { return parentStructure; }
         }
 
-        /// <summary> This constructor should be used by implementing classes that do not 
+        /// <summary> This constructor should be used by implementing classes that do not
         /// also implement Message.
-        /// 
+        ///
         /// </summary>
         /// <param name="parentStructure">the group to which this Group belongs.
         /// </param>
@@ -127,7 +127,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary> This constructor should only be used by classes that implement Message directly.
-        /// 
+        ///
         /// </summary>
         /// <param name="factory">the factory for classes of segments, groups, and datatypes under this group
         /// </param>
@@ -142,8 +142,8 @@ namespace NHapi.Base.Model
             _items = new List<AbstractGroupItem>();
         }
 
-        /// <summary> Returns the named structure.  If this Structure is repeating then the first 
-        /// repetition is returned.  Creates the Structure if necessary.  
+        /// <summary> Returns the named structure.  If this Structure is repeating then the first
+        /// repetition is returned.  Creates the Structure if necessary.
         /// </summary>
         /// <exception cref="HL7Exception">Thrown when the named Structure is not part of this Group.</exception>
         public virtual IStructure GetStructure(String name)
@@ -152,12 +152,12 @@ namespace NHapi.Base.Model
         }
 
         /// <summary> Returns a particular repetition of the named Structure. If the given repetition
-        /// number is one greater than the existing number of repetitions then a new  
-        /// Structure is created.  
+        /// number is one greater than the existing number of repetitions then a new
+        /// Structure is created.
         /// </summary>
-        /// <exception cref="HL7Exception">Thrown when the named Structure is not part of this group or 
-        /// the structure is not repeatable and the given rep is > 0,  
-        /// or if the given repetition number is more than one greater than the 
+        /// <exception cref="HL7Exception">Thrown when the named Structure is not part of this group or
+        /// the structure is not repeatable and the given rep is > 0,
+        /// or if the given repetition number is more than one greater than the
         /// existing number of repetitions</exception>
         public virtual IStructure GetStructure(String name, int rep)
         {
@@ -170,12 +170,12 @@ namespace NHapi.Base.Model
             IStructure ret;
             if (rep < item.Structures.Count)
             {
-                // return existng Structure if it exists 
+                // return existng Structure if it exists
                 ret = item.Structures[rep];
             }
             else if (rep == item.Structures.Count)
             {
-                //verify that Structure is repeating ... 
+                //verify that Structure is repeating ...
                 bool repeats = item.IsRepeating;
                 if (!repeats && item.Structures.Count > 0)
                     throw new HL7Exception(
@@ -207,7 +207,7 @@ namespace NHapi.Base.Model
                 throw new HL7Exception(name + " does not exist in the group " + GetType().FullName,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
 
-            // Verify that Structure is repeating ... 
+            // Verify that Structure is repeating ...
             bool repeats = item.IsRepeating;
             if (!repeats && item.Structures.Count > 0)
                 throw new HL7Exception(
@@ -257,12 +257,12 @@ namespace NHapi.Base.Model
             item.Structures.RemoveAt(rep);
         }
 
-        /// <summary> Expands the group definition to include a segment that is not 
-        /// defined by HL7 to be part of this group (eg an unregistered Z segment). 
-        /// The new segment is slotted at the end of the group.  Thenceforward if 
-        /// such a segment is encountered it will be parsed into this location. 
-        /// If the segment name is unrecognized a GenericSegment is used.  The 
-        /// segment is defined as repeating and not required.  
+        /// <summary> Expands the group definition to include a segment that is not
+        /// defined by HL7 to be part of this group (eg an unregistered Z segment).
+        /// The new segment is slotted at the end of the group.  Thenceforward if
+        /// such a segment is encountered it will be parsed into this location.
+        /// If the segment name is unrecognized a GenericSegment is used.  The
+        /// segment is defined as repeating and not required.
         /// </summary>
         /// <exception cref="HL7Exception">Thrown when 'Message.Version' returns null</exception>
         public virtual String addNonstandardSegment(String name)
@@ -281,18 +281,18 @@ namespace NHapi.Base.Model
             return insert(c, false, true, index, name);
         }
 
-        /// <summary> Adds a new Structure (group or segment) to this Group.  A place for the  
-        /// Structure is added to the group but there are initially zero repetitions.  
-        /// This method should be used by the constructors of implementing classes 
-        /// to specify which Structures the Group contains - Structures should be 
-        /// added in the order in which they appear.  
-        /// Note that the class is supplied instead of an instance because we want 
-        /// there initially to be zero instances of each structure but we want the 
+        /// <summary> Adds a new Structure (group or segment) to this Group.  A place for the
+        /// Structure is added to the group but there are initially zero repetitions.
+        /// This method should be used by the constructors of implementing classes
+        /// to specify which Structures the Group contains - Structures should be
+        /// added in the order in which they appear.
+        /// Note that the class is supplied instead of an instance because we want
+        /// there initially to be zero instances of each structure but we want the
         /// AbstractGroup code to be able to create instances as necessary to support
         /// get(...) calls.
         /// </summary>
-        /// <returns> the actual name used to store this structure (may be appended with 
-        /// an integer if there are duplcates in the same Group).  
+        /// <returns> the actual name used to store this structure (may be appended with
+        /// an integer if there are duplcates in the same Group).
         /// </returns>
         protected internal virtual String add(Type c, bool required, bool repeating)
         {
@@ -302,14 +302,14 @@ namespace NHapi.Base.Model
         }
 
         /// <summary> Inserts the given structure into this group, at the
-        /// indicated index number.  This method is used to support handling 
-        /// of unexpected segments (e.g. Z-segments).  In contrast, specification 
-        /// of the group's normal children should be done at construction time, using the 
-        /// add(...) method. 
+        /// indicated index number.  This method is used to support handling
+        /// of unexpected segments (e.g. Z-segments).  In contrast, specification
+        /// of the group's normal children should be done at construction time, using the
+        /// add(...) method.
         /// </summary>
         private String insert(Type classType, bool required, bool repeating, int index, String name)
         {
-            //see if there is already something by this name and make a new name if necessary ... 
+            //see if there is already something by this name and make a new name if necessary ...
             if (nameExists(name))
             {
                 int version = 2;
@@ -336,8 +336,8 @@ namespace NHapi.Base.Model
             return exists;
         }
 
-        /// <summary> Attempts to create an instance of the given class and return 
-        /// it as a Structure. 
+        /// <summary> Attempts to create an instance of the given class and return
+        /// it as a Structure.
         /// </summary>
         /// <param name="c">the Structure implementing class
         /// </param>
@@ -424,10 +424,10 @@ namespace NHapi.Base.Model
         }
 
         /// <summary> Returns an array of Structure objects by name.  For example, if the Group contains
-        /// an MSH segment and "MSH" is supplied then this call would return a 1-element array 
-        /// containing the MSH segment.  Multiple elements are returned when the segment or 
+        /// an MSH segment and "MSH" is supplied then this call would return a 1-element array
+        /// containing the MSH segment.  Multiple elements are returned when the segment or
         /// group repeats.  The array may be empty if no repetitions have been accessed
-        /// yet using the get(...) methods. 
+        /// yet using the get(...) methods.
         /// </summary>
         /// <throws>  HL7Exception if the named Structure is not part of this Group.  </throws>
         public virtual IStructure[] GetAll(String name)
@@ -459,7 +459,7 @@ namespace NHapi.Base.Model
 
 
         /// <summary>
-        /// returns a name for a class of a Structure in this Message  
+        /// returns a name for a class of a Structure in this Message
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>

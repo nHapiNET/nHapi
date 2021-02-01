@@ -5,15 +5,15 @@
     Software distributed under the License is distributed on an "AS IS" basis,
     WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
     specific language governing rights and limitations under the License.
-    
+
     The Original Code is "TM.java".  Description:
     "Represents an HL7 TM (time) datatype."
-    
+
     The Initial Developer of the Original Code is University Health Network. Copyright (C)
     2005.  All Rights Reserved.
-    
+
     Contributor(s): ______________________________________.
-    
+
     Alternatively, the contents of this file may be used under the terms of the
     GNU General Public License (the "GPL"), in which case the provisions of the GPL are
     applicable instead of those above.  If you wish to allow use of your version of this
@@ -152,8 +152,8 @@ namespace NHapi.Base.Model.Primitive
         /// <seealso cref="CommonTM.setHourMinutePrecision(int, int)">
         /// </seealso>
         /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-        /// this method is called.  
+        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
+        /// this method is called.
         /// </summary>
         public virtual void setHourMinutePrecision(int hr, int min)
         {
@@ -163,8 +163,8 @@ namespace NHapi.Base.Model.Primitive
         /// <seealso cref="CommonTM.setHourMinSecondPrecision(int, int, float)">
         /// </seealso>
         /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
-        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until 
-        /// this method is called.  
+        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
+        /// this method is called.
         /// </summary>
         public virtual void setHourMinSecondPrecision(int hr, int min, float sec)
         {
