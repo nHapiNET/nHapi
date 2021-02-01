@@ -109,6 +109,7 @@ namespace NHapi.SourceGeneration.Generators
     	        {}
                 ");
             }
+
             sb.Append("}\r");
             sb.Append("}\r");
             return sb.ToString();

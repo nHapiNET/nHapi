@@ -46,6 +46,7 @@ namespace NHapi.Base.Model.Primitive
                 {
                     myDetail = new CommonTM(Value);
                 }
+
                 return myDetail;
             }
         }

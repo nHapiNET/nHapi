@@ -240,6 +240,7 @@ namespace NHapi.Base.Parser
                     explicityDefined = false;
                     messageStructure = comps[0] + "_" + comps[1];
                 }
+
                 /*else if (comps.length == 1 && comps[0] != null && comps[0].equals("ACK")) {
                  messageStructure = "ACK"; //it's common for people to only populate component 1 in an ACK msg
                  }*/
@@ -253,6 +254,7 @@ namespace NHapi.Base.Parser
                         buf.Append(comps.Length);
                         buf.Append(" of 3 components present");
                     }
+
                     throw new HL7Exception(buf.ToString(), ErrorCode.UNSUPPORTED_MESSAGE_TYPE);
                 }
             }
@@ -314,6 +316,7 @@ namespace NHapi.Base.Parser
                     }
                 }
             }
+
             return m;
         }
 
@@ -402,6 +405,7 @@ namespace NHapi.Base.Parser
             {
                 is_Renamed = true;
             }
+
             return is_Renamed;
         }
 
@@ -425,6 +429,7 @@ namespace NHapi.Base.Parser
                     {
                         val = Escape.unescape(val, encodingCharacters);
                     }
+
                     Terser.getPrimitive(destinationField, i + 1, j + 1).Value = val;
                 }
             }
@@ -442,6 +447,7 @@ namespace NHapi.Base.Parser
             {
                 separator = encodingChars.ComponentSeparator;
             }
+
             return separator;
         }
 
@@ -500,9 +506,11 @@ namespace NHapi.Base.Parser
                     comp.Append(EncodePrimitive(p, encodingChars));
                     comp.Append(encodingChars.SubcomponentSeparator);
                 }
+
                 field.Append(StripExtraDelimiters(comp.ToString(), encodingChars.SubcomponentSeparator));
                 field.Append(encodingChars.ComponentSeparator);
             }
+
             return StripExtraDelimiters(field.ToString(), encodingChars.ComponentSeparator);
             //return encode(source, encodingChars, false);
         }
@@ -518,6 +526,7 @@ namespace NHapi.Base.Parser
             {
                 val = Escape.escape(val, encodingChars);
             }
+
             return val;
         }
 
@@ -658,6 +667,7 @@ namespace NHapi.Base.Parser
                     }
                 }
             }
+
             return result.ToString();
         }
 
@@ -694,6 +704,7 @@ namespace NHapi.Base.Parser
                 {
                     log.Error("Error while encoding segment: ", e);
                 }
+
                 result.Append(encodingChars.FieldSeparator);
             }
 
@@ -718,10 +729,12 @@ namespace NHapi.Base.Parser
                     break;
                 c++;
             }
+
             for (int i = c; i < chars.Length; i++)
             {
                 out_Renamed.Append(chars[i]);
             }
+
             return out_Renamed.ToString();
         }
 
@@ -827,11 +840,13 @@ namespace NHapi.Base.Parser
                         end = message.Length;
                     }
                 }
+
                 if (start > 0 && end > start)
                 {
                     ackID = message.Substring(start, (end) - (start));
                 }
             }
+
             log.Debug("ACK ID: " + ackID);
             return ackID;
         }
@@ -881,6 +896,7 @@ namespace NHapi.Base.Parser
                 throw new HL7Exception("Can't find version ID - MSH has only " + fields.Length + " fields.",
                     ErrorCode.REQUIRED_FIELD_MISSING);
             }
+
             return version.Trim();
         }
 

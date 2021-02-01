@@ -140,6 +140,7 @@ namespace NHapi.Base.validation.impl
             {
                 applies = true;
             }
+
             return applies;
         }
     }

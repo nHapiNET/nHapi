@@ -68,6 +68,7 @@ namespace NHapi.Base.validation.impl
                     }
                 }
             }
+
             return trmValue;
         }
 

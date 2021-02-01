@@ -95,11 +95,13 @@ namespace NHapi.Base.Model.Primitive
                         {
                             sign = "+";
                         }
+
                         //end if
                         else
                         {
                             sign = "-";
                         } //end else
+
                         returnVal = value_Renamed + sign + DataTypeUtil.preAppendZeroes(absOffset, 4);
                     }
                     else
@@ -107,6 +109,7 @@ namespace NHapi.Base.Model.Primitive
                         returnVal = value_Renamed;
                     } //end else
                 } //end if
+
                 return returnVal;
             }
 
@@ -192,6 +195,7 @@ namespace NHapi.Base.Model.Primitive
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
                             } //end if
+
                             hour = hrInt;
                         } //end if
 
@@ -208,6 +212,7 @@ namespace NHapi.Base.Model.Primitive
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
                             } //end if
+
                             minute = minInt;
                         } //end if
 
@@ -224,6 +229,7 @@ namespace NHapi.Base.Model.Primitive
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
                             } //end if
+
                             second = secInt;
                         } //end if
 
@@ -240,6 +246,7 @@ namespace NHapi.Base.Model.Primitive
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
                             } //end if
+
                             fractionOfSec = fract;
                         } //end if
 
@@ -261,6 +268,7 @@ namespace NHapi.Base.Model.Primitive
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
                             } //end if
+
                               //extract the minute data from the offset value.  If these characters
                               //are not numeric then a number format exception will be generated
                             offsetInt = Int32.Parse(tempOffsetNoS.Substring(2, (4) - (2)));
@@ -271,6 +279,7 @@ namespace NHapi.Base.Model.Primitive
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
                             } //end if
+
                               //validation done, update the offSet field
                             offSet = Int32.Parse(tempOffsetNoS);
                             //add the sign back to the offset if it is negative
@@ -293,17 +302,20 @@ namespace NHapi.Base.Model.Primitive
                         //validations are now done store the time value into the private value field
                         value_Renamed = timeVal;
                     }
+
                     //end try
                     catch (DataTypeException e)
                     {
                         throw e;
                     }
+
                     //end catch
                     catch (Exception e)
                     {
                         throw new DataTypeException("An unexpected exception ocurred", e);
                     } //end catch
                 }
+
                 //end if
                 else
                 {
@@ -330,6 +342,7 @@ namespace NHapi.Base.Model.Primitive
                         DataTypeException e = new DataTypeException(msg);
                         throw e;
                     } //end if
+
                     hour = value;
                     minute = 0;
                     second = 0;
@@ -340,11 +353,13 @@ namespace NHapi.Base.Model.Primitive
                     omitOffsetFg = 'y';
                     value_Renamed = DataTypeUtil.preAppendZeroes(value, 2);
                 }
+
                 //end try
                 catch (DataTypeException e)
                 {
                     throw e;
                 }
+
                 //end catch
                 catch (Exception e)
                 {
@@ -375,6 +390,7 @@ namespace NHapi.Base.Model.Primitive
                         DataTypeException e = new DataTypeException(msg);
                         throw e;
                     } //end if
+
                       //obtain the absolute value of the input
                     int absOffset = Math.Abs(value);
                     //extract the hour data from the offset value.
@@ -388,6 +404,7 @@ namespace NHapi.Base.Model.Primitive
                         DataTypeException e = new DataTypeException(msg);
                         throw e;
                     } //end if
+
                       //extract the minute data from the offset value.
                     int minOffsetInt = Int32.Parse(offsetStr.Substring(2, (4) - (2)));
                     //check to see if the minute value is valid
@@ -397,14 +414,17 @@ namespace NHapi.Base.Model.Primitive
                         DataTypeException e = new DataTypeException(msg);
                         throw e;
                     } //end if
+
                       //The input value is valid, now store it in the offset field
                     offSet = value;
                 }
+
                 //end try
                 catch (DataTypeException e)
                 {
                     throw e;
                 }
+
                 //end catch
                 catch (Exception e)
                 {
@@ -492,6 +512,7 @@ namespace NHapi.Base.Model.Primitive
                     DataTypeException e = new DataTypeException(msg);
                     throw e;
                 } //end if
+
                 minute = min;
                 second = 0;
                 fractionOfSec = 0;
@@ -501,11 +522,13 @@ namespace NHapi.Base.Model.Primitive
                 omitOffsetFg = 'y';
                 value_Renamed = value_Renamed + DataTypeUtil.preAppendZeroes(min, 2);
             }
+
             //end try
             catch (DataTypeException e)
             {
                 throw e;
             }
+
             //end catch
             catch (Exception e)
             {
@@ -541,6 +564,7 @@ namespace NHapi.Base.Model.Primitive
                     DataTypeException e = new DataTypeException(msg);
                     throw e;
                 } //end if
+
                 int fractionOfSecInt = (int)(secMultRound - (second * 10000));
                 fractionOfSec = fractionOfSecInt / 10000F;
                 String fractString = "";
@@ -549,6 +573,7 @@ namespace NHapi.Base.Model.Primitive
                 {
                     fractString = (fractionOfSec.ToString()).Substring(1);
                 } //end if
+
                   //Now update the value field
                 offSet = 0;
                 //Here the offset is not defined, we should omit showing it in the
@@ -556,11 +581,13 @@ namespace NHapi.Base.Model.Primitive
                 omitOffsetFg = 'y';
                 value_Renamed = value_Renamed + DataTypeUtil.preAppendZeroes(second, 2) + fractString;
             }
+
             //end try
             catch (DataTypeException e)
             {
                 throw e;
             }
+
             //end catch
             catch (Exception e)
             {
@@ -598,6 +625,7 @@ namespace NHapi.Base.Model.Primitive
                 {
                     offSetSignInt = 1;
                 }
+
                 //get the absolute value of the gmtOffSet
                 int absGmtOffSet = Math.Abs(calOffset);
                 int gmtOffSetHours = absGmtOffSet / (3600 * 1000);
@@ -611,16 +639,19 @@ namespace NHapi.Base.Model.Primitive
                 tm.Offset = calOffset;
                 val = tm.Value;
             }
+
             // end try
             catch (DataTypeException e)
             {
                 throw e;
             }
+
             //end catch
             catch (Exception e)
             {
                 throw new DataTypeException("An unexpected exception ocurred", e);
             } //end catch
+
             return val;
         }
 

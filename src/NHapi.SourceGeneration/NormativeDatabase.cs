@@ -75,6 +75,7 @@ namespace NHapi.SourceGeneration
                     {
                         db = new NormativeDatabase();
                     }
+
                     return db;
                 }
             }

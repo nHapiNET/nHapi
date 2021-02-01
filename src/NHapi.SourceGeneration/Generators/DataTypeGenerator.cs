@@ -60,6 +60,7 @@ namespace NHapi.SourceGeneration.Generators
             {
                 baseDirectory = baseDirectory + "/";
             }
+
             FileInfo targetDir =
                 SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Datatype");
             SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Datatype");
@@ -78,6 +79,7 @@ namespace NHapi.SourceGeneration.Generators
             {
                 types.Add(Convert.ToString(rs[1 - 1]));
             }
+
             rs.Close();
             //get CF, CK, CM, CN, CQ sub-types ...
 
@@ -173,6 +175,7 @@ namespace NHapi.SourceGeneration.Generators
                 descriptions.Add(de);
                 tables.Add(ta);
             }
+
             if (dataType.ToUpper().Equals("TS"))
             {
                 dataTypes[0] = "TSComponentOne";
@@ -209,6 +212,7 @@ namespace NHapi.SourceGeneration.Generators
                     desc[i] = ((String)descriptions[i]);
                     table[i] = ((Int32)tables[i]);
                 }
+
                 source = makeComposite(dataType, description, type, desc, table, version);
             }
             else
@@ -217,6 +221,7 @@ namespace NHapi.SourceGeneration.Generators
                 //throw new DataTypeException("The data type " + dataType + " could not be found");
                 Console.WriteLine("No components for " + dataType);
             }
+
             //System.out.println(source);
 
             //write to file ...
@@ -334,6 +339,7 @@ namespace NHapi.SourceGeneration.Generators
                 source.Append(dataTypes[i]);
                 source.Append(")</li>\r\n");
             }
+
             source.Append("/// </ol>\r\n");
             source.Append("///</summary>\r\n");
             source.Append("[Serializable]\r\n");
@@ -379,6 +385,7 @@ namespace NHapi.SourceGeneration.Generators
                 {
                     source.Append("(message");
                 }
+
                 if (descriptions[i] != null && descriptions[i].Trim().Length > 0)
                 {
                     string desc = descriptions[i];
@@ -386,9 +393,11 @@ namespace NHapi.SourceGeneration.Generators
                     desc = desc.Substring(0, 1).ToUpper() + desc.Substring(1);
                     source.Append(",\"" + desc + "\"");
                 }
+
                 source.Append(")");
                 source.Append(";\r\n");
             }
+
             source.Append("\t}\r\n\r\n");
             source.Append("\t///<summary>\r\n");
             source.Append("\t/// Returns an array containing the data elements.\r\n");
@@ -439,6 +448,7 @@ namespace NHapi.SourceGeneration.Generators
                 {
                     source.Append("_" + i);
                 }
+
                 source.Append(" {\r\n");
                 source.Append("get{\r\n");
                 source.Append("\t   ");
@@ -459,6 +469,7 @@ namespace NHapi.SourceGeneration.Generators
                 source.Append("}\r\n\r\n");
                 source.Append("}\r\n");
             }
+
             /*if (correspondingControlInterface != null) {
             source.append(Control.getImplementation(correspondingControlInterface, version));
             } */

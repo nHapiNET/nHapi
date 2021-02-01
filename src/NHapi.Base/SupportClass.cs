@@ -1232,6 +1232,7 @@ namespace NHapi.Base
                             throw new ManagerNotSupportedException("The specified operation was not performed");
                         }
                     }
+
                 case "http://xml.org/sax/features/namespace-prefixes":
                     {
                         try
@@ -1244,6 +1245,7 @@ namespace NHapi.Base
                             throw new ManagerNotSupportedException("The specified operation was not performed");
                         }
                     }
+
                 case "http://xml.org/sax/features/validation":
                     {
                         try
@@ -1256,6 +1258,7 @@ namespace NHapi.Base
                             throw new ManagerNotSupportedException("The specified operation was not performed");
                         }
                     }
+
                 default:
                     throw new ManagerNotRecognizedException("The specified feature: " + name + " are not supported");
             }
@@ -1281,6 +1284,7 @@ namespace NHapi.Base
                             throw new ManagerNotSupportedException("The specified operation was not performed");
                         }
                     }
+
                 case "http://xml.org/sax/features/namespace-prefixes":
                     {
                         try
@@ -1292,6 +1296,7 @@ namespace NHapi.Base
                             throw new ManagerNotSupportedException("The specified operation was not performed");
                         }
                     }
+
                 case "http://xml.org/sax/features/validation":
                     {
                         try
@@ -1303,6 +1308,7 @@ namespace NHapi.Base
                             throw new ManagerNotSupportedException("The specified operation was not performed");
                         }
                     }
+
                 default:
                     throw new ManagerNotRecognizedException("The specified feature: " + name + " are not supported");
             }
@@ -1330,6 +1336,7 @@ namespace NHapi.Base
                                 "The property is not supported as an internal exception was thrown when trying to set it: " + e.Message);
                         }
                     }
+
                 default:
                     throw new ManagerNotRecognizedException("The specified feature: " + name + " is not recognized");
             }
@@ -1355,6 +1362,7 @@ namespace NHapi.Base
                             throw new ManagerNotSupportedException("The specified operation was not performed");
                         }
                     }
+
                 default:
                     throw new ManagerNotRecognizedException("The specified feature: " + name + " are not supported");
             }
@@ -1389,6 +1397,7 @@ namespace NHapi.Base
                                 namespaceURI = reader.NamespaceURI;
                                 localName = reader.LocalName;
                             }
+
                             String name = reader.Name;
                             SaxAttributesSupport attributes = new SaxAttributesSupport();
                             if (reader.HasAttributes)
@@ -1435,6 +1444,7 @@ namespace NHapi.Base
                                     }
                                 }
                             }
+
                             if (callBackHandler != null)
                                 callBackHandler.startElement(namespaceURI, localName, name, attributes);
                             if (Empty)
@@ -1447,6 +1457,7 @@ namespace NHapi.Base
                                 else if (callBackHandler != null)
                                     callBackHandler.endElement("", "", name);
                             }
+
                             break;
 
                         case XmlNodeType.EndElement:
@@ -1468,8 +1479,10 @@ namespace NHapi.Base
                                     if (callBackHandler != null)
                                         ((IXmlSaxContentHandler)callBackHandler).endPrefixMapping(tempString);
                                 }
+
                                 prefixes.Remove(reader.NamespaceURI);
                             }
+
                             break;
 
                         case XmlNodeType.Text:
@@ -1500,6 +1513,7 @@ namespace NHapi.Base
                                     callBackHandler.characters(reader.Value.ToCharArray(), 0, reader.Value.ToCharArray().Length);
                                 lexical.endCDATA();
                             }
+
                             break;
 
                         case XmlNodeType.DocumentType:
@@ -1514,9 +1528,11 @@ namespace NHapi.Base
                                 lexical.endEntity("[dtd]");
                                 lexical.endDTD();
                             }
+
                             break;
                     }
                 }
+
                 if (callBackHandler != null)
                     callBackHandler.endDocument();
             }
@@ -1540,6 +1556,7 @@ namespace NHapi.Base
                     errorHandler = (XmlSaxDefaultHandler)handler;
                     entityResolver = (XmlSaxDefaultHandler)handler;
                 }
+
                 if (!(this is XmlSaxParserAdapter))
                     callBackHandler = handler;
                 else
@@ -1547,6 +1564,7 @@ namespace NHapi.Base
                     if (callBackHandler == null)
                         callBackHandler = handler;
                 }
+
                 reader = CreateXmlReader(filepath);
                 DoParsing();
             }
@@ -1611,6 +1629,7 @@ namespace NHapi.Base
                     errorHandler = (XmlSaxDefaultHandler)handler;
                     entityResolver = (XmlSaxDefaultHandler)handler;
                 }
+
                 if (!(this is XmlSaxParserAdapter))
                     callBackHandler = handler;
                 else
@@ -1618,6 +1637,7 @@ namespace NHapi.Base
                     if (callBackHandler == null)
                         callBackHandler = handler;
                 }
+
                 reader = CreateXmlReader(filepath);
                 DoParsing();
             }
@@ -1643,6 +1663,7 @@ namespace NHapi.Base
                     errorHandler = (XmlSaxDefaultHandler)handler;
                     entityResolver = (XmlSaxDefaultHandler)handler;
                 }
+
                 if (!(this is XmlSaxParserAdapter))
                     callBackHandler = handler;
                 else
@@ -1650,6 +1671,7 @@ namespace NHapi.Base
                     if (callBackHandler == null)
                         callBackHandler = handler;
                 }
+
                 reader = CreateXmlReader(stream);
                 DoParsing();
             }
@@ -1677,6 +1699,7 @@ namespace NHapi.Base
                     errorHandler = (XmlSaxDefaultHandler)handler;
                     entityResolver = (XmlSaxDefaultHandler)handler;
                 }
+
                 if (!(this is XmlSaxParserAdapter))
                     callBackHandler = handler;
                 else
@@ -1684,6 +1707,7 @@ namespace NHapi.Base
                     if (callBackHandler == null)
                         callBackHandler = handler;
                 }
+
                 reader = CreateXmlReader(stream, URI);
                 DoParsing();
             }
@@ -1999,6 +2023,7 @@ namespace NHapi.Base
                 {
                     throw e;
                 }
+
                 return added;
             }
 
@@ -2035,6 +2060,7 @@ namespace NHapi.Base
                 {
                     throw ex;
                 }
+
                 return added;
             }
 
@@ -2196,6 +2222,7 @@ namespace NHapi.Base
                 {
                     throw ex;
                 }
+
                 return true;
             }
 
@@ -2572,6 +2599,7 @@ namespace NHapi.Base
                             default:
                                 break;
                         }
+
                         ((CalendarProperties)this[calendar]).dateTime = tempDate;
                     }
                     else
@@ -2761,6 +2789,7 @@ namespace NHapi.Base
                             ((CalendarProperties)this[calendar]).dateTimeFormat = new DateTimeFormatInfo();
                             ((CalendarProperties)this[calendar]).dateTimeFormat.FirstDayOfWeek = DayOfWeek.Sunday;
                         }
+
                         return ((CalendarProperties)this[calendar]).dateTimeFormat.FirstDayOfWeek;
                     }
                     else
@@ -3158,6 +3187,7 @@ namespace NHapi.Base
                     if (++currentPos == chars.Length)
                         break;
                 }
+
                 return token.ToString();
             }
 
@@ -3177,6 +3207,7 @@ namespace NHapi.Base
                 {
                     return false;
                 }
+
                 //keeping the current pos
                 long pos = currentPos;
 
@@ -3194,6 +3225,7 @@ namespace NHapi.Base
                 {
                     currentPos = pos;
                 }
+
                 return true;
             }
 

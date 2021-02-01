@@ -54,6 +54,7 @@ namespace NHapi.Base.Util
                 {
                     throw new ArgumentOutOfRangeException("No more nodes in message");
                 }
+
                 try
                 {
                     currentStructure = next_Renamed_Field.parent.GetStructure(next_Renamed_Field.index.name,
@@ -63,6 +64,7 @@ namespace NHapi.Base.Util
                 {
                     throw new ArgumentOutOfRangeException("HL7Exception: " + e.Message);
                 }
+
                 clearNext();
                 return currentStructure;
             }
@@ -167,6 +169,7 @@ namespace NHapi.Base.Util
                     }
                 }
             }
+
             log.Debug("MessageIterator.hasNext() in direction " + direction + "? " + has);
             return has;
         }
@@ -200,6 +203,7 @@ namespace NHapi.Base.Util
             {
                 nextSibling(currPos);
             }
+
             return nextExists;
         }
 
@@ -243,6 +247,7 @@ namespace NHapi.Base.Util
             {
                 newSegment(currPos.parent, direction);
             }
+
             return nextExists;
         }
 
@@ -287,6 +292,7 @@ namespace NHapi.Base.Util
                         if (upToFirstRequired && pos.parent.IsRequired(siblings[i]))
                             break;
                     }
+
                     if (pos.index.name.Equals(siblings[i]))
                         after = true;
                 }
@@ -299,6 +305,7 @@ namespace NHapi.Base.Util
                 Position parentPos = new Position(grandparent, getIndex(grandparent, pos.parent));
                 matchExists = matchExistsAfterPosition(parentPos, name, firstDescendentsOnly, upToFirstRequired);
             }
+
             log.Debug("Match exists after position " + pos + " for " + name + "? " + matchExists);
             return matchExists;
         }
@@ -358,6 +365,7 @@ namespace NHapi.Base.Util
                     }
                 }
             }
+
             return contains;
         }
 
@@ -380,6 +388,7 @@ namespace NHapi.Base.Util
             for (; i < names.Length && !names[i].Equals(pos.index.name); i++)
             {
             }
+
             String nextName = names[i + 1];
 
             next_Renamed_Field = new Position(pos.parent, nextName, 0);
@@ -426,6 +435,7 @@ namespace NHapi.Base.Util
                     }
                 }
             }
+
             return index;
         }
 
@@ -469,6 +479,7 @@ namespace NHapi.Base.Util
                     if (i.rep == rep && i.name.Equals(name))
                         equals = true;
                 }
+
                 return equals;
             }
 
@@ -541,6 +552,7 @@ namespace NHapi.Base.Util
                     if (p.parent.Equals(parent) && p.index.Equals(index))
                         equals = true;
                 }
+
                 return equals;
             }
 

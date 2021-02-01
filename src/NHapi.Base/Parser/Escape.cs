@@ -57,10 +57,12 @@ namespace NHapi.Base.Parser
             {
                 _nonEscapeCharacterMapping.Add(element, element);
             }
+
             foreach (string element in SINGLE_CHAR_NON_ESCAPE_CHARACTERS)
             {
                 _singleCharNonEscapeCharacterMapping.Add(element, element);
             }
+
             foreach (string element in MULTI_CHAR_NON_ESCAPE_CHARACTERS)
             {
                 _multiCharNonEscapeCharacterMapping.Add(element, element);
@@ -80,6 +82,7 @@ namespace NHapi.Base.Parser
                 char[] newKey = htIn[key].ToString().ToCharArray();
                 ht[newKey[0]] = key;
             }
+
             return ht;
         }
 
@@ -149,6 +152,7 @@ namespace NHapi.Base.Parser
                                                     encodeCharacter1 = false;
                                                     isEncodingSpecialCharacterSequence = true;
                                                 }
+
                                                 break;
                                             case "\\M":
                                                 // Look for closing character of \Mxxyy\ or Mxxyyzz
@@ -157,6 +161,7 @@ namespace NHapi.Base.Parser
                                                     encodeCharacter1 = false;
                                                     isEncodingSpecialCharacterSequence = true;
                                                 }
+
                                                 break;
                                             case "\\X":
                                                 if (hex.All(c => HexDigits.Contains(char.ToUpper(c))))
@@ -164,6 +169,7 @@ namespace NHapi.Base.Parser
                                                     encodeCharacter1 = false;
                                                     isEncodingSpecialCharacterSequence = true;
                                                 }
+
                                                 break;
                                             case "\\Z":
                                                 // We don't support this.
@@ -175,6 +181,7 @@ namespace NHapi.Base.Parser
                                                 break;
                                         }
                                     }
+
                                     encodeCharacter = encodeCharacter1;
                                 }
                             }
@@ -187,6 +194,7 @@ namespace NHapi.Base.Parser
                 else
                     result.Append(textAsChar[i]);
             }
+
             if (result.Length > 0)
                 return result.ToString().Trim();
             else
@@ -232,12 +240,14 @@ namespace NHapi.Base.Parser
                         }
                     }
                 }
+
                 if (!isReplaced)
                 {
                     result.Append(text.Substring(position, ((position + 1)) - (position)));
                     position++;
                 }
             }
+
             return result.ToString();
         }
 
@@ -261,6 +271,7 @@ namespace NHapi.Base.Parser
                 //we already have escape sequences for these encoding characters
                 escapeSequences = (Hashtable)o;
             }
+
             return escapeSequences;
         }
 
@@ -281,6 +292,7 @@ namespace NHapi.Base.Parser
                 seq.Append(ec.EscapeCharacter);
                 seqs[seq.ToString()] = Convert.ToString(values[i]);
             }
+
             // \\x....\\ denotes hexadecimal escaping
             // Convert the .... hexadecimal values into decimal, which map to ascii characters
             seqs["\\X000d\\"] = Convert.ToString('\r'); // 00 > null, 0D > CR
@@ -306,28 +318,33 @@ namespace NHapi.Base.Parser
             {
                 seqs = makeEscapeSequences(ec);
             }
+
             for (int i = 0; i < n; i++)
             {
                 seqs = getEscapeSequences(ec);
             }
+
             //time
             long start = (DateTime.Now.Ticks - 621355968000000000) / 10000;
             for (int i = 0; i < n; i++)
             {
                 seqs = makeEscapeSequences(ec);
             }
+
             Console.Out.WriteLine("Time to make " + n + " times: " + ((DateTime.Now.Ticks - 621355968000000000) / 10000 - start));
             start = (DateTime.Now.Ticks - 621355968000000000) / 10000;
             for (int i = 0; i < n; i++)
             {
                 seqs = getEscapeSequences(ec);
             }
+
             Console.Out.WriteLine("Time to get " + n + " times: " + ((DateTime.Now.Ticks - 621355968000000000) / 10000 - start));
             start = (DateTime.Now.Ticks - 621355968000000000) / 10000;
             for (int i = 0; i < n; i++)
             {
                 seqs = makeEscapeSequences(ec);
             }
+
             Console.Out.WriteLine("Time to make " + n + " times: " + ((DateTime.Now.Ticks - 621355968000000000) / 10000 - start));
 
             //test escape:

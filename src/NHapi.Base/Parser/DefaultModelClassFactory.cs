@@ -68,6 +68,7 @@ namespace NHapi.Base.Parser
             {
                 theName = ParserBase.GetMessageStructureForEvent(theName, theVersion);
             }
+
             mc = findClass(theName, theVersion, ClassType.Message);
             if (mc == null)
                 mc = GenericMessage.getGenericMessageClass(theVersion);
@@ -171,6 +172,7 @@ namespace NHapi.Base.Parser
                         {
                             AddPackage(packages, package);
                         }
+
                         _isLoadingPackages = false;
                     }
                 }
@@ -183,6 +185,7 @@ namespace NHapi.Base.Parser
             {
                 Thread.Sleep(100);
             }
+
             if (packages[version] == null)
                 throw new Exception(string.Format("Package '{0}' could not be found", version));
 
@@ -236,6 +239,7 @@ namespace NHapi.Base.Parser
                     {
                         log.Debug("Trying to load: " + classNameToTry);
                     }
+
                     compClass = Type.GetType(classNameToTry);
                     if (log.DebugEnabled)
                     {
@@ -246,8 +250,10 @@ namespace NHapi.Base.Parser
                 {
                     /* just try next one */
                 }
+
                 c++;
             }
+
             return compClass;
         }
 

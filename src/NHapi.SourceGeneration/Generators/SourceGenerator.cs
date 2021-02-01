@@ -123,6 +123,7 @@ namespace NHapi.SourceGeneration.Generators
                             aName.Append(capitalize(filterBracketedText(bracketContents.ToString())));
                             bracketContents = new StringBuilder();
                         }
+
                         if (lastCharWasNotLetter)
                         {
                             //first letter of each word is upper-case
@@ -132,6 +133,7 @@ namespace NHapi.SourceGeneration.Generators
                         {
                             aName.Append(chars[i]);
                         }
+
                         lastCharWasNotLetter = false;
                     }
                 }
@@ -140,6 +142,7 @@ namespace NHapi.SourceGeneration.Generators
                     lastCharWasNotLetter = true;
                 }
             }
+
             aName.Append(capitalize(filterBracketedText(bracketContents.ToString())));
             if (Char.IsDigit(aName[0]))
             {
@@ -216,6 +219,7 @@ namespace NHapi.SourceGeneration.Generators
                 cap.Append(Char.ToUpper(text[0]));
                 cap.Append(text.Substring(1, (text.Length) - (1)));
             }
+
             return cap.ToString();
         }
 
@@ -269,6 +273,7 @@ namespace NHapi.SourceGeneration.Generators
                 Console.Out.WriteLine("Usage: SourceGenerator base_directory version");
                 Environment.Exit(1);
             }
+
             makeAll(args[0], args[1]);
         }
     }

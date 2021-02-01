@@ -78,6 +78,7 @@ namespace NHapi.SourceGeneration.Generators
                     messages.Add(Convert.ToString(rs[1 - 1]));
                     chapters.Add(Convert.ToString(rs[2 - 1]));
                 }
+
                 rs.Close();
                 NormativeDatabase.Instance.returnConnection(conn);
 
@@ -198,6 +199,7 @@ namespace NHapi.SourceGeneration.Generators
                     segments[c] = new SegmentDef(name, groupName, !optional, repeating, desc);
                 }
             }
+
             rs.Close();
             SegmentDef[] ret = new SegmentDef[c + 1];
             Array.Copy(segments, 0, ret, 0, c + 1);
@@ -332,11 +334,13 @@ namespace NHapi.SourceGeneration.Generators
                     source.Append(def.Name);
                     source.Append("), ");
                 }
+
                 source.Append(def.Required.ToString().ToLower());
                 source.Append(", ");
                 source.Append(def.Repeating.ToString().ToLower());
                 source.Append(");\r\n");
             }
+
             source.Append("\t   } catch(HL7Exception e) {\r\n");
             source.Append("\t      HapiLogFactory.GetHapiLog(GetType()).Error(\"Unexpected error creating ");
             source.Append(messageName);

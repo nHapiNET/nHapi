@@ -72,6 +72,7 @@ namespace NHapi.Base.Model
             {
                 comps.Add(new Varies(message));
             }
+
             /*ArrayList reps = (ArrayList) this.comps.get(comp);
             for (int j = reps.size(); j <= rep; j++) {
             addRep(comp, j);

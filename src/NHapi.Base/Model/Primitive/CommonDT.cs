@@ -107,20 +107,24 @@ namespace NHapi.Base.Model.Primitive
                             new DateTime(year, month, dayInt);
                             day = dayInt;
                         }
+
                         //validations are complete now store the input value into the private value field
                         value_Renamed = value;
                     }
+
                     //end try
                     catch (DataTypeException e)
                     {
                         throw e;
                     }
+
                     //end catch
                     catch (Exception e)
                     {
                         throw new DataTypeException("An unexpected exception ocurred", e);
                     } //end catch
                 }
+
                 //end if
                 else
                 {
@@ -157,11 +161,13 @@ namespace NHapi.Base.Model.Primitive
                     day = 0;
                     value_Renamed = Convert.ToString(value);
                 }
+
                 //end try
                 catch (DataTypeException e)
                 {
                     throw e;
                 }
+
                 //end catch
                 catch (Exception e)
                 {
@@ -312,6 +318,7 @@ namespace NHapi.Base.Model.Primitive
             {
                 throw new DataTypeException("An unexpected exception ocurred", e);
             }
+
             return val;
         }
 

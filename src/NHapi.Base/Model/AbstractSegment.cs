@@ -87,6 +87,7 @@ namespace NHapi.Base.Model
                 {
                     s = s.ParentStructure;
                 }
+
                 return (IMessage)s;
             }
         }
@@ -112,6 +113,7 @@ namespace NHapi.Base.Model
                     "Can't retrieve field " + number + " from segment " + GetType().FullName + " - there are only " +
                     _items[number - 1].Fields.Count + " fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
+
             return _items[number - 1].GetAllFieldsAsITypeArray();
 
             //return (IType[])_items[number - 1].fields; //note: fields are numbered from 1 from the user's perspective
@@ -128,6 +130,7 @@ namespace NHapi.Base.Model
                     "Can't retrieve field " + number + " from segment " + GetType().FullName + " - there are only " + _items.Count +
                     " fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
+
             return _items[number - 1].Description;
         }
 
@@ -209,6 +212,7 @@ namespace NHapi.Base.Model
                         argClasses[i] = args[i].GetType();
                     }
                 }
+
                 newType = (IType)c.GetConstructor(argClasses).Invoke(args);
             }
             catch (UnauthorizedAccessException iae)
@@ -233,6 +237,7 @@ namespace NHapi.Base.Model
                 throw new HL7Exception("Can't instantiate class " + c.FullName + " (" + ie.GetType().FullName + "): " + ie.Message,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
+
             return newType;
         }
 
@@ -404,6 +409,7 @@ namespace NHapi.Base.Model
             {
                 throw new HL7Exception($"Invalid index: {index}, structure {fields.GetType().FullName} has no repetitions");
             }
+
             if (fields.Count <= index)
             {
                 throw new HL7Exception($"Invalid index: {index}, structure {fields.GetType().FullName} must be between 0 and {fields.Count - 1}");
@@ -432,6 +438,7 @@ namespace NHapi.Base.Model
             {
                 throw new HL7Exception($"Structure {fields.GetType().FullName} has no repetitions");
             }
+
             if (!fields.Contains(removeItem))
             {
                 throw new HL7Exception($"Invalid item specified, structure {fields.GetType().FullName} does not contain {removeItem.ToString()}");

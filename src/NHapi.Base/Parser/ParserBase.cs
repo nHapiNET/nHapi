@@ -129,6 +129,7 @@ namespace NHapi.Base.Parser
                 throw new HL7Exception("Can't process message of version '" + version + "' - version not recognized",
                     ErrorCode.UNSUPPORTED_VERSION_ID);
             }
+
             return Parse(message, version);
         }
 
@@ -333,6 +334,7 @@ namespace NHapi.Base.Parser
                     "Couldn't create MSH for version " + version + " (does your classpath include this version?) ... ",
                     ErrorCode.APPLICATION_INTERNAL_ERROR, e);
             }
+
             return msh;
         }
 
@@ -405,6 +407,7 @@ namespace NHapi.Base.Parser
             {
                 throw new Exception("Can't find message class in current package list: " + theName);
             }
+
             _log.Info("Instantiating msg of class " + messageClass.FullName);
             ConstructorInfo constructor = messageClass.GetConstructor(new Type[] { typeof(IModelClassFactory) });
             result = (IMessage)constructor.Invoke(new Object[] { _modelClassFactory });

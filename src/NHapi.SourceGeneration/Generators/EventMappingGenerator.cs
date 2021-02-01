@@ -15,6 +15,7 @@ namespace NHapi.SourceGeneration.Generators
             {
                 baseDirectory = baseDirectory + "/";
             }
+
             FileInfo targetDir =
                 SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "EventMapping");
 

@@ -79,6 +79,7 @@ namespace NHapi.SourceGeneration
                     break;
                 }
             }
+
             CloseConnection();
             return result;
         }
@@ -165,6 +166,7 @@ namespace NHapi.SourceGeneration
                     }
                 }
             }
+
             CloseConnection();
             return schemaData;
         }
@@ -205,12 +207,14 @@ namespace NHapi.SourceGeneration
                         tableTypes.Add(tableType);
                     }
                 }
+
                 schemaData = new DataTable();
                 schemaData.Columns.Add("TABLE_TYPE");
                 for (int index = 0; index < tableTypes.Count; index++)
                 {
                     schemaData.Rows.Add(new object[] { tableTypes[index] });
                 }
+
                 CloseConnection();
                 return schemaData;
             }

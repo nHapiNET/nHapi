@@ -63,6 +63,7 @@ namespace NHapi.SourceGeneration
                         {
                             roomyList[c++] = rs.GetInt32(1 - 1);
                         }
+
                         stmt.Dispose();
                         NormativeDatabase.Instance.returnConnection(conn);
 
@@ -74,6 +75,7 @@ namespace NHapi.SourceGeneration
                         throw new LookupException("Can't get table list from database: " + sqle.Message);
                     }
                 }
+
                 return tableList;
             }
         }
@@ -197,6 +199,7 @@ namespace NHapi.SourceGeneration
                     throw new UnknownValueException("The value " + value_Renamed + " could not be found in the table " + table +
                                                               " - SQL: " + sql.ToString());
                 }
+
                 stmt.Dispose();
                 NormativeDatabase.Instance.returnConnection(conn);
             }

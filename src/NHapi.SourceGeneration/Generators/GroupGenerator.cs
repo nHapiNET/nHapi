@@ -81,6 +81,7 @@ namespace NHapi.SourceGeneration.Generators
             {
                 baseDirectory = baseDirectory + "/";
             }
+
             FileInfo targetDir =
                 SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Group");
 
@@ -98,9 +99,11 @@ namespace NHapi.SourceGeneration.Generators
                 {
                     out_Renamed.Write(makeAccessor(group, i));
                 }
+
                 out_Renamed.Write("}\r\n"); //Closing class
                 out_Renamed.Write("}\r\n"); //Closing namespace
             }
+
             return group;
         }
 
@@ -173,6 +176,7 @@ namespace NHapi.SourceGeneration.Generators
                         shortList[currShortListPos] = structures[currLongListPos];
                         currLongListPos++;
                     }
+
                     currShortListPos++;
                 }
             }
@@ -204,6 +208,7 @@ namespace NHapi.SourceGeneration.Generators
             {
                 ret = true;
             }
+
             return ret;
         }
 
@@ -216,6 +221,7 @@ namespace NHapi.SourceGeneration.Generators
             {
                 ret = true;
             }
+
             return ret;
         }
 
@@ -227,6 +233,7 @@ namespace NHapi.SourceGeneration.Generators
             {
                 ret = true;
             }
+
             return ret;
         }
 
@@ -319,6 +326,7 @@ namespace NHapi.SourceGeneration.Generators
                     source.Append(");\r\n");
                 }
             }
+
             source.Append("\t   } catch(HL7Exception e) {\r\n");
             source.Append("\t      HapiLogFactory.GetHapiLog(GetType()).Error(\"Unexpected error creating ");
             source.Append(group.Name);
@@ -351,6 +359,7 @@ namespace NHapi.SourceGeneration.Generators
                     elements.Append("repeating");
                 elements.Append("</li>\r\n");
             }
+
             elements.Append("///</ol>\r\n");
             return elements.ToString();
         }
@@ -397,6 +406,7 @@ namespace NHapi.SourceGeneration.Generators
                 source.Append(" { \r\n");
                 source.Append("get{\r\n");
             }
+
             source.Append("\t   ");
             source.Append(def.Name);
             source.Append(" ret = null;\r\n");
@@ -554,6 +564,7 @@ namespace NHapi.SourceGeneration.Generators
                     {
                         log.Error("Structure " + i + ": " + structures[i].Name);
                     }
+
                     throw new ArgumentException("The segment " + startMarker + " does not begin a group - must be [ or {");
                 }
             }
@@ -586,6 +597,7 @@ namespace NHapi.SourceGeneration.Generators
             {
                 throw new HL7Exception("Couldn't find end of group", ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
+
             if (!endMarker.Equals(segName))
                 throw new HL7Exception("Group markers are not nested properly", ErrorCode.APPLICATION_INTERNAL_ERROR);
             return groupStart + offset;

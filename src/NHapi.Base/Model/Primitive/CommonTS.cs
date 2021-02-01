@@ -104,6 +104,7 @@ namespace NHapi.Base.Model.Primitive
                 {
                     value_Renamed = dt.Value;
                 } //end if
+
                 if (tm != null && value_Renamed != null && !value_Renamed.Equals(""))
                 {
                     if (tm.Value != null && !tm.Value.Equals(""))
@@ -120,6 +121,7 @@ namespace NHapi.Base.Model.Primitive
                             value_Renamed = value_Renamed + tm.Value;
                         }
                     } //end if
+
                     if (tm.Value == null || tm.Value.Equals(""))
                     {
                         //here we know we both have the date and just the time offset value
@@ -133,15 +135,18 @@ namespace NHapi.Base.Model.Primitive
                             {
                                 offsetStr = "+" + offsetStr;
                             }
+
                             //end if
                             else
                             {
                                 offsetStr = "-" + offsetStr;
                             } //end else
                         }
+
                         value_Renamed = value_Renamed + offsetStr;
                     } //end if
                 } //end if
+
                 return value_Renamed;
             }
 
@@ -184,6 +189,7 @@ namespace NHapi.Base.Model.Primitive
                         {
                             offsetExists = true;
                         }
+
                         if (sp != -1)
                             indexOfSign = sp;
                         if (sm != -1)
@@ -248,6 +254,7 @@ namespace NHapi.Base.Model.Primitive
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
                             } //end if
+
                             tm = new CommonTM();
                             tm.Value = timeVal;
                         } //end if
@@ -266,27 +273,32 @@ namespace NHapi.Base.Model.Primitive
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
                             } //end if
+
                             tm = new CommonTM();
                             //first extract the + sign from the offset value string if it exists
                             if (timeVal.IndexOf("+") == 0)
                             {
                                 timeVal = timeVal.Substring(1);
                             } //end if
+
                             int signedOffset = Int32.Parse(timeVal);
                             tm.Offset = signedOffset;
                         } //end if
                     }
+
                     //end try
                     catch (DataTypeException e)
                     {
                         throw e;
                     }
+
                     //end catch
                     catch (Exception e)
                     {
                         throw new DataTypeException("An unexpected exception ocurred", e);
                     } //end catch
                 }
+
                 //end if
                 else
                 {
@@ -296,6 +308,7 @@ namespace NHapi.Base.Model.Primitive
                         dt = null;
                         tm = null;
                     } //end if
+
                     if (value != null && value.Equals(""))
                     {
                         dt = new CommonDT();
@@ -303,6 +316,7 @@ namespace NHapi.Base.Model.Primitive
                         tm = new CommonTM();
                         tm.Value = "";
                     } //end if
+
                     if (value != null && value.Equals("\"\""))
                     {
                         dt = new CommonDT();
@@ -312,6 +326,7 @@ namespace NHapi.Base.Model.Primitive
                     } //end if
                 } //end else
             }
+
             // end method
         }
 
@@ -329,6 +344,7 @@ namespace NHapi.Base.Model.Primitive
                     {
                         tm = new CommonTM();
                     }
+
                     //set the offset value of the time object to the input value
                     tm.Offset = value;
                 }
@@ -336,6 +352,7 @@ namespace NHapi.Base.Model.Primitive
                 {
                     throw e;
                 }
+
                 //end catch
                 catch (Exception e)
                 {
@@ -354,6 +371,7 @@ namespace NHapi.Base.Model.Primitive
                 {
                     year = dt.Year;
                 } //end if
+
                 return year;
             }
         }
@@ -368,6 +386,7 @@ namespace NHapi.Base.Model.Primitive
                 {
                     month = dt.Month;
                 } //end if
+
                 return month;
             }
         }
@@ -382,6 +401,7 @@ namespace NHapi.Base.Model.Primitive
                 {
                     day = dt.Day;
                 } //end if
+
                 return day;
             }
         }
@@ -396,6 +416,7 @@ namespace NHapi.Base.Model.Primitive
                 {
                     hour = tm.Hour;
                 } //end if
+
                 return hour;
             }
         }
@@ -410,6 +431,7 @@ namespace NHapi.Base.Model.Primitive
                 {
                     minute = tm.Minute;
                 } //end if
+
                 return minute;
             }
         }
@@ -424,6 +446,7 @@ namespace NHapi.Base.Model.Primitive
                 {
                     seconds = tm.Second;
                 } //end if
+
                 return seconds;
             }
         }
@@ -438,6 +461,7 @@ namespace NHapi.Base.Model.Primitive
                 {
                     fractionOfSec = tm.FractSecond;
                 } //end if
+
                 return fractionOfSec;
             }
         }
@@ -452,6 +476,7 @@ namespace NHapi.Base.Model.Primitive
                 {
                     offSet = tm.GMTOffset;
                 } //end if
+
                 return offSet;
             }
         }
@@ -492,16 +517,19 @@ namespace NHapi.Base.Model.Primitive
                 {
                     dt = new CommonDT();
                 }
+
                 //set the value of the date object to the input date value
                 dt.setYearMonthDayPrecision(yr, mnth, dy);
                 //clear the time value object
                 tm = null;
             }
+
             //end try
             catch (DataTypeException e)
             {
                 throw e;
             }
+
             //end catch
             catch (Exception e)
             {
@@ -524,14 +552,17 @@ namespace NHapi.Base.Model.Primitive
                 {
                     tm = new CommonTM();
                 }
+
                 //set the value of the time object to the minute precision with the input values
                 tm.setHourMinutePrecision(hr, min);
             }
+
             //end try
             catch (DataTypeException e)
             {
                 throw e;
             }
+
             //end catch
             catch (Exception e)
             {
@@ -560,14 +591,17 @@ namespace NHapi.Base.Model.Primitive
                 {
                     tm = new CommonTM();
                 }
+
                 //set the value of the time object to the second precision with the input values
                 tm.setHourMinSecondPrecision(hr, min, sec);
             }
+
             //end try
             catch (DataTypeException e)
             {
                 throw e;
             }
+
             //end catch
             catch (Exception e)
             {
@@ -607,6 +641,7 @@ namespace NHapi.Base.Model.Primitive
                 {
                     offSetSignInt = 1;
                 }
+
                 //get the absolute value of the gmtOffSet
                 int absGmtOffSet = Math.Abs(calOffset);
                 int gmtOffSetHours = absGmtOffSet / (3600 * 1000);
@@ -620,16 +655,19 @@ namespace NHapi.Base.Model.Primitive
                 ts.Offset = calOffset;
                 val = ts.Value;
             }
+
             // end try
             catch (DataTypeException e)
             {
                 throw e;
             }
+
             //end catch
             catch (Exception e)
             {
                 throw new DataTypeException("An unexpected exception ocurred", e);
             } //end catch
+
             return val;
         }
 

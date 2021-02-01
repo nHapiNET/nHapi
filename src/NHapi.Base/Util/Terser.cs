@@ -175,6 +175,7 @@ namespace NHapi.Base.Util
             {
                 p = (IPrimitive)type;
             }
+
             return p;
         }
 
@@ -233,6 +234,7 @@ namespace NHapi.Base.Util
                     ret = type.ExtraComponents.getComponent(comp - numStandardComponents(type) - 1);
                 }
             }
+
             return ret;
         }
 
@@ -291,6 +293,7 @@ namespace NHapi.Base.Util
                     {
                         g = finder.getGroup(ps.pattern, ps.rep);
                     }
+
                     finder = new SegmentFinder(g);
                 }
                 else
@@ -328,6 +331,7 @@ namespace NHapi.Base.Util
             {
                 throw new HL7Exception("Invalid path (some path element is either empty or contains only a dot)");
             }
+
             SupportClass.Tokenizer tok = new SupportClass.Tokenizer(spec, "()", false);
             ps.pattern = tok.NextToken();
             if (tok.HasMoreTokens())
@@ -346,6 +350,7 @@ namespace NHapi.Base.Util
             {
                 ps.rep = 0;
             }
+
             return ps;
         }
 
@@ -382,6 +387,7 @@ namespace NHapi.Base.Util
                 {
                     subcomponent = Int32.Parse(tok.NextToken());
                 }
+
                 int[] result = new int[] { fieldNum, fieldRep, component, subcomponent };
                 ret = result;
             }
@@ -405,6 +411,7 @@ namespace NHapi.Base.Util
                 log.Debug("Setting " + spec + " seg: " + segment.GetStructureName() + " ind: " + ind[0] + " " + ind[1] + " " +
                              ind[2] + " " + ind[3]);
             }
+
             Set(segment, ind[0], ind[1], ind[2], ind[3], value_Renamed);
         }
 
@@ -430,6 +437,7 @@ namespace NHapi.Base.Util
                 IType comp = getComponent(type, component);
                 n = numComponents(comp);
             }
+
             return n;
             /*
             //Type t = seg.GetField(field, rep);
@@ -477,6 +485,7 @@ namespace NHapi.Base.Util
             {
                 n = 1;
             }
+
             return n;
         }
 

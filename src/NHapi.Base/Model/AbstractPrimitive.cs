@@ -69,6 +69,7 @@ namespace NHapi.Base.Model
                                 {
                                     validationFailureMessage += Environment.NewLine + "Reason: " + rule.SectionReference;
                                 }
+
                                 throw new DataTypeException(validationFailureMessage);
                             }
                         }

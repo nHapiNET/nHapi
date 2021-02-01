@@ -90,6 +90,7 @@ namespace NHapi.Base.Util
                     s = getCurrentStructure(rep);
                 }
             }
+
             return s;
         }
 
@@ -113,6 +114,7 @@ namespace NHapi.Base.Util
             {
                 throw new HL7Exception(s.GetStructureName() + " is not a segment", ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
+
             return (ISegment)s;
         }
 
@@ -124,6 +126,7 @@ namespace NHapi.Base.Util
             {
                 throw new HL7Exception(s.GetStructureName() + " is not a group", ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
+
             return (IGroup)s;
         }
 

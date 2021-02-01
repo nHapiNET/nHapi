@@ -97,6 +97,7 @@ namespace NHapi.Base.Parser
                         strBuf.Append("|");
                         strBuf.Append(value[i]);
                     }
+
                     concatKeepAsOriginalNodes = strBuf.ToString();
                 }
                 else
@@ -153,6 +154,7 @@ namespace NHapi.Base.Parser
                 if (message.IndexOf(expected[i]) < 0)
                     isXML = false;
             }
+
             if (isXML)
                 encoding = "XML";
 
@@ -355,10 +357,12 @@ namespace NHapi.Base.Parser
                         {
                             throw new HL7Exception("DOMException encoding Segment: ", ErrorCode.APPLICATION_INTERNAL_ERROR, e);
                         }
+
                         hasValue = true;
                     }
                 }
             }
+
             return hasValue;
         }
 
@@ -397,6 +401,7 @@ namespace NHapi.Base.Parser
                 //it's a composite ... almost know what type, except that we don't have the version here
                 datatypeObject.Data = new GenericComposite(datatypeObject.Message);
             }
+
             Parse(datatypeObject.Data, datatypeElement);
         }
 
@@ -412,8 +417,10 @@ namespace NHapi.Base.Parser
                 {
                     hasElement = true;
                 }
+
                 c++;
             }
+
             return hasElement;
         }
 
@@ -446,6 +453,7 @@ namespace NHapi.Base.Parser
                     {
                         log.Error("Error parsing primitive value from TEXT_NODE", e);
                     }
+
                     full = true;
                 }
             }
@@ -493,6 +501,7 @@ namespace NHapi.Base.Parser
                     s = buf.ToString();
                 }
             }
+
             return s.Trim();
         }
 
@@ -563,6 +572,7 @@ namespace NHapi.Base.Parser
             {
                 hasData = EncodeComposite((IComposite)datatypeObject, datatypeElement);
             }
+
             return hasData;
         }
 
@@ -576,6 +586,7 @@ namespace NHapi.Base.Parser
             {
                 hasData = Encode(datatypeObject.Data, datatypeElement);
             }
+
             return hasData;
         }
 
@@ -600,6 +611,7 @@ namespace NHapi.Base.Parser
                     throw new DataTypeException("DOMException encoding Primitive: ", e);
                 }
             }
+
             return hasValue;
         }
 
@@ -627,9 +639,11 @@ namespace NHapi.Base.Parser
                     {
                         throw new DataTypeException("DOMException encoding Composite: ", e);
                     }
+
                     hasValue = true;
                 }
             }
+
             return hasValue;
         }
 
@@ -660,6 +674,7 @@ namespace NHapi.Base.Parser
                 procID = ParseLeaf(message, "PT.1", message.IndexOf("MSH.11"));
                 //this field is a composite in later versions
             }
+
             Terser.Set(criticalData, 11, 0, 1, 1, procID);
 
             return criticalData;
@@ -685,6 +700,7 @@ namespace NHapi.Base.Parser
             {
                 /* OK ... assume it isn't a response message */
             }
+
             return ackID;
         }
 
@@ -695,6 +711,7 @@ namespace NHapi.Base.Parser
             {
                 version = ParseLeaf(message, "VID.1", message.IndexOf("MSH.12"));
             }
+
             return version;
         }
 
@@ -721,6 +738,7 @@ namespace NHapi.Base.Parser
             {
                 tagStart = message.IndexOf("<" + tagName.ToUpper(), startAt);
             }
+
             int valStart = message.IndexOf(">", tagStart) + 1;
             int valEnd = message.IndexOf("<", valStart);
 

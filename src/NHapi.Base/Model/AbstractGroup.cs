@@ -69,6 +69,7 @@ namespace NHapi.Base.Model
                     break;
                 }
             }
+
             return ret;
         }
 
@@ -85,6 +86,7 @@ namespace NHapi.Base.Model
                     AbstractGroupItem item = _items[i];
                     retVal[i] = item.Name;
                 }
+
                 return retVal;
             }
         }
@@ -99,6 +101,7 @@ namespace NHapi.Base.Model
                 {
                     s = s.ParentStructure;
                 }
+
                 return (IMessage)s;
             }
         }
@@ -193,6 +196,7 @@ namespace NHapi.Base.Model
                     "Can't return repetition #" + rep + " of " + name + " - there are only " + _items.Count + " repetitions.",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
+
             return ret;
         }
 
@@ -318,6 +322,7 @@ namespace NHapi.Base.Model
                 {
                     newName = name + version++;
                 }
+
                 name = newName;
             }
 
@@ -371,11 +376,13 @@ namespace NHapi.Base.Model
                     {
                         o = Activator.CreateInstance(c);
                     }
+
                     if (!(o is IStructure))
                     {
                         throw new HL7Exception("Class " + c.FullName + " does not implement " + "ca.on.uhn.hl7.message.Structure",
                             ErrorCode.APPLICATION_INTERNAL_ERROR);
                     }
+
                     s = (IStructure)o;
                 }
             }
@@ -390,6 +397,7 @@ namespace NHapi.Base.Model
                     throw new HL7Exception("Can't instantiate class " + c.FullName, ErrorCode.APPLICATION_INTERNAL_ERROR, e);
                 }
             }
+
             return s;
         }
 
@@ -441,6 +449,7 @@ namespace NHapi.Base.Model
             {
                 all[i] = item.Structures[i];
             }
+
             return all;
         }
 

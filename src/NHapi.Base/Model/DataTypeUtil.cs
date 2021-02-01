@@ -77,6 +77,7 @@ namespace NHapi.Base.Model
                 {
                     a = "0" + a;
                 } //end for
+
                 return a;
             } //end else
         }

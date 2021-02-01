@@ -22,6 +22,7 @@ namespace NHapi.Base.Model
                 {
                     ret[i] = (IType) components[i];
                 }
+
                 return ret;
             }
         }
@@ -62,6 +63,7 @@ namespace NHapi.Base.Model
                 {
                     components.Add(new Varies(message));
                 }
+
                 return (IType) components[index];
             }
         }

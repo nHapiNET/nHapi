@@ -76,6 +76,7 @@ namespace NHapi.Base.Model
                             if (i < chars.Length - 1)
                                 buf.Append('.');
                         }
+
                         version = buf.ToString();
                     }
                 }

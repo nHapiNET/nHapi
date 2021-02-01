@@ -49,6 +49,7 @@ namespace NHapi.SourceGeneration.Generators
                 {
                     result = "GenericSegment";
                 }
+
                 return result;
             }
         }

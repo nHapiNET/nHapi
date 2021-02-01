@@ -15,6 +15,7 @@ namespace NHapi.SourceGeneration
                 {
                     useFactory = Convert.ToBoolean(useFactoryFromConfig);
                 }
+
                 return useFactory;
             }
         }
@@ -30,6 +31,7 @@ namespace NHapi.SourceGeneration
                 {
                     _connectionString = connFromConfig;
                 }
+
                 return _connectionString;
             }
             set { _connectionString = value; }

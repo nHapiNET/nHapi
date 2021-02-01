@@ -32,6 +32,7 @@ namespace NHapi.SourceGeneration
                     command.CommandTimeout = 0;
                     Add(connection, TempProp);
                 }
+
                 return command;
             }
 
@@ -247,6 +248,7 @@ namespace NHapi.SourceGeneration
                 {
                     Commit(Connection);
                 }
+
                 Connection.Close();
             }
 

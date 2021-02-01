@@ -81,6 +81,7 @@ namespace NHapi.Base.Model
                         DeepCopy.copy(data, value);
                     }
                 }
+
                 data = value;
             }
         }
@@ -94,6 +95,7 @@ namespace NHapi.Base.Model
                 {
                     name = data.TypeName;
                 }
+
                 return name;
             }
         }

@@ -144,6 +144,7 @@ namespace NHapi.Base.Util
                 {
                     throw new HL7Exception("Can't drill into segment", ErrorCode.APPLICATION_INTERNAL_ERROR);
                 }
+
                 IGroup group = (IGroup)s;
 
                 //stack the current group and location
@@ -251,6 +252,7 @@ namespace NHapi.Base.Util
             {
                 ret = currentGroup;
             }
+
             return ret;
         }
 
@@ -350,6 +352,7 @@ namespace NHapi.Base.Util
                 if (list[i].Equals(item))
                     found = i;
             }
+
             return found;
         }
 

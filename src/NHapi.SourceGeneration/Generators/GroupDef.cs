@@ -64,6 +64,7 @@ namespace NHapi.SourceGeneration.Generators
                     {
                         name.Append(children[i]);
                     }
+
                     result = name.ToString();
                 }
 
@@ -92,6 +93,7 @@ namespace NHapi.SourceGeneration.Generators
                 {
                     ret[i] = (IStructureDef)elements[i];
                 }
+
                 return ret;
             }
         }
@@ -134,11 +136,13 @@ namespace NHapi.SourceGeneration.Generators
                         deepChildList.Add(childStructChildren[j]);
                     }
                 }
+
                 String[] result = new String[deepChildList.Count];
                 for (int i = 0; i < result.Length; i++)
                 {
                     result[i] = ((String)deepChildList[i]);
                 }
+
                 return result;
             }
         }
@@ -190,6 +194,7 @@ namespace NHapi.SourceGeneration.Generators
                 newName = name + c++;
                 o = existingNames[newName];
             }
+
             name = newName;
             existingNames[name] = name;
             return name;

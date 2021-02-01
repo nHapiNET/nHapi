@@ -77,6 +77,7 @@ namespace NHapi.Base.Util
                         throw new ArgumentOutOfRangeException();
                     }
                 }
+
                 nextObjectSet = false;
                 return nextObject;
             }
@@ -114,6 +115,7 @@ namespace NHapi.Base.Util
                     return true;
                 }
             }
+
             return false;
         }
 

@@ -64,6 +64,7 @@ namespace NHapi.Base.Parser
                 throw new HL7Exception("Can't create XML document - " + e.GetType().FullName,
                     ErrorCode.APPLICATION_INTERNAL_ERROR, e);
             }
+
             Encode(source, (XmlElement)doc.DocumentElement);
             return doc;
         }
@@ -211,6 +212,7 @@ namespace NHapi.Base.Parser
             {
                 Parse((ISegment)theObj, theElem);
             }
+
             log.Debug("Parsed element: " + theElem.Name);
         }
 

@@ -66,6 +66,7 @@ namespace NHapi.Base.Model
             {
                 c = typeof (V25);
             }
+
             return c;
         }
 

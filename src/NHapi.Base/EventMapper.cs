@@ -41,6 +41,7 @@ namespace NHapi.Base
                 {
                     structures = GetAssemblyEventMapping(assembly, package);
                 }
+
                 _map[package.Version] = structures;
             }
         }
@@ -54,6 +55,7 @@ namespace NHapi.Base
             {
                 assemblyString = assemblyString.Substring(0, assemblyString.Length - 1);
             }
+
             return assemblyString;
         }
 
@@ -92,11 +94,13 @@ namespace NHapi.Base
                                 string[] lineElements = line.Split(' ', '\t');
                                 structures.Add(lineElements[0], lineElements[1]);
                             }
+
                             line = sr.ReadLine();
                         }
                     }
                 }
             }
+
             return structures;
         }
 

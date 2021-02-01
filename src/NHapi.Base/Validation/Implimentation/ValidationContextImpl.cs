@@ -103,6 +103,7 @@ namespace NHapi.Base.validation.impl
                     active.Add(binding.Rule);
                 }
             }
+
             return (IPrimitiveTypeRule[])SupportClass.ICollectionSupport.ToArray(active, new IPrimitiveTypeRule[0]);
         }
 
@@ -124,6 +125,7 @@ namespace NHapi.Base.validation.impl
                     active.Add(binding.Rule);
                 }
             }
+
             return (IMessageRule[])SupportClass.ICollectionSupport.ToArray(active, new IMessageRule[0]);
         }
 
@@ -144,6 +146,7 @@ namespace NHapi.Base.validation.impl
                     active.Add(binding.Rule);
                 }
             }
+
             return (IEncodingRule[])SupportClass.ICollectionSupport.ToArray(active, new IEncodingRule[0]);
         }
     }

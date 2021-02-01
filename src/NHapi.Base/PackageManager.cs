@@ -71,6 +71,7 @@ namespace NHapi.Base
                 if (package.Version.ToUpper().Trim().Equals(version))
                     return true;
             }
+
             return false;
         }
 
@@ -93,6 +94,7 @@ namespace NHapi.Base
                 if (versionChars[i] != '.')
                     path.Append(versionChars[i]);
             }
+
             path.Append("/");
             return path.ToString();
         }

@@ -142,6 +142,7 @@ namespace NHapi.Base.Model
             {
                 fields[i++] = type;
             }
+
             return fields;
         }
     }
