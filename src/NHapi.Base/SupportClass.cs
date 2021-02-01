@@ -1118,6 +1118,7 @@ namespace NHapi.Base
         protected bool isValidating;
         protected bool namespaceAllowed;
         protected XmlReader reader;
+
         // protected XmlValidatingReader reader;
         protected IXmlSaxContentHandler callBackHandler;
         protected IXmlSaxErrorHandler errorHandler;
@@ -1606,6 +1607,7 @@ namespace NHapi.Base
             // Set the validation settings.
             XmlReaderSettings settings = new XmlReaderSettings();
             settings.ValidationType = (isValidating) ? ValidationType.DTD : ValidationType.None;
+
             // settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessInlineSchema;
             settings.ValidationFlags |= XmlSchemaValidationFlags.ReportValidationWarnings;
             settings.ValidationEventHandler += new ValidationEventHandler(ValidationEventHandle);
@@ -2007,6 +2009,7 @@ namespace NHapi.Base
             public static bool Add(ICollection c, Object obj)
             {
                 bool added = false;
+
                 // Reflection. Invoke either the "add" or "Add" method.
                 MethodInfo method;
                 try
@@ -3156,10 +3159,12 @@ namespace NHapi.Base
                 // at the end
                 if (currentPos == chars.Length)
                     throw new ArgumentOutOfRangeException();
+
                 // if over a delimiter and delimiters must be returned
                 else if ((Array.IndexOf(delimiters.ToCharArray(), chars[currentPos]) != -1)
                             && includeDelims)
                     return "" + chars[currentPos++];
+
                 // need to get the token wo delimiters.
                 else
                     return nextToken(delimiters.ToCharArray());
@@ -3173,6 +3178,7 @@ namespace NHapi.Base
 
                 // skip possible delimiters
                 while (Array.IndexOf(delimiters, chars[currentPos]) != -1)
+
                     // The last one is a delimiter (i.e there is no more tokens)
                     if (++currentPos == chars.Length)
                     {
@@ -3184,6 +3190,7 @@ namespace NHapi.Base
                 while (Array.IndexOf(delimiters, chars[currentPos]) == -1)
                 {
                     token.Append(chars[currentPos]);
+
                     // the last one is not a delimiter
                     if (++currentPos == chars.Length)
                         break;

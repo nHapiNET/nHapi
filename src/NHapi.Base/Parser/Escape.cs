@@ -139,6 +139,7 @@ namespace NHapi.Base.Parser
                                     // Contains /#xxyyzz..nn/ from the main string.
                                     string potentialEscapeSequence = text.Substring(i, nextEscapeChar - i + 1);
                                     bool encodeCharacter1 = true;
+
                                     // Get the hex component by striping initial slash, escape character, and last slash. Need to substring at index 2 for length - 3 characters.
                                     string hex = potentialEscapeSequence.Substring(2, potentialEscapeSequence.Length - 3);
                                     if (hex.Length % 2 == 0)
@@ -305,6 +306,7 @@ namespace NHapi.Base.Parser
         public static void Main(String[] args)
         {
             String testString = "foo$r$this is $ $p$test$r$r$ string";
+
             // System.out.println(testString);
             // System.out.println(replace(testString, "$r$", "***"));
             // System.out.println(replace(testString, "$", "+"));
@@ -313,6 +315,7 @@ namespace NHapi.Base.Parser
             int n = 100000;
             Hashtable seqs;
             EncodingCharacters ec = new EncodingCharacters('|', "^~\\&");
+
             // warm up the JIT
             for (int i = 0; i < n; i++)
             {

@@ -229,8 +229,10 @@ namespace NHapi.Base.Model.Primitive
 
                         // create date object
                         dt = new CommonDT();
+
                         // set the value of the date object to the input date value
                         dt.Value = dateVal;
+
                         // if the offset does not exist and a timvalue does not exist then
                         // we must provide a default offset = to the local time zone
                         if (timeVal == null && offsetExists == false)
@@ -275,6 +277,7 @@ namespace NHapi.Base.Model.Primitive
                             } // end if
 
                             tm = new CommonTM();
+
                             // first extract the + sign from the offset value string if it exists
                             if (timeVal.IndexOf("+") == 0)
                             {
@@ -520,6 +523,7 @@ namespace NHapi.Base.Model.Primitive
 
                 // set the value of the date object to the input date value
                 dt.setYearMonthDayPrecision(yr, mnth, dy);
+
                 // clear the time value object
                 tm = null;
             }
@@ -547,6 +551,7 @@ namespace NHapi.Base.Model.Primitive
             {
                 // set the value of the date object to the input date value
                 setDatePrecision(yr, mnth, dy);
+
                 // create new time object is there isn't one
                 if (tm == null)
                 {
@@ -586,6 +591,7 @@ namespace NHapi.Base.Model.Primitive
             {
                 // set the value of the date object to the input date value
                 setDatePrecision(yr, mnth, dy);
+
                 // create new time object is there isn't one
                 if (tm == null)
                 {
@@ -626,10 +632,12 @@ namespace NHapi.Base.Model.Primitive
                 int calMin = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MINUTE);
                 int calSec = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.SECOND);
                 int calMilli = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MILLISECOND);
+
                 // the inputs seconds and milli seconds should be combined into a float type
                 float fractSec = calMilli / 1000F;
                 float calSecFloat = calSec + fractSec;
                 int calOffset = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.ZONE_OFFSET);
+
                 // Note the input's Offset value is in milliseconds, we must convert it to
                 // a 4 digit integer in the HL7 Offset format.
                 int offSetSignInt;
@@ -646,8 +654,10 @@ namespace NHapi.Base.Model.Primitive
                 int absGmtOffSet = Math.Abs(calOffset);
                 int gmtOffSetHours = absGmtOffSet / (3600 * 1000);
                 int gmtOffSetMin = (absGmtOffSet / 60000) % (60);
+
                 // reset calOffset
                 calOffset = ((gmtOffSetHours * 100) + gmtOffSetMin) * offSetSignInt;
+
                 // Create an object of the TS class and populate it with the above values
                 // then return the HL7 string value from the object
                 CommonTS ts = new CommonTS();

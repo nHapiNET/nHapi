@@ -122,6 +122,7 @@ namespace NHapi.SourceGeneration.Generators
             try
             {
                 SegmentDef[] segments = getSegments(message, version);
+
                 // System.out.println("Making: " + message + " with " + segments.length + " segments (not writing message code - just groups)");
                 GroupDef group = GroupGenerator.getGroupDef(segments, null, baseDirectory, version, message);
                 IStructureDef[] contents = group.Structures;
@@ -173,6 +174,7 @@ namespace NHapi.SourceGeneration.Generators
             "and HL7MsgStructIDSegments.version_id = HL7Segments.version_id) " +
             "where HL7Segments.version_id = 6 and message_structure = '" + message + "' order by seq_no";*/
             String sql = getSegmentListQuery(message, version);
+
             // System.out.println(sql.toString());
             SegmentDef[] segments = new SegmentDef[200]; // presumably there won't be more than 200
             OdbcConnection conn = NormativeDatabase.Instance.Connection;

@@ -224,6 +224,7 @@ namespace NHapi.Base.Parser
                 String[] fields = Split(message.Substring(0, (Math.Max(message.IndexOf(segDelim), message.Length)) - (0)),
                     Convert.ToString(ec.FieldSeparator));
                 wholeFieldNine = fields[8];
+
                 // message structure is component 3 but we'll accept a composite of 1 and 2 if there is no component 3 ...
                 //      if component 1 is ACK, then the structure is ACK regardless of component 2
                 String[] comps = Split(wholeFieldNine, Convert.ToString(ec.ComponentSeparator));
@@ -333,6 +334,7 @@ namespace NHapi.Base.Parser
             if (IsDelimDefSegment(destination.GetStructureName()))
             {
                 fieldOffset = 1;
+
                 // set field 1 to fourth character of string
                 Terser.Set(destination, 1, 0, 1, 1, Convert.ToString(encodingChars.FieldSeparator));
             }
@@ -512,6 +514,7 @@ namespace NHapi.Base.Parser
             }
 
             return StripExtraDelimiters(field.ToString(), encodingChars.ComponentSeparator);
+
             // return encode(source, encodingChars, false);
         }
 
@@ -692,6 +695,7 @@ namespace NHapi.Base.Parser
                     for (int j = 0; j < reps.Length; j++)
                     {
                         String fieldText = Encode(reps[j], encodingChars);
+
                         // if this is MSH-2, then it shouldn't be escaped, so un-escape it again
                         if (IsDelimDefSegment(source.GetStructureName()) && i == 2)
                             fieldText = Escape.unescape(fieldText, encodingChars);

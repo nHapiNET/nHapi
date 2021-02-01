@@ -199,6 +199,7 @@ namespace NHapi.SourceGeneration.Generators
                     se.table = Convert.ToInt32(rs.GetValue(7 - 1));
                     se.opt = Convert.ToString(rs[8 - 1]);
                     se.type = Convert.ToString(rs[10 - 1]);
+
                     // shorten CE_x to CE
                     if (se.type.StartsWith("CE"))
                         se.type = "CE";
@@ -292,6 +293,7 @@ namespace NHapi.SourceGeneration.Generators
                         String type = SourceGenerator.getAlternateType(se.type, version);
                         source.Append("       this.add(");
                         source.Append("typeof(" + type + ")");
+
                         // if (type.equalsIgnoreCase("Varies")) {
                         //                    } else {
                         //                        source.append("factory.getTypeClass(\"");

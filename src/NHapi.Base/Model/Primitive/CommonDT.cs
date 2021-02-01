@@ -81,6 +81,7 @@ namespace NHapi.Base.Model.Primitive
                         {
                             // extract the year from the input value
                             int yrInt = Int32.Parse(value.Substring(0, (4) - (0)));
+
                             // check to see if the year is valid by creating a DateTime value with the Gregorian calendar and
                             // this value.  If an error occurs then processing will stop in this try block
                             new DateTime(yrInt, 1, 1, cal);
@@ -91,6 +92,7 @@ namespace NHapi.Base.Model.Primitive
                         {
                             // extract the month from the input value
                             int mnthInt = Int32.Parse(value.Substring(4, (6) - (4)));
+
                             // check to see if the month is valid by creating a DateTime value with the Gregorian calendar and
                             // this value.  If an error occurs then processing will stop in this try block
                             new DateTime(year, mnthInt, 1);
@@ -101,6 +103,7 @@ namespace NHapi.Base.Model.Primitive
                         {
                             // extract the day from the input value
                             int dayInt = Int32.Parse(value.Substring(6, (8) - (6)));
+
                             // check to see if the day is valid by creating a DateTime value with the Gregorian calendar and
                             // the year/month/day combination.  If an error occurs then processing will stop
                             // in this try block

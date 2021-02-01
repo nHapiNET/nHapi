@@ -323,6 +323,7 @@ namespace NHapi.Base
             }
 
             Terser.Set(errorSegment, 1, rep, 4, 1, Convert.ToString(ErrorCode));
+
             // this replaces the need to connect to the database
             Terser.Set(errorSegment, 1, rep, 4, 2, ErrorCode.GetName());
             Terser.Set(errorSegment, 1, rep, 4, 3, "hl70357");

@@ -64,10 +64,12 @@ namespace NHapi.SourceGeneration.Generators
             FileInfo targetDir =
                 SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Datatype");
             SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Datatype");
+
             // get list of data types
             ArrayList types = new ArrayList();
             OdbcConnection conn = NormativeDatabase.Instance.Connection;
             DbCommand stmt = TransactionManager.manager.CreateStatement(conn);
+
             // get normal data types ...
             DbCommand temp_OleDbCommand;
             temp_OleDbCommand = stmt;
@@ -81,6 +83,7 @@ namespace NHapi.SourceGeneration.Generators
             }
 
             rs.Close();
+
             // get CF, CK, CM, CN, CQ sub-types ...
             DbCommand temp_OleDbCommand2;
             temp_OleDbCommand2 = stmt;
@@ -121,6 +124,7 @@ namespace NHapi.SourceGeneration.Generators
         public static void make(FileInfo targetDirectory, String dataType, String version)
         {
             Console.WriteLine(" Writing " + targetDirectory.FullName + dataType);
+
             // make sure that targetDirectory is a directory ...
             if (!Directory.Exists(targetDirectory.FullName))
                 throw new IOException("Can't create file in " + targetDirectory + " - it is not a directory.");
@@ -129,6 +133,7 @@ namespace NHapi.SourceGeneration.Generators
             OdbcConnection conn = NormativeDatabase.Instance.Connection;
             DbCommand stmt = TransactionManager.manager.CreateStatement(conn);
             StringBuilder sql = new StringBuilder();
+
             // this query is adapted from the XML SIG informative document
             sql.Append(
                 "SELECT HL7DataStructures.data_structure, HL7DataStructureComponents.seq_no, HL7DataStructures.description, HL7DataStructureComponents.table_id,  ");
@@ -165,10 +170,12 @@ namespace NHapi.SourceGeneration.Generators
                 int ta = -1;
                 if (!rs.IsDBNull(4 - 1))
                     ta = rs.GetInt32(4 - 1);
+
                 // trim all CE_x to CE
                 if (dt != null)
                     if (dt.StartsWith("CE"))
                         dt = "CE";
+
                 // System.out.println("Component: " + de + "  Data Type: " + dt);  //for debugging
                 dataTypes.Add(dt);
                 descriptions.Add(de);
@@ -201,6 +208,7 @@ namespace NHapi.SourceGeneration.Generators
             else if (dataTypes.Count > 1)
             {
                 int numComponents = dataTypes.Count;
+
                 // copy data into arrays ...
                 String[] type = new String[numComponents];
                 String[] desc = new String[numComponents];
@@ -266,6 +274,7 @@ namespace NHapi.SourceGeneration.Generators
             source.Append(datatype);
             source.Append(" : AbstractPrimitive ");
             source.Append(" {\r\n\r\n");
+
             // source.append("\tprotected String value;\r\n\r\n");
             source.Append("\t///<summary>\r\n");
             source.Append("\t///Constructs an uninitialized ");
@@ -426,6 +435,7 @@ namespace NHapi.SourceGeneration.Generators
             source.Append("\t\t} \r\n");
             source.Append("\t} \r\n");
             source.Append("\t} \r\n");
+
             // make type-specific accessors ...
             for (int i = 0; i < dataTypes.Length; i++)
             {
@@ -492,6 +502,7 @@ namespace NHapi.SourceGeneration.Generators
             try
             {
                 Type.GetType("sun.jdbc.odbc.JdbcOdbcDriver");
+
                 // System.setProperty("ca.on.uhn.hl7.database.url", "jdbc:odbc:hl7v25");
                 // make(new File("c:/testsourcegen"), args[0], args[1]);
                 // make(new File("c:/testsourcegen"), "CE_0048", "2.3");

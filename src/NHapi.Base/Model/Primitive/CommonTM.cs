@@ -187,6 +187,7 @@ namespace NHapi.Base.Model.Primitive
                             // extract the hour data from the input value.  If the first 2 characters
                             // are not numeric then a number format exception will be generated
                             int hrInt = Int32.Parse(timeVal.Substring(0, (2) - (0)));
+
                             // check to see if the hour value is valid
                             if ((hrInt < 0) || (hrInt > 23))
                             {
@@ -204,6 +205,7 @@ namespace NHapi.Base.Model.Primitive
                             // If these characters are not numeric then a number
                             // format exception will be generated
                             int minInt = Int32.Parse(timeVal.Substring(2, (4) - (2)));
+
                             // check to see if the minute value is valid
                             if ((minInt < 0) || (minInt > 59))
                             {
@@ -221,6 +223,7 @@ namespace NHapi.Base.Model.Primitive
                             // If these characters are not numeric then a number
                             // format exception will be generated
                             int secInt = Int32.Parse(timeVal.Substring(4, (6) - (4)));
+
                             // check to see if the seconds value is valid
                             if ((secInt < 0) || (secInt > 59))
                             {
@@ -238,6 +241,7 @@ namespace NHapi.Base.Model.Primitive
                             // If these characters are not numeric then a number
                             // format exception will be generated
                             float fract = Single.Parse(timeVal.Substring(6), CultureInfo.InvariantCulture);
+
                             // check to see if the fractional second value is valid
                             if ((fract < 0) || (fract >= 1))
                             {
@@ -255,11 +259,14 @@ namespace NHapi.Base.Model.Primitive
                             // in case the offset are a series of zeros we should not omit displaying
                             // it in the return value from the getValue() method
                             omitOffsetFg = 'n';
+
                             // remove the sign from the temp offset
                             String tempOffsetNoS = tempOffset.Substring(1);
+
                             // extract the hour data from the offset value.  If the first 2 characters
                             // are not numeric then a number format exception will be generated
                             int offsetInt = Int32.Parse(tempOffsetNoS.Substring(0, (2) - (0)));
+
                             // check to see if the hour value is valid
                             if ((offsetInt < 0) || (offsetInt > 23))
                             {
@@ -271,6 +278,7 @@ namespace NHapi.Base.Model.Primitive
                               // extract the minute data from the offset value.  If these characters
                               // are not numeric then a number format exception will be generated
                             offsetInt = Int32.Parse(tempOffsetNoS.Substring(2, (4) - (2)));
+
                             // check to see if the minute value is valid
                             if ((offsetInt < 0) || (offsetInt > 59))
                             {
@@ -281,6 +289,7 @@ namespace NHapi.Base.Model.Primitive
 
                               // validation done, update the offSet field
                             offSet = Int32.Parse(tempOffsetNoS);
+
                             // add the sign back to the offset if it is negative
                             if (sm != -1)
                             {
@@ -294,6 +303,7 @@ namespace NHapi.Base.Model.Primitive
                         if (!offsetExists)
                         {
                             omitOffsetFg = 'y';
+
                             // set the offSet field to the current time and local time zone
                             // offSet = DataTypeUtil.getLocalGMTOffset();
                         } // end if
@@ -347,6 +357,7 @@ namespace NHapi.Base.Model.Primitive
                     second = 0;
                     fractionOfSec = 0;
                     offSet = 0;
+
                     // Here the offset is not defined, we should omit showing it in the
                     // return value from the getValue() method
                     omitOffsetFg = 'y';
@@ -392,10 +403,12 @@ namespace NHapi.Base.Model.Primitive
 
                       // obtain the absolute value of the input
                     int absOffset = Math.Abs(value);
+
                     // extract the hour data from the offset value.
                     // first preappend zeros so we have a 4 char offset value (without sign)
                     offsetStr = DataTypeUtil.preAppendZeroes(absOffset, 4);
                     int hrOffsetInt = Int32.Parse(offsetStr.Substring(0, (2) - (0)));
+
                     // check to see if the hour value is valid
                     if ((hrOffsetInt < 0) || (hrOffsetInt > 23))
                     {
@@ -406,6 +419,7 @@ namespace NHapi.Base.Model.Primitive
 
                       // extract the minute data from the offset value.
                     int minOffsetInt = Int32.Parse(offsetStr.Substring(2, (4) - (2)));
+
                     // check to see if the minute value is valid
                     if ((minOffsetInt < 0) || (minOffsetInt > 59))
                     {
@@ -504,6 +518,7 @@ namespace NHapi.Base.Model.Primitive
             try
             {
                 HourPrecision = hr;
+
                 // validate input minute value
                 if ((min < 0) || (min > 59))
                 {
@@ -516,6 +531,7 @@ namespace NHapi.Base.Model.Primitive
                 second = 0;
                 fractionOfSec = 0;
                 offSet = 0;
+
                 // Here the offset is not defined, we should omit showing it in the
                 // return value from the getValue() method
                 omitOffsetFg = 'y';
@@ -549,13 +565,16 @@ namespace NHapi.Base.Model.Primitive
             try
             {
                 setHourMinutePrecision(hr, min);
+
                 // multiply the seconds input value by 10000 and round the result
                 // then divide the number by tenthousand and store it back.
                 // This will round the fractional seconds to the nearest tenthousandths
                 int secMultRound = (int)Math.Round((double)(10000F * sec));
                 sec = secMultRound / 10000F;
+
                 // Now store the second and fractional component
                 second = (int)Math.Floor(sec);
+
                 // validate input seconds value
                 if ((second < 0) || (second >= 60))
                 {
@@ -567,6 +586,7 @@ namespace NHapi.Base.Model.Primitive
                 int fractionOfSecInt = (int)(secMultRound - (second * 10000));
                 fractionOfSec = fractionOfSecInt / 10000F;
                 String fractString = "";
+
                 // Now convert the fractionOfSec field to a string without the leading zero
                 if (fractionOfSec != 0.0F)
                 {
@@ -575,6 +595,7 @@ namespace NHapi.Base.Model.Primitive
 
                   // Now update the value field
                 offSet = 0;
+
                 // Here the offset is not defined, we should omit showing it in the
                 // return value from the getValue() method
                 omitOffsetFg = 'y';
@@ -608,11 +629,13 @@ namespace NHapi.Base.Model.Primitive
                 int calMin = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MINUTE);
                 int calSec = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.SECOND);
                 int calMilli = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MILLISECOND);
+
                 // the inputs seconds and milli seconds should be combined into a float type
                 float fractSec = calMilli / 1000F;
                 float calSecFloat = calSec + fractSec;
                 int calOffset = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.ZONE_OFFSET) +
                                      SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.DST_OFFSET);
+
                 // Note the input's Offset value is in milliseconds, we must convert it to
                 // a 4 digit integer in the HL7 Offset format.
                 int offSetSignInt;
@@ -629,8 +652,10 @@ namespace NHapi.Base.Model.Primitive
                 int absGmtOffSet = Math.Abs(calOffset);
                 int gmtOffSetHours = absGmtOffSet / (3600 * 1000);
                 int gmtOffSetMin = (absGmtOffSet / 60000) % (60);
+
                 // reset calOffset
                 calOffset = ((gmtOffSetHours * 100) + gmtOffSetMin) * offSetSignInt;
+
                 // Create an object of the TS class and populate it with the above values
                 // then return the HL7 string value from the object
                 CommonTM tm = new CommonTM();

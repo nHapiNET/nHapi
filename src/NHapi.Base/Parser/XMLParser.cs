@@ -208,6 +208,7 @@ namespace NHapi.Base.Parser
             {
                 XmlDocument doc = new XmlDocument();
                 doc.Load(new StringReader(message));
+
                 // rlb: Don't think we need to lock this...
                 // lock (this)
                 // {
@@ -671,6 +672,7 @@ namespace NHapi.Base.Parser
             if (procID == null || procID.Length == 0)
             {
                 procID = ParseLeaf(message, "PT.1", message.IndexOf("MSH.11"));
+
                 // this field is a composite in later versions
             }
 
