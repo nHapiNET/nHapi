@@ -24,16 +24,15 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Data;
-using System.Data.Common;
-using System.Data.Odbc;
-using System.Diagnostics;
-
-using NHapi.Base.Log;
-
 namespace NHapi.SourceGeneration
 {
+    using System;
+    using System.Data;
+    using System.Data.Common;
+    using System.Data.Odbc;
+    using System.Diagnostics;
+    using NHapi.Base.Log;
+
    /// <summary>
    /// Point of access to a copy of the HL7 normative database.
    /// </summary>

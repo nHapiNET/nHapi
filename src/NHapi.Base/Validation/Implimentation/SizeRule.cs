@@ -24,10 +24,10 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
 namespace NHapi.Base.validation.impl
 {
+    using System;
+
    /// <summary> Checks that Primitive values conform to a certain size limit.
    ///
    /// </summary>

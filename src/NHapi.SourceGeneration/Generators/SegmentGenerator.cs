@@ -24,20 +24,19 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Data.Odbc;
-using System.IO;
-using System.Linq;
-using System.Text;
-
-using NHapi.Base;
-using NHapi.Base.Log;
-
 namespace NHapi.SourceGeneration.Generators
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Data.Common;
+    using System.Data.Odbc;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using NHapi.Base;
+    using NHapi.Base.Log;
+
    /// <summary> This class is responsible for generating source code for HL7 segment objects.
    /// Each automatically generated segment inherits from AbstractSegment.
    ///

@@ -24,15 +24,14 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Text;
-using System.Text.RegularExpressions;
-
-using NHapi.Base.Parser;
-using NHapi.Base.validation;
-
 namespace NHapi.Base.Model
 {
+    using System;
+    using System.Text;
+    using System.Text.RegularExpressions;
+    using NHapi.Base.Parser;
+    using NHapi.Base.validation;
+
    /// <summary> A default implementation of Message. </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>

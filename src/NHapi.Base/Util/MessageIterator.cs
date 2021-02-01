@@ -1,11 +1,11 @@
-using System;
-using System.Collections;
-using System.Text;
-using NHapi.Base.Model;
-using NHapi.Base.Log;
-
 namespace NHapi.Base.Util
 {
+    using System;
+    using System.Collections;
+    using System.Text;
+    using NHapi.Base.Log;
+    using NHapi.Base.Model;
+
     /// <summary> Iterates over all defined nodes (ie segments, groups) in a message,
     /// regardless of whether they have been instantiated previously.  This is a
     /// tricky process, because the number of nodes is infinite, due to infinitely

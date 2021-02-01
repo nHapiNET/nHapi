@@ -37,11 +37,11 @@
   These changes are distributed under the same terms as the original (above).
 */
 
-using System;
-using System.Collections;
-
 namespace NHapi.Base.Util
 {
+    using System;
+    using System.Collections;
+
    /// <summary>
    /// Filter iterator class
    /// </summary>

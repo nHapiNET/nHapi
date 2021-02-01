@@ -1,8 +1,8 @@
-using System;
-using System.Runtime.Serialization;
-
 namespace NHapi.SourceGeneration
 {
+    using System;
+    using System.Runtime.Serialization;
+
     [Serializable]
     public class SQLException : Exception
     {

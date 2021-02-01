@@ -29,10 +29,10 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
 namespace NHapi.Base.Model
 {
+    using System;
+
    /// <summary> An abstraction representing >1 message parts which may repeated together.
    /// An implementation of Group should enforce constraints about on the contents of the group
    /// and throw an exception if an attempt is made to add a Structure that the Group instance

@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using NHapi.Base.Model;
-
 namespace NHapi.Base.Model
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using NHapi.Base.Model;
+
     /// <summary>
     /// Abstract group item
     /// </summary>

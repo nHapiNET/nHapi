@@ -24,13 +24,12 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Collections;
-
-using NHapi.Base.Model;
-
 namespace NHapi.Base.Util
 {
+    using System;
+    using System.Collections;
+    using NHapi.Base.Model;
+
    /// <summary> <p>Used to navigate the nested group structure of a message.  This is an alternate
    /// way of accessing parts of a message, ie rather than getting a segment through
    /// a chain of getXXX() calls on the message, you can create a MessageNavigator

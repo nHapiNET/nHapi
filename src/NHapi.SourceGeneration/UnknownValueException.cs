@@ -24,12 +24,11 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
-using NHapi.Base;
-
 namespace NHapi.SourceGeneration
 {
+    using System;
+    using NHapi.Base;
+
    /// <summary> Thrown when a table value can not be found by a TableRepository. </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>

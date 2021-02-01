@@ -24,10 +24,10 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
 namespace NHapi.SourceGeneration
 {
+    using System;
+
    /// <summary> Represents a technical problem accessing table values in the normative database.  This
    /// exception is thrown when the database values can not be accessed, and is distinct from
    /// an UnknownValueException, which is thrown when the values can be accessed and a

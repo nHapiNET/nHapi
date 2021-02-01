@@ -1,14 +1,13 @@
-using System;
-using System.Collections;
-using System.IO;
-using System.Text;
-using System.Xml;
-
-using NHapi.Base.Log;
-using NHapi.Base.Model;
-
 namespace NHapi.Base.Parser
 {
+    using System;
+    using System.Collections;
+    using System.IO;
+    using System.Text;
+    using System.Xml;
+    using NHapi.Base.Log;
+    using NHapi.Base.Model;
+
    /// <summary>
    /// A default XMLParser. This class assigns segment elements (in an XML-encoded message)
    /// to Segment objects (in a Message object) using the name of a segment and the names

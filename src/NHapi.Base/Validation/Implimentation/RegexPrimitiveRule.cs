@@ -24,11 +24,11 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Text.RegularExpressions;
-
 namespace NHapi.Base.validation.impl
 {
+    using System;
+    using System.Text.RegularExpressions;
+
    /// <summary> A <code>PrimitiveTypeRule</code> that validates primitive values
    /// using a regular expression.
    ///

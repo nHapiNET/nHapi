@@ -1,11 +1,11 @@
-using System;
-using System.Collections;
-using System.Data;
-using System.Data.Common;
-using System.Data.Odbc;
-
 namespace NHapi.SourceGeneration
 {
+    using System;
+    using System.Collections;
+    using System.Data;
+    using System.Data.Common;
+    using System.Data.Odbc;
+
    public class TransactionManager
     {
         public static ConnectionHashTable manager = new ConnectionHashTable();

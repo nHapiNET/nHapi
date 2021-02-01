@@ -24,10 +24,10 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
 namespace NHapi.Base.validation
 {
+    using System;
+
    /// <summary> A failure to validate against a rule.  </summary>
    /// <author>  Bryan Tripp
    /// </author>

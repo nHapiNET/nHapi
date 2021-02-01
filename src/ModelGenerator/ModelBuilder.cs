@@ -1,11 +1,11 @@
-﻿using System;
-using System.Configuration;
-using NHapi.SourceGeneration;
-using NHapi.SourceGeneration.Generators;
-using ConfigurationSettings = NHapi.SourceGeneration.ConfigurationSettings;
-
-namespace ModelGenerator
+﻿namespace ModelGenerator
 {
+    using System;
+    using System.Configuration;
+    using NHapi.SourceGeneration;
+    using NHapi.SourceGeneration.Generators;
+    using ConfigurationSettings = NHapi.SourceGeneration.ConfigurationSettings;
+
     public class ModelBuilder
     {
         public enum MessageType

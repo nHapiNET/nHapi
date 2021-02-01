@@ -1,9 +1,9 @@
-using System;
-using NHapi.Base.Model;
-using NHapi.Base;
-
 namespace NHapi.Base.Util
 {
+    using System;
+    using NHapi.Base;
+    using NHapi.Base.Model;
+
     /// <summary> Tools for copying data recurvisely from one message element into another.  Currently only Types are
     /// supported.
     /// </summary>

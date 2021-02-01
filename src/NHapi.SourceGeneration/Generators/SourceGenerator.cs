@@ -25,14 +25,13 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.IO;
-using System.Text;
-
-using NHapi.Base;
-
 namespace NHapi.SourceGeneration.Generators
 {
+    using System;
+    using System.IO;
+    using System.Text;
+    using NHapi.Base;
+
    /// <summary> <p>Manages automatic generation of HL7 API source code for all data types,
    /// segments, groups, and message structures. </p>
    /// <p>Note: should put a nice UI on this</p>

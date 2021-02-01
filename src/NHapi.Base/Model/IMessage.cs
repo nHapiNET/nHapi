@@ -24,12 +24,11 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
-using NHapi.Base.validation;
-
 namespace NHapi.Base.Model
 {
+    using System;
+    using NHapi.Base.validation;
+
    /// <summary> Represents a complete HL7 message including all structures, segments, and fields.  </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>

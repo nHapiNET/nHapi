@@ -24,12 +24,11 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
-using NHapi.Base.Model;
-
 namespace NHapi.Base.validation
 {
+    using System;
+    using NHapi.Base.Model;
+
    /// <summary> A set of rules for message validation.
    ///
    /// </summary>

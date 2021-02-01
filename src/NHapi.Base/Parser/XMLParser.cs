@@ -25,17 +25,16 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.IO;
-using System.Text;
-using System.Xml;
-
-using NHapi.Base.Log;
-using NHapi.Base.Model;
-using NHapi.Base.Util;
-
 namespace NHapi.Base.Parser
 {
+    using System;
+    using System.IO;
+    using System.Text;
+    using System.Xml;
+    using NHapi.Base.Log;
+    using NHapi.Base.Model;
+    using NHapi.Base.Util;
+
    /// <summary> Parses and encodes HL7 messages in XML form, according to HL7's normative XML encoding
    /// specification.  This is an abstract class that handles datatype and segment parsing/encoding,
    /// but not the parsing/encoding of entire messages.  To use the XML parser, you should create a

@@ -24,10 +24,10 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
 namespace NHapi.Base.Parser
 {
+    using System;
+
    /// <summary> Represents a problem where a Parser does not support a particular HL7 encoding.
    /// Encodings include "|" (traditional) and "XML".
    /// </summary>

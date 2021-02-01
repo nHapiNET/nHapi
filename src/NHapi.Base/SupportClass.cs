@@ -9,18 +9,18 @@
   the architecture of the resulting solution may differ somewhat.
 */
 
-using System;
-using System.Collections;
-using System.Globalization;
-using System.IO;
-using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Xml;
-using System.Xml.Schema;
-
 namespace NHapi.Base
 {
+    using System;
+    using System.Collections;
+    using System.Globalization;
+    using System.IO;
+    using System.Reflection;
+    using System.Text;
+    using System.Threading;
+    using System.Xml;
+    using System.Xml.Schema;
+
    /// <summary>
    /// This interface should be implemented by any class whose instances are intended
    /// to be executed by a thread.

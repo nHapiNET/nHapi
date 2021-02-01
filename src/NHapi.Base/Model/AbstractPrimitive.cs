@@ -24,12 +24,11 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
-using NHapi.Base.validation;
-
 namespace NHapi.Base.Model
 {
+    using System;
+    using NHapi.Base.validation;
+
    /// <summary> Base class for Primitives.  Performs validation in setValue().
    ///
    /// </summary>

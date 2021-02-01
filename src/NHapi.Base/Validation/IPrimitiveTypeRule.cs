@@ -24,10 +24,10 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
 namespace NHapi.Base.validation
 {
+    using System;
+
    /// <summary> A rule that applies to a primitive datatype. </summary>
    /// <author>  Bryan Tripp
    /// </author>

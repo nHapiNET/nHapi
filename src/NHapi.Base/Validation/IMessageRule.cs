@@ -24,10 +24,10 @@
   this file under either the MPL or the GPL.
 */
 
-using NHapi.Base.Model;
-
 namespace NHapi.Base.validation
 {
+    using NHapi.Base.Model;
+
    /// <summary> A validation rule that applies to a fully populated message object.  Message rules
    /// may be called (depending on runtime configuration) just after an inbound message
    /// is parsed, or just before an outbound message is encoded.

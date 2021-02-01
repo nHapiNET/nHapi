@@ -24,13 +24,12 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Globalization;
-
-using NHapi.Base.Log;
-
 namespace NHapi.Base.Model.Primitive
 {
+    using System;
+    using System.Globalization;
+    using NHapi.Base.Log;
+
    /// <summary> This class contains functionality used by the TM class
    /// in the version 2.3.0, 2.3.1, and 2.4 packages
    ///

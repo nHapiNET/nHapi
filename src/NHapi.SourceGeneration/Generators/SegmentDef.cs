@@ -25,10 +25,10 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
 namespace NHapi.SourceGeneration.Generators
 {
+    using System;
+
    /// <summary> Information about a message segment used in the creation of
    /// source code for a Group class.  SegmentDef is a slight misnomer because this
    /// also includes group start/end indicators, with group names.

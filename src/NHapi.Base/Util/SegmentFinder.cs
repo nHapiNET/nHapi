@@ -24,13 +24,12 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Text.RegularExpressions;
-
-using NHapi.Base.Model;
-
 namespace NHapi.Base.Util
 {
+    using System;
+    using System.Text.RegularExpressions;
+    using NHapi.Base.Model;
+
    /// <summary> A tool for getting segments by name within a message or part of a message.</summary>
    /// <author>  Bryan Tripp
    /// </author>

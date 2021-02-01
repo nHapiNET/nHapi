@@ -24,10 +24,10 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
 namespace NHapi.Base.validation.impl
 {
+    using System;
+
    /// <summary> An association between a type of item to be validated (eg a datatype or
    /// message) and a validation <code>Rule</code>.
    ///

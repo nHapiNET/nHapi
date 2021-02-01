@@ -1,8 +1,8 @@
-using System;
-using System.Configuration;
-
 namespace NHapi.SourceGeneration
 {
+    using System;
+    using System.Configuration;
+
     public class ConfigurationSettings
     {
         public static bool UseFactory

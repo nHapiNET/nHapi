@@ -26,16 +26,15 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text.RegularExpressions;
-
-using NHapi.Base.Log;
-using NHapi.Base.Parser;
-
 namespace NHapi.Base.Model
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Text.RegularExpressions;
+    using NHapi.Base.Log;
+    using NHapi.Base.Parser;
+
    /// <summary> Provides common functionality needed by implementers of the Segment interface.
    /// Implementing classes should define all the fields for the segment they represent
    /// in their constructor.  The add() method is useful for this purpose.

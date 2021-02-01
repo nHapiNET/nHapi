@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Text;
-using NHapi.Base.Model.Configuration;
-
 namespace NHapi.Base
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Text;
+    using NHapi.Base.Model.Configuration;
+
     internal class PackageManager
     {
         private static readonly PackageManager _instance = new PackageManager();

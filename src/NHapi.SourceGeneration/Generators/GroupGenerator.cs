@@ -26,15 +26,14 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.IO;
-using System.Text;
-
-using NHapi.Base;
-using NHapi.Base.Log;
-
 namespace NHapi.SourceGeneration.Generators
 {
+    using System;
+    using System.IO;
+    using System.Text;
+    using NHapi.Base;
+    using NHapi.Base.Log;
+
    /// <summary> Creates source code for Group classes - these are aggregations of
    /// segments and/or other groups that may repeat together within a message.
    /// Source code is generated from the normative database.

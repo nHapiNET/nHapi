@@ -1,8 +1,8 @@
-using System;
-using System.Configuration;
-
 namespace NHapi.Base.Model.Configuration
 {
+    using System;
+    using System.Configuration;
+
     public class HL7PackageConfigurationSection : ConfigurationSection
     {
         [ConfigurationProperty("", IsDefaultCollection = true)]

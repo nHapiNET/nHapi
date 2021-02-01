@@ -24,18 +24,17 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Collections;
-using System.Data.Common;
-using System.Data.Odbc;
-using System.IO;
-using System.Text;
-
-using NHapi.Base;
-using NHapi.Base.Log;
-
 namespace NHapi.SourceGeneration.Generators
 {
+    using System;
+    using System.Collections;
+    using System.Data.Common;
+    using System.Data.Odbc;
+    using System.IO;
+    using System.Text;
+    using NHapi.Base;
+    using NHapi.Base.Log;
+
    /// <summary> Creates source code for HL7 Message objects, using the normative DB.  HL7 Group
    /// objects are also created as a byproduct.
    ///

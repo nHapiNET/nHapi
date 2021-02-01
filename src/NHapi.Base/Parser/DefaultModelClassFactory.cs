@@ -2,16 +2,15 @@
 * Created on 21-Apr-2005
 */
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-
-using NHapi.Base.Log;
-using NHapi.Base.Model;
-
 namespace NHapi.Base.Parser
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Threading;
+    using NHapi.Base.Log;
+    using NHapi.Base.Model;
+
    /// <summary> Default implementation of ModelClassFactory.  See PackageList() for configuration instructions.
    ///
    /// </summary>

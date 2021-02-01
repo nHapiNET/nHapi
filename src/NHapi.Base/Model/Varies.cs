@@ -25,15 +25,14 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Linq;
-
-using NHapi.Base.Log;
-using NHapi.Base.Parser;
-using NHapi.Base.Util;
-
 namespace NHapi.Base.Model
 {
+    using System;
+    using System.Linq;
+    using NHapi.Base.Log;
+    using NHapi.Base.Parser;
+    using NHapi.Base.Util;
+
    /// <summary>
    /// Varies is a Type used as a placeholder for another Type in cases where
    /// the appropriate Type is not known until run-time (e.g. OBX-5).

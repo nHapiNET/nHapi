@@ -4,10 +4,10 @@
 * Created on May 7, 2003 at 3:53:44 PM
 */
 
-using System;
-
 namespace NHapi.Base.Log
 {
+    using System;
+
     /// <summary> A logging interface that enhances the <code> Log </code>
     /// interface with ancillary method to easy up the log messages generation
     /// by adding MessageFormat like functionality.

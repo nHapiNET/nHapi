@@ -26,12 +26,12 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Collections;
-using System.Text;
-
 namespace NHapi.SourceGeneration.Generators
 {
+    using System;
+    using System.Collections;
+    using System.Text;
+
    /// <summary> Contains the information needed to create source code for a Group (a
    /// Group is a part of a message that may repeat, and that contains two or
    /// more segments or other groups).

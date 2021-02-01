@@ -25,10 +25,10 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
 namespace NHapi.Base.Model
 {
+    using System;
+
    /// <summary> An abstract Type that provides a default implementation of getName().
    ///
    /// </summary>

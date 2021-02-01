@@ -4,10 +4,10 @@
 * Created on May 7, 2003 at 2:23:45 PM
 */
 
-using System;
-
 namespace NHapi.Base.Log
 {
+    using System;
+
     /// <summary> Provides a base implementation of the <code>HapiLog</code> interface.
     ///
     /// It delegates all method calls declared by <code>Log</code> to the delegate specified in

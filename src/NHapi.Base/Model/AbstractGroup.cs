@@ -24,15 +24,14 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-
-using NHapi.Base.Log;
-using NHapi.Base.Parser;
-
 namespace NHapi.Base.Model
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using NHapi.Base.Log;
+    using NHapi.Base.Parser;
+
    /// <summary> A partial implementation of Group.  Subclasses correspond to specific
    /// groups of segments (and/or other sub-groups) that are implicitely defined by message structures
    /// in the HL7 specification.  A subclass should define it's group structure by putting repeated calls to

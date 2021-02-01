@@ -1,8 +1,9 @@
-﻿using ModelGenerator;
-using NUnit.Framework;
-
-namespace NHapi.NUnit.SourceGeneration
+﻿namespace NHapi.NUnit.SourceGeneration
 {
+    using global::NUnit.Framework;
+
+    using ModelGenerator;
+
     [TestFixture]
     public class SourceGenerationTests
     {

@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace NHapi.Base.Log
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     /// <summary>
     ///
     /// </summary>

@@ -25,14 +25,13 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
-using NHapi.Base.Log;
-using NHapi.Base.Model;
-using NHapi.Base.Util;
-
 namespace NHapi.Base.validation
 {
+    using System;
+    using NHapi.Base.Log;
+    using NHapi.Base.Model;
+    using NHapi.Base.Util;
+
    /// <summary> Validation utilities for parsed and encoded messages.
    ///
    /// </summary>

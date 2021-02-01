@@ -1,7 +1,7 @@
-using System.Collections;
-
 namespace NHapi.Base.Model
 {
+    using System.Collections;
+
    /// <summary>
    /// <para>
    /// A set of "extra" components (sub-components) that are not a standard part

@@ -24,13 +24,12 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Collections;
-
-using NHapi.Base.Model;
-
 namespace NHapi.Base.validation.impl
 {
+    using System;
+    using System.Collections;
+    using NHapi.Base.Model;
+
    /// <summary> A default implementation of <code>ValidationContext</code>.
    ///
    /// </summary>

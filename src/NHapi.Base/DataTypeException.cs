@@ -25,10 +25,10 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
 namespace NHapi.Base
 {
+    using System;
+
    /// <summary> Represents a problem with the validity of a data type, such as an attempt
    /// to set the value of a primitive type to something invalid for that type.
    /// </summary>

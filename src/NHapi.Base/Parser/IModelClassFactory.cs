@@ -2,10 +2,10 @@
 * Created on 21-Apr-2005
 */
 
-using System;
-
 namespace NHapi.Base.Parser
 {
+    using System;
+
     /// <summary> Looks up classes for message model components (e.g. concrete implementations of
     /// Message, Group, Segment).  A custom factory can be used to point to custom model
     /// components.

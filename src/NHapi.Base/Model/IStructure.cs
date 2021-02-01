@@ -24,10 +24,10 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
 namespace NHapi.Base.Model
 {
+    using System;
+
    /// <summary> Part of an HL7 message: either a segment or group.  There are certain methods (e.g. Group.get())
    /// that will always return either a segment or a group.  This interface allows methods like this
    /// to declare a return type of Structure instead of Object.

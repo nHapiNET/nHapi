@@ -24,17 +24,16 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Collections;
-using System.Text;
-using System.Text.RegularExpressions;
-
-using NHapi.Base.Log;
-using NHapi.Base.Model;
-using NHapi.Base.Util;
-
 namespace NHapi.Base.Parser
 {
+    using System;
+    using System.Collections;
+    using System.Text;
+    using System.Text.RegularExpressions;
+    using NHapi.Base.Log;
+    using NHapi.Base.Model;
+    using NHapi.Base.Util;
+
    /// <summary> An implementation of Parser that supports traditionally encoded (ie delimited with characters
    /// like |, ^, and ~) HL7 messages.  Unexpected segments and fields are parsed into generic elements
    /// that are added to the message.

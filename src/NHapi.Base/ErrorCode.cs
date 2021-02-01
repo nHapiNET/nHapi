@@ -1,9 +1,9 @@
-using System;
-using System.ComponentModel;
-using System.Linq;
-
 namespace NHapi.Base
 {
+    using System;
+    using System.ComponentModel;
+    using System.Linq;
+
    public enum ErrorCode
     {
         /// <summary>

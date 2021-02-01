@@ -24,10 +24,10 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
 namespace NHapi.SourceGeneration.Generators
 {
+    using System;
+
    /// <summary> Information about a structure within a message (eg group, segment)
    /// that is used in creating source for a Group class.
    /// </summary>

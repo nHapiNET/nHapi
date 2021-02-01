@@ -25,13 +25,13 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Collections;
-using System.Linq;
-using System.Text;
-
 namespace NHapi.Base.Parser
 {
+    using System;
+    using System.Collections;
+    using System.Linq;
+    using System.Text;
+
    /// <summary> Handles "escaping" and "unescaping" of text according to the HL7 escape sequence rules
    /// defined in section 2.10 of the standard (version 2.4).  Currently, escape sequences for
    /// multiple character sets are unsupported.  The highlighting, hexademical, and locally

@@ -1,7 +1,7 @@
-using System;
-
 namespace NHapi.Base.Model
 {
+    using System;
+
    /// <summary> An unspecified segment that has an undefined number of fields, each
    /// of which is a Varies.  The primary intended use is to store data from
    /// Z segments.  More precisely, any unknown segment that is encountered during

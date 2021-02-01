@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace NHapi.Base.Model
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     internal class AbstractSegmentItem
     {
         private List<IType> _fields = new List<IType>();

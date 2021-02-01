@@ -1,11 +1,11 @@
-﻿using System;
-using System.Data.Common;
-using System.Data.Odbc;
-using System.IO;
-using NHapi.Base;
-
-namespace NHapi.SourceGeneration.Generators
+﻿namespace NHapi.SourceGeneration.Generators
 {
+    using System;
+    using System.Data.Common;
+    using System.Data.Odbc;
+    using System.IO;
+    using NHapi.Base;
+
     public class EventMappingGenerator
     {
         public static void makeAll(string baseDirectory, string version)

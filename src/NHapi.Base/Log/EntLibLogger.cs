@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-
 namespace NHapi.Base.Log
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Text;
+
     /// <summary>
     /// Logger implementation logging to Enterprise Library Logging Block.
     /// </summary>

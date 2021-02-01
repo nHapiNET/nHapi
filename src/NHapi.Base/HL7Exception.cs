@@ -25,14 +25,13 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Text;
-
-using NHapi.Base.Model;
-using NHapi.Base.Util;
-
 namespace NHapi.Base
 {
+    using System;
+    using System.Text;
+    using NHapi.Base.Model;
+    using NHapi.Base.Util;
+
    /// <summary> Represents an exception encountered while processing
    /// an HL7 message.
    /// </summary>

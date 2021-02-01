@@ -24,10 +24,10 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
 namespace NHapi.Base.Model
 {
+    using System;
+
    /// <summary> An HL7 datatype.  Datatypes normally implement either Composite or Primitive.    </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>

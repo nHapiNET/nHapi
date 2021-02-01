@@ -1,10 +1,10 @@
-using System;
-using NHapi.Base.Parser;
-using NHapi.Base;
-using NHapi.Base.Log;
-
 namespace NHapi.Base.Model
 {
+    using System;
+    using NHapi.Base;
+    using NHapi.Base.Log;
+    using NHapi.Base.Parser;
+
     /// <summary> A generic HL7 message, meant for parsing message with unrecognized structures
     /// into a flat list of segments.
     /// </summary>

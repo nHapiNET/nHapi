@@ -24,12 +24,12 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Globalization;
-using System.Threading;
-
 namespace NHapi.Base.Model.Primitive
 {
+    using System;
+    using System.Globalization;
+    using System.Threading;
+
    /// <summary>
    /// <para>
    /// Represents an HL7 timestamp, which is related to the HL7 TS type.

@@ -24,10 +24,10 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
 namespace NHapi.SourceGeneration
 {
+    using System;
+
    /// <summary> A place where table keys and values are stored.  This may be implemented
    /// with a database, an LDAP directory, local RAM, etc.  At a minimum, any
    /// underlying repository must supply the values for standard HL7 tables.

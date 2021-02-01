@@ -24,10 +24,10 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
 namespace NHapi.SourceGeneration
 {
+    using System;
+
    /// <summary> Thrown when a lookup table is not known to a TableRepository. </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>

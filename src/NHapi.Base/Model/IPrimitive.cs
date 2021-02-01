@@ -25,10 +25,10 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
 namespace NHapi.Base.Model
 {
+    using System;
+
    /// <summary> Represents the category of HL7 data types that contain a single value (in other
    /// words have no subcomponents).  Examples include ST and ID.
    /// </summary>

@@ -24,10 +24,10 @@
     this file under either the MPL or the GPL.
 */
 
-using System;
-
 namespace NHapi.Base.Model.Primitive
 {
+    using System;
+
    /// <summary>
    /// Represents an HL7 DT (date) datatype.
    /// </summary>

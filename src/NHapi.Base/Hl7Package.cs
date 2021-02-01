@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Reflection;
-
 namespace NHapi.Base
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Text;
+
     internal class Hl7Package
     {
         private string _version;

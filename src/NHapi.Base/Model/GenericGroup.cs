@@ -1,9 +1,8 @@
-using System;
-
-using NHapi.Base.Parser;
-
 namespace NHapi.Base.Model
 {
+    using System;
+    using NHapi.Base.Parser;
+
    /// <summary>
    /// An undefined segment group. This is for storing undefined groups
    /// that appear in XML-encoded messages. Note that if an undefined group appears

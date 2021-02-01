@@ -1,8 +1,8 @@
-using System;
-using System.Collections;
-
 namespace NHapi.Base.Model
 {
+    using System;
+    using System.Collections;
+
     /// <summary> An unspecified Composite datatype that has an undefined number of components, each
     /// of which is a Varies.
     /// This is used to store Varies data, when the data type is unknown.  It is also

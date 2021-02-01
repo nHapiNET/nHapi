@@ -24,15 +24,14 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
-using NHapi.Base.Log;
-using NHapi.Base.Model;
-
 // TODO: Review examples in XML doc comments.
 // most of the code examples are for hapi, these needs reviewing as part of documentation ticket.
 namespace NHapi.Base.Util
 {
+    using System;
+    using NHapi.Base.Log;
+    using NHapi.Base.Model;
+
    /// <summary>
    /// Wraps a message to provide access to fields using a terse location specification syntax.
    /// </summary>

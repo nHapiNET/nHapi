@@ -1,9 +1,9 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq;
-
-namespace NHapi.Base
+﻿namespace NHapi.Base
 {
+    using System;
+    using System.ComponentModel;
+    using System.Linq;
+
    public static class ErrorCodeExtensions
     {
         /// <summary>

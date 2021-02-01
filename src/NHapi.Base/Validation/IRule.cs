@@ -24,10 +24,10 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
 namespace NHapi.Base.validation
 {
+    using System;
+
    /// <summary> <p>A testable rule to which HL7 messages (at least certain specific message) should conform.
    /// This is the central interface of the new HAPI validation model (as of HAPI 0.4).
    /// Previously, the only run-time message validation HAPI performs is within the

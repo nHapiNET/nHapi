@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
-
-namespace NHapi.Base
+﻿namespace NHapi.Base
 {
+    using System.ComponentModel;
+
    public enum AcknowledgmentCode
     {
         /// <summary>

@@ -25,19 +25,18 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Collections;
-using System.Collections.Specialized;
-using System.IO;
-using System.Reflection;
-
-using NHapi.Base.Log;
-using NHapi.Base.Model;
-using NHapi.Base.validation;
-using NHapi.Base.validation.impl;
-
 namespace NHapi.Base.Parser
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Specialized;
+    using System.IO;
+    using System.Reflection;
+    using NHapi.Base.Log;
+    using NHapi.Base.Model;
+    using NHapi.Base.validation;
+    using NHapi.Base.validation.impl;
+
    /// <summary> Parses HL7 message Strings into HL7 Message objects and
    /// encodes HL7 Message objects into HL7 message Strings.
    /// </summary>

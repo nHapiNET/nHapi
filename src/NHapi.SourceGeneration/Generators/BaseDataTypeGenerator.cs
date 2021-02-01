@@ -1,10 +1,10 @@
-using System;
-using System.IO;
-using System.Text;
-using NHapi.Base;
-
 namespace NHapi.SourceGeneration.Generators
 {
+    using System;
+    using System.IO;
+    using System.Text;
+    using NHapi.Base;
+
     internal class BaseDataTypeGenerator
     {
         public static void BuildBaseDataTypes(string baseDirectory, string version)

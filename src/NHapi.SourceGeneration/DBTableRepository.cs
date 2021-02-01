@@ -25,16 +25,15 @@
   this file under either the MPL or the GPL. 
 */
 
-using System;
-using System.Collections;
-using System.Data.Common;
-using System.Data.Odbc;
-using System.Text;
-
-using NHapi.Base.Log;
-
 namespace NHapi.SourceGeneration
 {
+    using System;
+    using System.Collections;
+    using System.Data.Common;
+    using System.Data.Odbc;
+    using System.Text;
+    using NHapi.Base.Log;
+
    /// <summary> Implements TableRepository by looking up values from the default HL7
    /// normative database.  Values are cached after they are looked up once.
    /// </summary>

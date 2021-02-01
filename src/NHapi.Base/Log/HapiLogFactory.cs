@@ -4,10 +4,10 @@
 * Created on May 7, 2003 at 2:19:17 PM
 */
 
-using System;
-
 namespace NHapi.Base.Log
 {
+    using System;
+
    /// <summary>
    /// Factory for creating <see cref="IHapiLog"/> instances. It is a factory
    /// that delegates the discovery process to the <see cref="LogFactory"/>

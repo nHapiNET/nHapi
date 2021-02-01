@@ -25,11 +25,11 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Text;
-
 namespace NHapi.Base.Parser
 {
+    using System;
+    using System.Text;
+
    /// <summary>
    /// Represents the set of special characters used to encode traditionally
    /// encoded HL7 messages.
