@@ -1107,7 +1107,6 @@ namespace NHapi.Base
         }
     }
 
-
     /*******************************/
 
     /// <summary>
@@ -1601,7 +1600,6 @@ namespace NHapi.Base
             return CreateXmlReader(new XmlTextReader(URI, stream));
         }
 
-
         private XmlReader CreateXmlReader(XmlTextReader textReader)
         {
             // Set the validation settings.
@@ -1611,7 +1609,6 @@ namespace NHapi.Base
             // settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessInlineSchema;
             settings.ValidationFlags |= XmlSchemaValidationFlags.ReportValidationWarnings;
             settings.ValidationEventHandler += new ValidationEventHandler(ValidationEventHandle);
-
 
             XmlReader tempValidatingReader = XmlReader.Create(textReader, settings);
             return tempValidatingReader;
@@ -1994,7 +1991,6 @@ namespace NHapi.Base
 
         /*******************************/
 
-
         /// <summary>
         /// This class provides functionality not found in .NET collection-related interfaces.
         /// </summary>
@@ -2345,7 +2341,6 @@ namespace NHapi.Base
             bool AddAll(ICollection c);
         }
 
-
         /*******************************/
 
         /// <summary>
@@ -2414,7 +2409,6 @@ namespace NHapi.Base
                 return base.MemberwiseClone();
             }
         }
-
 
         /*******************************/
 
@@ -3072,7 +3066,6 @@ namespace NHapi.Base
             }
         }
 
-
         /*******************************/
 
         /// <summary>
@@ -3113,7 +3106,6 @@ namespace NHapi.Base
                 this.delimiters = delimiters;
             }
 
-
             /// <summary>
             /// Initializes a new class instance with a specified string to process, the specified token
             /// delimiters to use, and whether the delimiters must be included in the results.
@@ -3126,7 +3118,6 @@ namespace NHapi.Base
             {
                 this.includeDelims = includeDelims;
             }
-
 
             /// <summary>
             /// Returns the next token from the token list

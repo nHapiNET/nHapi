@@ -83,7 +83,6 @@ namespace NHapi.Base.Util
             }
         }
 
-
         /// <summary>
         /// Move next
         /// </summary>

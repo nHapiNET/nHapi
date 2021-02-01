@@ -176,7 +176,6 @@ namespace NHapi.Base.Model.Primitive
         {
         }
 
-
         public TSComponentOne(IMessage theMessage, string description)
             : base(theMessage, description)
         {

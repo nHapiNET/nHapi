@@ -86,7 +86,6 @@ namespace NHapi.Base.Parser
             return ht;
         }
 
-
         /// <summary>
         /// Escape string
         /// </summary>

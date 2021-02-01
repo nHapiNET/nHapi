@@ -34,7 +34,6 @@ namespace NHapi.SourceGeneration.Generators
             string namespaceName = PackageManager.GetVersionPackageName(version);
             namespaceName = namespaceName.Substring(0, namespaceName.Length - 1);
 
-
             string baseClass = "NHapi.Base.Model.Primitive." + dataType;
 
             if (dataType.Equals("ST"))

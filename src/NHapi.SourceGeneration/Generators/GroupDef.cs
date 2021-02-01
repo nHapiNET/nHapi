@@ -155,7 +155,6 @@ namespace NHapi.SourceGeneration.Generators
         private bool repeating;
         private Hashtable existingNames;
 
-
         /// <summary>Creates new GroupDef </summary>
         public GroupDef(string messageName, string groupName, bool required, bool repeating, string description)
         {

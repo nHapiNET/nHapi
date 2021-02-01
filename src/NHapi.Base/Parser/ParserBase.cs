@@ -304,7 +304,6 @@ namespace NHapi.Base.Parser
         /// <throws>  HL7Exception if the version field can not be found.  </throws>
         public abstract string GetVersion(string message);
 
-
         /// <summary> Creates a version-specific MSH object and returns it as a version-independent
         /// MSH interface.
         /// throws HL7Exception if there is a problem, e.g. invalid version, code not available
@@ -383,7 +382,6 @@ namespace NHapi.Base.Parser
 
             return structure;
         }
-
 
         /// <summary>
         /// Note that the validation context of the resulting message is set to this parser's validation

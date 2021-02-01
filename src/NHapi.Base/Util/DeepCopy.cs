@@ -32,7 +32,6 @@ namespace NHapi.Base.Util
             }
         }
 
-
         /// <summary> Copies contents from the source segment to the destination segment.  This
         /// method calls copy(Type, Type) on each repetition of each field (see additional
         /// behavioural description there).  An attempt is made to copy each repetition of

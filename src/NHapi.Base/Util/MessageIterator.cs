@@ -135,7 +135,6 @@ namespace NHapi.Base.Util
         return level;
         }*/
 
-
         /// <summary> Returns true if another object exists in the iteration sequence.  </summary>
         public virtual bool MoveNext()
         {

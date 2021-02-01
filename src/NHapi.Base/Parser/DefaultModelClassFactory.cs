@@ -199,7 +199,6 @@ namespace NHapi.Base.Parser
             versions.Add(package.PackageName);
         }
 
-
         /// <summary> Finds a message or segment class by name and version.</summary>
         /// <param name="name">the segment or message structure name
         /// </param>
@@ -271,7 +270,6 @@ namespace NHapi.Base.Parser
                 classNameToTry += ", " + p.Substring(0, p.Length - 1);
             return classNameToTry;
         }
-
 
         static DefaultModelClassFactory()
         {

@@ -211,7 +211,6 @@ namespace NHapi.SourceGeneration
             return description;
         }
 
-
         static DBTableRepository()
         {
             log = HapiLogFactory.GetHapiLog(typeof(DBTableRepository));

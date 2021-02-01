@@ -466,7 +466,6 @@ namespace NHapi.Base.Model
             return getStructureName(GetType());
         }
 
-
         /// <summary>
         /// returns a name for a class of a Structure in this Message
         /// </summary>

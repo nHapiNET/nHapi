@@ -152,7 +152,6 @@ namespace NHapi.SourceGeneration.Generators
                 return aName.ToString();
         }
 
-
         public static string MakePropertyName(string fieldDesc)
         {
             string name = MakeName(fieldDesc);
@@ -183,7 +182,6 @@ namespace NHapi.SourceGeneration.Generators
             string name = MakeName(fieldDesc);
             if (repitions != 1 && !name.StartsWith("Get"))
                 name = "Get" + name;
-
 
             return name;
         }
@@ -263,7 +261,6 @@ namespace NHapi.SourceGeneration.Generators
 
             return ret;
         }
-
 
         [STAThread]
         public static void Main(string[] args)

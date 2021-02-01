@@ -212,7 +212,6 @@ namespace NHapi.SourceGeneration.Generators
             return ret;
         }
 
-
         /// <summary> Returns true if opening is "[" and closing is "]"</summary>
         private static bool optMarkers(string opening, string closing)
         {
@@ -273,7 +272,6 @@ namespace NHapi.SourceGeneration.Generators
             preamble.Append(" : AbstractGroup {\r\n\r\n");
             return preamble.ToString();
         }
-
 
         /// <summary> Returns source code for the contructor for this Group class. </summary>
         public static string makeConstructor(GroupDef group, string version)

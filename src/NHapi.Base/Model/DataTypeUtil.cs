@@ -59,7 +59,6 @@ namespace NHapi.Base.Model
         {
         } // end zero arg constructor
 
-
         /// <summary> This method will preappend the zeros to the beginning of num such that the total length
         /// equals totalDigitLength. It will also return the string representation of the new number.
         /// </summary>

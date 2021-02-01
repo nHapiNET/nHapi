@@ -22,7 +22,6 @@ namespace NHapi.Base.Log
 
         bool WarnEnabled { get; }
 
-
         void Debug(object message);
 
         void Debug(object message, Exception t);

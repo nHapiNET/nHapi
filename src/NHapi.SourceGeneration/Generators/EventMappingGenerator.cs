@@ -29,7 +29,6 @@ namespace NHapi.SourceGeneration.Generators
             temp_OleDbCommand.CommandText = sql;
             DbDataReader rs = temp_OleDbCommand.ExecuteReader();
 
-
             using (StreamWriter sw = new StreamWriter(targetDir.FullName + @"\EventMap.properties", false))
             {
                 sw.WriteLine("#event -> structure map for " + version);

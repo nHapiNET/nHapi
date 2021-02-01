@@ -43,7 +43,6 @@ namespace NHapi.SourceGeneration.Generators
         public string opt;
         public string type;
 
-
         public virtual string GetDescriptionWithoutSpecialCharacters()
         {
             string desc = this.desc;

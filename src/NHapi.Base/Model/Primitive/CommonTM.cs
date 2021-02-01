@@ -113,7 +113,6 @@ namespace NHapi.Base.Model.Primitive
                 return returnVal;
             }
 
-
             set
             {
                 if (value != null && !value.Equals(string.Empty) && !value.Equals("\"\""))

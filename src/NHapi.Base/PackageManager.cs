@@ -99,7 +99,6 @@ namespace NHapi.Base
             return path.ToString();
         }
 
-
         /// <summary> Returns the package name for model elements of the given version - e.g.
         /// "NHapi.Base.Model.v24.".  This method
         /// is identical to <code>getVersionPackagePath(...)</code> except that path

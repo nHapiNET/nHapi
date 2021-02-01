@@ -184,7 +184,6 @@ namespace NHapi.Base.Log
             innerLog.Warn(message, t);
         }
 
-
         /// <summary>
         /// debug method
         /// </summary>

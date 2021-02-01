@@ -119,7 +119,6 @@ namespace NHapi.Base.Log
             WriteLog(message, t, severity, null);
         }
 
-
         private static void WriteLog(object message, Exception t, TraceLevel severity, string category)
         {
             bool writeTrace = false;
@@ -133,7 +132,6 @@ namespace NHapi.Base.Log
                     ex = t;
                 else
                     ex = new Exception(message.ToString(), t);
-
 
                 WriteTrace(_traceSwitch, ex, category);
             }

@@ -48,7 +48,6 @@ namespace NHapi.Base.validation
         {
         }
 
-
         /// <summary> Constructs an instance of <code>ValidationException</code> with the specified detail message.</summary>
         /// <param name="msg">the detail message.
         /// </param>

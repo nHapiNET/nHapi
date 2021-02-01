@@ -310,12 +310,10 @@ namespace NHapi.Base
                 Terser.Set(errorSegment, 1, rep, 1, 1, SegmentName);
             }
 
-
             if (SegmentRepetition >= 0)
             {
                 Terser.Set(errorSegment, 1, rep, 2, 1, Convert.ToString(SegmentRepetition));
             }
-
 
             if (FieldPosition >= 0)
             {

@@ -133,7 +133,6 @@ namespace NHapi.Base.Parser
         {
         }
 
-
         /// <summary> Returns a String representing the encoding of the given message, if
         /// the encoding is recognized.  For example if the given message appears
         /// to be encoded using HL7 2.x XML rules then "XML" would be returned.

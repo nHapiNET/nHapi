@@ -29,7 +29,6 @@ namespace NHapi.Base.Model.Configuration
             get { return ConfigurationElementCollectionType.BasicMap; }
         }
 
-
         protected override object GetElementKey(ConfigurationElement element)
         {
             if ((element) is HL7PackageElement)

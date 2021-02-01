@@ -92,11 +92,9 @@ namespace NHapi.Base.Parser
             set { encChars[3] = value; }
         }
 
-
         private char fieldSep;
 
         private char[] encChars;
-
 
         /// <summary>
         /// Creates new EncodingCharacters object with the given character
@@ -132,7 +130,6 @@ namespace NHapi.Base.Parser
             }
         }
 
-
         public EncodingCharacters(char fieldSeparator, char componentSeparator, char repetitionSeparator, char escapeCharacter,
             char subcomponentSeparator)
             : this(
@@ -140,7 +137,6 @@ namespace NHapi.Base.Parser
                 )
         {
         }
-
 
         /// <summary>copies contents of "other" </summary>
         public EncodingCharacters(EncodingCharacters other)

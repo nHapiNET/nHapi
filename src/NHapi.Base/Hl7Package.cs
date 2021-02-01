@@ -16,7 +16,6 @@ namespace NHapi.Base
             _packageName = packageName;
         }
 
-
         public string Version
         {
             get { return _version; }

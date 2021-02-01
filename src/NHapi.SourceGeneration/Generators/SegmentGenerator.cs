@@ -74,7 +74,6 @@ namespace NHapi.SourceGeneration.Generators
             temp_OleDbCommand.CommandText = sql;
             DbDataReader rs = temp_OleDbCommand.ExecuteReader();
 
-
             ArrayList segments = new ArrayList();
             while (rs.Read())
             {
@@ -339,7 +338,6 @@ namespace NHapi.SourceGeneration.Generators
                         {
                             source.Append(", ");
 
-
                             source.Append("\"" + se.GetDescriptionWithoutSpecialCharacters() + "\"");
                         }
 
@@ -425,7 +423,6 @@ namespace NHapi.SourceGeneration.Generators
                         if (se.repetitions == 1)
                             source.Append("\t}\r\n"); // End get
                         source.Append("  }\r\n\r\n");
-
 
                         // add an array accessor as well for repeating fields
                         if (se.repetitions != 1)

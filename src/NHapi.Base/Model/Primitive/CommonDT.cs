@@ -59,7 +59,6 @@ namespace NHapi.Base.Model.Primitive
         {
             get { return value_Renamed; }
 
-
             set
             {
                 if (value != null && !value.Equals(string.Empty) && !value.Equals("\"\""))

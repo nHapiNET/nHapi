@@ -88,7 +88,6 @@ namespace NHapi.Base
         {
         }
 
-
         /// <param name="message">
         /// </param>
         public DataTypeException(string message)

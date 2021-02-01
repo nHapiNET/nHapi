@@ -40,7 +40,6 @@ namespace NHapi.Base.Model
         private IMessage message;
         private string description;
 
-
         /// <summary>
         /// Returns the name of the type (used in XML encoding and profile checking)
         /// </summary>
@@ -75,7 +74,6 @@ namespace NHapi.Base.Model
         {
             get { return description; }
         }
-
 
         /// <summary> Creates a new instance of AbstractType</summary>
         /// <param name="message">message to which this type belongs
