@@ -74,7 +74,7 @@ namespace NHapi.Base.validation.impl
         /// </summary>
         public virtual bool test(string value_Renamed)
         {
-            if (value_Renamed == null || value_Renamed.Equals("\"\"") || value_Renamed.Equals(""))
+            if (value_Renamed == null || value_Renamed.Equals("\"\"") || value_Renamed.Equals(string.Empty))
             {
                 return true;
             }

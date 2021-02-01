@@ -62,7 +62,7 @@ namespace NHapi.Base.Model.Primitive
 
             set
             {
-                if (value != null && !value.Equals("") && !value.Equals("\"\""))
+                if (value != null && !value.Equals(string.Empty) && !value.Equals("\"\""))
                 {
                     try
                     {
@@ -301,7 +301,7 @@ namespace NHapi.Base.Model.Primitive
         /// </summary>
         public static string toHl7DTFormat(GregorianCalendar cal)
         {
-            string val = "";
+            string val = string.Empty;
             try
             {
                 // set the input cal object so that it can report errors

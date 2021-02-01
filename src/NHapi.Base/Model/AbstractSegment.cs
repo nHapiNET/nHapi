@@ -456,7 +456,7 @@ namespace NHapi.Base.Model
         /// <returns>0-based index, if found.  Otherwise, -1</returns>
         public int FindField(string name)
         {
-            return _items.FindIndex(x => Regex.Replace(x.Description, @"\s", "") == name);
+            return _items.FindIndex(x => Regex.Replace(x.Description, @"\s", string.Empty) == name);
         }
 
         /// <summary> Called from GetField(...) methods.  If a field has been requested that

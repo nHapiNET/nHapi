@@ -462,9 +462,9 @@ namespace NHapi.Base.Parser
 
             // defend against evil nulls
             if (composite == null)
-                composite = "";
+                composite = string.Empty;
             if (delim == null)
-                delim = "";
+                delim = string.Empty;
 
             SupportClass.Tokenizer tok = new SupportClass.Tokenizer(composite, delim, true);
             bool previousTokenWasDelim = true;
@@ -523,7 +523,7 @@ namespace NHapi.Base.Parser
             string val = ((IPrimitive)p).Value;
             if (val == null)
             {
-                val = "";
+                val = string.Empty;
             }
             else
             {
@@ -551,7 +551,7 @@ namespace NHapi.Base.Parser
                     found = true;
             }
 
-            string ret = "";
+            string ret = string.Empty;
             if (found)
                 ret = new string(chars, 0, c + 2);
             return ret;

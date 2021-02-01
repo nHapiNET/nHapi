@@ -8,7 +8,7 @@ namespace NHapi.Base.Model.Configuration
         [ConfigurationProperty("", IsDefaultCollection = true)]
         public HL7PackageCollection Packages
         {
-            get { return (HL7PackageCollection)this[""]; }
+            get { return (HL7PackageCollection)this[string.Empty]; }
         }
     }
 

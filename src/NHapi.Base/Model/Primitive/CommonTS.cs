@@ -105,9 +105,9 @@ namespace NHapi.Base.Model.Primitive
                     value_Renamed = dt.Value;
                 } // end if
 
-                if (tm != null && value_Renamed != null && !value_Renamed.Equals(""))
+                if (tm != null && value_Renamed != null && !value_Renamed.Equals(string.Empty))
                 {
-                    if (tm.Value != null && !tm.Value.Equals(""))
+                    if (tm.Value != null && !tm.Value.Equals(string.Empty))
                     {
                         // here we know we have a delete value or separate date and the time values supplied
                         if (tm.Value.Equals("\"\"") && dt.Value.Equals("\"\""))
@@ -122,12 +122,12 @@ namespace NHapi.Base.Model.Primitive
                         }
                     } // end if
 
-                    if (tm.Value == null || tm.Value.Equals(""))
+                    if (tm.Value == null || tm.Value.Equals(string.Empty))
                     {
                         // here we know we both have the date and just the time offset value
                         // change the offset value from an integer to a signed string
                         int offset = tm.GMTOffset;
-                        string offsetStr = "";
+                        string offsetStr = string.Empty;
                         if (offset > -99)
                         {
                             offsetStr = DataTypeUtil.preAppendZeroes(Math.Abs(offset), 4);
@@ -153,7 +153,7 @@ namespace NHapi.Base.Model.Primitive
 
             set
             {
-                if (value != null && !value.Equals("") && !value.Equals("\"\""))
+                if (value != null && !value.Equals(string.Empty) && !value.Equals("\"\""))
                 {
                     try
                     {
@@ -312,12 +312,12 @@ namespace NHapi.Base.Model.Primitive
                         tm = null;
                     } // end if
 
-                    if (value != null && value.Equals(""))
+                    if (value != null && value.Equals(string.Empty))
                     {
                         dt = new CommonDT();
-                        dt.Value = "";
+                        dt.Value = string.Empty;
                         tm = new CommonTM();
-                        tm.Value = "";
+                        tm.Value = string.Empty;
                     } // end if
 
                     if (value != null && value.Equals("\"\""))
@@ -620,7 +620,7 @@ namespace NHapi.Base.Model.Primitive
         /// </summary>
         public static string toHl7TSFormat(GregorianCalendar cal)
         {
-            string val = "";
+            string val = string.Empty;
             try
             {
                 // set the input cal object so that it can report errors

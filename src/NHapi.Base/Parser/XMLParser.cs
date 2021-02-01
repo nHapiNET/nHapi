@@ -102,7 +102,7 @@ namespace NHapi.Base.Parser
                 }
                 else
                 {
-                    concatKeepAsOriginalNodes = "";
+                    concatKeepAsOriginalNodes = string.Empty;
                 }
             }
         }
@@ -118,7 +118,7 @@ namespace NHapi.Base.Parser
         private string[] keepAsOriginalNodes;
 
         /// <summary> All keepAsOriginalNodes names, concatenated by a pipe (|)</summary>
-        private string concatKeepAsOriginalNodes = "";
+        private string concatKeepAsOriginalNodes = string.Empty;
 
         public XMLParser()
         {
@@ -437,7 +437,7 @@ namespace NHapi.Base.Parser
                 {
                     try
                     {
-                        if (child.Value != null && !child.Value.Equals(""))
+                        if (child.Value != null && !child.Value.Equals(string.Empty))
                         {
                             if (KeepAsOriginal(child.ParentNode))
                             {
@@ -596,7 +596,7 @@ namespace NHapi.Base.Parser
         private bool EncodePrimitive(IPrimitive datatypeObject, XmlElement datatypeElement)
         {
             bool hasValue = false;
-            if (datatypeObject.Value != null && !datatypeObject.Value.Equals(""))
+            if (datatypeObject.Value != null && !datatypeObject.Value.Equals(string.Empty))
                 hasValue = true;
 
             XmlText t = datatypeElement.OwnerDocument.CreateTextNode(datatypeObject.Value);

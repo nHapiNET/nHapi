@@ -542,7 +542,7 @@ namespace NHapi.Base
             }
             catch (ArgumentOutOfRangeException)
             {
-                return "";
+                return string.Empty;
             }
         }
 
@@ -559,7 +559,7 @@ namespace NHapi.Base
             }
             catch (ArgumentOutOfRangeException)
             {
-                return "";
+                return string.Empty;
             }
         }
 
@@ -576,7 +576,7 @@ namespace NHapi.Base
             }
             catch (ArgumentOutOfRangeException)
             {
-                return "";
+                return string.Empty;
             }
         }
 
@@ -593,7 +593,7 @@ namespace NHapi.Base
             }
             catch (ArgumentOutOfRangeException)
             {
-                return "";
+                return string.Empty;
             }
         }
 
@@ -610,7 +610,7 @@ namespace NHapi.Base
             }
             catch (ArgumentOutOfRangeException)
             {
-                return "";
+                return string.Empty;
             }
         }
 
@@ -734,7 +734,7 @@ namespace NHapi.Base
             if (temp_Index != -1)
                 return ((Att_Instance)MainList[temp_Index]).att_type;
             else
-                return "";
+                return string.Empty;
         }
 
         /// <summary>
@@ -749,7 +749,7 @@ namespace NHapi.Base
             if (temp_Index != -1)
                 return ((Att_Instance)MainList[temp_Index]).att_type;
             else
-                return "";
+                return string.Empty;
         }
 
         /// <summary>
@@ -763,7 +763,7 @@ namespace NHapi.Base
             if (temp_Index != -1)
                 return ((Att_Instance)MainList[temp_Index]).att_value;
             else
-                return "";
+                return string.Empty;
         }
 
         /// <summary>
@@ -778,7 +778,7 @@ namespace NHapi.Base
             if (temp_Index != -1)
                 return ((Att_Instance)MainList[temp_Index]).att_value;
             else
-                return "";
+                return string.Empty;
         }
 
         /*******************************/
@@ -1140,7 +1140,7 @@ namespace NHapi.Base
             locator = null;
             lexical = null;
             entityResolver = null;
-            parserFileName = "";
+            parserFileName = string.Empty;
         }
 
         /// <summary>
@@ -1391,8 +1391,8 @@ namespace NHapi.Base
                     {
                         case XmlNodeType.Element:
                             bool Empty = reader.IsEmptyElement;
-                            string namespaceURI = "";
-                            string localName = "";
+                            string namespaceURI = string.Empty;
+                            string localName = string.Empty;
                             if (namespaceAllowed)
                             {
                                 namespaceURI = reader.NamespaceURI;
@@ -1408,7 +1408,7 @@ namespace NHapi.Base
                                     reader.MoveToAttribute(i);
                                     string prefixName = (reader.Name.IndexOf(":") > 0)
                                         ? reader.Name.Substring(reader.Name.IndexOf(":") + 1, reader.Name.Length - reader.Name.IndexOf(":") - 1)
-                                        : "";
+                                        : string.Empty;
                                     string prefix = (reader.Name.IndexOf(":") > 0)
                                         ? reader.Name.Substring(0, reader.Name.IndexOf(":"))
                                         : reader.Name;
@@ -1416,13 +1416,13 @@ namespace NHapi.Base
                                     if (namespaceAllowed)
                                     {
                                         if (!IsXmlns)
-                                            attributes.Add(reader.NamespaceURI, reader.LocalName, reader.Name, "" + reader.NodeType, reader.Value);
+                                            attributes.Add(reader.NamespaceURI, reader.LocalName, reader.Name, string.Empty + reader.NodeType, reader.Value);
                                     }
                                     else
-                                        attributes.Add("", "", reader.Name, "" + reader.NodeType, reader.Value);
+                                        attributes.Add(string.Empty, string.Empty, reader.Name, string.Empty + reader.NodeType, reader.Value);
                                     if (IsXmlns)
                                     {
-                                        string namespaceTemp = "";
+                                        string namespaceTemp = string.Empty;
                                         namespaceTemp = (namespaceURI.Length == 0) ? reader.Value : namespaceURI;
                                         if (namespaceAllowed && !prefixes.ContainsKey(namespaceTemp) && namespaceTemp.Length > 0)
                                         {
@@ -1456,7 +1456,7 @@ namespace NHapi.Base
                                         callBackHandler.endElement(namespaceURI, localName, name);
                                 }
                                 else if (callBackHandler != null)
-                                    callBackHandler.endElement("", "", name);
+                                    callBackHandler.endElement(string.Empty, string.Empty, name);
                             }
 
                             break;
@@ -1468,7 +1468,7 @@ namespace NHapi.Base
                                     callBackHandler.endElement(reader.NamespaceURI, reader.LocalName, reader.Name);
                             }
                             else if (callBackHandler != null)
-                                callBackHandler.endElement("", "", reader.Name);
+                                callBackHandler.endElement(string.Empty, string.Empty, reader.Name);
                             if (namespaceAllowed && prefixes.ContainsKey(reader.NamespaceURI) &&
                                  ((Stack)stackNameSpace).Contains(reader.Name))
                             {
@@ -3057,7 +3057,7 @@ namespace NHapi.Base
             /// <returns>A String that represents the current Object</returns>
             public override string ToString()
             {
-                return "Thread[" + Name + "," + Priority.ToString() + "," + "" + "]";
+                return "Thread[" + Name + "," + Priority.ToString() + "," + string.Empty + "]";
             }
 
             /// <summary>
@@ -3163,7 +3163,7 @@ namespace NHapi.Base
                 // if over a delimiter and delimiters must be returned
                 else if ((Array.IndexOf(delimiters.ToCharArray(), chars[currentPos]) != -1)
                             && includeDelims)
-                    return "" + chars[currentPos++];
+                    return string.Empty + chars[currentPos++];
 
                 // need to get the token wo delimiters.
                 else

@@ -429,7 +429,7 @@ namespace NHapi.Base.Util
                     }
                     catch (HL7Exception e)
                     {
-                        log.Error("", e);
+                        log.Error(string.Empty, e);
                         throw new ApplicationException("Internal HL7Exception finding structure index: " + e.Message);
                     }
                 }

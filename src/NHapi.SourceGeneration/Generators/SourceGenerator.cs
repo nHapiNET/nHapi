@@ -198,7 +198,7 @@ namespace NHapi.SourceGeneration.Generators
         /// </summary>
         private static string filterBracketedText(string text)
         {
-            string filtered = "";
+            string filtered = string.Empty;
             bool isDataType = true;
             if (!text.Equals(text.ToUpper()))
                 isDataType = false;

@@ -85,12 +85,12 @@ namespace NHapi.Base.Model.Primitive
             {
                 // combine the value field with the offSet field and return it
                 string returnVal = null;
-                if (value_Renamed != null && !value_Renamed.Equals(""))
+                if (value_Renamed != null && !value_Renamed.Equals(string.Empty))
                 {
                     if (omitOffsetFg == 'n' && !value_Renamed.Equals("\"\""))
                     {
                         int absOffset = Math.Abs(offSet);
-                        string sign = "";
+                        string sign = string.Empty;
                         if (offSet >= 0)
                         {
                             sign = "+";
@@ -116,7 +116,7 @@ namespace NHapi.Base.Model.Primitive
 
             set
             {
-                if (value != null && !value.Equals("") && !value.Equals("\"\""))
+                if (value != null && !value.Equals(string.Empty) && !value.Equals("\"\""))
                 {
                     // check to see if any of the following characters exist: "." or "+/-"
                     // this will help us determine the acceptable lengths
@@ -585,7 +585,7 @@ namespace NHapi.Base.Model.Primitive
 
                 int fractionOfSecInt = (int)(secMultRound - (second * 10000));
                 fractionOfSec = fractionOfSecInt / 10000F;
-                string fractString = "";
+                string fractString = string.Empty;
 
                 // Now convert the fractionOfSec field to a string without the leading zero
                 if (fractionOfSec != 0.0F)
@@ -620,7 +620,7 @@ namespace NHapi.Base.Model.Primitive
         /// </summary>
         public static string toHl7TMFormat(GregorianCalendar cal)
         {
-            string val = "";
+            string val = string.Empty;
             try
             {
                 // set the input cal object so that it can report errors

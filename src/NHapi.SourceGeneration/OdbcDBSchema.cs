@@ -31,7 +31,7 @@ namespace NHapi.SourceGeneration
         {
             get
             {
-                string result = "";
+                string result = string.Empty;
                 OpenConnection();
                 result = Connection.Driver;
                 CloseConnection();
@@ -67,7 +67,7 @@ namespace NHapi.SourceGeneration
         /// <returns>A new String with the info from the row</returns>
         private string GetMaxInfo(string filter, string RowName)
         {
-            string result = "";
+            string result = string.Empty;
             schemaData = null;
             OpenConnection();
             schemaData = Connection.GetSchema("DbInfoLiterals", null);
@@ -198,7 +198,7 @@ namespace NHapi.SourceGeneration
                 schemaData = Connection.GetSchema("Tables", null);
                 ArrayList tableTypes = new ArrayList(schemaData.Rows.Count);
 
-                string tableType = "";
+                string tableType = string.Empty;
                 foreach (DataRow DataRow in schemaData.Rows)
                 {
                     tableType = DataRow[schemaData.Columns["TABLE_TYPE"]].ToString();
@@ -291,7 +291,7 @@ namespace NHapi.SourceGeneration
         {
             get
             {
-                string result = "";
+                string result = string.Empty;
                 OpenConnection();
                 result = Connection.ServerVersion;
                 CloseConnection();
@@ -359,7 +359,7 @@ namespace NHapi.SourceGeneration
             get
             {
                 string len = GetMaxInfo("Binary_Literal", "Maxlen");
-                if (len.Equals(""))
+                if (len.Equals(string.Empty))
                     return 0;
                 else
                     return (Convert.ToInt32(len) * 4);
@@ -374,7 +374,7 @@ namespace NHapi.SourceGeneration
             get
             {
                 string len = GetMaxInfo("Catalog_Name", "Maxlen");
-                if (len.Equals(""))
+                if (len.Equals(string.Empty))
                     return 0;
                 else
                     return (Convert.ToInt32(len));
@@ -389,7 +389,7 @@ namespace NHapi.SourceGeneration
             get
             {
                 string len = GetMaxInfo("Char_Literal", "Maxlen");
-                if (len.Equals(""))
+                if (len.Equals(string.Empty))
                     return 0;
                 else
                     return (Convert.ToInt32(len) * 4);
@@ -404,7 +404,7 @@ namespace NHapi.SourceGeneration
             get
             {
                 string len = GetMaxInfo("Column_Name", "Maxlen");
-                if (len.Equals(""))
+                if (len.Equals(string.Empty))
                     return 0;
                 else
                     return (Convert.ToInt32(len));
@@ -419,7 +419,7 @@ namespace NHapi.SourceGeneration
             get
             {
                 string len = GetMaxInfo("Cursor_Name", "Maxlen");
-                if (len.Equals(""))
+                if (len.Equals(string.Empty))
                     return 0;
                 else
                     return (Convert.ToInt32(len));
@@ -434,7 +434,7 @@ namespace NHapi.SourceGeneration
             get
             {
                 string len = GetMaxInfo("Procedure_Name", "Maxlen");
-                if (len.Equals(""))
+                if (len.Equals(string.Empty))
                     return 0;
                 else
                     return (Convert.ToInt32(len));
@@ -449,7 +449,7 @@ namespace NHapi.SourceGeneration
             get
             {
                 string len = GetMaxInfo("Schema_Name", "Maxlen");
-                if (len.Equals(""))
+                if (len.Equals(string.Empty))
                     return 0;
                 else
                     return (Convert.ToInt32(len));
@@ -464,7 +464,7 @@ namespace NHapi.SourceGeneration
             get
             {
                 string len = GetMaxInfo("Table_Name", "Maxlen");
-                if (len.Equals(""))
+                if (len.Equals(string.Empty))
                     return 0;
                 else
                     return (Convert.ToInt32(len));
@@ -479,7 +479,7 @@ namespace NHapi.SourceGeneration
             get
             {
                 string len = GetMaxInfo("User_Name", "Maxlen");
-                if (len.Equals(""))
+                if (len.Equals(string.Empty))
                     return 0;
                 else
                     return Convert.ToInt32(len);

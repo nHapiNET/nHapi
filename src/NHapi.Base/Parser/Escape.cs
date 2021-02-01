@@ -199,7 +199,7 @@ namespace NHapi.Base.Parser
             if (result.Length > 0)
                 return result.ToString().Trim();
             else
-                return "";
+                return string.Empty;
         }
 
         /// <summary>
