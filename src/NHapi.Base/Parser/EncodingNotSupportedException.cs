@@ -33,7 +33,7 @@ namespace NHapi.Base.Parser
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   [Serializable]
+    [Serializable]
     public class EncodingNotSupportedException : HL7Exception
     {
         /// <summary> Constructs an <code>EncodingNotSupportedException</code> with the specified detail message.</summary>

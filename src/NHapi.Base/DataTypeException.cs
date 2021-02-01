@@ -34,7 +34,7 @@ namespace NHapi.Base
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   [Serializable]
+    [Serializable]
     public class DataTypeException : HL7Exception
     {
         /// <param name="message">

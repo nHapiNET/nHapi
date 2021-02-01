@@ -31,7 +31,7 @@ namespace NHapi.SourceGeneration
    /// <summary> Thrown when a lookup table is not known to a TableRepository. </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   [Serializable]
+    [Serializable]
     public class UndefinedTableException : UnknownValueException
     {
         public UndefinedTableException(String message)

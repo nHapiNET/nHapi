@@ -36,7 +36,7 @@ namespace NHapi.SourceGeneration
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   [Serializable]
+    [Serializable]
     public class LookupException : Exception
     {
         /// <summary> Constructs an <code>LookupException</code> with the specified detail message.

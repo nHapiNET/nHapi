@@ -31,7 +31,7 @@ namespace NHapi.Base.validation
    /// <summary> A failure to validate against a rule.  </summary>
    /// <author>  Bryan Tripp
    /// </author>
-   [Serializable]
+    [Serializable]
     public class ValidationException : Exception
     {
         /// <summary> Creates a new instance of <code>ValidationException</code> without detail message.</summary>

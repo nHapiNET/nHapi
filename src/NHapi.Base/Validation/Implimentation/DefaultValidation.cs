@@ -53,7 +53,7 @@ namespace NHapi.Base.validation.impl
         }
     }
 
-    public class StrictValidation : DefaultValidation
+   public class StrictValidation : DefaultValidation
     {
         public StrictValidation()
         {

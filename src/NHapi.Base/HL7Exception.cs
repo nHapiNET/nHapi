@@ -38,7 +38,7 @@ namespace NHapi.Base
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   [Serializable]
+    [Serializable]
     public class HL7Exception : Exception
     {
         /// <value>
