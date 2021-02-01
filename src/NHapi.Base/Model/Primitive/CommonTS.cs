@@ -103,29 +103,29 @@ namespace NHapi.Base.Model.Primitive
                 if (dt != null)
                 {
                     value_Renamed = dt.Value;
-                } //end if
+                } // end if
 
                 if (tm != null && value_Renamed != null && !value_Renamed.Equals(""))
                 {
                     if (tm.Value != null && !tm.Value.Equals(""))
                     {
-                        //here we know we have a delete value or separate date and the time values supplied
+                        // here we know we have a delete value or separate date and the time values supplied
                         if (tm.Value.Equals("\"\"") && dt.Value.Equals("\"\""))
                         {
-                            //set value to the delete value ("")
+                            // set value to the delete value ("")
                             value_Renamed = "\"\"";
                         }
                         else
                         {
-                            //set value to date concatonated with time value
+                            // set value to date concatonated with time value
                             value_Renamed = value_Renamed + tm.Value;
                         }
-                    } //end if
+                    } // end if
 
                     if (tm.Value == null || tm.Value.Equals(""))
                     {
-                        //here we know we both have the date and just the time offset value
-                        //change the offset value from an integer to a signed string
+                        // here we know we both have the date and just the time offset value
+                        // change the offset value from an integer to a signed string
                         int offset = tm.GMTOffset;
                         String offsetStr = "";
                         if (offset > -99)
@@ -136,16 +136,16 @@ namespace NHapi.Base.Model.Primitive
                                 offsetStr = "+" + offsetStr;
                             }
 
-                            //end if
+                            // end if
                             else
                             {
                                 offsetStr = "-" + offsetStr;
-                            } //end else
+                            } // end else
                         }
 
                         value_Renamed = value_Renamed + offsetStr;
-                    } //end if
-                } //end if
+                    } // end if
+                } // end if
 
                 return value_Renamed;
             }
@@ -157,8 +157,8 @@ namespace NHapi.Base.Model.Primitive
                 {
                     try
                     {
-                        //check the length of the input value, ensure that it is no less than
-                        //8 characters in length
+                        // check the length of the input value, ensure that it is no less than
+                        // 8 characters in length
                         if (value.Length < 4)
                         {
                             String msg = "The length of the TS datatype value must be at least 4 characters in length.";
@@ -166,8 +166,8 @@ namespace NHapi.Base.Model.Primitive
                             throw e;
                         }
 
-                        //check the length of the input value, ensure that it is not greater
-                        //than 24 characters in length
+                        // check the length of the input value, ensure that it is not greater
+                        // than 24 characters in length
                         if (value.Length > 24)
                         {
                             String msg = "The length of the TS datatype value must not be more than 24 characters in length.";
@@ -175,8 +175,8 @@ namespace NHapi.Base.Model.Primitive
                             throw e;
                         }
 
-                        //at this point we know that we have a value that should conform to the DT
-                        //datatype and possibly a value that should conform to the TM datatype
+                        // at this point we know that we have a value that should conform to the DT
+                        // datatype and possibly a value that should conform to the TM datatype
                         String dateVal = null;
                         String timeVal = null;
                         String timeValLessOffset = null;
@@ -203,12 +203,12 @@ namespace NHapi.Base.Model.Primitive
                             }
                             else
                             {
-                                //here we know that a time value is present
+                                // here we know that a time value is present
                                 dateVal = value.Substring(0, (8) - (0));
                                 timeVal = value.Substring(8);
                                 timeValLessOffset = timeVal;
                             }
-                        } //offset not exist
+                        } // offset not exist
 
                         if (offsetExists == true)
                         {
@@ -220,32 +220,32 @@ namespace NHapi.Base.Model.Primitive
                             }
                             else
                             {
-                                //we know that the time val is simply the offset
+                                // we know that the time val is simply the offset
                                 dateVal = value.Substring(0, (indexOfSign) - (0));
                                 timeVal = value.Substring(indexOfSign);
                                 timeValIsOffsetOnly = true;
                             }
-                        } //offset exists
+                        } // offset exists
 
-                        //create date object
+                        // create date object
                         dt = new CommonDT();
-                        //set the value of the date object to the input date value
+                        // set the value of the date object to the input date value
                         dt.Value = dateVal;
-                        //if the offset does not exist and a timvalue does not exist then
-                        //we must provide a default offset = to the local time zone
+                        // if the offset does not exist and a timvalue does not exist then
+                        // we must provide a default offset = to the local time zone
                         if (timeVal == null && offsetExists == false)
                         {
                             int defaultOffset = DataTypeUtil.LocalGMTOffset;
                             tm = new CommonTM();
                             tm.Offset = defaultOffset;
-                        } //end if
+                        } // end if
 
-                        //if we have a time value then make a new time object and set it to the
-                        //input time value (as long as the time val has time + offset or just time only)
+                        // if we have a time value then make a new time object and set it to the
+                        // input time value (as long as the time val has time + offset or just time only)
                         if (timeVal != null && timeValIsOffsetOnly == false)
                         {
-                            //must make sure that the time component contains both hours and minutes
-                            //at the very least -- must be at least 4chars in length.
+                            // must make sure that the time component contains both hours and minutes
+                            // at the very least -- must be at least 4chars in length.
                             if (timeValLessOffset.Length < 4)
                             {
                                 String msg = "The length of the time component for the TM datatype" +
@@ -253,61 +253,61 @@ namespace NHapi.Base.Model.Primitive
                                                  " YYYY[MM[DD[HHMM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ].";
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
-                            } //end if
+                            } // end if
 
                             tm = new CommonTM();
                             tm.Value = timeVal;
-                        } //end if
+                        } // end if
 
-                        //if we have a time value and it only has the offset then make a new
-                        //time object and set the offset value to the input value
+                        // if we have a time value and it only has the offset then make a new
+                        // time object and set the offset value to the input value
                         if (timeVal != null && timeValIsOffsetOnly == true)
                         {
-                            //we know that the time value is just the offset so we
-                            //must check to see if it is the right length before setting the
-                            //offset field in the tm object
+                            // we know that the time value is just the offset so we
+                            // must check to see if it is the right length before setting the
+                            // offset field in the tm object
                             if (timeVal.Length != 5)
                             {
                                 String msg = "The length of the GMT offset for the TM datatype value does" +
                                                  " not conform to the allowable format [+/-ZZZZ]";
                                 DataTypeException e = new DataTypeException(msg);
                                 throw e;
-                            } //end if
+                            } // end if
 
                             tm = new CommonTM();
-                            //first extract the + sign from the offset value string if it exists
+                            // first extract the + sign from the offset value string if it exists
                             if (timeVal.IndexOf("+") == 0)
                             {
                                 timeVal = timeVal.Substring(1);
-                            } //end if
+                            } // end if
 
                             int signedOffset = Int32.Parse(timeVal);
                             tm.Offset = signedOffset;
-                        } //end if
+                        } // end if
                     }
 
-                    //end try
+                    // end try
                     catch (DataTypeException e)
                     {
                         throw e;
                     }
 
-                    //end catch
+                    // end catch
                     catch (Exception e)
                     {
                         throw new DataTypeException("An unexpected exception ocurred", e);
-                    } //end catch
+                    } // end catch
                 }
 
-                //end if
+                // end if
                 else
                 {
-                    //set the private value field to null or empty space.
+                    // set the private value field to null or empty space.
                     if (value == null)
                     {
                         dt = null;
                         tm = null;
-                    } //end if
+                    } // end if
 
                     if (value != null && value.Equals(""))
                     {
@@ -315,7 +315,7 @@ namespace NHapi.Base.Model.Primitive
                         dt.Value = "";
                         tm = new CommonTM();
                         tm.Value = "";
-                    } //end if
+                    } // end if
 
                     if (value != null && value.Equals("\"\""))
                     {
@@ -323,8 +323,8 @@ namespace NHapi.Base.Model.Primitive
                         dt.Value = "\"\"";
                         tm = new CommonTM();
                         tm.Value = "\"\"";
-                    } //end if
-                } //end else
+                    } // end if
+                } // end else
             }
 
             // end method
@@ -339,13 +339,13 @@ namespace NHapi.Base.Model.Primitive
             {
                 try
                 {
-                    //create new time object is there isn't one
+                    // create new time object is there isn't one
                     if (tm == null)
                     {
                         tm = new CommonTM();
                     }
 
-                    //set the offset value of the time object to the input value
+                    // set the offset value of the time object to the input value
                     tm.Offset = value;
                 }
                 catch (DataTypeException e)
@@ -353,11 +353,11 @@ namespace NHapi.Base.Model.Primitive
                     throw e;
                 }
 
-                //end catch
+                // end catch
                 catch (Exception e)
                 {
                     throw new DataTypeException("An unexpected exception ocurred", e);
-                } //end catch
+                } // end catch
             }
         }
 
@@ -370,7 +370,7 @@ namespace NHapi.Base.Model.Primitive
                 if (dt != null)
                 {
                     year = dt.Year;
-                } //end if
+                } // end if
 
                 return year;
             }
@@ -385,7 +385,7 @@ namespace NHapi.Base.Model.Primitive
                 if (dt != null)
                 {
                     month = dt.Month;
-                } //end if
+                } // end if
 
                 return month;
             }
@@ -400,7 +400,7 @@ namespace NHapi.Base.Model.Primitive
                 if (dt != null)
                 {
                     day = dt.Day;
-                } //end if
+                } // end if
 
                 return day;
             }
@@ -415,7 +415,7 @@ namespace NHapi.Base.Model.Primitive
                 if (tm != null)
                 {
                     hour = tm.Hour;
-                } //end if
+                } // end if
 
                 return hour;
             }
@@ -430,7 +430,7 @@ namespace NHapi.Base.Model.Primitive
                 if (tm != null)
                 {
                     minute = tm.Minute;
-                } //end if
+                } // end if
 
                 return minute;
             }
@@ -445,7 +445,7 @@ namespace NHapi.Base.Model.Primitive
                 if (tm != null)
                 {
                     seconds = tm.Second;
-                } //end if
+                } // end if
 
                 return seconds;
             }
@@ -460,7 +460,7 @@ namespace NHapi.Base.Model.Primitive
                 if (tm != null)
                 {
                     fractionOfSec = tm.FractSecond;
-                } //end if
+                } // end if
 
                 return fractionOfSec;
             }
@@ -475,7 +475,7 @@ namespace NHapi.Base.Model.Primitive
                 if (tm != null)
                 {
                     offSet = tm.GMTOffset;
-                } //end if
+                } // end if
 
                 return offSet;
             }
@@ -492,7 +492,7 @@ namespace NHapi.Base.Model.Primitive
         /// </summary>
         public CommonTS()
         {
-        } //zero arg constructor
+        } // zero arg constructor
 
         /// <summary> Constructs a TS object with the given value.
         /// The stored value will be in the following
@@ -501,7 +501,7 @@ namespace NHapi.Base.Model.Primitive
         public CommonTS(String val)
         {
             Value = val;
-        } //end constructor
+        } // end constructor
 
         /// <summary> This method takes in integer values for the year and month and day
         /// and performs validations, it then sets the value in the object
@@ -512,29 +512,29 @@ namespace NHapi.Base.Model.Primitive
         {
             try
             {
-                //create date object if there isn't one
+                // create date object if there isn't one
                 if (dt == null)
                 {
                     dt = new CommonDT();
                 }
 
-                //set the value of the date object to the input date value
+                // set the value of the date object to the input date value
                 dt.setYearMonthDayPrecision(yr, mnth, dy);
-                //clear the time value object
+                // clear the time value object
                 tm = null;
             }
 
-            //end try
+            // end try
             catch (DataTypeException e)
             {
                 throw e;
             }
 
-            //end catch
+            // end catch
             catch (Exception e)
             {
                 throw new DataTypeException("An unexpected exception ocurred", e);
-            } //end catch
+            } // end catch
         }
 
         /// <summary> This method takes in integer values for the year, month, day, hour
@@ -545,29 +545,29 @@ namespace NHapi.Base.Model.Primitive
         {
             try
             {
-                //set the value of the date object to the input date value
+                // set the value of the date object to the input date value
                 setDatePrecision(yr, mnth, dy);
-                //create new time object is there isn't one
+                // create new time object is there isn't one
                 if (tm == null)
                 {
                     tm = new CommonTM();
                 }
 
-                //set the value of the time object to the minute precision with the input values
+                // set the value of the time object to the minute precision with the input values
                 tm.setHourMinutePrecision(hr, min);
             }
 
-            //end try
+            // end try
             catch (DataTypeException e)
             {
                 throw e;
             }
 
-            //end catch
+            // end catch
             catch (Exception e)
             {
                 throw new DataTypeException("An unexpected exception ocurred", e);
-            } //end catch
+            } // end catch
         }
 
         /// <summary> This method takes in integer values for the year, month, day, hour, minute, seconds,
@@ -584,29 +584,29 @@ namespace NHapi.Base.Model.Primitive
         {
             try
             {
-                //set the value of the date object to the input date value
+                // set the value of the date object to the input date value
                 setDatePrecision(yr, mnth, dy);
-                //create new time object is there isn't one
+                // create new time object is there isn't one
                 if (tm == null)
                 {
                     tm = new CommonTM();
                 }
 
-                //set the value of the time object to the second precision with the input values
+                // set the value of the time object to the second precision with the input values
                 tm.setHourMinSecondPrecision(hr, min, sec);
             }
 
-            //end try
+            // end try
             catch (DataTypeException e)
             {
                 throw e;
             }
 
-            //end catch
+            // end catch
             catch (Exception e)
             {
                 throw new DataTypeException("An unexpected exception ocurred", e);
-            } //end catch
+            } // end catch
         }
 
         /// <summary> Returns a string value representing the input Gregorian Calendar object in
@@ -617,8 +617,8 @@ namespace NHapi.Base.Model.Primitive
             String val = "";
             try
             {
-                //set the input cal object so that it can report errors
-                //on it's value
+                // set the input cal object so that it can report errors
+                // on it's value
                 int calYear = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.YEAR);
                 int calMonth = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MONTH) + 1;
                 int calDay = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.DAY_OF_MONTH);
@@ -626,12 +626,12 @@ namespace NHapi.Base.Model.Primitive
                 int calMin = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MINUTE);
                 int calSec = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.SECOND);
                 int calMilli = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MILLISECOND);
-                //the inputs seconds and milli seconds should be combined into a float type
+                // the inputs seconds and milli seconds should be combined into a float type
                 float fractSec = calMilli / 1000F;
                 float calSecFloat = calSec + fractSec;
                 int calOffset = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.ZONE_OFFSET);
-                //Note the input's Offset value is in milliseconds, we must convert it to
-                //a 4 digit integer in the HL7 Offset format.
+                // Note the input's Offset value is in milliseconds, we must convert it to
+                // a 4 digit integer in the HL7 Offset format.
                 int offSetSignInt;
                 if (calOffset < 0)
                 {
@@ -642,14 +642,14 @@ namespace NHapi.Base.Model.Primitive
                     offSetSignInt = 1;
                 }
 
-                //get the absolute value of the gmtOffSet
+                // get the absolute value of the gmtOffSet
                 int absGmtOffSet = Math.Abs(calOffset);
                 int gmtOffSetHours = absGmtOffSet / (3600 * 1000);
                 int gmtOffSetMin = (absGmtOffSet / 60000) % (60);
-                //reset calOffset
+                // reset calOffset
                 calOffset = ((gmtOffSetHours * 100) + gmtOffSetMin) * offSetSignInt;
-                //Create an object of the TS class and populate it with the above values
-                //then return the HL7 string value from the object
+                // Create an object of the TS class and populate it with the above values
+                // then return the HL7 string value from the object
                 CommonTS ts = new CommonTS();
                 ts.setDateSecondPrecision(calYear, calMonth, calDay, calHour, calMin, calSecFloat);
                 ts.Offset = calOffset;
@@ -662,11 +662,11 @@ namespace NHapi.Base.Model.Primitive
                 throw e;
             }
 
-            //end catch
+            // end catch
             catch (Exception e)
             {
                 throw new DataTypeException("An unexpected exception ocurred", e);
-            } //end catch
+            } // end catch
 
             return val;
         }
@@ -675,5 +675,5 @@ namespace NHapi.Base.Model.Primitive
         {
             log = HapiLogFactory.GetHapiLog(typeof(CommonTS));
         }
-    } //end class
+    } // end class
 }

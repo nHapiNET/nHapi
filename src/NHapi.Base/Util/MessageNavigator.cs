@@ -147,7 +147,7 @@ namespace NHapi.Base.Util
 
                 IGroup group = (IGroup)s;
 
-                //stack the current group and location
+                // stack the current group and location
                 GroupContext gc = new GroupContext(this, currentGroup, currentChild);
                 ancestors.Add(gc);
 
@@ -171,7 +171,7 @@ namespace NHapi.Base.Util
         /// </returns>
         public virtual bool drillUp()
         {
-            //pop the top group and resume search there
+            // pop the top group and resume search there
             if (!(ancestors.Count == 0))
             {
                 GroupContext gc = (GroupContext)SupportClass.StackSupport.Pop(ancestors);
@@ -280,8 +280,8 @@ namespace NHapi.Base.Util
                 start = (currentGroup.GetStructure(childNames[currentChild]));
             }
 
-            //using a non-existent direction and not allowing segment creation means that only
-            //the first rep of anything is traversed.
+            // using a non-existent direction and not allowing segment creation means that only
+            // the first rep of anything is traversed.
             IEnumerator it = new MessageIterator(start, "doesn't exist", false);
             if (segmentsOnly)
             {

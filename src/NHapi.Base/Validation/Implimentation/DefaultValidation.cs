@@ -63,7 +63,7 @@ namespace NHapi.Base.validation.impl
             IRule number = new RegexPrimitiveRule(@"^(\+|\-)?\d*\.?\d*$", "NM Fields should only contain numbers / decimals");
             PrimitiveRuleBindings.Add(new RuleBinding("*", "NM", number));
 
-            String datePattern = @"^(\d{4}([01]\d(\d{2})?)?)?$"; //YYYY[MM[DD]]
+            String datePattern = @"^(\d{4}([01]\d(\d{2})?)?)?$"; // YYYY[MM[DD]]
             IRule date = new RegexPrimitiveRule(datePattern, "Version 2.5 Section 2.16.24");
             PrimitiveRuleBindings.Add(new RuleBinding("*", "DT", date));
 

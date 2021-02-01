@@ -71,7 +71,7 @@ namespace NHapi.Base.Model
                         StringBuilder buf = new StringBuilder();
                         for (int i = 1; i < chars.Length; i++)
                         {
-                            //start at 1 to avoid the 'v'
+                            // start at 1 to avoid the 'v'
                             buf.Append(chars[i]);
                             if (i < chars.Length - 1)
                                 buf.Append('.');

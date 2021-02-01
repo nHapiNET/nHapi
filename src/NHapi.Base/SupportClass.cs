@@ -1118,7 +1118,7 @@ namespace NHapi.Base
         protected bool isValidating;
         protected bool namespaceAllowed;
         protected XmlReader reader;
-        //protected XmlValidatingReader reader;
+        // protected XmlValidatingReader reader;
         protected IXmlSaxContentHandler callBackHandler;
         protected IXmlSaxErrorHandler errorHandler;
         protected XmlSaxLocatorImpl locator;
@@ -1606,7 +1606,7 @@ namespace NHapi.Base
             // Set the validation settings.
             XmlReaderSettings settings = new XmlReaderSettings();
             settings.ValidationType = (isValidating) ? ValidationType.DTD : ValidationType.None;
-            //settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessInlineSchema;
+            // settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessInlineSchema;
             settings.ValidationFlags |= XmlSchemaValidationFlags.ReportValidationWarnings;
             settings.ValidationEventHandler += new ValidationEventHandler(ValidationEventHandle);
 
@@ -2007,11 +2007,11 @@ namespace NHapi.Base
             public static bool Add(ICollection c, Object obj)
             {
                 bool added = false;
-                //Reflection. Invoke either the "add" or "Add" method.
+                // Reflection. Invoke either the "add" or "Add" method.
                 MethodInfo method;
                 try
                 {
-                    //Get the "add" method for proprietary classes
+                    // Get the "add" method for proprietary classes
                     method = c.GetType().GetMethod("Add");
                     if (method == null)
                         method = c.GetType().GetMethod("add");
@@ -2038,7 +2038,7 @@ namespace NHapi.Base
                 IEnumerator e = new ArrayList(c).GetEnumerator();
                 bool added = false;
 
-                //Reflection. Invoke "addAll" method for proprietary classes
+                // Reflection. Invoke "addAll" method for proprietary classes
                 MethodInfo method;
                 try
                 {
@@ -2070,7 +2070,7 @@ namespace NHapi.Base
             /// <param name="c">The collection to remove elements.</param>
             public static void Clear(ICollection c)
             {
-                //Reflection. Invoke "Clear" method or "clear" method for proprietary classes
+                // Reflection. Invoke "Clear" method or "clear" method for proprietary classes
                 MethodInfo method;
                 try
                 {
@@ -2097,7 +2097,7 @@ namespace NHapi.Base
             {
                 bool contains = false;
 
-                //Reflection. Invoke "contains" method for proprietary classes
+                // Reflection. Invoke "contains" method for proprietary classes
                 MethodInfo method;
                 try
                 {
@@ -2128,7 +2128,7 @@ namespace NHapi.Base
 
                 bool contains = false;
 
-                //Reflection. Invoke "containsAll" method for proprietary classes or "Contains" method for each element in the collection
+                // Reflection. Invoke "containsAll" method for proprietary classes or "Contains" method for each element in the collection
                 MethodInfo method;
                 try
                 {
@@ -2163,7 +2163,7 @@ namespace NHapi.Base
             {
                 bool changed = false;
 
-                //Reflection. Invoke "remove" method for proprietary classes or "Remove" method
+                // Reflection. Invoke "remove" method for proprietary classes or "Remove" method
                 MethodInfo method;
                 try
                 {
@@ -2198,7 +2198,7 @@ namespace NHapi.Base
                 ArrayList al = ToArrayList(c);
                 IEnumerator e = al.GetEnumerator();
 
-                //Reflection. Invoke "removeAll" method for proprietary classes or "Remove" for each element in the collection
+                // Reflection. Invoke "removeAll" method for proprietary classes or "Remove" for each element in the collection
                 MethodInfo method;
                 try
                 {
@@ -2237,7 +2237,7 @@ namespace NHapi.Base
                 IEnumerator e = new ArrayList(target).GetEnumerator();
                 ArrayList al = new ArrayList(c);
 
-                //Reflection. Invoke "retainAll" method for proprietary classes or "Remove" for each element in the collection
+                // Reflection. Invoke "retainAll" method for proprietary classes or "Remove" for each element in the collection
                 MethodInfo method;
                 try
                 {
@@ -2298,7 +2298,7 @@ namespace NHapi.Base
                 while (e.MoveNext())
                     objs[index++] = e.Current;
 
-                //If objects is smaller than c then do not return the new array in the parameter
+                // If objects is smaller than c then do not return the new array in the parameter
                 if (objects.Length >= c.Count)
                     objs.CopyTo(objects, 0);
 
@@ -2574,7 +2574,7 @@ namespace NHapi.Base
                                 tempDate = tempDate.AddMinutes(fieldValue - tempDate.Minute);
                                 break;
                             case MONTH:
-                                //Month value is 0-based. e.g., 0 for January
+                                // Month value is 0-based. e.g., 0 for January
                                 tempDate = tempDate.AddMonths((fieldValue + 1) - tempDate.Month);
                                 break;
                             case SECOND:
@@ -2724,7 +2724,7 @@ namespace NHapi.Base
                             case MINUTE:
                                 return ((CalendarProperties)this[calendar]).dateTime.Minute;
                             case MONTH:
-                                //Month value is 0-based. e.g., 0 for January
+                                // Month value is 0-based. e.g., 0 for January
                                 return ((CalendarProperties)this[calendar]).dateTime.Month - 1;
                             case SECOND:
                                 return ((CalendarProperties)this[calendar]).dateTime.Second;
@@ -3086,7 +3086,7 @@ namespace NHapi.Base
             /// Char representation of the String to tokenize.
             private char[] chars = null;
 
-            //The tokenizer uses the default delimiter set: the space character, the tab character, the newline character, and the carriage-return character and the form-feed character
+            // The tokenizer uses the default delimiter set: the space character, the tab character, the newline character, and the carriage-return character and the form-feed character
             private string delimiters = " \t\n\r\f";
 
             /// <summary>
@@ -3149,42 +3149,42 @@ namespace NHapi.Base
             /// <returns>The string value of the token</returns>
             public String NextToken(String delimiters)
             {
-                //According to documentation, the usage of the received delimiters should be temporary (only for this call).
-                //However, it seems it is not true, so the following line is necessary.
+                // According to documentation, the usage of the received delimiters should be temporary (only for this call).
+                // However, it seems it is not true, so the following line is necessary.
                 this.delimiters = delimiters;
 
-                //at the end
+                // at the end
                 if (currentPos == chars.Length)
                     throw new ArgumentOutOfRangeException();
-                //if over a delimiter and delimiters must be returned
+                // if over a delimiter and delimiters must be returned
                 else if ((Array.IndexOf(delimiters.ToCharArray(), chars[currentPos]) != -1)
                             && includeDelims)
                     return "" + chars[currentPos++];
-                //need to get the token wo delimiters.
+                // need to get the token wo delimiters.
                 else
                     return nextToken(delimiters.ToCharArray());
             }
 
-            //Returns the nextToken wo delimiters
+            // Returns the nextToken wo delimiters
             private String nextToken(char[] delimiters)
             {
                 StringBuilder token = new StringBuilder();
                 long pos = currentPos;
 
-                //skip possible delimiters
+                // skip possible delimiters
                 while (Array.IndexOf(delimiters, chars[currentPos]) != -1)
-                    //The last one is a delimiter (i.e there is no more tokens)
+                    // The last one is a delimiter (i.e there is no more tokens)
                     if (++currentPos == chars.Length)
                     {
                         currentPos = pos;
                         throw new ArgumentOutOfRangeException();
                     }
 
-                //getting the token
+                // getting the token
                 while (Array.IndexOf(delimiters, chars[currentPos]) == -1)
                 {
                     token.Append(chars[currentPos]);
-                    //the last one is not a delimiter
+                    // the last one is not a delimiter
                     if (++currentPos == chars.Length)
                         break;
                 }
@@ -3209,7 +3209,7 @@ namespace NHapi.Base
                     return false;
                 }
 
-                //keeping the current pos
+                // keeping the current pos
                 long pos = currentPos;
 
                 try
@@ -3237,7 +3237,7 @@ namespace NHapi.Base
             {
                 get
                 {
-                    //keeping the current pos
+                    // keeping the current pos
                     long pos = currentPos;
                     int i = 0;
 

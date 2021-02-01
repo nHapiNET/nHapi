@@ -84,7 +84,7 @@ namespace NHapi.SourceGeneration
 
         private int[] tableList;
         private Hashtable tables;
-        private int bufferSize = 3000; //max # of tables or values that can be cached at a time
+        private int bufferSize = 3000; // max # of tables or values that can be cached at a time
 
         /// <summary>
         /// Table repository
@@ -118,7 +118,7 @@ namespace NHapi.SourceGeneration
             Int32 key = (Int32)table;
             String[] values = null;
 
-            //see if the value list exists in the cache
+            // see if the value list exists in the cache
             Object o = tables[key];
 
             if (o != null)
@@ -127,7 +127,7 @@ namespace NHapi.SourceGeneration
             }
             else
             {
-                //not cached yet ...
+                // not cached yet ...
                 int c;
                 String[] roomyValues = new String[bufferSize];
 

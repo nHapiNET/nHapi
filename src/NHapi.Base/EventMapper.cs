@@ -33,7 +33,7 @@ namespace NHapi.Base
                 }
                 catch (FileNotFoundException)
                 {
-                    //Just skip, this assembly is not used
+                    // Just skip, this assembly is not used
                 }
 
                 NameValueCollection structures = new NameValueCollection();

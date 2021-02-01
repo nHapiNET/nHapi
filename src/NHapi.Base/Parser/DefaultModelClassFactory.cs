@@ -156,7 +156,7 @@ namespace NHapi.Base.Parser
         /// </summary>
         public static List<string> PackageList(String version)
         {
-            //load package lists if necessary ...
+            // load package lists if necessary ...
 
             if (packages == null)
             {
@@ -215,14 +215,14 @@ namespace NHapi.Base.Parser
                 throw new HL7Exception("The HL7 version " + version + " is not recognized", ErrorCode.UNSUPPORTED_VERSION_ID);
             }
 
-            //get list of packages to search for the corresponding message class
+            // get list of packages to search for the corresponding message class
             List<string> packages = PackageList(version);
 
-            //get sub-package for component type
+            // get sub-package for component type
             string typeString = type.ToString();
             String subpackage = typeString.Substring(0, 1).ToUpper() + typeString.Substring(1);
 
-            //try to load class from each package
+            // try to load class from each package
             Type compClass = null;
             int c = 0;
             while (compClass == null && c < packages.Count)

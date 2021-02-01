@@ -66,7 +66,7 @@ namespace NHapi.Base.Model.Primitive
                 {
                     try
                     {
-                        //check the length, must be either four, six, or eight digits
+                        // check the length, must be either four, six, or eight digits
                         if ((value.Length != 4) && (value.Length != 6) && (value.Length != 8))
                         {
                             const string msg =
@@ -79,58 +79,58 @@ namespace NHapi.Base.Model.Primitive
 
                         if (value.Length >= 4)
                         {
-                            //extract the year from the input value
+                            // extract the year from the input value
                             int yrInt = Int32.Parse(value.Substring(0, (4) - (0)));
-                            //check to see if the year is valid by creating a DateTime value with the Gregorian calendar and
-                            //this value.  If an error occurs then processing will stop in this try block
+                            // check to see if the year is valid by creating a DateTime value with the Gregorian calendar and
+                            // this value.  If an error occurs then processing will stop in this try block
                             new DateTime(yrInt, 1, 1, cal);
                             year = yrInt;
                         }
 
                         if (value.Length >= 6)
                         {
-                            //extract the month from the input value
+                            // extract the month from the input value
                             int mnthInt = Int32.Parse(value.Substring(4, (6) - (4)));
-                            //check to see if the month is valid by creating a DateTime value with the Gregorian calendar and
-                            //this value.  If an error occurs then processing will stop in this try block
+                            // check to see if the month is valid by creating a DateTime value with the Gregorian calendar and
+                            // this value.  If an error occurs then processing will stop in this try block
                             new DateTime(year, mnthInt, 1);
                             month = mnthInt;
                         }
 
                         if (value.Length == 8)
                         {
-                            //extract the day from the input value
+                            // extract the day from the input value
                             int dayInt = Int32.Parse(value.Substring(6, (8) - (6)));
-                            //check to see if the day is valid by creating a DateTime value with the Gregorian calendar and
-                            //the year/month/day combination.  If an error occurs then processing will stop
+                            // check to see if the day is valid by creating a DateTime value with the Gregorian calendar and
+                            // the year/month/day combination.  If an error occurs then processing will stop
                             // in this try block
                             new DateTime(year, month, dayInt);
                             day = dayInt;
                         }
 
-                        //validations are complete now store the input value into the private value field
+                        // validations are complete now store the input value into the private value field
                         value_Renamed = value;
                     }
 
-                    //end try
+                    // end try
                     catch (DataTypeException e)
                     {
                         throw e;
                     }
 
-                    //end catch
+                    // end catch
                     catch (Exception e)
                     {
                         throw new DataTypeException("An unexpected exception ocurred", e);
-                    } //end catch
+                    } // end catch
                 }
 
-                //end if
+                // end if
                 else
                 {
-                    //set the private value field to null or empty space.
+                    // set the private value field to null or empty space.
                     value_Renamed = value;
-                } //end else
+                } // end else
             }
         }
 
@@ -144,7 +144,7 @@ namespace NHapi.Base.Model.Primitive
             {
                 try
                 {
-                    //ensure that the year field is four digits long
+                    // ensure that the year field is four digits long
                     if (Convert.ToString(value).Length != 4)
                     {
                         String msg = "The input year value must be four digits long";
@@ -154,7 +154,7 @@ namespace NHapi.Base.Model.Primitive
 
                     GregorianCalendar cal = new GregorianCalendar();
 
-                    //check is input year is valid
+                    // check is input year is valid
                     new DateTime(value, 1, 1, cal);
                     year = value;
                     month = 0;
@@ -162,17 +162,17 @@ namespace NHapi.Base.Model.Primitive
                     value_Renamed = Convert.ToString(value);
                 }
 
-                //end try
+                // end try
                 catch (DataTypeException e)
                 {
                     throw e;
                 }
 
-                //end catch
+                // end catch
                 catch (Exception e)
                 {
                     throw new DataTypeException("An unexpected exception ocurred", e);
-                } //end catch
+                } // end catch
             }
         }
 
@@ -206,7 +206,7 @@ namespace NHapi.Base.Model.Primitive
         /// </summary>
         public CommonDT()
         {
-            //initialize all DT fields
+            // initialize all DT fields
             value_Renamed = null;
             year = 0;
             month = 0;
@@ -231,7 +231,7 @@ namespace NHapi.Base.Model.Primitive
         {
             try
             {
-                //ensure that the year field is four digits long
+                // ensure that the year field is four digits long
                 if (Convert.ToString(yr).Length != 4)
                 {
                     String msg = "The input year value must be four digits long";
@@ -241,7 +241,7 @@ namespace NHapi.Base.Model.Primitive
 
                 GregorianCalendar cal = new GregorianCalendar();
 
-                //validate the input month
+                // validate the input month
                 new DateTime(yr, mnth, 1, cal);
                 year = yr;
                 month = mnth;
@@ -266,7 +266,7 @@ namespace NHapi.Base.Model.Primitive
         {
             try
             {
-                //ensure that the year field is four digits long
+                // ensure that the year field is four digits long
                 if (Convert.ToString(yr).Length != 4)
                 {
                     String msg = "The input year value must be four digits long";
@@ -276,7 +276,7 @@ namespace NHapi.Base.Model.Primitive
 
                 GregorianCalendar cal = new GregorianCalendar();
 
-                //validate the input month/day combination
+                // validate the input month/day combination
                 new DateTime(yr, mnth, dy, cal);
                 year = yr;
                 month = mnth;
@@ -301,8 +301,8 @@ namespace NHapi.Base.Model.Primitive
             String val = "";
             try
             {
-                //set the input cal object so that it can report errors
-                //on it's value
+                // set the input cal object so that it can report errors
+                // on it's value
                 int calYear = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.YEAR);
                 int calMonth = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MONTH) + 1;
                 int calDay = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.DAY_OF_MONTH);
@@ -326,5 +326,5 @@ namespace NHapi.Base.Model.Primitive
         {
             log = HapiLogFactory.GetHapiLog(typeof(CommonDT));
         }
-    } //end class
+    } // end class
 }

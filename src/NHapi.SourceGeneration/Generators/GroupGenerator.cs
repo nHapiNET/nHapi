@@ -76,7 +76,7 @@ namespace NHapi.SourceGeneration.Generators
         public static GroupDef writeGroup(IStructureDef[] structures, String groupName, String baseDirectory, String version,
             String message)
         {
-            //make base directory
+            // make base directory
             if (!(baseDirectory.EndsWith("\\") || baseDirectory.EndsWith("/")))
             {
                 baseDirectory = baseDirectory + "/";
@@ -100,8 +100,8 @@ namespace NHapi.SourceGeneration.Generators
                     out_Renamed.Write(makeAccessor(group, i));
                 }
 
-                out_Renamed.Write("}\r\n"); //Closing class
-                out_Renamed.Write("}\r\n"); //Closing namespace
+                out_Renamed.Write("}\r\n"); // Closing class
+                out_Renamed.Write("}\r\n"); // Closing namespace
             }
 
             return group;
@@ -126,14 +126,14 @@ namespace NHapi.SourceGeneration.Generators
             bool rep_opt = false;
 
             int len = structures.Length;
-            IStructureDef[] shortList = new IStructureDef[len]; //place to put final list of groups/seg's w/o opt & rep markers
+            IStructureDef[] shortList = new IStructureDef[len]; // place to put final list of groups/seg's w/o opt & rep markers
             int currShortListPos = 0;
             int currLongListPos = 0;
 
             try
             {
-                //check for rep and opt (see if start & end elements are [] or {} AND they are each others' pair) ...
-                //System.out.println(len + " " + structures[0].getName() +structures[1].getName()+ ".." +structures[len-2].getName() + structures[len-1].getName()+ " " + message);
+                // check for rep and opt (see if start & end elements are [] or {} AND they are each others' pair) ...
+                // System.out.println(len + " " + structures[0].getName() +structures[1].getName()+ ".." +structures[len-2].getName() + structures[len-1].getName()+ " " + message);
                 if (optMarkers(structures[0].Name, structures[len - 1].Name) && (findGroupEnd(structures, 0) == len - 1))
                     required = false;
                 if (repMarkers(structures[0].Name, structures[len - 1].Name) && (findGroupEnd(structures, 0) == len - 1))
@@ -148,7 +148,7 @@ namespace NHapi.SourceGeneration.Generators
                         repeating = true;
                 }
 
-                //loop through, recurse nested groups, and build short list of structures for this group
+                // loop through, recurse nested groups, and build short list of structures for this group
                 int skip = 0;
                 if (!required)
                     skip++;
@@ -162,7 +162,7 @@ namespace NHapi.SourceGeneration.Generators
                     String currSegName = structures[currLongListPos].Name;
                     if (currSegName.Equals("[") || currSegName.Equals("{") || currSegName.Equals("[{"))
                     {
-                        //this is the opening of a new group ...
+                        // this is the opening of a new group ...
                         String name = ((SegmentDef)structures[currLongListPos]).GroupName;
                         int endOfNewGroup = findGroupEnd(structures, currLongListPos);
                         IStructureDef[] newGroupStructures = new IStructureDef[endOfNewGroup - currLongListPos + 1];
@@ -172,7 +172,7 @@ namespace NHapi.SourceGeneration.Generators
                     }
                     else
                     {
-                        //copy verbatim into short list ...
+                        // copy verbatim into short list ...
                         shortList[currShortListPos] = structures[currLongListPos];
                         currLongListPos++;
                     }
@@ -190,7 +190,7 @@ namespace NHapi.SourceGeneration.Generators
                 ret = new GroupDef(message, groupName, false, true, "a Group object");
             else
                 ret = new GroupDef(message, groupName, required, repeating, "a Group object");
-            IStructureDef[] finalList = new IStructureDef[currShortListPos]; //note: incremented after last assignment
+            IStructureDef[] finalList = new IStructureDef[currShortListPos]; // note: incremented after last assignment
             Array.Copy(shortList, 0, finalList, 0, currShortListPos);
             for (int i = 0; i < finalList.Length; i++)
             {
@@ -381,7 +381,7 @@ namespace NHapi.SourceGeneration.Generators
                 getterName = group.getIndexName(unqualifiedName);
             }
 
-            //make accessor for first (or only) rep ...
+            // make accessor for first (or only) rep ...
             source.Append("\t///<summary>\r\n");
             source.Append("\t/// Returns ");
             if (def.Repeating)
@@ -428,7 +428,7 @@ namespace NHapi.SourceGeneration.Generators
 
             if (def.Repeating)
             {
-                //make accessor for specific rep ...
+                // make accessor for specific rep ...
                 source.Append("\t///<summary>\r\n");
                 source.Append("\t///Returns a specific repetition of ");
                 source.Append(indexName);
@@ -451,7 +451,7 @@ namespace NHapi.SourceGeneration.Generators
                 source.Append("\", rep);\r\n");
                 source.Append("\t}\r\n\r\n");
 
-                //make accessor for number of reps
+                // make accessor for number of reps
                 source.Append("\t/** \r\n");
                 source.Append("\t * Returns the number of existing repetitions of ");
                 source.Append(indexName);
@@ -540,7 +540,7 @@ namespace NHapi.SourceGeneration.Generators
         /// </summary>
         public static int findGroupEnd(IStructureDef[] structures, int groupStart)
         {
-            //  {} is rep; [] is optionality
+            // {} is rep; [] is optionality
             String endMarker = null;
             try
             {
@@ -573,7 +573,7 @@ namespace NHapi.SourceGeneration.Generators
                 throw new ArgumentException("The given start location is out of bounds");
             }
 
-            //loop, increment and decrement opening and closing markers until we get back to 0
+            // loop, increment and decrement opening and closing markers until we get back to 0
             String segName = null;
             int offset = 0;
             try

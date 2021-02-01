@@ -48,7 +48,7 @@ namespace NHapi.Base.Model
         {
             var gmtOffSet = timeZone.GetUtcOffset(time);
 
-            //return the offset value HL7 format
+            // return the offset value HL7 format
             return gmtOffSet.Hours * 100 + gmtOffSet.Minutes;
         }
 
@@ -57,7 +57,7 @@ namespace NHapi.Base.Model
         /// </summary>
         public DataTypeUtil()
         {
-        } //end zero arg constructor
+        } // end zero arg constructor
 
 
         /// <summary> This method will preappend the zeros to the beginning of num such that the total length
@@ -76,10 +76,10 @@ namespace NHapi.Base.Model
                 for (int j = 0; j < preAppendAmnt; j++)
                 {
                     a = "0" + a;
-                } //end for
+                } // end for
 
                 return a;
-            } //end else
+            } // end else
         }
-    } //end class
+    } // end class
 }

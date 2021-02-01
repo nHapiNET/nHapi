@@ -10,7 +10,7 @@ namespace NHapi.SourceGeneration.Generators
     {
         public static void makeAll(String baseDirectory, String version)
         {
-            //make base directory
+            // make base directory
             if (!(baseDirectory.EndsWith("\\") || baseDirectory.EndsWith("/")))
             {
                 baseDirectory = baseDirectory + "/";
@@ -19,7 +19,7 @@ namespace NHapi.SourceGeneration.Generators
             FileInfo targetDir =
                 SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "EventMapping");
 
-            //get list of data types
+            // get list of data types
             OdbcConnection conn = NormativeDatabase.Instance.Connection;
             String sql =
                 "SELECT * from HL7EventMessageTypes inner join HL7Versions on HL7EventMessageTypes.version_id = HL7Versions.version_id where HL7Versions.hl7_version = '" +

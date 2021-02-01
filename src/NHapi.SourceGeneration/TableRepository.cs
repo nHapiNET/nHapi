@@ -44,7 +44,7 @@ namespace NHapi.SourceGeneration
             {
                 if (rep == null)
                 {
-                    //currently using DBTableRepository ...
+                    // currently using DBTableRepository ...
                     rep = new DBTableRepository();
                 }
 
@@ -67,7 +67,7 @@ namespace NHapi.SourceGeneration
         /// <throws>  UnknownValueException if the value can not be found.  This may be an UnknownTableException.   </throws>
         public abstract String getDescription(int table, String value_Renamed);
 
-        //test
+        // test
         /*
         public static void main(String[] args) {
 

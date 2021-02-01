@@ -156,7 +156,7 @@ namespace NHapi.Base.Model
         {
             try
             {
-                //get unqualified class name
+                // get unqualified class name
                 IPrimitive obx2 = (IPrimitive)segment.GetField(2, 0);
 
                 foreach (IType repetition in segment.GetField(5))

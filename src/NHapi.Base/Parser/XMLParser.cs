@@ -90,7 +90,7 @@ namespace NHapi.Base.Parser
 
                 if (value.Length != 0)
                 {
-                    //initializes the
+                    // initializes the
                     StringBuilder strBuf = new StringBuilder(value[0]);
                     for (int i = 1; i < value.Length; i++)
                     {
@@ -146,7 +146,7 @@ namespace NHapi.Base.Parser
         {
             String encoding = null;
 
-            //check for a number of expected strings
+            // check for a number of expected strings
             String[] expected = new String[] { "<MSH.1", "<MSH.2", "</MSH>" };
             bool isXML = true;
             for (int i = 0; i < expected.Length; i++)
@@ -203,19 +203,19 @@ namespace NHapi.Base.Parser
         {
             IMessage m = null;
 
-            //parse message string into a DOM document
+            // parse message string into a DOM document
             try
             {
                 XmlDocument doc = new XmlDocument();
                 doc.Load(new StringReader(message));
-                //rlb: Don't think we need to lock this...
-                //lock (this)
-                //{
+                // rlb: Don't think we need to lock this...
+                // lock (this)
+                // {
 
-                //    //UPDATE_NOT: Replaced the following
+                // //UPDATE_NOT: Replaced the following
                 //    //parser.parse(new XmlSourceSupport(new System.IO.StringReader(message)));
                 //    //doc = parser.getDocument();
-                //}
+                // }
                 m = ParseDocument(doc, version);
             }
             catch (XmlException e)
@@ -286,7 +286,7 @@ namespace NHapi.Base.Parser
         {
             SupportClass.HashSetSupport done = new SupportClass.HashSetSupport();
 
-            //        for (int i = 1; i <= segmentObject.NumFields(); i++) {
+            // for (int i = 1; i <= segmentObject.NumFields(); i++) {
             //            String elementName = makeElementName(segmentObject, i);
             //            done.add(elementName);
             //            parseReps(segmentObject, segmentElement, elementName, i);
@@ -303,7 +303,7 @@ namespace NHapi.Base.Parser
                     int index = elementName.IndexOf('.');
                     if (index >= 0 && elementName.Length > index)
                     {
-                        //properly formatted element
+                        // properly formatted element
                         String fieldNumString = elementName.Substring(index + 1);
                         int fieldNum = Int32.Parse(fieldNumString);
                         ParseReps(segmentObject, segmentElement, elementName, fieldNum);
@@ -315,7 +315,7 @@ namespace NHapi.Base.Parser
                 }
             }
 
-            //set data type of OBX-5
+            // set data type of OBX-5
             if (segmentObject.GetType().FullName.IndexOf("OBX") >= 0)
             {
                 Varies.fixOBX5(segmentObject, Factory);
@@ -389,16 +389,16 @@ namespace NHapi.Base.Parser
         /// </summary>
         private void ParseVaries(Varies datatypeObject, XmlElement datatypeElement)
         {
-            //figure out what data type it holds
-            //short nodeType = datatypeElement.getFirstChild().getNodeType();
+            // figure out what data type it holds
+            // short nodeType = datatypeElement.getFirstChild().getNodeType();
             if (!HasChildElement(datatypeElement))
             {
-                //it's a primitive
+                // it's a primitive
                 datatypeObject.Data = new GenericPrimitive(datatypeObject.Message);
             }
             else
             {
-                //it's a composite ... almost know what type, except that we don't have the version here
+                // it's a composite ... almost know what type, except that we don't have the version here
                 datatypeObject.Data = new GenericComposite(datatypeObject.Message);
             }
 
@@ -513,7 +513,7 @@ namespace NHapi.Base.Parser
         {
             if (datatypeObject is GenericComposite)
             {
-                //elements won't be named GenericComposite.x
+                // elements won't be named GenericComposite.x
                 XmlNodeList children = datatypeElement.ChildNodes;
                 int compNum = 0;
                 for (int i = 0; i < children.Count; i++)
@@ -533,7 +533,7 @@ namespace NHapi.Base.Parser
                     XmlNodeList matchingElements = datatypeElement.GetElementsByTagName(MakeElementName(datatypeObject, i + 1));
                     if (matchingElements.Count > 0)
                     {
-                        Parse(children[i], (XmlElement)matchingElements.Item(0)); //components don't repeat - use 1st
+                        Parse(children[i], (XmlElement)matchingElements.Item(0)); // components don't repeat - use 1st
                     }
                 }
             }
@@ -672,7 +672,7 @@ namespace NHapi.Base.Parser
             if (procID == null || procID.Length == 0)
             {
                 procID = ParseLeaf(message, "PT.1", message.IndexOf("MSH.11"));
-                //this field is a composite in later versions
+                // this field is a composite in later versions
             }
 
             Terser.Set(criticalData, 11, 0, 1, 1, procID);
@@ -766,7 +766,7 @@ namespace NHapi.Base.Parser
                 Environment.Exit(1);
             }
 
-            //read and parse message from file
+            // read and parse message from file
             try
             {
                 PipeParser parser = new PipeParser();
@@ -783,7 +783,7 @@ namespace NHapi.Base.Parser
 
                 XMLParser xp = new AnonymousClassXMLParser();
 
-                //loop through segment children of message, encode, print to console
+                // loop through segment children of message, encode, print to console
                 String[] structNames = mess.Names;
                 for (int i = 0; i < structNames.Length; i++)
                 {
@@ -792,9 +792,9 @@ namespace NHapi.Base.Parser
                     {
                         if (typeof(ISegment).IsAssignableFrom(reps[j].GetType()))
                         {
-                            //ignore groups
+                            // ignore groups
                             XmlDocument docBuilder = new XmlDocument();
-                            XmlDocument doc = new XmlDocument(); //new doc for each segment
+                            XmlDocument doc = new XmlDocument(); // new doc for each segment
                             XmlElement root = doc.CreateElement(reps[j].GetType().FullName);
                             doc.AppendChild(root);
                             xp.Encode((ISegment)reps[j], root);

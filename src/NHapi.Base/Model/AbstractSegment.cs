@@ -116,7 +116,7 @@ namespace NHapi.Base.Model
 
             return _items[number - 1].GetAllFieldsAsITypeArray();
 
-            //return (IType[])_items[number - 1].fields; //note: fields are numbered from 1 from the user's perspective
+            // return (IType[])_items[number - 1].fields; //note: fields are numbered from 1 from the user's perspective
         }
 
         /// <summary> Return the field description.  Fields are numbered from 1.
@@ -168,7 +168,7 @@ namespace NHapi.Base.Model
 
             int currentReps = _items[number - 1].Fields.Count;
 
-            //check if out of range ...
+            // check if out of range ...
             if (rep > currentReps)
                 throw new HL7Exception(
                     "Can't get repetition " + rep + " from field " + number + " - there are currently only " + currentReps + " reps.",
@@ -179,7 +179,7 @@ namespace NHapi.Base.Model
                     "Can't get repetition " + rep + " from field " + number + " - maximum repetitions is only " +
                     _items[number - 1].MaxRepetitions + " reps.", ErrorCode.APPLICATION_INTERNAL_ERROR);
 
-            //add a rep if necessary ...
+            // add a rep if necessary ...
             if (rep == currentReps)
             {
                 _items[number - 1].Fields.Add(createNewType(number));
@@ -241,7 +241,7 @@ namespace NHapi.Base.Model
             return newType;
         }
 
-        //defaults to {this.getMessage}
+        // defaults to {this.getMessage}
         private object[] getArgs(int fieldNum, string description)
         {
             Object[] result = null;
@@ -309,7 +309,7 @@ namespace NHapi.Base.Model
             int ret = 0;
             try
             {
-                ret = _items[number - 1].Length; //fields #d from 1 to user
+                ret = _items[number - 1].Length; // fields #d from 1 to user
             }
             catch (Exception e)
             {
@@ -334,7 +334,7 @@ namespace NHapi.Base.Model
             int reps = 0;
             try
             {
-                reps = _items[number - 1].MaxRepetitions; //fields #d from 1 to user
+                reps = _items[number - 1].MaxRepetitions; // fields #d from 1 to user
             }
             catch (Exception e)
             {
@@ -473,7 +473,7 @@ namespace NHapi.Base.Model
             {
                 for (int i = 0; i < fieldsToAdd; i++)
                 {
-                    add(typeof(Varies), false, 0, 65536, null); //using 65536 following example of OBX-5
+                    add(typeof(Varies), false, 0, 65536, null); // using 65536 following example of OBX-5
                 }
             }
             catch (HL7Exception e)

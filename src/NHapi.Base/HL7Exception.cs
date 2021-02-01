@@ -296,14 +296,14 @@ namespace NHapi.Base
         // https://github.com/hapifhir/hapi-hl7v2/blob/809516e3f4851d7cd97573efb6dedf24959a1063/hapi-base/src/main/java/ca/uhn/hl7v2/AbstractHL7Exception.java#L134
         public virtual void populate(ISegment errorSegment)
         {
-            //make sure it's an ERR
+            // make sure it's an ERR
             if (!errorSegment.GetStructureName().Equals("ERR"))
             {
                 throw new HL7Exception("Can only populate an ERR segment with an exception -- got: " +
                                               errorSegment.GetType().FullName);
             }
 
-            var rep = errorSegment.GetField(1).Length; //append after existing reps
+            var rep = errorSegment.GetField(1).Length; // append after existing reps
 
             if (SegmentName != null)
             {

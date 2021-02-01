@@ -62,7 +62,7 @@ namespace NHapi.SourceGeneration.Generators
         /// <summary> Creates and writes source code for all Messages and Groups.</summary>
         public static void makeAll(String baseDirectory, String version)
         {
-            //get list of messages ...
+            // get list of messages ...
             using (OdbcConnection conn = NormativeDatabase.Instance.Connection)
             {
                 String sql = getMessageListQuery(version);
@@ -109,7 +109,7 @@ namespace NHapi.SourceGeneration.Generators
                      " inner join HL7MsgStructIDs on HL7MsgStructIDSegments.message_structure = HL7MsgStructIDs.message_structure " +
                      " and HL7MsgStructIDSegments.version_id = HL7MsgStructIDs.version_id) " +
                      " ON HL7MsgStructIDSegments.version_id = HL7Versions.version_id " + " where HL7Versions.hl7_version = '" +
-                     version + "' and HL7MsgStructIDs.message_structure not like 'ACK_%'"; //note: allows "ACK" itself
+                     version + "' and HL7MsgStructIDs.message_structure not like 'ACK_%'"; // note: allows "ACK" itself
         }
 
         /// <summary> Creates source code for a specific message structure and
@@ -122,12 +122,12 @@ namespace NHapi.SourceGeneration.Generators
             try
             {
                 SegmentDef[] segments = getSegments(message, version);
-                //System.out.println("Making: " + message + " with " + segments.length + " segments (not writing message code - just groups)");
+                // System.out.println("Making: " + message + " with " + segments.length + " segments (not writing message code - just groups)");
 
                 GroupDef group = GroupGenerator.getGroupDef(segments, null, baseDirectory, version, message);
                 IStructureDef[] contents = group.Structures;
 
-                //make base directory
+                // make base directory
                 if (!(baseDirectory.EndsWith("\\") || baseDirectory.EndsWith("/")))
                 {
                     baseDirectory = baseDirectory + "/";
@@ -146,9 +146,9 @@ namespace NHapi.SourceGeneration.Generators
                         out_Renamed.Write(groupAccessor);
                     }
 
-                    //add implementation of model.control interface, if any
-                    out_Renamed.Write("}\r\n"); //End class
-                    out_Renamed.Write("}\r\n"); //End namespace
+                    // add implementation of model.control interface, if any
+                    out_Renamed.Write("}\r\n"); // End class
+                    out_Renamed.Write("}\r\n"); // End namespace
                 }
             }
             catch (Exception e)
@@ -174,8 +174,8 @@ namespace NHapi.SourceGeneration.Generators
             "and HL7MsgStructIDSegments.version_id = HL7Segments.version_id) " +
             "where HL7Segments.version_id = 6 and message_structure = '" + message + "' order by seq_no";*/
             String sql = getSegmentListQuery(message, version);
-            //System.out.println(sql.toString());
-            SegmentDef[] segments = new SegmentDef[200]; //presumably there won't be more than 200
+            // System.out.println(sql.toString());
+            SegmentDef[] segments = new SegmentDef[200]; // presumably there won't be more than 200
             OdbcConnection conn = NormativeDatabase.Instance.Connection;
             DbCommand stmt = TransactionManager.manager.CreateStatement(conn);
             DbCommand temp_OleDbCommand;
@@ -191,7 +191,7 @@ namespace NHapi.SourceGeneration.Generators
                 String desc = Convert.ToString(rs[4 - 1]);
                 String groupName = Convert.ToString(rs[6 - 1]);
 
-                //ignore the "choice" directives ... the message class structure has to include all choices ...
+                // ignore the "choice" directives ... the message class structure has to include all choices ...
                 //  if this is enforced (i.e. exception thrown if >1 choice populated) this will have to be done separately.
                 if (!(name.Equals("<") || name.Equals("|") || name.Equals(">")))
                 {
@@ -268,7 +268,7 @@ namespace NHapi.SourceGeneration.Generators
             preamble.Append(message);
             preamble.Append(" : AbstractMessage ");
 
-            //implement interface from model.control package if required
+            // implement interface from model.control package if required
             /*Class correspondingControlInterface = Control.getInterfaceImplementedBy(message);
             if (correspondingControlInterface != null) {
             preamble.append("implements ");

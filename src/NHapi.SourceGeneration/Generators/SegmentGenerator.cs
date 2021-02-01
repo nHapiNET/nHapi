@@ -55,7 +55,7 @@ namespace NHapi.SourceGeneration.Generators
         /// </summary>
         public static void makeAll(String baseDirectory, String version)
         {
-            //make base directory
+            // make base directory
             if (!(baseDirectory.EndsWith("\\") || baseDirectory.EndsWith("/")))
             {
                 baseDirectory = baseDirectory + "/";
@@ -64,7 +64,7 @@ namespace NHapi.SourceGeneration.Generators
             FileInfo targetDir =
                 SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Segment");
 
-            //get list of data types
+            // get list of data types
             OdbcConnection conn = NormativeDatabase.Instance.Connection;
             String sql =
                 "SELECT seg_code, [section] from HL7Segments, HL7Versions where HL7Segments.version_id = HL7Versions.version_id AND hl7_version = '" +
@@ -199,7 +199,7 @@ namespace NHapi.SourceGeneration.Generators
                     se.table = Convert.ToInt32(rs.GetValue(7 - 1));
                     se.opt = Convert.ToString(rs[8 - 1]);
                     se.type = Convert.ToString(rs[10 - 1]);
-                    //shorten CE_x to CE
+                    // shorten CE_x to CE
                     if (se.type.StartsWith("CE"))
                         se.type = "CE";
 
@@ -213,7 +213,7 @@ namespace NHapi.SourceGeneration.Generators
                 stmt.Dispose();
                 NormativeDatabase.Instance.returnConnection(conn);
 
-                //write imports, class documentation, etc ...
+                // write imports, class documentation, etc ...
                 source.Append("using System;\r\n");
                 source.Append("using NHapi.Base;\r\n");
                 source.Append("using NHapi.Base.Parser;\r\n");
@@ -261,7 +261,7 @@ namespace NHapi.SourceGeneration.Generators
                 source.Append(name);
                 source.Append(" : AbstractSegment ");
 
-                //implement interface from Model.control package if required
+                // implement interface from Model.control package if required
                 /*Class correspondingControlInterface = Control.getInterfaceImplementedBy(name);
                 if (correspondingControlInterface != null) {
                 source.append("implements ");
@@ -278,7 +278,7 @@ namespace NHapi.SourceGeneration.Generators
                 source.Append("   * message.  \r\n");
                 source.Append("   */\r\n");
 
-                //write constructor
+                // write constructor
                 source.Append("\tpublic ");
                 source.Append(name);
                 source.Append("(IGroup parent, IModelClassFactory factory) : base(parent,factory) {\r\n");
@@ -292,7 +292,7 @@ namespace NHapi.SourceGeneration.Generators
                         String type = SourceGenerator.getAlternateType(se.type, version);
                         source.Append("       this.add(");
                         source.Append("typeof(" + type + ")");
-                        //                    if (type.equalsIgnoreCase("Varies")) {
+                        // if (type.equalsIgnoreCase("Varies")) {
                         //                    } else {
                         //                        source.append("factory.getTypeClass(\"");
                         //                        source.append(type);
@@ -352,13 +352,13 @@ namespace NHapi.SourceGeneration.Generators
 
                 source.Append("  }\r\n\r\n");
 
-                //write a datatype-specific accessor for each field
+                // write a datatype-specific accessor for each field
                 for (int i = 0; i < elements.Count; i++)
                 {
                     se = (SegmentElement)elements[i];
                     if (!se.desc.ToUpper().Equals("UNUSED".ToUpper()))
                     {
-                        //some entries in 2.1 DB say "unused"
+                        // some entries in 2.1 DB say "unused"
                         String type = SourceGenerator.getAlternateType(se.type, version);
                         source.Append("\t///<summary>\r\n");
                         source.Append("\t/// Returns ");
@@ -421,11 +421,11 @@ namespace NHapi.SourceGeneration.Generators
                         source.Append("    }\r\n");
                         source.Append("\t\t\treturn ret;\r\n");
                         if (se.repetitions == 1)
-                            source.Append("\t}\r\n"); //End get
+                            source.Append("\t}\r\n"); // End get
                         source.Append("  }\r\n\r\n");
 
 
-                        //add an array accessor as well for repeating fields
+                        // add an array accessor as well for repeating fields
                         if (se.repetitions != 1)
                         {
                             source.Append("  ///<summary>\r\n");
@@ -469,7 +469,7 @@ namespace NHapi.SourceGeneration.Generators
                             source.Append(" return ret;\r\n");
                             source.Append("}\r\n\r\n");
 
-                            //Add property for the total repetitions of this object
+                            // Add property for the total repetitions of this object
                             source.Append("  ///<summary>\r\n");
                             source.Append("  /// Returns the total repetitions of ");
                             source.Append(se.GetDescriptionWithoutSpecialCharacters());
@@ -502,8 +502,8 @@ namespace NHapi.SourceGeneration.Generators
                     }
                 }
 
-                //add adapter method code for control package if it exists
-                //source.append(Control.getImplementation(correspondingControlInterface, version));
+                // add adapter method code for control package if it exists
+                // source.append(Control.getImplementation(correspondingControlInterface, version));
 
                 source.Append("\n}");
             }

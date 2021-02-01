@@ -178,14 +178,14 @@ namespace NHapi.Base.Model
             }
             else if (rep == item.Structures.Count)
             {
-                //verify that Structure is repeating ...
+                // verify that Structure is repeating ...
                 bool repeats = item.IsRepeating;
                 if (!repeats && item.Structures.Count > 0)
                     throw new HL7Exception(
                         "Can't create repetition #" + rep + " of Structure " + name + " - this Structure is non-repeating",
                         ErrorCode.APPLICATION_INTERNAL_ERROR);
 
-                //create a new Structure, add it to the list, and return it
+                // create a new Structure, add it to the list, and return it
                 Type classType = item.ClassType;
                 ret = tryToInstantiateStructure(classType, name);
                 item.Structures.Add(ret);
@@ -280,7 +280,7 @@ namespace NHapi.Base.Model
 
             int index = Names.Length;
 
-            tryToInstantiateStructure(c, name); //may throw exception
+            tryToInstantiateStructure(c, name); // may throw exception
 
             return insert(c, false, true, index, name);
         }
@@ -313,7 +313,7 @@ namespace NHapi.Base.Model
         /// </summary>
         private String insert(Type classType, bool required, bool repeating, int index, String name)
         {
-            //see if there is already something by this name and make a new name if necessary ...
+            // see if there is already something by this name and make a new name if necessary ...
             if (nameExists(name))
             {
                 int version = 2;
@@ -364,7 +364,7 @@ namespace NHapi.Base.Model
                 }
                 else
                 {
-                    //first try to instantiate using contructor w/ Message arg ...
+                    // first try to instantiate using contructor w/ Message arg ...
                     try
                     {
                         Type[] argClasses = new Type[] { typeof(IGroup), typeof(IModelClassFactory) };
@@ -478,7 +478,7 @@ namespace NHapi.Base.Model
             int dotLoc = fullName.LastIndexOf('.');
             String name = fullName.Substring(dotLoc + 1, (fullName.Length) - (dotLoc + 1));
 
-            //remove message name prefix from group names for compatibility with getters ...
+            // remove message name prefix from group names for compatibility with getters ...
             if (typeof(IGroup).IsAssignableFrom(c) && !typeof(IMessage).IsAssignableFrom(c))
             {
                 String messageName = Message.GetStructureName();

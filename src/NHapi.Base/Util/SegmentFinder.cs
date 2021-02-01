@@ -156,7 +156,7 @@ namespace NHapi.Base.Util
         /// <summary> Tests whether the given name matches the given pattern.</summary>
         private bool matches(String pattern, String candidate)
         {
-            //shortcut ...
+            // shortcut ...
             if (pattern.Equals(candidate))
             {
                 return true;

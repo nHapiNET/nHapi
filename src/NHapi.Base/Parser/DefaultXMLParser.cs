@@ -155,7 +155,7 @@ namespace NHapi.Base.Parser
                 }
             }
 
-            //we're not too fussy about order here (all occurrences get parsed as repetitions) ...
+            // we're not too fussy about order here (all occurrences get parsed as repetitions) ...
             for (int i = 0; i < childNames.Length; i++)
             {
                 SupportClass.ICollectionSupport.Remove(unparsedElementList, childNames[i]);
@@ -170,7 +170,7 @@ namespace NHapi.Base.Parser
             }
         }
 
-        //param childIndexName may have an integer on the end if >1 sibling with same name (e.g. NTE2)
+        // param childIndexName may have an integer on the end if >1 sibling with same name (e.g. NTE2)
         private void ParseReps(XmlElement groupElement, IGroup groupObject, String messageName, String childName,
             String childIndexName)
         {
@@ -216,7 +216,7 @@ namespace NHapi.Base.Parser
             log.Debug("Parsed element: " + theElem.Name);
         }
 
-        //includes direct children only
+        // includes direct children only
         private IList GetChildElementsByTagName(XmlElement theElement, String theName)
         {
             IList result = new ArrayList(10);
@@ -276,7 +276,7 @@ namespace NHapi.Base.Parser
                 Environment.Exit(1);
             }
 
-            //read and parse message from file
+            // read and parse message from file
             try
             {
                 FileInfo messageFile = new FileInfo(args[0]);

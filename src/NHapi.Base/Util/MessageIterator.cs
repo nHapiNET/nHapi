@@ -210,10 +210,10 @@ namespace NHapi.Base.Util
         /// <summary>Navigates from end of group </summary>
         private bool nextFromGroupEnd(Position currPos, String direction, bool makeNewSegmentIfNeeded)
         {
-            //assert isLast(currPos);
+            // assert isLast(currPos);
             bool nextExists = true;
 
-            //the following conditional logic is a little convoluted -- its meant as an optimization
+            // the following conditional logic is a little convoluted -- its meant as an optimization
             // i.e. trying to avoid calling matchExistsAfterCurrentPosition
 
             if (!makeNewSegmentIfNeeded && typeof (IMessage).IsAssignableFrom(currPos.parent.GetType()))
@@ -272,14 +272,14 @@ namespace NHapi.Base.Util
         {
             bool matchExists = false;
 
-            //check next rep of self (if any)
+            // check next rep of self (if any)
             if (pos.parent.IsRepeating(pos.index.name))
             {
                 IStructure s = pos.parent.GetStructure(pos.index.name, pos.index.rep);
                 matchExists = contains(s, name, firstDescendentsOnly, upToFirstRequired);
             }
 
-            //check later siblings (if any)
+            // check later siblings (if any)
             if (!matchExists)
             {
                 String[] siblings = pos.parent.Names;
@@ -298,7 +298,7 @@ namespace NHapi.Base.Util
                 }
             }
 
-            //recurse to parent (if parent is not message root)
+            // recurse to parent (if parent is not message root)
             if (!matchExists && !typeof (IMessage).IsAssignableFrom(pos.parent.GetType()))
             {
                 IGroup grandparent = pos.parent.ParentStructure;

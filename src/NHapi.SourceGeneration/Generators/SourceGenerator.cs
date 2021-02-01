@@ -73,10 +73,10 @@ namespace NHapi.SourceGeneration.Generators
 
         public static string MakeName(string fieldDesc)
         {
-            //char[] nameChar = fieldDesc.ToCharArray();
-            //System.Text.StringBuilder nameFixed = new System.Text.StringBuilder();
-            //for (int i = 0; i < nameChar.Length; i++)
-            //{
+            // char[] nameChar = fieldDesc.ToCharArray();
+            // System.Text.StringBuilder nameFixed = new System.Text.StringBuilder();
+            // for (int i = 0; i < nameChar.Length; i++)
+            // {
             //    if (char.IsLetterOrDigit(nameChar[i]))
             //    {
             //        nameFixed.Append(nameChar[i]);
@@ -85,17 +85,17 @@ namespace NHapi.SourceGeneration.Generators
             //    {
             //        nameFixed.Append(" ");
             //    }
-            //}
-            //string[] splits = nameFixed.ToString().Split(' ');
-            //System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            //foreach (string split in splits)
-            //{
+            // }
+            // string[] splits = nameFixed.ToString().Split(' ');
+            // System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            // foreach (string split in splits)
+            // {
             //    if (split.Trim().Length > 0)
             //    {
             //        sb.Append(GetWord(split));
             //    }
-            //}
-            //return sb.ToString();
+            // }
+            // return sb.ToString();
             StringBuilder aName = new StringBuilder();
             char[] chars = fieldDesc.ToCharArray();
             bool lastCharWasNotLetter = true;
@@ -112,12 +112,12 @@ namespace NHapi.SourceGeneration.Generators
                 {
                     if (inBrackets > 0)
                     {
-                        //buffer everthing in brackets
+                        // buffer everthing in brackets
                         bracketContents.Append(chars[i]);
                     }
                     else
                     {
-                        //add capitalized bracketed text if appropriate
+                        // add capitalized bracketed text if appropriate
                         if (bracketContents.Length > 0)
                         {
                             aName.Append(capitalize(filterBracketedText(bracketContents.ToString())));
@@ -126,7 +126,7 @@ namespace NHapi.SourceGeneration.Generators
 
                         if (lastCharWasNotLetter)
                         {
-                            //first letter of each word is upper-case
+                            // first letter of each word is upper-case
                             aName.Append(Char.ToUpper(chars[i]));
                         }
                         else
@@ -247,11 +247,11 @@ namespace NHapi.SourceGeneration.Generators
         {
             String ret = dataTypeName;
 
-            //convert to varies to Varies
+            // convert to varies to Varies
             if (ret.Equals("varies"))
                 ret = "Varies";
 
-            //Valid.. classes are removed as of HAPI 0.3 (validating code implemented directly in Primitive classes
+            // Valid.. classes are removed as of HAPI 0.3 (validating code implemented directly in Primitive classes
             /*try {
             Class.forName(getVersionPackageName(version) + "datatype.Valid" + dataTypeName);
             ret = "Valid" + dataTypeName;

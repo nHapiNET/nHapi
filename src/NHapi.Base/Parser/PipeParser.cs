@@ -120,7 +120,7 @@ namespace NHapi.Base.Parser
 
         private static readonly IHapiLog log;
 
-        private const String segDelim = "\r"; //see section 2.8 of spec
+        private const String segDelim = "\r"; // see section 2.8 of spec
 
         /// <summary>Creates a new PipeParser </summary>
         public PipeParser()
@@ -146,18 +146,18 @@ namespace NHapi.Base.Parser
         {
             String encoding = null;
 
-            //quit if the string is too short
+            // quit if the string is too short
             if (message.Length < 4)
                 return null;
 
-            //see if it looks like this message is | encoded ...
+            // see if it looks like this message is | encoded ...
             bool ok = true;
 
-            //string should start with "MSH"
+            // string should start with "MSH"
             if (!message.StartsWith("MSH"))
                 return null;
 
-            //4th character of each segment should be field delimiter
+            // 4th character of each segment should be field delimiter
             char fourthChar = message[3];
             SupportClass.Tokenizer st = new SupportClass.Tokenizer(message, Convert.ToString(segDelim), false);
             while (st.HasMoreTokens())
@@ -172,7 +172,7 @@ namespace NHapi.Base.Parser
                 }
             }
 
-            //should be at least 11 field delimiters (because MSH-12 is required)
+            // should be at least 11 field delimiters (because MSH-12 is required)
             int nextFieldDelimLoc = 0;
             for (int i = 0; i < 11; i++)
             {
@@ -224,7 +224,7 @@ namespace NHapi.Base.Parser
                 String[] fields = Split(message.Substring(0, (Math.Max(message.IndexOf(segDelim), message.Length)) - (0)),
                     Convert.ToString(ec.FieldSeparator));
                 wholeFieldNine = fields[8];
-                //message structure is component 3 but we'll accept a composite of 1 and 2 if there is no component 3 ...
+                // message structure is component 3 but we'll accept a composite of 1 and 2 if there is no component 3 ...
                 //      if component 1 is ACK, then the structure is ACK regardless of component 2
                 String[] comps = Split(wholeFieldNine, Convert.ToString(ec.ComponentSeparator));
                 if (comps.Length >= 3)
@@ -284,11 +284,11 @@ namespace NHapi.Base.Parser
         /// </summary>
         protected internal override IMessage DoParse(String message, String version)
         {
-            //try to instantiate a message object of the right class
+            // try to instantiate a message object of the right class
             MessageStructure structure = GetStructure(message);
             IMessage m = InstantiateMessage(structure.messageStructure, version, structure.explicitlyDefined);
 
-            //MessagePointer ptr = new MessagePointer(this, m, getEncodingChars(message));
+            // MessagePointer ptr = new MessagePointer(this, m, getEncodingChars(message));
             MessageIterator messageIter = new MessageIterator(m, "MSH", true);
             FilterIterator.IPredicate segmentsOnly = new AnonymousClassPredicate(this);
             FilterIterator segmentIter = new FilterIterator(messageIter, segmentsOnly);
@@ -297,11 +297,11 @@ namespace NHapi.Base.Parser
             EncodingCharacters encodingChars = GetEncodingChars(message);
             for (int i = 0; i < segments.Length; i++)
             {
-                //get rid of any leading whitespace characters ...
+                // get rid of any leading whitespace characters ...
                 if (segments[i] != null && segments[i].Length > 0 && Char.IsWhiteSpace(segments[i][0]))
                     segments[i] = StripLeadingWhitespace(segments[i]);
 
-                //sometimes people put extra segment delimiters at end of msg ...
+                // sometimes people put extra segment delimiters at end of msg ...
                 if (segments[i] != null && segments[i].Length >= 3)
                 {
                     String name = segments[i].Substring(0, (3) - (0));
@@ -333,7 +333,7 @@ namespace NHapi.Base.Parser
             if (IsDelimDefSegment(destination.GetStructureName()))
             {
                 fieldOffset = 1;
-                //set field 1 to fourth character of string
+                // set field 1 to fourth character of string
                 Terser.Set(destination, 1, 0, 1, 1, Convert.ToString(encodingChars.FieldSeparator));
             }
 
@@ -347,7 +347,7 @@ namespace NHapi.Base.Parser
                     log.Debug(reps.Length + "reps delimited by: " + encodingChars.RepetitionSeparator);
                 }
 
-                //MSH-2 will get split incorrectly so we have to fudge it ...
+                // MSH-2 will get split incorrectly so we have to fudge it ...
                 bool isMSH2 = IsDelimDefSegment(destination.GetStructureName()) && i + fieldOffset == 2;
                 if (isMSH2)
                 {
@@ -377,7 +377,7 @@ namespace NHapi.Base.Parser
                     }
                     catch (HL7Exception e)
                     {
-                        //set the field location and throw again ...
+                        // set the field location and throw again ...
                         e.FieldPosition = i + fieldOffset;
                         e.SegmentRepetition = MessageIterator.getIndex(destination.ParentStructure, destination).rep;
                         e.SegmentName = destination.GetStructureName();
@@ -386,7 +386,7 @@ namespace NHapi.Base.Parser
                 }
             }
 
-            //set data type of OBX-5
+            // set data type of OBX-5
             if (destination.GetType().FullName.IndexOf("OBX") >= 0)
             {
                 Varies.fixOBX5(destination, Factory);
@@ -458,7 +458,7 @@ namespace NHapi.Base.Parser
         {
             ArrayList components = new ArrayList();
 
-            //defend against evil nulls
+            // defend against evil nulls
             if (composite == null)
                 composite = "";
             if (delim == null)
@@ -512,7 +512,7 @@ namespace NHapi.Base.Parser
             }
 
             return StripExtraDelimiters(field.ToString(), encodingChars.ComponentSeparator);
-            //return encode(source, encodingChars, false);
+            // return encode(source, encodingChars, false);
         }
 
         private static String EncodePrimitive(IPrimitive p, EncodingCharacters encodingChars)
@@ -539,7 +539,7 @@ namespace NHapi.Base.Parser
         {
             char[] chars = in_Renamed.ToCharArray();
 
-            //search from back end for first occurrence of non-delimiter ...
+            // search from back end for first occurrence of non-delimiter ...
             int c = chars.Length - 1;
             bool found = false;
             while (c >= 0 && !found)
@@ -579,13 +579,13 @@ namespace NHapi.Base.Parser
         /// </summary>
         protected internal override String DoEncode(IMessage source)
         {
-            //get encoding characters ...
+            // get encoding characters ...
             ISegment msh = (ISegment)source.GetStructure("MSH");
             String fieldSepString = Terser.Get(msh, 1, 0, 1, 1);
             if (fieldSepString == null)
             {
-                //cdc: This was breaking when trying to construct a blank message, and there is no way to set the fieldSeperator, so fill in a default
-                //throw new HL7Exception("Can't encode message: MSH-1 (field separator) is missing");
+                // cdc: This was breaking when trying to construct a blank message, and there is no way to set the fieldSeperator, so fill in a default
+                // throw new HL7Exception("Can't encode message: MSH-1 (field separator) is missing");
                 fieldSepString = "|";
                 Terser.Set(msh, 1, 0, 1, 1, fieldSepString);
             }
@@ -598,8 +598,8 @@ namespace NHapi.Base.Parser
 
             if (encCharString == null)
             {
-                //cdc: This was breaking when trying to construct a blank message, and there is no way to set the EncChars, so fill in a default
-                //throw new HL7Exception("Can't encode message: MSH-2 (encoding characters) is missing");
+                // cdc: This was breaking when trying to construct a blank message, and there is no way to set the EncChars, so fill in a default
+                // throw new HL7Exception("Can't encode message: MSH-2 (encoding characters) is missing");
                 encCharString = @"^~\&";
                 Terser.Set(msh, 2, 0, 1, 1, encCharString);
             }
@@ -607,14 +607,14 @@ namespace NHapi.Base.Parser
             string version = Terser.Get(msh, 12, 0, 1, 1);
             if (version == null)
             {
-                //Put in the message version
+                // Put in the message version
                 Terser.Set(msh, 12, 0, 1, 1, source.Version);
             }
 
             string msgStructure = Terser.Get(msh, 9, 0, 1, 1);
             if (msgStructure == null)
             {
-                //Create the MsgType and Trigger Event if not there
+                // Create the MsgType and Trigger Event if not there
                 string messageTypeFullname = source.GetStructureName();
                 int i = messageTypeFullname.IndexOf("_");
                 if (i > 0)
@@ -635,7 +635,7 @@ namespace NHapi.Base.Parser
                     ErrorCode.DATA_TYPE_ERROR);
             EncodingCharacters en = new EncodingCharacters(fieldSep, encCharString);
 
-            //pass down to group encoding method which will operate recursively on children ...
+            // pass down to group encoding method which will operate recursively on children ...
             return Encode((IGroup)source, en);
         }
 
@@ -677,12 +677,12 @@ namespace NHapi.Base.Parser
             result.Append(source.GetStructureName());
             result.Append(encodingChars.FieldSeparator);
 
-            //start at field 2 for MSH segment because field 1 is the field delimiter
+            // start at field 2 for MSH segment because field 1 is the field delimiter
             int startAt = 1;
             if (IsDelimDefSegment(source.GetStructureName()))
                 startAt = 2;
 
-            //loop through fields; for every field delimit any repetitions and add field delimiter after ...
+            // loop through fields; for every field delimit any repetitions and add field delimiter after ...
             int numFields = source.NumFields();
             for (int i = startAt; i <= numFields; i++)
             {
@@ -692,7 +692,7 @@ namespace NHapi.Base.Parser
                     for (int j = 0; j < reps.Length; j++)
                     {
                         String fieldText = Encode(reps[j], encodingChars);
-                        //if this is MSH-2, then it shouldn't be escaped, so un-escape it again
+                        // if this is MSH-2, then it shouldn't be escaped, so un-escape it again
                         if (IsDelimDefSegment(source.GetStructureName()) && i == 2)
                             fieldText = Escape.unescape(fieldText, encodingChars);
                         result.Append(fieldText);
@@ -708,7 +708,7 @@ namespace NHapi.Base.Parser
                 result.Append(encodingChars.FieldSeparator);
             }
 
-            //strip trailing delimiters ...
+            // strip trailing delimiters ...
             return StripExtraDelimiters(result.ToString(), encodingChars.FieldSeparator);
         }
 
@@ -754,7 +754,7 @@ namespace NHapi.Base.Parser
         /// </summary>
         public override ISegment GetCriticalResponseData(String message)
         {
-            //try to get MSH segment
+            // try to get MSH segment
             int locStartMSH = message.IndexOf("MSH");
             if (locStartMSH < 0)
                 throw new HL7Exception("Couldn't find MSH segment in message: " + message, ErrorCode.SEGMENT_SEQUENCE_ERROR);
@@ -763,23 +763,23 @@ namespace NHapi.Base.Parser
                 locEndMSH = message.Length;
             String mshString = message.Substring(locStartMSH, (locEndMSH) - (locStartMSH));
 
-            //find out what the field separator is
+            // find out what the field separator is
             char fieldSep = mshString[3];
 
-            //get field array
+            // get field array
             String[] fields = Split(mshString, Convert.ToString(fieldSep));
 
             ISegment msh = null;
             try
             {
-                //parse required fields
+                // parse required fields
                 String encChars = fields[1];
                 char compSep = encChars[0];
                 String messControlID = fields[9];
                 String[] procIDComps = Split(fields[10], Convert.ToString(compSep));
 
-                //fill MSH segment
-                String version = "2.4"; //default
+                // fill MSH segment
+                String version = "2.4"; // default
                 try
                 {
                     version = GetVersion(message);
@@ -828,7 +828,7 @@ namespace NHapi.Base.Parser
                 if (segEnd > start && segEnd < end)
                     end = segEnd;
 
-                //if there is no field delim after MSH-2, need to go to end of message, but not including end seg delim if it exists
+                // if there is no field delim after MSH-2, need to go to end of message, but not including end seg delim if it exists
                 if (end < 0)
                 {
                     if (message[message.Length - 1] == '\r')
@@ -878,7 +878,7 @@ namespace NHapi.Base.Parser
             String compSep = null;
             if (fields.Length >= 2 && fields[1].Length > 0)
             {
-                compSep = Convert.ToString(fields[1][0]); //get component separator as 1st encoding char
+                compSep = Convert.ToString(fields[1][0]); // get component separator as 1st encoding char
             }
             else
             {

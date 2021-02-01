@@ -185,7 +185,7 @@ namespace NHapi.SourceGeneration.Generators
         /// </summary>
         protected internal virtual String getIndexName(String name)
         {
-            //see if this name is already being used
+            // see if this name is already being used
             Object o = existingNames[name];
             int c = 2;
             String newName = name;

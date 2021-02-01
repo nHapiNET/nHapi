@@ -216,7 +216,7 @@ namespace NHapi.Base.Util
                 else if (typeof(GenericComposite).IsAssignableFrom(type.GetType()) ||
                             (typeof(IComposite).IsAssignableFrom(type.GetType()) && comp <= numStandardComponents(type)))
                 {
-                    //note that GenericComposite can return components > number of standard components
+                    // note that GenericComposite can return components > number of standard components
 
                     try
                     {
@@ -224,7 +224,7 @@ namespace NHapi.Base.Util
                     }
                     catch (Exception e)
                     {
-                        //TODO:  This may not be the write exception type:  Error() was originally thrown, but was not in project.
+                        // TODO:  This may not be the write exception type:  Error() was originally thrown, but was not in project.
                         throw new ApplicationException(
                             "Internal error: HL7Exception thrown on getComponent(x) where x < # standard components.", e);
                     }
@@ -361,7 +361,7 @@ namespace NHapi.Base.Util
         public static int[] getIndices(String spec)
         {
             SupportClass.Tokenizer tok = new SupportClass.Tokenizer(spec, "-", false);
-            tok.NextToken(); //skip over segment
+            tok.NextToken(); // skip over segment
             if (!tok.HasMoreTokens())
                 throw new HL7Exception("Must specify field in spec " + spec, ErrorCode.APPLICATION_INTERNAL_ERROR);
 
@@ -427,9 +427,9 @@ namespace NHapi.Base.Util
             int n = -1;
             if (component == 1 && typeof(IPrimitive).IsAssignableFrom(type.GetType()))
             {
-                //note that getComponent(primitive, 1) below returns the primitive
-                //itself -- if we do numComponents on it, we'll end up with the
-                //number of components in the field, not the number of subcomponents
+                // note that getComponent(primitive, 1) below returns the primitive
+                // itself -- if we do numComponents on it, we'll end up with the
+                // number of components in the field, not the number of subcomponents
                 n = 1;
             }
             else

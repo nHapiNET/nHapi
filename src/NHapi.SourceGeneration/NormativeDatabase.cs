@@ -144,11 +144,11 @@ namespace NHapi.SourceGeneration
         /// </summary>
         public virtual void returnConnection(OdbcConnection conn)
         {
-            //check if this is a normative DB connection
+            // check if this is a normative DB connection
             _conn.Close();
         }
 
-        //test
+        // test
         [STAThread]
         public static void Main(String[] args)
         {

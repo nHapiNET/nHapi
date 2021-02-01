@@ -60,7 +60,7 @@ namespace NHapi.Base.validation.impl
         {
             get { return myEncodingRuleBindings; }
 
-            //    /**
+            // /**
             //     * @see NHapi.Base.validation.ValidationContext#getCheckPrimitivesOnSet()
             //     */
             //    public boolean getCheckPrimitivesOnSet() {
