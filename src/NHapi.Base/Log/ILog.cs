@@ -11,24 +11,40 @@ namespace NHapi.Base.Log
     public interface ILog
     {
         bool DebugEnabled { get; }
+
         bool ErrorEnabled { get; }
+
         bool FatalEnabled { get; }
+
         bool InfoEnabled { get; }
+
         bool TraceEnabled { get; }
+
         bool WarnEnabled { get; }
 
 
         void Debug(Object message);
+
         void Debug(Object message, Exception t);
+
         void Error(Object message);
+
         void Error(Object message, Exception t);
+
         void Fatal(Object message);
+
         void Fatal(Object message, Exception t);
+
         void Info(Object message);
+
         void Info(Object message, Exception t);
+
         void Trace(Object message);
+
         void Trace(Object message, Exception t);
+
         void Warn(Object message);
+
         void Warn(Object message, Exception t);
     }
 

@@ -79,6 +79,7 @@ namespace NHapi.Base.Model
         public IStructure this[int index]
         {
             get { return _structures[index]; }
+
             set
             {
                 if (index > 0 && !_isRepeating)

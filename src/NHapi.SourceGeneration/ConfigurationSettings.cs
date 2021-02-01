@@ -34,6 +34,7 @@ namespace NHapi.SourceGeneration
 
                 return _connectionString;
             }
+
             set { _connectionString = value; }
         }
     }

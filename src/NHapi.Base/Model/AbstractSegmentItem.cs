@@ -104,6 +104,7 @@ namespace NHapi.Base.Model
                 else
                     return _maxReps;
             }
+
             set { _maxReps = value; }
         }
 

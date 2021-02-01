@@ -2956,6 +2956,7 @@ namespace NHapi.Base
             public String Name
             {
                 get { return threadField.Name; }
+
                 set
                 {
                     if (threadField.Name == null)
