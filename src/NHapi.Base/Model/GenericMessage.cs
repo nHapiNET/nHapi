@@ -44,27 +44,27 @@ namespace NHapi.Base.Model
             Type c = null;
             if (version.Equals("2.1"))
             {
-                c = typeof (V21);
+                c = typeof(V21);
             }
             else if (version.Equals("2.2"))
             {
-                c = typeof (V22);
+                c = typeof(V22);
             }
             else if (version.Equals("2.3"))
             {
-                c = typeof (V23);
+                c = typeof(V23);
             }
             else if (version.Equals("2.3.1"))
             {
-                c = typeof (V231);
+                c = typeof(V231);
             }
             else if (version.Equals("2.4"))
             {
-                c = typeof (V24);
+                c = typeof(V24);
             }
             else if (version.Equals("2.5"))
             {
-                c = typeof (V25);
+                c = typeof(V25);
             }
 
             return c;

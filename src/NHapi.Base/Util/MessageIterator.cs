@@ -142,7 +142,7 @@ namespace NHapi.Base.Util
             bool has = true;
             if (next_Renamed_Field == null)
             {
-                if (typeof (IGroup).IsAssignableFrom(currentStructure.GetType()))
+                if (typeof(IGroup).IsAssignableFrom(currentStructure.GetType()))
                 {
                     groupNext((IGroup)currentStructure);
                 }
@@ -216,7 +216,7 @@ namespace NHapi.Base.Util
             // the following conditional logic is a little convoluted -- its meant as an optimization
             // i.e. trying to avoid calling matchExistsAfterCurrentPosition
 
-            if (!makeNewSegmentIfNeeded && typeof (IMessage).IsAssignableFrom(currPos.parent.GetType()))
+            if (!makeNewSegmentIfNeeded && typeof(IMessage).IsAssignableFrom(currPos.parent.GetType()))
             {
                 nextExists = false;
             }
@@ -299,7 +299,7 @@ namespace NHapi.Base.Util
             }
 
             // recurse to parent (if parent is not message root)
-            if (!matchExists && !typeof (IMessage).IsAssignableFrom(pos.parent.GetType()))
+            if (!matchExists && !typeof(IMessage).IsAssignableFrom(pos.parent.GetType()))
             {
                 IGroup grandparent = pos.parent.ParentStructure;
                 Position parentPos = new Position(grandparent, getIndex(grandparent, pos.parent));
@@ -340,7 +340,7 @@ namespace NHapi.Base.Util
         public static bool contains(IStructure s, String name, bool firstDescendentsOnly, bool upToFirstRequired)
         {
             bool contains = false;
-            if (typeof (ISegment).IsAssignableFrom(s.GetType()))
+            if (typeof(ISegment).IsAssignableFrom(s.GetType()))
             {
                 if (s.GetStructureName().Equals(name))
                     contains = true;
@@ -590,7 +590,7 @@ namespace NHapi.Base.Util
 
         static MessageIterator()
         {
-            log = HapiLogFactory.GetHapiLog(typeof (MessageIterator));
+            log = HapiLogFactory.GetHapiLog(typeof(MessageIterator));
         }
     }
 }
