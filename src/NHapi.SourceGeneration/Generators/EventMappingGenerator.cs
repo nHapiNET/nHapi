@@ -36,7 +36,7 @@ namespace NHapi.SourceGeneration.Generators
                 while (rs.Read())
                 {
                     string messageType = string.Format("{0}_{1}", rs["message_typ_snd"], rs["event_code"]);
-                    string structure = (string) rs["message_structure_snd"];
+                    string structure = (string)rs["message_structure_snd"];
 
                     sw.WriteLine(string.Format("{0} {1}", messageType, structure));
                 }

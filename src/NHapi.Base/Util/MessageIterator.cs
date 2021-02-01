@@ -144,7 +144,7 @@ namespace NHapi.Base.Util
             {
                 if (typeof (IGroup).IsAssignableFrom(currentStructure.GetType()))
                 {
-                    groupNext((IGroup) currentStructure);
+                    groupNext((IGroup)currentStructure);
                 }
                 else
                 {
@@ -179,7 +179,7 @@ namespace NHapi.Base.Util
         /// </summary>
         private void groupNext(IGroup current)
         {
-            next_Renamed_Field = new Position(current, ((IGroup) current).Names[0], 0);
+            next_Renamed_Field = new Position(current, ((IGroup)current).Names[0], 0);
         }
 
         /// <summary> Sets next to the next repetition of the current structure.  </summary>
@@ -347,7 +347,7 @@ namespace NHapi.Base.Util
             }
             else
             {
-                IGroup g = (IGroup) s;
+                IGroup g = (IGroup)s;
                 String[] names = g.Names;
                 for (int i = 0; i < names.Length && !contains; i++)
                 {
@@ -475,7 +475,7 @@ namespace NHapi.Base.Util
                 bool equals = false;
                 if (o != null && o is Index)
                 {
-                    Index i = (Index) o;
+                    Index i = (Index)o;
                     if (i.rep == rep && i.name.Equals(name))
                         equals = true;
                 }
@@ -489,7 +489,7 @@ namespace NHapi.Base.Util
             /// <returns></returns>
             public override int GetHashCode()
             {
-                return name.GetHashCode() + 700*rep;
+                return name.GetHashCode() + 700 * rep;
             }
 
             /// <summary>
@@ -548,7 +548,7 @@ namespace NHapi.Base.Util
                 bool equals = false;
                 if (o != null && o is Position)
                 {
-                    Position p = (Position) o;
+                    Position p = (Position)o;
                     if (p.parent.Equals(parent) && p.index.Equals(index))
                         equals = true;
                 }

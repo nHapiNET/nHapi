@@ -317,8 +317,7 @@ namespace NHapi.Base.Parser
             try
             {
                 IMessage dummy =
-                    (IMessage)
-                        GenericMessage.getGenericMessageClass(version)
+                    (IMessage)GenericMessage.getGenericMessageClass(version)
                             .GetConstructor(new Type[] { typeof(IModelClassFactory) })
                             .Invoke(new Object[] { factory });
 

@@ -20,7 +20,7 @@ namespace NHapi.Base.Model
                 IType[] ret = new IType[components.Count];
                 for (int i = 0; i < ret.Length; i++)
                 {
-                    ret[i] = (IType) components[i];
+                    ret[i] = (IType)components[i];
                 }
 
                 return ret;
@@ -64,7 +64,7 @@ namespace NHapi.Base.Model
                     components.Add(new Varies(message));
                 }
 
-                return (IType) components[index];
+                return (IType)components[index];
             }
         }
     }
