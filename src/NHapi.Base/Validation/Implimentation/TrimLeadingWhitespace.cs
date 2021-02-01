@@ -36,45 +36,45 @@ namespace NHapi.Base.validation.impl
    /// <version>  $Revision: 1.2 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $
    /// </version>
    public class TrimLeadingWhitespace : IPrimitiveTypeRule
-	{
-		/// <summary>
-		/// Description of the rule
-		/// </summary>
-		public virtual String Description
-		{
-			get { return "Leading whitespace removed"; }
-		}
+    {
+        /// <summary>
+        /// Description of the rule
+        /// </summary>
+        public virtual String Description
+        {
+            get { return "Leading whitespace removed"; }
+        }
 
-		/// <summary>
-		/// Section reference
-		/// </summary>
-		public virtual String SectionReference
-		{
-			get { return null; }
-		}
+        /// <summary>
+        /// Section reference
+        /// </summary>
+        public virtual String SectionReference
+        {
+            get { return null; }
+        }
 
-		/// <summary> Removes leading whitespace.</summary>
-		public virtual String correct(String value_Renamed)
-		{
-			String trmValue = null;
-			if (value_Renamed != null)
-			{
-				char[] stringChr = value_Renamed.ToCharArray();
-				for (int i = 0; i < stringChr.Length && trmValue == null; i++)
-				{
-					if (!Char.IsWhiteSpace(stringChr[i]))
-					{
-						trmValue = new String(stringChr, i, (stringChr.Length - i));
-					}
-				}
-			}
-			return trmValue;
-		}
+        /// <summary> Removes leading whitespace.</summary>
+        public virtual String correct(String value_Renamed)
+        {
+            String trmValue = null;
+            if (value_Renamed != null)
+            {
+                char[] stringChr = value_Renamed.ToCharArray();
+                for (int i = 0; i < stringChr.Length && trmValue == null; i++)
+                {
+                    if (!Char.IsWhiteSpace(stringChr[i]))
+                    {
+                        trmValue = new String(stringChr, i, (stringChr.Length - i));
+                    }
+                }
+            }
+            return trmValue;
+        }
 
-		/// <summary> Returns true. </summary>
-		public virtual bool test(String value_Renamed)
-		{
-			return true;
-		}
-	}
+        /// <summary> Returns true. </summary>
+        public virtual bool test(String value_Renamed)
+        {
+            return true;
+        }
+    }
 }

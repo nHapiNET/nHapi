@@ -36,74 +36,74 @@ namespace NHapi.Base.Model
    /// <author>  Bryan Tripp
    /// </author>
    public abstract class AbstractPrimitive : AbstractType, IPrimitive
-	{
-		/// <summary> Sets the value of this Primitive, first performing validation as specified 
-		/// by <code>getMessage().getValidationContext()</code>.  No validation is performed 
-		/// if getMessage() returns null. 
-		/// 
-		/// </summary>
-		public virtual String Value
-		{
-			get { return myValue; }
+    {
+        /// <summary> Sets the value of this Primitive, first performing validation as specified 
+        /// by <code>getMessage().getValidationContext()</code>.  No validation is performed 
+        /// if getMessage() returns null. 
+        /// 
+        /// </summary>
+        public virtual String Value
+        {
+            get { return myValue; }
 
-			set
-			{
-				IMessage message = Message;
+            set
+            {
+                IMessage message = Message;
 
-				if (message != null)
-				{
-					IValidationContext context = message.ValidationContext;
-					String version = message.Version;
+                if (message != null)
+                {
+                    IValidationContext context = message.ValidationContext;
+                    String version = message.Version;
 
-					if (context != null)
-					{
-						IPrimitiveTypeRule[] rules = context.getPrimitiveRules(version, TypeName, this);
+                    if (context != null)
+                    {
+                        IPrimitiveTypeRule[] rules = context.getPrimitiveRules(version, TypeName, this);
 
-						foreach (IPrimitiveTypeRule rule in rules)
-						{
-							value = rule.correct(value);
-							if (!rule.test(value))
-							{
-								string validationFailureMessage = "Failed validation rule: " + rule.Description;
-								if (!string.IsNullOrEmpty(rule.SectionReference))
-								{
-									validationFailureMessage += Environment.NewLine + "Reason: " + rule.SectionReference;
-								}
-								throw new DataTypeException(validationFailureMessage);
-							}
-						}
-					}
-				}
+                        foreach (IPrimitiveTypeRule rule in rules)
+                        {
+                            value = rule.correct(value);
+                            if (!rule.test(value))
+                            {
+                                string validationFailureMessage = "Failed validation rule: " + rule.Description;
+                                if (!string.IsNullOrEmpty(rule.SectionReference))
+                                {
+                                    validationFailureMessage += Environment.NewLine + "Reason: " + rule.SectionReference;
+                                }
+                                throw new DataTypeException(validationFailureMessage);
+                            }
+                        }
+                    }
+                }
 
-				myValue = value;
-			}
-		}
+                myValue = value;
+            }
+        }
 
-		///<summary>
-		/// <param name="message">message to which this type belongs
-		/// </param>
-		/// </summary>
-		public AbstractPrimitive(IMessage message)
-			: this(message, null)
-		{
-		}
+        ///<summary>
+        /// <param name="message">message to which this type belongs
+        /// </param>
+        /// </summary>
+        public AbstractPrimitive(IMessage message)
+            : this(message, null)
+        {
+        }
 
-		///<summary>
-		/// <param name="message">message to which this type belongs
-		/// <param name="description">The descption of the primitive</param>
-		/// </param>
-		/// </summary>
-		public AbstractPrimitive(IMessage message, string description)
-			: base(message, description)
-		{
-		}
+        ///<summary>
+        /// <param name="message">message to which this type belongs
+        /// <param name="description">The descption of the primitive</param>
+        /// </param>
+        /// </summary>
+        public AbstractPrimitive(IMessage message, string description)
+            : base(message, description)
+        {
+        }
 
-		private String myValue;
+        private String myValue;
 
-		/// <summary> Returns the value of getValue() </summary>
-		public override String ToString()
-		{
-			return Value;
-		}
-	}
+        /// <summary> Returns the value of getValue() </summary>
+        public override String ToString()
+        {
+            return Value;
+        }
+    }
 }

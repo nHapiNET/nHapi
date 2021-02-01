@@ -38,60 +38,60 @@ namespace NHapi.Base.validation.impl
    /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:15:12 $ by $Author: bryan_tripp $
    /// </version>
    public class RegexPrimitiveRule : IPrimitiveTypeRule
-	{
-		/// <summary>
-		/// The description
-		/// </summary>
-		public virtual String Description
-		{
-			get { return "Matches the regular expression " + myPattern.ToString(); }
-		}
+    {
+        /// <summary>
+        /// The description
+        /// </summary>
+        public virtual String Description
+        {
+            get { return "Matches the regular expression " + myPattern.ToString(); }
+        }
 
-		/// <summary>
-		/// The section reference
-		/// </summary>
-		public virtual String SectionReference
-		{
-			get { return mySectionReference; }
-		}
+        /// <summary>
+        /// The section reference
+        /// </summary>
+        public virtual String SectionReference
+        {
+            get { return mySectionReference; }
+        }
 
-		private Regex myPattern;
-		private String mySectionReference;
+        private Regex myPattern;
+        private String mySectionReference;
 
-		/// <param name="theRegex">a regular expression against which to validate primitive
-		/// values 
-		/// </param>
-		/// <param name="theSectionReference">to be returned by <code>getSectionReference()</code>
-		/// </param>
-		public RegexPrimitiveRule(String theRegex, String theSectionReference)
-		{
-			myPattern = new Regex(theRegex);
-			mySectionReference = theSectionReference;
-		}
+        /// <param name="theRegex">a regular expression against which to validate primitive
+        /// values 
+        /// </param>
+        /// <param name="theSectionReference">to be returned by <code>getSectionReference()</code>
+        /// </param>
+        public RegexPrimitiveRule(String theRegex, String theSectionReference)
+        {
+            myPattern = new Regex(theRegex);
+            mySectionReference = theSectionReference;
+        }
 
-		/// <summary> Empty string, null, and the HL7 explicit null (two double-quotes) are passed.  
-		/// 
-		/// </summary>
-		public virtual bool test(String value_Renamed)
-		{
-			if (value_Renamed == null || value_Renamed.Equals("\"\"") || value_Renamed.Equals(""))
-			{
-				return true;
-			}
-			else
-			{
-				return myPattern.IsMatch(value_Renamed);
-			}
-		}
+        /// <summary> Empty string, null, and the HL7 explicit null (two double-quotes) are passed.  
+        /// 
+        /// </summary>
+        public virtual bool test(String value_Renamed)
+        {
+            if (value_Renamed == null || value_Renamed.Equals("\"\"") || value_Renamed.Equals(""))
+            {
+                return true;
+            }
+            else
+            {
+                return myPattern.IsMatch(value_Renamed);
+            }
+        }
 
-		/// <summary>
-		/// Is this rule correct
-		/// </summary>
-		/// <param name="value_Renamed"></param>
-		/// <returns></returns>
-		public virtual String correct(String value_Renamed)
-		{
-			return value_Renamed;
-		}
-	}
+        /// <summary>
+        /// Is this rule correct
+        /// </summary>
+        /// <param name="value_Renamed"></param>
+        /// <returns></returns>
+        public virtual String correct(String value_Renamed)
+        {
+            return value_Renamed;
+        }
+    }
 }

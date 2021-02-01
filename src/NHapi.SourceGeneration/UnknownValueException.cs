@@ -34,15 +34,15 @@ namespace NHapi.SourceGeneration
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
    [Serializable]
-	public class UnknownValueException : HL7Exception
-	{
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="message"></param>
-		public UnknownValueException(string message)
-			: base(message, ErrorCode.TABLE_VALUE_NOT_FOUND)
-		{
-		}
-	}
+    public class UnknownValueException : HL7Exception
+    {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="message"></param>
+        public UnknownValueException(string message)
+            : base(message, ErrorCode.TABLE_VALUE_NOT_FOUND)
+        {
+        }
+    }
 }

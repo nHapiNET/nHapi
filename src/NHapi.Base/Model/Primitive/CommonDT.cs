@@ -48,276 +48,276 @@ namespace NHapi.Base.Model.Primitive
    /// <author>  Neal Acharya
    /// </author>
    public class CommonDT
-	{
-		/// <summary> Returns the HL7 DT string value.</summary>
-		/// <summary> This method takes in a string HL7 date value and performs validations
-		/// then sets the value field. The stored value will be in the following
-		/// format YYYY[MM[DD]].
-		/// 
-		/// </summary>
-		public virtual String Value
-		{
-			get { return value_Renamed; }
+    {
+        /// <summary> Returns the HL7 DT string value.</summary>
+        /// <summary> This method takes in a string HL7 date value and performs validations
+        /// then sets the value field. The stored value will be in the following
+        /// format YYYY[MM[DD]].
+        /// 
+        /// </summary>
+        public virtual String Value
+        {
+            get { return value_Renamed; }
 
 
-			set
-			{
-				if (value != null && !value.Equals("") && !value.Equals("\"\""))
-				{
-					try
-					{
-						//check the length, must be either four, six, or eight digits
-						if ((value.Length != 4) && (value.Length != 6) && (value.Length != 8))
-						{
-							const string msg =
-								"The length of the DT datatype value does not conform to an allowable format. Format should conform to YYYY[MM[DD]]";
-							DataTypeException e = new DataTypeException(msg);
-							throw e;
-						}
+            set
+            {
+                if (value != null && !value.Equals("") && !value.Equals("\"\""))
+                {
+                    try
+                    {
+                        //check the length, must be either four, six, or eight digits
+                        if ((value.Length != 4) && (value.Length != 6) && (value.Length != 8))
+                        {
+                            const string msg =
+                                "The length of the DT datatype value does not conform to an allowable format. Format should conform to YYYY[MM[DD]]";
+                            DataTypeException e = new DataTypeException(msg);
+                            throw e;
+                        }
 
-						GregorianCalendar cal = new GregorianCalendar();
+                        GregorianCalendar cal = new GregorianCalendar();
 
-						if (value.Length >= 4)
-						{
-							//extract the year from the input value
-							int yrInt = Int32.Parse(value.Substring(0, (4) - (0)));
-							//check to see if the year is valid by creating a DateTime value with the Gregorian calendar and
-							//this value.  If an error occurs then processing will stop in this try block
-							new DateTime(yrInt, 1, 1, cal);
-							year = yrInt;
-						}
+                        if (value.Length >= 4)
+                        {
+                            //extract the year from the input value
+                            int yrInt = Int32.Parse(value.Substring(0, (4) - (0)));
+                            //check to see if the year is valid by creating a DateTime value with the Gregorian calendar and
+                            //this value.  If an error occurs then processing will stop in this try block
+                            new DateTime(yrInt, 1, 1, cal);
+                            year = yrInt;
+                        }
 
-						if (value.Length >= 6)
-						{
-							//extract the month from the input value
-							int mnthInt = Int32.Parse(value.Substring(4, (6) - (4)));
-							//check to see if the month is valid by creating a DateTime value with the Gregorian calendar and
-							//this value.  If an error occurs then processing will stop in this try block
-							new DateTime(year, mnthInt, 1);
-							month = mnthInt;
-						}
+                        if (value.Length >= 6)
+                        {
+                            //extract the month from the input value
+                            int mnthInt = Int32.Parse(value.Substring(4, (6) - (4)));
+                            //check to see if the month is valid by creating a DateTime value with the Gregorian calendar and
+                            //this value.  If an error occurs then processing will stop in this try block
+                            new DateTime(year, mnthInt, 1);
+                            month = mnthInt;
+                        }
 
-						if (value.Length == 8)
-						{
-							//extract the day from the input value
-							int dayInt = Int32.Parse(value.Substring(6, (8) - (6)));
-							//check to see if the day is valid by creating a DateTime value with the Gregorian calendar and
-							//the year/month/day combination.  If an error occurs then processing will stop
-							// in this try block
-							new DateTime(year, month, dayInt);
-							day = dayInt;
-						}
-						//validations are complete now store the input value into the private value field
-						value_Renamed = value;
-					}
-					//end try
-					catch (DataTypeException e)
-					{
-						throw e;
-					}
-					//end catch
-					catch (Exception e)
-					{
-						throw new DataTypeException("An unexpected exception ocurred", e);
-					} //end catch
-				}
-				//end if
-				else
-				{
-					//set the private value field to null or empty space.
-					value_Renamed = value;
-				} //end else       
-			}
-		}
+                        if (value.Length == 8)
+                        {
+                            //extract the day from the input value
+                            int dayInt = Int32.Parse(value.Substring(6, (8) - (6)));
+                            //check to see if the day is valid by creating a DateTime value with the Gregorian calendar and
+                            //the year/month/day combination.  If an error occurs then processing will stop
+                            // in this try block
+                            new DateTime(year, month, dayInt);
+                            day = dayInt;
+                        }
+                        //validations are complete now store the input value into the private value field
+                        value_Renamed = value;
+                    }
+                    //end try
+                    catch (DataTypeException e)
+                    {
+                        throw e;
+                    }
+                    //end catch
+                    catch (Exception e)
+                    {
+                        throw new DataTypeException("An unexpected exception ocurred", e);
+                    } //end catch
+                }
+                //end if
+                else
+                {
+                    //set the private value field to null or empty space.
+                    value_Renamed = value;
+                } //end else       
+            }
+        }
 
-		/// <summary> This method takes in an integer value for the year and performs validations,
-		/// it then sets the value field formatted as an HL7 date.
-		/// value with year precision (YYYY)
-		/// </summary>
-		public virtual int YearPrecision
-		{
-			set
-			{
-				try
-				{
-					//ensure that the year field is four digits long
-					if (Convert.ToString(value).Length != 4)
-					{
-						String msg = "The input year value must be four digits long";
-						DataTypeException e = new DataTypeException(msg);
-						throw e;
-					}
+        /// <summary> This method takes in an integer value for the year and performs validations,
+        /// it then sets the value field formatted as an HL7 date.
+        /// value with year precision (YYYY)
+        /// </summary>
+        public virtual int YearPrecision
+        {
+            set
+            {
+                try
+                {
+                    //ensure that the year field is four digits long
+                    if (Convert.ToString(value).Length != 4)
+                    {
+                        String msg = "The input year value must be four digits long";
+                        DataTypeException e = new DataTypeException(msg);
+                        throw e;
+                    }
 
-					GregorianCalendar cal = new GregorianCalendar();
+                    GregorianCalendar cal = new GregorianCalendar();
 
-					//check is input year is valid
-					new DateTime(value, 1, 1, cal);
-					year = value;
-					month = 0;
-					day = 0;
-					value_Renamed = Convert.ToString(value);
-				}
-				//end try
-				catch (DataTypeException e)
-				{
-					throw e;
-				}
-				//end catch
-				catch (Exception e)
-				{
-					throw new DataTypeException("An unexpected exception ocurred", e);
-				} //end catch
-			}
-		}
+                    //check is input year is valid
+                    new DateTime(value, 1, 1, cal);
+                    year = value;
+                    month = 0;
+                    day = 0;
+                    value_Renamed = Convert.ToString(value);
+                }
+                //end try
+                catch (DataTypeException e)
+                {
+                    throw e;
+                }
+                //end catch
+                catch (Exception e)
+                {
+                    throw new DataTypeException("An unexpected exception ocurred", e);
+                } //end catch
+            }
+        }
 
-		/// <summary> Returns the year as an integer.</summary>
-		public virtual int Year
-		{
-			get { return year; }
-		}
+        /// <summary> Returns the year as an integer.</summary>
+        public virtual int Year
+        {
+            get { return year; }
+        }
 
-		/// <summary> Returns the month as an integer.</summary>
-		public virtual int Month
-		{
-			get { return month; }
-		}
+        /// <summary> Returns the month as an integer.</summary>
+        public virtual int Month
+        {
+            get { return month; }
+        }
 
-		/// <summary> Returns the day as an integer.</summary>
-		public virtual int Day
-		{
-			get { return day; }
-		}
+        /// <summary> Returns the day as an integer.</summary>
+        public virtual int Day
+        {
+            get { return day; }
+        }
 
-		private static readonly IHapiLog log;
+        private static readonly IHapiLog log;
 
-		private String value_Renamed;
-		private int year;
-		private int month;
-		private int day;
+        private String value_Renamed;
+        private int year;
+        private int month;
+        private int day;
 
-		/// <summary> Constructs a DT datatype with fields initialzed to zero and value initialized
-		/// to null.
-		/// </summary>
-		public CommonDT()
-		{
-			//initialize all DT fields
-			value_Renamed = null;
-			year = 0;
-			month = 0;
-			day = 0;
-		}
+        /// <summary> Constructs a DT datatype with fields initialzed to zero and value initialized
+        /// to null.
+        /// </summary>
+        public CommonDT()
+        {
+            //initialize all DT fields
+            value_Renamed = null;
+            year = 0;
+            month = 0;
+            day = 0;
+        }
 
-		/// <summary> Constructs a DT object with the given value.
-		/// The stored value will be in the following
-		/// format YYYY[MM[DD]].
-		/// </summary>
-		public CommonDT(String val)
-		{
-			Value = val;
-		}
+        /// <summary> Constructs a DT object with the given value.
+        /// The stored value will be in the following
+        /// format YYYY[MM[DD]].
+        /// </summary>
+        public CommonDT(String val)
+        {
+            Value = val;
+        }
 
-		/// <summary> This method takes in integer values for the year and month and performs validations,
-		/// it then sets the value field formatted as an HL7 date
-		/// value with year and month precision (YYYYMM).
-		/// Note: The first month = 1 = January.
-		/// </summary>
-		public virtual void setYearMonthPrecision(int yr, int mnth)
-		{
-			try
-			{
-				//ensure that the year field is four digits long
-				if (Convert.ToString(yr).Length != 4)
-				{
-					String msg = "The input year value must be four digits long";
-					DataTypeException e = new DataTypeException(msg);
-					throw e;
-				}
+        /// <summary> This method takes in integer values for the year and month and performs validations,
+        /// it then sets the value field formatted as an HL7 date
+        /// value with year and month precision (YYYYMM).
+        /// Note: The first month = 1 = January.
+        /// </summary>
+        public virtual void setYearMonthPrecision(int yr, int mnth)
+        {
+            try
+            {
+                //ensure that the year field is four digits long
+                if (Convert.ToString(yr).Length != 4)
+                {
+                    String msg = "The input year value must be four digits long";
+                    DataTypeException e = new DataTypeException(msg);
+                    throw e;
+                }
 
-				GregorianCalendar cal = new GregorianCalendar();
+                GregorianCalendar cal = new GregorianCalendar();
 
-				//validate the input month
-				new DateTime(yr, mnth, 1, cal);
-				year = yr;
-				month = mnth;
-				day = 0;
-				value_Renamed = Convert.ToString(yr) + DataTypeUtil.preAppendZeroes(mnth, 2);
-			}
-			catch (DataTypeException e)
-			{
-				throw e;
-			}
-			catch (Exception e)
-			{
-				throw new DataTypeException("An unexpected exception ocurred", e);
-			}
-		}
+                //validate the input month
+                new DateTime(yr, mnth, 1, cal);
+                year = yr;
+                month = mnth;
+                day = 0;
+                value_Renamed = Convert.ToString(yr) + DataTypeUtil.preAppendZeroes(mnth, 2);
+            }
+            catch (DataTypeException e)
+            {
+                throw e;
+            }
+            catch (Exception e)
+            {
+                throw new DataTypeException("An unexpected exception ocurred", e);
+            }
+        }
 
-		/// <summary> This method takes in integer values for the year and month and day
-		/// and performs validations, it then sets the value in the object
-		/// formatted as an HL7 date value with year and month and day precision (YYYYMMDD).
-		/// </summary>
-		public virtual void setYearMonthDayPrecision(int yr, int mnth, int dy)
-		{
-			try
-			{
-				//ensure that the year field is four digits long
-				if (Convert.ToString(yr).Length != 4)
-				{
-					String msg = "The input year value must be four digits long";
-					DataTypeException e = new DataTypeException(msg);
-					throw e;
-				}
+        /// <summary> This method takes in integer values for the year and month and day
+        /// and performs validations, it then sets the value in the object
+        /// formatted as an HL7 date value with year and month and day precision (YYYYMMDD).
+        /// </summary>
+        public virtual void setYearMonthDayPrecision(int yr, int mnth, int dy)
+        {
+            try
+            {
+                //ensure that the year field is four digits long
+                if (Convert.ToString(yr).Length != 4)
+                {
+                    String msg = "The input year value must be four digits long";
+                    DataTypeException e = new DataTypeException(msg);
+                    throw e;
+                }
 
-				GregorianCalendar cal = new GregorianCalendar();
+                GregorianCalendar cal = new GregorianCalendar();
 
-				//validate the input month/day combination
-				new DateTime(yr, mnth, dy, cal);
-				year = yr;
-				month = mnth;
-				day = dy;
-				value_Renamed = Convert.ToString(yr) + DataTypeUtil.preAppendZeroes(mnth, 2) + DataTypeUtil.preAppendZeroes(dy, 2);
-			}
-			catch (DataTypeException e)
-			{
-				throw e;
-			}
-			catch (Exception e)
-			{
-				throw new DataTypeException("An unexpected exception ocurred", e);
-			}
-		}
+                //validate the input month/day combination
+                new DateTime(yr, mnth, dy, cal);
+                year = yr;
+                month = mnth;
+                day = dy;
+                value_Renamed = Convert.ToString(yr) + DataTypeUtil.preAppendZeroes(mnth, 2) + DataTypeUtil.preAppendZeroes(dy, 2);
+            }
+            catch (DataTypeException e)
+            {
+                throw e;
+            }
+            catch (Exception e)
+            {
+                throw new DataTypeException("An unexpected exception ocurred", e);
+            }
+        }
 
-		/// <summary> Returns a string value representing the input Gregorian Calendar object in
-		/// an Hl7 Date Format.
-		/// </summary>
-		public static String toHl7DTFormat(GregorianCalendar cal)
-		{
-			String val = "";
-			try
-			{
-				//set the input cal object so that it can report errors
-				//on it's value
-				int calYear = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.YEAR);
-				int calMonth = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MONTH) + 1;
-				int calDay = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.DAY_OF_MONTH);
-				CommonDT dt = new CommonDT();
-				dt.setYearMonthDayPrecision(calYear, calMonth, calDay);
-				val = dt.Value;
-			}
-			catch (DataTypeException e)
-			{
-				throw e;
-			}
-			catch (Exception e)
-			{
-				throw new DataTypeException("An unexpected exception ocurred", e);
-			}
-			return val;
-		}
+        /// <summary> Returns a string value representing the input Gregorian Calendar object in
+        /// an Hl7 Date Format.
+        /// </summary>
+        public static String toHl7DTFormat(GregorianCalendar cal)
+        {
+            String val = "";
+            try
+            {
+                //set the input cal object so that it can report errors
+                //on it's value
+                int calYear = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.YEAR);
+                int calMonth = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MONTH) + 1;
+                int calDay = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.DAY_OF_MONTH);
+                CommonDT dt = new CommonDT();
+                dt.setYearMonthDayPrecision(calYear, calMonth, calDay);
+                val = dt.Value;
+            }
+            catch (DataTypeException e)
+            {
+                throw e;
+            }
+            catch (Exception e)
+            {
+                throw new DataTypeException("An unexpected exception ocurred", e);
+            }
+            return val;
+        }
 
-		static CommonDT()
-		{
-			log = HapiLogFactory.GetHapiLog(typeof(CommonDT));
-		}
-	} //end class
+        static CommonDT()
+        {
+            log = HapiLogFactory.GetHapiLog(typeof(CommonDT));
+        }
+    } //end class
 }

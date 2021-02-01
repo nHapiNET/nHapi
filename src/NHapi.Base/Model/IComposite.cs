@@ -34,10 +34,10 @@ namespace NHapi.Base.Model
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
    public interface IComposite : IType
-	{
-		/// <summary> Returns an array containing the components of this field.</summary>
-		IType[] Components { get; }
+    {
+        /// <summary> Returns an array containing the components of this field.</summary>
+        IType[] Components { get; }
 
-		IType this[int index] { get; }
-	}
+        IType this[int index] { get; }
+    }
 }

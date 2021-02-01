@@ -36,177 +36,177 @@ namespace NHapi.Base.Parser
    /// </summary>
    /// <author>Bryan Tripp (bryan_tripp@sourceforge.net)</author>
    public class EncodingCharacters : Object, ICloneable
-	{
-		/// <summary> 
-		/// Returns the field separator.
-		/// 
-		/// </summary>
-		public virtual char FieldSeparator
-		{
-			get { return fieldSep; }
+    {
+        /// <summary> 
+        /// Returns the field separator.
+        /// 
+        /// </summary>
+        public virtual char FieldSeparator
+        {
+            get { return fieldSep; }
 
-			set { fieldSep = value; }
-		}
+            set { fieldSep = value; }
+        }
 
-		/// <summary> 
-		/// Returns the component separator.
-		/// 
-		/// </summary>
-		public virtual char ComponentSeparator
-		{
-			get { return encChars[0]; }
+        /// <summary> 
+        /// Returns the component separator.
+        /// 
+        /// </summary>
+        public virtual char ComponentSeparator
+        {
+            get { return encChars[0]; }
 
-			set { encChars[0] = value; }
-		}
+            set { encChars[0] = value; }
+        }
 
-		/// <summary> 
-		/// Returns the repetition separator.
-		/// 
-		/// </summary>
-		public virtual char RepetitionSeparator
-		{
-			get { return encChars[1]; }
+        /// <summary> 
+        /// Returns the repetition separator.
+        /// 
+        /// </summary>
+        public virtual char RepetitionSeparator
+        {
+            get { return encChars[1]; }
 
-			set { encChars[1] = value; }
-		}
+            set { encChars[1] = value; }
+        }
 
-		/// <summary> 
-		/// Returns the escape character.
-		/// 
-		/// </summary>
-		public virtual char EscapeCharacter
-		{
-			get { return encChars[2]; }
+        /// <summary> 
+        /// Returns the escape character.
+        /// 
+        /// </summary>
+        public virtual char EscapeCharacter
+        {
+            get { return encChars[2]; }
 
-			set { encChars[2] = value; }
-		}
+            set { encChars[2] = value; }
+        }
 
-		/// <summary> 
-		/// Returns the subcomponent separator.
-		/// 
-		/// </summary>
-		public virtual char SubcomponentSeparator
-		{
-			get { return encChars[3]; }
+        /// <summary> 
+        /// Returns the subcomponent separator.
+        /// 
+        /// </summary>
+        public virtual char SubcomponentSeparator
+        {
+            get { return encChars[3]; }
 
-			set { encChars[3] = value; }
-		}
-
-
-		private char fieldSep;
-
-		private char[] encChars;
+            set { encChars[3] = value; }
+        }
 
 
-		/// <summary> 
-		/// Creates new EncodingCharacters object with the given character
-		/// values. If the encodingCharacters argument is null, the default
-		/// values are used.
-		/// </summary>
-		/// <param name="fieldSeparator">The field separator.</param>
-		/// <param name="encodingCharacters">
-		/// Consists of the characters that appear in
-		/// MSH-2 (see section 2.8 of the HL7 spec). The characters are
-		/// Component Separator, Repetition Separator, Escape Character, and
-		/// Subcomponent Separator (in that order).
-		/// </param>
-		public EncodingCharacters(char fieldSeparator, String encodingCharacters)
-		{
-			fieldSep = fieldSeparator;
+        private char fieldSep;
 
-			encChars = new char[4];
-
-			if (encodingCharacters == null)
-			{
-				encChars[0] = '^';
-
-				encChars[1] = '~';
-
-				encChars[2] = '\\';
-
-				encChars[3] = '&';
-			}
-			else
-			{
-				SupportClass.GetCharsFromString(encodingCharacters, 0, 4, encChars, 0);
-			}
-		}
+        private char[] encChars;
 
 
-		public EncodingCharacters(char fieldSeparator, char componentSeparator, char repetitionSeparator, char escapeCharacter,
-			char subcomponentSeparator)
-			: this(
-				fieldSeparator, Convert.ToString(componentSeparator) + repetitionSeparator + escapeCharacter + subcomponentSeparator
-				)
-		{
-		}
+        /// <summary> 
+        /// Creates new EncodingCharacters object with the given character
+        /// values. If the encodingCharacters argument is null, the default
+        /// values are used.
+        /// </summary>
+        /// <param name="fieldSeparator">The field separator.</param>
+        /// <param name="encodingCharacters">
+        /// Consists of the characters that appear in
+        /// MSH-2 (see section 2.8 of the HL7 spec). The characters are
+        /// Component Separator, Repetition Separator, Escape Character, and
+        /// Subcomponent Separator (in that order).
+        /// </param>
+        public EncodingCharacters(char fieldSeparator, String encodingCharacters)
+        {
+            fieldSep = fieldSeparator;
+
+            encChars = new char[4];
+
+            if (encodingCharacters == null)
+            {
+                encChars[0] = '^';
+
+                encChars[1] = '~';
+
+                encChars[2] = '\\';
+
+                encChars[3] = '&';
+            }
+            else
+            {
+                SupportClass.GetCharsFromString(encodingCharacters, 0, 4, encChars, 0);
+            }
+        }
 
 
-		/// <summary>copies contents of "other" </summary>
-		public EncodingCharacters(EncodingCharacters other)
-		{
-			fieldSep = other.FieldSeparator;
+        public EncodingCharacters(char fieldSeparator, char componentSeparator, char repetitionSeparator, char escapeCharacter,
+            char subcomponentSeparator)
+            : this(
+                fieldSeparator, Convert.ToString(componentSeparator) + repetitionSeparator + escapeCharacter + subcomponentSeparator
+                )
+        {
+        }
 
-			encChars = new char[4];
 
-			encChars[0] = other.ComponentSeparator;
+        /// <summary>copies contents of "other" </summary>
+        public EncodingCharacters(EncodingCharacters other)
+        {
+            fieldSep = other.FieldSeparator;
 
-			encChars[1] = other.RepetitionSeparator;
+            encChars = new char[4];
 
-			encChars[2] = other.EscapeCharacter;
+            encChars[0] = other.ComponentSeparator;
 
-			encChars[3] = other.SubcomponentSeparator;
-		}
+            encChars[1] = other.RepetitionSeparator;
 
-		/// <summary> 
-		/// Returns the encoding characters (not including field separator)
-		/// 
-		/// as a string.
-		/// 
-		/// </summary>
-		public override String ToString()
-		{
-			StringBuilder ret = new StringBuilder();
+            encChars[2] = other.EscapeCharacter;
 
-			for (int i = 0; i < encChars.Length; i++)
-			{
-				ret.Append(encChars[i]);
-			}
+            encChars[3] = other.SubcomponentSeparator;
+        }
 
-			return ret.ToString();
-		}
+        /// <summary> 
+        /// Returns the encoding characters (not including field separator)
+        /// 
+        /// as a string.
+        /// 
+        /// </summary>
+        public override String ToString()
+        {
+            StringBuilder ret = new StringBuilder();
 
-		public virtual Object Clone()
-		{
-			return new EncodingCharacters(this);
-		}
+            for (int i = 0; i < encChars.Length; i++)
+            {
+                ret.Append(encChars[i]);
+            }
 
-		public override bool Equals(Object o)
-		{
-			if (o is EncodingCharacters)
-			{
-				EncodingCharacters other = (EncodingCharacters)o;
-				if (FieldSeparator == other.FieldSeparator && ComponentSeparator == other.ComponentSeparator &&
-					 EscapeCharacter == other.EscapeCharacter && RepetitionSeparator == other.RepetitionSeparator &&
-					 SubcomponentSeparator == other.SubcomponentSeparator)
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
-			}
-			else
-			{
-				return false;
-			}
-		}
+            return ret.ToString();
+        }
 
-		public override int GetHashCode()
-		{
-			return 7 * (int)ComponentSeparator * (int)EscapeCharacter * (int)FieldSeparator * (int)RepetitionSeparator *
-					 (int)SubcomponentSeparator;
-		}
-	}
+        public virtual Object Clone()
+        {
+            return new EncodingCharacters(this);
+        }
+
+        public override bool Equals(Object o)
+        {
+            if (o is EncodingCharacters)
+            {
+                EncodingCharacters other = (EncodingCharacters)o;
+                if (FieldSeparator == other.FieldSeparator && ComponentSeparator == other.ComponentSeparator &&
+                     EscapeCharacter == other.EscapeCharacter && RepetitionSeparator == other.RepetitionSeparator &&
+                     SubcomponentSeparator == other.SubcomponentSeparator)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return 7 * (int)ComponentSeparator * (int)EscapeCharacter * (int)FieldSeparator * (int)RepetitionSeparator *
+                     (int)SubcomponentSeparator;
+        }
+    }
 }

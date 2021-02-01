@@ -13,21 +13,21 @@ namespace NHapi.Base.Model
    /// <author>  Bryan Tripp
    /// </author>
    public class GenericSegment : AbstractSegment
-	{
-		private String name;
+    {
+        private String name;
 
-		/// <summary>Creates a new instance of GenericSegment </summary>
-		public GenericSegment(IGroup parent, String name)
-			: base(parent, null)
-		{
-			this.name = name;
-		}
+        /// <summary>Creates a new instance of GenericSegment </summary>
+        public GenericSegment(IGroup parent, String name)
+            : base(parent, null)
+        {
+            this.name = name;
+        }
 
-		/// <summary> Returns the name specified at construction time. </summary>
-		/// <seealso cref="IStructure.GetStructureName" />
-		public override String GetStructureName()
-		{
-			return name;
-		}
-	}
+        /// <summary> Returns the name specified at construction time. </summary>
+        /// <seealso cref="IStructure.GetStructureName" />
+        public override String GetStructureName()
+        {
+            return name;
+        }
+    }
 }

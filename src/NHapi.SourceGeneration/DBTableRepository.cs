@@ -41,177 +41,177 @@ namespace NHapi.SourceGeneration
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
    public class DBTableRepository : TableRepository
-	{
-		/// <summary> Returns a list of HL7 lookup tables that are defined in the normative database.  </summary>
-		public override int[] Tables
-		{
-			get
-			{
-				if (tableList == null)
-				{
-					try
-					{
-						OdbcConnection conn = NormativeDatabase.Instance.Connection;
-						DbCommand stmt = TransactionManager.manager.CreateStatement(conn);
-						DbCommand temp_OleDbCommand;
-						temp_OleDbCommand = stmt;
-						temp_OleDbCommand.CommandText = "select distinct table_id from TableValues";
-						DbDataReader rs = temp_OleDbCommand.ExecuteReader();
-						int[] roomyList = new int[bufferSize];
-						int c = 0;
-						while (rs.Read())
-						{
-							roomyList[c++] = rs.GetInt32(1 - 1);
-						}
-						stmt.Dispose();
-						NormativeDatabase.Instance.returnConnection(conn);
+    {
+        /// <summary> Returns a list of HL7 lookup tables that are defined in the normative database.  </summary>
+        public override int[] Tables
+        {
+            get
+            {
+                if (tableList == null)
+                {
+                    try
+                    {
+                        OdbcConnection conn = NormativeDatabase.Instance.Connection;
+                        DbCommand stmt = TransactionManager.manager.CreateStatement(conn);
+                        DbCommand temp_OleDbCommand;
+                        temp_OleDbCommand = stmt;
+                        temp_OleDbCommand.CommandText = "select distinct table_id from TableValues";
+                        DbDataReader rs = temp_OleDbCommand.ExecuteReader();
+                        int[] roomyList = new int[bufferSize];
+                        int c = 0;
+                        while (rs.Read())
+                        {
+                            roomyList[c++] = rs.GetInt32(1 - 1);
+                        }
+                        stmt.Dispose();
+                        NormativeDatabase.Instance.returnConnection(conn);
 
-						tableList = new int[c];
-						Array.Copy(roomyList, 0, tableList, 0, c);
-					}
-					catch (DbException sqle)
-					{
-						throw new LookupException("Can't get table list from database: " + sqle.Message);
-					}
-				}
-				return tableList;
-			}
-		}
+                        tableList = new int[c];
+                        Array.Copy(roomyList, 0, tableList, 0, c);
+                    }
+                    catch (DbException sqle)
+                    {
+                        throw new LookupException("Can't get table list from database: " + sqle.Message);
+                    }
+                }
+                return tableList;
+            }
+        }
 
-		private static readonly IHapiLog log;
+        private static readonly IHapiLog log;
 
-		private int[] tableList;
-		private Hashtable tables;
-		private int bufferSize = 3000; //max # of tables or values that can be cached at a time
+        private int[] tableList;
+        private Hashtable tables;
+        private int bufferSize = 3000; //max # of tables or values that can be cached at a time
 
-		/// <summary>
-		/// Table repository
-		/// </summary>
-		protected internal DBTableRepository()
-		{
-			tableList = null;
-			tables = new Hashtable();
-		}
+        /// <summary>
+        /// Table repository
+        /// </summary>
+        protected internal DBTableRepository()
+        {
+            tableList = null;
+            tables = new Hashtable();
+        }
 
-		/// <summary> Returns true if the given value exists in the given table.</summary>
-		public override bool checkValue(int table, String value_Renamed)
-		{
-			bool exists = false;
+        /// <summary> Returns true if the given value exists in the given table.</summary>
+        public override bool checkValue(int table, String value_Renamed)
+        {
+            bool exists = false;
 
-			String[] values = getValues(table);
+            String[] values = getValues(table);
 
-			int c = 0;
-			while (c < values.Length && !exists)
-			{
-				if (value_Renamed.Equals(values[c++]))
-					exists = true;
-			}
+            int c = 0;
+            while (c < values.Length && !exists)
+            {
+                if (value_Renamed.Equals(values[c++]))
+                    exists = true;
+            }
 
-			return exists;
-		}
+            return exists;
+        }
 
-		/// <summary> Returns a list of the values for the given table in the normative database. </summary>
-		public override String[] getValues(int table)
-		{
-			Int32 key = (Int32)table;
-			String[] values = null;
+        /// <summary> Returns a list of the values for the given table in the normative database. </summary>
+        public override String[] getValues(int table)
+        {
+            Int32 key = (Int32)table;
+            String[] values = null;
 
-			//see if the value list exists in the cache
-			Object o = tables[key];
+            //see if the value list exists in the cache
+            Object o = tables[key];
 
-			if (o != null)
-			{
-				values = (String[])o;
-			}
-			else
-			{
-				//not cached yet ...
-				int c;
-				String[] roomyValues = new String[bufferSize];
+            if (o != null)
+            {
+                values = (String[])o;
+            }
+            else
+            {
+                //not cached yet ...
+                int c;
+                String[] roomyValues = new String[bufferSize];
 
-				try
-				{
-					OdbcConnection conn = NormativeDatabase.Instance.Connection;
-					DbCommand stmt = TransactionManager.manager.CreateStatement(conn);
-					StringBuilder sql = new StringBuilder("select table_value from TableValues where table_id = ");
-					sql.Append(table);
-					DbCommand temp_OleDbCommand;
-					temp_OleDbCommand = stmt;
-					temp_OleDbCommand.CommandText = sql.ToString();
-					DbDataReader rs = temp_OleDbCommand.ExecuteReader();
+                try
+                {
+                    OdbcConnection conn = NormativeDatabase.Instance.Connection;
+                    DbCommand stmt = TransactionManager.manager.CreateStatement(conn);
+                    StringBuilder sql = new StringBuilder("select table_value from TableValues where table_id = ");
+                    sql.Append(table);
+                    DbCommand temp_OleDbCommand;
+                    temp_OleDbCommand = stmt;
+                    temp_OleDbCommand.CommandText = sql.ToString();
+                    DbDataReader rs = temp_OleDbCommand.ExecuteReader();
 
-					c = 0;
-					while (rs.Read())
-					{
-						roomyValues[c++] = Convert.ToString(rs[1 - 1]);
-					}
+                    c = 0;
+                    while (rs.Read())
+                    {
+                        roomyValues[c++] = Convert.ToString(rs[1 - 1]);
+                    }
 
-					stmt.Dispose();
-					NormativeDatabase.Instance.returnConnection(conn);
-				}
-				catch (DbException sqle)
-				{
-					throw new LookupException("Couldn't look up values for table " + table + ": " + sqle.Message);
-				}
+                    stmt.Dispose();
+                    NormativeDatabase.Instance.returnConnection(conn);
+                }
+                catch (DbException sqle)
+                {
+                    throw new LookupException("Couldn't look up values for table " + table + ": " + sqle.Message);
+                }
 
-				if (c == 0)
-					throw new UndefinedTableException("No values found for table " + table);
+                if (c == 0)
+                    throw new UndefinedTableException("No values found for table " + table);
 
-				values = new String[c];
-				Array.Copy(roomyValues, 0, values, 0, c);
+                values = new String[c];
+                Array.Copy(roomyValues, 0, values, 0, c);
 
-				tables[key] = values;
-			}
+                tables[key] = values;
+            }
 
-			return values;
-		}
+            return values;
+        }
 
-		/// <summary> Returns the description matching the table and value given.  As currently implemented
-		/// this method performs a database call each time - caching should probably be added,
-		/// although this method will probably not be used very often.   
-		/// </summary>
-		public override String getDescription(int table, String value_Renamed)
-		{
-			String description = null;
+        /// <summary> Returns the description matching the table and value given.  As currently implemented
+        /// this method performs a database call each time - caching should probably be added,
+        /// although this method will probably not be used very often.   
+        /// </summary>
+        public override String getDescription(int table, String value_Renamed)
+        {
+            String description = null;
 
-			StringBuilder sql = new StringBuilder("select Description from TableValues where table_id = ");
-			sql.Append(table);
-			sql.Append(" and table_value = '");
-			sql.Append(value_Renamed);
-			sql.Append("'");
+            StringBuilder sql = new StringBuilder("select Description from TableValues where table_id = ");
+            sql.Append(table);
+            sql.Append(" and table_value = '");
+            sql.Append(value_Renamed);
+            sql.Append("'");
 
-			try
-			{
-				OdbcConnection conn = NormativeDatabase.Instance.Connection;
-				DbCommand stmt = TransactionManager.manager.CreateStatement(conn);
-				DbCommand temp_OleDbCommand;
-				temp_OleDbCommand = stmt;
-				temp_OleDbCommand.CommandText = sql.ToString();
-				DbDataReader rs = temp_OleDbCommand.ExecuteReader();
-				if (rs.Read())
-				{
-					description = Convert.ToString(rs[1 - 1]);
-				}
-				else
-				{
-					throw new UnknownValueException("The value " + value_Renamed + " could not be found in the table " + table +
-															  " - SQL: " + sql.ToString());
-				}
-				stmt.Dispose();
-				NormativeDatabase.Instance.returnConnection(conn);
-			}
-			catch (DbException e)
-			{
-				throw new LookupException("Can't find value " + value_Renamed + " in table " + table, e);
-			}
+            try
+            {
+                OdbcConnection conn = NormativeDatabase.Instance.Connection;
+                DbCommand stmt = TransactionManager.manager.CreateStatement(conn);
+                DbCommand temp_OleDbCommand;
+                temp_OleDbCommand = stmt;
+                temp_OleDbCommand.CommandText = sql.ToString();
+                DbDataReader rs = temp_OleDbCommand.ExecuteReader();
+                if (rs.Read())
+                {
+                    description = Convert.ToString(rs[1 - 1]);
+                }
+                else
+                {
+                    throw new UnknownValueException("The value " + value_Renamed + " could not be found in the table " + table +
+                                                              " - SQL: " + sql.ToString());
+                }
+                stmt.Dispose();
+                NormativeDatabase.Instance.returnConnection(conn);
+            }
+            catch (DbException e)
+            {
+                throw new LookupException("Can't find value " + value_Renamed + " in table " + table, e);
+            }
 
-			return description;
-		}
+            return description;
+        }
 
 
-		static DBTableRepository()
-		{
-			log = HapiLogFactory.GetHapiLog(typeof(DBTableRepository));
-		}
-	}
+        static DBTableRepository()
+        {
+            log = HapiLogFactory.GetHapiLog(typeof(DBTableRepository));
+        }
+    }
 }

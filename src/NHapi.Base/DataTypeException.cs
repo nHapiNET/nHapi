@@ -35,65 +35,65 @@ namespace NHapi.Base
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
    [Serializable]
-	public class DataTypeException : HL7Exception
-	{
-		/// <param name="message">
-		/// </param>
-		/// <param name="errorCondition">
-		/// </param>
-		/// <param name="cause">
-		/// </param>
-		[Obsolete("Deprecated use 'public DataTypeException(string message, ErrorCode errorCondition, Exception cause)' constructor instead.")]
-		public DataTypeException(string message, int errorCondition, Exception cause)
-			: this(message, errorCondition.ToErrorCode(), cause)
-		{
-		}
+    public class DataTypeException : HL7Exception
+    {
+        /// <param name="message">
+        /// </param>
+        /// <param name="errorCondition">
+        /// </param>
+        /// <param name="cause">
+        /// </param>
+        [Obsolete("Deprecated use 'public DataTypeException(string message, ErrorCode errorCondition, Exception cause)' constructor instead.")]
+        public DataTypeException(string message, int errorCondition, Exception cause)
+            : this(message, errorCondition.ToErrorCode(), cause)
+        {
+        }
 
-		/// <param name="message">
-		/// </param>
-		/// <param name="errorCondition">
-		/// </param>
-		/// <param name="cause">
-		/// </param>
-		public DataTypeException(string message, ErrorCode errorCondition, Exception cause)
-			: base(message, errorCondition, cause)
-		{
-		}
+        /// <param name="message">
+        /// </param>
+        /// <param name="errorCondition">
+        /// </param>
+        /// <param name="cause">
+        /// </param>
+        public DataTypeException(string message, ErrorCode errorCondition, Exception cause)
+            : base(message, errorCondition, cause)
+        {
+        }
 
-		/// <param name="message">
-		/// </param>
-		/// <param name="errorCondition">
-		/// </param>
-		[Obsolete("Deprecated use 'public DataTypeException(string message, ErrorCode errorCondition)' constructor instead.")]
-		public DataTypeException(string message, int errorCondition)
-			: this(message, errorCondition.ToErrorCode())
-		{
-		}
+        /// <param name="message">
+        /// </param>
+        /// <param name="errorCondition">
+        /// </param>
+        [Obsolete("Deprecated use 'public DataTypeException(string message, ErrorCode errorCondition)' constructor instead.")]
+        public DataTypeException(string message, int errorCondition)
+            : this(message, errorCondition.ToErrorCode())
+        {
+        }
 
-		/// <param name="message">
-		/// </param>
-		/// <param name="errorCondition">
-		/// </param>
-		public DataTypeException(string message, ErrorCode errorCondition)
-			: base(message, errorCondition)
-		{
-		}
+        /// <param name="message">
+        /// </param>
+        /// <param name="errorCondition">
+        /// </param>
+        public DataTypeException(string message, ErrorCode errorCondition)
+            : base(message, errorCondition)
+        {
+        }
 
-		/// <param name="message">
-		/// </param>
-		/// <param name="cause">
-		/// </param>
-		public DataTypeException(string message, Exception cause)
-			: base(message, cause)
-		{
-		}
+        /// <param name="message">
+        /// </param>
+        /// <param name="cause">
+        /// </param>
+        public DataTypeException(string message, Exception cause)
+            : base(message, cause)
+        {
+        }
 
 
-		/// <param name="message">
-		/// </param>
-		public DataTypeException(string message)
-			: base(message)
-		{
-		}
-	}
+        /// <param name="message">
+        /// </param>
+        public DataTypeException(string message)
+            : base(message)
+        {
+        }
+    }
 }

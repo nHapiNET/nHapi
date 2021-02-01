@@ -37,28 +37,28 @@ namespace NHapi.SourceGeneration
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
    [Serializable]
-	public class LookupException : Exception
-	{
-		/// <summary> Constructs an <code>LookupException</code> with the specified detail message.
-		/// 
-		/// </summary>
-		/// <param name="message">
-		/// </param>
-		public LookupException(string message)
-			: base(message)
-		{
-		}
+    public class LookupException : Exception
+    {
+        /// <summary> Constructs an <code>LookupException</code> with the specified detail message.
+        /// 
+        /// </summary>
+        /// <param name="message">
+        /// </param>
+        public LookupException(string message)
+            : base(message)
+        {
+        }
 
-		/// <summary> Constructs an <code>LookupException</code> with the specified detail message and cause
-		/// 
-		/// </summary>
-		/// <param name="message">
-		/// </param>
-		/// <param name="cause">
-		/// </param>
-		public LookupException(string message, Exception cause)
-			: base(message, cause)
-		{
-		}
-	}
+        /// <summary> Constructs an <code>LookupException</code> with the specified detail message and cause
+        /// 
+        /// </summary>
+        /// <param name="message">
+        /// </param>
+        /// <param name="cause">
+        /// </param>
+        public LookupException(string message, Exception cause)
+            : base(message, cause)
+        {
+        }
+    }
 }

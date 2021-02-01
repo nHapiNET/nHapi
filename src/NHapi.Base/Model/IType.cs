@@ -32,18 +32,18 @@ namespace NHapi.Base.Model
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
    public interface IType
-	{
-		/// <summary>Returns the name of the type (used in XML encoding and profile checking) </summary>
-		String TypeName { get; }
+    {
+        /// <summary>Returns the name of the type (used in XML encoding and profile checking) </summary>
+        String TypeName { get; }
 
-		/// <summary> Returns an object containing any extra (non-standard) components that 
-		/// have been added to this type at run-time.  This object can also be used
-		/// to add components.  
-		/// </summary>
-		ExtraComponents ExtraComponents { get; }
+        /// <summary> Returns an object containing any extra (non-standard) components that 
+        /// have been added to this type at run-time.  This object can also be used
+        /// to add components.  
+        /// </summary>
+        ExtraComponents ExtraComponents { get; }
 
-		/// <returns> the message to which this Type belongs
-		/// </returns>
-		IMessage Message { get; }
-	}
+        /// <returns> the message to which this Type belongs
+        /// </returns>
+        IMessage Message { get; }
+    }
 }

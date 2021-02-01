@@ -37,14 +37,14 @@ namespace NHapi.Base.validation
    /// <author>  Bryan Tripp
    /// </author>
    public interface IEncodingRule : IRule
-	{
-		/// <summary> Tests the given encoded message text against the criteria 
-		/// defined by this rule class.  
-		/// </summary>
-		/// <returns> a list of exceptions indicating points at which the given 
-		/// message failed to validate (empty if validation succeeds; may 
-		/// not be a complete list as testing may be aborted after failure).  
-		/// </returns>
-		ValidationException[] test(String msg);
-	}
+    {
+        /// <summary> Tests the given encoded message text against the criteria 
+        /// defined by this rule class.  
+        /// </summary>
+        /// <returns> a list of exceptions indicating points at which the given 
+        /// message failed to validate (empty if validation succeeds; may 
+        /// not be a complete list as testing may be aborted after failure).  
+        /// </returns>
+        ValidationException[] test(String msg);
+    }
 }

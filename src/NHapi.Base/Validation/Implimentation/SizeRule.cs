@@ -36,53 +36,53 @@ namespace NHapi.Base.validation.impl
    /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $
    /// </version>
    public class SizeRule : IPrimitiveTypeRule
-	{
-		/// <summary>
-		/// <seealso cref="IRule.Description" />
-		/// </summary>
-		public virtual String Description
-		{
-			get { return "Maximum size <= " + myMaxChars + " characters"; }
-		}
+    {
+        /// <summary>
+        /// <seealso cref="IRule.Description" />
+        /// </summary>
+        public virtual String Description
+        {
+            get { return "Maximum size <= " + myMaxChars + " characters"; }
+        }
 
-		/// <summary>
-		/// <seealso cref="IRule.SectionReference" />
-		/// </summary>
-		public virtual String SectionReference
-		{
-			get { return null; }
-		}
+        /// <summary>
+        /// <seealso cref="IRule.SectionReference" />
+        /// </summary>
+        public virtual String SectionReference
+        {
+            get { return null; }
+        }
 
-		private int myMaxChars;
+        private int myMaxChars;
 
-		/// <param name="theMaxChars">the maximum number of characters this rule allows in a 
-		/// primitive value
-		/// </param>
-		public SizeRule(int theMaxChars)
-		{
-			myMaxChars = theMaxChars;
-		}
+        /// <param name="theMaxChars">the maximum number of characters this rule allows in a 
+        /// primitive value
+        /// </param>
+        public SizeRule(int theMaxChars)
+        {
+            myMaxChars = theMaxChars;
+        }
 
-		/// <summary>
-		/// Does nothing. If what you wanted was to trim the value to the max size, you should
-		/// make a separate rule for that.  
-		/// </summary>
-		/// <seealso cref="IPrimitiveTypeRule.correct" />
-		/// <returns>The value that was passed in as <paramref name="value_Renamed"/>.</returns>
-		public virtual String correct(String value_Renamed)
-		{
-			return value_Renamed;
-		}
+        /// <summary>
+        /// Does nothing. If what you wanted was to trim the value to the max size, you should
+        /// make a separate rule for that.  
+        /// </summary>
+        /// <seealso cref="IPrimitiveTypeRule.correct" />
+        /// <returns>The value that was passed in as <paramref name="value_Renamed"/>.</returns>
+        public virtual String correct(String value_Renamed)
+        {
+            return value_Renamed;
+        }
 
-		/// <seealso cref="IPrimitiveTypeRule.test" />
-		public virtual bool test(String value_Renamed)
-		{
-			bool ok = true;
-			if (value_Renamed != null && value_Renamed.Length > myMaxChars)
-			{
-				ok = false;
-			}
-			return ok;
-		}
-	}
+        /// <seealso cref="IPrimitiveTypeRule.test" />
+        public virtual bool test(String value_Renamed)
+        {
+            bool ok = true;
+            if (value_Renamed != null && value_Renamed.Length > myMaxChars)
+            {
+                ok = false;
+            }
+            return ok;
+        }
+    }
 }

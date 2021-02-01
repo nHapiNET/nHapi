@@ -35,16 +35,16 @@ namespace NHapi.Base.validation
    /// <author>  Bryan Tripp 
    /// </author>
    public interface IMessageRule : IRule
-	{
-		/// <summary> Tests the given (fully populated) message against the criteria 
-		/// defined by this rule class.  
-		/// </summary>
-		/// <returns> a list of exceptions indicating points at which the given 
-		/// message failed to validate (empty if validation succeeds; may 
-		/// not be a complete list as testing may be aborted after failure).  
-		/// The list should be empty if this rule is evaluated against a type 
-		/// of message to which it doesn't apply.  
-		/// </returns>
-		ValidationException[] test(IMessage msg);
-	}
+    {
+        /// <summary> Tests the given (fully populated) message against the criteria 
+        /// defined by this rule class.  
+        /// </summary>
+        /// <returns> a list of exceptions indicating points at which the given 
+        /// message failed to validate (empty if validation succeeds; may 
+        /// not be a complete list as testing may be aborted after failure).  
+        /// The list should be empty if this rule is evaluated against a type 
+        /// of message to which it doesn't apply.  
+        /// </returns>
+        ValidationException[] test(IMessage msg);
+    }
 }

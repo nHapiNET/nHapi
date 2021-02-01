@@ -32,11 +32,11 @@ namespace NHapi.SourceGeneration
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
    [Serializable]
-	public class UndefinedTableException : UnknownValueException
-	{
-		public UndefinedTableException(String message)
-			: base(message)
-		{
-		}
-	}
+    public class UndefinedTableException : UnknownValueException
+    {
+        public UndefinedTableException(String message)
+            : base(message)
+        {
+        }
+    }
 }

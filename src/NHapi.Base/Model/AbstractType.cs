@@ -35,65 +35,65 @@ namespace NHapi.Base.Model
    /// <author>  Bryan Tripp
    /// </author>
    public class AbstractType : IType
-	{
-		private ExtraComponents extra;
-		private IMessage message;
-		private string description;
+    {
+        private ExtraComponents extra;
+        private IMessage message;
+        private string description;
 
 
-		/// <summary>
-		/// Returns the name of the type (used in XML encoding and profile checking)  
-		/// </summary>
-		public virtual String TypeName
-		{
-			get
-			{
-				String longClassName = GetType().FullName;
-				return longClassName.Substring(longClassName.LastIndexOf('.') + 1);
-			}
-		}
+        /// <summary>
+        /// Returns the name of the type (used in XML encoding and profile checking)  
+        /// </summary>
+        public virtual String TypeName
+        {
+            get
+            {
+                String longClassName = GetType().FullName;
+                return longClassName.Substring(longClassName.LastIndexOf('.') + 1);
+            }
+        }
 
-		/// <summary>
-		/// Extra components
-		/// </summary>
-		public virtual ExtraComponents ExtraComponents
-		{
-			get { return extra; }
-		}
+        /// <summary>
+        /// Extra components
+        /// </summary>
+        public virtual ExtraComponents ExtraComponents
+        {
+            get { return extra; }
+        }
 
-		/// <returns> the message to which this Type belongs
-		/// </returns>
-		public virtual IMessage Message
-		{
-			get { return message; }
-		}
+        /// <returns> the message to which this Type belongs
+        /// </returns>
+        public virtual IMessage Message
+        {
+            get { return message; }
+        }
 
-		/// <summary>
-		/// Return the description of the type
-		/// </summary>
-		public virtual string Description
-		{
-			get { return description; }
-		}
+        /// <summary>
+        /// Return the description of the type
+        /// </summary>
+        public virtual string Description
+        {
+            get { return description; }
+        }
 
 
-		/// <summary> Creates a new instance of AbstractType</summary>
-		/// <param name="message">message to which this type belongs 
-		/// </param>
-		public AbstractType(IMessage message)
-			: this(message, null)
-		{
-		}
+        /// <summary> Creates a new instance of AbstractType</summary>
+        /// <param name="message">message to which this type belongs 
+        /// </param>
+        public AbstractType(IMessage message)
+            : this(message, null)
+        {
+        }
 
-		/// <summary> Creates a new instance of AbstractType</summary>
-		/// <param name="message">message to which this type belongs 
-		/// <param name="description">The type description</param>
-		/// </param>
-		public AbstractType(IMessage message, string description)
-		{
-			extra = new ExtraComponents(message);
-			this.description = description;
-			this.message = message;
-		}
-	}
+        /// <summary> Creates a new instance of AbstractType</summary>
+        /// <param name="message">message to which this type belongs 
+        /// <param name="description">The type description</param>
+        /// </param>
+        public AbstractType(IMessage message, string description)
+        {
+            extra = new ExtraComponents(message);
+            this.description = description;
+            this.message = message;
+        }
+    }
 }

@@ -12,28 +12,28 @@ namespace NHapi.Base.Model
    /// </summary>
    /// <author>Bryan Tripp</author>
    public class GenericGroup : AbstractGroup
-	{
-		private String name;
+    {
+        private String name;
 
-		/// <summary>Creates a new instance of GenericGroup </summary>
-		public GenericGroup(IGroup parent, String name, IModelClassFactory factory)
-			: base(parent, factory)
-		{
-			this.name = name;
-		}
+        /// <summary>Creates a new instance of GenericGroup </summary>
+        public GenericGroup(IGroup parent, String name, IModelClassFactory factory)
+            : base(parent, factory)
+        {
+            this.name = name;
+        }
 
-		/// <summary>
-		/// Returns the Message object to which this segment belongs.  This should normally be set at
-		/// construction time.  A Structure can only belong to a single Message.  This is primarily
-		/// to avoid a situation where intended changes in one message cause unintended changes
-		/// in another that shares one of the same Structure objects.
-		/// </summary>
-		/// <summary> Returns the name specified at construction time. </summary>
-		/// <seealso cref="IStructure.GetStructureName">
-		/// </seealso>
-		public override String GetStructureName()
-		{
-			return name;
-		}
-	}
+        /// <summary>
+        /// Returns the Message object to which this segment belongs.  This should normally be set at
+        /// construction time.  A Structure can only belong to a single Message.  This is primarily
+        /// to avoid a situation where intended changes in one message cause unintended changes
+        /// in another that shares one of the same Structure objects.
+        /// </summary>
+        /// <summary> Returns the name specified at construction time. </summary>
+        /// <seealso cref="IStructure.GetStructureName">
+        /// </seealso>
+        public override String GetStructureName()
+        {
+            return name;
+        }
+    }
 }

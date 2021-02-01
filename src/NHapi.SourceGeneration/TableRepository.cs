@@ -36,48 +36,48 @@ namespace NHapi.SourceGeneration
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
    public abstract class TableRepository
-	{
-		/// <summary> Returns a TableRepository object.</summary>
-		public static TableRepository Instance
-		{
-			get
-			{
-				if (rep == null)
-				{
-					//currently using DBTableRepository ... 
-					rep = new DBTableRepository();
-				}
+    {
+        /// <summary> Returns a TableRepository object.</summary>
+        public static TableRepository Instance
+        {
+            get
+            {
+                if (rep == null)
+                {
+                    //currently using DBTableRepository ... 
+                    rep = new DBTableRepository();
+                }
 
-				return rep;
-			}
-		}
+                return rep;
+            }
+        }
 
-		/// <summary> Returns a list of HL7 tables.  </summary>
-		public abstract int[] Tables { get; }
+        /// <summary> Returns a list of HL7 tables.  </summary>
+        public abstract int[] Tables { get; }
 
-		private static TableRepository rep = null;
+        private static TableRepository rep = null;
 
-		/// <summary> Returns true if the given value exists in the given table.</summary>
-		public abstract bool checkValue(int table, String value_Renamed);
+        /// <summary> Returns true if the given value exists in the given table.</summary>
+        public abstract bool checkValue(int table, String value_Renamed);
 
-		/// <summary> Returns a list of the values in the given table. </summary>
-		public abstract String[] getValues(int table);
+        /// <summary> Returns a list of the values in the given table. </summary>
+        public abstract String[] getValues(int table);
 
-		/// <summary> Returns the value corresponding to the given table and key.</summary>
-		/// <throws>  UnknownValueException if the value can not be found.  This may be an UnknownTableException.   </throws>
-		public abstract String getDescription(int table, String value_Renamed);
+        /// <summary> Returns the value corresponding to the given table and key.</summary>
+        /// <throws>  UnknownValueException if the value can not be found.  This may be an UnknownTableException.   </throws>
+        public abstract String getDescription(int table, String value_Renamed);
 
-		//test
-		/*
+        //test
+        /*
         public static void main(String[] args) {
-		
+        
         if (args.length != 2) {
         System.out.println("Usage: TableRepository table value");
         System.exit(1);
         }
         int table = Integer.parseInt(args[0]);
         String value = args[1];
-		
+        
         try {
         //needed by normative DB ... 
         Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
@@ -90,5 +90,5 @@ namespace NHapi.SourceGeneration
         cne.printStackTrace();
         }
         }*/
-	}
+    }
 }

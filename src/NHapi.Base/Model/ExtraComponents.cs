@@ -29,61 +29,61 @@ namespace NHapi.Base.Model
    /// </summary>
    /// <author>Bryan Tripp</author>
    public class ExtraComponents
-	{
-		private ArrayList comps;
-		private IMessage message;
+    {
+        private ArrayList comps;
+        private IMessage message;
 
-		/// <summary>
-		/// Creates a new instance of ExtraComponents.
-		/// </summary>
-		public ExtraComponents(IMessage message)
-		{
-			comps = new ArrayList();
-			this.message = message;
-		}
+        /// <summary>
+        /// Creates a new instance of ExtraComponents.
+        /// </summary>
+        public ExtraComponents(IMessage message)
+        {
+            comps = new ArrayList();
+            this.message = message;
+        }
 
-		/// <summary>
-		/// Returns the number of existing extra components.
-		/// </summary>
-		public virtual int numComponents()
-		{
-			return comps.Count;
-		}
+        /// <summary>
+        /// Returns the number of existing extra components.
+        /// </summary>
+        public virtual int numComponents()
+        {
+            return comps.Count;
+        }
 
-		/// <summary>
-		/// Returns the component at the given location, creating it 
-		/// and all preceding components if necessary.
-		/// </summary>
-		/// <param name="comp">
-		/// The extra component number starting at 0 (i.e. 0 is the first extra component).
-		/// </param>
-		public virtual Varies getComponent(int comp)
-		{
-			ensureComponentAndPredecessorsExist(comp);
-			return (Varies)comps[comp];
-		}
+        /// <summary>
+        /// Returns the component at the given location, creating it 
+        /// and all preceding components if necessary.
+        /// </summary>
+        /// <param name="comp">
+        /// The extra component number starting at 0 (i.e. 0 is the first extra component).
+        /// </param>
+        public virtual Varies getComponent(int comp)
+        {
+            ensureComponentAndPredecessorsExist(comp);
+            return (Varies)comps[comp];
+        }
 
-		/// <summary> Checks that the component at the given location exists, and that 
-		/// all preceding components exist, creating any missing ones.  
-		/// </summary>
-		private void ensureComponentAndPredecessorsExist(int comp)
-		{
-			for (int i = comps.Count; i <= comp; i++)
-			{
-				comps.Add(new Varies(message));
-			}
-			/*ArrayList reps = (ArrayList) this.comps.get(comp);
+        /// <summary> Checks that the component at the given location exists, and that 
+        /// all preceding components exist, creating any missing ones.  
+        /// </summary>
+        private void ensureComponentAndPredecessorsExist(int comp)
+        {
+            for (int i = comps.Count; i <= comp; i++)
+            {
+                comps.Add(new Varies(message));
+            }
+            /*ArrayList reps = (ArrayList) this.comps.get(comp);
             for (int j = reps.size(); j <= rep; j++) {
             addRep(comp, j);
             }*/
-		}
+        }
 
-		/*private void addComp(int comp) {
+        /*private void addComp(int comp) {
         }*/
 
-		/*private void addRep(int comp, int rep) {
+        /*private void addRep(int comp, int rep) {
         ArrayList l = (ArrayList) this.comps.get(comp);
         l.add(rep, new Varies());
         }*/
-	}
+    }
 }

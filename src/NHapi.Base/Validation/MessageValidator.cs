@@ -39,95 +39,95 @@ namespace NHapi.Base.validation
    /// <author>  Bryan Tripp
    /// </author>
    public class MessageValidator
-	{
-		private static readonly IHapiLog ourLog;
+    {
+        private static readonly IHapiLog ourLog;
 
-		private IValidationContext myContext;
-		private bool failOnError;
+        private IValidationContext myContext;
+        private bool failOnError;
 
-		/// <param name="theContext">context that determines which validation rules apply 
-		/// </param>
-		/// <param name="theFailOnErrorFlag">
-		/// </param>
-		public MessageValidator(IValidationContext theContext, bool theFailOnErrorFlag)
-		{
-			myContext = theContext;
-			failOnError = theFailOnErrorFlag;
-		}
+        /// <param name="theContext">context that determines which validation rules apply 
+        /// </param>
+        /// <param name="theFailOnErrorFlag">
+        /// </param>
+        public MessageValidator(IValidationContext theContext, bool theFailOnErrorFlag)
+        {
+            myContext = theContext;
+            failOnError = theFailOnErrorFlag;
+        }
 
-		/// <param name="message">a parsed message to validate (note that MSH-9-1 and MSH-9-2 must be valued)
-		/// </param>
-		/// <returns> true if the message is OK
-		/// </returns>
-		/// <throws>  HL7Exception if there is at least one error and this validator is set to fail on errors </throws>
-		public virtual bool validate(IMessage message)
-		{
-			Terser t = new Terser(message);
-			IMessageRule[] rules = myContext.getMessageRules(message.Version, t.Get("MSH-9-1"), t.Get("MSH-9-2"));
+        /// <param name="message">a parsed message to validate (note that MSH-9-1 and MSH-9-2 must be valued)
+        /// </param>
+        /// <returns> true if the message is OK
+        /// </returns>
+        /// <throws>  HL7Exception if there is at least one error and this validator is set to fail on errors </throws>
+        public virtual bool validate(IMessage message)
+        {
+            Terser t = new Terser(message);
+            IMessageRule[] rules = myContext.getMessageRules(message.Version, t.Get("MSH-9-1"), t.Get("MSH-9-2"));
 
-			ValidationException toThrow = null;
-			bool result = true;
-			for (int i = 0; i < rules.Length; i++)
-			{
-				ValidationException[] ex = rules[i].test(message);
-				for (int j = 0; j < ex.Length; j++)
-				{
-					result = false;
-					ourLog.Error("Invalid message", ex[j]);
-					if (failOnError && toThrow == null)
-					{
-						toThrow = ex[j];
-					}
-				}
-			}
+            ValidationException toThrow = null;
+            bool result = true;
+            for (int i = 0; i < rules.Length; i++)
+            {
+                ValidationException[] ex = rules[i].test(message);
+                for (int j = 0; j < ex.Length; j++)
+                {
+                    result = false;
+                    ourLog.Error("Invalid message", ex[j]);
+                    if (failOnError && toThrow == null)
+                    {
+                        toThrow = ex[j];
+                    }
+                }
+            }
 
-			if (toThrow != null)
-			{
-				throw new HL7Exception("Invalid message", toThrow);
-			}
+            if (toThrow != null)
+            {
+                throw new HL7Exception("Invalid message", toThrow);
+            }
 
-			return result;
-		}
+            return result;
+        }
 
-		/// <param name="message">an ER7 or XML encoded message to validate 
-		/// </param>
-		/// <param name="isXML">true if XML, false if ER7
-		/// </param>
-		/// <param name="version">HL7 version (e.g. "2.2") to which the message belongs
-		/// </param>
-		/// <returns> true if the message is OK
-		/// </returns>
-		/// <throws>  HL7Exception if there is at least one error and this validator is set to fail on errors </throws>
-		public virtual bool validate(String message, bool isXML, String version)
-		{
-			IEncodingRule[] rules = myContext.getEncodingRules(version, isXML ? "XML" : "ER7");
-			ValidationException toThrow = null;
-			bool result = true;
-			for (int i = 0; i < rules.Length; i++)
-			{
-				ValidationException[] ex = rules[i].test(message);
-				for (int j = 0; j < ex.Length; j++)
-				{
-					result = false;
-					ourLog.Error("Invalid message", ex[j]);
-					if (failOnError && toThrow == null)
-					{
-						toThrow = ex[j];
-					}
-				}
-			}
+        /// <param name="message">an ER7 or XML encoded message to validate 
+        /// </param>
+        /// <param name="isXML">true if XML, false if ER7
+        /// </param>
+        /// <param name="version">HL7 version (e.g. "2.2") to which the message belongs
+        /// </param>
+        /// <returns> true if the message is OK
+        /// </returns>
+        /// <throws>  HL7Exception if there is at least one error and this validator is set to fail on errors </throws>
+        public virtual bool validate(String message, bool isXML, String version)
+        {
+            IEncodingRule[] rules = myContext.getEncodingRules(version, isXML ? "XML" : "ER7");
+            ValidationException toThrow = null;
+            bool result = true;
+            for (int i = 0; i < rules.Length; i++)
+            {
+                ValidationException[] ex = rules[i].test(message);
+                for (int j = 0; j < ex.Length; j++)
+                {
+                    result = false;
+                    ourLog.Error("Invalid message", ex[j]);
+                    if (failOnError && toThrow == null)
+                    {
+                        toThrow = ex[j];
+                    }
+                }
+            }
 
-			if (toThrow != null)
-			{
-				throw new HL7Exception("Invalid message", toThrow);
-			}
+            if (toThrow != null)
+            {
+                throw new HL7Exception("Invalid message", toThrow);
+            }
 
-			return result;
-		}
+            return result;
+        }
 
-		static MessageValidator()
-		{
-			ourLog = HapiLogFactory.GetHapiLog(typeof(MessageValidator));
-		}
-	}
+        static MessageValidator()
+        {
+            ourLog = HapiLogFactory.GetHapiLog(typeof(MessageValidator));
+        }
+    }
 }

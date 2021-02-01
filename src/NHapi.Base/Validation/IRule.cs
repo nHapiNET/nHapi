@@ -57,17 +57,17 @@ namespace NHapi.Base.validation
    /// <author>  Bryan Tripp
    /// </author>
    public interface IRule
-	{
-		/// <summary> Returns a text description of the rule.  This description may be used as a message 
-		/// in exceptions generated if validation against the rule fails, or in a user 
-		/// interface for rule configuration.   
-		/// </summary>
-		String Description { get; }
+    {
+        /// <summary> Returns a text description of the rule.  This description may be used as a message 
+        /// in exceptions generated if validation against the rule fails, or in a user 
+        /// interface for rule configuration.   
+        /// </summary>
+        String Description { get; }
 
-		/// <summary> A string indicating the section of the HL7 standard from which this rule 
-		/// is derived (if applicable).  Like the description, this may be used in an exception 
-		/// message or configuration UI. 
-		/// </summary>
-		String SectionReference { get; }
-	}
+        /// <summary> A string indicating the section of the HL7 standard from which this rule 
+        /// is derived (if applicable).  Like the description, this may be used in an exception 
+        /// message or configuration UI. 
+        /// </summary>
+        String SectionReference { get; }
+    }
 }

@@ -41,68 +41,68 @@ namespace NHapi.Base.Model
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
    public interface IGroup : IStructure
-	{
-		/// <summary> Returns an ordered array of the names of the Structures in this 
-		/// Group.  These names can be used to iterate through the group using 
-		/// repeated calls to <code>get(name)</code>. 
-		/// </summary>
-		String[] Names { get; }
+    {
+        /// <summary> Returns an ordered array of the names of the Structures in this 
+        /// Group.  These names can be used to iterate through the group using 
+        /// repeated calls to <code>get(name)</code>. 
+        /// </summary>
+        String[] Names { get; }
 
-		/// <summary> Returns an array of Structure objects by name.  For example, if the Group contains
-		/// an MSH segment and "MSH" is supplied then this call would return a 1-element array 
-		/// containing the MSH segment.  Multiple elements are returned when the segment or 
-		/// group repeats.  The array may be empty if no repetitions have been accessed
-		/// yet using the get(...) methods. 
-		/// </summary>
-		/// <throws>  HL7Exception if the named Structure is not part of this Group.  </throws>
-		IStructure[] GetAll(String name);
+        /// <summary> Returns an array of Structure objects by name.  For example, if the Group contains
+        /// an MSH segment and "MSH" is supplied then this call would return a 1-element array 
+        /// containing the MSH segment.  Multiple elements are returned when the segment or 
+        /// group repeats.  The array may be empty if no repetitions have been accessed
+        /// yet using the get(...) methods. 
+        /// </summary>
+        /// <throws>  HL7Exception if the named Structure is not part of this Group.  </throws>
+        IStructure[] GetAll(String name);
 
-		/// <summary> Returns the named structure.  If this Structure is repeating then the first 
-		/// repetition is returned.  Creates the Structure if necessary.  
-		/// </summary>
-		/// <throws>  HL7Exception if the named Structure is not part of this Group.  </throws>
-		IStructure GetStructure(String name);
+        /// <summary> Returns the named structure.  If this Structure is repeating then the first 
+        /// repetition is returned.  Creates the Structure if necessary.  
+        /// </summary>
+        /// <throws>  HL7Exception if the named Structure is not part of this Group.  </throws>
+        IStructure GetStructure(String name);
 
-		/// <summary> Returns a particular repetition of the named Structure. If the given repetition
-		/// number is one greater than the existing number of repetitions then a new  
-		/// Structure is created.  
-		/// </summary>
-		/// <throws>  HL7Exception if the named Structure is not part of this group, </throws>
-		/// <summary>    if the structure is not repeatable and the given rep is > 0,  
-		/// or if the given repetition number is more than one greater than the 
-		/// existing number of repetitions.  
-		/// </summary>
-		IStructure GetStructure(String name, int rep);
+        /// <summary> Returns a particular repetition of the named Structure. If the given repetition
+        /// number is one greater than the existing number of repetitions then a new  
+        /// Structure is created.  
+        /// </summary>
+        /// <throws>  HL7Exception if the named Structure is not part of this group, </throws>
+        /// <summary>    if the structure is not repeatable and the given rep is > 0,  
+        /// or if the given repetition number is more than one greater than the 
+        /// existing number of repetitions.  
+        /// </summary>
+        IStructure GetStructure(String name, int rep);
 
-		/// <summary> Returns true if the named structure is required. </summary>
-		bool IsRequired(String name);
+        /// <summary> Returns true if the named structure is required. </summary>
+        bool IsRequired(String name);
 
-		/// <summary> Returns true if the named structure is repeating. </summary>
-		bool IsRepeating(String name);
+        /// <summary> Returns true if the named structure is repeating. </summary>
+        bool IsRepeating(String name);
 
-		/// <summary> Returns the Class of the Structure at the given name index.  </summary>
-		Type GetClass(String name);
+        /// <summary> Returns the Class of the Structure at the given name index.  </summary>
+        Type GetClass(String name);
 
-		/// <summary>
-		/// Expands the group definition to include a segment that is not
-		/// defined by HL7 to be part of this group (eg: an unregistered Z segment).
-		/// The new segment is slotted at the end of the group.  Thenceforward if
-		/// such a segment is encountered it will be parsed into this location.
-		/// If the segment name is unrecognized a GenericSegment is used.  The
-		/// segment is defined as repeating and not required.
-		/// </summary>
-		String addNonstandardSegment(String name);
-	}
+        /// <summary>
+        /// Expands the group definition to include a segment that is not
+        /// defined by HL7 to be part of this group (eg: an unregistered Z segment).
+        /// The new segment is slotted at the end of the group.  Thenceforward if
+        /// such a segment is encountered it will be parsed into this location.
+        /// If the segment name is unrecognized a GenericSegment is used.  The
+        /// segment is defined as repeating and not required.
+        /// </summary>
+        String addNonstandardSegment(String name);
+    }
 
-	// sample code ... 
-	/*Group m = new MessageImpl();
+    // sample code ... 
+    /*Group m = new MessageImpl();
     try {
     m.add(new MSH()); 
     ((MSH)m.get("MSH")).getFieldSeparator().setValue("|");
     m.getMSH().getFieldSeparator().setValue("|");
-	
+    
     m.getERR(0).getThing();
     } catch (HL7Exception e) {
-	
+    
     }*/
 }

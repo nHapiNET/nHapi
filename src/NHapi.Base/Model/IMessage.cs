@@ -34,15 +34,15 @@ namespace NHapi.Base.Model
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
    public interface IMessage : IGroup
-	{
-		/// <summary> Returns the version number of the HL7 version in which this 
-		/// message structure is defined (e.g. "2.4")
-		/// </summary>
-		String Version { get; }
+    {
+        /// <summary> Returns the version number of the HL7 version in which this 
+        /// message structure is defined (e.g. "2.4")
+        /// </summary>
+        String Version { get; }
 
-		/// <summary>
-		/// The validation context of the message
-		/// </summary>
-		IValidationContext ValidationContext { get; set; }
-	}
+        /// <summary>
+        /// The validation context of the message
+        /// </summary>
+        IValidationContext ValidationContext { get; set; }
+    }
 }

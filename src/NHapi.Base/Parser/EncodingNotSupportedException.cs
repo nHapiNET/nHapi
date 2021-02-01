@@ -34,14 +34,14 @@ namespace NHapi.Base.Parser
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
    [Serializable]
-	public class EncodingNotSupportedException : HL7Exception
-	{
-		/// <summary> Constructs an <code>EncodingNotSupportedException</code> with the specified detail message.</summary>
-		/// <param name="msg">the detail message.
-		/// </param>
-		public EncodingNotSupportedException(string msg)
-			: base(msg, ErrorCode.APPLICATION_INTERNAL_ERROR)
-		{
-		}
-	}
+    public class EncodingNotSupportedException : HL7Exception
+    {
+        /// <summary> Constructs an <code>EncodingNotSupportedException</code> with the specified detail message.</summary>
+        /// <param name="msg">the detail message.
+        /// </param>
+        public EncodingNotSupportedException(string msg)
+            : base(msg, ErrorCode.APPLICATION_INTERNAL_ERROR)
+        {
+        }
+    }
 }

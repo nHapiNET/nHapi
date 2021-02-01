@@ -35,12 +35,12 @@ namespace NHapi.Base.Model
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
    public interface IPrimitive : IType
-	{
-		/// <summary> Returns a String representation of the value of this field.</summary>
-		/// <summary> Sets the value of this field if the given value is legal in the context of the
-		/// implementing class.
-		/// </summary>
-		/// <throws>  DataTypeException if the given value is not valid in this context. </throws>
-		String Value { get; set; }
-	}
+    {
+        /// <summary> Returns a String representation of the value of this field.</summary>
+        /// <summary> Sets the value of this field if the given value is legal in the context of the
+        /// implementing class.
+        /// </summary>
+        /// <throws>  DataTypeException if the given value is not valid in this context. </throws>
+        String Value { get; set; }
+    }
 }
