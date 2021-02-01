@@ -73,11 +73,12 @@ namespace NHapi.Base.Parser
 			get { return "XML"; }
 		}
 
-		/// <summary> Sets the <i>keepAsOriginalNodes<i></summary>
-		/// <summary> Sets the <i>keepAsOriginalNodes<i>
-		/// 
-		/// The nodes whose names match the <i>keepAsOriginalNodes<i> will be kept as original, 
-		/// meaning that no white space treaming will occur on them
+		/// <summary>
+		/// Sets the <i>keepAsOriginalNodes</i>.
+		/// <para>
+		/// The nodes whose names match the <i>keepAsOriginalNodes</i> will be kept as original, 
+		/// meaning that no white space trimming will occur on them
+		/// </para>
 		/// </summary>
 		public virtual String[] KeepAsOriginalNodes
 		{
@@ -109,8 +110,9 @@ namespace NHapi.Base.Parser
 
 		private XmlDocument parser;
 
-		/// <summary> The nodes whose names match these strings will be kept as original, 
-		/// meaning that no white space treaming will occur on them
+		/// <summary>
+		/// The nodes whose names match these strings will be kept as original, 
+		/// meaning that no white space trimming will occur on them.
 		/// </summary>
 		private String[] keepAsOriginalNodes;
 
@@ -189,10 +191,11 @@ namespace NHapi.Base.Parser
 		/// </summary>
 		public abstract IMessage ParseDocument(XmlDocument XMLMessage, String version);
 
-		/// <summary> <p>Parses a message string and returns the corresponding Message
-		/// object.  This method checks that the given message string is XML encoded, creates an
+		/// <summary>
+		/// Parses a message string and returns the corresponding Message
+		/// object. This method checks that the given message string is XML encoded, creates an
 		/// XML Document object (using Xerces) from the given String, and calls the abstract
-		/// method <code>parse(Document XMLMessage)</code></p>
+		/// method <see cref="ParseDocument(XmlDocument, string)"/>.
 		/// </summary>
 		protected internal override IMessage DoParse(String message, String version)
 		{
@@ -463,7 +466,7 @@ namespace NHapi.Base.Parser
 			return concatKeepAsOriginalNodes.IndexOf(node.Name) != -1;
 		}
 
-		/// <summary> Removes all unecessary whitespace from the given String (intended to be used with Primitive values).  
+		/// <summary> Removes all unnecessary whitespace from the given String (intended to be used with Primitive values).  
 		/// This includes leading and trailing whitespace, and repeated space characters.  Carriage returns, 
 		/// line feeds, and tabs are replaced with spaces. 
 		/// </summary>
@@ -527,17 +530,6 @@ namespace NHapi.Base.Parser
 			}
 		}
 
-		/// <summary> Returns the expected XML element name for the given child of a message constituent 
-		/// of the given class (the class should be a Composite or Segment class). 
-		/// </summary>
-		/*private String makeElementName(Class c, int child) {
-        String longClassName = c.getName();
-        String shortClassName = longClassName.substring(longClassName.lastIndexOf('.') + 1, longClassName.length());
-        if (shortClassName.startsWith("Valid")) {
-        shortClassName = shortClassName.substring(5, shortClassName.length());
-        }
-        return shortClassName + "." + child;
-        }*/
 		/// <summary>Returns the expected XML element name for the given child of the given Segment </summary>
 		private String MakeElementName(ISegment s, int child)
 		{

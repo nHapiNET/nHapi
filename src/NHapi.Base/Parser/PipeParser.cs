@@ -521,7 +521,8 @@ namespace NHapi.Base.Parser
 			return val;
 		}
 
-		/// <summary> Removes unecessary delimiters from the end of a field or segment.
+		/// <summary>
+		/// Removes unnecessary delimiters from the end of a field or segment.
 		/// This seems to be more convenient than checking to see if they are needed
 		/// while we are building the encoded string.
 		/// </summary>
@@ -529,7 +530,7 @@ namespace NHapi.Base.Parser
 		{
 			char[] chars = in_Renamed.ToCharArray();
 
-			//search from back end for first occurance of non-delimiter ...
+			//search from back end for first occurrence of non-delimiter ...
 			int c = chars.Length - 1;
 			bool found = false;
 			while (c >= 0 && !found)
@@ -681,7 +682,7 @@ namespace NHapi.Base.Parser
 					for (int j = 0; j < reps.Length; j++)
 					{
 						String fieldText = Encode(reps[j], encodingChars);
-						//if this is MSH-2, then it shouldn't be escaped, so unescape it again
+						//if this is MSH-2, then it shouldn't be escaped, so un-escape it again
 						if (IsDelimDefSegment(source.GetStructureName()) && i == 2)
 							fieldText = Escape.unescape(fieldText, encodingChars);
 						result.Append(fieldText);
@@ -700,9 +701,10 @@ namespace NHapi.Base.Parser
 			return StripExtraDelimiters(result.ToString(), encodingChars.FieldSeparator);
 		}
 
-		/// <summary> Removes leading whitespace from the given string.  This method was created to deal with frequent
-		/// problems parsing messages that have been hand-written in windows.  The intuitive way to delimit
-		/// segments is to hit <ENTER> at the end of each segment, but this creates both a carriage return
+		/// <summary>
+		/// Removes leading whitespace from the given string. This method was created to deal with frequent
+		/// problems parsing messages that have been hand-written in windows. The intuitive way to delimit
+		/// segments is to hit ENTER at the end of each segment, but this creates both a carriage return
 		/// and a line feed, so to the parser, the first character of the next segment is the line feed.
 		/// </summary>
 		public static String StripLeadingWhitespace(String in_Renamed)
@@ -882,7 +884,8 @@ namespace NHapi.Base.Parser
 			return version.Trim();
 		}
 
-		/// <summary> A struct for holding a message class string and a boolean indicating whether it 
+		/// <summary>
+		/// A struct for holding a message class string and a boolean indicating whether it 
 		/// was defined explicitly.  
 		/// </summary>
 		private class MessageStructure

@@ -1,13 +1,13 @@
-//
-// In order to convert some functionality to Visual C#, the Java Language Conversion Assistant
-// creates "support classes" that duplicate the original functionality.  
-//
-// Support classes replicate the functionality of the original code, but in some cases they are 
-// substantially different architecturally. Although every effort is made to preserve the 
-// original architecture of the application in the converted project, the user should be aware that 
-// the primary goal of these support classes is to replicate functionality, and that at times 
-// the architecture of the resulting solution may differ somewhat.
-//
+/*
+  In order to convert some functionality to Visual C#, the Java Language Conversion Assistant
+  creates "support classes" that duplicate the original functionality.  
+  
+  Support classes replicate the functionality of the original code, but in some cases they are 
+  substantially different architecturally. Although every effort is made to preserve the 
+  original architecture of the application in the converted project, the user should be aware that 
+  the primary goal of these support classes is to replicate functionality, and that at times 
+  the architecture of the resulting solution may differ somewhat.
+*/
 
 using System;
 using System.Collections;
@@ -21,11 +21,11 @@ using System.Xml.Schema;
 
 namespace NHapi.Base
 {
-	/// <summary>
-	/// This interface should be implemented by any class whose instances are intended 
-	/// to be executed by a thread.
-	/// </summary>
-	public interface IThreadRunnable
+   /// <summary>
+   /// This interface should be implemented by any class whose instances are intended 
+   /// to be executed by a thread.
+   /// </summary>
+   public interface IThreadRunnable
 	{
 		/// <summary>
 		/// This method has to be implemented in order that starting of the thread causes the object's 
@@ -42,19 +42,19 @@ namespace NHapi.Base
 	public interface IXmlSaxErrorHandler
 	{
 		/// <summary>
-		/// This method manage an error exception ocurred during the parsing process.
+		/// This method manage an error exception occurred during the parsing process.
 		/// </summary>
 		/// <param name="exception">The exception thrown by the parser.</param>
 		void error(XmlException exception);
 
 		/// <summary>
-		/// This method manage a fatal error exception ocurred during the parsing process.
+		/// This method manage a fatal error exception occurred during the parsing process.
 		/// </summary>
 		/// <param name="exception">The exception thrown by the parser.</param>
 		void fatalError(XmlException exception);
 
 		/// <summary>
-		/// This method manage a warning exception ocurred during the parsing process.
+		/// This method manage a warning exception occurred during the parsing process.
 		/// </summary>
 		/// <param name="exception">The exception thrown by the parser.</param>
 		void warning(XmlException exception);
@@ -455,16 +455,16 @@ namespace NHapi.Base
 		/// <summary>
 		/// Creates a new instance of SaxAttributesSupport from an ArrayList of Att_Instance class.
 		/// </summary>
-		/// <param name="arrayList">An ArraList of Att_Instance class instances.</param>
+		/// <param name="List">An ArraList of Att_Instance class instances.</param>
 		/// <returns>A new instance of SaxAttributesSupport</returns>
 		public SaxAttributesSupport(SaxAttributesSupport List)
 		{
 			SaxAttributesSupport temp = new SaxAttributesSupport();
-			temp.MainList = (ArrayList) List.MainList.Clone();
+			temp.MainList = (ArrayList)List.MainList.Clone();
 		}
 
 		/// <summary>
-		/// Adds a new attribute elment to the given SaxAttributesSupport instance.
+		/// Adds a new attribute element to the given SaxAttributesSupport instance.
 		/// </summary>
 		/// <param name="Uri">The Uri of the attribute to be added.</param>
 		/// <param name="Lname">The Local name of the attribute to be added.</param>
@@ -493,7 +493,7 @@ namespace NHapi.Base
 		public virtual int GetIndex(String Qname)
 		{
 			int index = GetLength() - 1;
-			while ((index >= 0) && !(((Att_Instance) (MainList[index])).att_fullName.Equals(Qname)))
+			while ((index >= 0) && !(((Att_Instance)(MainList[index])).att_fullName.Equals(Qname)))
 				index--;
 			if (index >= 0)
 				return index;
@@ -502,7 +502,7 @@ namespace NHapi.Base
 		}
 
 		/// <summary>
-		/// Obtains the index of an attribute of the AttributeSupport from its namespace URI and its localname.
+		/// Obtains the index of an attribute of the AttributeSupport from its namespace URI and its local name.
 		/// </summary>
 		/// <param name="Uri">The namespace URI of the attribute to search.</param>
 		/// <param name="Lname">The local name of the attribute to search.</param>
@@ -511,8 +511,8 @@ namespace NHapi.Base
 		{
 			int index = GetLength() - 1;
 			while ((index >= 0) &&
-			       !(((Att_Instance) (MainList[index])).att_localName.Equals(Lname) &&
-			         ((Att_Instance) (MainList[index])).att_URI.Equals(Uri)))
+					 !(((Att_Instance)(MainList[index])).att_localName.Equals(Lname) &&
+						((Att_Instance)(MainList[index])).att_URI.Equals(Uri)))
 				index--;
 			if (index >= 0)
 				return index;
@@ -538,7 +538,7 @@ namespace NHapi.Base
 		{
 			try
 			{
-				return ((Att_Instance) MainList[index]).att_localName;
+				return ((Att_Instance)MainList[index]).att_localName;
 			}
 			catch (ArgumentOutOfRangeException)
 			{
@@ -555,7 +555,7 @@ namespace NHapi.Base
 		{
 			try
 			{
-				return ((Att_Instance) MainList[index]).att_fullName;
+				return ((Att_Instance)MainList[index]).att_fullName;
 			}
 			catch (ArgumentOutOfRangeException)
 			{
@@ -572,7 +572,7 @@ namespace NHapi.Base
 		{
 			try
 			{
-				return ((Att_Instance) MainList[index]).att_type;
+				return ((Att_Instance)MainList[index]).att_type;
 			}
 			catch (ArgumentOutOfRangeException)
 			{
@@ -589,7 +589,7 @@ namespace NHapi.Base
 		{
 			try
 			{
-				return ((Att_Instance) MainList[index]).att_URI;
+				return ((Att_Instance)MainList[index]).att_URI;
 			}
 			catch (ArgumentOutOfRangeException)
 			{
@@ -606,7 +606,7 @@ namespace NHapi.Base
 		{
 			try
 			{
-				return ((Att_Instance) MainList[index]).att_value;
+				return ((Att_Instance)MainList[index]).att_value;
 			}
 			catch (ArgumentOutOfRangeException)
 			{
@@ -621,7 +621,7 @@ namespace NHapi.Base
 		/// <param name="LocalName">The new Local name for the attribute.</param>
 		public virtual void SetLocalName(int index, String LocalName)
 		{
-			((Att_Instance) MainList[index]).att_localName = LocalName;
+			((Att_Instance)MainList[index]).att_localName = LocalName;
 		}
 
 		/// <summary>
@@ -631,7 +631,7 @@ namespace NHapi.Base
 		/// <param name="FullName">The new qualified name for the attribute.</param>
 		public virtual void SetFullName(int index, String FullName)
 		{
-			((Att_Instance) MainList[index]).att_fullName = FullName;
+			((Att_Instance)MainList[index]).att_fullName = FullName;
 		}
 
 		/// <summary>
@@ -641,7 +641,7 @@ namespace NHapi.Base
 		/// <param name="Type">The new type for the attribute.</param>
 		public virtual void SetType(int index, String Type)
 		{
-			((Att_Instance) MainList[index]).att_type = Type;
+			((Att_Instance)MainList[index]).att_type = Type;
 		}
 
 		/// <summary>
@@ -651,7 +651,7 @@ namespace NHapi.Base
 		/// <param name="URI">The new namespace URI for the attribute.</param>
 		public virtual void SetURI(int index, String URI)
 		{
-			((Att_Instance) MainList[index]).att_URI = URI;
+			((Att_Instance)MainList[index]).att_URI = URI;
 		}
 
 		/// <summary>
@@ -661,7 +661,7 @@ namespace NHapi.Base
 		/// <param name="Value">The new value for the attribute.</param>
 		public virtual void SetValue(int index, String Value)
 		{
-			((Att_Instance) MainList[index]).att_value = Value;
+			((Att_Instance)MainList[index]).att_value = Value;
 		}
 
 		/// <summary>
@@ -689,7 +689,7 @@ namespace NHapi.Base
 			try
 			{
 				int pos = GetLength() - 1;
-				while ((pos >= 0) && !(((Att_Instance) (MainList[pos])).att_localName.Equals(indexName)))
+				while ((pos >= 0) && !(((Att_Instance)(MainList[pos])).att_localName.Equals(indexName)))
 					pos--;
 				if (pos >= 0)
 					MainList.RemoveAt(pos);
@@ -732,7 +732,7 @@ namespace NHapi.Base
 		{
 			int temp_Index = GetIndex(Qname);
 			if (temp_Index != -1)
-				return ((Att_Instance) MainList[temp_Index]).att_type;
+				return ((Att_Instance)MainList[temp_Index]).att_type;
 			else
 				return "";
 		}
@@ -747,7 +747,7 @@ namespace NHapi.Base
 		{
 			int temp_Index = GetIndex(Uri, Lname);
 			if (temp_Index != -1)
-				return ((Att_Instance) MainList[temp_Index]).att_type;
+				return ((Att_Instance)MainList[temp_Index]).att_type;
 			else
 				return "";
 		}
@@ -761,7 +761,7 @@ namespace NHapi.Base
 		{
 			int temp_Index = GetIndex(Qname);
 			if (temp_Index != -1)
-				return ((Att_Instance) MainList[temp_Index]).att_value;
+				return ((Att_Instance)MainList[temp_Index]).att_value;
 			else
 				return "";
 		}
@@ -776,7 +776,7 @@ namespace NHapi.Base
 		{
 			int temp_Index = GetIndex(Uri, Lname);
 			if (temp_Index != -1)
-				return ((Att_Instance) MainList[temp_Index]).att_value;
+				return ((Att_Instance)MainList[temp_Index]).att_value;
 			else
 				return "";
 		}
@@ -876,7 +876,7 @@ namespace NHapi.Base
 		/// <summary>
 		/// This method manage the notification when the end element node were found
 		/// </summary>
-		/// <param name="namespaceURI">The namespace URI of the element</param>
+		/// <param name="uri">The namespace URI of the element</param>
 		/// <param name="localName">The local name of the element</param>
 		/// <param name="qName">The long name (qualify name) of the element</param>
 		public virtual void endElement(String uri, String localName, String qName)
@@ -892,17 +892,17 @@ namespace NHapi.Base
 		}
 
 		/// <summary>
-		/// This method manage when an error exception ocurrs in the parsing process
+		/// This method manage when an error exception occurs in the parsing process
 		/// </summary>
-		/// <param name="exception">The exception throws by the parser</param>
+		/// <param name="e">The exception throws by the parser</param>
 		public virtual void error(XmlException e)
 		{
 		}
 
 		/// <summary>
-		/// This method manage when a fatal error exception ocurrs in the parsing process
+		/// This method manage when a fatal error exception occurs in the parsing process
 		/// </summary>
-		/// <param name="exception">The exception Throws by the parser</param>
+		/// <param name="e">The exception Throws by the parser</param>
 		public virtual void fatalError(XmlException e)
 		{
 		}
@@ -910,9 +910,9 @@ namespace NHapi.Base
 		/// <summary>
 		/// This method manage the event when a ignorable whitespace node were found
 		/// </summary>
-		/// <param name="Ch">The array with the ignorable whitespaces</param>
-		/// <param name="Start">The index in the array with the ignorable whitespace</param>
-		/// <param name="Length">The length of the whitespaces</param>
+		/// <param name="ch">The array with the ignorable whitespaces</param>
+		/// <param name="start">The index in the array with the ignorable whitespace</param>
+		/// <param name="length">The length of the whitespaces</param>
 		public virtual void ignorableWhitespace(char[] ch, int start, int length)
 		{
 		}
@@ -969,10 +969,10 @@ namespace NHapi.Base
 		/// <summary>
 		/// This method manage the event when a start element node were found
 		/// </summary>
-		/// <param name="namespaceURI">The namespace uri of the element tag</param>
+		/// <param name="uri">The namespace uri of the element tag</param>
 		/// <param name="localName">The local name of the element</param>
 		/// <param name="qName">The Qualify (long) name of the element</param>
-		/// <param name="atts">The list of attributes of the element</param>
+		/// <param name="attributes">The list of attributes of the element</param>
 		public virtual void startElement(String uri, String localName, String qName, SaxAttributesSupport attributes)
 		{
 		}
@@ -994,9 +994,9 @@ namespace NHapi.Base
 		}
 
 		/// <summary>
-		/// This method manage when a warning exception ocurrs in the parsing process
+		/// This method manage when a warning exception occurs in the parsing process
 		/// </summary>
-		/// <param name="exception">The exception Throws by the parser</param>
+		/// <param name="e">The exception Throws by the parser</param>
 		public virtual void warning(XmlException e)
 		{
 		}
@@ -1199,7 +1199,7 @@ namespace NHapi.Base
 		/// <summary>
 		/// Emulates the behaviour of a SAX LocatorImpl object.
 		/// </summary>
-		/// <param name="locator">The 'XmlSaxLocatorImpl' instance to assing the document location.</param>
+		/// <param name="locator">The 'XmlSaxLocatorImpl' instance to assign the document location.</param>
 		/// <param name="textReader">The XML document instance to be used.</param>
 		private void UpdateLocatorData(XmlSaxLocatorImpl locator, XmlTextReader textReader)
 		{
@@ -1221,41 +1221,41 @@ namespace NHapi.Base
 			switch (name)
 			{
 				case "http://xml.org/sax/features/namespaces":
-				{
-					try
 					{
-						NamespaceAllowed = value;
-						break;
+						try
+						{
+							NamespaceAllowed = value;
+							break;
+						}
+						catch
+						{
+							throw new ManagerNotSupportedException("The specified operation was not performed");
+						}
 					}
-					catch
-					{
-						throw new ManagerNotSupportedException("The specified operation was not performed");
-					}
-				}
 				case "http://xml.org/sax/features/namespace-prefixes":
-				{
-					try
 					{
-						NamespaceAllowed = value;
-						break;
+						try
+						{
+							NamespaceAllowed = value;
+							break;
+						}
+						catch
+						{
+							throw new ManagerNotSupportedException("The specified operation was not performed");
+						}
 					}
-					catch
-					{
-						throw new ManagerNotSupportedException("The specified operation was not performed");
-					}
-				}
 				case "http://xml.org/sax/features/validation":
-				{
-					try
 					{
-						isValidating = value;
-						break;
+						try
+						{
+							isValidating = value;
+							break;
+						}
+						catch
+						{
+							throw new ManagerNotSupportedException("The specified operation was not performed");
+						}
 					}
-					catch
-					{
-						throw new ManagerNotSupportedException("The specified operation was not performed");
-					}
-				}
 				default:
 					throw new ManagerNotRecognizedException("The specified feature: " + name + " are not supported");
 			}
@@ -1271,38 +1271,38 @@ namespace NHapi.Base
 			switch (name)
 			{
 				case "http://xml.org/sax/features/namespaces":
-				{
-					try
 					{
-						return NamespaceAllowed;
+						try
+						{
+							return NamespaceAllowed;
+						}
+						catch
+						{
+							throw new ManagerNotSupportedException("The specified operation was not performed");
+						}
 					}
-					catch
-					{
-						throw new ManagerNotSupportedException("The specified operation was not performed");
-					}
-				}
 				case "http://xml.org/sax/features/namespace-prefixes":
-				{
-					try
 					{
-						return NamespaceAllowed;
+						try
+						{
+							return NamespaceAllowed;
+						}
+						catch
+						{
+							throw new ManagerNotSupportedException("The specified operation was not performed");
+						}
 					}
-					catch
-					{
-						throw new ManagerNotSupportedException("The specified operation was not performed");
-					}
-				}
 				case "http://xml.org/sax/features/validation":
-				{
-					try
 					{
-						return isValidating;
+						try
+						{
+							return isValidating;
+						}
+						catch
+						{
+							throw new ManagerNotSupportedException("The specified operation was not performed");
+						}
 					}
-					catch
-					{
-						throw new ManagerNotSupportedException("The specified operation was not performed");
-					}
-				}
 				default:
 					throw new ManagerNotRecognizedException("The specified feature: " + name + " are not supported");
 			}
@@ -1318,18 +1318,18 @@ namespace NHapi.Base
 			switch (name)
 			{
 				case "http://xml.org/sax/properties/lexical-handler":
-				{
-					try
 					{
-						lexical = (IXmlSaxLexicalHandler) value;
-						break;
+						try
+						{
+							lexical = (IXmlSaxLexicalHandler)value;
+							break;
+						}
+						catch (Exception e)
+						{
+							throw new ManagerNotSupportedException(
+								"The property is not supported as an internal exception was thrown when trying to set it: " + e.Message);
+						}
 					}
-					catch (Exception e)
-					{
-						throw new ManagerNotSupportedException(
-							"The property is not supported as an internal exception was thrown when trying to set it: " + e.Message);
-					}
-				}
 				default:
 					throw new ManagerNotRecognizedException("The specified feature: " + name + " is not recognized");
 			}
@@ -1345,16 +1345,16 @@ namespace NHapi.Base
 			switch (name)
 			{
 				case "http://xml.org/sax/properties/lexical-handler":
-				{
-					try
 					{
-						return lexical;
+						try
+						{
+							return lexical;
+						}
+						catch
+						{
+							throw new ManagerNotSupportedException("The specified operation was not performed");
+						}
 					}
-					catch
-					{
-						throw new ManagerNotSupportedException("The specified operation was not performed");
-					}
-				}
 				default:
 					throw new ManagerNotRecognizedException("The specified feature: " + name + " are not supported");
 			}
@@ -1370,14 +1370,14 @@ namespace NHapi.Base
 			locator = new XmlSaxLocatorImpl();
 			try
 			{
-				UpdateLocatorData(locator, (XmlTextReader) (reader));
+				UpdateLocatorData(locator, (XmlTextReader)(reader));
 				if (callBackHandler != null)
 					callBackHandler.setDocumentLocator(locator);
 				if (callBackHandler != null)
 					callBackHandler.startDocument();
 				while (reader.Read())
 				{
-					UpdateLocatorData(locator, (XmlTextReader) (reader));
+					UpdateLocatorData(locator, (XmlTextReader)(reader));
 					switch (reader.NodeType)
 					{
 						case XmlNodeType.Element:
@@ -1421,15 +1421,15 @@ namespace NHapi.Base
 											namespaceStack.Push(prefixName);
 											prefixes.Add(namespaceURI, namespaceStack);
 											if (callBackHandler != null)
-												((IXmlSaxContentHandler) callBackHandler).startPrefixMapping(prefixName, namespaceTemp);
+												((IXmlSaxContentHandler)callBackHandler).startPrefixMapping(prefixName, namespaceTemp);
 										}
 										else
 										{
-											if (namespaceAllowed && namespaceTemp.Length > 0 && !((Stack) prefixes[namespaceTemp]).Contains(reader.Name))
+											if (namespaceAllowed && namespaceTemp.Length > 0 && !((Stack)prefixes[namespaceTemp]).Contains(reader.Name))
 											{
-												((Stack) prefixes[namespaceURI]).Push(prefixName);
+												((Stack)prefixes[namespaceURI]).Push(prefixName);
 												if (callBackHandler != null)
-													((IXmlSaxContentHandler) callBackHandler).startPrefixMapping(prefixName, reader.Value);
+													((IXmlSaxContentHandler)callBackHandler).startPrefixMapping(prefixName, reader.Value);
 											}
 										}
 									}
@@ -1458,15 +1458,15 @@ namespace NHapi.Base
 							else if (callBackHandler != null)
 								callBackHandler.endElement("", "", reader.Name);
 							if (namespaceAllowed && prefixes.ContainsKey(reader.NamespaceURI) &&
-							    ((Stack) stackNameSpace).Contains(reader.Name))
+								 ((Stack)stackNameSpace).Contains(reader.Name))
 							{
 								stackNameSpace.Pop();
-								Stack namespaceStack = (Stack) prefixes[reader.NamespaceURI];
+								Stack namespaceStack = (Stack)prefixes[reader.NamespaceURI];
 								while (namespaceStack.Count > 0)
 								{
-									String tempString = (String) namespaceStack.Pop();
+									String tempString = (String)namespaceStack.Pop();
 									if (callBackHandler != null)
-										((IXmlSaxContentHandler) callBackHandler).endPrefixMapping(tempString);
+										((IXmlSaxContentHandler)callBackHandler).endPrefixMapping(tempString);
 								}
 								prefixes.Remove(reader.NamespaceURI);
 							}
@@ -1537,8 +1537,8 @@ namespace NHapi.Base
 			{
 				if (handler is XmlSaxDefaultHandler)
 				{
-					errorHandler = (XmlSaxDefaultHandler) handler;
-					entityResolver = (XmlSaxDefaultHandler) handler;
+					errorHandler = (XmlSaxDefaultHandler)handler;
+					entityResolver = (XmlSaxDefaultHandler)handler;
 				}
 				if (!(this is XmlSaxParserAdapter))
 					callBackHandler = handler;
@@ -1608,8 +1608,8 @@ namespace NHapi.Base
 			{
 				if (handler is XmlSaxDefaultHandler)
 				{
-					errorHandler = (XmlSaxDefaultHandler) handler;
-					entityResolver = (XmlSaxDefaultHandler) handler;
+					errorHandler = (XmlSaxDefaultHandler)handler;
+					entityResolver = (XmlSaxDefaultHandler)handler;
 				}
 				if (!(this is XmlSaxParserAdapter))
 					callBackHandler = handler;
@@ -1640,8 +1640,8 @@ namespace NHapi.Base
 			{
 				if (handler is XmlSaxDefaultHandler)
 				{
-					errorHandler = (XmlSaxDefaultHandler) handler;
-					entityResolver = (XmlSaxDefaultHandler) handler;
+					errorHandler = (XmlSaxDefaultHandler)handler;
+					entityResolver = (XmlSaxDefaultHandler)handler;
 				}
 				if (!(this is XmlSaxParserAdapter))
 					callBackHandler = handler;
@@ -1667,15 +1667,15 @@ namespace NHapi.Base
 		/// </summary>
 		/// <param name="stream">The stream with the XML.</param>
 		/// <param name="handler">The handler that manage the parser events.</param>
-		/// <param name="URI">The namespace URI for resolve external etities.</param>
+		/// <param name="URI">The namespace URI for resolve external entities.</param>
 		public virtual void parse(Stream stream, IXmlSaxContentHandler handler, String URI)
 		{
 			try
 			{
 				if (handler is XmlSaxDefaultHandler)
 				{
-					errorHandler = (XmlSaxDefaultHandler) handler;
-					entityResolver = (XmlSaxDefaultHandler) handler;
+					errorHandler = (XmlSaxDefaultHandler)handler;
+					entityResolver = (XmlSaxDefaultHandler)handler;
 				}
 				if (!(this is XmlSaxParserAdapter))
 					callBackHandler = handler;
@@ -1758,7 +1758,7 @@ namespace NHapi.Base
 		}
 
 		/// <summary>
-		/// Parses the specified stream and process the events over previusly specified handler.
+		/// Parses the specified stream and process the events over previously specified handler.
 		/// </summary>
 		/// <param name="stream">The stream with the XML.</param>
 		public virtual void parse(Stream stream)
@@ -1781,7 +1781,7 @@ namespace NHapi.Base
 		/// external entities with the specified URI.
 		/// </summary>
 		/// <param name="stream">The stream with the XML.</param>
-		/// <param name="URI">The namespace URI for resolve external etities.</param>
+		/// <param name="URI">The namespace URI for resolve external entities.</param>
 		public virtual void parse(Stream stream, String URI)
 		{
 			try
@@ -1912,7 +1912,7 @@ namespace NHapi.Base
 		/// Writes the exception stack trace to the received stream
 		/// </summary>
 		/// <param name="throwable">Exception to obtain information from</param>
-		/// <param name="stream">Output sream used to write to</param>
+		/// <param name="stream">Output stream used to write to</param>
 		public static void WriteStackTrace(Exception throwable, TextWriter stream)
 		{
 			stream.Write(throwable.StackTrace);
@@ -1960,7 +1960,7 @@ namespace NHapi.Base
 			destinationCounter = destinationStart;
 			while (sourceCounter < sourceEnd)
 			{
-				destinationArray[destinationCounter] = (char) sourceString[sourceCounter];
+				destinationArray[destinationCounter] = (char)sourceString[sourceCounter];
 				sourceCounter++;
 				destinationCounter++;
 			}
@@ -1991,7 +1991,7 @@ namespace NHapi.Base
 					method = c.GetType().GetMethod("Add");
 					if (method == null)
 						method = c.GetType().GetMethod("add");
-					int index = (int) method.Invoke(c, new Object[] {obj});
+					int index = (int)method.Invoke(c, new Object[] { obj });
 					if (index >= 0)
 						added = true;
 				}
@@ -2020,13 +2020,13 @@ namespace NHapi.Base
 					method = target.GetType().GetMethod("addAll");
 
 					if (method != null)
-						added = (bool) method.Invoke(target, new Object[] {c});
+						added = (bool)method.Invoke(target, new Object[] { c });
 					else
 					{
 						method = target.GetType().GetMethod("Add");
 						while (e.MoveNext() == true)
 						{
-							bool tempBAdded = (int) method.Invoke(target, new Object[] {e.Current}) >= 0;
+							bool tempBAdded = (int)method.Invoke(target, new Object[] { e.Current }) >= 0;
 							added = added ? added : tempBAdded;
 						}
 					}
@@ -2053,7 +2053,7 @@ namespace NHapi.Base
 					if (method == null)
 						method = c.GetType().GetMethod("clear");
 
-					method.Invoke(c, new Object[] {});
+					method.Invoke(c, new Object[] { });
 				}
 				catch (Exception e)
 				{
@@ -2080,7 +2080,7 @@ namespace NHapi.Base
 					if (method == null)
 						method = c.GetType().GetMethod("contains");
 
-					contains = (bool) method.Invoke(c, new Object[] {obj});
+					contains = (bool)method.Invoke(c, new Object[] { obj });
 				}
 				catch (Exception e)
 				{
@@ -2109,13 +2109,13 @@ namespace NHapi.Base
 					method = target.GetType().GetMethod("containsAll");
 
 					if (method != null)
-						contains = (bool) method.Invoke(target, new Object[] {c});
+						contains = (bool)method.Invoke(target, new Object[] { c });
 					else
 					{
 						method = target.GetType().GetMethod("Contains");
 						while (e.MoveNext() == true)
 						{
-							if ((contains = (bool) method.Invoke(target, new Object[] {e.Current})) == false)
+							if ((contains = (bool)method.Invoke(target, new Object[] { e.Current })) == false)
 								break;
 						}
 					}
@@ -2144,13 +2144,13 @@ namespace NHapi.Base
 					method = c.GetType().GetMethod("remove");
 
 					if (method != null)
-						method.Invoke(c, new Object[] {obj});
+						method.Invoke(c, new Object[] { obj });
 					else
 					{
 						method = c.GetType().GetMethod("Contains");
-						changed = (bool) method.Invoke(c, new Object[] {obj});
+						changed = (bool)method.Invoke(c, new Object[] { obj });
 						method = c.GetType().GetMethod("Remove");
-						method.Invoke(c, new Object[] {obj});
+						method.Invoke(c, new Object[] { obj });
 					}
 				}
 				catch (Exception e)
@@ -2179,7 +2179,7 @@ namespace NHapi.Base
 					method = target.GetType().GetMethod("removeAll");
 
 					if (method != null)
-						method.Invoke(target, new Object[] {al});
+						method.Invoke(target, new Object[] { al });
 					else
 					{
 						method = target.GetType().GetMethod("Remove");
@@ -2187,8 +2187,8 @@ namespace NHapi.Base
 
 						while (e.MoveNext() == true)
 						{
-							while ((bool) methodContains.Invoke(target, new Object[] {e.Current}) == true)
-								method.Invoke(target, new Object[] {e.Current});
+							while ((bool)methodContains.Invoke(target, new Object[] { e.Current }) == true)
+								method.Invoke(target, new Object[] { e.Current });
 						}
 					}
 				}
@@ -2217,7 +2217,7 @@ namespace NHapi.Base
 					method = c.GetType().GetMethod("retainAll");
 
 					if (method != null)
-						method.Invoke(target, new Object[] {c});
+						method.Invoke(target, new Object[] { c });
 					else
 					{
 						method = c.GetType().GetMethod("Remove");
@@ -2225,7 +2225,7 @@ namespace NHapi.Base
 						while (e.MoveNext() == true)
 						{
 							if (al.Contains(e.Current) == false)
-								method.Invoke(target, new Object[] {e.Current});
+								method.Invoke(target, new Object[] { e.Current });
 						}
 					}
 				}
@@ -2257,13 +2257,14 @@ namespace NHapi.Base
 			/// Obtains an array containing all the elements of the collection.
 			/// </summary>
 			/// <param name="objects">The array into which the elements of the collection will be stored.</param>
+			/// <param name="c"></param>
 			/// <returns>The array containing all the elements of the collection.</returns>
 			public static Object[] ToArray(ICollection c, Object[] objects)
 			{
 				int index = 0;
 
 				Type type = objects.GetType().GetElementType();
-				Object[] objs = (Object[]) Array.CreateInstance(type, c.Count);
+				Object[] objs = (Object[])Array.CreateInstance(type, c.Count);
 
 				IEnumerator e = c.GetEnumerator();
 
@@ -2389,7 +2390,7 @@ namespace NHapi.Base
 
 		/// <summary>
 		/// This class manages different features for calendars.
-		/// The different calendars are internally managed using a hashtable structure.
+		/// The different calendars are internally managed using a hash table structure.
 		/// </summary>
 		public class CalendarManager
 		{
@@ -2467,7 +2468,7 @@ namespace NHapi.Base
 			public const int PM = 1;
 
 			/// <summary>
-			/// The hashtable that contains the calendars and its properties.
+			/// The hash table that contains the calendars and its properties.
 			/// </summary>
 			public static CalendarHashTable manager = new CalendarHashTable();
 
@@ -2488,7 +2489,7 @@ namespace NHapi.Base
 				public DateTime GetDateTime(Calendar calendar)
 				{
 					if (this[calendar] != null)
-						return ((CalendarProperties) this[calendar]).dateTime;
+						return ((CalendarProperties)this[calendar]).dateTime;
 					else
 					{
 						CalendarProperties tempProps = new CalendarProperties();
@@ -2507,7 +2508,7 @@ namespace NHapi.Base
 				{
 					if (this[calendar] != null)
 					{
-						((CalendarProperties) this[calendar]).dateTime = date;
+						((CalendarProperties)this[calendar]).dateTime = date;
 					}
 					else
 					{
@@ -2520,7 +2521,7 @@ namespace NHapi.Base
 				/// <summary>
 				/// Sets the corresponding field in an specified calendar with the value given.
 				/// If the specified calendar does not have exist in the hash table, it creates a 
-				/// new instance of the calendar with the current date and time and then assings it 
+				/// new instance of the calendar with the current date and time and then assigns it 
 				/// the new specified value.
 				/// </summary>
 				/// <param name="calendar">The calendar to set its date or time.</param>
@@ -2530,7 +2531,7 @@ namespace NHapi.Base
 				{
 					if (this[calendar] != null)
 					{
-						DateTime tempDate = ((CalendarProperties) this[calendar]).dateTime;
+						DateTime tempDate = ((CalendarProperties)this[calendar]).dateTime;
 						switch (field)
 						{
 							case DATE:
@@ -2559,7 +2560,7 @@ namespace NHapi.Base
 								tempDate = tempDate.AddDays(fieldValue - tempDate.Day);
 								break;
 							case DAY_OF_WEEK:
-								tempDate = tempDate.AddDays((fieldValue - 1) - (int) tempDate.DayOfWeek);
+								tempDate = tempDate.AddDays((fieldValue - 1) - (int)tempDate.DayOfWeek);
 								break;
 							case DAY_OF_YEAR:
 								tempDate = tempDate.AddDays(fieldValue - tempDate.DayOfYear);
@@ -2571,7 +2572,7 @@ namespace NHapi.Base
 							default:
 								break;
 						}
-						((CalendarProperties) this[calendar]).dateTime = tempDate;
+						((CalendarProperties)this[calendar]).dateTime = tempDate;
 					}
 					else
 					{
@@ -2686,31 +2687,31 @@ namespace NHapi.Base
 						switch (field)
 						{
 							case DATE:
-								return ((CalendarProperties) this[calendar]).dateTime.Day;
+								return ((CalendarProperties)this[calendar]).dateTime.Day;
 							case HOUR:
-								tempHour = ((CalendarProperties) this[calendar]).dateTime.Hour;
+								tempHour = ((CalendarProperties)this[calendar]).dateTime.Hour;
 								return tempHour > 12 ? tempHour - 12 : tempHour;
 							case MILLISECOND:
-								return ((CalendarProperties) this[calendar]).dateTime.Millisecond;
+								return ((CalendarProperties)this[calendar]).dateTime.Millisecond;
 							case MINUTE:
-								return ((CalendarProperties) this[calendar]).dateTime.Minute;
+								return ((CalendarProperties)this[calendar]).dateTime.Minute;
 							case MONTH:
 								//Month value is 0-based. e.g., 0 for January
-								return ((CalendarProperties) this[calendar]).dateTime.Month - 1;
+								return ((CalendarProperties)this[calendar]).dateTime.Month - 1;
 							case SECOND:
-								return ((CalendarProperties) this[calendar]).dateTime.Second;
+								return ((CalendarProperties)this[calendar]).dateTime.Second;
 							case YEAR:
-								return ((CalendarProperties) this[calendar]).dateTime.Year;
+								return ((CalendarProperties)this[calendar]).dateTime.Year;
 							case DAY_OF_MONTH:
-								return ((CalendarProperties) this[calendar]).dateTime.Day;
+								return ((CalendarProperties)this[calendar]).dateTime.Day;
 							case DAY_OF_YEAR:
-								return (int) (((CalendarProperties) this[calendar]).dateTime.DayOfYear);
+								return (int)(((CalendarProperties)this[calendar]).dateTime.DayOfYear);
 							case DAY_OF_WEEK:
-								return (int) (((CalendarProperties) this[calendar]).dateTime.DayOfWeek) + 1;
+								return (int)(((CalendarProperties)this[calendar]).dateTime.DayOfWeek) + 1;
 							case HOUR_OF_DAY:
-								return ((CalendarProperties) this[calendar]).dateTime.Hour;
+								return ((CalendarProperties)this[calendar]).dateTime.Hour;
 							case AM_PM:
-								tempHour = ((CalendarProperties) this[calendar]).dateTime.Hour;
+								tempHour = ((CalendarProperties)this[calendar]).dateTime.Hour;
 								return tempHour > 12 ? PM : AM;
 
 							default:
@@ -2736,12 +2737,12 @@ namespace NHapi.Base
 				{
 					if (this[calendar] != null)
 					{
-						((CalendarProperties) this[calendar]).dateTime = new DateTime(milliseconds);
+						((CalendarProperties)this[calendar]).dateTime = new DateTime(milliseconds);
 					}
 					else
 					{
 						CalendarProperties tempProps = new CalendarProperties();
-						tempProps.dateTime = new DateTime(TimeSpan.TicksPerMillisecond*milliseconds);
+						tempProps.dateTime = new DateTime(TimeSpan.TicksPerMillisecond * milliseconds);
 						Add(calendar, tempProps);
 					}
 				}
@@ -2755,12 +2756,12 @@ namespace NHapi.Base
 				{
 					if (this[calendar] != null)
 					{
-						if (((CalendarProperties) this[calendar]).dateTimeFormat == null)
+						if (((CalendarProperties)this[calendar]).dateTimeFormat == null)
 						{
-							((CalendarProperties) this[calendar]).dateTimeFormat = new DateTimeFormatInfo();
-							((CalendarProperties) this[calendar]).dateTimeFormat.FirstDayOfWeek = DayOfWeek.Sunday;
+							((CalendarProperties)this[calendar]).dateTimeFormat = new DateTimeFormatInfo();
+							((CalendarProperties)this[calendar]).dateTimeFormat.FirstDayOfWeek = DayOfWeek.Sunday;
 						}
-						return ((CalendarProperties) this[calendar]).dateTimeFormat.FirstDayOfWeek;
+						return ((CalendarProperties)this[calendar]).dateTimeFormat.FirstDayOfWeek;
 					}
 					else
 					{
@@ -2783,10 +2784,10 @@ namespace NHapi.Base
 				{
 					if (this[calendar] != null)
 					{
-						if (((CalendarProperties) this[calendar]).dateTimeFormat == null)
-							((CalendarProperties) this[calendar]).dateTimeFormat = new DateTimeFormatInfo();
+						if (((CalendarProperties)this[calendar]).dateTimeFormat == null)
+							((CalendarProperties)this[calendar]).dateTimeFormat = new DateTimeFormatInfo();
 
-						((CalendarProperties) this[calendar]).dateTimeFormat.FirstDayOfWeek = firstDayOfWeek;
+						((CalendarProperties)this[calendar]).dateTimeFormat.FirstDayOfWeek = firstDayOfWeek;
 					}
 					else
 					{
@@ -2975,7 +2976,7 @@ namespace NHapi.Base
 			{
 				lock (this)
 				{
-					threadField.Join(new TimeSpan(MiliSeconds*10000));
+					threadField.Join(new TimeSpan(MiliSeconds * 10000));
 				}
 			}
 
@@ -2988,7 +2989,7 @@ namespace NHapi.Base
 			{
 				lock (this)
 				{
-					threadField.Join(new TimeSpan(MiliSeconds*10000 + NanoSeconds*100));
+					threadField.Join(new TimeSpan(MiliSeconds * 10000 + NanoSeconds * 100));
 				}
 			}
 
@@ -3049,7 +3050,7 @@ namespace NHapi.Base
 			/// Position over the string
 			private long currentPos = 0;
 
-			/// Include demiliters in the results.
+			/// Include delimiters in the results.
 			private bool includeDelims = false;
 
 			/// Char representation of the String to tokenize.
@@ -3106,7 +3107,7 @@ namespace NHapi.Base
 					cache_HasNextToken = false;
 					return cache_NextToken;
 				}
-				
+
 				return NextToken(delimiters);
 			}
 
@@ -3125,11 +3126,11 @@ namespace NHapi.Base
 				//at the end 
 				if (currentPos == chars.Length)
 					throw new ArgumentOutOfRangeException();
-					//if over a delimiter and delimiters must be returned
+				//if over a delimiter and delimiters must be returned
 				else if ((Array.IndexOf(delimiters.ToCharArray(), chars[currentPos]) != -1)
-				         && includeDelims)
+							&& includeDelims)
 					return "" + chars[currentPos++];
-					//need to get the token wo delimiters.
+				//need to get the token wo delimiters.
 				else
 					return nextToken(delimiters.ToCharArray());
 			}
@@ -3228,11 +3229,11 @@ namespace NHapi.Base
 			/// </summary>
 			public Object Current
 			{
-				get { return (Object) NextToken(); }
+				get { return (Object)NextToken(); }
 			}
 
 			/// <summary>
-			//  Performs the same action as HasMoreTokens.
+			/// Performs the same action as HasMoreTokens.
 			/// </summary>
 			/// <returns>True or false, depending if there are more tokens</returns>
 			public bool MoveNext()

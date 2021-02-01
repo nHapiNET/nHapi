@@ -38,10 +38,9 @@ namespace NHapi.Base.validation.impl
    /// </version>
    public class RuleBinding
 	{
-		/// <returns> true if the binding is currently active
-		/// </returns>
-		/// <param name="isActive">true if the binding is currently active
-		/// </param>
+		/// <summary>
+		/// Gets or sets a value indicating whether or not the binding is currently active.
+		/// </summary>
 		public virtual bool Active
 		{
 			get { return myActiveFlag; }
@@ -49,25 +48,37 @@ namespace NHapi.Base.validation.impl
 			set { myActiveFlag = value; }
 		}
 
-		/// <returns> the version to which the binding applies (* means all versions)
-		/// </returns>
+		/// <summary>
+		/// Gets the version to which the binding applies (* means all versions).
+		/// </summary>
 		public virtual String Version
 		{
 			get { return myVersion; }
 		}
 
-		/// <returns> the scope of item types to which the rule applies.  For <code>MessageRule</code>s
-		/// this is the message type and trigger event, separated by a ^ (either value may be *, meaning 
-		/// any).  For <code>PrimitiveTypeRule</code>s this is the datatype name (* means any).  For 
-		/// <code>EncodingRule</code>s this is the encoding name (again, * means any).   
-		/// </returns>
+		/// <summary>
+		/// Gets the scope of item types to which the rule applies.
+		/// </summary>
+		/// <remarks>
+		/// <para>
+		/// For <see cref="IMessageRule"/> this is the message type and trigger event,
+		/// separated by a ^ (either value may be *, meaning any).
+		/// </para>
+		/// <para>
+		/// For <see cref="IPrimitiveTypeRule"/> this is the datatype name (* means any).
+		/// </para>
+		/// <para>
+		/// For <see cref="IEncodingRule"/> this is the encoding name (again, * means any).
+		/// </para>
+		/// </remarks>
 		public virtual String Scope
 		{
 			get { return myScope; }
 		}
 
-		/// <returns> a <code>Rule</code> that applies to the associated version and scope
-		/// </returns>
+		/// <summary>
+		/// Gets the rule that applies to the associated version and scope.
+		/// </summary>
 		public virtual IRule Rule
 		{
 			get { return myRule; }

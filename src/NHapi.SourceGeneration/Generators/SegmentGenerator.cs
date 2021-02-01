@@ -1,28 +1,28 @@
-/// <summary> The contents of this file are subject to the Mozilla Public License Version 1.1
-/// (the "License"); you may not use this file except in compliance with the License.
-/// You may obtain a copy of the License at http://www.mozilla.org/MPL/
-/// Software distributed under the License is distributed on an "AS IS" basis,
-/// WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
-/// specific language governing rights and limitations under the License.
-/// 
-/// The Original Code is "SegmentGenerator.java".  Description:
-/// "This class is responsible for generating source code for HL7 segment objects"
-/// 
-/// The Initial Developer of the Original Code is University Health Network. Copyright (C)
-/// 2001.  All Rights Reserved.
-/// 
-/// Contributor(s):  Eric Poiseau. 
-/// 
-/// Alternatively, the contents of this file may be used under the terms of the
-/// GNU General Public License (the  “GPL”), in which case the provisions of the GPL are
-/// applicable instead of those above.  If you wish to allow use of your version of this
-/// file only under the terms of the GPL and not to allow others to use your version
-/// of this file under the MPL, indicate your decision by deleting  the provisions above
-/// and replace  them with the notice and other provisions required by the GPL License.
-/// If you do not delete the provisions above, a recipient may use your version of
-/// this file under either the MPL or the GPL.
-/// 
-/// </summary>
+/*
+  The contents of this file are subject to the Mozilla Public License Version 1.1
+  (the "License"); you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at http://www.mozilla.org/MPL/
+  Software distributed under the License is distributed on an "AS IS" basis,
+  WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
+  specific language governing rights and limitations under the License.
+  
+  The Original Code is "SegmentGenerator.java".  Description:
+  "This class is responsible for generating source code for HL7 segment objects"
+  
+  The Initial Developer of the Original Code is University Health Network. Copyright (C)
+  2001.  All Rights Reserved.
+  
+  Contributor(s):  Eric Poiseau. 
+  
+  Alternatively, the contents of this file may be used under the terms of the
+  GNU General Public License (the  “GPL”), in which case the provisions of the GPL are
+  applicable instead of those above.  If you wish to allow use of your version of this
+  file only under the terms of the GPL and not to allow others to use your version
+  of this file under the MPL, indicate your decision by deleting  the provisions above
+  and replace  them with the notice and other provisions required by the GPL License.
+  If you do not delete the provisions above, a recipient may use your version of
+  this file under either the MPL or the GPL.
+*/
 
 using System;
 using System.Collections;
@@ -32,20 +32,21 @@ using System.Data.Odbc;
 using System.IO;
 using System.Linq;
 using System.Text;
+
 using NHapi.Base;
 using NHapi.Base.Log;
 
 namespace NHapi.SourceGeneration.Generators
 {
-	/// <summary> This class is responsible for generating source code for HL7 segment objects.
-	/// Each automatically generated segment inherits from AbstractSegment.
-	/// 
-	/// </summary>
-	/// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
-	/// </author>
-	/// <author>  Eric Poiseau
-	/// </author>
-	public class SegmentGenerator : Object
+   /// <summary> This class is responsible for generating source code for HL7 segment objects.
+   /// Each automatically generated segment inherits from AbstractSegment.
+   /// 
+   /// </summary>
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// </author>
+   /// <author>  Eric Poiseau
+   /// </author>
+   public class SegmentGenerator : Object
 	{
 		private static readonly IHapiLog log;
 
@@ -92,7 +93,7 @@ namespace NHapi.SourceGeneration.Generators
 			{
 				try
 				{
-					String seg = (String) segments[i];
+					String seg = (String)segments[i];
 					String source = makeSegment(seg, version);
 					using (StreamWriter w = new StreamWriter(targetDir.ToString() + @"\" + GetSpecialFilename(seg) + ".cs"))
 					{
@@ -214,12 +215,12 @@ namespace NHapi.SourceGeneration.Generators
 				source.Append("using NHapi.Base.Parser;\r\n");
 				source.Append("using NHapi.Base.Model;\r\n");
 				source.Append("using ");
-				source.Append((string) PackageManager.GetVersionPackageName(version));
+				source.Append((string)PackageManager.GetVersionPackageName(version));
 				source.Append("Datatype;\r\n");
 				source.Append("using NHapi.Base.Log;\r\n\r\n");
 
 				source.Append("namespace ");
-				source.Append((string) PackageManager.GetVersionPackageName(version));
+				source.Append((string)PackageManager.GetVersionPackageName(version));
 				source.Append("Segment{\r\n\r\n");
 				source.Append("///<summary>\r\n");
 				source.Append("/// Represents an HL7 ");
@@ -231,7 +232,7 @@ namespace NHapi.SourceGeneration.Generators
 
 				for (int i = 0; i < elements.Count; i++)
 				{
-					se = (SegmentElement) elements[i];
+					se = (SegmentElement)elements[i];
 					source.Append("///");
 					source.Append("<li>");
 					source.Append(name);
@@ -282,7 +283,7 @@ namespace NHapi.SourceGeneration.Generators
 					source.Append("    try {\r\n");
 					for (int i = 0; i < elements.Count; i++)
 					{
-						se = (SegmentElement) elements[i];
+						se = (SegmentElement)elements[i];
 						String type = SourceGenerator.getAlternateType(se.type, version);
 						source.Append("       this.add(");
 						source.Append("typeof(" + type + ")");
@@ -344,7 +345,7 @@ namespace NHapi.SourceGeneration.Generators
 				//write a datatype-specific accessor for each field
 				for (int i = 0; i < elements.Count; i++)
 				{
-					se = (SegmentElement) elements[i];
+					se = (SegmentElement)elements[i];
 					if (!se.desc.ToUpper().Equals("UNUSED".ToUpper()))
 					{
 						//some entries in 2.1 DB say "unused"
@@ -529,7 +530,7 @@ namespace NHapi.SourceGeneration.Generators
 			string length = rs.GetValue(6 - 1) as string;
 			if (!string.IsNullOrEmpty(length) && length.Contains(".."))
 			{
-				length = length.Split(new[] {".."}, StringSplitOptions.None).Last();
+				length = length.Split(new[] { ".." }, StringSplitOptions.None).Last();
 			}
 			if (length == "." || string.IsNullOrEmpty(length))
 			{
@@ -576,7 +577,7 @@ namespace NHapi.SourceGeneration.Generators
 
 		static SegmentGenerator()
 		{
-			log = HapiLogFactory.GetHapiLog(typeof (SegmentGenerator));
+			log = HapiLogFactory.GetHapiLog(typeof(SegmentGenerator));
 		}
 	}
 }
