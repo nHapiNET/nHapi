@@ -59,7 +59,7 @@ namespace NHapi.SourceGeneration
    /// </para>
    /// </example>
    /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
-   public class NormativeDatabase
+    public class NormativeDatabase
     {
         /// <summary> Returns the singleton instance of NormativeDatabase.  </summary>
         private OdbcConnection _conn;

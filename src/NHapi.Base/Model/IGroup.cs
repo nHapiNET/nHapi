@@ -40,7 +40,7 @@ namespace NHapi.Base.Model
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   public interface IGroup : IStructure
+    public interface IGroup : IStructure
     {
         /// <summary> Returns an ordered array of the names of the Structures in this
         /// Group.  These names can be used to iterate through the group using

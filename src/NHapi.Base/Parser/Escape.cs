@@ -39,7 +39,7 @@ namespace NHapi.Base.Parser
    /// </summary>
    /// <author>  Bryan Tripp
    /// </author>
-   public class Escape
+    public class Escape
     {
         // This items are are to not be escaped when building the message
         private static string[] NON_ESCAPE_CHARACTERS = new string[] { @"\.", @"\X", @"\Z", @"\C", @"\M", @"\H", @"\N", @"\S" };

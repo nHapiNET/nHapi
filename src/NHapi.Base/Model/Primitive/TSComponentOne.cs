@@ -55,7 +55,7 @@ namespace NHapi.Base.Model.Primitive
    /// <version>
    /// $Revision: 1.4 $ updated on $Date: 2005/06/14 20:09:39 $ by $Author: bryan_tripp $
    /// </version>
-   public class TSComponentOne : AbstractPrimitive
+    public class TSComponentOne : AbstractPrimitive
     {
         private CommonTS Detail
         {

@@ -66,7 +66,7 @@ namespace NHapi.Base.Model.Primitive
    /// </summary>
    /// <author>  Neal Acharya
    /// </author>
-   public class CommonTM
+    public class CommonTM
     {
         /// <summary> Returns the HL7 TM string value.</summary>
         /// <summary> This method takes in a string HL7 Time value and performs validations

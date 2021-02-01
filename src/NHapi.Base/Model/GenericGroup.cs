@@ -10,7 +10,7 @@ namespace NHapi.Base.Model
    /// it's a flat list of segments.
    /// </summary>
    /// <author>Bryan Tripp</author>
-   public class GenericGroup : AbstractGroup
+    public class GenericGroup : AbstractGroup
     {
         private string name;
 

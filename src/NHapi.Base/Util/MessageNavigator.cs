@@ -45,7 +45,7 @@ namespace NHapi.Base.Util
    /// </summary>
    /// <author>  Bryan Tripp
    /// </author>
-   public class MessageNavigator
+    public class MessageNavigator
     {
         private class AnonymousClassPredicate : FilterIterator.IPredicate
         {

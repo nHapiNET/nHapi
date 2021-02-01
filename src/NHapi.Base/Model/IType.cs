@@ -31,7 +31,7 @@ namespace NHapi.Base.Model
    /// <summary> An HL7 datatype.  Datatypes normally implement either Composite or Primitive.    </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   public interface IType
+    public interface IType
     {
         /// <summary>Returns the name of the type (used in XML encoding and profile checking) </summary>
         string TypeName { get; }

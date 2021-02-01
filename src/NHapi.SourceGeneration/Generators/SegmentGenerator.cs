@@ -45,7 +45,7 @@ namespace NHapi.SourceGeneration.Generators
    /// </author>
    /// <author>  Eric Poiseau
    /// </author>
-   public class SegmentGenerator : object
+    public class SegmentGenerator : object
     {
         private static readonly IHapiLog log;
 

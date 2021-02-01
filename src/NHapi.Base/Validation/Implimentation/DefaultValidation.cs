@@ -36,7 +36,7 @@ namespace NHapi.Base.validation.impl
    /// </author>
    /// <version>  $Revision: 1.1 $ updated on $Date: 2005/06/14 20:13:16 $ by $Author: bryan_tripp $
    /// </version>
-   public class DefaultValidation : ValidationContextImpl
+    public class DefaultValidation : ValidationContextImpl
     {
         public DefaultValidation()
         {
@@ -53,7 +53,7 @@ namespace NHapi.Base.validation.impl
         }
     }
 
-   public class StrictValidation : DefaultValidation
+    public class StrictValidation : DefaultValidation
     {
         public StrictValidation()
         {

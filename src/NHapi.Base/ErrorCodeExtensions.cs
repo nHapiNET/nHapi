@@ -4,7 +4,7 @@
     using System.ComponentModel;
     using System.Linq;
 
-   public static class ErrorCodeExtensions
+    public static class ErrorCodeExtensions
     {
         /// <summary>
         /// Returns the ErrorCode for the given integer

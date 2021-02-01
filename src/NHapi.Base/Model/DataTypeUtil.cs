@@ -29,7 +29,7 @@ namespace NHapi.Base.Model
     using System;
 
    /// <summary> This class is used to provide utility functions for other datatype classes and methods.</summary>
-   public class DataTypeUtil
+    public class DataTypeUtil
     {
         /// <summary> This method will return a signed four digit integer indicating the local
         /// GMT offset. This is the HL7 Offset format in integer representation.

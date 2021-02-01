@@ -56,7 +56,7 @@ namespace NHapi.Base.validation
    /// </summary>
    /// <author>  Bryan Tripp
    /// </author>
-   public interface IRule
+    public interface IRule
     {
         /// <summary> Returns a text description of the rule.  This description may be used as a message
         /// in exceptions generated if validation against the rule fails, or in a user

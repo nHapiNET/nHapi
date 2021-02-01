@@ -36,7 +36,7 @@ namespace NHapi.Base.Model.Primitive
    /// <version>
    /// $Revision: 1.3 $ updated on $Date: 2005/06/08 00:28:25 $ by $Author: bryan_tripp $
    /// </version>
-   public abstract class TM : AbstractPrimitive
+    public abstract class TM : AbstractPrimitive
     {
         private CommonTM Detail
         {

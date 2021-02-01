@@ -34,7 +34,7 @@ namespace NHapi.Base.validation
    /// </summary>
    /// <author>  Bryan Tripp
    /// </author>
-   public interface IMessageRule : IRule
+    public interface IMessageRule : IRule
     {
         /// <summary> Tests the given (fully populated) message against the criteria
         /// defined by this rule class.

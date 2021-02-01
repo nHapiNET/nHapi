@@ -45,7 +45,7 @@ namespace NHapi.Base.Parser
    /// </summary>
    /// <author>  Bryan Tripp, Shawn Bellina
    /// </author>
-   public abstract class XMLParser : ParserBase
+    public abstract class XMLParser : ParserBase
     {
         private class AnonymousClassXMLParser : XMLParser
         {

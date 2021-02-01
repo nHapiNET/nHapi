@@ -18,7 +18,7 @@ namespace NHapi.Base.Parser
    /// </author>
    /// <version>  $Revision: 1.2 $ updated on $Date: 2005/05/24 18:15:39 $ by $Author: bryan_tripp $
    /// </version>
-   public class DefaultModelClassFactory : IModelClassFactory
+    public class DefaultModelClassFactory : IModelClassFactory
     {
         private static readonly object _lockObject = new object();
         private static readonly IHapiLog log;

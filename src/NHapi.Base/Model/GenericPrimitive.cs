@@ -8,7 +8,7 @@ namespace NHapi.Base.Model
    /// </summary>
    /// <author>  Bryan Tripp
    /// </author>
-   public class GenericPrimitive : AbstractPrimitive, IPrimitive
+    public class GenericPrimitive : AbstractPrimitive, IPrimitive
     {
         /// <summary> Returns a String representation of the value of this field.</summary>
         /// <summary> Sets the value of this field if the given value is legal in the context of the

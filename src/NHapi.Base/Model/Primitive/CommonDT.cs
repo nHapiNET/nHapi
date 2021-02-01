@@ -46,7 +46,7 @@ namespace NHapi.Base.Model.Primitive
    /// </summary>
    /// <author>  Neal Acharya
    /// </author>
-   public class CommonDT
+    public class CommonDT
     {
         /// <summary> Returns the HL7 DT string value.</summary>
         /// <summary> This method takes in a string HL7 date value and performs validations

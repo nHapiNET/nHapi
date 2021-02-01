@@ -44,7 +44,7 @@ namespace NHapi.SourceGeneration.Generators
    /// </author>
    /// <author>  Eric Poiseau
    /// </author>
-   public class DataTypeGenerator : object
+    public class DataTypeGenerator : object
     {
         private static readonly IHapiLog log;
 

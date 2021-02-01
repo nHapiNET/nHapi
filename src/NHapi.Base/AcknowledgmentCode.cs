@@ -2,7 +2,7 @@
 {
     using System.ComponentModel;
 
-   public enum AcknowledgmentCode
+    public enum AcknowledgmentCode
     {
         /// <summary>
         /// Application Accept

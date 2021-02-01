@@ -33,7 +33,7 @@ namespace NHapi.Base.Util
    /// <summary> A tool for getting segments by name within a message or part of a message.</summary>
    /// <author>  Bryan Tripp
    /// </author>
-   public class SegmentFinder : MessageNavigator
+    public class SegmentFinder : MessageNavigator
     {
         /// <summary> Creates a new instance of SegmentFinder.</summary>
         /// <param name="root">the scope of searches -- may be a whole message or only a branch

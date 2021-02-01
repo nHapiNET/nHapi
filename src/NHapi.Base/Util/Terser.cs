@@ -84,7 +84,7 @@ namespace NHapi.Base.Util
    /// </para>
    /// </example>
    /// <author>Bryan Tripp</author>
-   public class Terser
+    public class Terser
     {
         /// <summary>
         /// Returns the segment finder used by this Terser.  Navigating the

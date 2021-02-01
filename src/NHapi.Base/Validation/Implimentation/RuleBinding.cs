@@ -36,7 +36,7 @@ namespace NHapi.Base.validation.impl
    /// </author>
    /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $
    /// </version>
-   public class RuleBinding
+    public class RuleBinding
     {
         /// <summary>
         /// Gets or sets a value indicating whether or not the binding is currently active.

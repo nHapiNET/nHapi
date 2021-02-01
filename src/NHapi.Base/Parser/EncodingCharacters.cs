@@ -35,7 +35,7 @@ namespace NHapi.Base.Parser
    /// encoded HL7 messages.
    /// </summary>
    /// <author>Bryan Tripp (bryan_tripp@sourceforge.net)</author>
-   public class EncodingCharacters : object, ICloneable
+    public class EncodingCharacters : object, ICloneable
     {
         /// <summary>
         /// Returns the field separator.

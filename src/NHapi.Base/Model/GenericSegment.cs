@@ -12,7 +12,7 @@ namespace NHapi.Base.Model
    /// </summary>
    /// <author>  Bryan Tripp
    /// </author>
-   public class GenericSegment : AbstractSegment
+    public class GenericSegment : AbstractSegment
     {
         private string name;
 

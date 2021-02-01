@@ -36,7 +36,7 @@ namespace NHapi.Base.validation
    /// </summary>
    /// <author>  Bryan Tripp
    /// </author>
-   public interface IEncodingRule : IRule
+    public interface IEncodingRule : IRule
     {
         /// <summary> Tests the given encoded message text against the criteria
         /// defined by this rule class.

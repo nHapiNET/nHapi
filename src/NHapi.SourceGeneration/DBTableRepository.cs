@@ -39,7 +39,7 @@ namespace NHapi.SourceGeneration
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   public class DBTableRepository : TableRepository
+    public class DBTableRepository : TableRepository
     {
         /// <summary> Returns a list of HL7 lookup tables that are defined in the normative database.  </summary>
         public override int[] Tables

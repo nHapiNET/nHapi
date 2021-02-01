@@ -35,7 +35,7 @@ namespace NHapi.SourceGeneration
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   public abstract class TableRepository
+    public abstract class TableRepository
     {
         /// <summary> Returns a TableRepository object.</summary>
         public static TableRepository Instance

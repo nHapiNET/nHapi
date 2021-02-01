@@ -33,7 +33,7 @@ namespace NHapi.SourceGeneration.Generators
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   public interface IStructureDef
+    public interface IStructureDef
     {
         /// <summary> Returns the name of the structure.</summary>
         string Name { get; }

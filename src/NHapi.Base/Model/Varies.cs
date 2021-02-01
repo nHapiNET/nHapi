@@ -52,7 +52,7 @@ namespace NHapi.Base.Model
    /// </code>
    /// </example>
    /// <author>Bryan Tripp (bryan_tripp@users.sourceforge.net)</author>
-   public class Varies : IType
+    public class Varies : IType
     {
         /// <summary>
         /// <para>

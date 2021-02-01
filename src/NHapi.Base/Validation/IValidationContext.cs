@@ -36,7 +36,7 @@ namespace NHapi.Base.validation
    /// </author>
    /// <version>  $Revision: 1.4 $ updated on $Date: 2005/06/27 22:42:18 $ by $Author: bryan_tripp $
    /// </version>
-   public interface IValidationContext
+    public interface IValidationContext
     {
         /// <param name="theVersion">an HL7 version (eg "2.1")
         /// </param>

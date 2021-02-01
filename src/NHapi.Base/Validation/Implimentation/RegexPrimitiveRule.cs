@@ -37,7 +37,7 @@ namespace NHapi.Base.validation.impl
    /// </author>
    /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:15:12 $ by $Author: bryan_tripp $
    /// </version>
-   public class RegexPrimitiveRule : IPrimitiveTypeRule
+    public class RegexPrimitiveRule : IPrimitiveTypeRule
     {
         /// <summary>
         /// The description

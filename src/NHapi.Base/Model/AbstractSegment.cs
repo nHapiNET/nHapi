@@ -44,7 +44,7 @@ namespace NHapi.Base.Model
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
    /// </summary>
-   public abstract class AbstractSegment : ISegment
+    public abstract class AbstractSegment : ISegment
     {
         private static readonly IHapiLog log;
         private List<AbstractSegmentItem> _items;

@@ -35,7 +35,7 @@ namespace NHapi.Base.validation.impl
    /// </author>
    /// <version>  $Revision: 1.2 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $
    /// </version>
-   public class TrimLeadingWhitespace : IPrimitiveTypeRule
+    public class TrimLeadingWhitespace : IPrimitiveTypeRule
     {
         /// <summary>
         /// Description of the rule

@@ -40,7 +40,7 @@ namespace NHapi.Base.Parser
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   public class PipeParser : ParserBase
+    public class PipeParser : ParserBase
     {
         private class AnonymousClassPredicate : FilterIterator.IPredicate
         {

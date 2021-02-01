@@ -34,7 +34,7 @@ namespace NHapi.Base.Model
    /// </summary>
    /// <author>  Bryan Tripp
    /// </author>
-   public class AbstractType : IType
+    public class AbstractType : IType
     {
         private ExtraComponents extra;
         private IMessage message;

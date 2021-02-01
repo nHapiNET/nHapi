@@ -35,7 +35,7 @@ namespace NHapi.Base.validation.impl
    /// </author>
    /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $
    /// </version>
-   public class SizeRule : IPrimitiveTypeRule
+    public class SizeRule : IPrimitiveTypeRule
     {
         /// <summary>
         /// <seealso cref="IRule.Description" />

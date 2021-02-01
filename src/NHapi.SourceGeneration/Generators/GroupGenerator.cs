@@ -43,7 +43,7 @@ namespace NHapi.SourceGeneration.Generators
    /// </author>
    /// <author>  Eric Poiseau
    /// </author>
-   public class GroupGenerator : object
+    public class GroupGenerator : object
     {
         private static readonly IHapiLog log;
 

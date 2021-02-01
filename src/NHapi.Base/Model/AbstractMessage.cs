@@ -35,7 +35,7 @@ namespace NHapi.Base.Model
    /// <summary> A default implementation of Message. </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   public abstract class AbstractMessage : AbstractGroup, IMessage
+    public abstract class AbstractMessage : AbstractGroup, IMessage
     {
         /// <summary> Returns this Message object - this is an implementation of the
         /// abstract method in AbstractGroup.

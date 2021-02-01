@@ -34,7 +34,7 @@ namespace NHapi.Base.Model
    /// </summary>
    /// <author>  Bryan Tripp
    /// </author>
-   public abstract class AbstractPrimitive : AbstractType, IPrimitive
+    public abstract class AbstractPrimitive : AbstractType, IPrimitive
     {
         /// <summary> Sets the value of this Primitive, first performing validation as specified
         /// by <code>getMessage().getValidationContext()</code>.  No validation is performed

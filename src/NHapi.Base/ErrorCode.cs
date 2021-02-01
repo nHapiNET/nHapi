@@ -4,7 +4,7 @@ namespace NHapi.Base
     using System.ComponentModel;
     using System.Linq;
 
-   public enum ErrorCode
+    public enum ErrorCode
     {
         /// <summary>
         /// Message accepted

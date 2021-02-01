@@ -40,7 +40,7 @@ namespace NHapi.Base.Model
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   public abstract class AbstractGroup : IGroup
+    public abstract class AbstractGroup : IGroup
     {
         private List<AbstractGroupItem> _items;
         private IGroup parentStructure;

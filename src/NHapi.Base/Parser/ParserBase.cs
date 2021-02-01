@@ -42,7 +42,7 @@ namespace NHapi.Base.Parser
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   public abstract class ParserBase
+    public abstract class ParserBase
     {
         private static readonly IHapiLog _log;
         private IModelClassFactory _modelClassFactory;

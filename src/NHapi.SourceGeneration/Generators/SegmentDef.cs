@@ -36,7 +36,7 @@ namespace NHapi.SourceGeneration.Generators
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   public class SegmentDef : IStructureDef
+    public class SegmentDef : IStructureDef
     {
         /// <returns> name of segment
         /// </returns>

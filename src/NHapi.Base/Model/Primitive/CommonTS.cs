@@ -82,7 +82,7 @@ namespace NHapi.Base.Model.Primitive
    /// </summary>
    /// <author>  Neal Acharya
    /// </author>
-   public class CommonTS
+    public class CommonTS
     {
         /// <summary> Returns the HL7 TS string value.</summary>
         /// <summary> This method takes in a string HL7 Time Stamp value and performs validations.

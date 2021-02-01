@@ -25,7 +25,7 @@ namespace NHapi.Base
    /// This interface should be implemented by any class whose instances are intended
    /// to be executed by a thread.
    /// </summary>
-   public interface IThreadRunnable
+    public interface IThreadRunnable
     {
         /// <summary>
         /// This method has to be implemented in order that starting of the thread causes the object's
@@ -39,7 +39,7 @@ namespace NHapi.Base
     /// <summary>
     /// This interface will manage errors during the parsing of a XML document.
     /// </summary>
-   public interface IXmlSaxErrorHandler
+    public interface IXmlSaxErrorHandler
     {
         /// <summary>
         /// This method manage an error exception occurred during the parsing process.
@@ -65,7 +65,7 @@ namespace NHapi.Base
     /// <summary>
     /// This class is used to encapsulate a source of Xml code in an single class.
     /// </summary>
-   public class XmlSourceSupport
+    public class XmlSourceSupport
     {
         private Stream bytes;
         private StreamReader characters;
@@ -147,7 +147,7 @@ namespace NHapi.Base
     /// <summary>
     /// Basic interface for resolving entities.
     /// </summary>
-   public interface IXmlSaxEntityResolver
+    public interface IXmlSaxEntityResolver
     {
         /// <summary>
         /// Allow the application to resolve external entities.
@@ -163,7 +163,7 @@ namespace NHapi.Base
     /// <summary>
     /// This interface will manage the Content events of a XML document.
     /// </summary>
-   public interface IXmlSaxContentHandler
+    public interface IXmlSaxContentHandler
     {
         /// <summary>
         /// This method manage the notification when Characters elements were found.
@@ -245,7 +245,7 @@ namespace NHapi.Base
     /// <summary>
     /// This interface is created to emulate the SAX Locator interface behavior.
     /// </summary>
-   public interface IXmlSaxLocator
+    public interface IXmlSaxLocator
     {
         /// <summary>
         /// This method return the column number where the current document event ends.
@@ -277,7 +277,7 @@ namespace NHapi.Base
     /// <summary>
     /// This class is created for emulates the SAX LocatorImpl behaviors.
     /// </summary>
-   public class XmlSaxLocatorImpl : IXmlSaxLocator
+    public class XmlSaxLocatorImpl : IXmlSaxLocator
     {
         /// <summary>
         /// This method returns a new instance of 'XmlSaxLocatorImpl'.
@@ -389,7 +389,7 @@ namespace NHapi.Base
     /// <summary>
     /// This interface will manage the Content events of a XML document.
     /// </summary>
-   public interface IXmlSaxLexicalHandler
+    public interface IXmlSaxLexicalHandler
     {
         /// <summary>
         /// This method manage the notification when Characters elements were found.
@@ -440,7 +440,7 @@ namespace NHapi.Base
     /// <summary>
     /// This class will manage all the parsing operations emulating the SAX parser behavior
     /// </summary>
-   public class SaxAttributesSupport
+    public class SaxAttributesSupport
     {
         private ArrayList MainList;
 
@@ -819,7 +819,7 @@ namespace NHapi.Base
     /// This exception is thrown by the XmlSaxDocumentManager in the SetProperty and SetFeature
     /// methods if a property or method couldn't be found.
     /// </summary>
-   public class ManagerNotRecognizedException : Exception
+    public class ManagerNotRecognizedException : Exception
     {
         /// <summary>
         /// Creates a new ManagerNotRecognizedException with the message specified.
@@ -837,7 +837,7 @@ namespace NHapi.Base
     /// This exception is thrown by the XmlSaxDocumentManager in the SetProperty and SetFeature methods
     /// if a property or method couldn't be supported.
     /// </summary>
-   public class ManagerNotSupportedException : Exception
+    public class ManagerNotSupportedException : Exception
     {
         /// <summary>
         /// Creates a new ManagerNotSupportedException with the message specified.
@@ -854,7 +854,7 @@ namespace NHapi.Base
     /// <summary>
     /// This class provides the base implementation for the management of XML documents parsing.
     /// </summary>
-   public class XmlSaxDefaultHandler : IXmlSaxContentHandler, IXmlSaxErrorHandler, IXmlSaxEntityResolver
+    public class XmlSaxDefaultHandler : IXmlSaxContentHandler, IXmlSaxErrorHandler, IXmlSaxEntityResolver
     {
         /// <summary>
         /// This method manage the notification when Characters element were found.
@@ -1007,7 +1007,7 @@ namespace NHapi.Base
     /// <summary>
     /// This class provides the base implementation for the management of XML documents parsing.
     /// </summary>
-   public class XmlSaxParserAdapter : XmlSAXDocumentManager, IXmlSaxContentHandler
+    public class XmlSaxParserAdapter : XmlSAXDocumentManager, IXmlSaxContentHandler
     {
         /// <summary>
         /// This method manage the notification when Characters element were found.
@@ -1112,7 +1112,7 @@ namespace NHapi.Base
     /// <summary>
     /// Emulates the SAX parsers behaviours.
     /// </summary>
-   public class XmlSAXDocumentManager
+    public class XmlSAXDocumentManager
     {
         protected bool isValidating;
         protected bool namespaceAllowed;
@@ -1927,7 +1927,7 @@ namespace NHapi.Base
     /// <summary>
     /// Contains conversion support elements such as classes, interfaces and static methods.
     /// </summary>
-   public class SupportClass
+    public class SupportClass
     {
         /*******************************/
 

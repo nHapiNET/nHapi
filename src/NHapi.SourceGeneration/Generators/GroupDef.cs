@@ -38,7 +38,7 @@ namespace NHapi.SourceGeneration.Generators
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   public class GroupDef : IStructureDef
+    public class GroupDef : IStructureDef
     {
         /// <summary> Returns the Java class name of this Group.  This is derived from the
         /// message structure and the group elements.  This should only be called

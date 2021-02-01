@@ -43,7 +43,7 @@ namespace NHapi.SourceGeneration.Generators
    /// </author>
    /// <author>  Eric Poiseau
    /// </author>
-   public class MessageGenerator : object
+    public class MessageGenerator : object
     {
         /// <summary> If the system property by this name is true, groups are generated to use a ModelClassFactory
         /// for segment class lookup.  This makes segment creation more flexible, but may slow down parsing

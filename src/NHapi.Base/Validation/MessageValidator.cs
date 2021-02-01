@@ -37,7 +37,7 @@ namespace NHapi.Base.validation
    /// </summary>
    /// <author>  Bryan Tripp
    /// </author>
-   public class MessageValidator
+    public class MessageValidator
     {
         private static readonly IHapiLog ourLog;
 

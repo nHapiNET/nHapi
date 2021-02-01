@@ -6,7 +6,7 @@ namespace NHapi.SourceGeneration
     using System.Data.Common;
     using System.Data.Odbc;
 
-   public class TransactionManager
+    public class TransactionManager
     {
         public static ConnectionHashTable manager = new ConnectionHashTable();
 

@@ -1,6 +1,6 @@
+### 31/01/2021
 ### Editor config file taken from https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options
 ### Changes to the defaults documented in-line with ##
-### 31/01/2021
 
 # Remove the line below if you want to inherit .editorconfig settings from higher directories
 root = true
@@ -211,3 +211,6 @@ dotnet_naming_style.begins_with_i.capitalization = pascal_case
 
 # SA1633: File should have header
 dotnet_diagnostic.SA1633.severity = none
+
+# SA1101: Prefix local calls with this
+dotnet_diagnostic.SA1101.severity = none

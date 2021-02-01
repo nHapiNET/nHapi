@@ -45,7 +45,7 @@ namespace NHapi.Base.Util
    /// <summary>
    /// Filter iterator class
    /// </summary>
-   public class FilterIterator : IEnumerator
+    public class FilterIterator : IEnumerator
     {
         private IPredicate predicate;
         private IEnumerator iter;

@@ -37,7 +37,7 @@ namespace NHapi.Base.validation.impl
    /// </author>
    /// <version>  $Revision: 1.5 $ updated on $Date: 2005/06/27 22:42:18 $ by $Author: bryan_tripp $
    /// </version>
-   public class ValidationContextImpl : IValidationContext
+    public class ValidationContextImpl : IValidationContext
     {
         /// <returns> a List of <code>RuleBinding</code>s for <code>PrimitiveTypeRule</code>s.
         /// </returns>

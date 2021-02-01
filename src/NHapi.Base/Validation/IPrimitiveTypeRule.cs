@@ -31,7 +31,7 @@ namespace NHapi.Base.validation
    /// <summary> A rule that applies to a primitive datatype. </summary>
    /// <author>  Bryan Tripp
    /// </author>
-   public interface IPrimitiveTypeRule : IRule
+    public interface IPrimitiveTypeRule : IRule
     {
         /// <summary> Optionally performs an automatic correction on given data to make it
         /// conform (eg trims leading whitespace).  This is to be called prior to

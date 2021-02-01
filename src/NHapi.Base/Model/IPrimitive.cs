@@ -34,7 +34,7 @@ namespace NHapi.Base.Model
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   public interface IPrimitive : IType
+    public interface IPrimitive : IType
     {
         /// <summary> Returns a String representation of the value of this field.</summary>
         /// <summary> Sets the value of this field if the given value is legal in the context of the

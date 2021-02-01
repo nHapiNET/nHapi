@@ -32,7 +32,7 @@ namespace NHapi.Base.Model
    /// <summary> Represents a complete HL7 message including all structures, segments, and fields.  </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   public interface IMessage : IGroup
+    public interface IMessage : IGroup
     {
         /// <summary> Returns the version number of the HL7 version in which this
         /// message structure is defined (e.g. "2.4")

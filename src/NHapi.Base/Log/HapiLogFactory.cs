@@ -20,7 +20,7 @@ namespace NHapi.Base.Log
    /// <version>
    /// $Revision: 1.2 $ updated on $Date: 2003/05/07 20:12:36 $ by $Author: aguevara $
    /// </version>
-   public sealed class HapiLogFactory
+    public sealed class HapiLogFactory
     {
         /// <summary> Do not allow instantiation.</summary>
         private HapiLogFactory()

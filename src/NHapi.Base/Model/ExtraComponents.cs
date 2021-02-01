@@ -28,7 +28,7 @@ namespace NHapi.Base.Model
    /// </para>
    /// </summary>
    /// <author>Bryan Tripp</author>
-   public class ExtraComponents
+    public class ExtraComponents
     {
         private ArrayList comps;
         private IMessage message;

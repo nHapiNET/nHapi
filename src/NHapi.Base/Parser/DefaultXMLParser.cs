@@ -26,7 +26,7 @@ namespace NHapi.Base.Parser
    /// changed to correspond with the official group names, once these are all assigned.
    /// </remarks>
    /// <author>Bryan Tripp</author>
-   public class DefaultXMLParser : XMLParser
+    public class DefaultXMLParser : XMLParser
     {
         private static readonly IHapiLog log;
 

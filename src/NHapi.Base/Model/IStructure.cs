@@ -34,7 +34,7 @@ namespace NHapi.Base.Model
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   public interface IStructure
+    public interface IStructure
     {
         /// <summary> Returns the Message object to which this structure belongs.  This should normally be set at
         /// construction time.  A Structure can only belong to a single Message.  This is primarily

@@ -38,7 +38,7 @@ namespace NHapi.SourceGeneration.Generators
    /// </summary>
    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
    /// </author>
-   public class SourceGenerator : object
+    public class SourceGenerator : object
     {
         /// <summary>Creates new SourceGenerator </summary>
         public SourceGenerator()
