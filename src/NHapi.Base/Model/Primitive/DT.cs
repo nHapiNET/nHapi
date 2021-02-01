@@ -121,9 +121,9 @@ namespace NHapi.Base.Model.Primitive
         {
         }
 
-        ///<summary>Construct the type</summary>
-        ///<param name="theMessage">message to which this Type belongs</param>
-        ///<param name="description">The description of this type</param>
+        /// <summary>Construct the type</summary>
+        /// <param name="theMessage">message to which this Type belongs</param>
+        /// <param name="description">The description of this type</param>
         protected DT(IMessage theMessage, string description)
             : base(theMessage, description)
         {

@@ -78,8 +78,8 @@ namespace NHapi.Base.Model.Primitive
         /// <summary>
         /// Initializes a new instance of the <see cref="ID"/> class.
         /// </summary>
-        ///<param name="theMessage">message to which this Type belongs</param>
-        ///<param name="description">The description of this type</param>
+        /// <param name="theMessage">message to which this Type belongs</param>
+        /// <param name="description">The description of this type</param>
         protected ID(IMessage theMessage, string description)
             : base(theMessage, description)
         {

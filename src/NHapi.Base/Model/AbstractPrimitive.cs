@@ -80,7 +80,7 @@ namespace NHapi.Base.Model
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// <param name="message">message to which this type belongs
         /// </param>
         /// </summary>
@@ -89,7 +89,7 @@ namespace NHapi.Base.Model
         {
         }
 
-        ///<summary>
+        /// <summary>
         /// <param name="message">message to which this type belongs
         /// <param name="description">The descption of the primitive</param>
         /// </param>

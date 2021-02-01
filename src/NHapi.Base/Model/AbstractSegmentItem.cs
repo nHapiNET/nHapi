@@ -14,7 +14,7 @@ namespace NHapi.Base.Model
         private int _maxReps = -1;
         private string _description;
 
-        ///<summary>
+        /// <summary>
         /// Constructor
         /// <param name="t">the class of the data for this field - this should inherit from IType</param>
         /// <param name="required">whether a value for this field is required in order for the segment
