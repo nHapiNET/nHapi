@@ -39,7 +39,9 @@ namespace NHapi.Base.Model
         public static Type getGenericMessageClass(string version)
         {
             if (!ParserBase.ValidVersion(version))
+            {
                 throw new ArgumentException("The version " + version + " is not recognized");
+            }
 
             Type c = null;
             if (version.Equals("2.1"))

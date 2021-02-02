@@ -72,7 +72,9 @@ namespace NHapi.Base.Model
                             // start at 1 to avoid the 'v'
                             buf.Append(chars[i]);
                             if (i < chars.Length - 1)
+                            {
                                 buf.Append('.');
+                            }
                         }
 
                         version = buf.ToString();
@@ -80,7 +82,9 @@ namespace NHapi.Base.Model
                 }
 
                 if (version == null)
+                {
                     version = "2.4";
+                }
 
                 return version;
             }

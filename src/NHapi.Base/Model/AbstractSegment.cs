@@ -476,7 +476,9 @@ namespace NHapi.Base.Model
         {
             int fieldsToAdd = fieldRequested - NumFields();
             if (fieldsToAdd < 0)
+            {
                 fieldsToAdd = 0;
+            }
 
             try
             {

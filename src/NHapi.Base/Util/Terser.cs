@@ -195,7 +195,9 @@ namespace NHapi.Base.Util
                 try
                 {
                     if (comp > 1 && typeof(GenericPrimitive).IsAssignableFrom(v.Data.GetType()))
+                    {
                         v.Data = new GenericComposite(v.Message);
+                    }
                 }
                 catch (DataTypeException de)
                 {
@@ -361,7 +363,9 @@ namespace NHapi.Base.Util
             SupportClass.Tokenizer tok = new SupportClass.Tokenizer(spec, "-", false);
             tok.NextToken(); // skip over segment
             if (!tok.HasMoreTokens())
+            {
                 throw new HL7Exception("Must specify field in spec " + spec, ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
 
             int[] ret = null;
             try

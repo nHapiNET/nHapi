@@ -146,14 +146,18 @@ namespace NHapi.Base.Parser
 
             // quit if the string is too short
             if (message.Length < 4)
+            {
                 return null;
+            }
 
             // see if it looks like this message is | encoded ...
             bool ok = true;
 
             // string should start with "MSH"
             if (!message.StartsWith("MSH"))
+            {
                 return null;
+            }
 
             // 4th character of each segment should be field delimiter
             char fourthChar = message[3];
@@ -164,9 +168,14 @@ namespace NHapi.Base.Parser
                 if (x.Length > 0)
                 {
                     if (char.IsWhiteSpace(x[0]))
+                    {
                         x = StripLeadingWhitespace(x);
+                    }
+
                     if (x.Length >= 4 && x[3] != fourthChar)
+                    {
                         return null;
+                    }
                 }
             }
 
@@ -176,11 +185,15 @@ namespace NHapi.Base.Parser
             {
                 nextFieldDelimLoc = message.IndexOf((char)fourthChar, nextFieldDelimLoc + 1);
                 if (nextFieldDelimLoc < 0)
+                {
                     return null;
+                }
             }
 
             if (ok)
+            {
                 encoding = "VB";
+            }
 
             return encoding;
         }
@@ -192,7 +205,10 @@ namespace NHapi.Base.Parser
         {
             bool supports = false;
             if (encoding != null && encoding.Equals("VB"))
+            {
                 supports = true;
+            }
+
             return supports;
         }
 
@@ -299,7 +315,9 @@ namespace NHapi.Base.Parser
             {
                 // get rid of any leading whitespace characters ...
                 if (segments[i] != null && segments[i].Length > 0 && char.IsWhiteSpace(segments[i][0]))
+                {
                     segments[i] = StripLeadingWhitespace(segments[i]);
+                }
 
                 // sometimes people put extra segment delimiters at end of msg ...
                 if (segments[i] != null && segments[i].Length >= 3)
@@ -461,9 +479,14 @@ namespace NHapi.Base.Parser
 
             // defend against evil nulls
             if (composite == null)
+            {
                 composite = string.Empty;
+            }
+
             if (delim == null)
+            {
                 delim = string.Empty;
+            }
 
             SupportClass.Tokenizer tok = new SupportClass.Tokenizer(composite, delim, true);
             bool previousTokenWasDelim = true;
@@ -473,7 +496,10 @@ namespace NHapi.Base.Parser
                 if (thisTok.Equals(delim))
                 {
                     if (previousTokenWasDelim)
+                    {
                         components.Add(null);
+                    }
+
                     previousTokenWasDelim = true;
                 }
                 else
@@ -547,12 +573,17 @@ namespace NHapi.Base.Parser
             while (c >= 0 && !found)
             {
                 if (chars[c--] != delim)
+                {
                     found = true;
+                }
             }
 
             string ret = string.Empty;
             if (found)
+            {
                 ret = new string(chars, 0, c + 2);
+            }
+
             return ret;
         }
 
@@ -568,7 +599,9 @@ namespace NHapi.Base.Parser
         protected internal override string DoEncode(IMessage source, string encoding)
         {
             if (!SupportsEncoding(encoding))
+            {
                 throw new EncodingNotSupportedException("This parser does not support the " + encoding + " encoding");
+            }
 
             return Encode(source);
         }
@@ -594,7 +627,9 @@ namespace NHapi.Base.Parser
 
             char fieldSep = '|';
             if (fieldSepString != null && fieldSepString.Length > 0)
+            {
                 fieldSep = fieldSepString[0];
+            }
 
             string encCharString = Terser.Get(msh, 2, 0, 1, 1);
 
@@ -686,7 +721,9 @@ namespace NHapi.Base.Parser
             // start at field 2 for MSH segment because field 1 is the field delimiter
             int startAt = 1;
             if (IsDelimDefSegment(source.GetStructureName()))
+            {
                 startAt = 2;
+            }
 
             // loop through fields; for every field delimit any repetitions and add field delimiter after ...
             int numFields = source.NumFields();
@@ -701,10 +738,15 @@ namespace NHapi.Base.Parser
 
                         // if this is MSH-2, then it shouldn't be escaped, so un-escape it again
                         if (IsDelimDefSegment(source.GetStructureName()) && i == 2)
+                        {
                             fieldText = Escape.unescape(fieldText, encodingChars);
+                        }
+
                         result.Append(fieldText);
                         if (j < reps.Length - 1)
+                        {
                             result.Append(encodingChars.RepetitionSeparator);
+                        }
                     }
                 }
                 catch (HL7Exception e)
@@ -733,7 +775,10 @@ namespace NHapi.Base.Parser
             while (c < chars.Length)
             {
                 if (!char.IsWhiteSpace(chars[c]))
+                {
                     break;
+                }
+
                 c++;
             }
 
@@ -764,10 +809,16 @@ namespace NHapi.Base.Parser
             // try to get MSH segment
             int locStartMSH = message.IndexOf("MSH");
             if (locStartMSH < 0)
+            {
                 throw new HL7Exception("Couldn't find MSH segment in message: " + message, ErrorCode.SEGMENT_SEQUENCE_ERROR);
+            }
+
             int locEndMSH = message.IndexOf('\r', locStartMSH + 1);
             if (locEndMSH < 0)
+            {
                 locEndMSH = message.Length;
+            }
+
             string mshString = message.Substring(locStartMSH, locEndMSH - locStartMSH);
 
             // find out what the field separator is
@@ -833,7 +884,9 @@ namespace NHapi.Base.Parser
                 int end = message.IndexOf((char)fieldDelim, start);
                 int segEnd = message.IndexOf(Convert.ToString(segDelim), start);
                 if (segEnd > start && segEnd < end)
+                {
                     end = segEnd;
+                }
 
                 // if there is no field delim after MSH-2, need to go to end of message, but not including end seg delim if it exists
                 if (end < 0)
@@ -868,7 +921,10 @@ namespace NHapi.Base.Parser
             int startMSH = message.IndexOf("MSH");
             int endMSH = message.IndexOf(segDelim, startMSH);
             if (endMSH < 0)
+            {
                 endMSH = message.Length;
+            }
+
             string msh = message.Substring(startMSH, endMSH - startMSH);
             string fieldSep = null;
             if (msh.Length > 3)

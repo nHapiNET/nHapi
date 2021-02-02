@@ -69,7 +69,9 @@ namespace NHapi.Base
             foreach (Hl7Package package in _packages)
             {
                 if (package.Version.ToUpper().Trim().Equals(version))
+                {
                     return true;
+                }
             }
 
             return false;
@@ -92,7 +94,9 @@ namespace NHapi.Base
             for (int i = 0; i < versionChars.Length; i++)
             {
                 if (versionChars[i] != '.')
+                {
                     path.Append(versionChars[i]);
+                }
             }
 
             path.Append("/");

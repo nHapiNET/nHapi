@@ -70,7 +70,10 @@ namespace NHapi.Base.Parser
 
             mc = findClass(theName, theVersion, ClassType.Message);
             if (mc == null)
+            {
                 mc = GenericMessage.getGenericMessageClass(theVersion);
+            }
+
             return mc;
         }
 
@@ -185,7 +188,9 @@ namespace NHapi.Base.Parser
             }
 
             if (packages[version] == null)
+            {
                 throw new Exception(string.Format("Package '{0}' could not be found", version));
+            }
 
             return (List<string>)packages[version];
         }
@@ -193,7 +198,10 @@ namespace NHapi.Base.Parser
         private static void AddPackage(Hashtable packages, Hl7Package package)
         {
             if (packages[package.Version] == null)
+            {
                 packages[package.Version] = new List<string>();
+            }
+
             List<string> versions = (List<string>)packages[package.Version];
             versions.Add(package.PackageName);
         }
@@ -228,7 +236,10 @@ namespace NHapi.Base.Parser
                 {
                     string p = packages[c];
                     if (!p.EndsWith("."))
+                    {
                         p = p + ".";
+                    }
+
                     string classNameToTry = p + subpackage + "." + name;
 
                     classNameToTry = AddAssemblyName(p, classNameToTry);

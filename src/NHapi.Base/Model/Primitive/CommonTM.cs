@@ -124,11 +124,19 @@ namespace NHapi.Base.Model.Primitive
                     int indexOfSign = -1;
                     bool offsetExists = false;
                     if ((sp != -1) || (sm != -1))
+                    {
                         offsetExists = true;
+                    }
+
                     if (sp != -1)
+                    {
                         indexOfSign = sp;
+                    }
+
                     if (sm != -1)
+                    {
                         indexOfSign = sm;
+                    }
 
                     try
                     {

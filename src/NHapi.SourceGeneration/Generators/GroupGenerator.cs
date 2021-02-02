@@ -134,27 +134,50 @@ namespace NHapi.SourceGeneration.Generators
                 // check for rep and opt (see if start & end elements are [] or {} AND they are each others' pair) ...
                 // System.out.println(len + " " + structures[0].getName() +structures[1].getName()+ ".." +structures[len-2].getName() + structures[len-1].getName()+ " " + message);
                 if (optMarkers(structures[0].Name, structures[len - 1].Name) && (findGroupEnd(structures, 0) == len - 1))
+                {
                     required = false;
+                }
+
                 if (repMarkers(structures[0].Name, structures[len - 1].Name) && (findGroupEnd(structures, 0) == len - 1))
+                {
                     repeating = true;
+                }
+
                 if (repoptMarkers(structures[0].Name, structures[len - 1].Name) && (findGroupEnd(structures, 0) == len - 1))
+                {
                     rep_opt = true;
+                }
+
                 if (repeating || !required)
                 {
                     if (optMarkers(structures[1].Name, structures[len - 2].Name) && (findGroupEnd(structures, 1) == len - 2))
+                    {
                         required = false;
+                    }
+
                     if (repMarkers(structures[1].Name, structures[len - 2].Name) && (findGroupEnd(structures, 1) == len - 2))
+                    {
                         repeating = true;
+                    }
                 }
 
                 // loop through, recurse nested groups, and build short list of structures for this group
                 int skip = 0;
                 if (!required)
+                {
                     skip++;
+                }
+
                 if (repeating)
+                {
                     skip++;
+                }
+
                 if (rep_opt)
+                {
                     skip++;
+                }
+
                 currLongListPos = skip;
                 while (currLongListPos < len - skip)
                 {
@@ -187,9 +210,14 @@ namespace NHapi.SourceGeneration.Generators
             }
 
             if (rep_opt)
+            {
                 ret = new GroupDef(message, groupName, false, true, "a Group object");
+            }
             else
+            {
                 ret = new GroupDef(message, groupName, required, repeating, "a Group object");
+            }
+
             IStructureDef[] finalList = new IStructureDef[currShortListPos]; // note: incremented after last assignment
             Array.Copy(shortList, 0, finalList, 0, currShortListPos);
             for (int i = 0; i < finalList.Length; i++)
@@ -352,9 +380,15 @@ namespace NHapi.SourceGeneration.Generators
                 elements.Append(def.Description);
                 elements.Append(") ");
                 if (!def.Required)
+                {
                     elements.Append("optional ");
+                }
+
                 if (def.Repeating)
+                {
                     elements.Append("repeating");
+                }
+
                 elements.Append("</li>\r\n");
             }
 
@@ -383,7 +417,10 @@ namespace NHapi.SourceGeneration.Generators
             source.Append("\t///<summary>\r\n");
             source.Append("\t/// Returns ");
             if (def.Repeating)
+            {
                 source.Append(" first repetition of ");
+            }
+
             source.Append(indexName);
             source.Append(" (");
             source.Append(def.Description);
@@ -421,7 +458,10 @@ namespace NHapi.SourceGeneration.Generators
             source.Append("\t   }\r\n");
             source.Append("\t   return ret;\r\n");
             if (!def.Repeating)
+            {
                 source.Append("\t}\r\n");
+            }
+
             source.Append("\t}\r\n\r\n");
 
             if (def.Repeating)
@@ -597,7 +637,10 @@ namespace NHapi.SourceGeneration.Generators
             }
 
             if (!endMarker.Equals(segName))
+            {
                 throw new HL7Exception("Group markers are not nested properly", ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
+
             return groupStart + offset;
         }
 

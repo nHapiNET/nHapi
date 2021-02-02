@@ -56,7 +56,9 @@ namespace NHapi.SourceGeneration
         private void CloseConnection()
         {
             if (this.ConnectionState == ConnectionState.Open)
+            {
                 Connection.Close();
+            }
         }
 
         /// <summary>
@@ -367,9 +369,13 @@ namespace NHapi.SourceGeneration
             {
                 string len = GetMaxInfo("Binary_Literal", "Maxlen");
                 if (len.Equals(string.Empty))
+                {
                     return 0;
+                }
                 else
+                {
                     return Convert.ToInt32(len) * 4;
+                }
             }
         }
 
@@ -382,9 +388,13 @@ namespace NHapi.SourceGeneration
             {
                 string len = GetMaxInfo("Catalog_Name", "Maxlen");
                 if (len.Equals(string.Empty))
+                {
                     return 0;
+                }
                 else
+                {
                     return Convert.ToInt32(len);
+                }
             }
         }
 
@@ -397,9 +407,13 @@ namespace NHapi.SourceGeneration
             {
                 string len = GetMaxInfo("Char_Literal", "Maxlen");
                 if (len.Equals(string.Empty))
+                {
                     return 0;
+                }
                 else
+                {
                     return Convert.ToInt32(len) * 4;
+                }
             }
         }
 
@@ -412,9 +426,13 @@ namespace NHapi.SourceGeneration
             {
                 string len = GetMaxInfo("Column_Name", "Maxlen");
                 if (len.Equals(string.Empty))
+                {
                     return 0;
+                }
                 else
+                {
                     return Convert.ToInt32(len);
+                }
             }
         }
 
@@ -427,9 +445,13 @@ namespace NHapi.SourceGeneration
             {
                 string len = GetMaxInfo("Cursor_Name", "Maxlen");
                 if (len.Equals(string.Empty))
+                {
                     return 0;
+                }
                 else
+                {
                     return Convert.ToInt32(len);
+                }
             }
         }
 
@@ -442,9 +464,13 @@ namespace NHapi.SourceGeneration
             {
                 string len = GetMaxInfo("Procedure_Name", "Maxlen");
                 if (len.Equals(string.Empty))
+                {
                     return 0;
+                }
                 else
+                {
                     return Convert.ToInt32(len);
+                }
             }
         }
 
@@ -457,9 +483,13 @@ namespace NHapi.SourceGeneration
             {
                 string len = GetMaxInfo("Schema_Name", "Maxlen");
                 if (len.Equals(string.Empty))
+                {
                     return 0;
+                }
                 else
+                {
                     return Convert.ToInt32(len);
+                }
             }
         }
 
@@ -472,9 +502,13 @@ namespace NHapi.SourceGeneration
             {
                 string len = GetMaxInfo("Table_Name", "Maxlen");
                 if (len.Equals(string.Empty))
+                {
                     return 0;
+                }
                 else
+                {
                     return Convert.ToInt32(len);
+                }
             }
         }
 
@@ -487,9 +521,13 @@ namespace NHapi.SourceGeneration
             {
                 string len = GetMaxInfo("User_Name", "Maxlen");
                 if (len.Equals(string.Empty))
+                {
                     return 0;
+                }
                 else
+                {
                     return Convert.ToInt32(len);
+                }
             }
         }
     }

@@ -44,9 +44,13 @@ namespace NHapi.SourceGeneration
                     DbTransaction transaction = Properties.Transaction;
                     transaction.Commit();
                     if (Properties.TransactionLevel == 0)
+                    {
                         Properties.Transaction = connection.BeginTransaction();
+                    }
                     else
+                    {
                         Properties.Transaction = connection.BeginTransaction(Properties.TransactionLevel);
+                    }
                 }
             }
 
@@ -58,9 +62,13 @@ namespace NHapi.SourceGeneration
                     DbTransaction transaction = Properties.Transaction;
                     transaction.Rollback();
                     if (Properties.TransactionLevel == 0)
+                    {
                         Properties.Transaction = connection.BeginTransaction();
+                    }
                     else
+                    {
                         Properties.Transaction = connection.BeginTransaction(Properties.TransactionLevel);
+                    }
                 }
             }
 
@@ -75,9 +83,13 @@ namespace NHapi.SourceGeneration
                         if (!boolean)
                         {
                             if (Properties.TransactionLevel == 0)
+                            {
                                 Properties.Transaction = connection.BeginTransaction();
+                            }
                             else
+                            {
                                 Properties.Transaction = connection.BeginTransaction(Properties.TransactionLevel);
+                            }
                         }
                         else
                         {
@@ -95,7 +107,10 @@ namespace NHapi.SourceGeneration
                     TempProp.AutoCommit = boolean;
                     TempProp.TransactionLevel = 0;
                     if (!boolean)
+                    {
                         TempProp.Transaction = connection.BeginTransaction();
+                    }
+
                     Add(connection, TempProp);
                 }
             }
@@ -120,13 +135,21 @@ namespace NHapi.SourceGeneration
             {
                 ConnectionProperties Properties;
                 if (level == (int)IsolationLevel.ReadCommitted)
+                {
                     SetAutoCommit(connection, false);
+                }
                 else if (level == (int)IsolationLevel.ReadUncommitted)
+                {
                     SetAutoCommit(connection, false);
+                }
                 else if (level == (int)IsolationLevel.RepeatableRead)
+                {
                     SetAutoCommit(connection, false);
+                }
                 else if (level == (int)IsolationLevel.Serializable)
+                {
                     SetAutoCommit(connection, false);
+                }
 
                 if (this[connection] != null)
                 {
@@ -148,9 +171,13 @@ namespace NHapi.SourceGeneration
                 {
                     ConnectionProperties Properties = (ConnectionProperties)this[connection];
                     if (Properties.TransactionLevel != 0)
+                    {
                         return (int)Properties.TransactionLevel;
+                    }
                     else
+                    {
                         return 2;
+                    }
                 }
                 else
                     return 2;
@@ -159,9 +186,13 @@ namespace NHapi.SourceGeneration
             public bool GetAutoCommit(OdbcConnection connection)
             {
                 if (this[connection] != null)
+                {
                     return ((ConnectionProperties)this[connection]).AutoCommit;
+                }
                 else
+                {
                     return true;
+                }
             }
 
             /// <summary>
@@ -174,7 +205,10 @@ namespace NHapi.SourceGeneration
             public void SetValue(DbCommand command, int parameterIndex, object parameter)
             {
                 if (command.Parameters.Count < parameterIndex)
+                {
                     command.Parameters.Add(command.CreateParameter());
+                }
+
                 command.Parameters[parameterIndex - 1].Value = parameter;
             }
 
@@ -187,7 +221,10 @@ namespace NHapi.SourceGeneration
             public void SetNull(DbCommand command, int parameterIndex, int sqlType)
             {
                 if (command.Parameters.Count < parameterIndex)
+                {
                     command.Parameters.Add(command.CreateParameter());
+                }
+
                 command.Parameters[parameterIndex - 1].Value = Convert.DBNull;
                 command.Parameters[parameterIndex - 1].DbType = (DbType)sqlType;
             }
@@ -203,7 +240,10 @@ namespace NHapi.SourceGeneration
             public void SetObject(DbCommand command, int parameterIndex, object parameter, int targetSqlType)
             {
                 if (command.Parameters.Count < parameterIndex)
+                {
                     command.Parameters.Add(command.CreateParameter());
+                }
+
                 command.Parameters[parameterIndex - 1].Value = parameter;
                 command.Parameters[parameterIndex - 1].DbType = (DbType)targetSqlType;
             }
@@ -218,7 +258,10 @@ namespace NHapi.SourceGeneration
             public void SetObject(DbCommand command, int parameterIndex, object parameter)
             {
                 if (command.Parameters.Count < parameterIndex)
+                {
                     command.Parameters.Add(command.CreateParameter());
+                }
+
                 command.Parameters[parameterIndex - 1].Value = parameter;
             }
 

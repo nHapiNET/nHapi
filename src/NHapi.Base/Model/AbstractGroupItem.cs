@@ -83,7 +83,9 @@ namespace NHapi.Base.Model
             set
             {
                 if (index > 0 && !_isRepeating)
+                {
                     throw new HL7Exception("Cannot add multiple strucutres to " + _name + ".  Item is non-repeating");
+                }
 
                 _structures[index] = value;
             }

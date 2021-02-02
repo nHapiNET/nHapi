@@ -37,7 +37,9 @@ namespace NHapi.SourceGeneration.Generators
             string baseClass = "NHapi.Base.Model.Primitive." + dataType;
 
             if (dataType.Equals("ST"))
+            {
                 baseClass = "AbstractPrimitive";
+            }
 
             StringBuilder sb = new StringBuilder();
             sb.Append("using System;\n\n");

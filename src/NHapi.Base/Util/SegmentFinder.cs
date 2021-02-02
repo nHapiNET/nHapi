@@ -134,7 +134,9 @@ namespace NHapi.Base.Util
             IStructure s = null;
 
             if (getCurrentStructure(0).Equals(Root))
+            {
                 drillDown(0);
+            }
 
             string[] names = getCurrentStructure(0).ParentStructure.Names;
             for (int i = 0; i < names.Length && s == null; i++)
@@ -147,7 +149,9 @@ namespace NHapi.Base.Util
             }
 
             if (s == null)
+            {
                 throw new HL7Exception("Can't find " + namePattern + " as a direct child", ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
 
             return s;
         }
@@ -162,7 +166,9 @@ namespace NHapi.Base.Util
             }
 
             if (!Regex.IsMatch(pattern, "[\\w\\*\\?]*"))
+            {
                 throw new ArgumentException("The pattern " + pattern + " is not valid.  Only [\\w\\*\\?]* allowed.");
+            }
 
             pattern = Regex.Replace(pattern, "\\*", ".*");
             pattern = Regex.Replace(pattern, "\\?", ".");

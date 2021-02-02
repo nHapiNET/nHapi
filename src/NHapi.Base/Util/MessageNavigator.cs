@@ -103,7 +103,9 @@ namespace NHapi.Base.Util
             get
             {
                 if (currentGroup == root && currentChild == -1)
+                {
                     throw new HL7Exception("Pointer is at root of navigator: there is no current child");
+                }
 
                 string childName = childNames[currentChild];
                 return currentGroup.GetAll(childName);
@@ -351,7 +353,9 @@ namespace NHapi.Base.Util
             for (int i = 0; i < list.Length && found == -1; i++)
             {
                 if (list[i].Equals(item))
+                {
                     found = i;
+                }
             }
 
             return found;
@@ -361,7 +365,9 @@ namespace NHapi.Base.Util
         private void findLeaf()
         {
             if (currentChild == -1)
+            {
                 currentChild = 0;
+            }
 
             Type c = currentGroup.GetClass(childNames[currentChild]);
             if (typeof(IGroup).IsAssignableFrom(c))

@@ -494,11 +494,18 @@ namespace NHapi.Base
         {
             int index = GetLength() - 1;
             while ((index >= 0) && ! ((Att_Instance) MainList[index]).att_fullName.Equals(Qname))
+            {
                 index--;
+            }
+
             if (index >= 0)
+            {
                 return index;
+            }
             else
+            {
                 return -1;
+            }
         }
 
         /// <summary>
@@ -513,11 +520,18 @@ namespace NHapi.Base
             while ((index >= 0) &&
                      !(((Att_Instance) MainList[index]).att_localName.Equals(Lname) &&
                         ((Att_Instance) MainList[index]).att_URI.Equals(Uri)))
+            {
                 index--;
+            }
+
             if (index >= 0)
+            {
                 return index;
+            }
             else
+            {
                 return -1;
+            }
         }
 
         /// <summary>
@@ -690,9 +704,14 @@ namespace NHapi.Base
             {
                 int pos = GetLength() - 1;
                 while ((pos >= 0) && ! ((Att_Instance) MainList[pos]).att_localName.Equals(indexName))
+                {
                     pos--;
+                }
+
                 if (pos >= 0)
+                {
                     MainList.RemoveAt(pos);
+                }
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -732,9 +751,13 @@ namespace NHapi.Base
         {
             int temp_Index = GetIndex(Qname);
             if (temp_Index != -1)
+            {
                 return ((Att_Instance)MainList[temp_Index]).att_type;
+            }
             else
+            {
                 return string.Empty;
+            }
         }
 
         /// <summary>
@@ -747,9 +770,13 @@ namespace NHapi.Base
         {
             int temp_Index = GetIndex(Uri, Lname);
             if (temp_Index != -1)
+            {
                 return ((Att_Instance)MainList[temp_Index]).att_type;
+            }
             else
+            {
                 return string.Empty;
+            }
         }
 
         /// <summary>
@@ -761,9 +788,13 @@ namespace NHapi.Base
         {
             int temp_Index = GetIndex(Qname);
             if (temp_Index != -1)
+            {
                 return ((Att_Instance)MainList[temp_Index]).att_value;
+            }
             else
+            {
                 return string.Empty;
+            }
         }
 
         /// <summary>
@@ -776,9 +807,13 @@ namespace NHapi.Base
         {
             int temp_Index = GetIndex(Uri, Lname);
             if (temp_Index != -1)
+            {
                 return ((Att_Instance)MainList[temp_Index]).att_value;
+            }
             else
+            {
                 return string.Empty;
+            }
         }
 
         /*******************************/
@@ -1162,10 +1197,16 @@ namespace NHapi.Base
             temp.isValidating = instance.isValidating;
             IXmlSaxContentHandler contentHandler = instance.getContentHandler();
             if (contentHandler != null)
+            {
                 temp.setContentHandler(contentHandler);
+            }
+
             IXmlSaxErrorHandler errorHandler = instance.getErrorHandler();
             if (errorHandler != null)
+            {
                 temp.setErrorHandler(errorHandler);
+            }
+
             temp.setFeature(
                 "http://xml.org/sax/features/namespaces",
                 instance.getFeature("http://xml.org/sax/features/namespaces"));
@@ -1384,9 +1425,15 @@ namespace NHapi.Base
             {
                 UpdateLocatorData(locator, (XmlTextReader)reader);
                 if (callBackHandler != null)
+                {
                     callBackHandler.setDocumentLocator(locator);
+                }
+
                 if (callBackHandler != null)
+                {
                     callBackHandler.startDocument();
+                }
+
                 while (reader.Read())
                 {
                     UpdateLocatorData(locator, (XmlTextReader)reader);
@@ -1419,7 +1466,9 @@ namespace NHapi.Base
                                     if (namespaceAllowed)
                                     {
                                         if (!IsXmlns)
+                                        {
                                             attributes.Add(reader.NamespaceURI, reader.LocalName, reader.Name, string.Empty + reader.NodeType, reader.Value);
+                                        }
                                     }
                                     else
                                         attributes.Add(string.Empty, string.Empty, reader.Name, string.Empty + reader.NodeType, reader.Value);
@@ -1434,7 +1483,9 @@ namespace NHapi.Base
                                             namespaceStack.Push(prefixName);
                                             prefixes.Add(namespaceURI, namespaceStack);
                                             if (callBackHandler != null)
+                                            {
                                                 ((IXmlSaxContentHandler)callBackHandler).startPrefixMapping(prefixName, namespaceTemp);
+                                            }
                                         }
                                         else
                                         {
@@ -1442,7 +1493,9 @@ namespace NHapi.Base
                                             {
                                                 ((Stack)prefixes[namespaceURI]).Push(prefixName);
                                                 if (callBackHandler != null)
+                                                {
                                                     ((IXmlSaxContentHandler)callBackHandler).startPrefixMapping(prefixName, reader.Value);
+                                                }
                                             }
                                         }
                                     }
@@ -1450,13 +1503,18 @@ namespace NHapi.Base
                             }
 
                             if (callBackHandler != null)
+                            {
                                 callBackHandler.startElement(namespaceURI, localName, name, attributes);
+                            }
+
                             if (Empty)
                             {
                                 if (NamespaceAllowed)
                                 {
                                     if (callBackHandler != null)
+                                    {
                                         callBackHandler.endElement(namespaceURI, localName, name);
+                                    }
                                 }
                                 else if (callBackHandler != null)
                                     callBackHandler.endElement(string.Empty, string.Empty, name);
@@ -1468,7 +1526,9 @@ namespace NHapi.Base
                             if (namespaceAllowed)
                             {
                                 if (callBackHandler != null)
+                                {
                                     callBackHandler.endElement(reader.NamespaceURI, reader.LocalName, reader.Name);
+                                }
                             }
                             else if (callBackHandler != null)
                                 callBackHandler.endElement(string.Empty, string.Empty, reader.Name);
@@ -1481,7 +1541,9 @@ namespace NHapi.Base
                                 {
                                     string tempString = (string)namespaceStack.Pop();
                                     if (callBackHandler != null)
+                                    {
                                         ((IXmlSaxContentHandler)callBackHandler).endPrefixMapping(tempString);
+                                    }
                                 }
 
                                 prefixes.Remove(reader.NamespaceURI);
@@ -1491,22 +1553,34 @@ namespace NHapi.Base
 
                         case XmlNodeType.Text:
                             if (callBackHandler != null)
+                            {
                                 callBackHandler.characters(reader.Value.ToCharArray(), 0, reader.Value.Length);
+                            }
+
                             break;
 
                         case XmlNodeType.Whitespace:
                             if (callBackHandler != null)
+                            {
                                 callBackHandler.ignorableWhitespace(reader.Value.ToCharArray(), 0, reader.Value.Length);
+                            }
+
                             break;
 
                         case XmlNodeType.ProcessingInstruction:
                             if (callBackHandler != null)
+                            {
                                 callBackHandler.processingInstruction(reader.Name, reader.Value);
+                            }
+
                             break;
 
                         case XmlNodeType.Comment:
                             if (lexical != null)
+                            {
                                 lexical.comment(reader.Value.ToCharArray(), 0, reader.Value.Length);
+                            }
+
                             break;
 
                         case XmlNodeType.CDATA:
@@ -1514,7 +1588,10 @@ namespace NHapi.Base
                             {
                                 lexical.startCDATA();
                                 if (callBackHandler != null)
+                                {
                                     callBackHandler.characters(reader.Value.ToCharArray(), 0, reader.Value.ToCharArray().Length);
+                                }
+
                                 lexical.endCDATA();
                             }
 
@@ -1526,7 +1603,10 @@ namespace NHapi.Base
                                 string lname = reader.Name;
                                 string systemId = null;
                                 if (reader.AttributeCount > 0)
+                                {
                                     systemId = reader.GetAttribute(0);
+                                }
+
                                 lexical.startDTD(lname, null, systemId);
                                 lexical.startEntity("[dtd]");
                                 lexical.endEntity("[dtd]");
@@ -1538,7 +1618,9 @@ namespace NHapi.Base
                 }
 
                 if (callBackHandler != null)
+                {
                     callBackHandler.endDocument();
+                }
             }
             catch (XmlException e)
             {
@@ -1566,7 +1648,9 @@ namespace NHapi.Base
                 else
                 {
                     if (callBackHandler == null)
+                    {
                         callBackHandler = handler;
+                    }
                 }
 
                 reader = CreateXmlReader(filepath);
@@ -1575,7 +1659,10 @@ namespace NHapi.Base
             catch (XmlException e)
             {
                 if (errorHandler != null)
+                {
                     errorHandler.fatalError(e);
+                }
+
                 throw e;
             }
         }
@@ -1638,7 +1725,9 @@ namespace NHapi.Base
                 else
                 {
                     if (callBackHandler == null)
+                    {
                         callBackHandler = handler;
+                    }
                 }
 
                 reader = CreateXmlReader(filepath);
@@ -1647,7 +1736,10 @@ namespace NHapi.Base
             catch (XmlException e)
             {
                 if (errorHandler != null)
+                {
                     errorHandler.fatalError(e);
+                }
+
                 throw e;
             }
         }
@@ -1672,7 +1764,9 @@ namespace NHapi.Base
                 else
                 {
                     if (callBackHandler == null)
+                    {
                         callBackHandler = handler;
+                    }
                 }
 
                 reader = CreateXmlReader(stream);
@@ -1681,7 +1775,10 @@ namespace NHapi.Base
             catch (XmlException e)
             {
                 if (errorHandler != null)
+                {
                     errorHandler.fatalError(e);
+                }
+
                 throw e;
             }
         }
@@ -1708,7 +1805,9 @@ namespace NHapi.Base
                 else
                 {
                     if (callBackHandler == null)
+                    {
                         callBackHandler = handler;
+                    }
                 }
 
                 reader = CreateXmlReader(stream, URI);
@@ -1717,7 +1816,10 @@ namespace NHapi.Base
             catch (XmlException e)
             {
                 if (errorHandler != null)
+                {
                     errorHandler.fatalError(e);
+                }
+
                 throw e;
             }
         }
@@ -1739,9 +1841,13 @@ namespace NHapi.Base
                 else
                 {
                     if (source.Uri != null)
+                    {
                         parse(source.Uri, handler);
+                    }
                     else
+                    {
                         throw new XmlException("The XmlSource class can't be null");
+                    }
                 }
             }
         }
@@ -1760,7 +1866,10 @@ namespace NHapi.Base
             catch (XmlException e)
             {
                 if (errorHandler != null)
+                {
                     errorHandler.fatalError(e);
+                }
+
                 throw e;
             }
         }
@@ -1779,7 +1888,10 @@ namespace NHapi.Base
             catch (XmlException e)
             {
                 if (errorHandler != null)
+                {
                     errorHandler.fatalError(e);
+                }
+
                 throw e;
             }
         }
@@ -1798,7 +1910,10 @@ namespace NHapi.Base
             catch (XmlException e)
             {
                 if (errorHandler != null)
+                {
                     errorHandler.fatalError(e);
+                }
+
                 throw e;
             }
         }
@@ -1819,7 +1934,10 @@ namespace NHapi.Base
             catch (XmlException e)
             {
                 if (errorHandler != null)
+                {
                     errorHandler.fatalError(e);
+                }
+
                 throw e;
             }
         }
@@ -1840,9 +1958,13 @@ namespace NHapi.Base
                 else
                 {
                     if (source.Uri != null)
+                    {
                         parse(source.Uri);
+                    }
                     else
+                    {
                         throw new XmlException("The XmlSource class can't be null");
+                    }
                 }
             }
         }
@@ -1878,9 +2000,13 @@ namespace NHapi.Base
         public virtual void setContentHandler(IXmlSaxContentHandler handler)
         {
             if (handler != null)
+            {
                 callBackHandler = handler;
+            }
             else
+            {
                 throw new XmlException("Error assigning the Content handler: a null Content Handler was received");
+            }
         }
 
         /// <summary>
@@ -1890,9 +2016,13 @@ namespace NHapi.Base
         public virtual void setErrorHandler(IXmlSaxErrorHandler handler)
         {
             if (handler != null)
+            {
                 errorHandler = handler;
+            }
             else
+            {
                 throw new XmlException("Error assigning the Error handler: a null Error Handler was received");
+            }
         }
 
         /// <summary>
@@ -2021,10 +2151,15 @@ namespace NHapi.Base
                     // Get the "add" method for proprietary classes
                     method = c.GetType().GetMethod("Add");
                     if (method == null)
+                    {
                         method = c.GetType().GetMethod("add");
+                    }
+
                     int index = (int)method.Invoke(c, new object[] { obj });
                     if (index >= 0)
+                    {
                         added = true;
+                    }
                 }
                 catch (Exception e)
                 {
@@ -2084,7 +2219,9 @@ namespace NHapi.Base
                     method = c.GetType().GetMethod("Clear");
 
                     if (method == null)
+                    {
                         method = c.GetType().GetMethod("clear");
+                    }
 
                     method.Invoke(c, new object[] { });
                 }
@@ -2111,7 +2248,9 @@ namespace NHapi.Base
                     method = c.GetType().GetMethod("Contains");
 
                     if (method == null)
+                    {
                         method = c.GetType().GetMethod("contains");
+                    }
 
                     contains = (bool)method.Invoke(c, new object[] { obj });
                 }
@@ -2149,7 +2288,9 @@ namespace NHapi.Base
                         while (e.MoveNext() == true)
                         {
                             if ((contains = (bool)method.Invoke(target, new object[] { e.Current })) == false)
+                            {
                                 break;
+                            }
                         }
                     }
                 }
@@ -2221,7 +2362,9 @@ namespace NHapi.Base
                         while (e.MoveNext() == true)
                         {
                             while ((bool)methodContains.Invoke(target, new object[] { e.Current }) == true)
+                            {
                                 method.Invoke(target, new object[] { e.Current });
+                            }
                         }
                     }
                 }
@@ -2259,7 +2402,9 @@ namespace NHapi.Base
                         while (e.MoveNext() == true)
                         {
                             if (al.Contains(e.Current) == false)
+                            {
                                 method.Invoke(target, new object[] { e.Current });
+                            }
                         }
                     }
                 }
@@ -2282,7 +2427,9 @@ namespace NHapi.Base
                 IEnumerator e = c.GetEnumerator();
 
                 while (e.MoveNext())
+                {
                     objects[index++] = e.Current;
+                }
 
                 return objects;
             }
@@ -2303,11 +2450,15 @@ namespace NHapi.Base
                 IEnumerator e = c.GetEnumerator();
 
                 while (e.MoveNext())
+                {
                     objs[index++] = e.Current;
+                }
 
                 // If objects is smaller than c then do not return the new array in the parameter
                 if (objects.Length >= c.Count)
+                {
                     objs.CopyTo(objects, 0);
+                }
 
                 return objs;
             }
@@ -2322,7 +2473,10 @@ namespace NHapi.Base
                 ArrayList tempArrayList = new ArrayList();
                 IEnumerator tempEnumerator = c.GetEnumerator();
                 while (tempEnumerator.MoveNext())
+                {
                     tempArrayList.Add(tempEnumerator.Current);
+                }
+
                 return tempArrayList;
             }
         }
@@ -2402,7 +2556,9 @@ namespace NHapi.Base
                 while (e.MoveNext() == true)
                 {
                     if (Add(e.Current) == true)
+                    {
                         added = true;
+                    }
                 }
 
                 return added;
@@ -2819,9 +2975,9 @@ namespace NHapi.Base
                     if (this[calendar] != null)
                     {
                         if (((CalendarProperties)this[calendar]).dateTimeFormat == null)
+                        {
                             ((CalendarProperties)this[calendar]).dateTimeFormat = new DateTimeFormatInfo();
-
-                        ((CalendarProperties)this[calendar]).dateTimeFormat.FirstDayOfWeek = firstDayOfWeek;
+                        } ((CalendarProperties)this[calendar]).dateTimeFormat.FirstDayOfWeek = firstDayOfWeek;
                     }
                     else
                     {
@@ -2840,7 +2996,9 @@ namespace NHapi.Base
                 public void Clear(Calendar calendar)
                 {
                     if (this[calendar] != null)
+                    {
                         Remove(calendar);
+                    }
                 }
 
                 /// <summary>
@@ -2852,7 +3010,9 @@ namespace NHapi.Base
                 public void Clear(Calendar calendar, int field)
                 {
                     if (this[calendar] != null)
+                    {
                         Set(calendar, field, 0);
+                    }
                 }
 
                 /// <summary>
@@ -2965,7 +3125,9 @@ namespace NHapi.Base
                 set
                 {
                     if (threadField.Name == null)
+                    {
                         threadField.Name = value;
+                    }
                 }
             }
 
@@ -3157,16 +3319,22 @@ namespace NHapi.Base
 
                 // at the end
                 if (currentPos == chars.Length)
+                {
                     throw new ArgumentOutOfRangeException();
+                }
 
                 // if over a delimiter and delimiters must be returned
                 else if ((Array.IndexOf(delimiters.ToCharArray(), chars[currentPos]) != -1)
                             && includeDelims)
+                {
                     return string.Empty + chars[currentPos++];
+                }
 
                 // need to get the token wo delimiters.
                 else
+                {
                     return nextToken(delimiters.ToCharArray());
+                }
             }
 
             // Returns the nextToken wo delimiters
@@ -3194,7 +3362,9 @@ namespace NHapi.Base
 
                     // the last one is not a delimiter
                     if (++currentPos == chars.Length)
+                    {
                         break;
+                    }
                 }
 
                 return token.ToString();
@@ -3301,9 +3471,13 @@ namespace NHapi.Base
         public static long FileLength(FileInfo file)
         {
             if (file.Exists)
+            {
                 return file.Length;
+            }
             else
+            {
                 return 0;
+            }
         }
     }
 }

@@ -110,7 +110,9 @@ namespace NHapi.SourceGeneration.Generators
             foreach (string type in types.Cast<string>())
             {
                 if (!type.Equals("*"))
+                {
                     make(targetDir, type, version);
+                }
             }
         }
 
@@ -126,7 +128,9 @@ namespace NHapi.SourceGeneration.Generators
 
             // make sure that targetDirectory is a directory ...
             if (!Directory.Exists(targetDirectory.FullName))
+            {
                 throw new IOException("Can't create file in " + targetDirectory + " - it is not a directory.");
+            }
 
             // get any components for this data type
             OdbcConnection conn = NormativeDatabase.Instance.Connection;
@@ -162,19 +166,25 @@ namespace NHapi.SourceGeneration.Generators
             while (rs.Read())
             {
                 if (description == null)
+                {
                     description = Convert.ToString(rs[3 - 1]);
+                }
 
                 string de = Convert.ToString(rs[5 - 1]);
                 string dt = Convert.ToString(rs[8 - 1]);
                 int ta = -1;
                 if (!rs.IsDBNull(4 - 1))
+                {
                     ta = rs.GetInt32(4 - 1);
+                }
 
                 // trim all CE_x to CE
                 if (dt != null)
                 {
                     if (dt.StartsWith("CE"))
+                    {
                         dt = "CE";
+                    }
                 }
 
                 // System.out.println("Component: " + de + "  Data Type: " + dt);  //for debugging
@@ -307,9 +317,14 @@ namespace NHapi.SourceGeneration.Generators
             source.Append("\tpublic string getVersion() {\r\n");
             source.Append("\t    return \"");
             if (version.IndexOf("UCH") > -1)
+            {
                 source.Append("2.3");
+            }
             else
+            {
                 source.Append(version);
+            }
+
             source.Append("\";\r\n");
             source.Append("}\r\n");
             source.Append("}\r\n");

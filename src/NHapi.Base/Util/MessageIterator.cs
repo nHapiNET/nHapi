@@ -289,11 +289,15 @@ namespace NHapi.Base.Util
                     {
                         matchExists = contains(pos.parent.GetStructure(siblings[i]), name, firstDescendentsOnly, upToFirstRequired);
                         if (upToFirstRequired && pos.parent.IsRequired(siblings[i]))
+                        {
                             break;
+                        }
                     }
 
                     if (pos.index.name.Equals(siblings[i]))
+                    {
                         after = true;
+                    }
                 }
             }
 
@@ -342,7 +346,9 @@ namespace NHapi.Base.Util
             if (typeof(ISegment).IsAssignableFrom(s.GetType()))
             {
                 if (s.GetStructureName().Equals(name))
+                {
                     contains = true;
+                }
             }
             else
             {
@@ -354,9 +360,14 @@ namespace NHapi.Base.Util
                     {
                         contains = MessageIterator.contains(g.GetStructure(names[i], 0), name, firstDescendentsOnly, upToFirstRequired);
                         if (firstDescendentsOnly)
+                        {
                             break;
+                        }
+
                         if (upToFirstRequired && g.IsRequired(names[i]))
+                        {
                             break;
+                        }
                     }
                     catch (HL7Exception e)
                     {
@@ -476,7 +487,9 @@ namespace NHapi.Base.Util
                 {
                     Index i = (Index)o;
                     if (i.rep == rep && i.name.Equals(name))
+                    {
                         equals = true;
+                    }
                 }
 
                 return equals;
@@ -549,7 +562,9 @@ namespace NHapi.Base.Util
                 {
                     Position p = (Position)o;
                     if (p.parent.Equals(parent) && p.index.Equals(index))
+                    {
                         equals = true;
+                    }
                 }
 
                 return equals;

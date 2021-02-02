@@ -151,11 +151,15 @@ namespace NHapi.Base.Parser
             for (int i = 0; i < expected.Length; i++)
             {
                 if (message.IndexOf(expected[i]) < 0)
+                {
                     isXML = false;
+                }
             }
 
             if (isXML)
+            {
                 encoding = "XML";
+            }
 
             return encoding;
         }
@@ -242,7 +246,10 @@ namespace NHapi.Base.Parser
         protected internal override string DoEncode(IMessage source, string encoding)
         {
             if (!encoding.Equals("XML"))
+            {
                 throw new EncodingNotSupportedException("XMLParser supports only XML encoding");
+            }
+
             return Encode(source);
         }
 
@@ -469,7 +476,10 @@ namespace NHapi.Base.Parser
         protected internal virtual bool KeepAsOriginal(XmlNode node)
         {
             if (node.Name == null)
+            {
                 return false;
+            }
+
             return concatKeepAsOriginalNodes.IndexOf(node.Name) != -1;
         }
 
@@ -596,7 +606,9 @@ namespace NHapi.Base.Parser
         {
             bool hasValue = false;
             if (datatypeObject.Value != null && !datatypeObject.Value.Equals(string.Empty))
+            {
                 hasValue = true;
+            }
 
             XmlText t = datatypeElement.OwnerDocument.CreateTextNode(datatypeObject.Value);
             if (hasValue)

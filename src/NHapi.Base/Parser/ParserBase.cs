@@ -358,7 +358,9 @@ namespace NHapi.Base.Parser
             string structure = null;
 
             if (!ValidVersion(version))
+            {
                 throw new HL7Exception("The version " + version + " is unknown");
+            }
 
             NameValueCollection p = null;
             try
@@ -371,7 +373,9 @@ namespace NHapi.Base.Parser
             }
 
             if (p == null)
+            {
                 throw new HL7Exception("No map found for version " + version);
+            }
 
             structure = p.Get(name);
 

@@ -105,7 +105,9 @@ namespace NHapi.SourceGeneration
             while (c < values.Length && !exists)
             {
                 if (value_Renamed.Equals(values[c++]))
+                {
                     exists = true;
+                }
             }
 
             return exists;
@@ -156,7 +158,9 @@ namespace NHapi.SourceGeneration
                 }
 
                 if (c == 0)
+                {
                     throw new UndefinedTableException("No values found for table " + table);
+                }
 
                 values = new string[c];
                 Array.Copy(roomyValues, 0, values, 0, c);

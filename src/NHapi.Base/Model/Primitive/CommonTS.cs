@@ -189,9 +189,14 @@ namespace NHapi.Base.Model.Primitive
                         }
 
                         if (sp != -1)
+                        {
                             indexOfSign = sp;
+                        }
+
                         if (sm != -1)
+                        {
                             indexOfSign = sm;
+                        }
 
                         if (offsetExists == false)
                         {

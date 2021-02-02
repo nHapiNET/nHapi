@@ -101,7 +101,9 @@ namespace NHapi.SourceGeneration
             try
             {
                 if (_conn.State != ConnectionState.Open)
+                {
                     _conn.Open();
+                }
             }
             catch (Exception)
             {
@@ -116,7 +118,10 @@ namespace NHapi.SourceGeneration
             {
                 _connectionString = conn;
                 if (_conn.State == ConnectionState.Open)
+                {
                     _conn.Close();
+                }
+
                 _conn.ConnectionString = conn;
                 _conn.Open();
             }

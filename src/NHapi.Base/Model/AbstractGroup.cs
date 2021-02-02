@@ -286,10 +286,15 @@ namespace NHapi.Base.Model
         {
             string version = Message.Version;
             if (version == null)
+            {
                 throw new HL7Exception("Need message version to add segment by name; message.getVersion() returns null");
+            }
+
             Type c = myFactory.GetSegmentClass(name, version);
             if (c == null)
+            {
                 c = typeof(GenericSegment);
+            }
 
             int index = Names.Length;
 
@@ -350,7 +355,10 @@ namespace NHapi.Base.Model
             bool exists = false;
             AbstractGroupItem item = GetGroupItem(name);
             if (item != null)
+            {
                 exists = true;
+            }
+
             return exists;
         }
 

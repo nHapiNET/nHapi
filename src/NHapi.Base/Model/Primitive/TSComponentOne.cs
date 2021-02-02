@@ -266,7 +266,10 @@ namespace NHapi.Base.Model.Primitive
                 DateTime val = DateTime.MinValue;
                 CultureInfo culture = Thread.CurrentThread.CurrentCulture;
                 if (Value != null && Value.Length > 0)
+                {
                     val = DateTime.ParseExact(Value, dateFormats, culture, DateTimeStyles.NoCurrentDateDefault);
+                }
+
                 return val;
             }
             catch (Exception)

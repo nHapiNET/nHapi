@@ -110,7 +110,9 @@ namespace NHapi.Base.Parser
                 {
                     encodeCharacter = false;
                     if (textAsChar[i].Equals(encChars.EscapeCharacter))
+                    {
                         isEncodingSpecialCharacterSequence = false;
+                    }
                 }
                 else
                 {
@@ -190,15 +192,23 @@ namespace NHapi.Base.Parser
                 }
 
                 if (encodeCharacter)
+                {
                     result.Append(specialCharacters[textAsChar[i]]);
+                }
                 else
+                {
                     result.Append(textAsChar[i]);
+                }
             }
 
             if (result.Length > 0)
+            {
                 return result.ToString().Trim();
+            }
             else
+            {
                 return string.Empty;
+            }
         }
 
         /// <summary>

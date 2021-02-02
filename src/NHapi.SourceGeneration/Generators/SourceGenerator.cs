@@ -103,9 +103,14 @@ namespace NHapi.SourceGeneration.Generators
             for (int i = 0; i < chars.Length; i++)
             {
                 if (chars[i] == '(')
+                {
                     inBrackets++;
+                }
+
                 if (chars[i] == ')')
+                {
                     inBrackets--;
+                }
 
                 if (char.IsLetterOrDigit(chars[i]))
                 {
@@ -180,7 +185,9 @@ namespace NHapi.SourceGeneration.Generators
         {
             string name = MakeName(fieldDesc);
             if (repitions != 1 && !name.StartsWith("Get"))
+            {
                 name = "Get" + name;
+            }
 
             return name;
         }
@@ -198,12 +205,20 @@ namespace NHapi.SourceGeneration.Generators
             string filtered = string.Empty;
             bool isDataType = true;
             if (!text.Equals(text.ToUpper()))
+            {
                 isDataType = false;
+            }
+
             if (text.Length < 2 || text.Length > 3)
+            {
                 isDataType = false;
+            }
 
             if (!isDataType)
+            {
                 filtered = text;
+            }
+
             return filtered;
         }
 
@@ -225,9 +240,13 @@ namespace NHapi.SourceGeneration.Generators
         {
             SupportClass.Tokenizer tok = new SupportClass.Tokenizer(directory, "\\/", false);
             if (!Directory.Exists(directory))
+            {
                 return new FileInfo(Directory.CreateDirectory(directory).FullName);
+            }
             else
+            {
                 return new FileInfo(directory);
+            }
         }
 
         /// <summary> <p>Returns either the given data type name or an alternate data type that Composites
@@ -246,7 +265,9 @@ namespace NHapi.SourceGeneration.Generators
 
             // convert to varies to Varies
             if (ret.Equals("varies"))
+            {
                 ret = "Varies";
+            }
 
             // Valid.. classes are removed as of HAPI 0.3 (validating code implemented directly in Primitive classes
             /*try {

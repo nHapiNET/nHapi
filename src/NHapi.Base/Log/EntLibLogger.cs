@@ -123,15 +123,21 @@ namespace NHapi.Base.Log
         {
             bool writeTrace = false;
             if (_traceSwitch.Level >= severity)
+            {
                 writeTrace = true;
+            }
 
             if (writeTrace)
             {
                 Exception ex;
                 if (message == null)
+                {
                     ex = t;
+                }
                 else
+                {
                     ex = new Exception(message.ToString(), t);
+                }
 
                 WriteTrace(_traceSwitch, ex, category);
             }
@@ -140,9 +146,13 @@ namespace NHapi.Base.Log
         private static void WriteTrace(TraceSwitch ts, Exception ex, string category)
         {
             if (category == null)
+            {
                 System.Diagnostics.Trace.WriteLine(ex);
+            }
             else
+            {
                 System.Diagnostics.Trace.WriteLine(ex, category);
+            }
         }
     }
 }

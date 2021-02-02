@@ -57,7 +57,10 @@ namespace NHapi.Base.Model
             _required = required;
             _maxReps = maxReps;
             if (constructorArgs != null)
+            {
                 _args.AddRange(constructorArgs);
+            }
+
             _description = description;
         }
 
@@ -101,9 +104,13 @@ namespace NHapi.Base.Model
             get
             {
                 if (_maxReps <= 0)
+                {
                     return int.MaxValue;
+                }
                 else
+                {
                     return _maxReps;
+                }
             }
 
             set { _maxReps = value; }

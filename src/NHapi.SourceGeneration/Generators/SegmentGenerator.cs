@@ -78,7 +78,9 @@ namespace NHapi.SourceGeneration.Generators
             {
                 string segName = Convert.ToString(rs[1 - 1]);
                 if (char.IsLetter(segName[0]))
+                {
                     segments.Add(altSegName(segName));
+                }
             }
 
             temp_OleDbCommand.Dispose();
@@ -117,7 +119,10 @@ namespace NHapi.SourceGeneration.Generators
         private static string GetSpecialFilename(string seg)
         {
             if (seg.Equals("CON"))
+            {
                 return "CON1";
+            }
+
             return seg;
         }
 
@@ -130,7 +135,10 @@ namespace NHapi.SourceGeneration.Generators
         {
             string ret = segmentName;
             if (ret.Equals("Z.."))
+            {
                 ret = "Z";
+            }
+
             return ret;
         }
 
@@ -171,14 +179,21 @@ namespace NHapi.SourceGeneration.Generators
                 while (rs.Read())
                 {
                     if (segDesc == null)
+                    {
                         segDesc = Convert.ToString(rs[9 - 1]);
+                    }
+
                     se = new SegmentElement();
                     se.field = Convert.ToInt32(rs.GetValue(2 - 1));
                     se.rep = Convert.ToString(rs[3 - 1]);
                     if (rs.IsDBNull(4 - 1))
+                    {
                         se.repetitions = 0;
+                    }
                     else
+                    {
                         se.repetitions = Convert.ToInt32(rs.GetValue(4 - 1));
+                    }
 
                     if (se.repetitions == 0)
                     {
@@ -200,7 +215,9 @@ namespace NHapi.SourceGeneration.Generators
 
                     // shorten CE_x to CE
                     if (se.type.StartsWith("CE"))
+                    {
                         se.type = "CE";
+                    }
 
                     elements.Add(se);
                     /*System.out.println("Segment: " + name + " Field: " + se.field + " Rep: " + se.rep +
@@ -362,7 +379,10 @@ namespace NHapi.SourceGeneration.Generators
                         source.Append("\t///<summary>\r\n");
                         source.Append("\t/// Returns ");
                         if (se.repetitions != 1)
+                        {
                             source.Append("a single repetition of ");
+                        }
+
                         source.Append(se.GetDescriptionWithoutSpecialCharacters());
                         source.Append("(");
                         source.Append(name);
@@ -381,10 +401,16 @@ namespace NHapi.SourceGeneration.Generators
                         source.Append(" ");
                         source.Append(SourceGenerator.MakeAccessorName(se.desc, se.repetitions) + se.AccessorNameToAppend);
                         if (se.repetitions != 1)
+                        {
                             source.Append("(int rep)");
+                        }
+
                         source.Append("\n\t{\r\n");
                         if (se.repetitions == 1)
+                        {
                             source.Append("\t\tget{\r\n");
+                        }
+
                         source.Append("\t\t\t");
                         source.Append(type);
                         source.Append(" ret = null;\r\n");
@@ -420,7 +446,10 @@ namespace NHapi.SourceGeneration.Generators
                         source.Append("    }\r\n");
                         source.Append("\t\t\treturn ret;\r\n");
                         if (se.repetitions == 1)
+                        {
                             source.Append("\t}\r\n"); // End get
+                        }
+
                         source.Append("  }\r\n\r\n");
 
                         // add an array accessor as well for repeating fields
