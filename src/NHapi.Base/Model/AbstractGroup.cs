@@ -166,7 +166,8 @@ namespace NHapi.Base.Model
             AbstractGroupItem item = GetGroupItem(name);
 
             if (item == null)
-                throw new HL7Exception(name + " does not exist in the group " + GetType().FullName,
+                throw new HL7Exception(
+                    name + " does not exist in the group " + GetType().FullName,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
 
             IStructure ret;
@@ -207,7 +208,8 @@ namespace NHapi.Base.Model
             AbstractGroupItem item = GetGroupItem(name);
 
             if (item == null)
-                throw new HL7Exception(name + " does not exist in the group " + GetType().FullName,
+                throw new HL7Exception(
+                    name + " does not exist in the group " + GetType().FullName,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
 
             // Verify that Structure is repeating ...
@@ -231,7 +233,8 @@ namespace NHapi.Base.Model
             AbstractGroupItem item = GetGroupItem(name);
 
             if (item == null)
-                throw new HL7Exception(name + " does not exist in the group " + GetType().FullName,
+                throw new HL7Exception(
+                    name + " does not exist in the group " + GetType().FullName,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
 
             item.Structures.Remove(toRemove);
@@ -246,7 +249,8 @@ namespace NHapi.Base.Model
             AbstractGroupItem item = GetGroupItem(name);
             if (item == null)
             {
-                throw new HL7Exception("The structure " + name + " does not exist in the group " + GetType().FullName,
+                throw new HL7Exception(
+                    "The structure " + name + " does not exist in the group " + GetType().FullName,
                      ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -378,7 +382,8 @@ namespace NHapi.Base.Model
 
                     if (!(o is IStructure))
                     {
-                        throw new HL7Exception("Class " + c.FullName + " does not implement " + "ca.on.uhn.hl7.message.Structure",
+                        throw new HL7Exception(
+                            "Class " + c.FullName + " does not implement " + "ca.on.uhn.hl7.message.Structure",
                             ErrorCode.APPLICATION_INTERNAL_ERROR);
                     }
 
@@ -405,7 +410,8 @@ namespace NHapi.Base.Model
         {
             AbstractGroupItem item = GetGroupItem(name);
             if (item == null)
-                throw new HL7Exception("The structure " + name + " does not exist in the group " + GetType().FullName,
+                throw new HL7Exception(
+                    "The structure " + name + " does not exist in the group " + GetType().FullName,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             return item.IsRequired;
         }
@@ -415,7 +421,8 @@ namespace NHapi.Base.Model
         {
             AbstractGroupItem item = GetGroupItem(name);
             if (item == null)
-                throw new HL7Exception("The structure " + name + " does not exist in the group " + GetType().FullName,
+                throw new HL7Exception(
+                    "The structure " + name + " does not exist in the group " + GetType().FullName,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             return item.IsRepeating;
         }
@@ -425,7 +432,8 @@ namespace NHapi.Base.Model
         {
             AbstractGroupItem item = GetGroupItem(name);
             if (item == null)
-                throw new HL7Exception("The structure " + name + " does not exist in the group " + GetType().FullName,
+                throw new HL7Exception(
+                    "The structure " + name + " does not exist in the group " + GetType().FullName,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             return item.Structures.Count;
         }
@@ -441,7 +449,8 @@ namespace NHapi.Base.Model
         {
             AbstractGroupItem item = GetGroupItem(name);
             if (item == null)
-                throw new HL7Exception("The structure " + name + " does not exist in the group " + GetType().FullName,
+                throw new HL7Exception(
+                    "The structure " + name + " does not exist in the group " + GetType().FullName,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             IStructure[] all = new IStructure[item.Structures.Count];
             for (int i = 0; i < item.Structures.Count; i++)

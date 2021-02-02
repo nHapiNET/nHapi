@@ -219,7 +219,8 @@ namespace NHapi.Base.Parser
             string wholeFieldNine;
             try
             {
-                string[] fields = Split(message.Substring(0, (Math.Max(message.IndexOf(segDelim), message.Length)) - (0)),
+                string[] fields = Split(
+                    message.Substring(0, (Math.Max(message.IndexOf(segDelim), message.Length)) - (0)),
                     Convert.ToString(ec.FieldSeparator));
                 wholeFieldNine = fields[8];
 
@@ -632,7 +633,8 @@ namespace NHapi.Base.Parser
             }
 
             if (encCharString.Length != 4)
-                throw new HL7Exception("Encoding characters '" + encCharString + "' invalid -- must be 4 characters",
+                throw new HL7Exception(
+                    "Encoding characters '" + encCharString + "' invalid -- must be 4 characters",
                     ErrorCode.DATA_TYPE_ERROR);
             EncodingCharacters en = new EncodingCharacters(fieldSep, encCharString);
 
@@ -884,7 +886,8 @@ namespace NHapi.Base.Parser
             }
             else
             {
-                throw new HL7Exception("Can't find encoding characters - MSH has only " + fields.Length + " fields",
+                throw new HL7Exception(
+                    "Can't find encoding characters - MSH has only " + fields.Length + " fields",
                     ErrorCode.REQUIRED_FIELD_MISSING);
             }
 
@@ -895,7 +898,8 @@ namespace NHapi.Base.Parser
             }
             else
             {
-                throw new HL7Exception("Can't find version ID - MSH has only " + fields.Length + " fields.",
+                throw new HL7Exception(
+                    "Can't find version ID - MSH has only " + fields.Length + " fields.",
                     ErrorCode.REQUIRED_FIELD_MISSING);
             }
 

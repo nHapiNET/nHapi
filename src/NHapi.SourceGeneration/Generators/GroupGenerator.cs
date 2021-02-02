@@ -181,7 +181,8 @@ namespace NHapi.SourceGeneration.Generators
             }
             catch (ArgumentException e)
             {
-                throw new HL7Exception("Problem creating nested group: " + e.GetType().FullName + ": " + e.Message,
+                throw new HL7Exception(
+                    "Problem creating nested group: " + e.GetType().FullName + ": " + e.Message,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 

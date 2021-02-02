@@ -575,7 +575,8 @@ namespace NHapi.SourceGeneration.Generators
                 {
                     string source = makeSegment(args[1], "2.4");
                     StreamWriter w =
-                        new StreamWriter(new StreamWriter(args[0] + "/" + args[1] + ".java", false, Encoding.Default).BaseStream,
+                        new StreamWriter(
+                            new StreamWriter(args[0] + "/" + args[1] + ".java", false, Encoding.Default).BaseStream,
                             new StreamWriter(args[0] + "/" + args[1] + ".java", false, Encoding.Default).Encoding);
                     w.Write(source);
                     w.Flush();

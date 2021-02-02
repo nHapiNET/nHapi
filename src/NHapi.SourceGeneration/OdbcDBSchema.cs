@@ -117,7 +117,8 @@ namespace NHapi.SourceGeneration
         public DataTable GetProcedures(string catalog, string schemaPattern, string procedureNamePattern)
         {
             OpenConnection();
-            schemaData = Connection.GetSchema("Procedures",
+            schemaData = Connection.GetSchema(
+                "Procedures",
                 new[] { catalog, schemaPattern, procedureNamePattern, null });
             CloseConnection();
             return schemaData;
@@ -135,7 +136,8 @@ namespace NHapi.SourceGeneration
             string columnNamePattern)
         {
             OpenConnection();
-            schemaData = Connection.GetSchema("Procedure_Parameters",
+            schemaData = Connection.GetSchema(
+                "Procedure_Parameters",
                 new[] { catalog, schemaPattern, procedureNamePattern, columnNamePattern });
             CloseConnection();
             return schemaData;
@@ -152,13 +154,15 @@ namespace NHapi.SourceGeneration
         public DataTable GetTables(string catalog, string schemaPattern, string tableNamePattern, string[] types)
         {
             OpenConnection();
-            schemaData = Connection.GetSchema("Tables",
+            schemaData = Connection.GetSchema(
+                "Tables",
                 new[] { catalog, schemaPattern, tableNamePattern, types[0] });
             if (types != null)
             {
                 for (int i = 1; i < types.Length; i++)
                 {
-                    DataTable temp_Table = Connection.GetSchema("Tables",
+                    DataTable temp_Table = Connection.GetSchema(
+                        "Tables",
                         new[] { catalog, schemaPattern, tableNamePattern, types[i] });
                     for (int j = 0; j < temp_Table.Rows.Count; j++)
                     {
@@ -181,7 +185,8 @@ namespace NHapi.SourceGeneration
         public DataTable GetTablePrivileges(string catalog, string schemaPattern, string tableNamePattern)
         {
             OpenConnection();
-            schemaData = Connection.GetSchema("Table_Privileges",
+            schemaData = Connection.GetSchema(
+                "Table_Privileges",
                 new[] { catalog, schemaPattern, tableNamePattern });
             CloseConnection();
             return schemaData;
@@ -231,7 +236,8 @@ namespace NHapi.SourceGeneration
         public DataTable GetColumns(string catalog, string schemaPattern, string tableNamePattern, string columnNamePattern)
         {
             OpenConnection();
-            schemaData = Connection.GetSchema("Columns",
+            schemaData = Connection.GetSchema(
+                "Columns",
                 new[] { catalog, schemaPattern, tableNamePattern, columnNamePattern });
             CloseConnection();
             return schemaData;
@@ -278,7 +284,8 @@ namespace NHapi.SourceGeneration
         public DataTable GetColumnPrivileges(string catalog, string schema, string table, string columnNamePattern)
         {
             OpenConnection();
-            schemaData = Connection.GetSchema("Column_Privileges",
+            schemaData = Connection.GetSchema(
+                "Column_Privileges",
                 new[] { catalog, schema, table, columnNamePattern });
             CloseConnection();
             return schemaData;

@@ -222,7 +222,8 @@ namespace NHapi.Base.Util
             }
             else
             {
-                throw new HL7Exception("Can't advance to child " + child + " -- only " + childNames.Length + " children",
+                throw new HL7Exception(
+                    "Can't advance to child " + child + " -- only " + childNames.Length + " children",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
         }
@@ -299,7 +300,8 @@ namespace NHapi.Base.Util
             }
             else
             {
-                throw new HL7Exception("End of message reached while iterating without loop",
+                throw new HL7Exception(
+                    "End of message reached while iterating without loop",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
         }

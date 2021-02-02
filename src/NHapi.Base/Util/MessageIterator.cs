@@ -57,7 +57,8 @@ namespace NHapi.Base.Util
 
                 try
                 {
-                    currentStructure = next_Renamed_Field.parent.GetStructure(next_Renamed_Field.index.name,
+                    currentStructure = next_Renamed_Field.parent.GetStructure(
+                        next_Renamed_Field.index.name,
                         next_Renamed_Field.index.rep);
                 }
                 catch (HL7Exception e)

@@ -47,7 +47,8 @@ namespace NHapi.Base.Model
         {
             if (!typeof(IType).IsAssignableFrom(t))
             {
-                throw new HL7Exception("Class " + t.FullName + " does not inherit from " + "NHapi.Base.Model.IType",
+                throw new HL7Exception(
+                    "Class " + t.FullName + " does not inherit from " + "NHapi.Base.Model.IType",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 

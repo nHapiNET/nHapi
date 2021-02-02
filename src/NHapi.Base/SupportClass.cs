@@ -1166,13 +1166,17 @@ namespace NHapi.Base
             IXmlSaxErrorHandler errorHandler = instance.getErrorHandler();
             if (errorHandler != null)
                 temp.setErrorHandler(errorHandler);
-            temp.setFeature("http://xml.org/sax/features/namespaces",
+            temp.setFeature(
+                "http://xml.org/sax/features/namespaces",
                 instance.getFeature("http://xml.org/sax/features/namespaces"));
-            temp.setFeature("http://xml.org/sax/features/namespace-prefixes",
+            temp.setFeature(
+                "http://xml.org/sax/features/namespace-prefixes",
                 instance.getFeature("http://xml.org/sax/features/namespace-prefixes"));
-            temp.setFeature("http://xml.org/sax/features/validation",
+            temp.setFeature(
+                "http://xml.org/sax/features/validation",
                 instance.getFeature("http://xml.org/sax/features/validation"));
-            temp.setProperty("http://xml.org/sax/properties/lexical-handler",
+            temp.setProperty(
+                "http://xml.org/sax/properties/lexical-handler",
                 instance.getProperty("http://xml.org/sax/properties/lexical-handler"));
             temp.parserFileName = instance.parserFileName;
             return temp;

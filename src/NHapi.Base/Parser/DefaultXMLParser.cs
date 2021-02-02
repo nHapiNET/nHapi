@@ -60,7 +60,8 @@ namespace NHapi.Base.Parser
             }
             catch (Exception e)
             {
-                throw new HL7Exception("Can't create XML document - " + e.GetType().FullName,
+                throw new HL7Exception(
+                    "Can't create XML document - " + e.GetType().FullName,
                     ErrorCode.APPLICATION_INTERNAL_ERROR, e);
             }
 
@@ -106,7 +107,8 @@ namespace NHapi.Base.Parser
             }
             catch (Exception e)
             {
-                throw new HL7Exception("Can't encode group " + groupObject.GetType().FullName,
+                throw new HL7Exception(
+                    "Can't encode group " + groupObject.GetType().FullName,
                     ErrorCode.APPLICATION_INTERNAL_ERROR, e);
             }
         }

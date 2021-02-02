@@ -216,7 +216,8 @@ namespace NHapi.Base.Model
             }
             catch (UnauthorizedAccessException iae)
             {
-                throw new HL7Exception("Can't access class " + c.FullName + " (" + iae.GetType().FullName + "): " + iae.Message,
+                throw new HL7Exception(
+                    "Can't access class " + c.FullName + " (" + iae.GetType().FullName + "): " + iae.Message,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
             catch (TargetInvocationException ite)
@@ -233,7 +234,8 @@ namespace NHapi.Base.Model
             }
             catch (Exception ie)
             {
-                throw new HL7Exception("Can't instantiate class " + c.FullName + " (" + ie.GetType().FullName + "): " + ie.Message,
+                throw new HL7Exception(
+                    "Can't instantiate class " + c.FullName + " (" + ie.GetType().FullName + "): " + ie.Message,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -285,7 +287,8 @@ namespace NHapi.Base.Model
             }
             catch (Exception e)
             {
-                throw new HL7Exception("Can't retrieve optionality of field " + number + ": " + e.Message,
+                throw new HL7Exception(
+                    "Can't retrieve optionality of field " + number + ": " + e.Message,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -312,7 +315,8 @@ namespace NHapi.Base.Model
             }
             catch (Exception e)
             {
-                throw new HL7Exception("Can't retrieve max length of field " + number + ": " + e.Message,
+                throw new HL7Exception(
+                    "Can't retrieve max length of field " + number + ": " + e.Message,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -337,7 +341,8 @@ namespace NHapi.Base.Model
             }
             catch (Exception e)
             {
-                throw new HL7Exception("Can't retrieve max repetitions of field " + number + ": " + e.Message,
+                throw new HL7Exception(
+                    "Can't retrieve max repetitions of field " + number + ": " + e.Message,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -383,7 +388,8 @@ namespace NHapi.Base.Model
         {
             if (!typeof(IType).IsAssignableFrom(c))
             {
-                throw new HL7Exception("Class " + c.FullName + " does not inherit from " + "ca.on.uhn.datatype.Type",
+                throw new HL7Exception(
+                    "Class " + c.FullName + " does not inherit from " + "ca.on.uhn.datatype.Type",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 

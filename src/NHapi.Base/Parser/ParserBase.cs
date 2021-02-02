@@ -125,7 +125,8 @@ namespace NHapi.Base.Parser
             string version = GetVersion(message);
             if (!ValidVersion(version))
             {
-                throw new HL7Exception("Can't process message of version '" + version + "' - version not recognized",
+                throw new HL7Exception(
+                    "Can't process message of version '" + version + "' - version not recognized",
                     ErrorCode.UNSUPPORTED_VERSION_ID);
             }
 
