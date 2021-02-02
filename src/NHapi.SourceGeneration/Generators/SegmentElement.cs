@@ -29,7 +29,7 @@ namespace NHapi.SourceGeneration.Generators
     /// <summary>
     /// A structure for storing a single data element of a segment ...
     /// </summary>
-    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
     /// </author>
     internal class SegmentElement
     {
@@ -53,7 +53,7 @@ namespace NHapi.SourceGeneration.Generators
         }
 
         /// <summary>
-        /// Creates new SegmentElement
+        /// Creates new SegmentElement.
         /// </summary>
         public SegmentElement()
         {

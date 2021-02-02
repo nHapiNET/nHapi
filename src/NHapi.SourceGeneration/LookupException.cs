@@ -34,12 +34,12 @@ namespace NHapi.SourceGeneration
    /// given value is unknown.
    ///
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
     [Serializable]
     public class LookupException : Exception
     {
-        /// <summary> Constructs an <code>LookupException</code> with the specified detail message.
+        /// <summary> Constructs an. <code>LookupException</code> with the specified detail message.
         ///
         /// </summary>
         /// <param name="message">
@@ -49,7 +49,7 @@ namespace NHapi.SourceGeneration
         {
         }
 
-        /// <summary> Constructs an <code>LookupException</code> with the specified detail message and cause
+        /// <summary> Constructs an. <code>LookupException</code> with the specified detail message and cause.
         ///
         /// </summary>
         /// <param name="message">

@@ -48,14 +48,14 @@ namespace NHapi.Base.Log
     }
 
     /// <summary>
-    /// Dummy logger
+    /// Dummy logger.
     /// </summary>
     public sealed class DummyLogger : ILog
     {
         #region Log Members
 
         /// <summary>
-        /// Is debug enabled
+        /// Is debug enabled.
         /// </summary>
         public bool DebugEnabled
         {
@@ -63,7 +63,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// Is error enabled
+        /// Is error enabled.
         /// </summary>
         public bool ErrorEnabled
         {
@@ -71,7 +71,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// Is fatal enabled
+        /// Is fatal enabled.
         /// </summary>
         public bool FatalEnabled
         {
@@ -79,7 +79,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// Is info enabled
+        /// Is info enabled.
         /// </summary>
         public bool InfoEnabled
         {
@@ -87,7 +87,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// is trace enabled
+        /// is trace enabled.
         /// </summary>
         public bool TraceEnabled
         {
@@ -95,7 +95,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// Is warn enabled
+        /// Is warn enabled.
         /// </summary>
         public bool WarnEnabled
         {
@@ -103,7 +103,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// Write debug message
+        /// Write debug message.
         /// </summary>
         /// <param name="message"></param>
         public void Debug(object message)
@@ -112,7 +112,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// Write debug message
+        /// Write debug message.
         /// </summary>
         /// <param name="message"></param>
         /// <param name="t"></param>
@@ -122,7 +122,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// Write error
+        /// Write error.
         /// </summary>
         /// <param name="message"></param>
         public void Error(object message)
@@ -131,7 +131,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// Write error
+        /// Write error.
         /// </summary>
         /// <param name="message"></param>
         /// <param name="t"></param>
@@ -141,7 +141,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// Write fatal
+        /// Write fatal.
         /// </summary>
         /// <param name="message"></param>
         public void Fatal(object message)
@@ -150,7 +150,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// Write fatal
+        /// Write fatal.
         /// </summary>
         /// <param name="message"></param>
         /// <param name="t"></param>
@@ -160,7 +160,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// Write info
+        /// Write info.
         /// </summary>
         /// <param name="message"></param>
         public void Info(object message)
@@ -169,7 +169,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// Write info
+        /// Write info.
         /// </summary>
         /// <param name="message"></param>
         /// <param name="t"></param>
@@ -179,7 +179,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// Write trace
+        /// Write trace.
         /// </summary>
         /// <param name="message"></param>
         public void Trace(object message)
@@ -188,7 +188,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// Write trace
+        /// Write trace.
         /// </summary>
         /// <param name="message"></param>
         /// <param name="t"></param>
@@ -198,7 +198,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// Write warn
+        /// Write warn.
         /// </summary>
         /// <param name="message"></param>
         public void Warn(object message)
@@ -207,7 +207,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// Write warn
+        /// Write warn.
         /// </summary>
         /// <param name="message"></param>
         /// <param name="t"></param>

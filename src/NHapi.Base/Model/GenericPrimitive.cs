@@ -6,7 +6,7 @@ namespace NHapi.Base.Model
    /// value.  This is used to store Varies data, when the data type is unknown.  It is also
    /// used to store unrecognized message constituents.
    /// </summary>
-   /// <author>  Bryan Tripp
+   /// <author>  Bryan Tripp.
    /// </author>
     public class GenericPrimitive : AbstractPrimitive, IPrimitive
     {
@@ -22,7 +22,7 @@ namespace NHapi.Base.Model
             set { value_Renamed = value; }
         }
 
-        /// <summary>Returns the name of the type (used in XML encoding and profile checking)  </summary>
+        /// <summary>Returns the name of the type (used in XML encoding and profile checking).  </summary>
         public override string TypeName
         {
             get { return "UNKNOWN"; }
@@ -38,7 +38,7 @@ namespace NHapi.Base.Model
 
         internal string value_Renamed = null;
 
-        /// <summary> Creates a new instance of GenericPrimitive </summary>
+        /// <summary> Creates a new instance of GenericPrimitive. </summary>
         public GenericPrimitive(IMessage message)
             : base(message)
         {

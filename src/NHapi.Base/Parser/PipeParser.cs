@@ -38,7 +38,7 @@ namespace NHapi.Base.Parser
    /// like |, ^, and ~) HL7 messages.  Unexpected segments and fields are parsed into generic elements
    /// that are added to the message.
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
     public class PipeParser : ParserBase
     {
@@ -110,7 +110,7 @@ namespace NHapi.Base.Parser
             }
         }
 
-        /// <returns> the preferred encoding of this Parser
+        /// <returns> the preferred encoding of this Parser.
         /// </returns>
         public override string DefaultEncoding
         {
@@ -121,12 +121,12 @@ namespace NHapi.Base.Parser
 
         private const string segDelim = "\r"; // see section 2.8 of spec
 
-        /// <summary>Creates a new PipeParser </summary>
+        /// <summary>Creates a new PipeParser. </summary>
         public PipeParser()
         {
         }
 
-        /// <summary>Creates a new PipeParser </summary>
+        /// <summary>Creates a new PipeParser. </summary>
         public PipeParser(IModelClassFactory factory)
             : base(factory)
         {
@@ -212,20 +212,20 @@ namespace NHapi.Base.Parser
             return supports;
         }
 
-        /// <deprecated> this method should not be public
+        /// <deprecated> this method should not be public.
         /// </deprecated>
         /// <param name="message">
         /// </param>
         /// <returns>
         /// </returns>
-        /// <throws>  HL7Exception </throws>
-        /// <throws>  EncodingNotSupportedException </throws>
+        /// <throws>  HL7Exception. </throws>
+        /// <throws>  EncodingNotSupportedException. </throws>
         public virtual string GetMessageStructure(string message)
         {
             return GetStructure(message).messageStructure;
         }
 
-        /// <returns>s the message structure from MSH-9-3
+        /// <returns>s the message structure from MSH-9-3.
         /// </returns>
         private MessageStructure GetStructure(string message)
         {
@@ -295,7 +295,7 @@ namespace NHapi.Base.Parser
         ///
         /// </summary>
         /// <throws>  HL7Exception if the message is not correctly formatted. </throws>
-        /// <throws>  EncodingNotSupportedException if the message encoded </throws>
+        /// <throws>  EncodingNotSupportedException if the message encoded. </throws>
         /// <summary>      is not supported by this parser.
         /// </summary>
         protected internal override IMessage DoParse(string message, string version)
@@ -342,8 +342,8 @@ namespace NHapi.Base.Parser
         /// added as Varies' at the end of the segment.
         ///
         /// </summary>
-        /// <throws>  HL7Exception if the given string does not contain the </throws>
-        /// <summary>      given segment or if the string is not encoded properly
+        /// <throws>  HL7Exception if the given string does not contain the. </throws>
+        /// <summary>      given segment or if the string is not encoded properly.
         /// </summary>
         public virtual void Parse(ISegment destination, string segment, EncodingCharacters encodingChars)
         {
@@ -429,11 +429,11 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary> Fills a field with values from an unparsed string representing the field.  </summary>
-        /// <param name="destinationField">the field Type
+        /// <param name="destinationField">the field Type.
         /// </param>
-        /// <param name="data">the field string (including all components and subcomponents; not including field delimiters)
+        /// <param name="data">the field string (including all components and subcomponents; not including field delimiters).
         /// </param>
-        /// <param name="encodingCharacters">the encoding characters used in the message
+        /// <param name="encodingCharacters">the encoding characters used in the message.
         /// </param>
         private static void Parse(IType destinationField, string data, EncodingCharacters encodingCharacters)
         {
@@ -590,10 +590,10 @@ namespace NHapi.Base.Parser
         /// <summary> Formats a Message object into an HL7 message string using the given
         /// encoding.
         /// </summary>
-        /// <throws>  HL7Exception if the data fields in the message do not permit encoding </throws>
-        /// <summary>      (e.g. required fields are null)
+        /// <throws>  HL7Exception if the data fields in the message do not permit encoding. </throws>
+        /// <summary>      (e.g. required fields are null).
         /// </summary>
-        /// <throws>  EncodingNotSupportedException if the requested encoding is not </throws>
+        /// <throws>  EncodingNotSupportedException if the requested encoding is not. </throws>
         /// <summary>      supported by this parser.
         /// </summary>
         protected internal override string DoEncode(IMessage source, string encoding)
@@ -609,8 +609,8 @@ namespace NHapi.Base.Parser
         /// <summary> Formats a Message object into an HL7 message string using this parser's
         /// default encoding ("VB").
         /// </summary>
-        /// <throws>  HL7Exception if the data fields in the message do not permit encoding </throws>
-        /// <summary>      (e.g. required fields are null)
+        /// <throws>  HL7Exception if the data fields in the message do not permit encoding. </throws>
+        /// <summary>      (e.g. required fields are null).
         /// </summary>
         protected internal override string DoEncode(IMessage source)
         {

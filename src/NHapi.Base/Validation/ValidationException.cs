@@ -29,12 +29,12 @@ namespace NHapi.Base.validation
     using System;
 
    /// <summary> A failure to validate against a rule.  </summary>
-   /// <author>  Bryan Tripp
+   /// <author>  Bryan Tripp.
    /// </author>
     [Serializable]
     public class ValidationException : Exception
     {
-        /// <summary> Creates a new instance of <code>ValidationException</code> without detail message.</summary>
+        /// <summary> Creates a new instance of. <code>ValidationException</code> without detail message.</summary>
         public ValidationException()
         {
         }
@@ -48,7 +48,7 @@ namespace NHapi.Base.validation
         {
         }
 
-        /// <summary> Constructs an instance of <code>ValidationException</code> with the specified detail message.</summary>
+        /// <summary> Constructs an instance of. <code>ValidationException</code> with the specified detail message.</summary>
         /// <param name="msg">the detail message.
         /// </param>
         public ValidationException(string msg)

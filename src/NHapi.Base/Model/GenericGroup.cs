@@ -9,12 +9,12 @@ namespace NHapi.Base.Model
    /// in an ER7-encoded message, the group structure won't be clear and we'll just assume
    /// it's a flat list of segments.
    /// </summary>
-   /// <author>Bryan Tripp</author>
+   /// <author>Bryan Tripp.</author>
     public class GenericGroup : AbstractGroup
     {
         private string name;
 
-        /// <summary>Creates a new instance of GenericGroup </summary>
+        /// <summary>Creates a new instance of GenericGroup. </summary>
         public GenericGroup(IGroup parent, string name, IModelClassFactory factory)
             : base(parent, factory)
         {

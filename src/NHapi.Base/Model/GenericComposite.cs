@@ -8,7 +8,7 @@ namespace NHapi.Base.Model
     /// This is used to store Varies data, when the data type is unknown.  It is also
     /// used to store unrecognized message constituents.
     /// </summary>
-    /// <author>  Bryan Tripp
+    /// <author>  Bryan Tripp.
     /// </author>
     public class GenericComposite : AbstractType, IComposite
     {
@@ -27,7 +27,7 @@ namespace NHapi.Base.Model
             }
         }
 
-        /// <summary>Returns the name of the type (used in XML encoding and profile checking)  </summary>
+        /// <summary>Returns the name of the type (used in XML encoding and profile checking).  </summary>
         public override string TypeName
         {
             get { return "UNKNOWN"; }
@@ -36,16 +36,16 @@ namespace NHapi.Base.Model
         private ArrayList components;
         private IMessage message;
 
-        /// <summary>Creates a new instance of GenericComposite</summary>
-        /// <param name="theMessage">message to which this Type belongs</param>
+        /// <summary>Creates a new instance of GenericComposite.</summary>
+        /// <param name="theMessage">message to which this Type belongs.</param>
         public GenericComposite(IMessage theMessage)
             : this(theMessage, null)
         {
         }
 
-        /// <summary>Creates a new instance of GenericComposite</summary>
-        /// <param name="theMessage">message to which this Type belongs</param>
-        /// <param name="description">The description of this type</param>
+        /// <summary>Creates a new instance of GenericComposite.</summary>
+        /// <param name="theMessage">message to which this Type belongs.</param>
+        /// <param name="description">The description of this type.</param>
         public GenericComposite(IMessage theMessage, string description)
             : base(theMessage, description)
         {

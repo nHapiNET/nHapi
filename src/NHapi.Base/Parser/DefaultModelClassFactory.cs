@@ -16,7 +16,7 @@ namespace NHapi.Base.Parser
    /// </summary>
    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
    /// </author>
-   /// <version>  $Revision: 1.2 $ updated on $Date: 2005/05/24 18:15:39 $ by $Author: bryan_tripp $
+   /// <version>  $Revision: 1.2 $ updated on $Date: 2005/05/24 18:15:39 $ by $Author: bryan_tripp $.
    /// </version>
     public class DefaultModelClassFactory : IModelClassFactory
     {
@@ -35,7 +35,7 @@ namespace NHapi.Base.Parser
         /// <para>
         /// It is important to note that there can only be one implementation of a particular message
         /// structure (i.e. one class with the message structure name, regardless of its package) among
-        /// the packages defined as per the <code>PackageList()</code> method.  If there are duplicates
+        /// the packages defined as per the. <code>PackageList()</code> method.  If there are duplicates
         /// (e.g. two ADT_A01 classes) the first one in the search order will always be used.  However,
         /// this restriction only applies to message classes, not (normally) segment classes, etc.  This is because
         /// classes representing parts of a message are referenced explicitly in the code for the message
@@ -50,7 +50,7 @@ namespace NHapi.Base.Parser
         /// than packages, are registered by name.
         /// </para>
         /// </summary>
-        /// <param name="theName">name of the desired structure in the form XXX_YYY</param>
+        /// <param name="theName">name of the desired structure in the form XXX_YYY.</param>
         /// <param name="theVersion">HL7 version (e.g. "2.3").</param>
         /// <param name="isExplicit">
         /// true if the structure was specified explicitly in MSH-9-3, false if it
@@ -58,7 +58,7 @@ namespace NHapi.Base.Parser
         /// an alternate structure corresponding to that message type and event.
         /// </param>
         /// <returns>
-        /// corresponding message subclass if found; GenericMessage otherwise
+        /// corresponding message subclass if found; GenericMessage otherwise.
         /// </returns>
         public virtual Type GetMessageClass(string theName, string theVersion, bool isExplicit)
         {
@@ -118,7 +118,7 @@ namespace NHapi.Base.Parser
         /// </para>
         /// <para>
         /// At a minimum, this method returns the standard package for the
-        /// given version.  For example, for version 2.4, the package list contains <code>
+        /// given version.  For example, for version 2.4, the package list contains. <code>
         /// NHapi.Base.Model.v24</code>.  In addition, user-defined packages may be specified
         /// for custom messages.
         /// </para>
@@ -129,12 +129,12 @@ namespace NHapi.Base.Parser
         /// put a text file on your class path, under the folder /custom_packages, named after the version.  For example,
         /// for version 2.4, you might put the file "custom_packages/2.4" in your application JAR.  Each line in the
         /// file should name a package to search for message classes of that version.  For example, if you
-        /// work at foo.org, you might create a v2.4 message structure called "ZFO" and define it in the class
+        /// work at foo.org, you might create a v2.4 message structure called "ZFO" and define it in the class.
         /// <code>org.foo.hl7.custom.message.ZFO</code>.
         /// </para>
         /// <para>
         /// In order for parsers to find this message
-        /// class, you would need to enter the following line in custom_packages/2.4: org.foo.hl7.custom
+        /// class, you would need to enter the following line in custom_packages/2.4: org.foo.hl7.custom.
         /// </para>
         /// <para>
         /// Packages are searched in the order specified.  The standard package for a given version
@@ -149,7 +149,7 @@ namespace NHapi.Base.Parser
         /// <para>
         /// It is important to note that there can only be one implementation of a particular message
         /// structure (i.e. one class with the message structure name, regardless of its package) among
-        /// the packages defined as per the <code>PackageList()</code> method.  If there are duplicates
+        /// the packages defined as per the. <code>PackageList()</code> method.  If there are duplicates
         /// (e.g. two ADT_A01 classes) the first one in the search order will always be used.  However,
         /// this restriction only applies to message classes, not segment classes, etc.  This is because
         /// classes representing parts of a message are referenced explicitly in the code for the message
@@ -207,11 +207,11 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary> Finds a message or segment class by name and version.</summary>
-        /// <param name="name">the segment or message structure name
+        /// <param name="name">the segment or message structure name.
         /// </param>
-        /// <param name="version">the HL7 version
+        /// <param name="version">the HL7 version.
         /// </param>
-        /// <param name="type">'message', 'group', 'segment', or 'datatype'
+        /// <param name="type">'message', 'group', 'segment', or 'datatype'.
         /// </param>
         private static Type findClass(string name, string version, ClassType type)
         {
@@ -270,7 +270,7 @@ namespace NHapi.Base.Parser
         /// </summary>
         /// <param name="p"></param>
         /// <param name="classNameToTry"></param>
-        /// <returns>Assembly name qualified name</returns>
+        /// <returns>Assembly name qualified name.</returns>
         private static string AddAssemblyName(string p, string classNameToTry)
         {
             // TODO: pull this information out of the config file

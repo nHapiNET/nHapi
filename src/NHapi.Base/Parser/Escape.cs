@@ -37,7 +37,7 @@ namespace NHapi.Base.Parser
    /// multiple character sets are unsupported.  The highlighting, hexademical, and locally
    /// defined escape sequences are also unsupported.
    /// </summary>
-   /// <author>  Bryan Tripp
+   /// <author>  Bryan Tripp.
    /// </author>
     public class Escape
     {
@@ -69,7 +69,7 @@ namespace NHapi.Base.Parser
             }
         }
 
-        /// <summary>Creates a new instance of Escape </summary>
+        /// <summary>Creates a new instance of Escape. </summary>
         public Escape()
         {
         }
@@ -87,7 +87,7 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary>
-        /// Escape string
+        /// Escape string.
         /// </summary>
         /// <param name="text"></param>
         /// <param name="encChars"></param>
@@ -212,7 +212,7 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary>
-        /// Unescape the string
+        /// Unescape the string.
         /// </summary>
         /// <param name="text"></param>
         /// <param name="encChars"></param>
@@ -310,7 +310,7 @@ namespace NHapi.Base.Parser
             return seqs;
         }
 
-        /// <summary> Test harness</summary>
+        /// <summary> Test harness.</summary>
         [STAThread]
         public static void Main(string[] args)
         {

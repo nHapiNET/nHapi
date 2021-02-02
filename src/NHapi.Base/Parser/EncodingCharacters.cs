@@ -34,7 +34,7 @@ namespace NHapi.Base.Parser
    /// Represents the set of special characters used to encode traditionally
    /// encoded HL7 messages.
    /// </summary>
-   /// <author>Bryan Tripp (bryan_tripp@sourceforge.net)</author>
+   /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
     public class EncodingCharacters : object, ICloneable
     {
         /// <summary>
@@ -138,7 +138,7 @@ namespace NHapi.Base.Parser
         {
         }
 
-        /// <summary>copies contents of "other" </summary>
+        /// <summary>copies contents of "other". </summary>
         public EncodingCharacters(EncodingCharacters other)
         {
             fieldSep = other.FieldSeparator;

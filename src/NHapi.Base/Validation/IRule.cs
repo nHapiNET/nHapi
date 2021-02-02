@@ -54,7 +54,7 @@ namespace NHapi.Base.validation
    /// 2.xml Schema, a rule that prohibits empty tags, etc.).</li>
    /// </ol></p>
    /// </summary>
-   /// <author>  Bryan Tripp
+   /// <author>  Bryan Tripp.
    /// </author>
     public interface IRule
     {

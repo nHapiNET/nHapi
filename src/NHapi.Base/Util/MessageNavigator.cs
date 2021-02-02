@@ -43,7 +43,7 @@ namespace NHapi.Base.Util
    /// <p>This class also has an iterate() method, which iterates over
    /// segments (and optionally groups).  </p>
    /// </summary>
-   /// <author>  Bryan Tripp
+   /// <author>  Bryan Tripp.
    /// </author>
     public class MessageNavigator
     {
@@ -80,7 +80,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary>
-        /// THe root element of this message
+        /// THe root element of this message.
         /// </summary>
         public virtual IGroup Root
         {
@@ -118,7 +118,7 @@ namespace NHapi.Base.Util
         private IGroup currentGroup;
         private string[] childNames;
 
-        /// <summary> Creates a new instance of MessageNavigator</summary>
+        /// <summary> Creates a new instance of MessageNavigator.</summary>
         /// <param name="root">the root of navigation -- may be a message or a group
         /// within a message.  Navigation will only occur within the subtree
         /// of which the given group is the root.
@@ -130,11 +130,11 @@ namespace NHapi.Base.Util
         }
 
         /// <summary> Drills down into the group at the given index within the current
-        /// group -- ie sets the location pointer to the first structure within the child
+        /// group -- ie sets the location pointer to the first structure within the child.
         /// </summary>
-        /// <param name="childNumber">the index of the group child into which to drill
+        /// <param name="childNumber">the index of the group child into which to drill.
         /// </param>
-        /// <param name="rep">the group repetition into which to drill
+        /// <param name="rep">the group repetition into which to drill.
         /// </param>
         public virtual void drillDown(int childNumber, int rep)
         {
@@ -168,7 +168,7 @@ namespace NHapi.Base.Util
         /// <summary> Switches the group context to the parent of the current group,
         /// and sets the child pointer to the next sibling.
         /// </summary>
-        /// <returns> false if already at root
+        /// <returns> false if already at root.
         /// </returns>
         public virtual bool drillUp()
         {
@@ -230,7 +230,7 @@ namespace NHapi.Base.Util
             }
         }
 
-        /// <summary>Resets the location to the beginning of the tree (the root) </summary>
+        /// <summary>Resets the location to the beginning of the tree (the root). </summary>
         public virtual void reset()
         {
             ancestors = new ArrayList();
@@ -264,10 +264,10 @@ namespace NHapi.Base.Util
         /// repeating group -- explicit navigation (using the drill...() methods) is
         /// necessary to get to subsequent reps.
         /// </summary>
-        /// <param name="segmentsOnly">if true, only stops at segments (not groups)
+        /// <param name="segmentsOnly">if true, only stops at segments (not groups).
         /// </param>
         /// <param name="loop">if true, loops back to beginning when end of msg reached; if false,
-        /// throws HL7Exception if end of msg reached
+        /// throws HL7Exception if end of msg reached.
         /// </param>
         public virtual void iterate(bool segmentsOnly, bool loop)
         {
@@ -308,7 +308,7 @@ namespace NHapi.Base.Util
             }
         }
 
-        /// <summary> Navigates to a specific location in the message</summary>
+        /// <summary> Navigates to a specific location in the message.</summary>
         private void drillHere(IStructure destination)
         {
             IStructure pathElem = destination;

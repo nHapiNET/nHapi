@@ -8,12 +8,12 @@ namespace NHapi.Base.Log
 {
     using System;
 
-    /// <summary> A logging interface that enhances the <code> Log </code>
+    /// <summary> A logging interface that enhances the. <code> Log </code>
     /// interface with ancillary method to easy up the log messages generation
     /// by adding MessageFormat like functionality.
     ///
     /// Instantiate using {@link HapiLogFactory#getLog( Class clazz)}
-    /// or {@link HapiLogFactory#getLog( String name)}
+    /// or {@link HapiLogFactory#getLog( String name)}.
     ///
     /// <pre>
     /// USASE PATTERN:
@@ -54,13 +54,13 @@ namespace NHapi.Base.Log
     /// </summary>
     /// <author>  <a href="mailto:alexei.guevara@uhn.on.ca">Alexei Guevara</a>
     /// </author>
-    /// <version>  $Revision: 1.4 $ updated on $Date: 2003/09/11 21:51:21 $ by $Author: bryan_tripp $
+    /// <version>  $Revision: 1.4 $ updated on $Date: 2003/09/11 21:51:21 $ by $Author: bryan_tripp $.
     /// </version>
     /// TODO: HapiLog inherited from base Log interface using Log = org.apache.commons.logging.Log;
     public interface IHapiLog : ILog
     {
         /// <summary>
-        /// debug method
+        /// debug method.
         /// </summary>
         /// <param name="msgPattern"></param>
         /// <param name="values"></param>

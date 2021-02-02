@@ -25,17 +25,17 @@ namespace NHapi.Base.Parser
    /// could be changed to reflect updates in the XML spec.  Ultimately, HAPI group classes will be
    /// changed to correspond with the official group names, once these are all assigned.
    /// </remarks>
-   /// <author>Bryan Tripp</author>
+   /// <author>Bryan Tripp.</author>
     public class DefaultXMLParser : XMLParser
     {
         private static readonly IHapiLog log;
 
-        /// <summary>Creates a new instance of DefaultXMLParser </summary>
+        /// <summary>Creates a new instance of DefaultXMLParser. </summary>
         public DefaultXMLParser()
         {
         }
 
-        /// <summary>Creates a new instance of DefaultXMLParser </summary>
+        /// <summary>Creates a new instance of DefaultXMLParser. </summary>
         public DefaultXMLParser(IModelClassFactory modelClassFactory) : base(modelClassFactory)
         {
         }
@@ -125,7 +125,7 @@ namespace NHapi.Base.Parser
         /// Document.</p>
         /// </summary>
         /// <throws>  HL7Exception if the message is not correctly formatted. </throws>
-        /// <throws>  EncodingNotSupportedException if the message encoded </throws>
+        /// <throws>  EncodingNotSupportedException if the message encoded. </throws>
         /// <summary>     is not supported by this parser.
         /// </summary>
         public override IMessage ParseDocument(XmlDocument XMLMessage, string version)
@@ -267,7 +267,7 @@ namespace NHapi.Base.Parser
             return ret;
         }
 
-        /// <summary>Test harness </summary>
+        /// <summary>Test harness. </summary>
         [STAThread]
         public new static void Main(string[] args)
         {

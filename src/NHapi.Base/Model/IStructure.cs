@@ -32,7 +32,7 @@ namespace NHapi.Base.Model
    /// that will always return either a segment or a group.  This interface allows methods like this
    /// to declare a return type of Structure instead of Object.
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
     public interface IStructure
     {

@@ -6,7 +6,7 @@ namespace NHapi.Base.Model
     using NHapi.Base.Model;
 
     /// <summary>
-    /// Abstract group item
+    /// Abstract group item.
     /// </summary>
     public class AbstractGroupItem
     {
@@ -17,7 +17,7 @@ namespace NHapi.Base.Model
         private Type _class;
 
         /// <summary>
-        /// Constructor
+        /// Constructor.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="required"></param>
@@ -32,7 +32,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Name of the item
+        /// Name of the item.
         /// </summary>
         public string Name
         {
@@ -40,7 +40,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// The type of class
+        /// The type of class.
         /// </summary>
         public Type ClassType
         {
@@ -48,7 +48,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Is item repeating
+        /// Is item repeating.
         /// </summary>
         public bool IsRepeating
         {
@@ -56,7 +56,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Is item required
+        /// Is item required.
         /// </summary>
         public bool IsRequired
         {
@@ -64,7 +64,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// The structures of the group item
+        /// The structures of the group item.
         /// </summary>
         public List<IStructure> Structures
         {
@@ -72,7 +72,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Structure indexer
+        /// Structure indexer.
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>

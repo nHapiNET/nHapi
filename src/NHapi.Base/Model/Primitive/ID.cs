@@ -30,7 +30,7 @@ namespace NHapi.Base.Model.Primitive
    /// <summary>
    /// <para>
    /// This class contains functionality used by the ID class
-   /// in the version 2.3.0, 2.3.1, 2.4, and 2.5 packages
+   /// in the version 2.3.0, 2.3.1, 2.4, and 2.5 packages.
    /// </para>
    ///
    /// <para>
@@ -50,7 +50,7 @@ namespace NHapi.Base.Model.Primitive
    /// <author><a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a></author>
    /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
    /// <version>
-   /// $Revision: 1.3 $ updated on $Date: 2005/06/08 00:28:25 $ by $Author: bryan_tripp $
+   /// $Revision: 1.3 $ updated on $Date: 2005/06/08 00:28:25 $ by $Author: bryan_tripp $.
    /// </version>
    public abstract class ID : AbstractPrimitive
     {
@@ -78,8 +78,8 @@ namespace NHapi.Base.Model.Primitive
         /// <summary>
         /// Initializes a new instance of the <see cref="ID"/> class.
         /// </summary>
-        /// <param name="theMessage">message to which this Type belongs</param>
-        /// <param name="description">The description of this type</param>
+        /// <param name="theMessage">message to which this Type belongs.</param>
+        /// <param name="description">The description of this type.</param>
         protected ID(IMessage theMessage, string description)
             : base(theMessage, description)
         {
@@ -88,8 +88,8 @@ namespace NHapi.Base.Model.Primitive
         /// <summary>
         /// Initializes a new instance of the <see cref="ID"/> class.
         /// </summary>
-        /// <param name="theMessage">message to which this Type belongs</param>
-        /// <param name="theTable">HL7 table from which values are to be drawn</param>
+        /// <param name="theMessage">message to which this Type belongs.</param>
+        /// <param name="theTable">HL7 table from which values are to be drawn.</param>
         protected ID(IMessage theMessage, int theTable)
             : base(theMessage)
         {

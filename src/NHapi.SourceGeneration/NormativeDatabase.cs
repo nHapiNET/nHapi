@@ -48,9 +48,9 @@ namespace NHapi.SourceGeneration
    /// <para>
    /// Since the database may be installed differently on different systems, certain system
    /// properties must be set with the required connection information, as follows: <br />
-   /// <code>ca.on.uhn.hl7.database.url</code> - the URL of the JDBC connection<br />
-   /// <code>ca.on.uhn.hl7.database.user</code> - the user ID needed to connect (if required)<br />
-   /// <code>ca.on.uhn.hl7.database.passsword</code> - the password associated with the above user (if required)<br />
+   /// <code>ca.on.uhn.hl7.database.url</code> - the URL of the JDBC connection.<br />
+   /// <code>ca.on.uhn.hl7.database.user</code> - the user ID needed to connect (if required).<br />
+   /// <code>ca.on.uhn.hl7.database.passsword</code> - the password associated with the above user (if required).<br />
    /// </para>
    /// <para>
    /// The required JDBC driver must also be loaded (this can be done by ensuring that the
@@ -133,7 +133,7 @@ namespace NHapi.SourceGeneration
         private string _connectionString;
 
         /// <summary> Private constructor ... checks system properties for connection
-        /// information
+        /// information.
         /// </summary>
         private NormativeDatabase()
         {

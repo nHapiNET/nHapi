@@ -28,13 +28,13 @@ namespace NHapi.Base.validation.impl
 {
     using System;
 
-   /// <summary> A <code>ValidationContext</code> with a default set of rules initially defined.
+   /// <summary> A. <code>ValidationContext</code> with a default set of rules initially defined.
    /// This can be used as-is for a reasonable level of primitive type validation.
    ///
    /// </summary>
    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
    /// </author>
-   /// <version>  $Revision: 1.1 $ updated on $Date: 2005/06/14 20:13:16 $ by $Author: bryan_tripp $
+   /// <version>  $Revision: 1.1 $ updated on $Date: 2005/06/14 20:13:16 $ by $Author: bryan_tripp $.
    /// </version>
     public class DefaultValidation : ValidationContextImpl
     {

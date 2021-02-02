@@ -41,9 +41,9 @@ namespace NHapi.SourceGeneration.Generators
    /// Each automatically generated segment inherits from AbstractSegment.
    ///
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
-   /// <author>  Eric Poiseau
+   /// <author>  Eric Poiseau.
    /// </author>
     public class SegmentGenerator : object
     {
@@ -581,7 +581,7 @@ namespace NHapi.SourceGeneration.Generators
         }
 
         /// <summary>
-        /// Main class
+        /// Main class.
         /// </summary>
         /// <param name="args"></param>
         [STAThread]

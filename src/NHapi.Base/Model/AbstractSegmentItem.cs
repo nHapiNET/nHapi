@@ -15,7 +15,7 @@ namespace NHapi.Base.Model
         private string _description;
 
         /// <summary>
-        /// Constructor
+        /// Constructor.
         /// <param name="t">the class of the data for this field - this should inherit from IType</param>
         /// <param name="required">whether a value for this field is required in order for the segment
         /// to be valid</param>
@@ -31,16 +31,16 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Constructor
+        /// Constructor.
         /// </summary>
-        /// <param name="t">the class of the data for this field - this should inherit from IType</param>
+        /// <param name="t">the class of the data for this field - this should inherit from IType.</param>
         /// <param name="required">whether a value for this field is required in order for the segment
-        /// to be valid</param>
-        /// <param name="maxReps">the maximum number of repetitions - 0 implies that there is no limit</param>
-        /// <param name="length">the maximum length of each repetition of the field (in characters) </param>
+        /// to be valid.</param>
+        /// <param name="maxReps">the maximum number of repetitions - 0 implies that there is no limit.</param>
+        /// <param name="length">the maximum length of each repetition of the field (in characters). </param>
         /// <param name="constructorArgs">an array of objects that will be used as constructor arguments
-        /// if new instances of this class are created (use null for zero-arg constructor)</param>
-        /// <param name="description">Description of the segment</param>
+        /// if new instances of this class are created (use null for zero-arg constructor).</param>
+        /// <param name="description">Description of the segment.</param>
         /// <throws>  HL7Exception if the given class does not inherit from IType or if it cannot be instantiated. </throws>
         public AbstractSegmentItem(Type t, bool required, int maxReps, int length, object[] constructorArgs,
             string description)
@@ -65,7 +65,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        ///     The IType of this field in the segment
+        ///     The IType of this field in the segment.
         /// </summary>
         public Type FieldType
         {
@@ -73,7 +73,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Is this a required field
+        /// Is this a required field.
         /// </summary>
         public bool IsRequired
         {
@@ -81,7 +81,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// What is the length in characters of the field
+        /// What is the length in characters of the field.
         /// </summary>
         public int Length
         {
@@ -89,7 +89,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Arguments to pass to a constructor for this field
+        /// Arguments to pass to a constructor for this field.
         /// </summary>
         public object[] Args
         {
@@ -97,7 +97,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Maximum number of repetitions of this field
+        /// Maximum number of repetitions of this field.
         /// </summary>
         public int MaxRepetitions
         {
@@ -117,7 +117,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// What is this field
+        /// What is this field.
         /// </summary>
         public string Description
         {
@@ -126,7 +126,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Return a specific repetition of this field
+        /// Return a specific repetition of this field.
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>

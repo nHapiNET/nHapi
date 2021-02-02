@@ -29,18 +29,18 @@ namespace NHapi.Base.validation.impl
     using System;
     using System.Text.RegularExpressions;
 
-   /// <summary> A <code>PrimitiveTypeRule</code> that validates primitive values
+   /// <summary> A. <code>PrimitiveTypeRule</code> that validates primitive values
    /// using a regular expression.
    ///
    /// </summary>
    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
    /// </author>
-   /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:15:12 $ by $Author: bryan_tripp $
+   /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:15:12 $ by $Author: bryan_tripp $.
    /// </version>
     public class RegexPrimitiveRule : IPrimitiveTypeRule
     {
         /// <summary>
-        /// The description
+        /// The description.
         /// </summary>
         public virtual string Description
         {
@@ -48,7 +48,7 @@ namespace NHapi.Base.validation.impl
         }
 
         /// <summary>
-        /// The section reference
+        /// The section reference.
         /// </summary>
         public virtual string SectionReference
         {
@@ -59,9 +59,9 @@ namespace NHapi.Base.validation.impl
         private string mySectionReference;
 
         /// <param name="theRegex">a regular expression against which to validate primitive
-        /// values
+        /// values.
         /// </param>
-        /// <param name="theSectionReference">to be returned by <code>getSectionReference()</code>
+        /// <param name="theSectionReference">to be returned by. <code>getSectionReference()</code>
         /// </param>
         public RegexPrimitiveRule(string theRegex, string theSectionReference)
         {
@@ -85,7 +85,7 @@ namespace NHapi.Base.validation.impl
         }
 
         /// <summary>
-        /// Is this rule correct
+        /// Is this rule correct.
         /// </summary>
         /// <param name="value_Renamed"></param>
         /// <returns></returns>

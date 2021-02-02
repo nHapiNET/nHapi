@@ -33,7 +33,7 @@ namespace NHapi.SourceGeneration
    /// underlying repository must supply the values for standard HL7 tables.
    /// Site-defined tables may also be supported.
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
     public abstract class TableRepository
     {

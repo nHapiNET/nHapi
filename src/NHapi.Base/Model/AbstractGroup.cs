@@ -38,7 +38,7 @@ namespace NHapi.Base.Model
    /// the add(...) method in it's constructor.  Each call to add(...) adds a specific component to the
    /// Group.
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
     public abstract class AbstractGroup : IGroup
     {
@@ -53,10 +53,10 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Gets a group item by name
+        /// Gets a group item by name.
         /// </summary>
-        /// <param name="name">The name of the group item</param>
-        /// <returns>Group item if found, null otherwise</returns>
+        /// <param name="name">The name of the group item.</param>
+        /// <returns>Group item if found, null otherwise.</returns>
         protected AbstractGroupItem GetGroupItem(string name)
         {
             AbstractGroupItem ret = null;
@@ -73,7 +73,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// A string[] of group names
+        /// A string[] of group names.
         /// </summary>
         public virtual string[] Names
         {
@@ -119,7 +119,7 @@ namespace NHapi.Base.Model
         /// </summary>
         /// <param name="parentStructure">the group to which this Group belongs.
         /// </param>
-        /// <param name="factory">the factory for classes of segments, groups, and datatypes under this group
+        /// <param name="factory">the factory for classes of segments, groups, and datatypes under this group.
         /// </param>
         protected internal AbstractGroup(IGroup parentStructure, IModelClassFactory factory)
         {
@@ -131,7 +131,7 @@ namespace NHapi.Base.Model
         /// <summary> This constructor should only be used by classes that implement Message directly.
         ///
         /// </summary>
-        /// <param name="factory">the factory for classes of segments, groups, and datatypes under this group
+        /// <param name="factory">the factory for classes of segments, groups, and datatypes under this group.
         /// </param>
         protected internal AbstractGroup(IModelClassFactory factory)
         {
@@ -160,7 +160,7 @@ namespace NHapi.Base.Model
         /// <exception cref="HL7Exception">Thrown when the named Structure is not part of this group or
         /// the structure is not repeatable and the given rep is > 0,
         /// or if the given repetition number is more than one greater than the
-        /// existing number of repetitions</exception>
+        /// existing number of repetitions.</exception>
         public virtual IStructure GetStructure(string name, int rep)
         {
             AbstractGroupItem item = GetGroupItem(name);
@@ -281,7 +281,7 @@ namespace NHapi.Base.Model
         /// If the segment name is unrecognized a GenericSegment is used.  The
         /// segment is defined as repeating and not required.
         /// </summary>
-        /// <exception cref="HL7Exception">Thrown when 'Message.Version' returns null</exception>
+        /// <exception cref="HL7Exception">Thrown when 'Message.Version' returns null.</exception>
         public virtual string addNonstandardSegment(string name)
         {
             string version = Message.Version;
@@ -365,9 +365,9 @@ namespace NHapi.Base.Model
         /// <summary> Attempts to create an instance of the given class and return
         /// it as a Structure.
         /// </summary>
-        /// <param name="c">the Structure implementing class
+        /// <param name="c">the Structure implementing class.
         /// </param>
-        /// <param name="name">an optional name of the structure (used by Generic structures; may be null)
+        /// <param name="name">an optional name of the structure (used by Generic structures; may be null).
         /// </param>
         private IStructure tryToInstantiateStructure(Type c, string name)
         {
@@ -505,7 +505,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// returns a name for a class of a Structure in this Message
+        /// returns a name for a class of a Structure in this Message.
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>

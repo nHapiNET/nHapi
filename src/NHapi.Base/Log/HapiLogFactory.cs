@@ -18,7 +18,7 @@ namespace NHapi.Base.Log
    /// <a href="mailto:alexei.guevara@uhn.on.ca">Alexei Guevara</a>
    /// </author>
    /// <version>
-   /// $Revision: 1.2 $ updated on $Date: 2003/05/07 20:12:36 $ by $Author: aguevara $
+   /// $Revision: 1.2 $ updated on $Date: 2003/05/07 20:12:36 $ by $Author: aguevara $.
    /// </version>
     public sealed class HapiLogFactory
     {

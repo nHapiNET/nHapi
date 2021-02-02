@@ -80,7 +80,7 @@ namespace NHapi.Base.Model.Primitive
    /// by requiring that the time zone information be present when the information is sent. It does not, however, specify which of
    /// the treatments discussed here will be applied by the receiving system.
    /// </summary>
-   /// <author>  Neal Acharya
+   /// <author>  Neal Acharya.
    /// </author>
     public class CommonTS
     {
@@ -337,7 +337,7 @@ namespace NHapi.Base.Model.Primitive
         }
 
         /// <summary> This method takes in the four digit (signed) GMT offset and sets the offset
-        /// field
+        /// field.
         /// </summary>
         public virtual int Offset
         {
@@ -494,7 +494,7 @@ namespace NHapi.Base.Model.Primitive
 
         /// <summary>Creates new ValidTS
         /// zero argument constructor.
-        /// Creates an uninitailized TS datatype
+        /// Creates an uninitailized TS datatype.
         /// </summary>
         public CommonTS()
         {
@@ -502,7 +502,7 @@ namespace NHapi.Base.Model.Primitive
 
         /// <summary> Constructs a TS object with the given value.
         /// The stored value will be in the following
-        /// format YYYY[MM[DD[HHMM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ]
+        /// format YYYY[MM[DD[HHMM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ].
         /// </summary>
         public CommonTS(string val)
         {

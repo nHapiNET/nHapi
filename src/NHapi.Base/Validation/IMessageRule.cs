@@ -32,7 +32,7 @@ namespace NHapi.Base.validation
    /// may be called (depending on runtime configuration) just after an inbound message
    /// is parsed, or just before an outbound message is encoded.
    /// </summary>
-   /// <author>  Bryan Tripp
+   /// <author>  Bryan Tripp.
    /// </author>
     public interface IMessageRule : IRule
     {

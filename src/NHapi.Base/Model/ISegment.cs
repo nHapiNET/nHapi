@@ -30,7 +30,7 @@ namespace NHapi.Base.Model
    /// <summary>
    /// Represents an HL7 message segment, which is a unit of data that contains multiple fields.
    /// </summary>
-   /// <author>Bryan Tripp (bryan_tripp@sourceforge.net)</author>
+   /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
    public interface ISegment : IStructure
     {
         /// <summary>
@@ -56,7 +56,7 @@ namespace NHapi.Base.Model
         /// </summary>
         /// <param name="number">the field number.</param>
         /// <param name="rep">the repetition number (starting at 0).</param>
-        /// <throws>  HL7Exception if field index is out of range, or if the specified   </throws>
+        /// <throws>  HL7Exception if field index is out of range, or if the specified.   </throws>
         IType GetField(int number, int rep);
 
         /// <summary> Returns true if the field at the given index is required, false otherwise.</summary>

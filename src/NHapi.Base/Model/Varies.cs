@@ -51,7 +51,7 @@ namespace NHapi.Base.Model
    /// cn.IDNumber.Value = "foo";
    /// </code>
    /// </example>
-   /// <author>Bryan Tripp (bryan_tripp@users.sourceforge.net)</author>
+   /// <author>Bryan Tripp (bryan_tripp@users.sourceforge.net).</author>
     public class Varies : IType
     {
         /// <summary>
@@ -99,20 +99,20 @@ namespace NHapi.Base.Model
             }
         }
 
-        /// <summary>Returns extra components from the underlying Type </summary>
+        /// <summary>Returns extra components from the underlying Type. </summary>
         public virtual ExtraComponents ExtraComponents
         {
             get { return data.ExtraComponents; }
         }
 
-        /// <returns> the message to which this Type belongs
+        /// <returns> the message to which this Type belongs.
         /// </returns>
         public virtual IMessage Message
         {
             get { return message; }
         }
 
-        /// <returns> the description of what this Type represents
+        /// <returns> the description of what this Type represents.
         /// </returns>
         public virtual string Description
         {
@@ -128,7 +128,7 @@ namespace NHapi.Base.Model
         /// <summary> Creates new Varies.
         ///
         /// </summary>
-        /// <param name="message">message to which this type belongs
+        /// <param name="message">message to which this type belongs.
         /// </param>
         public Varies(IMessage message)
         {
@@ -139,8 +139,8 @@ namespace NHapi.Base.Model
         /// <summary> Creates new Varies.
         ///
         /// </summary>
-        /// <param name="message">message to which this type belongs</param>
-        /// <param name="description">description of what this Type represents</param>
+        /// <param name="message">message to which this type belongs.</param>
+        /// <param name="description">description of what this Type represents.</param>
         public Varies(IMessage message, string description)
         {
             data = new GenericPrimitive(message);

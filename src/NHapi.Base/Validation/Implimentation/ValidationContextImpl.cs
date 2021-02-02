@@ -30,30 +30,30 @@ namespace NHapi.Base.validation.impl
     using System.Collections;
     using NHapi.Base.Model;
 
-   /// <summary> A default implementation of <code>ValidationContext</code>.
+   /// <summary> A default implementation of. <code>ValidationContext</code>.
    ///
    /// </summary>
    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
    /// </author>
-   /// <version>  $Revision: 1.5 $ updated on $Date: 2005/06/27 22:42:18 $ by $Author: bryan_tripp $
+   /// <version>  $Revision: 1.5 $ updated on $Date: 2005/06/27 22:42:18 $ by $Author: bryan_tripp $.
    /// </version>
     public class ValidationContextImpl : IValidationContext
     {
-        /// <returns> a List of <code>RuleBinding</code>s for <code>PrimitiveTypeRule</code>s.
+        /// <returns> a List of. <code>RuleBinding</code>s for. <code>PrimitiveTypeRule</code>s.
         /// </returns>
         public virtual IList PrimitiveRuleBindings
         {
             get { return myPrimitiveRuleBindings; }
         }
 
-        /// <returns> a List of <code>RuleBinding</code>s for <code>MessageRule</code>s.
+        /// <returns> a List of. <code>RuleBinding</code>s for. <code>MessageRule</code>s.
         /// </returns>
         public virtual IList MessageRuleBindings
         {
             get { return myMessageRuleBindings; }
         }
 
-        /// <returns> a List of <code>RuleBinding</code>s for <code>EncodingRule</code>s.
+        /// <returns> a List of. <code>RuleBinding</code>s for. <code>EncodingRule</code>s.
         /// </returns>
         public virtual IList EncodingRuleBindings
         {

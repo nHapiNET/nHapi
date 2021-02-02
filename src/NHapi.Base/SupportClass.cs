@@ -438,7 +438,7 @@ namespace NHapi.Base
     /*******************************/
 
     /// <summary>
-    /// This class will manage all the parsing operations emulating the SAX parser behavior
+    /// This class will manage all the parsing operations emulating the SAX parser behavior.
     /// </summary>
     public class SaxAttributesSupport
     {
@@ -456,7 +456,7 @@ namespace NHapi.Base
         /// Creates a new instance of SaxAttributesSupport from an ArrayList of Att_Instance class.
         /// </summary>
         /// <param name="List">An ArraList of Att_Instance class instances.</param>
-        /// <returns>A new instance of SaxAttributesSupport</returns>
+        /// <returns>A new instance of SaxAttributesSupport.</returns>
         public SaxAttributesSupport(SaxAttributesSupport List)
         {
             SaxAttributesSupport temp = new SaxAttributesSupport();
@@ -830,13 +830,13 @@ namespace NHapi.Base
             public string att_value;
 
             /// <summary>
-            /// This is the constructor of the Att_Instance
+            /// This is the constructor of the Att_Instance.
             /// </summary>
-            /// <param name="Uri">The namespace URI of the attribute</param>
-            /// <param name="Lname">The local name of the attribute</param>
-            /// <param name="Qname">The long(Qualify) name of attribute</param>
-            /// <param name="Type">The type of the attribute</param>
-            /// <param name="Value">The value of the attribute</param>
+            /// <param name="Uri">The namespace URI of the attribute.</param>
+            /// <param name="Lname">The local name of the attribute.</param>
+            /// <param name="Qname">The long(Qualify) name of attribute.</param>
+            /// <param name="Type">The type of the attribute.</param>
+            /// <param name="Value">The value of the attribute.</param>
             public Att_Instance(string Uri, string Lname, string Qname, string Type, string Value)
             {
                 att_URI = Uri;
@@ -894,26 +894,26 @@ namespace NHapi.Base
         /// <summary>
         /// This method manage the notification when Characters element were found.
         /// </summary>
-        /// <param name="ch">The array with the characters founds</param>
-        /// <param name="start">The index of the first position of the characters found</param>
-        /// <param name="length">Specify how many characters must be read from the array</param>
+        /// <param name="ch">The array with the characters founds.</param>
+        /// <param name="start">The index of the first position of the characters found.</param>
+        /// <param name="length">Specify how many characters must be read from the array.</param>
         public virtual void characters(char[] ch, int start, int length)
         {
         }
 
         /// <summary>
-        /// This method manage the notification when the end document node were found
+        /// This method manage the notification when the end document node were found.
         /// </summary>
         public virtual void endDocument()
         {
         }
 
         /// <summary>
-        /// This method manage the notification when the end element node were found
+        /// This method manage the notification when the end element node were found.
         /// </summary>
-        /// <param name="uri">The namespace URI of the element</param>
-        /// <param name="localName">The local name of the element</param>
-        /// <param name="qName">The long name (qualify name) of the element</param>
+        /// <param name="uri">The namespace URI of the element.</param>
+        /// <param name="localName">The local name of the element.</param>
+        /// <param name="qName">The long name (qualify name) of the element.</param>
         public virtual void endElement(string uri, string localName, string qName)
         {
         }
@@ -921,49 +921,49 @@ namespace NHapi.Base
         /// <summary>
         /// This method manage the event when an area of expecific URI prefix was ended.
         /// </summary>
-        /// <param name="prefix">The prefix that ends</param>
+        /// <param name="prefix">The prefix that ends.</param>
         public virtual void endPrefixMapping(string prefix)
         {
         }
 
         /// <summary>
-        /// This method manage when an error exception occurs in the parsing process
+        /// This method manage when an error exception occurs in the parsing process.
         /// </summary>
-        /// <param name="e">The exception throws by the parser</param>
+        /// <param name="e">The exception throws by the parser.</param>
         public virtual void error(XmlException e)
         {
         }
 
         /// <summary>
-        /// This method manage when a fatal error exception occurs in the parsing process
+        /// This method manage when a fatal error exception occurs in the parsing process.
         /// </summary>
-        /// <param name="e">The exception Throws by the parser</param>
+        /// <param name="e">The exception Throws by the parser.</param>
         public virtual void fatalError(XmlException e)
         {
         }
 
         /// <summary>
-        /// This method manage the event when a ignorable whitespace node were found
+        /// This method manage the event when a ignorable whitespace node were found.
         /// </summary>
-        /// <param name="ch">The array with the ignorable whitespaces</param>
-        /// <param name="start">The index in the array with the ignorable whitespace</param>
-        /// <param name="length">The length of the whitespaces</param>
+        /// <param name="ch">The array with the ignorable whitespaces.</param>
+        /// <param name="start">The index in the array with the ignorable whitespace.</param>
+        /// <param name="length">The length of the whitespaces.</param>
         public virtual void ignorableWhitespace(char[] ch, int start, int length)
         {
         }
 
         /// <summary>
-        /// This method is not supported only is created for compatibility
+        /// This method is not supported only is created for compatibility.
         /// </summary>
         public virtual void notationDecl(string name, string publicId, string systemId)
         {
         }
 
         /// <summary>
-        /// This method manage the event when a processing instruction were found
+        /// This method manage the event when a processing instruction were found.
         /// </summary>
-        /// <param name="target">The processing instruction target</param>
-        /// <param name="data">The processing instruction data</param>
+        /// <param name="target">The processing instruction target.</param>
+        /// <param name="data">The processing instruction data.</param>
         public virtual void processingInstruction(string target, string data)
         {
         }
@@ -980,34 +980,34 @@ namespace NHapi.Base
         }
 
         /// <summary>
-        /// This method is not supported, is include for compatibility
+        /// This method is not supported, is include for compatibility.
         /// </summary>
         public virtual void setDocumentLocator(IXmlSaxLocator locator)
         {
         }
 
         /// <summary>
-        /// This method manage the event when a skipped entity were found
+        /// This method manage the event when a skipped entity were found.
         /// </summary>
-        /// <param name="name">The name of the skipped entity</param>
+        /// <param name="name">The name of the skipped entity.</param>
         public virtual void skippedEntity(string name)
         {
         }
 
         /// <summary>
-        /// This method manage the event when a start document node were found
+        /// This method manage the event when a start document node were found.
         /// </summary>
         public virtual void startDocument()
         {
         }
 
         /// <summary>
-        /// This method manage the event when a start element node were found
+        /// This method manage the event when a start element node were found.
         /// </summary>
-        /// <param name="uri">The namespace uri of the element tag</param>
-        /// <param name="localName">The local name of the element</param>
-        /// <param name="qName">The Qualify (long) name of the element</param>
-        /// <param name="attributes">The list of attributes of the element</param>
+        /// <param name="uri">The namespace uri of the element tag.</param>
+        /// <param name="localName">The local name of the element.</param>
+        /// <param name="qName">The Qualify (long) name of the element.</param>
+        /// <param name="attributes">The list of attributes of the element.</param>
         public virtual void startElement(string uri, string localName, string qName, SaxAttributesSupport attributes)
         {
         }
@@ -1015,23 +1015,23 @@ namespace NHapi.Base
         /// <summary>
         /// This methods indicates the start of a prefix area in the XML document.
         /// </summary>
-        /// <param name="prefix">The prefix of the area</param>
-        /// <param name="uri">The namespace uri of the prefix area</param>
+        /// <param name="prefix">The prefix of the area.</param>
+        /// <param name="uri">The namespace uri of the prefix area.</param>
         public virtual void startPrefixMapping(string prefix, string uri)
         {
         }
 
         /// <summary>
-        /// This method is not supported only is created for compatibility
+        /// This method is not supported only is created for compatibility.
         /// </summary>
         public virtual void unparsedEntityDecl(string name, string publicId, string systemId, string notationName)
         {
         }
 
         /// <summary>
-        /// This method manage when a warning exception occurs in the parsing process
+        /// This method manage when a warning exception occurs in the parsing process.
         /// </summary>
-        /// <param name="e">The exception Throws by the parser</param>
+        /// <param name="e">The exception Throws by the parser.</param>
         public virtual void warning(XmlException e)
         {
         }
@@ -1047,26 +1047,26 @@ namespace NHapi.Base
         /// <summary>
         /// This method manage the notification when Characters element were found.
         /// </summary>
-        /// <param name="ch">The array with the characters founds</param>
-        /// <param name="start">The index of the first position of the characters found</param>
-        /// <param name="length">Specify how many characters must be read from the array</param>
+        /// <param name="ch">The array with the characters founds.</param>
+        /// <param name="start">The index of the first position of the characters found.</param>
+        /// <param name="length">Specify how many characters must be read from the array.</param>
         public virtual void characters(char[] ch, int start, int length)
         {
         }
 
         /// <summary>
-        /// This method manage the notification when the end document node were found
+        /// This method manage the notification when the end document node were found.
         /// </summary>
         public virtual void endDocument()
         {
         }
 
         /// <summary>
-        /// This method manage the notification when the end element node were found
+        /// This method manage the notification when the end element node were found.
         /// </summary>
-        /// <param name="namespaceURI">The namespace URI of the element</param>
-        /// <param name="localName">The local name of the element</param>
-        /// <param name="qName">The long name (qualify name) of the element</param>
+        /// <param name="namespaceURI">The namespace URI of the element.</param>
+        /// <param name="localName">The local name of the element.</param>
+        /// <param name="qName">The long name (qualify name) of the element.</param>
         public virtual void endElement(string namespaceURI, string localName, string qName)
         {
         }
@@ -1080,28 +1080,28 @@ namespace NHapi.Base
         }
 
         /// <summary>
-        /// This method manage the event when a ignorable whitespace node were found
+        /// This method manage the event when a ignorable whitespace node were found.
         /// </summary>
-        /// <param name="ch">The array with the ignorable whitespaces</param>
-        /// <param name="start">The index in the array with the ignorable whitespace</param>
-        /// <param name="length">The length of the whitespaces</param>
+        /// <param name="ch">The array with the ignorable whitespaces.</param>
+        /// <param name="start">The index in the array with the ignorable whitespace.</param>
+        /// <param name="length">The length of the whitespaces.</param>
         public virtual void ignorableWhitespace(char[] ch, int start, int length)
         {
         }
 
         /// <summary>
-        /// This method manage the event when a processing instruction were found
+        /// This method manage the event when a processing instruction were found.
         /// </summary>
-        /// <param name="target">The processing instruction target</param>
-        /// <param name="data">The processing instruction data</param>
+        /// <param name="target">The processing instruction target.</param>
+        /// <param name="data">The processing instruction data.</param>
         public virtual void processingInstruction(string target, string data)
         {
         }
 
         /// <summary>
-        /// Receive an object for locating the origin of events into the XML document
+        /// Receive an object for locating the origin of events into the XML document.
         /// </summary>
-        /// <param name="locator">A 'XmlSaxLocator' object that can return the location of any events into the XML document</param>
+        /// <param name="locator">A 'XmlSaxLocator' object that can return the location of any events into the XML document.</param>
         public virtual void setDocumentLocator(IXmlSaxLocator locator)
         {
         }
@@ -1115,19 +1115,19 @@ namespace NHapi.Base
         }
 
         /// <summary>
-        /// This method manage the event when a start document node were found
+        /// This method manage the event when a start document node were found.
         /// </summary>
         public virtual void startDocument()
         {
         }
 
         /// <summary>
-        /// This method manage the event when a start element node were found
+        /// This method manage the event when a start element node were found.
         /// </summary>
-        /// <param name="namespaceURI">The namespace uri of the element tag</param>
-        /// <param name="localName">The local name of the element</param>
-        /// <param name="qName">The Qualify (long) name of the element</param>
-        /// <param name="qAtts">The list of attributes of the element</param>
+        /// <param name="namespaceURI">The namespace uri of the element tag.</param>
+        /// <param name="localName">The local name of the element.</param>
+        /// <param name="qName">The Qualify (long) name of the element.</param>
+        /// <param name="qAtts">The list of attributes of the element.</param>
         public virtual void startElement(string namespaceURI, string localName, string qName, SaxAttributesSupport qAtts)
         {
         }
@@ -2070,10 +2070,10 @@ namespace NHapi.Base
         /*******************************/
 
         /// <summary>
-        /// Writes the exception stack trace to the received stream
+        /// Writes the exception stack trace to the received stream.
         /// </summary>
-        /// <param name="throwable">Exception to obtain information from</param>
-        /// <param name="stream">Output stream used to write to</param>
+        /// <param name="throwable">Exception to obtain information from.</param>
+        /// <param name="stream">Output stream used to write to.</param>
         public static void WriteStackTrace(Exception throwable, TextWriter stream)
         {
             stream.Write(throwable.StackTrace);
@@ -2104,14 +2104,14 @@ namespace NHapi.Base
         /*******************************/
 
         /// <summary>
-        /// Copies an array of chars obtained from a String into a specified array of chars
+        /// Copies an array of chars obtained from a String into a specified array of chars.
         /// </summary>
-        /// <param name="sourceString">The String to get the chars from</param>
-        /// <param name="sourceStart">Position of the String to start getting the chars</param>
-        /// <param name="sourceEnd">Position of the String to end getting the chars</param>
-        /// <param name="destinationArray">Array to return the chars</param>
-        /// <param name="destinationStart">Position of the destination array of chars to start storing the chars</param>
-        /// <returns>An array of chars</returns>
+        /// <param name="sourceString">The String to get the chars from.</param>
+        /// <param name="sourceStart">Position of the String to start getting the chars.</param>
+        /// <param name="sourceEnd">Position of the String to end getting the chars.</param>
+        /// <param name="destinationArray">Array to return the chars.</param>
+        /// <param name="destinationStart">Position of the destination array of chars to start storing the chars.</param>
+        /// <returns>An array of chars.</returns>
         public static void GetCharsFromString(string sourceString, int sourceStart, int sourceEnd, char[] destinationArray,
             int destinationStart)
         {
@@ -2139,7 +2139,7 @@ namespace NHapi.Base
             /// </summary>
             /// <param name="c">Collection where the new element will be added.</param>
             /// <param name="obj">Object to add.</param>
-            /// <returns>true</returns>
+            /// <returns>true.</returns>
             public static bool Add(ICollection c, object obj)
             {
                 bool added = false;
@@ -2340,7 +2340,7 @@ namespace NHapi.Base
             /// </summary>
             /// <param name="target">Collection where the elements will be removed.</param>
             /// <param name="c">Elements to remove from the target collection.</param>
-            /// <returns>true</returns>
+            /// <returns>true.</returns>
             public static bool RemoveAll(ICollection target, ICollection c)
             {
                 ArrayList al = ToArrayList(c);
@@ -2377,11 +2377,11 @@ namespace NHapi.Base
             }
 
             /// <summary>
-            /// Retains the elements in the target collection that are contained in the specified collection
+            /// Retains the elements in the target collection that are contained in the specified collection.
             /// </summary>
             /// <param name="target">Collection where the elements will be removed.</param>
             /// <param name="c">Elements to be retained in the target collection.</param>
-            /// <returns>true</returns>
+            /// <returns>true.</returns>
             public static bool RetainAll(ICollection target, ICollection c)
             {
                 IEnumerator e = new ArrayList(target).GetEnumerator();
@@ -2499,7 +2499,7 @@ namespace NHapi.Base
             /// Adds all the elements of the specified collection to the Set.
             /// </summary>
             /// <param name="c">Collection of objects to add.</param>
-            /// <returns>true</returns>
+            /// <returns>true.</returns>
             bool AddAll(ICollection c);
         }
 
@@ -2546,7 +2546,7 @@ namespace NHapi.Base
             /// <summary>
             /// Adds all the elements of the specified collection that are not present to the list.
             /// </summary>
-            /// <param name="c">Collection where the new elements will be added</param>
+            /// <param name="c">Collection where the new elements will be added.</param>
             /// <returns>Returns true if at least one element was added, false otherwise.</returns>
             public bool AddAll(ICollection c)
             {
@@ -3036,17 +3036,17 @@ namespace NHapi.Base
         /*******************************/
 
         /// <summary>
-        /// Support class used to handle threads
+        /// Support class used to handle threads.
         /// </summary>
         public class ThreadClass : IThreadRunnable
         {
             /// <summary>
-            /// The instance of System.Threading.Thread
+            /// The instance of System.Threading.Thread.
             /// </summary>
             private Thread threadField;
 
             /// <summary>
-            /// Initializes a new instance of the ThreadClass class
+            /// Initializes a new instance of the ThreadClass class.
             /// </summary>
             public ThreadClass()
             {
@@ -3056,7 +3056,7 @@ namespace NHapi.Base
             /// <summary>
             /// Initializes a new instance of the Thread class.
             /// </summary>
-            /// <param name="Name">The name of the thread</param>
+            /// <param name="Name">The name of the thread.</param>
             public ThreadClass(string Name)
             {
                 threadField = new Thread(new ThreadStart(Run));
@@ -3066,7 +3066,7 @@ namespace NHapi.Base
             /// <summary>
             /// Initializes a new instance of the Thread class.
             /// </summary>
-            /// <param name="Start">A ThreadStart delegate that references the methods to be invoked when this thread begins executing</param>
+            /// <param name="Start">A ThreadStart delegate that references the methods to be invoked when this thread begins executing.</param>
             public ThreadClass(ThreadStart Start)
             {
                 threadField = new Thread(Start);
@@ -3075,8 +3075,8 @@ namespace NHapi.Base
             /// <summary>
             /// Initializes a new instance of the Thread class.
             /// </summary>
-            /// <param name="Start">A ThreadStart delegate that references the methods to be invoked when this thread begins executing</param>
-            /// <param name="Name">The name of the thread</param>
+            /// <param name="Start">A ThreadStart delegate that references the methods to be invoked when this thread begins executing.</param>
+            /// <param name="Name">The name of the thread.</param>
             public ThreadClass(ThreadStart Start, string Name)
             {
                 threadField = new Thread(Start);
@@ -3084,14 +3084,14 @@ namespace NHapi.Base
             }
 
             /// <summary>
-            /// This method has no functionality unless the method is overridden
+            /// This method has no functionality unless the method is overridden.
             /// </summary>
             public virtual void Run()
             {
             }
 
             /// <summary>
-            /// Causes the operating system to change the state of the current thread instance to ThreadState.Running
+            /// Causes the operating system to change the state of the current thread instance to ThreadState.Running.
             /// </summary>
             public virtual void Start()
             {
@@ -3099,7 +3099,7 @@ namespace NHapi.Base
             }
 
             /// <summary>
-            /// Interrupts a thread that is in the WaitSleepJoin thread state
+            /// Interrupts a thread that is in the WaitSleepJoin thread state.
             /// </summary>
             public virtual void Interrupt()
             {
@@ -3107,7 +3107,7 @@ namespace NHapi.Base
             }
 
             /// <summary>
-            /// Gets the current thread instance
+            /// Gets the current thread instance.
             /// </summary>
             public Thread Instance
             {
@@ -3116,7 +3116,7 @@ namespace NHapi.Base
             }
 
             /// <summary>
-            /// Gets or sets the name of the thread
+            /// Gets or sets the name of the thread.
             /// </summary>
             public string Name
             {
@@ -3132,7 +3132,7 @@ namespace NHapi.Base
             }
 
             /// <summary>
-            /// Gets or sets a value indicating the scheduling priority of a thread
+            /// Gets or sets a value indicating the scheduling priority of a thread.
             /// </summary>
             public ThreadPriority Priority
             {
@@ -3141,7 +3141,7 @@ namespace NHapi.Base
             }
 
             /// <summary>
-            /// Gets a value indicating the execution status of the current thread
+            /// Gets a value indicating the execution status of the current thread.
             /// </summary>
             public bool IsAlive
             {
@@ -3158,7 +3158,7 @@ namespace NHapi.Base
             }
 
             /// <summary>
-            /// Blocks the calling thread until a thread terminates
+            /// Blocks the calling thread until a thread terminates.
             /// </summary>
             public void Join()
             {
@@ -3166,9 +3166,9 @@ namespace NHapi.Base
             }
 
             /// <summary>
-            /// Blocks the calling thread until a thread terminates or the specified time elapses
+            /// Blocks the calling thread until a thread terminates or the specified time elapses.
             /// </summary>
-            /// <param name="MiliSeconds">Time of wait in milliseconds</param>
+            /// <param name="MiliSeconds">Time of wait in milliseconds.</param>
             public void Join(long MiliSeconds)
             {
                 lock (this)
@@ -3178,10 +3178,10 @@ namespace NHapi.Base
             }
 
             /// <summary>
-            /// Blocks the calling thread until a thread terminates or the specified time elapses
+            /// Blocks the calling thread until a thread terminates or the specified time elapses.
             /// </summary>
-            /// <param name="MiliSeconds">Time of wait in milliseconds</param>
-            /// <param name="NanoSeconds">Time of wait in nanoseconds</param>
+            /// <param name="MiliSeconds">Time of wait in milliseconds.</param>
+            /// <param name="NanoSeconds">Time of wait in nanoseconds.</param>
             public void Join(long MiliSeconds, int NanoSeconds)
             {
                 lock (this)
@@ -3193,7 +3193,7 @@ namespace NHapi.Base
             /// <summary>
             /// Raises a ThreadAbortException in the thread on which it is invoked,
             /// to begin the process of terminating the thread. Calling this method
-            /// usually terminates the thread
+            /// usually terminates the thread.
             /// </summary>
             public void Abort()
             {
@@ -3206,7 +3206,7 @@ namespace NHapi.Base
             /// exception information about the thread termination.
             /// Calling this method usually terminates the thread.
             /// </summary>
-            /// <param name="stateInfo">An object that contains application-specific information, such as state, which can be used by the thread being aborted</param>
+            /// <param name="stateInfo">An object that contains application-specific information, such as state, which can be used by the thread being aborted.</param>
             public void Abort(object stateInfo)
             {
                 lock (this)
@@ -3216,18 +3216,18 @@ namespace NHapi.Base
             }
 
             /// <summary>
-            /// Obtain a String that represents the current Object
+            /// Obtain a String that represents the current Object.
             /// </summary>
-            /// <returns>A String that represents the current Object</returns>
+            /// <returns>A String that represents the current Object.</returns>
             public override string ToString()
             {
                 return "Thread[" + Name + "," + Priority.ToString() + "," + string.Empty + "]";
             }
 
             /// <summary>
-            /// Gets the currently running thread
+            /// Gets the currently running thread.
             /// </summary>
-            /// <returns>The currently running thread</returns>
+            /// <returns>The currently running thread.</returns>
             public static ThreadClass Current()
             {
                 ThreadClass CurrentThread = new ThreadClass();
@@ -3239,7 +3239,7 @@ namespace NHapi.Base
         /*******************************/
 
         /// <summary>
-        /// The class performs token processing in strings
+        /// The class performs token processing in strings.
         /// </summary>
         public class Tokenizer : IEnumerator
         {
@@ -3256,9 +3256,9 @@ namespace NHapi.Base
             private string delimiters = " \t\n\r\f";
 
             /// <summary>
-            /// Initializes a new class instance with a specified string to process
+            /// Initializes a new class instance with a specified string to process.
             /// </summary>
-            /// <param name="source">String to tokenize</param>
+            /// <param name="source">String to tokenize.</param>
             public Tokenizer(string source)
             {
                 chars = source.ToCharArray();
@@ -3266,10 +3266,10 @@ namespace NHapi.Base
 
             /// <summary>
             /// Initializes a new class instance with a specified string to process
-            /// and the specified token delimiters to use
+            /// and the specified token delimiters to use.
             /// </summary>
-            /// <param name="source">String to tokenize</param>
-            /// <param name="delimiters">String containing the delimiters</param>
+            /// <param name="source">String to tokenize.</param>
+            /// <param name="delimiters">String containing the delimiters.</param>
             public Tokenizer(string source, string delimiters)
                 : this(source)
             {
@@ -3280,8 +3280,8 @@ namespace NHapi.Base
             /// Initializes a new class instance with a specified string to process, the specified token
             /// delimiters to use, and whether the delimiters must be included in the results.
             /// </summary>
-            /// <param name="source">String to tokenize</param>
-            /// <param name="delimiters">String containing the delimiters</param>
+            /// <param name="source">String to tokenize.</param>
+            /// <param name="delimiters">String containing the delimiters.</param>
             /// <param name="includeDelims">Determines if delimiters are included in the results.</param>
             public Tokenizer(string source, string delimiters, bool includeDelims)
                 : this(source, delimiters)
@@ -3290,9 +3290,9 @@ namespace NHapi.Base
             }
 
             /// <summary>
-            /// Returns the next token from the token list
+            /// Returns the next token from the token list.
             /// </summary>
-            /// <returns>The string value of the token</returns>
+            /// <returns>The string value of the token.</returns>
             public string NextToken()
             {
                 if (cache_HasNextToken)
@@ -3307,10 +3307,10 @@ namespace NHapi.Base
 
             /// <summary>
             /// Returns the next token from the source string, using the provided
-            /// token delimiters
+            /// token delimiters.
             /// </summary>
-            /// <param name="delimiters">String containing the delimiters to use</param>
-            /// <returns>The string value of the token</returns>
+            /// <param name="delimiters">String containing the delimiters to use.</param>
+            /// <returns>The string value of the token.</returns>
             public string NextToken(string delimiters)
             {
                 // According to documentation, the usage of the received delimiters should be temporary (only for this call).
@@ -3375,9 +3375,9 @@ namespace NHapi.Base
             private long cache_NextTokenPosition = 0;
 
             /// <summary>
-            /// Determines if there are more tokens to return from the source string
+            /// Determines if there are more tokens to return from the source string.
             /// </summary>
-            /// <returns>True or false, depending if there are more tokens</returns>
+            /// <returns>True or false, depending if there are more tokens.</returns>
             public bool HasMoreTokens()
             {
                 // rlb: Attempt to improve performance by checking just based on length,
@@ -3409,7 +3409,7 @@ namespace NHapi.Base
             }
 
             /// <summary>
-            /// Remaining tokens count
+            /// Remaining tokens count.
             /// </summary>
             public int Count
             {
@@ -3446,7 +3446,7 @@ namespace NHapi.Base
             /// <summary>
             /// Performs the same action as HasMoreTokens.
             /// </summary>
-            /// <returns>True or false, depending if there are more tokens</returns>
+            /// <returns>True or false, depending if there are more tokens.</returns>
             public bool MoveNext()
             {
                 return HasMoreTokens();
@@ -3464,10 +3464,10 @@ namespace NHapi.Base
         /*******************************/
 
         /// <summary>
-        /// Checks if the giving File instance is a directory or file, and returns his Length
+        /// Checks if the giving File instance is a directory or file, and returns his Length.
         /// </summary>
-        /// <param name="file">The File instance to check</param>
-        /// <returns>The length of the file</returns>
+        /// <param name="file">The File instance to check.</param>
+        /// <returns>The length of the file.</returns>
         public static long FileLength(FileInfo file)
         {
             if (file.Exists)

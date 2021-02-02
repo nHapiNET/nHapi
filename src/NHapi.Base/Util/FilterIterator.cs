@@ -43,7 +43,7 @@ namespace NHapi.Base.Util
     using System.Collections;
 
    /// <summary>
-   /// Filter iterator class
+   /// Filter iterator class.
    /// </summary>
     public class FilterIterator : IEnumerator
     {
@@ -53,7 +53,7 @@ namespace NHapi.Base.Util
         private bool nextObjectSet = false;
 
         /// <summary>
-        /// Constructor
+        /// Constructor.
         /// </summary>
         /// <param name="iter"></param>
         /// <param name="predicate"></param>
@@ -64,7 +64,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary>
-        /// The current item
+        /// The current item.
         /// </summary>
         public virtual object Current
         {
@@ -84,7 +84,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary>
-        /// Move next
+        /// Move next.
         /// </summary>
         /// <returns></returns>
         public virtual bool MoveNext()
@@ -118,19 +118,19 @@ namespace NHapi.Base.Util
             return false;
         }
 
-        /// <summary>Throws UnsupportedOperationException </summary>
+        /// <summary>Throws UnsupportedOperationException. </summary>
         public virtual void remove()
         {
             throw new NotSupportedException();
         }
 
         /// <summary>
-        /// IPredicate interface
+        /// IPredicate interface.
         /// </summary>
         public interface IPredicate
         {
             /// <summary>
-            /// Evaluate the object
+            /// Evaluate the object.
             /// </summary>
             /// <param name="obj"></param>
             /// <returns></returns>
@@ -138,7 +138,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary>
-        /// Reset
+        /// Reset.
         /// </summary>
         public virtual void Reset()
         {

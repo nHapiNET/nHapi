@@ -32,7 +32,7 @@ namespace NHapi.Base
    /// <summary> Represents a problem with the validity of a data type, such as an attempt
    /// to set the value of a primitive type to something invalid for that type.
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
     [Serializable]
     public class DataTypeException : HL7Exception

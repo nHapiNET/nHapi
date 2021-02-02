@@ -39,15 +39,15 @@ namespace NHapi.SourceGeneration.Generators
    /// Source code is generated from the normative database.
    ///
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
-   /// <author>  Eric Poiseau
+   /// <author>  Eric Poiseau.
    /// </author>
     public class GroupGenerator : object
     {
         private static readonly IHapiLog log;
 
-        /// <summary>Creates new GroupGenerator </summary>
+        /// <summary>Creates new GroupGenerator. </summary>
         public GroupGenerator()
         {
         }
@@ -228,7 +228,7 @@ namespace NHapi.SourceGeneration.Generators
             return ret;
         }
 
-        /// <summary> Returns true if opening is "[{" and closing is "}]"</summary>
+        /// <summary> Returns true if opening is "[{" and closing is "}]".</summary>
         private static bool repoptMarkers(string opening, string closing)
         {
             bool ret = false;
@@ -240,7 +240,7 @@ namespace NHapi.SourceGeneration.Generators
             return ret;
         }
 
-        /// <summary> Returns true if opening is "[" and closing is "]"</summary>
+        /// <summary> Returns true if opening is "[" and closing is "]".</summary>
         private static bool optMarkers(string opening, string closing)
         {
             bool ret = false;
@@ -252,7 +252,7 @@ namespace NHapi.SourceGeneration.Generators
             return ret;
         }
 
-        /// <summary> Returns true if opening is "{" and closing is "}"</summary>
+        /// <summary> Returns true if opening is "{" and closing is "}".</summary>
         private static bool repMarkers(string opening, string closing)
         {
             bool ret = false;
@@ -570,10 +570,10 @@ namespace NHapi.SourceGeneration.Generators
         /// indicates the start of a group (ie "{" or "["), returns the position
         /// of the corresponding end of the group.  Nested group markers are ignored.
         /// </summary>
-        /// <throws>  IllegalArgumentException if groupStart is out of range or does not  </throws>
+        /// <throws>  IllegalArgumentException if groupStart is out of range or does not.  </throws>
         /// <summary>      point to a group opening marker.
         /// </summary>
-        /// <throws>  HL7Exception if the end of the group is not found or if other pairs  </throws>
+        /// <throws>  HL7Exception if the end of the group is not found or if other pairs.  </throws>
         /// <summary>      are not properly nested inside this one.
         /// </summary>
         public static int findGroupEnd(IStructureDef[] structures, int groupStart)

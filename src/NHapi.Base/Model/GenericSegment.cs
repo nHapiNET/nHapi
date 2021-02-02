@@ -10,13 +10,13 @@ namespace NHapi.Base.Model
    /// of HL7.  Also, this class is not used to handle Z segments that have been
    /// explicitly defined and declared (see Parser.PackageList() ).
    /// </summary>
-   /// <author>  Bryan Tripp
+   /// <author>  Bryan Tripp.
    /// </author>
     public class GenericSegment : AbstractSegment
     {
         private string name;
 
-        /// <summary>Creates a new instance of GenericSegment </summary>
+        /// <summary>Creates a new instance of GenericSegment. </summary>
         public GenericSegment(IGroup parent, string name)
             : base(parent, null)
         {

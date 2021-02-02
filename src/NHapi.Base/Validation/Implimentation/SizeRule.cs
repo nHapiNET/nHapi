@@ -33,7 +33,7 @@ namespace NHapi.Base.validation.impl
    /// </summary>
    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
    /// </author>
-   /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $
+   /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $.
    /// </version>
     public class SizeRule : IPrimitiveTypeRule
     {
@@ -56,7 +56,7 @@ namespace NHapi.Base.validation.impl
         private int myMaxChars;
 
         /// <param name="theMaxChars">the maximum number of characters this rule allows in a
-        /// primitive value
+        /// primitive value.
         /// </param>
         public SizeRule(int theMaxChars)
         {

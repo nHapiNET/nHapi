@@ -31,7 +31,7 @@ namespace NHapi.SourceGeneration.Generators
    /// <summary> Information about a structure within a message (eg group, segment)
    /// that is used in creating source for a Group class.
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
     public interface IStructureDef
     {

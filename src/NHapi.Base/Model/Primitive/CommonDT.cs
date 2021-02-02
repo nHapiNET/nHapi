@@ -42,9 +42,9 @@ namespace NHapi.Base.Model.Primitive
    /// YYYY[MM[DD]]. Thus, YYYY is used to specify a precision of "year," YYYYMM specifies a precision of "month,"
    /// and YYYYMMDD specifies a precision of "day."
    /// By site-specific agreement, YYYYMMDD may be used where backward compatibility must be maintained.
-   /// Examples:   |19880704|  |199503|
+   /// Examples:   |19880704|  |199503|.
    /// </summary>
-   /// <author>  Neal Acharya
+   /// <author>  Neal Acharya.
    /// </author>
     public class CommonDT
     {
@@ -137,7 +137,7 @@ namespace NHapi.Base.Model.Primitive
 
         /// <summary> This method takes in an integer value for the year and performs validations,
         /// it then sets the value field formatted as an HL7 date.
-        /// value with year precision (YYYY)
+        /// value with year precision (YYYY).
         /// </summary>
         public virtual int YearPrecision
         {

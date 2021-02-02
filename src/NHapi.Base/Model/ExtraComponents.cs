@@ -27,7 +27,7 @@ namespace NHapi.Base.Model
    /// by Terser.
    /// </para>
    /// </summary>
-   /// <author>Bryan Tripp</author>
+   /// <author>Bryan Tripp.</author>
     public class ExtraComponents
     {
         private ArrayList comps;

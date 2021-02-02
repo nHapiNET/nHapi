@@ -7,7 +7,7 @@ namespace NHapi.Base.Util
     /// <summary> Tools for copying data recurvisely from one message element into another.  Currently only Types are
     /// supported.
     /// </summary>
-    /// <author>  Bryan Tripp
+    /// <author>  Bryan Tripp.
     /// </author>
     public class DeepCopy
     {
@@ -38,9 +38,9 @@ namespace NHapi.Base.Util
         /// each field in the source segment, regardless of whether the corresponding
         /// destination field is repeating or even exists.
         /// </summary>
-        /// <param name="from">the segment from which data are copied
+        /// <param name="from">the segment from which data are copied.
         /// </param>
-        /// <param name="to">the segment into which data are copied
+        /// <param name="to">the segment into which data are copied.
         /// </param>
         public static void copy(ISegment from, ISegment to)
         {

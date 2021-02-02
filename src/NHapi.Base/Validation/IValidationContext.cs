@@ -34,36 +34,36 @@ namespace NHapi.Base.validation
    /// </summary>
    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
    /// </author>
-   /// <version>  $Revision: 1.4 $ updated on $Date: 2005/06/27 22:42:18 $ by $Author: bryan_tripp $
+   /// <version>  $Revision: 1.4 $ updated on $Date: 2005/06/27 22:42:18 $ by $Author: bryan_tripp $.
    /// </version>
     public interface IValidationContext
     {
-        /// <param name="theVersion">an HL7 version (eg "2.1")
+        /// <param name="theVersion">an HL7 version (eg "2.1").
         /// </param>
-        /// <param name="theTypeName">a primitive datatype name (eg "ST")
+        /// <param name="theTypeName">a primitive datatype name (eg "ST").
         /// </param>
-        /// <param name="theType">the Primitive being validated
+        /// <param name="theType">the Primitive being validated.
         /// </param>
-        /// <returns> active rules for checking the given type in the given version
+        /// <returns> active rules for checking the given type in the given version.
         /// </returns>
         IPrimitiveTypeRule[] getPrimitiveRules(string theVersion, string theTypeName, IPrimitive theType);
 
-        /// <param name="theVersion">an HL7 version (eg "2.1")
+        /// <param name="theVersion">an HL7 version (eg "2.1").
         /// </param>
-        /// <param name="theMessageType">a value valid for MSH-9-1
+        /// <param name="theMessageType">a value valid for MSH-9-1.
         /// </param>
-        /// <param name="theTriggerEvent">a value valid fro MSH-9-2
+        /// <param name="theTriggerEvent">a value valid fro MSH-9-2.
         /// </param>
         /// <returns> the active rules that apply to message of the given version, message type,
-        /// and trigger event
+        /// and trigger event.
         /// </returns>
         IMessageRule[] getMessageRules(string theVersion, string theMessageType, string theTriggerEvent);
 
-        /// <param name="theVersion">an HL7 version (eg "2.1")
+        /// <param name="theVersion">an HL7 version (eg "2.1").
         /// </param>
-        /// <param name="theEncoding">an encoding name (eg "VB", "XML)
+        /// <param name="theEncoding">an encoding name (eg "VB", "XML).
         /// </param>
-        /// <returns> the active encoding rules that apply to the given version and encoding
+        /// <returns> the active encoding rules that apply to the given version and encoding.
         /// </returns>
         IEncodingRule[] getEncodingRules(string theVersion, string theEncoding);
     }

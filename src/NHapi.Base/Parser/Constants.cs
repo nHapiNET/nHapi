@@ -5,7 +5,7 @@ namespace NHapi.Base.Parser
     using System.Text;
 
     /// <summary>
-    /// The class types for the default model factory
+    /// The class types for the default model factory.
     /// </summary>
     public enum ClassType
     {

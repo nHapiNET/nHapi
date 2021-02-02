@@ -30,13 +30,13 @@ namespace NHapi.SourceGeneration
     using NHapi.Base;
 
    /// <summary> Thrown when a table value can not be found by a TableRepository. </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
     [Serializable]
     public class UnknownValueException : HL7Exception
     {
         /// <summary>
-        /// Constructor
+        /// Constructor.
         /// </summary>
         /// <param name="message"></param>
         public UnknownValueException(string message)

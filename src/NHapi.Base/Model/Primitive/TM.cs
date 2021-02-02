@@ -34,7 +34,7 @@ namespace NHapi.Base.Model.Primitive
    /// <author><a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a></author>
    /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
    /// <version>
-   /// $Revision: 1.3 $ updated on $Date: 2005/06/08 00:28:25 $ by $Author: bryan_tripp $
+   /// $Revision: 1.3 $ updated on $Date: 2005/06/08 00:28:25 $ by $Author: bryan_tripp $.
    /// </version>
     public abstract class TM : AbstractPrimitive
     {
@@ -135,16 +135,16 @@ namespace NHapi.Base.Model.Primitive
 
         private CommonTM myDetail;
 
-        /// <param name="theMessage">message to which this Type belongs
+        /// <param name="theMessage">message to which this Type belongs.
         /// </param>
         protected TM(IMessage theMessage)
             : base(theMessage)
         {
         }
 
-        /// <summary>Construct the type</summary>
-        /// <param name="theMessage">message to which this Type belongs</param>
-        /// <param name="description">The description of this type</param>
+        /// <summary>Construct the type.</summary>
+        /// <param name="theMessage">message to which this Type belongs.</param>
+        /// <param name="description">The description of this type.</param>
         protected TM(IMessage theMessage, string description)
             : base(theMessage, description)
         {
@@ -152,7 +152,7 @@ namespace NHapi.Base.Model.Primitive
 
         /// <seealso cref="CommonTM.setHourMinutePrecision(int, int)">
         /// </seealso>
-        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
+        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this.  </throws>
         /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
         /// this method is called.
         /// </summary>
@@ -163,7 +163,7 @@ namespace NHapi.Base.Model.Primitive
 
         /// <seealso cref="CommonTM.setHourMinSecondPrecision(int, int, float)">
         /// </seealso>
-        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
+        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this.  </throws>
         /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
         /// this method is called.
         /// </summary>

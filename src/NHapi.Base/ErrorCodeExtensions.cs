@@ -7,11 +7,11 @@
     public static class ErrorCodeExtensions
     {
         /// <summary>
-        /// Returns the ErrorCode for the given integer
+        /// Returns the ErrorCode for the given integer.
         /// </summary>
-        /// <param name="errorCode">integer error code</param>
+        /// <param name="errorCode">integer error code.</param>
         /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException">when given integer is not a valid <see cref="ErrorCode"/> value</exception>
+        /// <exception cref="ArgumentOutOfRangeException">when given integer is not a valid <see cref="ErrorCode"/> value.</exception>
         public static ErrorCode ToErrorCode(this int errorCode)
         {
             var errorCodeValues = Enum.GetValues(typeof(ErrorCode)).Cast<int>();
@@ -39,9 +39,9 @@
         /// Retrieves the name of the <see cref="ErrorCode"/> value
         /// from the <seealso cref="DescriptionAttribute"/> or the string
         /// representation of the enum value if there is no <seealso cref="DescriptionAttribute"/>
-        /// present
+        /// present.
         /// </summary>
-        /// <param name="errorCode">the <see cref="ErrorCode"/> we will retrieve the description from</param>
+        /// <param name="errorCode">the <see cref="ErrorCode"/> we will retrieve the description from.</param>
         /// <returns></returns>
         public static string GetName(this ErrorCode errorCode)
         {

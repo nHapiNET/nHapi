@@ -7,7 +7,7 @@ namespace NHapi.SourceGeneration
     using System.Data.Odbc;
 
     /// <summary>
-    /// Manager for the connection with the database
+    /// Manager for the connection with the database.
     /// </summary>
     public class OdbcDBSchema
     {
@@ -16,16 +16,16 @@ namespace NHapi.SourceGeneration
         private ConnectionState ConnectionState;
 
         /// <summary>
-        /// Constructs a new member with the provided connection
+        /// Constructs a new member with the provided connection.
         /// </summary>
-        /// <param name="Connection">The connection to assign to the new member</param>
+        /// <param name="Connection">The connection to assign to the new member.</param>
         public OdbcDBSchema(OdbcConnection Connection)
         {
             this.Connection = Connection;
         }
 
         /// <summary>
-        /// Gets the Driver name of the connection
+        /// Gets the Driver name of the connection.
         /// </summary>
         public string DriverName
         {
@@ -40,7 +40,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Opens the connection
+        /// Opens the connection.
         /// </summary>
         private void OpenConnection()
         {
@@ -51,7 +51,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Closes the connection
+        /// Closes the connection.
         /// </summary>
         private void CloseConnection()
         {
@@ -62,11 +62,11 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the info of the row
+        /// Gets the info of the row.
         /// </summary>
-        /// <param name="filter">Filter to apply to the row</param>
-        /// <param name="RowName">The row from which to obtain the filter</param>
-        /// <returns>A new String with the info from the row</returns>
+        /// <param name="filter">Filter to apply to the row.</param>
+        /// <param name="RowName">The row from which to obtain the filter.</param>
+        /// <returns>A new String with the info from the row.</returns>
         private string GetMaxInfo(string filter, string RowName)
         {
             string result = string.Empty;
@@ -87,7 +87,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the catalogs from the database to which it is connected
+        /// Gets the catalogs from the database to which it is connected.
         /// </summary>
         public DataTable Catalogs
         {
@@ -101,7 +101,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the OleDBConnection for the current member
+        /// Gets the OleDBConnection for the current member.
         /// </summary>
         /// <returns></returns>
         public OdbcConnection GetConnection()
@@ -110,12 +110,12 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets a description of the stored procedures available
+        /// Gets a description of the stored procedures available.
         /// </summary>
-        /// <param name="catalog">The catalog from which to obtain the procedures</param>
-        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema</param>
-        /// <param name="procedureNamePattern">a procedure name pattern</param>
-        /// <returns>each row but withing a procedure description</returns>
+        /// <param name="catalog">The catalog from which to obtain the procedures.</param>
+        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema.</param>
+        /// <param name="procedureNamePattern">a procedure name pattern.</param>
+        /// <returns>each row but withing a procedure description.</returns>
         public DataTable GetProcedures(string catalog, string schemaPattern, string procedureNamePattern)
         {
             OpenConnection();
@@ -127,13 +127,13 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets a collection of the descriptions of the stored procedures parameters and result columns
+        /// Gets a collection of the descriptions of the stored procedures parameters and result columns.
         /// </summary>
-        /// <param name="catalog">Retrieves those without a catalog</param>
-        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema</param>
-        /// <param name="procedureNamePattern">a procedure name pattern</param>
-        /// <param name="columnNamePattern">a columng name patterm</param>
-        /// <returns>Each row but withing a procedure description or column</returns>
+        /// <param name="catalog">Retrieves those without a catalog.</param>
+        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema.</param>
+        /// <param name="procedureNamePattern">a procedure name pattern.</param>
+        /// <param name="columnNamePattern">a columng name patterm.</param>
+        /// <returns>Each row but withing a procedure description or column.</returns>
         public DataTable GetProcedureColumns(string catalog, string schemaPattern, string procedureNamePattern,
             string columnNamePattern)
         {
@@ -146,13 +146,13 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets a description of the tables available for the catalog
+        /// Gets a description of the tables available for the catalog.
         /// </summary>
-        /// <param name="catalog">A catalog, retrieves those without a catalog</param>
-        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema</param>
-        /// <param name="tableNamePattern">A table name pattern</param>
-        /// <param name="types">a list of table types to include</param>
-        /// <returns>Each row</returns>
+        /// <param name="catalog">A catalog, retrieves those without a catalog.</param>
+        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema.</param>
+        /// <param name="tableNamePattern">A table name pattern.</param>
+        /// <param name="types">a list of table types to include.</param>
+        /// <returns>Each row.</returns>
         public DataTable GetTables(string catalog, string schemaPattern, string tableNamePattern, string[] types)
         {
             OpenConnection();
@@ -178,12 +178,12 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets a description of the table rights
+        /// Gets a description of the table rights.
         /// </summary>
-        /// <param name="catalog">A catalog, retrieves those without a catalog</param>
-        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema</param>
-        /// <param name="tableNamePattern">A table name pattern</param>
-        /// <returns>A description of the table rights</returns>
+        /// <param name="catalog">A catalog, retrieves those without a catalog.</param>
+        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema.</param>
+        /// <param name="tableNamePattern">A table name pattern.</param>
+        /// <returns>A description of the table rights.</returns>
         public DataTable GetTablePrivileges(string catalog, string schemaPattern, string tableNamePattern)
         {
             OpenConnection();
@@ -195,7 +195,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the table types available
+        /// Gets the table types available.
         /// </summary>
         public DataTable TableTypes
         {
@@ -228,13 +228,13 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets a description of the table columns available
+        /// Gets a description of the table columns available.
         /// </summary>
-        /// <param name="catalog">A catalog, retrieves those without a catalog</param>
-        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema</param>
-        /// <param name="tableNamePattern">A table name pattern</param>
-        /// <param name="columnNamePattern">a columng name patterm</param>
-        /// <returns>A description of the table columns available</returns>
+        /// <param name="catalog">A catalog, retrieves those without a catalog.</param>
+        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema.</param>
+        /// <param name="tableNamePattern">A table name pattern.</param>
+        /// <param name="columnNamePattern">a columng name patterm.</param>
+        /// <returns>A description of the table columns available.</returns>
         public DataTable GetColumns(string catalog, string schemaPattern, string tableNamePattern, string columnNamePattern)
         {
             OpenConnection();
@@ -246,12 +246,12 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets a description of the primary keys available
+        /// Gets a description of the primary keys available.
         /// </summary>
-        /// <param name="catalog">A catalog, retrieves those without a catalog</param>
-        /// <param name="schema">Schema name, retrieves those without the schema</param>
-        /// <param name="table">A table name</param>
-        /// <returns>A description of the primary keys available</returns>
+        /// <param name="catalog">A catalog, retrieves those without a catalog.</param>
+        /// <param name="schema">Schema name, retrieves those without the schema.</param>
+        /// <param name="table">A table name.</param>
+        /// <returns>A description of the primary keys available.</returns>
         public DataTable GetPrimaryKeys(string catalog, string schema, string table)
         {
             OpenConnection();
@@ -261,12 +261,12 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets a description of the foreign keys available
+        /// Gets a description of the foreign keys available.
         /// </summary>
-        /// <param name="catalog">A catalog, retrieves those without a catalog</param>
-        /// <param name="schema">Schema name, retrieves those without the schema</param>
-        /// <param name="table">A table name</param>
-        /// <returns>A description of the foreign keys available</returns>
+        /// <param name="catalog">A catalog, retrieves those without a catalog.</param>
+        /// <param name="schema">Schema name, retrieves those without the schema.</param>
+        /// <param name="table">A table name.</param>
+        /// <returns>A description of the foreign keys available.</returns>
         public DataTable GetForeignKeys(string catalog, string schema, string table)
         {
             OpenConnection();
@@ -276,13 +276,13 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets a description of the access rights for a table columns
+        /// Gets a description of the access rights for a table columns.
         /// </summary>
-        /// <param name="catalog">A catalog, retrieves those without a catalog</param>
-        /// <param name="schema">Schema name, retrieves those without the schema</param>
-        /// <param name="table">A table name</param>
-        /// <param name="columnNamePattern">A column name patter</param>
-        /// <returns>A description of the access rights for a table columns</returns>
+        /// <param name="catalog">A catalog, retrieves those without a catalog.</param>
+        /// <param name="schema">Schema name, retrieves those without the schema.</param>
+        /// <param name="table">A table name.</param>
+        /// <param name="columnNamePattern">A column name patter.</param>
+        /// <returns>A description of the access rights for a table columns.</returns>
         public DataTable GetColumnPrivileges(string catalog, string schema, string table, string columnNamePattern)
         {
             OpenConnection();
@@ -294,7 +294,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the provider version
+        /// Gets the provider version.
         /// </summary>
         public string ProviderVersion
         {
@@ -309,7 +309,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the default transaction isolation integer value
+        /// Gets the default transaction isolation integer value.
         /// </summary>
         public int DefaultTransactionIsolation
         {
@@ -325,7 +325,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the schemata for the member
+        /// Gets the schemata for the member.
         /// </summary>
         public DataTable Schemata
         {
@@ -339,7 +339,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the provider types for the member
+        /// Gets the provider types for the member.
         /// </summary>
         public DataTable ProviderTypes
         {
@@ -353,7 +353,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the catalog separator
+        /// Gets the catalog separator.
         /// </summary>
         public string CatalogSeparator
         {
@@ -361,7 +361,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the maximum binary length permited
+        /// Gets the maximum binary length permited.
         /// </summary>
         public int MaxBinaryLiteralLength
         {
@@ -380,7 +380,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the maximum catalog name length permited
+        /// Gets the maximum catalog name length permited.
         /// </summary>
         public int MaxCatalogNameLength
         {
@@ -399,7 +399,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the maximum character literal length permited
+        /// Gets the maximum character literal length permited.
         /// </summary>
         public int MaxCharLiteralLength
         {
@@ -418,7 +418,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the maximum column name length
+        /// Gets the maximum column name length.
         /// </summary>
         public int MaxColumnNameLength
         {
@@ -437,7 +437,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the maximum cursor name length
+        /// Gets the maximum cursor name length.
         /// </summary>
         public int MaxCursorNameLength
         {
@@ -456,7 +456,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the maximum procedure name length
+        /// Gets the maximum procedure name length.
         /// </summary>
         public int MaxProcedureNameLength
         {
@@ -475,7 +475,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the maximum schema name length
+        /// Gets the maximum schema name length.
         /// </summary>
         public int MaxSchemaNameLength
         {
@@ -494,7 +494,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the maximum table name length
+        /// Gets the maximum table name length.
         /// </summary>
         public int MaxTableNameLength
         {
@@ -513,7 +513,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the maximum user name length
+        /// Gets the maximum user name length.
         /// </summary>
         public int MaxUserNameLength
         {

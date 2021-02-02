@@ -64,7 +64,7 @@ namespace NHapi.Base.Model.Primitive
    /// |093544.2312| 44.2312 seconds after Nine thirty-five AM, local time of sender.
    /// |13| 1pm (with a precision of hours), local time of sender.
    /// </summary>
-   /// <author>  Neal Acharya
+   /// <author>  Neal Acharya.
    /// </author>
     public class CommonTM
     {
@@ -385,7 +385,7 @@ namespace NHapi.Base.Model.Primitive
         }
 
         /// <summary> This method takes in the four digit (signed) GMT offset and sets the offset
-        /// field
+        /// field.
         /// </summary>
         public virtual int Offset
         {

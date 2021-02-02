@@ -31,12 +31,12 @@ namespace NHapi.Base.Util
     using NHapi.Base.Model;
 
    /// <summary> A tool for getting segments by name within a message or part of a message.</summary>
-   /// <author>  Bryan Tripp
+   /// <author>  Bryan Tripp.
    /// </author>
     public class SegmentFinder : MessageNavigator
     {
         /// <summary> Creates a new instance of SegmentFinder.</summary>
-        /// <param name="root">the scope of searches -- may be a whole message or only a branch
+        /// <param name="root">the scope of searches -- may be a whole message or only a branch.
         /// </param>
         public SegmentFinder(IGroup root)
             : base(root)
@@ -75,7 +75,7 @@ namespace NHapi.Base.Util
             return (IGroup)s;
         }
 
-        /// <summary> Returns the first matching structure AFTER the current position</summary>
+        /// <summary> Returns the first matching structure AFTER the current position.</summary>
         private IStructure findStructure(string namePattern, int rep)
         {
             IStructure s = null;

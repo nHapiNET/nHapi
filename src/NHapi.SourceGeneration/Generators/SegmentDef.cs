@@ -34,11 +34,11 @@ namespace NHapi.SourceGeneration.Generators
    /// also includes group start/end indicators, with group names.
    ///
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
     public class SegmentDef : IStructureDef
     {
-        /// <returns> name of segment
+        /// <returns> name of segment.
         /// </returns>
         public virtual string Name
         {
@@ -54,7 +54,7 @@ namespace NHapi.SourceGeneration.Generators
             }
         }
 
-        /// <returns> name of group, if this is not really a segment but a group start indicator
+        /// <returns> name of group, if this is not really a segment but a group start indicator.
         /// </returns>
         public virtual string GroupName
         {
@@ -100,7 +100,7 @@ namespace NHapi.SourceGeneration.Generators
         private bool required;
         private bool repeating;
 
-        /// <summary>Creates new SegmentDef </summary>
+        /// <summary>Creates new SegmentDef. </summary>
         public SegmentDef(string name, string groupName, bool required, bool repeating, string description)
         {
             this.name = name;

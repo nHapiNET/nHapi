@@ -8,14 +8,14 @@ namespace NHapi.Base.Model
     /// <summary> A generic HL7 message, meant for parsing message with unrecognized structures
     /// into a flat list of segments.
     /// </summary>
-    /// <author>  Bryan Tripp
+    /// <author>  Bryan Tripp.
     /// </author>
     public abstract class GenericMessage : AbstractMessage
     {
         /// <summary> Creates a new instance of GenericMessage.
         ///
         /// </summary>
-        /// <param name="factory">class factory for contained structures
+        /// <param name="factory">class factory for contained structures.
         /// </param>
         public GenericMessage(IModelClassFactory factory)
             : base(factory)
@@ -73,12 +73,12 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Version 2.1 generic message
+        /// Version 2.1 generic message.
         /// </summary>
         public class V21 : GenericMessage
         {
             /// <summary>
-            /// Version of message
+            /// Version of message.
             /// </summary>
             public override string Version
             {
@@ -86,7 +86,7 @@ namespace NHapi.Base.Model
             }
 
             /// <summary>
-            /// Constructor
+            /// Constructor.
             /// </summary>
             /// <param name="factory"></param>
             public V21(IModelClassFactory factory)
@@ -96,12 +96,12 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Version 2.2 generic message
+        /// Version 2.2 generic message.
         /// </summary>
         public class V22 : GenericMessage
         {
             /// <summary>
-            /// Version of message
+            /// Version of message.
             /// </summary>
             public override string Version
             {
@@ -109,7 +109,7 @@ namespace NHapi.Base.Model
             }
 
             /// <summary>
-            /// Constructor
+            /// Constructor.
             /// </summary>
             /// <param name="factory"></param>
             public V22(IModelClassFactory factory)
@@ -119,12 +119,12 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Version 2.3 generic message
+        /// Version 2.3 generic message.
         /// </summary>
         public class V23 : GenericMessage
         {
             /// <summary>
-            /// Version of message
+            /// Version of message.
             /// </summary>
             public override string Version
             {
@@ -132,7 +132,7 @@ namespace NHapi.Base.Model
             }
 
             /// <summary>
-            /// Constructor
+            /// Constructor.
             /// </summary>
             /// <param name="factory"></param>
             public V23(IModelClassFactory factory)
@@ -142,12 +142,12 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Version 2.3.1 generic message
+        /// Version 2.3.1 generic message.
         /// </summary>
         public class V231 : GenericMessage
         {
             /// <summary>
-            /// Version of message
+            /// Version of message.
             /// </summary>
             public override string Version
             {
@@ -155,7 +155,7 @@ namespace NHapi.Base.Model
             }
 
             /// <summary>
-            /// Constructor
+            /// Constructor.
             /// </summary>
             /// <param name="factory"></param>
             public V231(IModelClassFactory factory)
@@ -165,12 +165,12 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Version 2.4 generic message
+        /// Version 2.4 generic message.
         /// </summary>
         public class V24 : GenericMessage
         {
             /// <summary>
-            /// Version of message
+            /// Version of message.
             /// </summary>
             public override string Version
             {
@@ -178,7 +178,7 @@ namespace NHapi.Base.Model
             }
 
             /// <summary>
-            /// Constructor
+            /// Constructor.
             /// </summary>
             /// <param name="factory"></param>
             public V24(IModelClassFactory factory)
@@ -188,12 +188,12 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Version 2.5 generic message
+        /// Version 2.5 generic message.
         /// </summary>
         public class V25 : GenericMessage
         {
             /// <summary>
-            /// Version of message
+            /// Version of message.
             /// </summary>
             public override string Version
             {
@@ -201,7 +201,7 @@ namespace NHapi.Base.Model
             }
 
             /// <summary>
-            /// Constructor
+            /// Constructor.
             /// </summary>
             /// <param name="factory"></param>
             public V25(IModelClassFactory factory)

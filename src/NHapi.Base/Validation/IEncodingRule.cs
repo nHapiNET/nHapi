@@ -34,7 +34,7 @@ namespace NHapi.Base.validation
    /// for criteria that are specific to the encoded form of a message, e.g. "no empty
    /// tags in an XML message".
    /// </summary>
-   /// <author>  Bryan Tripp
+   /// <author>  Bryan Tripp.
    /// </author>
     public interface IEncodingRule : IRule
     {

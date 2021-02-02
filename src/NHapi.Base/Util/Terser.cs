@@ -39,7 +39,7 @@ namespace NHapi.Base.Util
    /// <para>
    /// For example:
    /// <code>terser.set("MSH-9-3", "ADT_A01");</code> <br />
-   /// can be used instead of <br />
+   /// can be used instead of. <br />
    /// <code>message.getMSH().getMessageType().getMessageStructure().setValue("ADT_A01"); </code>
    /// </para>
    /// <para>
@@ -83,7 +83,7 @@ namespace NHapi.Base.Util
    /// only one AIG segment position in SUI_S12): <code>/.AIG-5(1)</code>
    /// </para>
    /// </example>
-   /// <author>Bryan Tripp</author>
+   /// <author>Bryan Tripp.</author>
     public class Terser
     {
         /// <summary>
@@ -100,22 +100,22 @@ namespace NHapi.Base.Util
         private SegmentFinder finder;
         private static IHapiLog log;
 
-        /// <summary>Creates a new instance of Terser </summary>
+        /// <summary>Creates a new instance of Terser. </summary>
         public Terser(IMessage message)
         {
             finder = new SegmentFinder(message);
         }
 
         /// <summary> Returns the string value of the Primitive at the given location.</summary>
-        /// <param name="segment">the segment from which to get the primitive
+        /// <param name="segment">the segment from which to get the primitive.
         /// </param>
-        /// <param name="field">the field number
+        /// <param name="field">the field number.
         /// </param>
-        /// <param name="rep">the field repetition
+        /// <param name="rep">the field repetition.
         /// </param>
-        /// <param name="component">the component number (use 1 for primitive field)
+        /// <param name="component">the component number (use 1 for primitive field).
         /// </param>
-        /// <param name="subcomponent">the subcomponent number (use 1 for primitive component)
+        /// <param name="subcomponent">the subcomponent number (use 1 for primitive component).
         /// </param>
         public static string Get(ISegment segment, int field, int rep, int component, int subcomponent)
         {
@@ -140,7 +140,7 @@ namespace NHapi.Base.Util
         /// <summary> Returns the Primitive object at the given location in the given field.
         /// It is intended that the given type be at the field level, although extra components
         /// will be added blindly if, for example, you provide a primitive subcomponent instead
-        /// and specify component or subcomponent > 1
+        /// and specify component or subcomponent > 1.
         /// </summary>
         public static IPrimitive getPrimitive(IType type, int component, int subcomponent)
         {

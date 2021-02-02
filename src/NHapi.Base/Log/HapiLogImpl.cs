@@ -8,15 +8,15 @@ namespace NHapi.Base.Log
 {
     using System;
 
-    /// <summary> Provides a base implementation of the <code>HapiLog</code> interface.
+    /// <summary> Provides a base implementation of the. <code>HapiLog</code> interface.
     ///
-    /// It delegates all method calls declared by <code>Log</code> to the delegate specified in
+    /// It delegates all method calls declared by. <code>Log</code> to the delegate specified in
     /// the contructor.
     ///
     /// </summary>
     /// <author>  <a href="mailto:alexei.guevara@uhn.on.ca">Alexei Guevara</a>
     /// </author>
-    /// <version>  $Revision: 1.2 $ updated on $Date: 2003/05/26 20:17:06 $ by $Author: aguevara $
+    /// <version>  $Revision: 1.2 $ updated on $Date: 2003/05/26 20:17:06 $ by $Author: aguevara $.
     /// </version>
     public class HapiLogImpl : IHapiLog
     {
@@ -102,7 +102,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// fatal
+        /// fatal.
         /// </summary>
         /// <param name="message"></param>
         public virtual void Fatal(object message)
@@ -111,7 +111,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// fatal
+        /// fatal.
         /// </summary>
         /// <param name="message"></param>
         /// <param name="t"></param>
@@ -121,7 +121,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// info
+        /// info.
         /// </summary>
         /// <param name="message"></param>
         public virtual void Info(object message)
@@ -130,7 +130,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// info
+        /// info.
         /// </summary>
         /// <param name="message"></param>
         /// <param name="t"></param>
@@ -140,7 +140,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// To string
+        /// To string.
         /// </summary>
         /// <returns></returns>
         public override string ToString()
@@ -156,7 +156,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// Trace
+        /// Trace.
         /// </summary>
         /// <param name="message"></param>
         /// <param name="t"></param>
@@ -166,7 +166,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// Warn
+        /// Warn.
         /// </summary>
         /// <param name="message"></param>
         public virtual void Warn(object message)
@@ -175,7 +175,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// Warn
+        /// Warn.
         /// </summary>
         /// <param name="message"></param>
         /// <param name="t"></param>
@@ -185,7 +185,7 @@ namespace NHapi.Base.Log
         }
 
         /// <summary>
-        /// debug method
+        /// debug method.
         /// </summary>
         /// <param name="msgPattern"></param>
         /// <param name="values"></param>

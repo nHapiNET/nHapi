@@ -34,7 +34,7 @@ namespace NHapi.Base.Model.Primitive
    /// <author><a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a></author>
    /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
    /// <version>
-   /// $Revision: 1.3 $ updated on $Date: 2005/06/08 00:28:25 $ by $Author: bryan_tripp $
+   /// $Revision: 1.3 $ updated on $Date: 2005/06/08 00:28:25 $ by $Author: bryan_tripp $.
    /// </version>
     public abstract class DT : AbstractPrimitive
     {
@@ -83,7 +83,7 @@ namespace NHapi.Base.Model.Primitive
         }
 
         /// <summary> Returns the year as an integer.</summary>
-        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
+        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this.  </throws>
         /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
         /// this method is called.
         /// </summary>
@@ -93,7 +93,7 @@ namespace NHapi.Base.Model.Primitive
         }
 
         /// <summary> Returns the month as an integer.</summary>
-        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
+        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this.  </throws>
         /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
         /// this method is called.
         /// </summary>
@@ -103,7 +103,7 @@ namespace NHapi.Base.Model.Primitive
         }
 
         /// <summary> Returns the day as an integer.</summary>
-        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
+        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this.  </throws>
         /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
         /// this method is called.
         /// </summary>
@@ -114,16 +114,16 @@ namespace NHapi.Base.Model.Primitive
 
         private CommonDT myDetail;
 
-        /// <summary>Construct the type</summary>
-        /// <param name="theMessage">message to which this Type belongs</param>
+        /// <summary>Construct the type.</summary>
+        /// <param name="theMessage">message to which this Type belongs.</param>
         protected DT(IMessage theMessage)
             : base(theMessage)
         {
         }
 
-        /// <summary>Construct the type</summary>
-        /// <param name="theMessage">message to which this Type belongs</param>
-        /// <param name="description">The description of this type</param>
+        /// <summary>Construct the type.</summary>
+        /// <param name="theMessage">message to which this Type belongs.</param>
+        /// <param name="description">The description of this type.</param>
         protected DT(IMessage theMessage, string description)
             : base(theMessage, description)
         {
@@ -131,7 +131,7 @@ namespace NHapi.Base.Model.Primitive
 
         /// <seealso cref="CommonDT.setYearMonthPrecision(int, int)">
         /// </seealso>
-        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
+        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this.  </throws>
         /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
         /// this method is called.
         /// </summary>
@@ -142,7 +142,7 @@ namespace NHapi.Base.Model.Primitive
 
         /// <seealso cref="CommonDT.setYearMonthDayPrecision(int, int, int)">
         /// </seealso>
-        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
+        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this.  </throws>
         /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
         /// this method is called.
         /// </summary>

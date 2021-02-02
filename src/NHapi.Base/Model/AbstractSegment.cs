@@ -55,11 +55,11 @@ namespace NHapi.Base.Model
         /// <summary> Calls the abstract init() method to create the fields in this segment.
         ///
         /// </summary>
-        /// <param name="parentStructure">parent group
+        /// <param name="parentStructure">parent group.
         /// </param>
         /// <param name="factory">all implementors need a model class factory to find datatype classes, so we
         /// include it as an arg here to emphasize that fact ... AbstractSegment doesn't actually
-        /// use it though
+        /// use it though.
         /// </param>
         public AbstractSegment(IGroup parentStructure, IModelClassFactory factory)
         {
@@ -92,7 +92,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Immediate parent Group or message containing this segment
+        /// Immediate parent Group or message containing this segment.
         /// </summary>
         public virtual IGroup ParentStructure
         {
@@ -136,7 +136,7 @@ namespace NHapi.Base.Model
         /// <summary>
         /// Returns the total number of items used for the field X.  Fields are numbered from 1.
         /// </summary>
-        /// <param name="number">Field Number (Starts at 1)</param>
+        /// <param name="number">Field Number (Starts at 1).</param>
         /// <returns>0 if no fields users, otherwise, the number of fields used.</returns>
         public virtual int GetTotalFieldRepetitionsUsed(int number)
         {
@@ -358,19 +358,19 @@ namespace NHapi.Base.Model
         /// classes should use the add() method in their constructor in order to define fields
         /// in their segment.
         /// </summary>
-        /// <param name="c">the class of the data for this field - this should inherit from Type
+        /// <param name="c">the class of the data for this field - this should inherit from Type.
         /// </param>
         /// <param name="required">whether a value for this field is required in order for the segment
-        /// to be valid
+        /// to be valid.
         /// </param>
-        /// <param name="maxReps">the maximum number of repetitions - 0 implies that there is no limit
+        /// <param name="maxReps">the maximum number of repetitions - 0 implies that there is no limit.
         /// </param>
-        /// <param name="length">the maximum length of each repetition of the field (in characters)
+        /// <param name="length">the maximum length of each repetition of the field (in characters).
         /// </param>
         /// <param name="constructorArgs">an array of objects that will be used as constructor arguments
-        /// if new instances of this class are created (use null for zero-arg constructor)
+        /// if new instances of this class are created (use null for zero-arg constructor).
         /// </param>
-        /// <throws>  HL7Exception if the given class does not inherit from Type or if it can  </throws>
+        /// <throws>  HL7Exception if the given class does not inherit from Type or if it can.  </throws>
         /// <summary>    not be instantiated.
         /// </summary>
         protected internal virtual void add(Type c, bool required, int maxReps, int length, object[] constructorArgs)
@@ -379,9 +379,9 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Add a segment
+        /// Add a segment.
         /// </summary>
-        /// <param name="c">The type of segment</param>
+        /// <param name="c">The type of segment.</param>
         /// <param name="required"></param>
         /// <param name="maxReps"></param>
         /// <param name="length"></param>
@@ -403,8 +403,8 @@ namespace NHapi.Base.Model
         /// <summary>
         /// Remove a valid index from a repeatable field.
         /// </summary>
-        /// <param name="fieldNum">Repeatable field number</param>
-        /// <param name="index">0-based index to be removed</param>
+        /// <param name="fieldNum">Repeatable field number.</param>
+        /// <param name="index">0-based index to be removed.</param>
         public void RemoveRepetition(int fieldNum, int index)
         {
             if (fieldNum < 1 || fieldNum > _items.Count)
@@ -432,8 +432,8 @@ namespace NHapi.Base.Model
         /// <summary>
         /// Remove a valid item from a repeatable field.
         /// </summary>
-        /// <param name="fieldNum">Repeatable field number</param>
-        /// <param name="removeItem">Item to be removed</param>
+        /// <param name="fieldNum">Repeatable field number.</param>
+        /// <param name="removeItem">Item to be removed.</param>
         public void RemoveRepetition(int fieldNum, IType removeItem)
         {
             if (fieldNum < 1 || fieldNum > _items.Count)
@@ -461,8 +461,8 @@ namespace NHapi.Base.Model
         /// <summary>
         /// Get the 0-based index for an AbstractSegmentItem with a description that matches the given name.
         /// </summary>
-        /// <param name="name">Item name, with all whitespace removed</param>
-        /// <returns>0-based index, if found.  Otherwise, -1</returns>
+        /// <param name="name">Item name, with all whitespace removed.</param>
+        /// <returns>0-based index, if found.  Otherwise, -1.</returns>
         public int FindField(string name)
         {
             return _items.FindIndex(x => Regex.Replace(x.Description, @"\s", string.Empty) == name);

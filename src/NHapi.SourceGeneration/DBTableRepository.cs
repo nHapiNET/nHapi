@@ -37,7 +37,7 @@ namespace NHapi.SourceGeneration
    /// <summary> Implements TableRepository by looking up values from the default HL7
    /// normative database.  Values are cached after they are looked up once.
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
     public class DBTableRepository : TableRepository
     {
@@ -86,7 +86,7 @@ namespace NHapi.SourceGeneration
         private int bufferSize = 3000; // max # of tables or values that can be cached at a time
 
         /// <summary>
-        /// Table repository
+        /// Table repository.
         /// </summary>
         protected internal DBTableRepository()
         {

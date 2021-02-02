@@ -38,13 +38,13 @@ namespace NHapi.Base.Model
    /// and throw an exception if an attempt is made to add a Structure that the Group instance
    /// does not recognize.
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
     public interface IGroup : IStructure
     {
         /// <summary> Returns an ordered array of the names of the Structures in this
         /// Group.  These names can be used to iterate through the group using
-        /// repeated calls to <code>get(name)</code>.
+        /// repeated calls to. <code>get(name)</code>.
         /// </summary>
         string[] Names { get; }
 
@@ -67,7 +67,7 @@ namespace NHapi.Base.Model
         /// number is one greater than the existing number of repetitions then a new
         /// Structure is created.
         /// </summary>
-        /// <throws>  HL7Exception if the named Structure is not part of this group, </throws>
+        /// <throws>  HL7Exception if the named Structure is not part of this group,. </throws>
         /// <summary>    if the structure is not repeatable and the given rep is > 0,
         /// or if the given repetition number is more than one greater than the
         /// existing number of repetitions.

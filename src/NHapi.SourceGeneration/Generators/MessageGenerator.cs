@@ -39,9 +39,9 @@ namespace NHapi.SourceGeneration.Generators
    /// objects are also created as a byproduct.
    ///
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
-   /// <author>  Eric Poiseau
+   /// <author>  Eric Poiseau.
    /// </author>
     public class MessageGenerator : object
     {
@@ -53,7 +53,7 @@ namespace NHapi.SourceGeneration.Generators
 
         private static readonly IHapiLog log;
 
-        /// <summary>Creates new MessageGenerator </summary>
+        /// <summary>Creates new MessageGenerator. </summary>
         public MessageGenerator()
         {
         }
@@ -114,7 +114,7 @@ namespace NHapi.SourceGeneration.Generators
         /// <summary> Creates source code for a specific message structure and
         /// writes it under the specified directory.
         /// throws IllegalArgumentException if there is no message structure
-        /// for this message in the normative database
+        /// for this message in the normative database.
         /// </summary>
         public static void make(string message, string baseDirectory, string chapter, string version)
         {
@@ -209,7 +209,7 @@ namespace NHapi.SourceGeneration.Generators
         /// <summary> Returns an SQL query with which to get a list of the segments that
         /// are part of the given message from the normative database.  The query
         /// varies with different versions.  The fields returned are as follows:
-        /// segment_code, repetitional, optional, description
+        /// segment_code, repetitional, optional, description.
         /// </summary>
         private static string getSegmentListQuery(string message, string version)
         {

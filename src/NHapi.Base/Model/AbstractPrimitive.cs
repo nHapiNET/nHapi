@@ -32,12 +32,12 @@ namespace NHapi.Base.Model
    /// <summary> Base class for Primitives.  Performs validation in setValue().
    ///
    /// </summary>
-   /// <author>  Bryan Tripp
+   /// <author>  Bryan Tripp.
    /// </author>
     public abstract class AbstractPrimitive : AbstractType, IPrimitive
     {
         /// <summary> Sets the value of this Primitive, first performing validation as specified
-        /// by <code>getMessage().getValidationContext()</code>.  No validation is performed
+        /// by. <code>getMessage().getValidationContext()</code>.  No validation is performed
         /// if getMessage() returns null.
         ///
         /// </summary>
@@ -100,7 +100,7 @@ namespace NHapi.Base.Model
 
         private string myValue;
 
-        /// <summary> Returns the value of getValue() </summary>
+        /// <summary> Returns the value of getValue(). </summary>
         public override string ToString()
         {
             return Value;

@@ -31,7 +31,7 @@ namespace NHapi.Base.Model
    /// either when they are initialized or when they are first accessed.  Only leaf values
    /// (values of primitives) should ever be returned as null.</p>
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
    public interface IComposite : IType
     {

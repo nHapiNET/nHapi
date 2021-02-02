@@ -53,7 +53,7 @@ namespace NHapi.Base.Model.Primitive
    /// <author><a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a></author>
    /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
    /// <version>
-   /// $Revision: 1.4 $ updated on $Date: 2005/06/14 20:09:39 $ by $Author: bryan_tripp $
+   /// $Revision: 1.4 $ updated on $Date: 2005/06/14 20:09:39 $ by $Author: bryan_tripp $.
    /// </version>
     public class TSComponentOne : AbstractPrimitive
     {
@@ -169,7 +169,7 @@ namespace NHapi.Base.Model.Primitive
 
         private CommonTS myDetail;
 
-        /// <param name="theMessage">message to which this Type belongs
+        /// <param name="theMessage">message to which this Type belongs.
         /// </param>
         public TSComponentOne(IMessage theMessage)
             : base(theMessage)
@@ -183,7 +183,7 @@ namespace NHapi.Base.Model.Primitive
 
         /// <seealso cref="CommonTS.setDatePrecision(int, int, int)">
         /// </seealso>
-        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
+        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this.  </throws>
         /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
         /// this method is called.
         /// </summary>
@@ -194,7 +194,7 @@ namespace NHapi.Base.Model.Primitive
 
         /// <seealso cref="CommonTS.setDateMinutePrecision(int, int, int, int, int)">
         /// </seealso>
-        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
+        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this.  </throws>
         /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
         /// this method is called.
         /// </summary>
@@ -205,7 +205,7 @@ namespace NHapi.Base.Model.Primitive
 
         /// <seealso cref="CommonTS.setDateSecondPrecision(int, int, int, int, int, float)">
         /// </seealso>
-        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this  </throws>
+        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this.  </throws>
         /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
         /// this method is called.
         /// </summary>
@@ -215,7 +215,7 @@ namespace NHapi.Base.Model.Primitive
         }
 
         /// <summary>
-        /// Used for setting the format of a long date (Year, Month, Day, Hour, Minute)
+        /// Used for setting the format of a long date (Year, Month, Day, Hour, Minute).
         /// </summary>
         protected virtual string LongDateTimeFormat
         {
@@ -223,7 +223,7 @@ namespace NHapi.Base.Model.Primitive
         }
 
         /// <summary>
-        /// Used for setting the format of a long date (Year, Month, Day, Hour, Minute, Second)
+        /// Used for setting the format of a long date (Year, Month, Day, Hour, Minute, Second).
         /// </summary>
         protected virtual string LongDateTimeFormatWithSecond
         {
@@ -231,7 +231,7 @@ namespace NHapi.Base.Model.Primitive
         }
 
         /// <summary>
-        /// Used for setting the format of a long date (Year, Month, Day, Hour, Minute, Second, Offset from GMT)
+        /// Used for setting the format of a long date (Year, Month, Day, Hour, Minute, Second, Offset from GMT).
         /// </summary>
         protected virtual string LongDateTimeFormatWithOffset
         {
@@ -239,7 +239,7 @@ namespace NHapi.Base.Model.Primitive
         }
 
         /// <summary>
-        /// Used for setting the format of a long date (Year, Month, Day, Hour, Minute, Second, Fraction of second)
+        /// Used for setting the format of a long date (Year, Month, Day, Hour, Minute, Second, Fraction of second).
         /// </summary>
         protected virtual string LongDateTimeFormatWithFractionOfSecond
         {
@@ -247,7 +247,7 @@ namespace NHapi.Base.Model.Primitive
         }
 
         /// <summary>
-        /// Used for setting the format of a short date (Year, Month, Day)
+        /// Used for setting the format of a short date (Year, Month, Day).
         /// </summary>
         protected virtual string ShortDateTimeFormat
         {
@@ -257,7 +257,7 @@ namespace NHapi.Base.Model.Primitive
         /// <summary>
         /// Get the value as a date.  Throws hl7Exception if error.
         /// </summary>
-        /// <returns>Data/Time</returns>
+        /// <returns>Data/Time.</returns>
         public virtual DateTime GetAsDate()
         {
             try
@@ -279,7 +279,7 @@ namespace NHapi.Base.Model.Primitive
         }
 
         /// <summary>
-        /// Set the value as a short date
+        /// Set the value as a short date.
         /// </summary>
         /// <param name="value"></param>
         public virtual void SetShortDate(DateTime value)
@@ -288,7 +288,7 @@ namespace NHapi.Base.Model.Primitive
         }
 
         /// <summary>
-        /// Set the value as a long date
+        /// Set the value as a long date.
         /// </summary>
         /// <param name="value"></param>
         public virtual void SetLongDate(DateTime value)
@@ -297,7 +297,7 @@ namespace NHapi.Base.Model.Primitive
         }
 
         /// <summary>
-        /// Set the value as a long date with second
+        /// Set the value as a long date with second.
         /// </summary>
         /// <param name="value"></param>
         public virtual void SetLongDateWithSecond(DateTime value)
@@ -306,7 +306,7 @@ namespace NHapi.Base.Model.Primitive
         }
 
         /// <summary>
-        /// Set the value as a long date with fraction of second
+        /// Set the value as a long date with fraction of second.
         /// </summary>
         /// <param name="value"></param>
         public virtual void SetLongDateWithFractionOfSecond(DateTime value)
@@ -317,8 +317,8 @@ namespace NHapi.Base.Model.Primitive
         /// <summary>
         /// Sets the value (to the format specified) using a date.
         /// </summary>
-        /// <param name="value">Valid date/time</param>
-        /// <param name="format">The format to set the value (yyyyMMdd, etc)</param>
+        /// <param name="value">Valid date/time.</param>
+        /// <param name="format">The format to set the value (yyyyMMdd, etc).</param>
         public virtual void Set(DateTime value, string format)
         {
             try

@@ -29,12 +29,12 @@ namespace NHapi.Base.validation.impl
     using System;
 
    /// <summary> An association between a type of item to be validated (eg a datatype or
-   /// message) and a validation <code>Rule</code>.
+   /// message) and a validation. <code>Rule</code>.
    ///
    /// </summary>
    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
    /// </author>
-   /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $
+   /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $.
    /// </version>
     public class RuleBinding
     {
@@ -92,11 +92,11 @@ namespace NHapi.Base.validation.impl
         /// <summary> Active by default.
         ///
         /// </summary>
-        /// <param name="theVersion">see {@link #getVersion()}
+        /// <param name="theVersion">see {@link #getVersion()}.
         /// </param>
-        /// <param name="theScope">see {@link #getScope()}
+        /// <param name="theScope">see {@link #getScope()}.
         /// </param>
-        /// <param name="theRule">see {@link #getRule()}
+        /// <param name="theRule">see {@link #getRule()}.
         /// </param>
         public RuleBinding(string theVersion, string theScope, IRule theRule)
         {
@@ -106,18 +106,18 @@ namespace NHapi.Base.validation.impl
             myRule = theRule;
         }
 
-        /// <param name="theVersion">an HL7 version
+        /// <param name="theVersion">an HL7 version.
         /// </param>
-        /// <returns> true if this binding applies to the given version (ie getVersion() matches or is *)
+        /// <returns> true if this binding applies to the given version (ie getVersion() matches or is *).
         /// </returns>
         public virtual bool appliesToVersion(string theVersion)
         {
             return applies(Version, theVersion);
         }
 
-        /// <param name="theType">an item description to be checked against getScope()
+        /// <param name="theType">an item description to be checked against getScope().
         /// </param>
-        /// <returns> true if the given type is within scope, ie if it matches getScope() or getScope() is *
+        /// <returns> true if the given type is within scope, ie if it matches getScope() or getScope() is *.
         /// </returns>
         public virtual bool appliesToScope(string theType)
         {

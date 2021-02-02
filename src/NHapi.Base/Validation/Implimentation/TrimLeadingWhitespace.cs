@@ -33,12 +33,12 @@ namespace NHapi.Base.validation.impl
    /// </summary>
    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
    /// </author>
-   /// <version>  $Revision: 1.2 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $
+   /// <version>  $Revision: 1.2 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $.
    /// </version>
     public class TrimLeadingWhitespace : IPrimitiveTypeRule
     {
         /// <summary>
-        /// Description of the rule
+        /// Description of the rule.
         /// </summary>
         public virtual string Description
         {
@@ -46,7 +46,7 @@ namespace NHapi.Base.validation.impl
         }
 
         /// <summary>
-        /// Section reference
+        /// Section reference.
         /// </summary>
         public virtual string SectionReference
         {

@@ -53,7 +53,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Constructor
+        /// Constructor.
         /// </summary>
         public DataTypeUtil()
         {

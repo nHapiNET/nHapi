@@ -9,7 +9,7 @@ namespace NHapi.Base.Util
     /// <summary> Iterates over all defined nodes (ie segments, groups) in a message,
     /// regardless of whether they have been instantiated previously.  This is a
     /// tricky process, because the number of nodes is infinite, due to infinitely
-    /// repeating segments and groups.  See <code>next()</code> for details on
+    /// repeating segments and groups.  See. <code>next()</code> for details on
     /// how this is handled.
     ///
     /// This implementation assumes that the first segment in each group is present (as per
@@ -19,7 +19,7 @@ namespace NHapi.Base.Util
     /// first segment in a group.
     ///
     /// </summary>
-    /// <author>  Bryan Tripp
+    /// <author>  Bryan Tripp.
     /// </author>
     public class MessageIterator : IEnumerator
     {
@@ -72,7 +72,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary>
-        /// The direction
+        /// The direction.
         /// </summary>
         public virtual string Direction
         {
@@ -101,7 +101,7 @@ namespace NHapi.Base.Util
         public static final String UP_TO_FIRST_REQUIRED;
         */
 
-        /// <summary>Creates a new instance of MessageIterator </summary>
+        /// <summary>Creates a new instance of MessageIterator. </summary>
         public MessageIterator(IStructure start, string direction, bool handleUnexpectedSegments)
         {
             currentStructure = start;
@@ -207,7 +207,7 @@ namespace NHapi.Base.Util
             return nextExists;
         }
 
-        /// <summary>Navigates from end of group </summary>
+        /// <summary>Navigates from end of group. </summary>
         private bool nextFromGroupEnd(Position currPos, string direction, bool makeNewSegmentIfNeeded)
         {
             // assert isLast(currPos);
@@ -254,11 +254,11 @@ namespace NHapi.Base.Util
         /// normal serialization order).
         /// </summary>
         /// <param name="pos">the message position after which to look (note that this specifies
-        /// the message instance)
+        /// the message instance).
         /// </param>
-        /// <param name="name">the name of the structure to look for
+        /// <param name="name">the name of the structure to look for.
         /// </param>
-        /// <param name="firstDescendentsOnly">only searches the first children of a group
+        /// <param name="firstDescendentsOnly">only searches the first children of a group.
         /// </param>
         /// <param name="upToFirstRequired">only searches the children of a group up to the first
         /// required child (normally the first one).  This is used when we are parsing
@@ -326,9 +326,9 @@ namespace NHapi.Base.Util
         /// <summary> Determines whether the given structure matches the given name, or contains
         /// a child that does.
         /// </summary>
-        /// <param name="s">the structure to check
+        /// <param name="s">the structure to check.
         /// </param>
-        /// <param name="name">the name to look for
+        /// <param name="name">the name to look for.
         /// </param>
         /// <param name="firstDescendentsOnly">only checks first descendents (i.e. first
         /// child, first child of first child, etc.)  In theory the first child
@@ -404,7 +404,7 @@ namespace NHapi.Base.Util
             next_Renamed_Field = new Position(pos.parent, nextName, 0);
         }
 
-        /// <summary>Not supported </summary>
+        /// <summary>Not supported. </summary>
         public virtual void remove()
         {
             throw new NotSupportedException("Can't remove a node from a message");
@@ -455,20 +455,20 @@ namespace NHapi.Base.Util
         public class Index
         {
             /// <summary>
-            /// The name
+            /// The name.
             /// </summary>
             public string name;
 
             /// <summary>
-            /// The repetition
+            /// The repetition.
             /// </summary>
             public int rep;
 
             /// <summary>
-            /// The index
+            /// The index.
             /// </summary>
-            /// <param name="name">name</param>
-            /// <param name="rep">repetition</param>
+            /// <param name="name">name.</param>
+            /// <param name="rep">repetition.</param>
             public Index(string name, int rep)
             {
                 this.name = name;
@@ -476,7 +476,7 @@ namespace NHapi.Base.Util
             }
 
             /// <summary>
-            /// Override equals
+            /// Override equals.
             /// </summary>
             /// <param name="o"></param>
             /// <returns></returns>
@@ -496,7 +496,7 @@ namespace NHapi.Base.Util
             }
 
             /// <summary>
-            /// Override has code
+            /// Override has code.
             /// </summary>
             /// <returns></returns>
             public override int GetHashCode()
@@ -505,7 +505,7 @@ namespace NHapi.Base.Util
             }
 
             /// <summary>
-            /// Override to string
+            /// Override to string.
             /// </summary>
             /// <returns></returns>
             public override string ToString()
@@ -518,21 +518,21 @@ namespace NHapi.Base.Util
         public class Position
         {
             /// <summary>
-            /// The parent
+            /// The parent.
             /// </summary>
             public IGroup parent;
 
             /// <summary>
-            /// The index
+            /// The index.
             /// </summary>
             public Index index;
 
             /// <summary>
-            /// The position of the element
+            /// The position of the element.
             /// </summary>
-            /// <param name="parent">Parent</param>
-            /// <param name="name">Name</param>
-            /// <param name="rep">Repetition</param>
+            /// <param name="parent">Parent.</param>
+            /// <param name="name">Name.</param>
+            /// <param name="rep">Repetition.</param>
             public Position(IGroup parent, string name, int rep)
             {
                 this.parent = parent;
@@ -540,10 +540,10 @@ namespace NHapi.Base.Util
             }
 
             /// <summary>
-            /// The position of the element
+            /// The position of the element.
             /// </summary>
-            /// <param name="parent">Parent</param>
-            /// <param name="i">index</param>
+            /// <param name="parent">Parent.</param>
+            /// <param name="i">index.</param>
             public Position(IGroup parent, Index i)
             {
                 this.parent = parent;
@@ -551,10 +551,10 @@ namespace NHapi.Base.Util
             }
 
             /// <summary>
-            /// Override equals operator
+            /// Override equals operator.
             /// </summary>
-            /// <param name="o">Object o</param>
-            /// <returns>true if objects are equal</returns>
+            /// <param name="o">Object o.</param>
+            /// <returns>true if objects are equal.</returns>
             public override bool Equals(object o)
             {
                 bool equals = false;
@@ -571,7 +571,7 @@ namespace NHapi.Base.Util
             }
 
             /// <summary>
-            /// Override hash code
+            /// Override hash code.
             /// </summary>
             /// <returns></returns>
             public override int GetHashCode()
@@ -580,7 +580,7 @@ namespace NHapi.Base.Util
             }
 
             /// <summary>
-            /// Override to string
+            /// Override to string.
             /// </summary>
             /// <returns></returns>
             public override string ToString()
@@ -596,7 +596,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary>
-        /// Reset the iterator
+        /// Reset the iterator.
         /// </summary>
         public virtual void Reset()
         {

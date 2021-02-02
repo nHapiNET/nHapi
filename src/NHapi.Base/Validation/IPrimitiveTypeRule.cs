@@ -29,7 +29,7 @@ namespace NHapi.Base.validation
     using System;
 
    /// <summary> A rule that applies to a primitive datatype. </summary>
-   /// <author>  Bryan Tripp
+   /// <author>  Bryan Tripp.
    /// </author>
     public interface IPrimitiveTypeRule : IRule
     {
@@ -38,9 +38,9 @@ namespace NHapi.Base.validation
         /// test().  If no corrections are performed, the original value is returned.
         ///
         /// </summary>
-        /// <param name="originalValue">an original value to be corrected
+        /// <param name="originalValue">an original value to be corrected.
         /// </param>
-        /// <returns> a corrected version of the given value
+        /// <returns> a corrected version of the given value.
         /// </returns>
         string correct(string originalValue);
 

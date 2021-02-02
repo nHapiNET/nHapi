@@ -32,7 +32,7 @@ namespace NHapi.Base.Model
    /// <summary> An abstract Type that provides a default implementation of getName().
    ///
    /// </summary>
-   /// <author>  Bryan Tripp
+   /// <author>  Bryan Tripp.
    /// </author>
     public class AbstractType : IType
     {
@@ -41,7 +41,7 @@ namespace NHapi.Base.Model
         private string description;
 
         /// <summary>
-        /// Returns the name of the type (used in XML encoding and profile checking)
+        /// Returns the name of the type (used in XML encoding and profile checking).
         /// </summary>
         public virtual string TypeName
         {
@@ -53,14 +53,14 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Extra components
+        /// Extra components.
         /// </summary>
         public virtual ExtraComponents ExtraComponents
         {
             get { return extra; }
         }
 
-        /// <returns> the message to which this Type belongs
+        /// <returns> the message to which this Type belongs.
         /// </returns>
         public virtual IMessage Message
         {
@@ -68,23 +68,23 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// Return the description of the type
+        /// Return the description of the type.
         /// </summary>
         public virtual string Description
         {
             get { return description; }
         }
 
-        /// <summary> Creates a new instance of AbstractType</summary>
-        /// <param name="message">message to which this type belongs
+        /// <summary> Creates a new instance of AbstractType.</summary>
+        /// <param name="message">message to which this type belongs.
         /// </param>
         public AbstractType(IMessage message)
             : this(message, null)
         {
         }
 
-        /// <summary> Creates a new instance of AbstractType</summary>
-        /// <param name="message">message to which this type belongs
+        /// <summary> Creates a new instance of AbstractType.</summary>
+        /// <param name="message">message to which this type belongs.
         /// <param name="description">The type description</param>
         /// </param>
         public AbstractType(IMessage message, string description)

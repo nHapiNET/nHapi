@@ -33,7 +33,7 @@ namespace NHapi.Base.Model
     using NHapi.Base.validation;
 
    /// <summary> A default implementation of Message. </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
     public abstract class AbstractMessage : AbstractGroup, IMessage
     {
@@ -49,7 +49,7 @@ namespace NHapi.Base.Model
         /// this.GetClass().getName().  This should be overridden if you are putting
         /// a custom message definition in your own package, or it will default.
         /// </summary>
-        /// <returns>s 2.4 if not obvious from package name
+        /// <returns>s 2.4 if not obvious from package name.
         /// </returns>
         public virtual string Version
         {
@@ -91,7 +91,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// The validation contect
+        /// The validation contect.
         /// </summary>
         public virtual IValidationContext ValidationContext
         {
@@ -102,7 +102,7 @@ namespace NHapi.Base.Model
 
         private IValidationContext myContext;
 
-        /// <param name="theFactory">factory for model classes (e.g. group, segment) for this message
+        /// <param name="theFactory">factory for model classes (e.g. group, segment) for this message.
         /// </param>
         public AbstractMessage(IModelClassFactory theFactory)
             : base(theFactory)

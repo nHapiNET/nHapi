@@ -40,9 +40,9 @@ namespace NHapi.SourceGeneration.Generators
    /// <summary> Generates skeletal source code for Datatype classes based on the
    /// HL7 database.
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
-   /// <author>  Eric Poiseau
+   /// <author>  Eric Poiseau.
    /// </author>
     public class DataTypeGenerator : object
     {

@@ -35,34 +35,34 @@ namespace NHapi.Base
    /// <summary> Represents an exception encountered while processing
    /// an HL7 message.
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
     [Serializable]
     public class HL7Exception : Exception
     {
         /// <value>
-        /// The name of the segment where the error occurred
-        /// <para>(returns null if not set)</para>
+        /// The name of the segment where the error occurred.
+        /// <para>(returns null if not set).</para>
         /// </value>
         public virtual string SegmentName { get; set; }
 
         /// <value>
         /// The sequence number of the segment where the error occurred (if there
-        /// are multiple segments with the same name)
+        /// are multiple segments with the same name).
         /// <para> Numbering starts at 1. </para>
-        /// <para> (returns -1 if not set) </para>
+        /// <para> (returns -1 if not set). </para>
         /// </value>
         public virtual int SegmentRepetition { get; set; } = -1;
 
         /// <value>
-        /// The field number within the segment where the error occurred
+        /// The field number within the segment where the error occurred.
         /// <para>Numbering starts at 1.</para>
-        /// <para> (returns -1 if not set) </para>
+        /// <para> (returns -1 if not set). </para>
         /// </value>
         public virtual int FieldPosition { get; set; } = -1;
 
         /// <value>
-        /// The <see cref="Base.ErrorCode"/> value associated with the <see cref="HL7Exception"/>
+        /// The <see cref="Base.ErrorCode"/> value associated with the <see cref="HL7Exception"/>.
         /// </value>
         public ErrorCode ErrorCode { get; private set; } = ErrorCode.APPLICATION_INTERNAL_ERROR;
 
@@ -102,112 +102,112 @@ namespace NHapi.Base
         }
 
         /// <summary>
-        /// Acknowledgement Application Accept
+        /// Acknowledgement Application Accept.
         /// </summary>
         /// <remarks>Deprecated use <see cref="AcknowledgmentCode.AA"/> instead.</remarks>
         [Obsolete("Deprecated use 'AcknowledgementCode.AA' instead.")]
         public const int ACK_AA = 1;
 
         /// <summary>
-        /// Acknowledgement Application Error
+        /// Acknowledgement Application Error.
         /// </summary>
         /// <remarks>Deprecated use <see cref="AcknowledgmentCode.AE"/> instead.</remarks>
         [Obsolete("Deprecated use 'AcknowledgementCode.AE' instead.")]
         public const int ACK_AE = 2;
 
         /// <summary>
-        /// Acknowledgement Application Reject
+        /// Acknowledgement Application Reject.
         /// </summary>
         /// <remarks>Deprecated use <see cref="AcknowledgmentCode.AR"/> instead.</remarks>
         [Obsolete("Deprecated use 'AcknowledgmentCode.AR' instead.")]
         public const int ACK_AR = 3;
 
         /// <summary>
-        /// Message accepted
+        /// Message accepted.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.MESSAGE_ACCEPTED"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.MESSAGE_ACCEPTED' instead.")]
         public const int MESSAGE_ACCEPTED = 0;
 
         /// <summary>
-        /// Segment sequence error
+        /// Segment sequence error.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.SEGMENT_SEQUENCE_ERROR"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.SEGMENT_SEQUENCE_ERROR' instead.")]
         public const int SEGMENT_SEQUENCE_ERROR = 100;
 
         /// <summary>
-        /// Required field missing
+        /// Required field missing.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.REQUIRED_FIELD_MISSING"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.REQUIRED_FIELD_MISSING' instead.")]
         public const int REQUIRED_FIELD_MISSING = 101;
 
         /// <summary>
-        /// Date type error
+        /// Date type error.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.DATA_TYPE_ERROR"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.DATA_TYPE_ERROR' instead.")]
         public const int DATA_TYPE_ERROR = 102;
 
         /// <summary>
-        /// Table value not found
+        /// Table value not found.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.TABLE_VALUE_NOT_FOUND"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.TABLE_VALUE_NOT_FOUND' instead.")]
         public const int TABLE_VALUE_NOT_FOUND = 103;
 
         /// <summary>
-        /// Unsupported message type
+        /// Unsupported message type.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.UNSUPPORTED_MESSAGE_TYPE"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.UNSUPPORTED_MESSAGE_TYPE' instead.")]
         public const int UNSUPPORTED_MESSAGE_TYPE = 200;
 
         /// <summary>
-        /// Unsupported event code
+        /// Unsupported event code.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.UNSUPPORTED_EVENT_CODE"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.UNSUPPORTED_EVENT_CODE' instead.")]
         public const int UNSUPPORTED_EVENT_CODE = 201;
 
         /// <summary>
-        /// Unsupported processing id
+        /// Unsupported processing id.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.UNSUPPORTED_PROCESSING_ID"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.UNSUPPORTED_PROCESSING_ID' instead.")]
         public const int UNSUPPORTED_PROCESSING_ID = 202;
 
         /// <summary>
-        /// Unsupported version id
+        /// Unsupported version id.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.UNSUPPORTED_VERSION_ID"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.UNSUPPORTED_VERSION_ID' instead.")]
         public const int UNSUPPORTED_VERSION_ID = 203;
 
         /// <summary>
-        /// Unknown key id
+        /// Unknown key id.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.MESSAGE_ACCEPTED"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.UNKNOWN_KEY_IDENTIFIER' instead.")]
         public const int UNKNOWN_KEY_IDENTIFIER = 204;
 
         /// <summary>
-        /// Duplicate key id
+        /// Duplicate key id.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.DUPLICATE_KEY_IDENTIFIER"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.DUPLICATE_KEY_IDENTIFIER' instead.")]
         public const int DUPLICATE_KEY_IDENTIFIER = 205;
 
         /// <summary>
-        /// Application record locked
+        /// Application record locked.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.APPLICATION_RECORD_LOCKED"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.APPLICATION_RECORD_LOCKED' instead.")]
         public const int APPLICATION_RECORD_LOCKED = 206;
 
         /// <summary>
-        /// Application error
+        /// Application error.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.APPLICATION_INTERNAL_ERROR"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.APPLICATION_INTERNAL_ERROR' instead.")]
@@ -273,7 +273,7 @@ namespace NHapi.Base
             ErrorCode = errorCondition;
         }
 
-        /// <summary> Creates an <see cref="HL7Exception" /> with the code
+        /// <summary> Creates an <see cref="HL7Exception" /> with the code.
         /// <seealso cref="ErrorCode.APPLICATION_INTERNAL_ERROR" />
         /// <param name="cause">The exception that caused this exception to be thrown.</param>
         /// <param name="message">the error message</param>
@@ -283,7 +283,7 @@ namespace NHapi.Base
         {
         }
 
-        /// <summary> Creates an <see cref="HL7Exception" /> with the code
+        /// <summary> Creates an <see cref="HL7Exception" /> with the code.
         /// <seealso cref="ErrorCode.APPLICATION_INTERNAL_ERROR" /></summary>
         public HL7Exception(string message)
              : base(message)

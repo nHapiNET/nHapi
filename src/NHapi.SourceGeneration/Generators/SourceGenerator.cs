@@ -36,11 +36,11 @@ namespace NHapi.SourceGeneration.Generators
    /// segments, groups, and message structures. </p>
    /// <p>Note: should put a nice UI on this</p>
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
     public class SourceGenerator : object
     {
-        /// <summary>Creates new SourceGenerator </summary>
+        /// <summary>Creates new SourceGenerator. </summary>
         public SourceGenerator()
         {
         }

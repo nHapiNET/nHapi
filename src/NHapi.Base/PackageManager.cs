@@ -105,7 +105,7 @@ namespace NHapi.Base
 
         /// <summary> Returns the package name for model elements of the given version - e.g.
         /// "NHapi.Base.Model.v24.".  This method
-        /// is identical to <code>getVersionPackagePath(...)</code> except that path
+        /// is identical to. <code>getVersionPackagePath(...)</code> except that path
         /// separators are replaced with dots.
         /// </summary>
         public static string GetVersionPackageName(string ver)

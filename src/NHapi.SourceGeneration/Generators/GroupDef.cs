@@ -36,7 +36,7 @@ namespace NHapi.SourceGeneration.Generators
    /// Group is a part of a message that may repeat, and that contains two or
    /// more segments or other groups).
    /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
    /// </author>
     public class GroupDef : IStructureDef
     {
@@ -72,7 +72,7 @@ namespace NHapi.SourceGeneration.Generators
             }
         }
 
-        /// <returns> group name without message name prepended
+        /// <returns> group name without message name prepended.
         /// </returns>
         public virtual string UnqualifiedName
         {
@@ -155,7 +155,7 @@ namespace NHapi.SourceGeneration.Generators
         private bool repeating;
         private Hashtable existingNames;
 
-        /// <summary>Creates new GroupDef </summary>
+        /// <summary>Creates new GroupDef. </summary>
         public GroupDef(string messageName, string groupName, bool required, bool repeating, string description)
         {
             this.messageName = messageName;
