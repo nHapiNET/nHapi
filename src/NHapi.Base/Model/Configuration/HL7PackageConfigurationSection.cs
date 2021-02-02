@@ -31,7 +31,7 @@ namespace NHapi.Base.Model.Configuration
 
         protected override object GetElementKey(ConfigurationElement element)
         {
-            if ((element) is HL7PackageElement)
+            if ( element is HL7PackageElement)
             {
                 HL7PackageElement el = (HL7PackageElement)element;
 

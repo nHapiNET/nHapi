@@ -64,7 +64,7 @@ namespace NHapi.Base.validation.impl
                 {
                     if (!char.IsWhiteSpace(stringChr[i]))
                     {
-                        trmValue = new string(stringChr, i, (stringChr.Length - i));
+                        trmValue = new string(stringChr, i, stringChr.Length - i);
                     }
                 }
             }

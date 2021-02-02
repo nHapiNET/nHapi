@@ -145,7 +145,7 @@ namespace NHapi.Base.Parser
             if (!SupportsEncoding(encoding))
             {
                 throw new EncodingNotSupportedException("Can't parse message beginning " +
-                                                                     message.Substring(0, (Math.Min(message.Length, 50)) - (0)));
+                                                                     message.Substring(0, Math.Min(message.Length, 50) - 0));
             }
 
             _messageValidator.validate(message, encoding.Equals("XML"), version);

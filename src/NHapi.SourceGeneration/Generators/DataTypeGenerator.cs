@@ -216,9 +216,9 @@ namespace NHapi.SourceGeneration.Generators
                 int[] table = new int[numComponents];
                 for (int i = 0; i < numComponents; i++)
                 {
-                    type[i] = ((string)dataTypes[i]);
-                    desc[i] = ((string)descriptions[i]);
-                    table[i] = ((int)tables[i]);
+                    type[i] = (string)dataTypes[i];
+                    desc[i] = (string)descriptions[i];
+                    table[i] = (int)tables[i];
                 }
 
                 source = makeComposite(dataType, description, type, desc, table, version);

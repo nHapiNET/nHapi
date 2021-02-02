@@ -214,7 +214,7 @@ namespace NHapi.SourceGeneration.Generators
             if (text.Length > 0)
             {
                 cap.Append(char.ToUpper(text[0]));
-                cap.Append(text.Substring(1, (text.Length) - (1)));
+                cap.Append(text.Substring(1, text.Length - 1));
             }
 
             return cap.ToString();

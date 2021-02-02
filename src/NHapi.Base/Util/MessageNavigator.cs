@@ -277,7 +277,7 @@ namespace NHapi.Base.Util
             }
             else
             {
-                start = (currentGroup.GetStructure(childNames[currentChild]));
+                start = currentGroup.GetStructure(childNames[currentChild]);
             }
 
             // using a non-existent direction and not allowing segment creation means that only

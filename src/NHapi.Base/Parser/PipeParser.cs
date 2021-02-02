@@ -220,7 +220,7 @@ namespace NHapi.Base.Parser
             try
             {
                 string[] fields = Split(
-                    message.Substring(0, (Math.Max(message.IndexOf(segDelim), message.Length)) - (0)),
+                    message.Substring(0, Math.Max(message.IndexOf(segDelim), message.Length) - 0),
                     Convert.ToString(ec.FieldSeparator));
                 wholeFieldNine = fields[8];
 
@@ -271,7 +271,7 @@ namespace NHapi.Base.Parser
         /// </summary>
         private static EncodingCharacters GetEncodingChars(string message)
         {
-            return new EncodingCharacters(message[3], message.Substring(4, (8) - (4)));
+            return new EncodingCharacters(message[3], message.Substring(4, 8 - 4));
         }
 
         /// <summary> Parses a message string and returns the corresponding Message
@@ -304,7 +304,7 @@ namespace NHapi.Base.Parser
                 // sometimes people put extra segment delimiters at end of msg ...
                 if (segments[i] != null && segments[i].Length >= 3)
                 {
-                    string name = segments[i].Substring(0, (3) - (0));
+                    string name = segments[i].Substring(0, 3 - 0);
                     log.Debug("Parsing segment " + name);
 
                     messageIter.Direction = name;
@@ -486,7 +486,7 @@ namespace NHapi.Base.Parser
             string[] ret = new string[components.Count];
             for (int i = 0; i < components.Count; i++)
             {
-                ret[i] = ((string)components[i]);
+                ret[i] = (string)components[i];
             }
 
             return ret;
@@ -768,7 +768,7 @@ namespace NHapi.Base.Parser
             int locEndMSH = message.IndexOf('\r', locStartMSH + 1);
             if (locEndMSH < 0)
                 locEndMSH = message.Length;
-            string mshString = message.Substring(locStartMSH, (locEndMSH) - (locStartMSH));
+            string mshString = message.Substring(locStartMSH, locEndMSH - locStartMSH);
 
             // find out what the field separator is
             char fieldSep = mshString[3];
@@ -850,7 +850,7 @@ namespace NHapi.Base.Parser
 
                 if (start > 0 && end > start)
                 {
-                    ackID = message.Substring(start, (end) - (start));
+                    ackID = message.Substring(start, end - start);
                 }
             }
 
@@ -869,7 +869,7 @@ namespace NHapi.Base.Parser
             int endMSH = message.IndexOf(segDelim, startMSH);
             if (endMSH < 0)
                 endMSH = message.Length;
-            string msh = message.Substring(startMSH, (endMSH) - (startMSH));
+            string msh = message.Substring(startMSH, endMSH - startMSH);
             string fieldSep = null;
             if (msh.Length > 3)
             {

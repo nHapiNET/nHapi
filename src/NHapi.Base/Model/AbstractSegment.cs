@@ -503,7 +503,7 @@ namespace NHapi.Base.Model
         public virtual string GetStructureName()
         {
             string fullName = GetType().FullName;
-            return fullName.Substring(fullName.LastIndexOf('.') + 1, (fullName.Length) - (fullName.LastIndexOf('.') + 1));
+            return fullName.Substring(fullName.LastIndexOf('.') + 1, fullName.Length - (fullName.LastIndexOf('.') + 1));
         }
     }
 }

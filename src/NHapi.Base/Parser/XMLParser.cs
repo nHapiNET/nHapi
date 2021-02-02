@@ -494,7 +494,7 @@ namespace NHapi.Base.Parser
                 else
                 {
                     StringBuilder buf = new StringBuilder();
-                    buf.Append(s.Substring(0, (loc) - (0)));
+                    buf.Append(s.Substring(0, loc - 0));
                     buf.Append(" ");
                     buf.Append(s.Substring(loc + 2));
                     s = buf.ToString();
@@ -744,13 +744,13 @@ namespace NHapi.Base.Parser
 
             if (tagStart >= 0 && valEnd >= valStart)
             {
-                value_Renamed = message.Substring(valStart, (valEnd) - (valStart));
+                value_Renamed = message.Substring(valStart, valEnd - valStart);
             }
             else
             {
                 throw new HL7Exception(
                     "Couldn't find " + tagName + " in message beginning: " +
-                    message.Substring(0, (Math.Min(150, message.Length)) - (0)), ErrorCode.REQUIRED_FIELD_MISSING);
+                    message.Substring(0, Math.Min(150, message.Length) - 0), ErrorCode.REQUIRED_FIELD_MISSING);
             }
 
             return value_Renamed;

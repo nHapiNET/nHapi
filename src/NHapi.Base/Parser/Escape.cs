@@ -232,7 +232,7 @@ namespace NHapi.Base.Parser
                     int seqLength = seq.Length;
                     if (position + seqLength <= textLength)
                     {
-                        if (text.Substring(position, (position + seqLength) - (position)).Equals(seq))
+                        if (text.Substring(position, (position + seqLength) - position).Equals(seq))
                         {
                             result.Append(val);
                             isReplaced = true;
@@ -243,7 +243,7 @@ namespace NHapi.Base.Parser
 
                 if (!isReplaced)
                 {
-                    result.Append(text.Substring(position, ((position + 1)) - (position)));
+                    result.Append(text.Substring(position, (position + 1) - position));
                     position++;
                 }
             }

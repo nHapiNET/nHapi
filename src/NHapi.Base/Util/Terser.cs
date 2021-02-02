@@ -260,7 +260,7 @@ namespace NHapi.Base.Util
         {
             ISegment seg = null;
 
-            if (segSpec.Substring(0, (1) - (0)).Equals("/"))
+            if (segSpec.Substring(0, 1 - 0).Equals("/"))
             {
                 Finder.reset();
             }

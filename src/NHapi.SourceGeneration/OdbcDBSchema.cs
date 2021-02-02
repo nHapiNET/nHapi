@@ -207,7 +207,7 @@ namespace NHapi.SourceGeneration
                 foreach (DataRow DataRow in schemaData.Rows)
                 {
                     tableType = DataRow[schemaData.Columns["TABLE_TYPE"]].ToString();
-                    if (!(tableTypes.Contains(tableType)))
+                    if (! tableTypes.Contains(tableType))
                     {
                         tableTypes.Add(tableType);
                     }
@@ -369,7 +369,7 @@ namespace NHapi.SourceGeneration
                 if (len.Equals(string.Empty))
                     return 0;
                 else
-                    return (Convert.ToInt32(len) * 4);
+                    return Convert.ToInt32(len) * 4;
             }
         }
 
@@ -384,7 +384,7 @@ namespace NHapi.SourceGeneration
                 if (len.Equals(string.Empty))
                     return 0;
                 else
-                    return (Convert.ToInt32(len));
+                    return Convert.ToInt32(len);
             }
         }
 
@@ -399,7 +399,7 @@ namespace NHapi.SourceGeneration
                 if (len.Equals(string.Empty))
                     return 0;
                 else
-                    return (Convert.ToInt32(len) * 4);
+                    return Convert.ToInt32(len) * 4;
             }
         }
 
@@ -414,7 +414,7 @@ namespace NHapi.SourceGeneration
                 if (len.Equals(string.Empty))
                     return 0;
                 else
-                    return (Convert.ToInt32(len));
+                    return Convert.ToInt32(len);
             }
         }
 
@@ -429,7 +429,7 @@ namespace NHapi.SourceGeneration
                 if (len.Equals(string.Empty))
                     return 0;
                 else
-                    return (Convert.ToInt32(len));
+                    return Convert.ToInt32(len);
             }
         }
 
@@ -444,7 +444,7 @@ namespace NHapi.SourceGeneration
                 if (len.Equals(string.Empty))
                     return 0;
                 else
-                    return (Convert.ToInt32(len));
+                    return Convert.ToInt32(len);
             }
         }
 
@@ -459,7 +459,7 @@ namespace NHapi.SourceGeneration
                 if (len.Equals(string.Empty))
                     return 0;
                 else
-                    return (Convert.ToInt32(len));
+                    return Convert.ToInt32(len);
             }
         }
 
@@ -474,7 +474,7 @@ namespace NHapi.SourceGeneration
                 if (len.Equals(string.Empty))
                     return 0;
                 else
-                    return (Convert.ToInt32(len));
+                    return Convert.ToInt32(len);
             }
         }
 

@@ -202,7 +202,7 @@ namespace NHapi.Base.Model.Primitive
                             else
                             {
                                 // here we know that a time value is present
-                                dateVal = value.Substring(0, (8) - (0));
+                                dateVal = value.Substring(0, 8 - 0);
                                 timeVal = value.Substring(8);
                                 timeValLessOffset = timeVal;
                             }
@@ -212,14 +212,14 @@ namespace NHapi.Base.Model.Primitive
                         {
                             if (indexOfSign > 8)
                             {
-                                dateVal = value.Substring(0, (8) - (0));
+                                dateVal = value.Substring(0, 8 - 0);
                                 timeVal = value.Substring(8);
-                                timeValLessOffset = value.Substring(8, (indexOfSign) - (8));
+                                timeValLessOffset = value.Substring(8, indexOfSign - 8);
                             }
                             else
                             {
                                 // we know that the time val is simply the offset
-                                dateVal = value.Substring(0, (indexOfSign) - (0));
+                                dateVal = value.Substring(0, indexOfSign - 0);
                                 timeVal = value.Substring(indexOfSign);
                                 timeValIsOffsetOnly = true;
                             }
@@ -651,7 +651,7 @@ namespace NHapi.Base.Model.Primitive
                 // get the absolute value of the gmtOffSet
                 int absGmtOffSet = Math.Abs(calOffset);
                 int gmtOffSetHours = absGmtOffSet / (3600 * 1000);
-                int gmtOffSetMin = (absGmtOffSet / 60000) % (60);
+                int gmtOffSetMin = (absGmtOffSet / 60000) % 60;
 
                 // reset calOffset
                 calOffset = ((gmtOffSetHours * 100) + gmtOffSetMin) * offSetSignInt;

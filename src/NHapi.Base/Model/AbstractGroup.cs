@@ -505,7 +505,7 @@ namespace NHapi.Base.Model
         {
             string fullName = c.FullName;
             int dotLoc = fullName.LastIndexOf('.');
-            string name = fullName.Substring(dotLoc + 1, (fullName.Length) - (dotLoc + 1));
+            string name = fullName.Substring(dotLoc + 1, fullName.Length - (dotLoc + 1));
 
             // remove message name prefix from group names for compatibility with getters ...
             if (typeof(IGroup).IsAssignableFrom(c) && !typeof(IMessage).IsAssignableFrom(c))

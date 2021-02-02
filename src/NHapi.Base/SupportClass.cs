@@ -493,7 +493,7 @@ namespace NHapi.Base
         public virtual int GetIndex(string Qname)
         {
             int index = GetLength() - 1;
-            while ((index >= 0) && !(((Att_Instance)(MainList[index])).att_fullName.Equals(Qname)))
+            while ((index >= 0) && ! ((Att_Instance) MainList[index]).att_fullName.Equals(Qname))
                 index--;
             if (index >= 0)
                 return index;
@@ -511,8 +511,8 @@ namespace NHapi.Base
         {
             int index = GetLength() - 1;
             while ((index >= 0) &&
-                     !(((Att_Instance)(MainList[index])).att_localName.Equals(Lname) &&
-                        ((Att_Instance)(MainList[index])).att_URI.Equals(Uri)))
+                     !(((Att_Instance) MainList[index]).att_localName.Equals(Lname) &&
+                        ((Att_Instance) MainList[index]).att_URI.Equals(Uri)))
                 index--;
             if (index >= 0)
                 return index;
@@ -689,7 +689,7 @@ namespace NHapi.Base
             try
             {
                 int pos = GetLength() - 1;
-                while ((pos >= 0) && !(((Att_Instance)(MainList[pos])).att_localName.Equals(indexName)))
+                while ((pos >= 0) && ! ((Att_Instance) MainList[pos]).att_localName.Equals(indexName))
                     pos--;
                 if (pos >= 0)
                     MainList.RemoveAt(pos);
@@ -1382,14 +1382,14 @@ namespace NHapi.Base
             locator = new XmlSaxLocatorImpl();
             try
             {
-                UpdateLocatorData(locator, (XmlTextReader)(reader));
+                UpdateLocatorData(locator, (XmlTextReader)reader);
                 if (callBackHandler != null)
                     callBackHandler.setDocumentLocator(locator);
                 if (callBackHandler != null)
                     callBackHandler.startDocument();
                 while (reader.Read())
                 {
-                    UpdateLocatorData(locator, (XmlTextReader)(reader));
+                    UpdateLocatorData(locator, (XmlTextReader)reader);
                     switch (reader.NodeType)
                     {
                         case XmlNodeType.Element:
@@ -1608,7 +1608,7 @@ namespace NHapi.Base
         {
             // Set the validation settings.
             XmlReaderSettings settings = new XmlReaderSettings();
-            settings.ValidationType = (isValidating) ? ValidationType.DTD : ValidationType.None;
+            settings.ValidationType = isValidating ? ValidationType.DTD : ValidationType.None;
 
             // settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessInlineSchema;
             settings.ValidationFlags |= XmlSchemaValidationFlags.ReportValidationWarnings;
@@ -2738,9 +2738,9 @@ namespace NHapi.Base
                             case DAY_OF_MONTH:
                                 return ((CalendarProperties)this[calendar]).dateTime.Day;
                             case DAY_OF_YEAR:
-                                return (int)(((CalendarProperties)this[calendar]).dateTime.DayOfYear);
+                                return (int) ((CalendarProperties)this[calendar]).dateTime.DayOfYear;
                             case DAY_OF_WEEK:
-                                return (int)(((CalendarProperties)this[calendar]).dateTime.DayOfWeek) + 1;
+                                return (int) ((CalendarProperties)this[calendar]).dateTime.DayOfWeek + 1;
                             case HOUR_OF_DAY:
                                 return ((CalendarProperties)this[calendar]).dateTime.Hour;
                             case AM_PM:

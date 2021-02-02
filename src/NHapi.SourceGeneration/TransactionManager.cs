@@ -18,7 +18,7 @@ namespace NHapi.SourceGeneration
                 DbTransaction transaction;
                 if (this[connection] != null)
                 {
-                    ConnectionProperties Properties = ((ConnectionProperties)this[connection]);
+                    ConnectionProperties Properties = (ConnectionProperties)this[connection];
                     transaction = Properties.Transaction;
                     command.Transaction = transaction;
                     command.CommandTimeout = 0;
@@ -40,7 +40,7 @@ namespace NHapi.SourceGeneration
             {
                 if (this[connection] != null && !((ConnectionProperties)this[connection]).AutoCommit)
                 {
-                    ConnectionProperties Properties = ((ConnectionProperties)this[connection]);
+                    ConnectionProperties Properties = (ConnectionProperties)this[connection];
                     DbTransaction transaction = Properties.Transaction;
                     transaction.Commit();
                     if (Properties.TransactionLevel == 0)
@@ -54,7 +54,7 @@ namespace NHapi.SourceGeneration
             {
                 if (this[connection] != null && !((ConnectionProperties)this[connection]).AutoCommit)
                 {
-                    ConnectionProperties Properties = ((ConnectionProperties)this[connection]);
+                    ConnectionProperties Properties = (ConnectionProperties)this[connection];
                     DbTransaction transaction = Properties.Transaction;
                     transaction.Rollback();
                     if (Properties.TransactionLevel == 0)
@@ -68,7 +68,7 @@ namespace NHapi.SourceGeneration
             {
                 if (this[connection] != null)
                 {
-                    ConnectionProperties Properties = ((ConnectionProperties)this[connection]);
+                    ConnectionProperties Properties = (ConnectionProperties)this[connection];
                     if (Properties.AutoCommit != boolean)
                     {
                         Properties.AutoCommit = boolean;
@@ -130,7 +130,7 @@ namespace NHapi.SourceGeneration
 
                 if (this[connection] != null)
                 {
-                    Properties = ((ConnectionProperties)this[connection]);
+                    Properties = (ConnectionProperties)this[connection];
                     Properties.TransactionLevel = (IsolationLevel)level;
                 }
                 else
@@ -146,7 +146,7 @@ namespace NHapi.SourceGeneration
             {
                 if (this[connection] != null)
                 {
-                    ConnectionProperties Properties = ((ConnectionProperties)this[connection]);
+                    ConnectionProperties Properties = (ConnectionProperties)this[connection];
                     if (Properties.TransactionLevel != 0)
                         return (int)Properties.TransactionLevel;
                     else
@@ -229,7 +229,7 @@ namespace NHapi.SourceGeneration
             /// <returns>The number of rows affected.</returns>
             public int ExecuteUpdate(DbCommand command)
             {
-                if (!(((ConnectionProperties)this[command.Connection]).AutoCommit))
+                if (! ((ConnectionProperties)this[command.Connection]).AutoCommit)
                 {
                     command.Transaction = ((ConnectionProperties)this[command.Connection]).Transaction;
                     return command.ExecuteNonQuery();
@@ -244,7 +244,7 @@ namespace NHapi.SourceGeneration
             /// <param name="Connection"> The command to be closed</param>
             public void Close(OdbcConnection Connection)
             {
-                if ((this[Connection] != null) && !(((ConnectionProperties)this[Connection]).AutoCommit))
+                if ((this[Connection] != null) && ! ((ConnectionProperties)this[Connection]).AutoCommit)
                 {
                     Commit(Connection);
                 }

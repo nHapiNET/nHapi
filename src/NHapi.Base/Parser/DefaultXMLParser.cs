@@ -257,7 +257,7 @@ namespace NHapi.Base.Parser
             }
             else if (className.Length == 4)
             {
-                ret = className.Substring(0, (3) - (0));
+                ret = className.Substring(0, 3 - 0);
             }
             else
             {
