@@ -82,6 +82,6 @@ namespace NHapi.Base
         /// Application error
         /// </summary>
         [Description("Application internal error")]
-        APPLICATION_INTERNAL_ERROR = 207
+        APPLICATION_INTERNAL_ERROR = 207,
     }
 }

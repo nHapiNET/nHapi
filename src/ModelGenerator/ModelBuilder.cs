@@ -14,7 +14,7 @@
             Message,
             Segment,
             DataType,
-            EventMapping
+            EventMapping,
         }
 
         public ModelBuilder()

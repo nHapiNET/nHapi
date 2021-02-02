@@ -27,6 +27,6 @@ namespace NHapi.Base.Parser
         /// <summary>
         /// A group
         /// </summary>
-        Group
+        Group,
     }
 }
