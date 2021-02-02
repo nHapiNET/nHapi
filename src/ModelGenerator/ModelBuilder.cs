@@ -2,12 +2,21 @@
 {
     using System;
     using System.Configuration;
+
     using NHapi.SourceGeneration;
     using NHapi.SourceGeneration.Generators;
+
     using ConfigurationSettings = NHapi.SourceGeneration.ConfigurationSettings;
 
     public class ModelBuilder
     {
+        public ModelBuilder()
+        {
+            BasePath = @"D:\projects\nhapi\SourceForge\nhapi20";
+            ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
+            MessageTypeToBuild = MessageType.All;
+        }
+
         public enum MessageType
         {
             All,
@@ -15,13 +24,6 @@
             Segment,
             DataType,
             EventMapping,
-        }
-
-        public ModelBuilder()
-        {
-            BasePath = @"D:\projects\nhapi\SourceForge\nhapi20";
-            ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-            MessageTypeToBuild = MessageType.All;
         }
 
         public string BasePath { get; set; }
