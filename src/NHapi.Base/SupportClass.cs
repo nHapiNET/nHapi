@@ -1856,14 +1856,18 @@ namespace NHapi.Base
             if (args.Severity == XmlSeverityType.Warning)
             {
                 if (errorHandler != null)
+                {
                     errorHandler.warning(new XmlException(tempException.Message, tempException, tempException.LineNumber,
                         tempException.LinePosition));
+                }
             }
             else
             {
                 if (errorHandler != null)
+                {
                     errorHandler.fatalError(new XmlException(tempException.Message, tempException, tempException.LineNumber,
                         tempException.LinePosition));
+                }
             }
         }
 
@@ -3173,6 +3177,7 @@ namespace NHapi.Base
 
                 // skip possible delimiters
                 while (Array.IndexOf(delimiters, chars[currentPos]) != -1)
+                {
 
                     // The last one is a delimiter (i.e there is no more tokens)
                     if (++currentPos == chars.Length)
@@ -3180,6 +3185,7 @@ namespace NHapi.Base
                         currentPos = pos;
                         throw new ArgumentOutOfRangeException();
                     }
+                }
 
                 // getting the token
                 while (Array.IndexOf(delimiters, chars[currentPos]) == -1)

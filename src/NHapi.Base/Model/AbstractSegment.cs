@@ -169,14 +169,18 @@ namespace NHapi.Base.Model
 
             // check if out of range ...
             if (rep > currentReps)
+            {
                 throw new HL7Exception(
                     "Can't get repetition " + rep + " from field " + number + " - there are currently only " + currentReps + " reps.",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
 
             if (rep > _items[number - 1].MaxRepetitions)
+            {
                 throw new HL7Exception(
                     "Can't get repetition " + rep + " from field " + number + " - maximum repetitions is only " +
                     _items[number - 1].MaxRepetitions + " reps.", ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
 
             // add a rep if necessary ...
             if (rep == currentReps)

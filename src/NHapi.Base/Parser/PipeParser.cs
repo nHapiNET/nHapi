@@ -633,9 +633,12 @@ namespace NHapi.Base.Parser
             }
 
             if (encCharString.Length != 4)
+            {
                 throw new HL7Exception(
                     "Encoding characters '" + encCharString + "' invalid -- must be 4 characters",
                     ErrorCode.DATA_TYPE_ERROR);
+            }
+
             EncodingCharacters en = new EncodingCharacters(fieldSep, encCharString);
 
             // pass down to group encoding method which will operate recursively on children ...

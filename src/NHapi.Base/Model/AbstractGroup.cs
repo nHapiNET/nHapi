@@ -166,9 +166,11 @@ namespace NHapi.Base.Model
             AbstractGroupItem item = GetGroupItem(name);
 
             if (item == null)
+            {
                 throw new HL7Exception(
                     name + " does not exist in the group " + GetType().FullName,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
 
             IStructure ret;
             if (rep < item.Structures.Count)
@@ -181,9 +183,11 @@ namespace NHapi.Base.Model
                 // verify that Structure is repeating ...
                 bool repeats = item.IsRepeating;
                 if (!repeats && item.Structures.Count > 0)
+                {
                     throw new HL7Exception(
                         "Can't create repetition #" + rep + " of Structure " + name + " - this Structure is non-repeating",
                         ErrorCode.APPLICATION_INTERNAL_ERROR);
+                }
 
                 // create a new Structure, add it to the list, and return it
                 Type classType = item.ClassType;
@@ -208,16 +212,20 @@ namespace NHapi.Base.Model
             AbstractGroupItem item = GetGroupItem(name);
 
             if (item == null)
+            {
                 throw new HL7Exception(
                     name + " does not exist in the group " + GetType().FullName,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
 
             // Verify that Structure is repeating ...
             bool repeats = item.IsRepeating;
             if (!repeats && item.Structures.Count > 0)
+            {
                 throw new HL7Exception(
                     "Can't create repetition of Structure " + name + " - this Structure is non-repeating and this Structure already has an item present.",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
 
             // Create a new Structure, add it to the list, and return it
             Type classType = item.ClassType;
@@ -233,9 +241,11 @@ namespace NHapi.Base.Model
             AbstractGroupItem item = GetGroupItem(name);
 
             if (item == null)
+            {
                 throw new HL7Exception(
                     name + " does not exist in the group " + GetType().FullName,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
 
             item.Structures.Remove(toRemove);
         }
@@ -410,9 +420,12 @@ namespace NHapi.Base.Model
         {
             AbstractGroupItem item = GetGroupItem(name);
             if (item == null)
+            {
                 throw new HL7Exception(
                     "The structure " + name + " does not exist in the group " + GetType().FullName,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
+
             return item.IsRequired;
         }
 
@@ -421,9 +434,12 @@ namespace NHapi.Base.Model
         {
             AbstractGroupItem item = GetGroupItem(name);
             if (item == null)
+            {
                 throw new HL7Exception(
                     "The structure " + name + " does not exist in the group " + GetType().FullName,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
+
             return item.IsRepeating;
         }
 
@@ -432,9 +448,12 @@ namespace NHapi.Base.Model
         {
             AbstractGroupItem item = GetGroupItem(name);
             if (item == null)
+            {
                 throw new HL7Exception(
                     "The structure " + name + " does not exist in the group " + GetType().FullName,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
+
             return item.Structures.Count;
         }
 
@@ -449,9 +468,12 @@ namespace NHapi.Base.Model
         {
             AbstractGroupItem item = GetGroupItem(name);
             if (item == null)
+            {
                 throw new HL7Exception(
                     "The structure " + name + " does not exist in the group " + GetType().FullName,
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
+
             IStructure[] all = new IStructure[item.Structures.Count];
             for (int i = 0; i < item.Structures.Count; i++)
             {
