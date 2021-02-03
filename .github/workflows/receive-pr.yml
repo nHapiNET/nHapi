@@ -1,0 +1,43 @@
+name: Receive Pull Request
+
+on: [pull_request]
+
+jobs:
+  build-and-test:
+    name: Build And Test
+    runs-on: windows-2019
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+    - name: Restore nHapi
+      run: |
+        dotnet restore nHapi.sln --configfile build\.nuget\NuGet.config
+        dotnet restore Hl7Models.sln --configfile build\.nuget\NuGet.config
+    - name: Build nHapi
+      run: |
+        dotnet build nHapi.sln -c Release --no-restore
+        dotnet build Hl7Models.sln -c Release --no-restore
+    - name: Run tests for all target frameworks
+      run: |
+        dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --logger trx -r TestResults -c Release -f net461 --no-restore --no-build
+        dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --logger trx -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+        dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --logger trx -r TestResults -c Release -f net461 --no-restore --no-build
+        dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --logger trx -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+        dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --logger trx -r TestResults -c Release -f net461 --no-restore --no-build
+        dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --logger trx -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+    - name: Convert trx to junit
+      run: |
+        dotnet tool install -g trx2junit
+        trx2junit TestResults/*.trx
+
+    - name: Upload Unit Test Results
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: Unit Test Results
+        path: TestResults/*.xml
