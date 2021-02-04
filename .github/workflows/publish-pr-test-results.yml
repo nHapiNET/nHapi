@@ -1,0 +1,30 @@
+name: Publish Pull Request Test Results
+
+on:
+  workflow_run:
+    workflows: ["Receive Pull Request"]
+    types:
+      - completed
+
+jobs:
+  publish-test-results:
+    runs-on: ubuntu-latest
+    # the build-and-test job might be skipped, we don't need to run this job then
+    if: >
+      ${{ github.event.workflow_run.event == 'pull_request' &&
+      ( github.event.workflow_run.conclusion == 'success'  ||
+      github.event.workflow_run.conclusion == 'failure' ) }}
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: artifacts
+
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1.7
+        with:
+          check_name: Unit Test Results
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          files: "**/*.xml"
+          report_individual_runs: true
+          check_run_annotations: all tests, skipped tests
