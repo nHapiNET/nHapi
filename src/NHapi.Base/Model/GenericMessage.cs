@@ -1,6 +1,7 @@
 namespace NHapi.Base.Model
 {
     using System;
+
     using NHapi.Base;
     using NHapi.Base.Log;
     using NHapi.Base.Parser;
@@ -22,7 +23,7 @@ namespace NHapi.Base.Model
         {
             try
             {
-                addNonstandardSegment("MSH");
+                AddNonstandardSegment("MSH");
             }
             catch (HL7Exception e)
             {
@@ -32,11 +33,21 @@ namespace NHapi.Base.Model
             }
         }
 
+        [Obsolete("This method has been replaced by 'GetGenericMessageClass'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public static Type getGenericMessageClass(string version)
+        {
+            return GetGenericMessageClass(version);
+        }
+
         /// <summary> Returns a subclass of GenericMessage corresponding to a certain version.
         /// This is needed so that version-specific segments can be added as the message
         /// is parsed.
         /// </summary>
-        public static Type getGenericMessageClass(string version)
+        public static Type GetGenericMessageClass(string version)
         {
             if (!ParserBase.ValidVersion(version))
             {
@@ -78,20 +89,20 @@ namespace NHapi.Base.Model
         public class V21 : GenericMessage
         {
             /// <summary>
-            /// Version of message.
-            /// </summary>
-            public override string Version
-            {
-                get { return "2.1"; }
-            }
-
-            /// <summary>
             /// Constructor.
             /// </summary>
             /// <param name="factory"></param>
             public V21(IModelClassFactory factory)
                 : base(factory)
             {
+            }
+
+            /// <summary>
+            /// Version of message.
+            /// </summary>
+            public override string Version
+            {
+                get { return "2.1"; }
             }
         }
 
@@ -101,20 +112,20 @@ namespace NHapi.Base.Model
         public class V22 : GenericMessage
         {
             /// <summary>
-            /// Version of message.
-            /// </summary>
-            public override string Version
-            {
-                get { return "2.2"; }
-            }
-
-            /// <summary>
             /// Constructor.
             /// </summary>
             /// <param name="factory"></param>
             public V22(IModelClassFactory factory)
                 : base(factory)
             {
+            }
+
+            /// <summary>
+            /// Version of message.
+            /// </summary>
+            public override string Version
+            {
+                get { return "2.2"; }
             }
         }
 
@@ -124,20 +135,20 @@ namespace NHapi.Base.Model
         public class V23 : GenericMessage
         {
             /// <summary>
-            /// Version of message.
-            /// </summary>
-            public override string Version
-            {
-                get { return "2.3"; }
-            }
-
-            /// <summary>
             /// Constructor.
             /// </summary>
             /// <param name="factory"></param>
             public V23(IModelClassFactory factory)
                 : base(factory)
             {
+            }
+
+            /// <summary>
+            /// Version of message.
+            /// </summary>
+            public override string Version
+            {
+                get { return "2.3"; }
             }
         }
 
@@ -147,20 +158,20 @@ namespace NHapi.Base.Model
         public class V231 : GenericMessage
         {
             /// <summary>
-            /// Version of message.
-            /// </summary>
-            public override string Version
-            {
-                get { return "2.3.1"; }
-            }
-
-            /// <summary>
             /// Constructor.
             /// </summary>
             /// <param name="factory"></param>
             public V231(IModelClassFactory factory)
                 : base(factory)
             {
+            }
+
+            /// <summary>
+            /// Version of message.
+            /// </summary>
+            public override string Version
+            {
+                get { return "2.3.1"; }
             }
         }
 
@@ -170,20 +181,20 @@ namespace NHapi.Base.Model
         public class V24 : GenericMessage
         {
             /// <summary>
-            /// Version of message.
-            /// </summary>
-            public override string Version
-            {
-                get { return "2.4"; }
-            }
-
-            /// <summary>
             /// Constructor.
             /// </summary>
             /// <param name="factory"></param>
             public V24(IModelClassFactory factory)
                 : base(factory)
             {
+            }
+
+            /// <summary>
+            /// Version of message.
+            /// </summary>
+            public override string Version
+            {
+                get { return "2.4"; }
             }
         }
 
@@ -193,20 +204,20 @@ namespace NHapi.Base.Model
         public class V25 : GenericMessage
         {
             /// <summary>
-            /// Version of message.
-            /// </summary>
-            public override string Version
-            {
-                get { return "2.5"; }
-            }
-
-            /// <summary>
             /// Constructor.
             /// </summary>
             /// <param name="factory"></param>
             public V25(IModelClassFactory factory)
                 : base(factory)
             {
+            }
+
+            /// <summary>
+            /// Version of message.
+            /// </summary>
+            public override string Version
+            {
+                get { return "2.5"; }
             }
         }
     }

@@ -26,11 +26,9 @@
 
 namespace NHapi.Base.validation
 {
-    using System;
-
-   /// <summary> A rule that applies to a primitive datatype. </summary>
-   /// <author>  Bryan Tripp.
-   /// </author>
+    /// <summary> A rule that applies to a primitive datatype. </summary>
+    /// <author>  Bryan Tripp.
+    /// </author>
     public interface IPrimitiveTypeRule : IRule
     {
         /// <summary> Optionally performs an automatic correction on given data to make it

@@ -1,6 +1,5 @@
 namespace NHapi.Base.Model
 {
-    using System;
     using System.Collections;
 
     /// <summary> An unspecified Composite datatype that has an undefined number of components, each
@@ -12,6 +11,25 @@ namespace NHapi.Base.Model
     /// </author>
     public class GenericComposite : AbstractType, IComposite
     {
+        private ArrayList components;
+        private IMessage message;
+
+        /// <summary>Creates a new instance of GenericComposite.</summary>
+        /// <param name="theMessage">message to which this Type belongs.</param>
+        public GenericComposite(IMessage theMessage)
+            : this(theMessage, null)
+        {
+        }
+
+        /// <summary>Creates a new instance of GenericComposite.</summary>
+        /// <param name="theMessage">message to which this Type belongs.</param>
+        /// <param name="description">The description of this type.</param>
+        public GenericComposite(IMessage theMessage, string description)
+            : base(theMessage, description)
+        {
+            components = new ArrayList(20);
+        }
+
         /// <summary> Returns an array containing the components of this field.</summary>
         public virtual IType[] Components
         {
@@ -31,25 +49,6 @@ namespace NHapi.Base.Model
         public override string TypeName
         {
             get { return "UNKNOWN"; }
-        }
-
-        private ArrayList components;
-        private IMessage message;
-
-        /// <summary>Creates a new instance of GenericComposite.</summary>
-        /// <param name="theMessage">message to which this Type belongs.</param>
-        public GenericComposite(IMessage theMessage)
-            : this(theMessage, null)
-        {
-        }
-
-        /// <summary>Creates a new instance of GenericComposite.</summary>
-        /// <param name="theMessage">message to which this Type belongs.</param>
-        /// <param name="description">The description of this type.</param>
-        public GenericComposite(IMessage theMessage, string description)
-            : base(theMessage, description)
-        {
-            components = new ArrayList(20);
         }
 
         /// <summary> Returns the single component of this composite at the specified position (starting at 0) -

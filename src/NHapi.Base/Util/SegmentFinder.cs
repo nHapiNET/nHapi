@@ -28,11 +28,12 @@ namespace NHapi.Base.Util
 {
     using System;
     using System.Text.RegularExpressions;
+
     using NHapi.Base.Model;
 
-   /// <summary> A tool for getting segments by name within a message or part of a message.</summary>
-   /// <author>  Bryan Tripp.
-   /// </author>
+    /// <summary> A tool for getting segments by name within a message or part of a message.</summary>
+    /// <author>  Bryan Tripp.
+    /// </author>
     public class SegmentFinder : MessageNavigator
     {
         /// <summary> Creates a new instance of SegmentFinder.</summary>
@@ -41,6 +42,16 @@ namespace NHapi.Base.Util
         public SegmentFinder(IGroup root)
             : base(root)
         {
+        }
+
+        [Obsolete("This method has been replaced by 'FindSegment'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual ISegment findSegment(string namePattern, int rep)
+        {
+            return FindSegment(namePattern, rep);
         }
 
         /// <summary>
@@ -54,43 +65,49 @@ namespace NHapi.Base.Util
         /// (eg "P*" or "*ID" or "???" or "P??" would match on PID).
         /// </param>
         /// <param name="rep">the repetition of the segment to return.</param>
-        public virtual ISegment findSegment(string namePattern, int rep)
+        public virtual ISegment FindSegment(string namePattern, int rep)
         {
             IStructure s = null;
             do
             {
-                s = findStructure(namePattern, rep);
-            } while (!typeof(ISegment).IsAssignableFrom(s.GetType()));
+                s = FindStructure(namePattern, rep);
+            }
+            while (!typeof(ISegment).IsAssignableFrom(s.GetType()));
+
             return (ISegment)s;
         }
 
-        /// <summary> As findSegment(), but will only return a group.</summary>
+        [Obsolete("This method has been replaced by 'FindGroup'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
         public virtual IGroup findGroup(string namePattern, int rep)
+        {
+            return FindGroup(namePattern, rep);
+        }
+
+        /// <summary> As findSegment(), but will only return a group.</summary>
+        public virtual IGroup FindGroup(string namePattern, int rep)
         {
             IStructure s = null;
             do
             {
-                s = findStructure(namePattern, rep);
-            } while (!typeof(IGroup).IsAssignableFrom(s.GetType()));
+                s = FindStructure(namePattern, rep);
+            }
+            while (!typeof(IGroup).IsAssignableFrom(s.GetType()));
+
             return (IGroup)s;
         }
 
-        /// <summary> Returns the first matching structure AFTER the current position.</summary>
-        private IStructure findStructure(string namePattern, int rep)
+        [Obsolete("This method has been replaced by 'GetSegment'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual ISegment getSegment(string namePattern, int rep)
         {
-            IStructure s = null;
-
-            while (s == null)
-            {
-                iterate(false, false);
-                string currentName = getCurrentStructure(0).GetStructureName();
-                if (matches(namePattern, currentName))
-                {
-                    s = getCurrentStructure(rep);
-                }
-            }
-
-            return s;
+            return GetSegment(namePattern, rep);
         }
 
         /// <summary>
@@ -106,7 +123,7 @@ namespace NHapi.Base.Util
         /// (eg "P*" or "*ID" or "???" or "P??" would match on PID).
         /// </param>
         /// <param name="rep">the repetition of the segment to return.</param>
-        public virtual ISegment getSegment(string namePattern, int rep)
+        public virtual ISegment GetSegment(string namePattern, int rep)
         {
             IStructure s = GetStructure(namePattern, rep);
             if (!typeof(ISegment).IsAssignableFrom(s.GetType()))
@@ -117,8 +134,18 @@ namespace NHapi.Base.Util
             return (ISegment)s;
         }
 
-        /// <summary> As getSegment() but will only return a group.</summary>
+        [Obsolete("This method has been replaced by 'GetGroup'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
         public virtual IGroup getGroup(string namePattern, int rep)
+        {
+            return GetGroup(namePattern, rep);
+        }
+
+        /// <summary> As getSegment() but will only return a group.</summary>
+        public virtual IGroup GetGroup(string namePattern, int rep)
         {
             IStructure s = GetStructure(namePattern, rep);
             if (!typeof(IGroup).IsAssignableFrom(s.GetType()))
@@ -129,22 +156,40 @@ namespace NHapi.Base.Util
             return (IGroup)s;
         }
 
+        /// <summary> Returns the first matching structure AFTER the current position.</summary>
+        private IStructure FindStructure(string namePattern, int rep)
+        {
+            IStructure s = null;
+
+            while (s == null)
+            {
+                Iterate(false, false);
+                string currentName = GetCurrentStructure(0).GetStructureName();
+                if (Matches(namePattern, currentName))
+                {
+                    s = GetCurrentStructure(rep);
+                }
+            }
+
+            return s;
+        }
+
         private IStructure GetStructure(string namePattern, int rep)
         {
             IStructure s = null;
 
-            if (getCurrentStructure(0).Equals(Root))
+            if (GetCurrentStructure(0).Equals(Root))
             {
-                drillDown(0);
+                DrillDown(0);
             }
 
-            string[] names = getCurrentStructure(0).ParentStructure.Names;
+            string[] names = GetCurrentStructure(0).ParentStructure.Names;
             for (int i = 0; i < names.Length && s == null; i++)
             {
-                if (matches(namePattern, names[i]))
+                if (Matches(namePattern, names[i]))
                 {
-                    toChild(i);
-                    s = getCurrentStructure(rep);
+                    ToChild(i);
+                    s = GetCurrentStructure(rep);
                 }
             }
 
@@ -157,7 +202,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary> Tests whether the given name matches the given pattern.</summary>
-        private bool matches(string pattern, string candidate)
+        private bool Matches(string pattern, string candidate)
         {
             // shortcut ...
             if (pattern.Equals(candidate))

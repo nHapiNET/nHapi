@@ -28,27 +28,31 @@ namespace NHapi.Base.Model.Primitive
 {
     using System;
 
-   /// <summary>
-   /// Represents an HL7 DT (date) datatype.
-   /// </summary>
-   /// <author><a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a></author>
-   /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
-   /// <version>
-   /// $Revision: 1.3 $ updated on $Date: 2005/06/08 00:28:25 $ by $Author: bryan_tripp $.
-   /// </version>
+    /// <summary>
+    /// Represents an HL7 DT (date) datatype.
+    /// </summary>
+    /// <author><a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a></author>
+    /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
+    /// <version>
+    /// $Revision: 1.3 $ updated on $Date: 2005/06/08 00:28:25 $ by $Author: bryan_tripp $.
+    /// </version>
     public abstract class DT : AbstractPrimitive
     {
-        private CommonDT Detail
-        {
-            get
-            {
-                if (myDetail == null)
-                {
-                    myDetail = new CommonDT(Value);
-                }
+        private CommonDT myDetail;
 
-                return myDetail;
-            }
+        /// <summary>Construct the type.</summary>
+        /// <param name="theMessage">message to which this Type belongs.</param>
+        protected DT(IMessage theMessage)
+            : base(theMessage)
+        {
+        }
+
+        /// <summary>Construct the type.</summary>
+        /// <param name="theMessage">message to which this Type belongs.</param>
+        /// <param name="description">The description of this type.</param>
+        protected DT(IMessage theMessage, string description)
+            : base(theMessage, description)
+        {
         }
 
         /// <inheritdoc />
@@ -112,21 +116,27 @@ namespace NHapi.Base.Model.Primitive
             get { return Detail.Day; }
         }
 
-        private CommonDT myDetail;
-
-        /// <summary>Construct the type.</summary>
-        /// <param name="theMessage">message to which this Type belongs.</param>
-        protected DT(IMessage theMessage)
-            : base(theMessage)
+        private CommonDT Detail
         {
+            get
+            {
+                if (myDetail == null)
+                {
+                    myDetail = new CommonDT(Value);
+                }
+
+                return myDetail;
+            }
         }
 
-        /// <summary>Construct the type.</summary>
-        /// <param name="theMessage">message to which this Type belongs.</param>
-        /// <param name="description">The description of this type.</param>
-        protected DT(IMessage theMessage, string description)
-            : base(theMessage, description)
+        [Obsolete("This method has been replaced by 'SetYearMonthPrecision'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual void setYearMonthPrecision(int yr, int mnth)
         {
+            SetYearMonthPrecision(yr, mnth);
         }
 
         /// <seealso cref="CommonDT.setYearMonthPrecision(int, int)">
@@ -135,9 +145,19 @@ namespace NHapi.Base.Model.Primitive
         /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
         /// this method is called.
         /// </summary>
-        public virtual void setYearMonthPrecision(int yr, int mnth)
+        public virtual void SetYearMonthPrecision(int yr, int mnth)
         {
-            Detail.setYearMonthPrecision(yr, mnth);
+            Detail.SetYearMonthPrecision(yr, mnth);
+        }
+
+        [Obsolete("This method has been replaced by 'SetYearMonthDayPrecision'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual void setYearMonthDayPrecision(int yr, int mnth, int dy)
+        {
+            SetYearMonthDayPrecision(yr, mnth, dy);
         }
 
         /// <seealso cref="CommonDT.setYearMonthDayPrecision(int, int, int)">
@@ -146,9 +166,9 @@ namespace NHapi.Base.Model.Primitive
         /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
         /// this method is called.
         /// </summary>
-        public virtual void setYearMonthDayPrecision(int yr, int mnth, int dy)
+        public virtual void SetYearMonthDayPrecision(int yr, int mnth, int dy)
         {
-            Detail.setYearMonthDayPrecision(yr, mnth, dy);
+            Detail.SetYearMonthDayPrecision(yr, mnth, dy);
         }
     }
 }

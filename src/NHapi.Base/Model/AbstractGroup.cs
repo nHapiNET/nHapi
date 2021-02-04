@@ -29,47 +29,55 @@ namespace NHapi.Base.Model
     using System;
     using System.Collections.Generic;
     using System.Reflection;
+
     using NHapi.Base.Log;
     using NHapi.Base.Parser;
 
-   /// <summary> A partial implementation of Group.  Subclasses correspond to specific
-   /// groups of segments (and/or other sub-groups) that are implicitely defined by message structures
-   /// in the HL7 specification.  A subclass should define it's group structure by putting repeated calls to
-   /// the add(...) method in it's constructor.  Each call to add(...) adds a specific component to the
-   /// Group.
-   /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
-   /// </author>
+    /// <summary> A partial implementation of Group.  Subclasses correspond to specific
+    /// groups of segments (and/or other sub-groups) that are implicitly defined by message structures
+    /// in the HL7 specification.  A subclass should define it's group structure by putting repeated calls to
+    /// the add(...) method in it's constructor.  Each call to add(...) adds a specific component to the
+    /// Group.
+    /// </summary>
+    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
+    /// </author>
     public abstract class AbstractGroup : IGroup
     {
-        private List<AbstractGroupItem> _items;
+        private static readonly IHapiLog Log;
+
+        private List<AbstractGroupItem> items;
         private IGroup parentStructure;
         private IModelClassFactory myFactory;
-        private static readonly IHapiLog log;
 
         static AbstractGroup()
         {
-            log = HapiLogFactory.GetHapiLog(typeof(AbstractGroup));
+            Log = HapiLogFactory.GetHapiLog(typeof(AbstractGroup));
         }
 
-        /// <summary>
-        /// Gets a group item by name.
+        /// <summary> This constructor should be used by implementing classes that do not
+        /// also implement Message.
+        ///
         /// </summary>
-        /// <param name="name">The name of the group item.</param>
-        /// <returns>Group item if found, null otherwise.</returns>
-        protected AbstractGroupItem GetGroupItem(string name)
+        /// <param name="parentStructure">the group to which this Group belongs.
+        /// </param>
+        /// <param name="factory">the factory for classes of segments, groups, and datatypes under this group.
+        /// </param>
+        protected internal AbstractGroup(IGroup parentStructure, IModelClassFactory factory)
         {
-            AbstractGroupItem ret = null;
-            foreach (AbstractGroupItem item in _items)
-            {
-                if (item.Name.Equals(name))
-                {
-                    ret = item;
-                    break;
-                }
-            }
+            this.parentStructure = parentStructure;
+            myFactory = factory;
+            Init();
+        }
 
-            return ret;
+        /// <summary> This constructor should only be used by classes that implement Message directly.
+        ///
+        /// </summary>
+        /// <param name="factory">the factory for classes of segments, groups, and datatypes under this group.
+        /// </param>
+        protected internal AbstractGroup(IModelClassFactory factory)
+        {
+            myFactory = factory;
+            Init();
         }
 
         /// <summary>
@@ -79,10 +87,10 @@ namespace NHapi.Base.Model
         {
             get
             {
-                string[] retVal = new string[_items.Count];
-                for (int i = 0; i < _items.Count; i++)
+                string[] retVal = new string[items.Count];
+                for (int i = 0; i < items.Count; i++)
                 {
-                    AbstractGroupItem item = _items[i];
+                    AbstractGroupItem item = items[i];
                     retVal[i] = item.Name;
                 }
 
@@ -111,37 +119,6 @@ namespace NHapi.Base.Model
         public virtual IGroup ParentStructure
         {
             get { return parentStructure; }
-        }
-
-        /// <summary> This constructor should be used by implementing classes that do not
-        /// also implement Message.
-        ///
-        /// </summary>
-        /// <param name="parentStructure">the group to which this Group belongs.
-        /// </param>
-        /// <param name="factory">the factory for classes of segments, groups, and datatypes under this group.
-        /// </param>
-        protected internal AbstractGroup(IGroup parentStructure, IModelClassFactory factory)
-        {
-            this.parentStructure = parentStructure;
-            myFactory = factory;
-            init();
-        }
-
-        /// <summary> This constructor should only be used by classes that implement Message directly.
-        ///
-        /// </summary>
-        /// <param name="factory">the factory for classes of segments, groups, and datatypes under this group.
-        /// </param>
-        protected internal AbstractGroup(IModelClassFactory factory)
-        {
-            myFactory = factory;
-            init();
-        }
-
-        private void init()
-        {
-            _items = new List<AbstractGroupItem>();
         }
 
         /// <summary> Returns the named structure.  If this Structure is repeating then the first
@@ -175,7 +152,7 @@ namespace NHapi.Base.Model
             IStructure ret;
             if (rep < item.Structures.Count)
             {
-                // return existng Structure if it exists
+                // return existing Structure if it exists
                 ret = item.Structures[rep];
             }
             else if (rep == item.Structures.Count)
@@ -191,13 +168,13 @@ namespace NHapi.Base.Model
 
                 // create a new Structure, add it to the list, and return it
                 Type classType = item.ClassType;
-                ret = tryToInstantiateStructure(classType, name);
+                ret = TryToInstantiateStructure(classType, name);
                 item.Structures.Add(ret);
             }
             else
             {
                 throw new HL7Exception(
-                    "Can't return repetition #" + rep + " of " + name + " - there are only " + _items.Count + " repetitions.",
+                    "Can't return repetition #" + rep + " of " + name + " - there are only " + items.Count + " repetitions.",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -229,7 +206,7 @@ namespace NHapi.Base.Model
 
             // Create a new Structure, add it to the list, and return it
             Type classType = item.ClassType;
-            var ret = tryToInstantiateStructure(classType, name);
+            var ret = TryToInstantiateStructure(classType, name);
             item.Structures.Add(ret);
             return ret;
         }
@@ -261,7 +238,7 @@ namespace NHapi.Base.Model
             {
                 throw new HL7Exception(
                     "The structure " + name + " does not exist in the group " + GetType().FullName,
-                     ErrorCode.APPLICATION_INTERNAL_ERROR);
+                    ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
             if (rep >= item.Structures.Count)
@@ -274,6 +251,12 @@ namespace NHapi.Base.Model
             item.Structures.RemoveAt(rep);
         }
 
+        [Obsolete("This method has been replaced by 'AddNonstandardSegment'.")]
+        public virtual string addNonstandardSegment(string name)
+        {
+            return AddNonstandardSegment(name);
+        }
+
         /// <summary> Expands the group definition to include a segment that is not
         /// defined by HL7 to be part of this group (eg an unregistered Z segment).
         /// The new segment is slotted at the end of the group.  Thenceforward if
@@ -282,7 +265,7 @@ namespace NHapi.Base.Model
         /// segment is defined as repeating and not required.
         /// </summary>
         /// <exception cref="HL7Exception">Thrown when 'Message.Version' returns null.</exception>
-        public virtual string addNonstandardSegment(string name)
+        public virtual string AddNonstandardSegment(string name)
         {
             string version = Message.Version;
             if (version == null)
@@ -298,129 +281,9 @@ namespace NHapi.Base.Model
 
             int index = Names.Length;
 
-            tryToInstantiateStructure(c, name); // may throw exception
+            TryToInstantiateStructure(c, name); // may throw exception
 
-            return insert(c, false, true, index, name);
-        }
-
-        /// <summary> Adds a new Structure (group or segment) to this Group.  A place for the
-        /// Structure is added to the group but there are initially zero repetitions.
-        /// This method should be used by the constructors of implementing classes
-        /// to specify which Structures the Group contains - Structures should be
-        /// added in the order in which they appear.
-        /// Note that the class is supplied instead of an instance because we want
-        /// there initially to be zero instances of each structure but we want the
-        /// AbstractGroup code to be able to create instances as necessary to support
-        /// get(...) calls.
-        /// </summary>
-        /// <returns> the actual name used to store this structure (may be appended with
-        /// an integer if there are duplcates in the same Group).
-        /// </returns>
-        protected internal virtual string add(Type c, bool required, bool repeating)
-        {
-            string name = getStructureName(c);
-
-            return insert(c, required, repeating, _items.Count, name);
-        }
-
-        /// <summary> Inserts the given structure into this group, at the
-        /// indicated index number.  This method is used to support handling
-        /// of unexpected segments (e.g. Z-segments).  In contrast, specification
-        /// of the group's normal children should be done at construction time, using the
-        /// add(...) method.
-        /// </summary>
-        private string insert(Type classType, bool required, bool repeating, int index, string name)
-        {
-            // see if there is already something by this name and make a new name if necessary ...
-            if (nameExists(name))
-            {
-                int version = 2;
-                string newName = name;
-                while (nameExists(newName))
-                {
-                    newName = name + version++;
-                }
-
-                name = newName;
-            }
-
-            AbstractGroupItem item = new AbstractGroupItem(name, required, repeating, classType);
-            _items.Insert(index, item);
-            return name;
-        }
-
-        /// <summary> Returns true if the class name is already being used. </summary>
-        private bool nameExists(string name)
-        {
-            bool exists = false;
-            AbstractGroupItem item = GetGroupItem(name);
-            if (item != null)
-            {
-                exists = true;
-            }
-
-            return exists;
-        }
-
-        /// <summary> Attempts to create an instance of the given class and return
-        /// it as a Structure.
-        /// </summary>
-        /// <param name="c">the Structure implementing class.
-        /// </param>
-        /// <param name="name">an optional name of the structure (used by Generic structures; may be null).
-        /// </param>
-        private IStructure tryToInstantiateStructure(Type c, string name)
-        {
-            IStructure s = null;
-            try
-            {
-                object o = null;
-                if (typeof(GenericSegment).IsAssignableFrom(c))
-                {
-                    s = new GenericSegment(this, name);
-                }
-                else if (typeof(GenericGroup).IsAssignableFrom(c))
-                {
-                    s = new GenericGroup(this, name, myFactory);
-                }
-                else
-                {
-                    // first try to instantiate using contructor w/ Message arg ...
-                    try
-                    {
-                        Type[] argClasses = new Type[] { typeof(IGroup), typeof(IModelClassFactory) };
-                        object[] argObjects = new object[] { this, myFactory };
-                        ConstructorInfo con = c.GetConstructor(argClasses);
-                        o = con.Invoke(argObjects);
-                    }
-                    catch (MethodAccessException)
-                    {
-                        o = Activator.CreateInstance(c);
-                    }
-
-                    if (!(o is IStructure))
-                    {
-                        throw new HL7Exception(
-                            "Class " + c.FullName + " does not implement " + "ca.on.uhn.hl7.message.Structure",
-                            ErrorCode.APPLICATION_INTERNAL_ERROR);
-                    }
-
-                    s = (IStructure)o;
-                }
-            }
-            catch (Exception e)
-            {
-                if (e is HL7Exception)
-                {
-                    throw (HL7Exception)e;
-                }
-                else
-                {
-                    throw new HL7Exception("Can't instantiate class " + c.FullName, ErrorCode.APPLICATION_INTERNAL_ERROR, e);
-                }
-            }
-
-            return s;
+            return Insert(c, false, true, index, name);
         }
 
         /// <summary> Returns true if the named structure is required. </summary>
@@ -451,8 +314,18 @@ namespace NHapi.Base.Model
             return item.IsRepeating;
         }
 
-        /// <summary> Returns the number of existing repetitions of the named structure.</summary>
+        [Obsolete("This method has been replaced by 'CurrentReps'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
         public virtual int currentReps(string name)
+        {
+            return CurrentReps(name);
+        }
+
+        /// <summary> Returns the number of existing repetitions of the named structure.</summary>
+        public virtual int CurrentReps(string name)
         {
             AbstractGroupItem item = GetGroupItem(name);
             if (item == null)
@@ -501,7 +374,162 @@ namespace NHapi.Base.Model
         /// <summary> Returns the class name (excluding package). </summary>
         public virtual string GetStructureName()
         {
-            return getStructureName(GetType());
+            return GetStructureName(GetType());
+        }
+
+        [Obsolete("This method has been replaced by 'Add'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        protected internal virtual string add(Type c, bool required, bool repeating)
+        {
+            return Add(c, required, repeating);
+        }
+
+        /// <summary> Adds a new Structure (group or segment) to this Group.  A place for the
+        /// Structure is added to the group but there are initially zero repetitions.
+        /// This method should be used by the constructors of implementing classes
+        /// to specify which Structures the Group contains - Structures should be
+        /// added in the order in which they appear.
+        /// Note that the class is supplied instead of an instance because we want
+        /// there initially to be zero instances of each structure but we want the
+        /// AbstractGroup code to be able to create instances as necessary to support
+        /// get(...) calls.
+        /// </summary>
+        /// <returns> the actual name used to store this structure (may be appended with
+        /// an integer if there are duplicates in the same Group).
+        /// </returns>
+        protected internal virtual string Add(Type c, bool required, bool repeating)
+        {
+            string name = GetStructureName(c);
+
+            return Insert(c, required, repeating, items.Count, name);
+        }
+
+        /// <summary>
+        /// Gets a group item by name.
+        /// </summary>
+        /// <param name="name">The name of the group item.</param>
+        /// <returns>Group item if found, null otherwise.</returns>
+        protected AbstractGroupItem GetGroupItem(string name)
+        {
+            AbstractGroupItem ret = null;
+            foreach (AbstractGroupItem item in items)
+            {
+                if (item.Name.Equals(name))
+                {
+                    ret = item;
+                    break;
+                }
+            }
+
+            return ret;
+        }
+
+        private void Init()
+        {
+            items = new List<AbstractGroupItem>();
+        }
+
+        /// <summary> Inserts the given structure into this group, at the
+        /// indicated index number.  This method is used to support handling
+        /// of unexpected segments (e.g. Z-segments).  In contrast, specification
+        /// of the group's normal children should be done at construction time, using the
+        /// add(...) method.
+        /// </summary>
+        private string Insert(Type classType, bool required, bool repeating, int index, string name)
+        {
+            // see if there is already something by this name and make a new name if necessary ...
+            if (NameExists(name))
+            {
+                int version = 2;
+                string newName = name;
+                while (NameExists(newName))
+                {
+                    newName = name + version++;
+                }
+
+                name = newName;
+            }
+
+            AbstractGroupItem item = new AbstractGroupItem(name, required, repeating, classType);
+            items.Insert(index, item);
+            return name;
+        }
+
+        /// <summary> Returns true if the class name is already being used. </summary>
+        private bool NameExists(string name)
+        {
+            bool exists = false;
+            AbstractGroupItem item = GetGroupItem(name);
+            if (item != null)
+            {
+                exists = true;
+            }
+
+            return exists;
+        }
+
+        /// <summary> Attempts to create an instance of the given class and return
+        /// it as a Structure.
+        /// </summary>
+        /// <param name="c">the Structure implementing class.
+        /// </param>
+        /// <param name="name">an optional name of the structure (used by Generic structures; may be null).
+        /// </param>
+        private IStructure TryToInstantiateStructure(Type c, string name)
+        {
+            IStructure s = null;
+            try
+            {
+                object o = null;
+                if (typeof(GenericSegment).IsAssignableFrom(c))
+                {
+                    s = new GenericSegment(this, name);
+                }
+                else if (typeof(GenericGroup).IsAssignableFrom(c))
+                {
+                    s = new GenericGroup(this, name, myFactory);
+                }
+                else
+                {
+                    // first try to instantiate using constructor w/ Message arg ...
+                    try
+                    {
+                        Type[] argClasses = new Type[] { typeof(IGroup), typeof(IModelClassFactory) };
+                        object[] argObjects = new object[] { this, myFactory };
+                        ConstructorInfo con = c.GetConstructor(argClasses);
+                        o = con.Invoke(argObjects);
+                    }
+                    catch (MethodAccessException)
+                    {
+                        o = Activator.CreateInstance(c);
+                    }
+
+                    if (!(o is IStructure))
+                    {
+                        throw new HL7Exception(
+                            "Class " + c.FullName + " does not implement " + "ca.on.uhn.hl7.message.Structure",
+                            ErrorCode.APPLICATION_INTERNAL_ERROR);
+                    }
+
+                    s = (IStructure)o;
+                }
+            }
+            catch (Exception e)
+            {
+                if (e is HL7Exception)
+                {
+                    throw (HL7Exception)e;
+                }
+                else
+                {
+                    throw new HL7Exception("Can't instantiate class " + c.FullName, ErrorCode.APPLICATION_INTERNAL_ERROR, e);
+                }
+            }
+
+            return s;
         }
 
         /// <summary>
@@ -509,7 +537,7 @@ namespace NHapi.Base.Model
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        private string getStructureName(Type c)
+        private string GetStructureName(Type c)
         {
             string fullName = c.FullName;
             int dotLoc = fullName.LastIndexOf('.');

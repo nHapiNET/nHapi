@@ -1,17 +1,15 @@
 namespace NHapi.Base
 {
-    using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.Text;
+
     using NHapi.Base.Model.Configuration;
 
     internal class PackageManager
     {
-        private static readonly PackageManager _instance = new PackageManager();
-        private List<Hl7Package> _packages = new List<Hl7Package>();
-
-        #region Constructors
+        private static readonly PackageManager InstanceValue = new PackageManager();
+        private List<Hl7Package> packages = new List<Hl7Package>();
 
         static PackageManager()
         {
@@ -23,63 +21,10 @@ namespace NHapi.Base
             LoadAdditionalVersions();
         }
 
-        #endregion
-
-        #region Properties
-
         public static PackageManager Instance
         {
-            get { return _instance; }
+            get { return InstanceValue; }
         }
-
-        public IList<Hl7Package> GetAllPackages()
-        {
-            return _packages;
-        }
-
-        #endregion
-
-        #region Methods
-
-        private void LoadBaseVersions()
-        {
-            string[] versions = new string[] { "2.1", "2.2", "2.3", "2.3.1", "2.4", "2.5", "2.5.1", "2.6", "2.7", "2.7.1", "2.8", "2.8.1" };
-            foreach (string version in versions)
-            {
-                string packageName = GetVersionPackageName(version);
-                _packages.Add(new Hl7Package(packageName, version));
-            }
-        }
-
-        private void LoadAdditionalVersions()
-        {
-            var configSection = ConfigurationManager.GetSection("Hl7PackageCollection") as HL7PackageConfigurationSection;
-            if (configSection != null)
-            {
-                foreach (HL7PackageElement package in configSection.Packages)
-                {
-                    _packages.Insert(0, new Hl7Package(package.Name, package.Version));
-                }
-            }
-        }
-
-        public bool IsValidVersion(string version)
-        {
-            version = version.ToUpper().Trim();
-            foreach (Hl7Package package in _packages)
-            {
-                if (package.Version.ToUpper().Trim().Equals(version))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        #endregion
-
-        #region Static GetVersion and GetVersionPackage
 
         /// <summary> Returns the path to the base package for model elements of the given version
         /// - e.g. "NHapi.Model.VXXX".
@@ -116,6 +61,45 @@ namespace NHapi.Base
             return packg;
         }
 
-        #endregion
+        public IList<Hl7Package> GetAllPackages()
+        {
+            return packages;
+        }
+
+        public bool IsValidVersion(string version)
+        {
+            version = version.ToUpper().Trim();
+            foreach (Hl7Package package in packages)
+            {
+                if (package.Version.ToUpper().Trim().Equals(version))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void LoadBaseVersions()
+        {
+            string[] versions = new string[] { "2.1", "2.2", "2.3", "2.3.1", "2.4", "2.5", "2.5.1", "2.6", "2.7", "2.7.1", "2.8", "2.8.1" };
+            foreach (string version in versions)
+            {
+                string packageName = GetVersionPackageName(version);
+                packages.Add(new Hl7Package(packageName, version));
+            }
+        }
+
+        private void LoadAdditionalVersions()
+        {
+            var configSection = ConfigurationManager.GetSection("Hl7PackageCollection") as HL7PackageConfigurationSection;
+            if (configSection != null)
+            {
+                foreach (HL7PackageElement package in configSection.Packages)
+                {
+                    packages.Insert(0, new Hl7Package(package.Name, package.Version));
+                }
+            }
+        }
     }
 }

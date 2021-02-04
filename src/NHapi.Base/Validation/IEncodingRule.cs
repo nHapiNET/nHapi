@@ -26,16 +26,14 @@
 
 namespace NHapi.Base.validation
 {
-    using System;
-
-   /// <summary> A validation rule that applies to encoded message strings.  Rules that
-   /// apply to message content are not included in this category (they are MessageRules
-   /// and are evaluated against parsed Message object).  EncodingRules are intended
-   /// for criteria that are specific to the encoded form of a message, e.g. "no empty
-   /// tags in an XML message".
-   /// </summary>
-   /// <author>  Bryan Tripp.
-   /// </author>
+    /// <summary> A validation rule that applies to encoded message strings.  Rules that
+    /// apply to message content are not included in this category (they are MessageRules
+    /// and are evaluated against parsed Message object).  EncodingRules are intended
+    /// for criteria that are specific to the encoded form of a message, e.g. "no empty
+    /// tags in an XML message".
+    /// </summary>
+    /// <author>  Bryan Tripp.
+    /// </author>
     public interface IEncodingRule : IRule
     {
         /// <summary> Tests the given encoded message text against the criteria

@@ -42,9 +42,9 @@ namespace NHapi.Base.Util
     using System;
     using System.Collections;
 
-   /// <summary>
-   /// Filter iterator class.
-   /// </summary>
+    /// <summary>
+    /// Filter iterator class.
+    /// </summary>
     public class FilterIterator : IEnumerator
     {
         private IPredicate predicate;
@@ -64,6 +64,26 @@ namespace NHapi.Base.Util
         }
 
         /// <summary>
+        /// IPredicate interface.
+        /// </summary>
+        public interface IPredicate
+        {
+            [Obsolete("This method has been replaced by 'Evaluate'.")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage(
+                "StyleCop.CSharp.NamingRules",
+                "SA1300:Element should begin with upper-case letter",
+                Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+            bool evaluate(object obj);
+
+            /// <summary>
+            /// Evaluate the object.
+            /// </summary>
+            /// <param name="obj"></param>
+            /// <returns></returns>
+            bool Evaluate(object obj);
+        }
+
+        /// <summary>
         /// The current item.
         /// </summary>
         public virtual object Current
@@ -72,7 +92,7 @@ namespace NHapi.Base.Util
             {
                 if (!nextObjectSet)
                 {
-                    if (!setNextObject())
+                    if (!SetNextObject())
                     {
                         throw new ArgumentOutOfRangeException();
                     }
@@ -95,19 +115,42 @@ namespace NHapi.Base.Util
             }
             else
             {
-                return setNextObject();
+                return SetNextObject();
             }
+        }
+
+        [Obsolete("This method has been replaced by 'Remove'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual void remove()
+        {
+            Remove();
+        }
+
+        /// <summary>Throws UnsupportedOperationException. </summary>
+        public virtual void Remove()
+        {
+            throw new NotSupportedException();
+        }
+
+        /// <summary>
+        /// Reset.
+        /// </summary>
+        public virtual void Reset()
+        {
         }
 
         /// <summary> Set nextObject to the next object. If there are no more
         /// objects then return false. Otherwise, return true.
         /// </summary>
-        private bool setNextObject()
+        private bool SetNextObject()
         {
             while (iter.MoveNext())
             {
                 object object_Renamed = iter.Current;
-                if (predicate.evaluate(object_Renamed))
+                if (predicate.Evaluate(object_Renamed))
                 {
                     nextObject = object_Renamed;
                     nextObjectSet = true;
@@ -116,32 +159,6 @@ namespace NHapi.Base.Util
             }
 
             return false;
-        }
-
-        /// <summary>Throws UnsupportedOperationException. </summary>
-        public virtual void remove()
-        {
-            throw new NotSupportedException();
-        }
-
-        /// <summary>
-        /// IPredicate interface.
-        /// </summary>
-        public interface IPredicate
-        {
-            /// <summary>
-            /// Evaluate the object.
-            /// </summary>
-            /// <param name="obj"></param>
-            /// <returns></returns>
-            bool evaluate(object obj);
-        }
-
-        /// <summary>
-        /// Reset.
-        /// </summary>
-        public virtual void Reset()
-        {
         }
     }
 }

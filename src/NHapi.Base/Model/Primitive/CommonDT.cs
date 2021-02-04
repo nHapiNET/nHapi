@@ -28,26 +28,60 @@ namespace NHapi.Base.Model.Primitive
 {
     using System;
     using System.Globalization;
+
     using NHapi.Base.Log;
 
-   /// <summary> This class contains functionality used by the DT class
-   /// in the version 2.3.0, 2.3.1, and 2.4 packages
-   ///
-   /// Note: The class description below has been excerpted from the Hl7 2.4 documentation. Sectional
-   /// references made below also refer to the same documentation.
-   ///
-   /// Format: YYYY[MM[DD]]
-   /// In prior versions of HL7, this data type was always specified to be in the format YYYYMMDD. In the current and future
-   /// versions, the precision of a date may be expressed by limiting the number of digits used with the format specification
-   /// YYYY[MM[DD]]. Thus, YYYY is used to specify a precision of "year," YYYYMM specifies a precision of "month,"
-   /// and YYYYMMDD specifies a precision of "day."
-   /// By site-specific agreement, YYYYMMDD may be used where backward compatibility must be maintained.
-   /// Examples:   |19880704|  |199503|.
-   /// </summary>
-   /// <author>  Neal Acharya.
-   /// </author>
+    /// <summary> This class contains functionality used by the DT class
+    /// in the version 2.3.0, 2.3.1, and 2.4 packages
+    ///
+    /// Note: The class description below has been excerpted from the Hl7 2.4 documentation. Sectional
+    /// references made below also refer to the same documentation.
+    ///
+    /// Format: YYYY[MM[DD]]
+    /// In prior versions of HL7, this data type was always specified to be in the format YYYYMMDD. In the current and future
+    /// versions, the precision of a date may be expressed by limiting the number of digits used with the format specification
+    /// YYYY[MM[DD]]. Thus, YYYY is used to specify a precision of "year," YYYYMM specifies a precision of "month,"
+    /// and YYYYMMDD specifies a precision of "day."
+    /// By site-specific agreement, YYYYMMDD may be used where backward compatibility must be maintained.
+    /// Examples:   |19880704|  |199503|.
+    /// </summary>
+    /// <author>  Neal Acharya.
+    /// </author>
     public class CommonDT
     {
+        private static readonly IHapiLog Log;
+
+        private string valueRenamed;
+        private int year;
+        private int month;
+        private int day;
+
+        static CommonDT()
+        {
+            Log = HapiLogFactory.GetHapiLog(typeof(CommonDT));
+        }
+
+        /// <summary> Constructs a DT datatype with fields initialized to zero and value initialized
+        /// to null.
+        /// </summary>
+        public CommonDT()
+        {
+            // initialize all DT fields
+            valueRenamed = null;
+            year = 0;
+            month = 0;
+            day = 0;
+        }
+
+        /// <summary> Constructs a DT object with the given value.
+        /// The stored value will be in the following
+        /// format YYYY[MM[DD]].
+        /// </summary>
+        public CommonDT(string val)
+        {
+            Value = val;
+        }
+
         /// <summary> Returns the HL7 DT string value.</summary>
         /// <summary> This method takes in a string HL7 date value and performs validations
         /// then sets the value field. The stored value will be in the following
@@ -56,7 +90,10 @@ namespace NHapi.Base.Model.Primitive
         /// </summary>
         public virtual string Value
         {
-            get { return value_Renamed; }
+            get
+            {
+                return valueRenamed;
+            }
 
             set
             {
@@ -110,7 +147,7 @@ namespace NHapi.Base.Model.Primitive
                         }
 
                         // validations are complete now store the input value into the private value field
-                        value_Renamed = value;
+                        valueRenamed = value;
                     }
 
                     // end try
@@ -122,7 +159,7 @@ namespace NHapi.Base.Model.Primitive
                     // end catch
                     catch (Exception e)
                     {
-                        throw new DataTypeException("An unexpected exception ocurred", e);
+                        throw new DataTypeException("An unexpected exception occurred", e);
                     } // end catch
                 }
 
@@ -130,7 +167,7 @@ namespace NHapi.Base.Model.Primitive
                 else
                 {
                     // set the private value field to null or empty space.
-                    value_Renamed = value;
+                    valueRenamed = value;
                 } // end else
             }
         }
@@ -160,7 +197,7 @@ namespace NHapi.Base.Model.Primitive
                     year = value;
                     month = 0;
                     day = 0;
-                    value_Renamed = Convert.ToString(value);
+                    valueRenamed = Convert.ToString(value);
                 }
 
                 // end try
@@ -172,7 +209,7 @@ namespace NHapi.Base.Model.Primitive
                 // end catch
                 catch (Exception e)
                 {
-                    throw new DataTypeException("An unexpected exception ocurred", e);
+                    throw new DataTypeException("An unexpected exception occurred", e);
                 } // end catch
             }
         }
@@ -195,32 +232,53 @@ namespace NHapi.Base.Model.Primitive
             get { return day; }
         }
 
-        private static readonly IHapiLog log;
-
-        private string value_Renamed;
-        private int year;
-        private int month;
-        private int day;
-
-        /// <summary> Constructs a DT datatype with fields initialzed to zero and value initialized
-        /// to null.
-        /// </summary>
-        public CommonDT()
+        [Obsolete("This method has been replaced by 'ToHl7DTFormat'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public static string toHl7DTFormat(GregorianCalendar cal)
         {
-            // initialize all DT fields
-            value_Renamed = null;
-            year = 0;
-            month = 0;
-            day = 0;
+            return ToHl7DTFormat(cal);
         }
 
-        /// <summary> Constructs a DT object with the given value.
-        /// The stored value will be in the following
-        /// format YYYY[MM[DD]].
+        /// <summary> Returns a string value representing the input Gregorian Calendar object in
+        /// an Hl7 Date Format.
         /// </summary>
-        public CommonDT(string val)
+        public static string ToHl7DTFormat(GregorianCalendar cal)
         {
-            Value = val;
+            string val = string.Empty;
+            try
+            {
+                // set the input cal object so that it can report errors
+                // on it's value
+                int calYear = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.YEAR);
+                int calMonth = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MONTH) + 1;
+                int calDay = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.DAY_OF_MONTH);
+                CommonDT dt = new CommonDT();
+                dt.SetYearMonthDayPrecision(calYear, calMonth, calDay);
+                val = dt.Value;
+            }
+            catch (DataTypeException e)
+            {
+                throw e;
+            }
+            catch (Exception e)
+            {
+                throw new DataTypeException("An unexpected exception occurred", e);
+            }
+
+            return val;
+        }
+
+        [Obsolete("This method has been replaced by 'SetYearMonthPrecision'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual void setYearMonthPrecision(int yr, int mnth)
+        {
+            SetYearMonthPrecision(yr, mnth);
         }
 
         /// <summary> This method takes in integer values for the year and month and performs validations,
@@ -228,7 +286,7 @@ namespace NHapi.Base.Model.Primitive
         /// value with year and month precision (YYYYMM).
         /// Note: The first month = 1 = January.
         /// </summary>
-        public virtual void setYearMonthPrecision(int yr, int mnth)
+        public virtual void SetYearMonthPrecision(int yr, int mnth)
         {
             try
             {
@@ -247,7 +305,7 @@ namespace NHapi.Base.Model.Primitive
                 year = yr;
                 month = mnth;
                 day = 0;
-                value_Renamed = Convert.ToString(yr) + DataTypeUtil.preAppendZeroes(mnth, 2);
+                valueRenamed = Convert.ToString(yr) + DataTypeUtil.PreAppendZeroes(mnth, 2);
             }
             catch (DataTypeException e)
             {
@@ -255,15 +313,25 @@ namespace NHapi.Base.Model.Primitive
             }
             catch (Exception e)
             {
-                throw new DataTypeException("An unexpected exception ocurred", e);
+                throw new DataTypeException("An unexpected exception occurred", e);
             }
+        }
+
+        [Obsolete("This method has been replaced by 'SetYearMonthDayPrecision'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual void setYearMonthDayPrecision(int yr, int mnth, int dy)
+        {
+            SetYearMonthDayPrecision(yr, mnth, dy);
         }
 
         /// <summary> This method takes in integer values for the year and month and day
         /// and performs validations, it then sets the value in the object
         /// formatted as an HL7 date value with year and month and day precision (YYYYMMDD).
         /// </summary>
-        public virtual void setYearMonthDayPrecision(int yr, int mnth, int dy)
+        public virtual void SetYearMonthDayPrecision(int yr, int mnth, int dy)
         {
             try
             {
@@ -282,7 +350,7 @@ namespace NHapi.Base.Model.Primitive
                 year = yr;
                 month = mnth;
                 day = dy;
-                value_Renamed = Convert.ToString(yr) + DataTypeUtil.preAppendZeroes(mnth, 2) + DataTypeUtil.preAppendZeroes(dy, 2);
+                valueRenamed = Convert.ToString(yr) + DataTypeUtil.PreAppendZeroes(mnth, 2) + DataTypeUtil.PreAppendZeroes(dy, 2);
             }
             catch (DataTypeException e)
             {
@@ -290,42 +358,8 @@ namespace NHapi.Base.Model.Primitive
             }
             catch (Exception e)
             {
-                throw new DataTypeException("An unexpected exception ocurred", e);
+                throw new DataTypeException("An unexpected exception occurred", e);
             }
         }
-
-        /// <summary> Returns a string value representing the input Gregorian Calendar object in
-        /// an Hl7 Date Format.
-        /// </summary>
-        public static string toHl7DTFormat(GregorianCalendar cal)
-        {
-            string val = string.Empty;
-            try
-            {
-                // set the input cal object so that it can report errors
-                // on it's value
-                int calYear = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.YEAR);
-                int calMonth = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MONTH) + 1;
-                int calDay = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.DAY_OF_MONTH);
-                CommonDT dt = new CommonDT();
-                dt.setYearMonthDayPrecision(calYear, calMonth, calDay);
-                val = dt.Value;
-            }
-            catch (DataTypeException e)
-            {
-                throw e;
-            }
-            catch (Exception e)
-            {
-                throw new DataTypeException("An unexpected exception ocurred", e);
-            }
-
-            return val;
-        }
-
-        static CommonDT()
-        {
-            log = HapiLogFactory.GetHapiLog(typeof(CommonDT));
-        }
-    } // end class
+    }
 }

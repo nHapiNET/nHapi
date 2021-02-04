@@ -32,25 +32,30 @@ namespace NHapi.Base.Model
     using System.Collections.Generic;
     using System.Reflection;
     using System.Text.RegularExpressions;
+
     using NHapi.Base.Log;
     using NHapi.Base.Parser;
 
-   /// <summary> Provides common functionality needed by implementers of the Segment interface.
-   /// Implementing classes should define all the fields for the segment they represent
-   /// in their constructor.  The add() method is useful for this purpose.
-   /// For example the constructor for an MSA segment might contain the following code:
-   /// <code>this.add(new ID(), true, 2, null);
-   /// this.add(new ST(), true, 20, null);</code>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
-   /// </author>
-   /// </summary>
+    /// <summary> Provides common functionality needed by implementers of the Segment interface.
+    /// Implementing classes should define all the fields for the segment they represent
+    /// in their constructor.  The add() method is useful for this purpose.
+    /// For example the constructor for an MSA segment might contain the following code:
+    /// <code>this.add(new ID(), true, 2, null);
+    /// this.add(new ST(), true, 20, null);</code>
+    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net)
+    /// </author>
+    /// </summary>
     public abstract class AbstractSegment : ISegment
     {
-        private static readonly IHapiLog log;
-        private List<AbstractSegmentItem> _items;
-        private IGroup _parentStructure;
+        private static readonly IHapiLog Log;
 
-        #region Constructor
+        private readonly List<AbstractSegmentItem> items;
+
+        /// <summary> Sets the segment name.  This would normally be called by a Parser. </summary>
+        static AbstractSegment()
+        {
+            Log = HapiLogFactory.GetHapiLog(typeof(AbstractSegment));
+        }
 
         /// <summary> Calls the abstract init() method to create the fields in this segment.
         ///
@@ -63,18 +68,9 @@ namespace NHapi.Base.Model
         /// </param>
         public AbstractSegment(IGroup parentStructure, IModelClassFactory factory)
         {
-            _parentStructure = parentStructure;
-
-            _items = new List<AbstractSegmentItem>();
+            ParentStructure = parentStructure;
+            items = new List<AbstractSegmentItem>();
         }
-
-        /// <summary> Sets the segment name.  This would normally be called by a Parser. </summary>
-        static AbstractSegment()
-        {
-            log = HapiLogFactory.GetHapiLog(typeof(AbstractSegment));
-        }
-
-        #endregion Constructor
 
         /// <summary> Returns the Message to which this segment belongs.  </summary>
         public virtual IMessage Message
@@ -94,26 +90,23 @@ namespace NHapi.Base.Model
         /// <summary>
         /// Immediate parent Group or message containing this segment.
         /// </summary>
-        public virtual IGroup ParentStructure
-        {
-            get { return _parentStructure; }
-        }
+        public virtual IGroup ParentStructure { get; }
 
         /// <summary> Returns an array of Field objects at the specified location in the segment.  In the case of
         /// non-repeating fields the array will be of length one.  Fields are numbered from 1.
         /// </summary>
         public virtual IType[] GetField(int number)
         {
-            ensureEnoughFields(number);
+            EnsureEnoughFields(number);
 
-            if (number < 1 || number > _items.Count)
+            if (number < 1 || number > items.Count)
             {
                 throw new HL7Exception(
                     "Can't retrieve field " + number + " from segment " + GetType().FullName + " - there are only " +
-                    _items[number - 1].Fields.Count + " fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
+                    items[number - 1].Fields.Count + " fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
-            return _items[number - 1].GetAllFieldsAsITypeArray();
+            return items[number - 1].GetAllFieldsAsITypeArray();
 
             // return (IType[])_items[number - 1].fields; //note: fields are numbered from 1 from the user's perspective
         }
@@ -122,15 +115,15 @@ namespace NHapi.Base.Model
         /// </summary>
         public virtual string GetFieldDescription(int number)
         {
-            ensureEnoughFields(number);
-            if (number < 1 || number > _items.Count)
+            EnsureEnoughFields(number);
+            if (number < 1 || number > items.Count)
             {
                 throw new HL7Exception(
-                    "Can't retrieve field " + number + " from segment " + GetType().FullName + " - there are only " + _items.Count +
+                    "Can't retrieve field " + number + " from segment " + GetType().FullName + " - there are only " + items.Count +
                     " fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
-            return _items[number - 1].Description;
+            return items[number - 1].Description;
         }
 
         /// <summary>
@@ -140,7 +133,7 @@ namespace NHapi.Base.Model
         /// <returns>0 if no fields users, otherwise, the number of fields used.</returns>
         public virtual int GetTotalFieldRepetitionsUsed(int number)
         {
-            return _items[number - 1].Fields.Count;
+            return items[number - 1].Fields.Count;
         }
 
         /// <summary> Returns a specific repetition of field at the specified index.  If there exist
@@ -157,15 +150,15 @@ namespace NHapi.Base.Model
         /// </summary>
         public virtual IType GetField(int number, int rep)
         {
-            ensureEnoughFields(number);
-            if (number < 1 || number > _items.Count)
+            EnsureEnoughFields(number);
+            if (number < 1 || number > items.Count)
             {
                 throw new HL7Exception(
                     "Can't retrieve field " + number + " from segment " + GetType().FullName + " - there are only " +
-                    _items[number - 1].Fields.Count + " fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
+                    items[number - 1].Fields.Count + " fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
-            int currentReps = _items[number - 1].Fields.Count;
+            int currentReps = items[number - 1].Fields.Count;
 
             // check if out of range ...
             if (rep > currentReps)
@@ -175,34 +168,277 @@ namespace NHapi.Base.Model
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
-            if (rep > _items[number - 1].MaxRepetitions)
+            if (rep > items[number - 1].MaxRepetitions)
             {
                 throw new HL7Exception(
                     "Can't get repetition " + rep + " from field " + number + " - maximum repetitions is only " +
-                    _items[number - 1].MaxRepetitions + " reps.", ErrorCode.APPLICATION_INTERNAL_ERROR);
+                    items[number - 1].MaxRepetitions + " reps.", ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
             // add a rep if necessary ...
             if (rep == currentReps)
             {
-                _items[number - 1].Fields.Add(createNewType(number));
+                items[number - 1].Fields.Add(CreateNewType(number));
             }
 
-            return _items[number - 1].Fields[rep];
+            return items[number - 1].Fields[rep];
+        }
+
+        /// <summary> Returns true if the given field is required in this segment - fields are
+        /// numbered from 1.
+        /// </summary>
+        /// <throws>  HL7Exception if field index is out of range.   </throws>
+        public virtual bool IsRequired(int number)
+        {
+            if (number < 1 || number > items.Count)
+            {
+                throw new HL7Exception(
+                    "Can't retrieve optionality of field " + number + " from segment " + GetType().FullName + " - there are only " +
+                    items[number - 1].Fields.Count + " fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
+
+            bool ret = false;
+            try
+            {
+                ret = items[number - 1].IsRequired;
+            }
+            catch (Exception e)
+            {
+                throw new HL7Exception(
+                    "Can't retrieve optionality of field " + number + ": " + e.Message,
+                    ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
+
+            return ret;
+        }
+
+        /// <summary> Returns the maximum length of the field at the given index, in characters -
+        /// fields are numbered from 1.
+        /// </summary>
+        /// <throws>  HL7Exception if field index is out of range.   </throws>
+        public virtual int GetLength(int number)
+        {
+            if (number < 1 || number > items.Count)
+            {
+                throw new HL7Exception(
+                    "Can't retrieve max length of field " + number + " from segment " + GetType().FullName + " - there are only " +
+                    items[number - 1].Fields.Count + " fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
+
+            int ret = 0;
+            try
+            {
+                ret = items[number - 1].Length; // fields #d from 1 to user
+            }
+            catch (Exception e)
+            {
+                throw new HL7Exception(
+                    "Can't retrieve max length of field " + number + ": " + e.Message,
+                    ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
+
+            return ret;
+        }
+
+        /// <summary> Returns the number of repetitions of this field that are allowed.  </summary>
+        /// <throws>  HL7Exception if field index is out of range. </throws>
+        public virtual int GetMaxCardinality(int number)
+        {
+            if (number < 1 || number > items.Count)
+            {
+                throw new HL7Exception(
+                    "Can't retrieve cardinality of field " + number + " from segment " + GetType().FullName + " - there are only " +
+                    items[number - 1].Fields.Count + " fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
+
+            int reps = 0;
+            try
+            {
+                reps = items[number - 1].MaxRepetitions; // fields #d from 1 to user
+            }
+            catch (Exception e)
+            {
+                throw new HL7Exception(
+                    "Can't retrieve max repetitions of field " + number + ": " + e.Message,
+                    ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
+
+            return reps;
+        }
+
+        /// <summary>
+        /// Remove a valid index from a repeatable field.
+        /// </summary>
+        /// <param name="fieldNum">Repeatable field number.</param>
+        /// <param name="index">0-based index to be removed.</param>
+        public void RemoveRepetition(int fieldNum, int index)
+        {
+            if (fieldNum < 1 || fieldNum > items.Count)
+            {
+                throw new HL7Exception($"Can't retrieve field {fieldNum} from segment {GetType().FullName} - there are only {items[fieldNum - 1].Fields.Count} fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
+
+            var fields = items[fieldNum - 1].Fields;
+
+            if (fields.Count == 0)
+            {
+                throw new HL7Exception($"Invalid index: {index}, structure {fields.GetType().FullName} has no repetitions");
+            }
+
+            if (fields.Count <= index)
+            {
+                throw new HL7Exception($"Invalid index: {index}, structure {fields.GetType().FullName} must be between 0 and {fields.Count - 1}");
+            }
+
+            fields.RemoveAt(index);
+
+            return;
+        }
+
+        /// <summary>
+        /// Remove a valid item from a repeatable field.
+        /// </summary>
+        /// <param name="fieldNum">Repeatable field number.</param>
+        /// <param name="removeItem">Item to be removed.</param>
+        public void RemoveRepetition(int fieldNum, IType removeItem)
+        {
+            if (fieldNum < 1 || fieldNum > items.Count)
+            {
+                throw new HL7Exception($"Can't retrieve field {fieldNum} from segment {GetType().FullName} - there are only {items[fieldNum - 1].Fields.Count} fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
+
+            var fields = items[fieldNum - 1].Fields;
+
+            if (fields.Count == 0)
+            {
+                throw new HL7Exception($"Structure {fields.GetType().FullName} has no repetitions");
+            }
+
+            if (!fields.Contains(removeItem))
+            {
+                throw new HL7Exception($"Invalid item specified, structure {fields.GetType().FullName} does not contain {removeItem.ToString()}");
+            }
+
+            fields.Remove(removeItem);
+
+            return;
+        }
+
+        /// <summary>
+        /// Get the 0-based index for an AbstractSegmentItem with a description that matches the given name.
+        /// </summary>
+        /// <param name="name">Item name, with all whitespace removed.</param>
+        /// <returns>0-based index, if found.  Otherwise, -1.</returns>
+        public int FindField(string name)
+        {
+            return items.FindIndex(x => Regex.Replace(x.Description, @"\s", string.Empty) == name);
+        }
+
+        /// <summary> Returns the number of fields defined by this segment (repeating
+        /// fields are not counted multiple times).
+        /// </summary>
+        public virtual int NumFields()
+        {
+            return items.Count;
+        }
+
+        /// <summary> Returns the class name (excluding package). </summary>
+        public virtual string GetStructureName()
+        {
+            string fullName = GetType().FullName;
+            return fullName.Substring(fullName.LastIndexOf('.') + 1, fullName.Length - (fullName.LastIndexOf('.') + 1));
+        }
+
+        [Obsolete("This method has been replaced by 'Add'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        protected internal virtual void add(Type c, bool required, int maxReps, int length, object[] constructorArgs)
+        {
+            Add(c, required, maxReps, length, constructorArgs);
+        }
+
+        /// <summary> Adds a field to the segment.  The field is initially empty (zero repetitions).
+        /// The field number is sequential depending on previous add() calls.  Implementing
+        /// classes should use the add() method in their constructor in order to define fields
+        /// in their segment.
+        /// </summary>
+        /// <param name="c">the class of the data for this field - this should inherit from Type.
+        /// </param>
+        /// <param name="required">whether a value for this field is required in order for the segment
+        /// to be valid.
+        /// </param>
+        /// <param name="maxReps">the maximum number of repetitions - 0 implies that there is no limit.
+        /// </param>
+        /// <param name="length">the maximum length of each repetition of the field (in characters).
+        /// </param>
+        /// <param name="constructorArgs">an array of objects that will be used as constructor arguments
+        /// if new instances of this class are created (use null for zero-arg constructor).
+        /// </param>
+        /// <throws>  HL7Exception if the given class does not inherit from Type or if it can.  </throws>
+        /// <summary>    not be instantiated.
+        /// </summary>
+        protected internal virtual void Add(Type c, bool required, int maxReps, int length, object[] constructorArgs)
+        {
+            Add(c, required, maxReps, length, constructorArgs, null);
+        }
+
+        [Obsolete("This method has been replaced by 'Add'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        protected internal virtual void add(
+            Type c,
+            bool required,
+            int maxReps,
+            int length,
+            object[] constructorArgs,
+            string description)
+        {
+            Add(c, required, maxReps, length, constructorArgs, description);
+        }
+
+        /// <summary>
+        /// Add a segment.
+        /// </summary>
+        /// <param name="c">The type of segment.</param>
+        /// <param name="required"></param>
+        /// <param name="maxReps"></param>
+        /// <param name="length"></param>
+        /// <param name="constructorArgs"></param>
+        /// <param name="description"></param>
+        protected internal virtual void Add(
+            Type c,
+            bool required,
+            int maxReps,
+            int length,
+            object[] constructorArgs,
+            string description)
+        {
+            if (!typeof(IType).IsAssignableFrom(c))
+            {
+                throw new HL7Exception(
+                    "Class " + c.FullName + " does not inherit from " + "ca.on.uhn.datatype.Type",
+                    ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
+
+            items.Add(new AbstractSegmentItem(c, required, maxReps, length, constructorArgs, description));
         }
 
         /// <summary> Creates a new instance of the Type at the given field number in this segment.  </summary>
-        private IType createNewType(int field)
+        private IType CreateNewType(int field)
         {
             int number = field - 1;
-            Type c = _items[number].FieldType;
+            Type c = items[number].FieldType;
 
-            var description = _items[number].Description;
+            var description = items[number].Description;
 
             IType newType = null;
             try
             {
-                object[] args = getArgs(number, description);
+                object[] args = GetArgs(number, description);
                 Type[] argClasses = new Type[args.Length];
                 for (int i = 0; i < args.Length; i++)
                 {
@@ -247,11 +483,11 @@ namespace NHapi.Base.Model
         }
 
         // defaults to {this.getMessage}
-        private object[] getArgs(int fieldNum, string description)
+        private object[] GetArgs(int fieldNum, string description)
         {
             object[] result = null;
 
-            object o = _items[fieldNum].Args;
+            object o = items[fieldNum].Args;
             if (o != null && o is object[] && ((object[])o).Length > 0)
             {
                 result = o as object[];
@@ -271,208 +507,11 @@ namespace NHapi.Base.Model
             return result;
         }
 
-        /// <summary> Returns true if the given field is required in this segment - fields are
-        /// numbered from 1.
-        /// </summary>
-        /// <throws>  HL7Exception if field index is out of range.   </throws>
-        public virtual bool IsRequired(int number)
-        {
-            if (number < 1 || number > _items.Count)
-            {
-                throw new HL7Exception(
-                    "Can't retrieve optionality of field " + number + " from segment " + GetType().FullName + " - there are only " +
-                    _items[number - 1].Fields.Count + " fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
-            }
-
-            bool ret = false;
-            try
-            {
-                ret = _items[number - 1].IsRequired;
-            }
-            catch (Exception e)
-            {
-                throw new HL7Exception(
-                    "Can't retrieve optionality of field " + number + ": " + e.Message,
-                    ErrorCode.APPLICATION_INTERNAL_ERROR);
-            }
-
-            return ret;
-        }
-
-        /// <summary> Returns the maximum length of the field at the given index, in characters -
-        /// fields are numbered from 1.
-        /// </summary>
-        /// <throws>  HL7Exception if field index is out of range.   </throws>
-        public virtual int GetLength(int number)
-        {
-            if (number < 1 || number > _items.Count)
-            {
-                throw new HL7Exception(
-                    "Can't retrieve max length of field " + number + " from segment " + GetType().FullName + " - there are only " +
-                    _items[number - 1].Fields.Count + " fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
-            }
-
-            int ret = 0;
-            try
-            {
-                ret = _items[number - 1].Length; // fields #d from 1 to user
-            }
-            catch (Exception e)
-            {
-                throw new HL7Exception(
-                    "Can't retrieve max length of field " + number + ": " + e.Message,
-                    ErrorCode.APPLICATION_INTERNAL_ERROR);
-            }
-
-            return ret;
-        }
-
-        /// <summary> Returns the number of repetitions of this field that are allowed.  </summary>
-        /// <throws>  HL7Exception if field index is out of range. </throws>
-        public virtual int GetMaxCardinality(int number)
-        {
-            if (number < 1 || number > _items.Count)
-            {
-                throw new HL7Exception(
-                    "Can't retrieve cardinality of field " + number + " from segment " + GetType().FullName + " - there are only " +
-                    _items[number - 1].Fields.Count + " fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
-            }
-
-            int reps = 0;
-            try
-            {
-                reps = _items[number - 1].MaxRepetitions; // fields #d from 1 to user
-            }
-            catch (Exception e)
-            {
-                throw new HL7Exception(
-                    "Can't retrieve max repetitions of field " + number + ": " + e.Message,
-                    ErrorCode.APPLICATION_INTERNAL_ERROR);
-            }
-
-            return reps;
-        }
-
-        /// <summary> Adds a field to the segment.  The field is initially empty (zero repetitions).
-        /// The field number is sequential depending on previous add() calls.  Implementing
-        /// classes should use the add() method in their constructor in order to define fields
-        /// in their segment.
-        /// </summary>
-        /// <param name="c">the class of the data for this field - this should inherit from Type.
-        /// </param>
-        /// <param name="required">whether a value for this field is required in order for the segment
-        /// to be valid.
-        /// </param>
-        /// <param name="maxReps">the maximum number of repetitions - 0 implies that there is no limit.
-        /// </param>
-        /// <param name="length">the maximum length of each repetition of the field (in characters).
-        /// </param>
-        /// <param name="constructorArgs">an array of objects that will be used as constructor arguments
-        /// if new instances of this class are created (use null for zero-arg constructor).
-        /// </param>
-        /// <throws>  HL7Exception if the given class does not inherit from Type or if it can.  </throws>
-        /// <summary>    not be instantiated.
-        /// </summary>
-        protected internal virtual void add(Type c, bool required, int maxReps, int length, object[] constructorArgs)
-        {
-            add(c, required, maxReps, length, constructorArgs, null);
-        }
-
-        /// <summary>
-        /// Add a segment.
-        /// </summary>
-        /// <param name="c">The type of segment.</param>
-        /// <param name="required"></param>
-        /// <param name="maxReps"></param>
-        /// <param name="length"></param>
-        /// <param name="constructorArgs"></param>
-        /// <param name="description"></param>
-        protected internal virtual void add(Type c, bool required, int maxReps, int length, object[] constructorArgs,
-            string description)
-        {
-            if (!typeof(IType).IsAssignableFrom(c))
-            {
-                throw new HL7Exception(
-                    "Class " + c.FullName + " does not inherit from " + "ca.on.uhn.datatype.Type",
-                    ErrorCode.APPLICATION_INTERNAL_ERROR);
-            }
-
-            _items.Add(new AbstractSegmentItem(c, required, maxReps, length, constructorArgs, description));
-        }
-
-        /// <summary>
-        /// Remove a valid index from a repeatable field.
-        /// </summary>
-        /// <param name="fieldNum">Repeatable field number.</param>
-        /// <param name="index">0-based index to be removed.</param>
-        public void RemoveRepetition(int fieldNum, int index)
-        {
-            if (fieldNum < 1 || fieldNum > _items.Count)
-            {
-                throw new HL7Exception($"Can't retrieve field {fieldNum} from segment {GetType().FullName} - there are only {_items[fieldNum - 1].Fields.Count} fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
-            }
-
-            var fields = _items[fieldNum - 1].Fields;
-
-            if (fields.Count == 0)
-            {
-                throw new HL7Exception($"Invalid index: {index}, structure {fields.GetType().FullName} has no repetitions");
-            }
-
-            if (fields.Count <= index)
-            {
-                throw new HL7Exception($"Invalid index: {index}, structure {fields.GetType().FullName} must be between 0 and {fields.Count - 1}");
-            }
-
-            fields.RemoveAt(index);
-
-            return;
-        }
-
-        /// <summary>
-        /// Remove a valid item from a repeatable field.
-        /// </summary>
-        /// <param name="fieldNum">Repeatable field number.</param>
-        /// <param name="removeItem">Item to be removed.</param>
-        public void RemoveRepetition(int fieldNum, IType removeItem)
-        {
-            if (fieldNum < 1 || fieldNum > _items.Count)
-            {
-                throw new HL7Exception($"Can't retrieve field {fieldNum} from segment {GetType().FullName} - there are only {_items[fieldNum - 1].Fields.Count} fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
-            }
-
-            var fields = _items[fieldNum - 1].Fields;
-
-            if (fields.Count == 0)
-            {
-                throw new HL7Exception($"Structure {fields.GetType().FullName} has no repetitions");
-            }
-
-            if (!fields.Contains(removeItem))
-            {
-                throw new HL7Exception($"Invalid item specified, structure {fields.GetType().FullName} does not contain {removeItem.ToString()}");
-            }
-
-            fields.Remove(removeItem);
-
-            return;
-        }
-
-        /// <summary>
-        /// Get the 0-based index for an AbstractSegmentItem with a description that matches the given name.
-        /// </summary>
-        /// <param name="name">Item name, with all whitespace removed.</param>
-        /// <returns>0-based index, if found.  Otherwise, -1.</returns>
-        public int FindField(string name)
-        {
-            return _items.FindIndex(x => Regex.Replace(x.Description, @"\s", string.Empty) == name);
-        }
-
         /// <summary> Called from GetField(...) methods.  If a field has been requested that
         /// doesn't exist (eg GetField(15) when only 10 fields in segment) adds Varies
         /// fields to the end of the segment up to the required number.
         /// </summary>
-        private void ensureEnoughFields(int fieldRequested)
+        private void EnsureEnoughFields(int fieldRequested)
         {
             int fieldsToAdd = fieldRequested - NumFields();
             if (fieldsToAdd < 0)
@@ -484,28 +523,13 @@ namespace NHapi.Base.Model
             {
                 for (int i = 0; i < fieldsToAdd; i++)
                 {
-                    add(typeof(Varies), false, 0, 65536, null); // using 65536 following example of OBX-5
+                    Add(typeof(Varies), false, 0, 65536, null); // using 65536 following example of OBX-5
                 }
             }
             catch (HL7Exception e)
             {
-                log.Error("Can't create additional generic fields to handle request for field " + fieldRequested, e);
+                Log.Error("Can't create additional generic fields to handle request for field " + fieldRequested, e);
             }
-        }
-
-        /// <summary> Returns the number of fields defined by this segment (repeating
-        /// fields are not counted multiple times).
-        /// </summary>
-        public virtual int NumFields()
-        {
-            return _items.Count;
-        }
-
-        /// <summary> Returns the class name (excluding package). </summary>
-        public virtual string GetStructureName()
-        {
-            string fullName = GetType().FullName;
-            return fullName.Substring(fullName.LastIndexOf('.') + 1, fullName.Length - (fullName.LastIndexOf('.') + 1));
         }
     }
 }

@@ -27,15 +27,37 @@
 namespace NHapi.Base.Model
 {
     using System;
+
     using NHapi.Base.validation;
 
-   /// <summary> Base class for Primitives.  Performs validation in setValue().
-   ///
-   /// </summary>
-   /// <author>  Bryan Tripp.
-   /// </author>
+    /// <summary> Base class for Primitives.  Performs validation in setValue().
+    ///
+    /// </summary>
+    /// <author>  Bryan Tripp.
+    /// </author>
     public abstract class AbstractPrimitive : AbstractType, IPrimitive
     {
+        private string myValue;
+
+        /// <summary>
+        /// <param name="message">message to which this type belongs
+        /// </param>
+        /// </summary>
+        public AbstractPrimitive(IMessage message)
+            : this(message, null)
+        {
+        }
+
+        /// <summary>
+        /// <param name="message">message to which this type belongs
+        /// <param name="description">The description of the primitive</param>
+        /// </param>
+        /// </summary>
+        public AbstractPrimitive(IMessage message, string description)
+            : base(message, description)
+        {
+        }
+
         /// <summary> Sets the value of this Primitive, first performing validation as specified
         /// by. <code>getMessage().getValidationContext()</code>.  No validation is performed
         /// if getMessage() returns null.
@@ -43,7 +65,10 @@ namespace NHapi.Base.Model
         /// </summary>
         public virtual string Value
         {
-            get { return myValue; }
+            get
+            {
+                return myValue;
+            }
 
             set
             {
@@ -78,27 +103,6 @@ namespace NHapi.Base.Model
                 myValue = value;
             }
         }
-
-        /// <summary>
-        /// <param name="message">message to which this type belongs
-        /// </param>
-        /// </summary>
-        public AbstractPrimitive(IMessage message)
-            : this(message, null)
-        {
-        }
-
-        /// <summary>
-        /// <param name="message">message to which this type belongs
-        /// <param name="description">The descption of the primitive</param>
-        /// </param>
-        /// </summary>
-        public AbstractPrimitive(IMessage message, string description)
-            : base(message, description)
-        {
-        }
-
-        private string myValue;
 
         /// <summary> Returns the value of getValue(). </summary>
         public override string ToString()

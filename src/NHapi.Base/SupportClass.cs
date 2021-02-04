@@ -21,10 +21,10 @@ namespace NHapi.Base
     using System.Xml;
     using System.Xml.Schema;
 
-   /// <summary>
-   /// This interface should be implemented by any class whose instances are intended
-   /// to be executed by a thread.
-   /// </summary>
+    /// <summary>
+    /// This interface should be implemented by any class whose instances are intended
+    /// to be executed by a thread.
+    /// </summary>
     public interface IThreadRunnable
     {
         /// <summary>
@@ -493,7 +493,7 @@ namespace NHapi.Base
         public virtual int GetIndex(string Qname)
         {
             int index = GetLength() - 1;
-            while ((index >= 0) && ! ((Att_Instance) MainList[index]).att_fullName.Equals(Qname))
+            while ((index >= 0) && !((Att_Instance)MainList[index]).att_fullName.Equals(Qname))
             {
                 index--;
             }
@@ -518,8 +518,8 @@ namespace NHapi.Base
         {
             int index = GetLength() - 1;
             while ((index >= 0) &&
-                     !(((Att_Instance) MainList[index]).att_localName.Equals(Lname) &&
-                        ((Att_Instance) MainList[index]).att_URI.Equals(Uri)))
+                     !(((Att_Instance)MainList[index]).att_localName.Equals(Lname) &&
+                        ((Att_Instance)MainList[index]).att_URI.Equals(Uri)))
             {
                 index--;
             }
@@ -703,7 +703,7 @@ namespace NHapi.Base
             try
             {
                 int pos = GetLength() - 1;
-                while ((pos >= 0) && ! ((Att_Instance) MainList[pos]).att_localName.Equals(indexName))
+                while ((pos >= 0) && !((Att_Instance)MainList[pos]).att_localName.Equals(indexName))
                 {
                     pos--;
                 }
@@ -2894,9 +2894,9 @@ namespace NHapi.Base
                             case DAY_OF_MONTH:
                                 return ((CalendarProperties)this[calendar]).dateTime.Day;
                             case DAY_OF_YEAR:
-                                return (int) ((CalendarProperties)this[calendar]).dateTime.DayOfYear;
+                                return (int)((CalendarProperties)this[calendar]).dateTime.DayOfYear;
                             case DAY_OF_WEEK:
-                                return (int) ((CalendarProperties)this[calendar]).dateTime.DayOfWeek + 1;
+                                return (int)((CalendarProperties)this[calendar]).dateTime.DayOfWeek + 1;
                             case HOUR_OF_DAY:
                                 return ((CalendarProperties)this[calendar]).dateTime.Hour;
                             case AM_PM:

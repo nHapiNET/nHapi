@@ -28,55 +28,41 @@ namespace NHapi.Base.Util
 {
     using System;
     using System.Collections;
+
     using NHapi.Base.Model;
 
-   /// <summary> <p>Used to navigate the nested group structure of a message.  This is an alternate
-   /// way of accessing parts of a message, ie rather than getting a segment through
-   /// a chain of getXXX() calls on the message, you can create a MessageNavigator
-   /// for the message, "navigate" to the desired segment, and then call
-   /// getCurrentStructure() to get the segment you have navigated to.  A message
-   /// navigator always has a "current location" pointing to some structure location (segment
-   /// or group location) within the message.  Note that a location exists whether or
-   /// not there are any instances of the structure at that location. </p>
-   /// <p>This class is used by Terser, which presents an even more convenient way
-   /// of navigating a message.  </p>
-   /// <p>This class also has an iterate() method, which iterates over
-   /// segments (and optionally groups).  </p>
-   /// </summary>
-   /// <author>  Bryan Tripp.
-   /// </author>
+    /// <summary> <p>Used to navigate the nested group structure of a message.  This is an alternate
+    /// way of accessing parts of a message, ie rather than getting a segment through
+    /// a chain of getXXX() calls on the message, you can create a MessageNavigator
+    /// for the message, "navigate" to the desired segment, and then call
+    /// getCurrentStructure() to get the segment you have navigated to.  A message
+    /// navigator always has a "current location" pointing to some structure location (segment
+    /// or group location) within the message.  Note that a location exists whether or
+    /// not there are any instances of the structure at that location. </p>
+    /// <p>This class is used by Terser, which presents an even more convenient way
+    /// of navigating a message.  </p>
+    /// <p>This class also has an iterate() method, which iterates over
+    /// segments (and optionally groups).  </p>
+    /// </summary>
+    /// <author>  Bryan Tripp.
+    /// </author>
     public class MessageNavigator
     {
-        private class AnonymousClassPredicate : FilterIterator.IPredicate
+        private IGroup root;
+        private ArrayList ancestors;
+        private int currentChild; // -1 means current structure is current group (special case used for root)
+        private IGroup currentGroup;
+        private string[] childNames;
+
+        /// <summary> Creates a new instance of MessageNavigator.</summary>
+        /// <param name="root">the root of navigation -- may be a message or a group
+        /// within a message.  Navigation will only occur within the subtree
+        /// of which the given group is the root.
+        /// </param>
+        public MessageNavigator(IGroup root)
         {
-            public AnonymousClassPredicate(MessageNavigator enclosingInstance)
-            {
-                InitBlock(enclosingInstance);
-            }
-
-            private void InitBlock(MessageNavigator enclosingInstance)
-            {
-                this.enclosingInstance = enclosingInstance;
-            }
-
-            private MessageNavigator enclosingInstance;
-
-            public MessageNavigator Enclosing_Instance
-            {
-                get { return enclosingInstance; }
-            }
-
-            public virtual bool evaluate(object obj)
-            {
-                if (typeof(ISegment).IsAssignableFrom(obj.GetType()))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
+            this.root = root;
+            Reset();
         }
 
         /// <summary>
@@ -112,21 +98,14 @@ namespace NHapi.Base.Util
             }
         }
 
-        private IGroup root;
-        private ArrayList ancestors;
-        private int currentChild; // -1 means current structure is current group (special case used for root)
-        private IGroup currentGroup;
-        private string[] childNames;
-
-        /// <summary> Creates a new instance of MessageNavigator.</summary>
-        /// <param name="root">the root of navigation -- may be a message or a group
-        /// within a message.  Navigation will only occur within the subtree
-        /// of which the given group is the root.
-        /// </param>
-        public MessageNavigator(IGroup root)
+        [Obsolete("This method has been replaced by 'DrillDown'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual void drillDown(int childNumber, int rep)
         {
-            this.root = root;
-            reset();
+            DrillDown(childNumber, rep);
         }
 
         /// <summary> Drills down into the group at the given index within the current
@@ -136,7 +115,7 @@ namespace NHapi.Base.Util
         /// </param>
         /// <param name="rep">the group repetition into which to drill.
         /// </param>
-        public virtual void drillDown(int childNumber, int rep)
+        public virtual void DrillDown(int childNumber, int rep)
         {
             if (childNumber != -1)
             {
@@ -159,10 +138,30 @@ namespace NHapi.Base.Util
             childNames = currentGroup.Names;
         }
 
-        /// <summary> Drills down into the group at the CURRENT location.</summary>
+        [Obsolete("This method has been replaced by 'DrillDown'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
         public virtual void drillDown(int rep)
         {
-            drillDown(currentChild, rep);
+            DrillDown(rep);
+        }
+
+        /// <summary> Drills down into the group at the CURRENT location.</summary>
+        public virtual void DrillDown(int rep)
+        {
+            DrillDown(currentChild, rep);
+        }
+
+        [Obsolete("This method has been replaced by 'DrillUp'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual bool drillUp()
+        {
+            return DrillUp();
         }
 
         /// <summary> Switches the group context to the parent of the current group,
@@ -170,14 +169,14 @@ namespace NHapi.Base.Util
         /// </summary>
         /// <returns> false if already at root.
         /// </returns>
-        public virtual bool drillUp()
+        public virtual bool DrillUp()
         {
             // pop the top group and resume search there
             if (!(ancestors.Count == 0))
             {
                 GroupContext gc = (GroupContext)SupportClass.StackSupport.Pop(ancestors);
-                currentGroup = gc.group;
-                currentChild = gc.child;
+                currentGroup = gc.Group;
+                currentChild = gc.Child;
                 childNames = currentGroup.Names;
                 return true;
             }
@@ -195,8 +194,18 @@ namespace NHapi.Base.Util
             }
         }
 
-        /// <summary> Returns true if there is a sibling following the current location.</summary>
+        [Obsolete("This method has been replaced by 'HasNextChild'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
         public virtual bool hasNextChild()
+        {
+            return HasNextChild();
+        }
+
+        /// <summary> Returns true if there is a sibling following the current location.</summary>
+        public virtual bool HasNextChild()
         {
             if (childNames.Length > currentChild + 1)
             {
@@ -208,15 +217,35 @@ namespace NHapi.Base.Util
             }
         }
 
-        /// <summary> Moves to the next sibling of the current location.</summary>
+        [Obsolete("This method has been replaced by 'NextChild'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
         public virtual void nextChild()
         {
+            NextChild();
+        }
+
+        /// <summary> Moves to the next sibling of the current location.</summary>
+        public virtual void NextChild()
+        {
             int child = currentChild + 1;
-            toChild(child);
+            ToChild(child);
+        }
+
+        [Obsolete("This method has been replaced by 'ToChild'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual void toChild(int child)
+        {
+            ToChild(child);
         }
 
         /// <summary> Moves to the sibling of the current location at the specified index.</summary>
-        public virtual void toChild(int child)
+        public virtual void ToChild(int child)
         {
             if (child >= 0 && child < childNames.Length)
             {
@@ -230,8 +259,18 @@ namespace NHapi.Base.Util
             }
         }
 
-        /// <summary>Resets the location to the beginning of the tree (the root). </summary>
+        [Obsolete("This method has been replaced by 'Reset'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
         public virtual void reset()
+        {
+            Reset();
+        }
+
+        /// <summary>Resets the location to the beginning of the tree (the root). </summary>
+        public virtual void Reset()
         {
             ancestors = new ArrayList();
             currentGroup = root;
@@ -239,10 +278,20 @@ namespace NHapi.Base.Util
             childNames = currentGroup.Names;
         }
 
+        [Obsolete("This method has been replaced by 'GetCurrentStructure'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual IStructure getCurrentStructure(int rep)
+        {
+            return GetCurrentStructure(rep);
+        }
+
         /// <summary> Returns the given rep of the structure at the current location.
         /// If at root, always returns the root (the rep is ignored).
         /// </summary>
-        public virtual IStructure getCurrentStructure(int rep)
+        public virtual IStructure GetCurrentStructure(int rep)
         {
             IStructure ret = null;
             if (currentChild != -1)
@@ -258,6 +307,16 @@ namespace NHapi.Base.Util
             return ret;
         }
 
+        [Obsolete("This method has been replaced by 'Iterate'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual void iterate(bool segmentsOnly, bool loop)
+        {
+            Iterate(segmentsOnly, loop);
+        }
+
         /// <summary> Iterates through the message tree to the next segment/group location (regardless
         /// of whether an instance of the segment exists).  If the end of the tree is
         /// reached, starts over at the root.  Only enters the first repetition of a
@@ -269,7 +328,7 @@ namespace NHapi.Base.Util
         /// <param name="loop">if true, loops back to beginning when end of msg reached; if false,
         /// throws HL7Exception if end of msg reached.
         /// </param>
-        public virtual void iterate(bool segmentsOnly, bool loop)
+        public virtual void Iterate(bool segmentsOnly, bool loop)
         {
             IStructure start = null;
 
@@ -294,11 +353,11 @@ namespace NHapi.Base.Util
             if (it.MoveNext())
             {
                 IStructure next = (IStructure)it.Current;
-                drillHere(next);
+                DrillHere(next);
             }
             else if (loop)
             {
-                reset();
+                Reset();
             }
             else
             {
@@ -309,37 +368,38 @@ namespace NHapi.Base.Util
         }
 
         /// <summary> Navigates to a specific location in the message.</summary>
-        private void drillHere(IStructure destination)
+        private void DrillHere(IStructure destination)
         {
             IStructure pathElem = destination;
             ArrayList pathStack = new ArrayList();
             ArrayList indexStack = new ArrayList();
             do
             {
-                MessageIterator.Index index = MessageIterator.getIndex(pathElem.ParentStructure, pathElem);
+                MessageIterator.Index index = MessageIterator.GetIndex(pathElem.ParentStructure, pathElem);
                 indexStack.Add(index);
                 pathElem = pathElem.ParentStructure;
                 pathStack.Add(pathElem);
-            } while (!root.Equals(pathElem) && !typeof(IMessage).IsAssignableFrom(pathElem.GetType()));
+            }
+            while (!root.Equals(pathElem) && !typeof(IMessage).IsAssignableFrom(pathElem.GetType()));
 
             if (!root.Equals(pathElem))
             {
                 throw new HL7Exception("The destination provided is not under the root of this navigator");
             }
 
-            reset();
+            Reset();
             while (!(pathStack.Count == 0))
             {
                 IGroup parent = (IGroup)SupportClass.StackSupport.Pop(pathStack);
                 MessageIterator.Index index = (MessageIterator.Index)SupportClass.StackSupport.Pop(indexStack);
-                int child = search(parent.Names, index.name);
+                int child = Search(parent.Names, index.Name);
                 if (!(pathStack.Count == 0))
                 {
-                    drillDown(child, 0);
+                    DrillDown(child, 0);
                 }
                 else
                 {
-                    toChild(child);
+                    ToChild(child);
                 }
             }
         }
@@ -347,7 +407,7 @@ namespace NHapi.Base.Util
         /// <summary>Like Arrays.binarySearch, only probably slower and doesn't require
         /// a sorted list.  Also just returns -1 if item isn't found.
         /// </summary>
-        private int search(object[] list, object item)
+        private int Search(object[] list, object item)
         {
             int found = -1;
             for (int i = 0; i < list.Length && found == -1; i++)
@@ -362,7 +422,7 @@ namespace NHapi.Base.Util
         }
 
         /// <summary> Drills down recursively until a segment is reached.</summary>
-        private void findLeaf()
+        private void FindLeaf()
         {
             if (currentChild == -1)
             {
@@ -372,8 +432,8 @@ namespace NHapi.Base.Util
             Type c = currentGroup.GetClass(childNames[currentChild]);
             if (typeof(IGroup).IsAssignableFrom(c))
             {
-                drillDown(currentChild, 0);
-                findLeaf();
+                DrillDown(currentChild, 0);
+                FindLeaf();
             }
         }
 
@@ -383,26 +443,44 @@ namespace NHapi.Base.Util
         /// </summary>
         private class GroupContext
         {
-            private void InitBlock(MessageNavigator enclosingInstance)
-            {
-                this.enclosingInstance = enclosingInstance;
-            }
-
-            private MessageNavigator enclosingInstance;
-
-            public MessageNavigator Enclosing_Instance
-            {
-                get { return enclosingInstance; }
-            }
-
-            public IGroup group;
-            public int child;
-
             public GroupContext(MessageNavigator enclosingInstance, IGroup g, int c)
             {
-                InitBlock(enclosingInstance);
-                group = g;
-                child = c;
+                EnclosingInstance = enclosingInstance;
+                Group = g;
+                Child = c;
+            }
+
+            public MessageNavigator EnclosingInstance { get; }
+
+            public IGroup Group { get; set; }
+
+            public int Child { get; set; }
+        }
+
+        private class AnonymousClassPredicate : FilterIterator.IPredicate
+        {
+            public AnonymousClassPredicate(MessageNavigator enclosingInstance)
+            {
+                EnclosingInstance = enclosingInstance;
+            }
+
+            public MessageNavigator EnclosingInstance { get; }
+
+            public virtual bool evaluate(object obj)
+            {
+                return Evaluate(obj);
+            }
+
+            public virtual bool Evaluate(object obj)
+            {
+                if (typeof(ISegment).IsAssignableFrom(obj.GetType()))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
     }

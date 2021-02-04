@@ -28,11 +28,11 @@ namespace NHapi.Base.Parser
 {
     using System;
 
-   /// <summary> Represents a problem where a Parser does not support a particular HL7 encoding.
-   /// Encodings include "|" (traditional) and "XML".
-   /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
-   /// </author>
+    /// <summary> Represents a problem where a Parser does not support a particular HL7 encoding.
+    /// Encodings include "|" (traditional) and "XML".
+    /// </summary>
+    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
+    /// </author>
     [Serializable]
     public class EncodingNotSupportedException : HL7Exception
     {

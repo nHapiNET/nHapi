@@ -27,43 +27,33 @@
 
 namespace NHapi.Base.Model.Primitive
 {
-   /// <summary>
-   /// <para>
-   /// This class contains functionality used by the ID class
-   /// in the version 2.3.0, 2.3.1, 2.4, and 2.5 packages.
-   /// </para>
-   ///
-   /// <para>
-   /// Note: The class description below has been excerpted from the Hl7 2.4 documentation. Sectional
-   /// references made below also refer to the same documentation.
-   /// </para>
-   ///
-   /// <para>
-   /// The value of such a field follows the formatting rules for an ST field except
-   /// that it is drawn from a table of legal values. There shall be an HL7 table number
-   /// associated with ID data types. An example of an ID field is OBR-25-result status.
-   /// This data type should be used only for HL7 tables (see Section 2.7.6, "Table").
-   /// The reverse is not true, since in some circumstances it is more appropriate to use
-   /// the CE data type for HL7 tables.
-   /// </para>
-   /// </summary>
-   /// <author><a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a></author>
-   /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
-   /// <version>
-   /// $Revision: 1.3 $ updated on $Date: 2005/06/08 00:28:25 $ by $Author: bryan_tripp $.
-   /// </version>
-   public abstract class ID : AbstractPrimitive
+    /// <summary>
+    /// <para>
+    /// This class contains functionality used by the ID class
+    /// in the version 2.3.0, 2.3.1, 2.4, and 2.5 packages.
+    /// </para>
+    ///
+    /// <para>
+    /// Note: The class description below has been excerpted from the Hl7 2.4 documentation. Sectional
+    /// references made below also refer to the same documentation.
+    /// </para>
+    ///
+    /// <para>
+    /// The value of such a field follows the formatting rules for an ST field except
+    /// that it is drawn from a table of legal values. There shall be an HL7 table number
+    /// associated with ID data types. An example of an ID field is OBR-25-result status.
+    /// This data type should be used only for HL7 tables (see Section 2.7.6, "Table").
+    /// The reverse is not true, since in some circumstances it is more appropriate to use
+    /// the CE data type for HL7 tables.
+    /// </para>
+    /// </summary>
+    /// <author><a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a></author>
+    /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
+    /// <version>
+    /// $Revision: 1.3 $ updated on $Date: 2005/06/08 00:28:25 $ by $Author: bryan_tripp $.
+    /// </version>
+    public abstract class ID : AbstractPrimitive
     {
-        /// <summary>
-        /// Gets or sets the number of the HL7 table from which values should be drawn (defaults to 0).
-        /// </summary>
-        public virtual int Table
-        {
-            get { return myTable; }
-
-            set { myTable = value; }
-        }
-
         private int myTable = 0;
 
         /// <summary>
@@ -106,6 +96,16 @@ namespace NHapi.Base.Model.Primitive
             : base(message, description)
         {
             myTable = theTable;
+        }
+
+        /// <summary>
+        /// Gets or sets the number of the HL7 table from which values should be drawn (defaults to 0).
+        /// </summary>
+        public virtual int Table
+        {
+            get { return myTable; }
+
+            set { myTable = value; }
         }
     }
 }

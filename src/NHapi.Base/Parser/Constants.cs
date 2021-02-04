@@ -1,9 +1,5 @@
 namespace NHapi.Base.Parser
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
     /// <summary>
     /// The class types for the default model factory.
     /// </summary>

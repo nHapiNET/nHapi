@@ -1,35 +1,20 @@
 namespace NHapi.Base
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Text;
-
     internal class Hl7Package
     {
-        private string _version;
-        private string _packageName;
-
         public Hl7Package(string packageName, string version)
         {
-            _version = version;
-            _packageName = packageName;
+            Version = version;
+            PackageName = packageName;
         }
 
-        public string Version
-        {
-            get { return _version; }
-            set { _version = value; }
-        }
+        public string Version { get; set; }
 
-        public string PackageName
-        {
-            get { return _packageName; }
-        }
+        public string PackageName { get; }
 
         public string EventMappingResourceName
         {
-            get { return _packageName + "EventMapping.EventMap.properties"; }
+            get { return PackageName + "EventMapping.EventMap.properties"; }
         }
     }
 }

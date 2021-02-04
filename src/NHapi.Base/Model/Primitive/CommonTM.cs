@@ -28,46 +28,85 @@ namespace NHapi.Base.Model.Primitive
 {
     using System;
     using System.Globalization;
+
     using NHapi.Base.Log;
 
-   /// <summary> This class contains functionality used by the TM class
-   /// in the version 2.3.0, 2.3.1, and 2.4 packages
-   ///
-   /// Note: The class description below has been excerpted from the Hl7 2.4 documentation. Sectional
-   /// references made below also refer to the same documentation.
-   ///
-   /// Format: HH[MM[SS[.S[S[S[S]]]]]][+/-ZZZZ]
-   /// In prior versions of HL7, this data type was always specified to be in the
-   /// format HHMM[SS[.SSSS]][+/-ZZZZ] using a 24 hour clock notation. In the
-   /// current and future versions, the precision of a time may be expressed by
-   /// limiting the number of digits used with the format specification as shown
-   /// above. By site-specific agreement, HHMM[SS[.SSSS]][+/-ZZZZ] may be used where
-   /// backward compatibility must be maintained.
-   /// Thus, HH is used to specify a precision of "hour," HHMM is used to specify a
-   /// precision of "minute," HHMMSS is used to specify a precision of seconds, and
-   /// HHMMSS.SSSS is used to specify a precision of ten-thousandths of a second.
-   /// In each of these cases, the time zone is an optional component. The fractional
-   /// seconds could be sent by a transmitter who requires greater precision than whole
-   /// seconds. Fractional representations of minutes, hours or other higher-order units
-   /// of time are not permitted.
-   /// Note: The time zone [+/-ZZZZ], when used, is restricted to legally-defined time zones
-   /// and is represented in HHMM format.
-   /// The time zone of the sender may be sent optionally as an offset from the coordinated
-   /// universal time (previously known as Greenwich Mean Time). Where the time zone
-   /// is not present in a particular TM field but is included as part of the date/time
-   /// field in the MSH segment, the MSH value will be used as the default time zone.
-   /// Otherwise, the time is understood to refer to the local time of the sender.
-   /// Midnight is represented as 0000.
-   /// Examples:|235959+1100| 1 second before midnight in a time zone eleven hours
-   /// ahead of Universal Coordinated Time (i.e., east of Greenwich).
-   /// |0800| Eight AM, local time of the sender.
-   /// |093544.2312| 44.2312 seconds after Nine thirty-five AM, local time of sender.
-   /// |13| 1pm (with a precision of hours), local time of sender.
-   /// </summary>
-   /// <author>  Neal Acharya.
-   /// </author>
+    /// <summary> This class contains functionality used by the TM class
+    /// in the version 2.3.0, 2.3.1, and 2.4 packages
+    ///
+    /// Note: The class description below has been excerpted from the Hl7 2.4 documentation. Sectional
+    /// references made below also refer to the same documentation.
+    ///
+    /// Format: HH[MM[SS[.S[S[S[S]]]]]][+/-ZZZZ]
+    /// In prior versions of HL7, this data type was always specified to be in the
+    /// format HHMM[SS[.SSSS]][+/-ZZZZ] using a 24 hour clock notation. In the
+    /// current and future versions, the precision of a time may be expressed by
+    /// limiting the number of digits used with the format specification as shown
+    /// above. By site-specific agreement, HHMM[SS[.SSSS]][+/-ZZZZ] may be used where
+    /// backward compatibility must be maintained.
+    /// Thus, HH is used to specify a precision of "hour," HHMM is used to specify a
+    /// precision of "minute," HHMMSS is used to specify a precision of seconds, and
+    /// HHMMSS.SSSS is used to specify a precision of ten-thousandths of a second.
+    /// In each of these cases, the time zone is an optional component. The fractional
+    /// seconds could be sent by a transmitter who requires greater precision than whole
+    /// seconds. Fractional representations of minutes, hours or other higher-order units
+    /// of time are not permitted.
+    /// Note: The time zone [+/-ZZZZ], when used, is restricted to legally-defined time zones
+    /// and is represented in HHMM format.
+    /// The time zone of the sender may be sent optionally as an offset from the coordinated
+    /// universal time (previously known as Greenwich Mean Time). Where the time zone
+    /// is not present in a particular TM field but is included as part of the date/time
+    /// field in the MSH segment, the MSH value will be used as the default time zone.
+    /// Otherwise, the time is understood to refer to the local time of the sender.
+    /// Midnight is represented as 0000.
+    /// Examples:|235959+1100| 1 second before midnight in a time zone eleven hours
+    /// ahead of Universal Coordinated Time (i.e., east of Greenwich).
+    /// |0800| Eight AM, local time of the sender.
+    /// |093544.2312| 44.2312 seconds after Nine thirty-five AM, local time of sender.
+    /// |13| 1pm (with a precision of hours), local time of sender.
+    /// </summary>
+    /// <author>  Neal Acharya.
+    /// </author>
     public class CommonTM
     {
+        private static readonly IHapiLog Log;
+
+        private string valueRenamed;
+        private int hour;
+        private int minute;
+        private int second;
+        private float fractionOfSec;
+        private int offSet;
+        private char omitOffsetFg = 'n';
+
+        static CommonTM()
+        {
+            Log = HapiLogFactory.GetHapiLog(typeof(CommonTM));
+        }
+
+        /// <summary> Constructs a TM datatype with fields initialized to zero and the value set to
+        /// null.
+        /// </summary>
+        public CommonTM()
+        {
+            // initialize all DT fields
+            valueRenamed = null;
+            hour = 0;
+            minute = 0;
+            second = 0;
+            fractionOfSec = 0;
+            offSet = -99;
+        }
+
+        /// <summary> Constructs a TM object with the given value.
+        /// The stored value will be in the following
+        /// format HH[MM[SS[.S[S[S[S]]]]]][+/-ZZZZ].
+        /// </summary>
+        public CommonTM(string val)
+        {
+            Value = val;
+        }
+
         /// <summary> Returns the HL7 TM string value.</summary>
         /// <summary> This method takes in a string HL7 Time value and performs validations
         /// then sets the value field.  The stored value will be in the following
@@ -84,9 +123,9 @@ namespace NHapi.Base.Model.Primitive
             {
                 // combine the value field with the offSet field and return it
                 string returnVal = null;
-                if (value_Renamed != null && !value_Renamed.Equals(string.Empty))
+                if (valueRenamed != null && !valueRenamed.Equals(string.Empty))
                 {
-                    if (omitOffsetFg == 'n' && !value_Renamed.Equals("\"\""))
+                    if (omitOffsetFg == 'n' && !valueRenamed.Equals("\"\""))
                     {
                         int absOffset = Math.Abs(offSet);
                         string sign = string.Empty;
@@ -101,11 +140,11 @@ namespace NHapi.Base.Model.Primitive
                             sign = "-";
                         } // end else
 
-                        returnVal = value_Renamed + sign + DataTypeUtil.preAppendZeroes(absOffset, 4);
+                        returnVal = valueRenamed + sign + DataTypeUtil.PreAppendZeroes(absOffset, 4);
                     }
                     else
                     {
-                        returnVal = value_Renamed;
+                        returnVal = valueRenamed;
                     } // end else
                 } // end if
 
@@ -281,8 +320,8 @@ namespace NHapi.Base.Model.Primitive
                                 throw e;
                             } // end if
 
-                              // extract the minute data from the offset value.  If these characters
-                              // are not numeric then a number format exception will be generated
+                            // extract the minute data from the offset value.  If these characters
+                            // are not numeric then a number format exception will be generated
                             offsetInt = int.Parse(tempOffsetNoS.Substring(2, 4 - 2));
 
                             // check to see if the minute value is valid
@@ -293,7 +332,7 @@ namespace NHapi.Base.Model.Primitive
                                 throw e;
                             } // end if
 
-                              // validation done, update the offSet field
+                            // validation done, update the offSet field
                             offSet = int.Parse(tempOffsetNoS);
 
                             // add the sign back to the offset if it is negative
@@ -315,7 +354,7 @@ namespace NHapi.Base.Model.Primitive
                         } // end if
 
                         // validations are now done store the time value into the private value field
-                        value_Renamed = timeVal;
+                        valueRenamed = timeVal;
                     }
 
                     // end try
@@ -327,7 +366,7 @@ namespace NHapi.Base.Model.Primitive
                     // end catch
                     catch (Exception e)
                     {
-                        throw new DataTypeException("An unexpected exception ocurred", e);
+                        throw new DataTypeException("An unexpected exception occurred", e);
                     } // end catch
                 }
 
@@ -335,7 +374,7 @@ namespace NHapi.Base.Model.Primitive
                 else
                 {
                     // set the private value field to null or empty space.
-                    value_Renamed = value;
+                    valueRenamed = value;
                 } // end else
             }
         }
@@ -367,7 +406,7 @@ namespace NHapi.Base.Model.Primitive
                     // Here the offset is not defined, we should omit showing it in the
                     // return value from the getValue() method
                     omitOffsetFg = 'y';
-                    value_Renamed = DataTypeUtil.preAppendZeroes(value, 2);
+                    valueRenamed = DataTypeUtil.PreAppendZeroes(value, 2);
                 }
 
                 // end try
@@ -407,12 +446,12 @@ namespace NHapi.Base.Model.Primitive
                         throw e;
                     } // end if
 
-                      // obtain the absolute value of the input
+                    // obtain the absolute value of the input
                     int absOffset = Math.Abs(value);
 
                     // extract the hour data from the offset value.
-                    // first preappend zeros so we have a 4 char offset value (without sign)
-                    offsetStr = DataTypeUtil.preAppendZeroes(absOffset, 4);
+                    // first pre-append zeros so we have a 4 char offset value (without sign)
+                    offsetStr = DataTypeUtil.PreAppendZeroes(absOffset, 4);
                     int hrOffsetInt = int.Parse(offsetStr.Substring(0, 2 - 0));
 
                     // check to see if the hour value is valid
@@ -423,7 +462,7 @@ namespace NHapi.Base.Model.Primitive
                         throw e;
                     } // end if
 
-                      // extract the minute data from the offset value.
+                    // extract the minute data from the offset value.
                     int minOffsetInt = int.Parse(offsetStr.Substring(2, 4 - 2));
 
                     // check to see if the minute value is valid
@@ -434,7 +473,7 @@ namespace NHapi.Base.Model.Primitive
                         throw e;
                     } // end if
 
-                      // The input value is valid, now store it in the offset field
+                    // The input value is valid, now store it in the offset field
                     offSet = value;
                 }
 
@@ -447,7 +486,7 @@ namespace NHapi.Base.Model.Primitive
                 // end catch
                 catch (Exception e)
                 {
-                    throw new DataTypeException("An unexpected exception ocurred", e);
+                    throw new DataTypeException("An unexpected exception occurred", e);
                 } // end catch
             }
         }
@@ -482,149 +521,20 @@ namespace NHapi.Base.Model.Primitive
             get { return offSet; }
         }
 
-        private static readonly IHapiLog log;
-
-        private string value_Renamed;
-        private int hour;
-        private int minute;
-        private int second;
-        private float fractionOfSec;
-        private int offSet;
-        private char omitOffsetFg = 'n';
-
-        /// <summary> Constructs a TM datatype with fields initialzed to zero and the value set to
-        /// null.
-        /// </summary>
-        public CommonTM()
+        [Obsolete("This method has been replaced by 'ToHl7TMFormat'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public static string toHl7TMFormat(GregorianCalendar cal)
         {
-            // initialize all DT fields
-            value_Renamed = null;
-            hour = 0;
-            minute = 0;
-            second = 0;
-            fractionOfSec = 0;
-            offSet = -99;
-        } // end constructor
-
-        /// <summary> Constructs a TM object with the given value.
-        /// The stored value will be in the following
-        /// format HH[MM[SS[.S[S[S[S]]]]]][+/-ZZZZ].
-        /// </summary>
-        public CommonTM(string val)
-        {
-            Value = val;
-        } // end constructor
-
-        /// <summary> This method takes in integer values for the hour and minute and performs validations,
-        /// it then sets the value field formatted as an HL7 time value
-        /// with hour and minute precision (HHMM).
-        /// </summary>
-        public virtual void setHourMinutePrecision(int hr, int min)
-        {
-            try
-            {
-                HourPrecision = hr;
-
-                // validate input minute value
-                if ((min < 0) || (min > 59))
-                {
-                    string msg = "The minute value of the TM datatype must be >=0 and <=59";
-                    DataTypeException e = new DataTypeException(msg);
-                    throw e;
-                } // end if
-
-                minute = min;
-                second = 0;
-                fractionOfSec = 0;
-                offSet = 0;
-
-                // Here the offset is not defined, we should omit showing it in the
-                // return value from the getValue() method
-                omitOffsetFg = 'y';
-                value_Renamed = value_Renamed + DataTypeUtil.preAppendZeroes(min, 2);
-            }
-
-            // end try
-            catch (DataTypeException e)
-            {
-                throw e;
-            }
-
-            // end catch
-            catch (Exception e)
-            {
-                throw new DataTypeException(e.Message);
-            } // end catch
-        }
-
-        /// <summary> This method takes in integer values for the hour, minute, seconds, and fractional seconds
-        /// (going to the tenthousandths precision).
-        /// The method performs validations and then sets the value field formatted as an
-        /// HL7 time value with a precision that starts from the hour and goes down to the tenthousandths
-        /// of a second (HHMMSS.SSSS).
-        /// Note: all of the precisions from tenths down to tenthousandths of a
-        /// second are optional. If the precision goes below tenthousandths of a second then the second
-        /// value will be rounded to the nearest tenthousandths of a second.
-        /// </summary>
-        public virtual void setHourMinSecondPrecision(int hr, int min, float sec)
-        {
-            try
-            {
-                setHourMinutePrecision(hr, min);
-
-                // multiply the seconds input value by 10000 and round the result
-                // then divide the number by tenthousand and store it back.
-                // This will round the fractional seconds to the nearest tenthousandths
-                int secMultRound = (int)Math.Round((double)(10000F * sec));
-                sec = secMultRound / 10000F;
-
-                // Now store the second and fractional component
-                second = (int)Math.Floor(sec);
-
-                // validate input seconds value
-                if ((second < 0) || (second >= 60))
-                {
-                    string msg = "The (rounded) second value of the TM datatype must be >=0 and <60";
-                    DataTypeException e = new DataTypeException(msg);
-                    throw e;
-                } // end if
-
-                int fractionOfSecInt = (int)(secMultRound - (second * 10000));
-                fractionOfSec = fractionOfSecInt / 10000F;
-                string fractString = string.Empty;
-
-                // Now convert the fractionOfSec field to a string without the leading zero
-                if (fractionOfSec != 0.0F)
-                {
-                    fractString = fractionOfSec.ToString().Substring(1);
-                } // end if
-
-                  // Now update the value field
-                offSet = 0;
-
-                // Here the offset is not defined, we should omit showing it in the
-                // return value from the getValue() method
-                omitOffsetFg = 'y';
-                value_Renamed = value_Renamed + DataTypeUtil.preAppendZeroes(second, 2) + fractString;
-            }
-
-            // end try
-            catch (DataTypeException e)
-            {
-                throw e;
-            }
-
-            // end catch
-            catch (Exception e)
-            {
-                throw new DataTypeException("An unexpected exception ocurred", e);
-            } // end catch
+            return ToHl7TMFormat(cal);
         }
 
         /// <summary> Returns a string value representing the input Gregorian Calendar object in
         /// an Hl7 Time Format.
         /// </summary>
-        public static string toHl7TMFormat(GregorianCalendar cal)
+        public static string ToHl7TMFormat(GregorianCalendar cal)
         {
             string val = string.Empty;
             try
@@ -636,7 +546,7 @@ namespace NHapi.Base.Model.Primitive
                 int calSec = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.SECOND);
                 int calMilli = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MILLISECOND);
 
-                // the inputs seconds and milli seconds should be combined into a float type
+                // the inputs seconds and milliseconds should be combined into a float type
                 float fractSec = calMilli / 1000F;
                 float calSecFloat = calSec + fractSec;
                 int calOffset = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.ZONE_OFFSET) +
@@ -665,7 +575,7 @@ namespace NHapi.Base.Model.Primitive
                 // Create an object of the TS class and populate it with the above values
                 // then return the HL7 string value from the object
                 CommonTM tm = new CommonTM();
-                tm.setHourMinSecondPrecision(calHour, calMin, calSecFloat);
+                tm.SetHourMinSecondPrecision(calHour, calMin, calSecFloat);
                 tm.Offset = calOffset;
                 val = tm.Value;
             }
@@ -679,15 +589,136 @@ namespace NHapi.Base.Model.Primitive
             // end catch
             catch (Exception e)
             {
-                throw new DataTypeException("An unexpected exception ocurred", e);
+                throw new DataTypeException("An unexpected exception occurred", e);
             } // end catch
 
             return val;
         }
 
-        static CommonTM()
+        [Obsolete("This method has been replaced by 'SetHourMinutePrecision'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual void setHourMinutePrecision(int hr, int min)
         {
-            log = HapiLogFactory.GetHapiLog(typeof(CommonTM));
+            SetHourMinutePrecision(hr, min);
         }
-    } // end class
+
+        /// <summary> This method takes in integer values for the hour and minute and performs validations,
+        /// it then sets the value field formatted as an HL7 time value
+        /// with hour and minute precision (HHMM).
+        /// </summary>
+        public virtual void SetHourMinutePrecision(int hr, int min)
+        {
+            try
+            {
+                HourPrecision = hr;
+
+                // validate input minute value
+                if ((min < 0) || (min > 59))
+                {
+                    string msg = "The minute value of the TM datatype must be >=0 and <=59";
+                    DataTypeException e = new DataTypeException(msg);
+                    throw e;
+                } // end if
+
+                minute = min;
+                second = 0;
+                fractionOfSec = 0;
+                offSet = 0;
+
+                // Here the offset is not defined, we should omit showing it in the
+                // return value from the getValue() method
+                omitOffsetFg = 'y';
+                valueRenamed = valueRenamed + DataTypeUtil.PreAppendZeroes(min, 2);
+            }
+
+            // end try
+            catch (DataTypeException e)
+            {
+                throw e;
+            }
+
+            // end catch
+            catch (Exception e)
+            {
+                throw new DataTypeException(e.Message);
+            } // end catch
+        }
+
+        [Obsolete("This method has been replaced by 'SetHourMinSecondPrecision'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual void setHourMinSecondPrecision(int hr, int min, float sec)
+        {
+            SetHourMinSecondPrecision(hr, min, sec);
+        }
+
+        /// <summary> This method takes in integer values for the hour, minute, seconds, and fractional seconds
+        /// (going to the ten thousandths precision).
+        /// The method performs validations and then sets the value field formatted as an
+        /// HL7 time value with a precision that starts from the hour and goes down to the ten thousandths
+        /// of a second (HHMMSS.SSSS).
+        /// Note: all of the precisions from tenths down to ten thousandths of a
+        /// second are optional. If the precision goes below ten thousandths of a second then the second
+        /// value will be rounded to the nearest ten thousandths of a second.
+        /// </summary>
+        public virtual void SetHourMinSecondPrecision(int hr, int min, float sec)
+        {
+            try
+            {
+                SetHourMinutePrecision(hr, min);
+
+                // multiply the seconds input value by 10000 and round the result
+                // then divide the number by ten thousand and store it back.
+                // This will round the fractional seconds to the nearest ten thousandths
+                int secMultRound = (int)Math.Round((double)(10000F * sec));
+                sec = secMultRound / 10000F;
+
+                // Now store the second and fractional component
+                second = (int)Math.Floor(sec);
+
+                // validate input seconds value
+                if ((second < 0) || (second >= 60))
+                {
+                    string msg = "The (rounded) second value of the TM datatype must be >=0 and <60";
+                    DataTypeException e = new DataTypeException(msg);
+                    throw e;
+                } // end if
+
+                int fractionOfSecInt = (int)(secMultRound - (second * 10000));
+                fractionOfSec = fractionOfSecInt / 10000F;
+                string fractString = string.Empty;
+
+                // Now convert the fractionOfSec field to a string without the leading zero
+                if (fractionOfSec != 0.0F)
+                {
+                    fractString = fractionOfSec.ToString().Substring(1);
+                } // end if
+
+                // Now update the value field
+                offSet = 0;
+
+                // Here the offset is not defined, we should omit showing it in the
+                // return value from the getValue() method
+                omitOffsetFg = 'y';
+                valueRenamed = valueRenamed + DataTypeUtil.PreAppendZeroes(second, 2) + fractString;
+            }
+
+            // end try
+            catch (DataTypeException e)
+            {
+                throw e;
+            }
+
+            // end catch
+            catch (Exception e)
+            {
+                throw new DataTypeException("An unexpected exception occurred", e);
+            } // end catch
+        }
+    }
 }

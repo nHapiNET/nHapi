@@ -27,11 +27,11 @@
 
 namespace NHapi.Base.Model
 {
-   /// <summary>
-   /// Represents an HL7 message segment, which is a unit of data that contains multiple fields.
-   /// </summary>
-   /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
-   public interface ISegment : IStructure
+    /// <summary>
+    /// Represents an HL7 message segment, which is a unit of data that contains multiple fields.
+    /// </summary>
+    /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
+    public interface ISegment : IStructure
     {
         /// <summary>
         /// Returns the array of Fields at the specified index.  The array will be of length 1 for

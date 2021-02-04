@@ -7,7 +7,7 @@
   specific language governing rights and limitations under the License.
 
   The Original Code is "Escape.java".  Description:
-  "Handles "escaping" and "unescaping" of text according to the HL7 escape sequence rules
+  "Handles "escaping" and "un-escaping" of text according to the HL7 escape sequence rules
   defined in section 2.10 of the standard (version 2.4)"
 
   The Initial Developer of the Original Code is University Health Network. Copyright (C)
@@ -32,40 +32,40 @@ namespace NHapi.Base.Parser
     using System.Linq;
     using System.Text;
 
-   /// <summary> Handles "escaping" and "unescaping" of text according to the HL7 escape sequence rules
-   /// defined in section 2.10 of the standard (version 2.4).  Currently, escape sequences for
-   /// multiple character sets are unsupported.  The highlighting, hexademical, and locally
-   /// defined escape sequences are also unsupported.
-   /// </summary>
-   /// <author>  Bryan Tripp.
-   /// </author>
+    /// <summary> Handles "escaping" and "un-escaping" of text according to the HL7 escape sequence rules
+    /// defined in section 2.10 of the standard (version 2.4).  Currently, escape sequences for
+    /// multiple character sets are unsupported.  The highlighting, hexadecimal, and locally
+    /// defined escape sequences are also unsupported.
+    /// </summary>
+    /// <author>  Bryan Tripp.
+    /// </author>
     public class Escape
     {
-        // This items are are to not be escaped when building the message
-        private static string[] NON_ESCAPE_CHARACTERS = new string[] { @"\.", @"\X", @"\Z", @"\C", @"\M", @"\H", @"\N", @"\S" };
-        private static string[] SINGLE_CHAR_NON_ESCAPE_CHARACTERS = new string[] { @"H", @"N", @"S", @"T", @"R", @"F", @"E" };
-        private static string[] MULTI_CHAR_NON_ESCAPE_CHARACTERS = new string[] { @"X", @"Z", @"C", @"M" };
-        private static Hashtable _nonEscapeCharacterMapping = new Hashtable();
-        private static Hashtable _singleCharNonEscapeCharacterMapping = new Hashtable();
-        private static Hashtable _multiCharNonEscapeCharacterMapping = new Hashtable();
+        // This items are to not be escaped when building the message
+        private static string[] nonEscapeCharacters = new string[] { @"\.", @"\X", @"\Z", @"\C", @"\M", @"\H", @"\N", @"\S" };
+        private static string[] singleCharNonEscapeCharacters = new string[] { @"H", @"N", @"S", @"T", @"R", @"F", @"E" };
+        private static string[] multiCharNonEscapeCharacters = new string[] { @"X", @"Z", @"C", @"M" };
+        private static Hashtable nonEscapeCharacterMapping = new Hashtable();
+        private static Hashtable singleCharNonEscapeCharacterMapping = new Hashtable();
+        private static Hashtable multiCharNonEscapeCharacterMapping = new Hashtable();
         private static Hashtable variousEncChars = new Hashtable(5);
-        private static char[] HexDigits = new char[16] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+        private static char[] hexDigits = new char[16] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
         static Escape()
         {
-            foreach (string element in NON_ESCAPE_CHARACTERS)
+            foreach (string element in nonEscapeCharacters)
             {
-                _nonEscapeCharacterMapping.Add(element, element);
+                nonEscapeCharacterMapping.Add(element, element);
             }
 
-            foreach (string element in SINGLE_CHAR_NON_ESCAPE_CHARACTERS)
+            foreach (string element in singleCharNonEscapeCharacters)
             {
-                _singleCharNonEscapeCharacterMapping.Add(element, element);
+                singleCharNonEscapeCharacterMapping.Add(element, element);
             }
 
-            foreach (string element in MULTI_CHAR_NON_ESCAPE_CHARACTERS)
+            foreach (string element in multiCharNonEscapeCharacters)
             {
-                _multiCharNonEscapeCharacterMapping.Add(element, element);
+                multiCharNonEscapeCharacterMapping.Add(element, element);
             }
         }
 
@@ -74,16 +74,71 @@ namespace NHapi.Base.Parser
         {
         }
 
-        private static Hashtable InvertHash(Hashtable htIn)
+        /// <summary> Test harness.</summary>
+        [STAThread]
+        public static void Main(string[] args)
         {
-            Hashtable ht = new Hashtable(htIn.Count);
-            foreach (string key in htIn.Keys)
+            string testString = "foo$r$this is $ $p$test$r$r$ string";
+
+            // System.out.println(testString);
+            // System.out.println(replace(testString, "$r$", "***"));
+            // System.out.println(replace(testString, "$", "+"));
+
+            // test speed gain with cache
+            int n = 100000;
+            Hashtable seqs;
+            EncodingCharacters ec = new EncodingCharacters('|', "^~\\&");
+
+            // warm up the JIT
+            for (int i = 0; i < n; i++)
             {
-                char[] newKey = htIn[key].ToString().ToCharArray();
-                ht[newKey[0]] = key;
+                seqs = MakeEscapeSequences(ec);
             }
 
-            return ht;
+            for (int i = 0; i < n; i++)
+            {
+                seqs = GetEscapeSequences(ec);
+            }
+
+            // time
+            long start = (DateTime.Now.Ticks - 621355968000000000) / 10000;
+            for (int i = 0; i < n; i++)
+            {
+                seqs = MakeEscapeSequences(ec);
+            }
+
+            Console.Out.WriteLine("Time to make " + n + " times: " + (((DateTime.Now.Ticks - 621355968000000000) / 10000) - start));
+            start = (DateTime.Now.Ticks - 621355968000000000) / 10000;
+            for (int i = 0; i < n; i++)
+            {
+                seqs = GetEscapeSequences(ec);
+            }
+
+            Console.Out.WriteLine("Time to get " + n + " times: " + (((DateTime.Now.Ticks - 621355968000000000) / 10000) - start));
+            start = (DateTime.Now.Ticks - 621355968000000000) / 10000;
+            for (int i = 0; i < n; i++)
+            {
+                seqs = MakeEscapeSequences(ec);
+            }
+
+            Console.Out.WriteLine("Time to make " + n + " times: " + (((DateTime.Now.Ticks - 621355968000000000) / 10000) - start));
+
+            // test escape:
+            testString = "this | is ^ a field \\T\\ with & some ~ bad stuff \\T\\";
+            Console.Out.WriteLine("Original:  " + testString);
+            string escaped = EscapeText(testString, ec);
+            Console.Out.WriteLine("Escaped:   " + escaped);
+            Console.Out.WriteLine("Un-escaped: " + UnescapeText(escaped, ec));
+        }
+
+        [Obsolete("This method has been replaced by 'EscapeText'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public static string escape(string text, EncodingCharacters encChars)
+        {
+            return EscapeText(text, encChars);
         }
 
         /// <summary>
@@ -92,7 +147,7 @@ namespace NHapi.Base.Parser
         /// <param name="text"></param>
         /// <param name="encChars"></param>
         /// <returns></returns>
-        public static string escape(string text, EncodingCharacters encChars)
+        public static string EscapeText(string text, EncodingCharacters encChars)
         {
             // Note: Special character sequences are like \.br\.  Items like this should not
             // be escaped using the \E\ method for the \'s.  Instead, just tell the encoding to
@@ -100,7 +155,7 @@ namespace NHapi.Base.Parser
             char[] textAsChar = text.ToCharArray();
 
             StringBuilder result = new StringBuilder(text.Length);
-            Hashtable specialCharacters = InvertHash(getEscapeSequences(encChars));
+            Hashtable specialCharacters = InvertHash(GetEscapeSequences(encChars));
             bool isEncodingSpecialCharacterSequence = false;
             bool encodeCharacter = false;
             for (int i = 0; i < textAsChar.Length; i++)
@@ -126,7 +181,7 @@ namespace NHapi.Base.Parser
                             if (nextEscapeChar == i + 2)
                             {
                                 // The data is specially escaped, treat it that way by not encoding the escape character
-                                if (_singleCharNonEscapeCharacterMapping[textAsChar[i + 1].ToString()] != null)
+                                if (singleCharNonEscapeCharacterMapping[textAsChar[i + 1].ToString()] != null)
                                 {
                                     // Start buffering this
                                     encodeCharacter = false;
@@ -135,7 +190,7 @@ namespace NHapi.Base.Parser
                             }
                             else if (nextEscapeChar != -1)
                             {
-                                if (_multiCharNonEscapeCharacterMapping[textAsChar[i + 1].ToString()] != null)
+                                if (multiCharNonEscapeCharacterMapping[textAsChar[i + 1].ToString()] != null)
                                 {
                                     // Contains /#xxyyzz..nn/ from the main string.
                                     string potentialEscapeSequence = text.Substring(i, nextEscapeChar - i + 1);
@@ -149,7 +204,7 @@ namespace NHapi.Base.Parser
                                         {
                                             case "\\C":
                                                 // Look for closing character of \Cxxyy\
-                                                if (hex.All(c => HexDigits.Contains(char.ToUpper(c))))
+                                                if (hex.All(c => hexDigits.Contains(char.ToUpper(c))))
                                                 {
                                                     encodeCharacter1 = false;
                                                     isEncodingSpecialCharacterSequence = true;
@@ -158,7 +213,7 @@ namespace NHapi.Base.Parser
                                                 break;
                                             case "\\M":
                                                 // Look for closing character of \Mxxyy\ or Mxxyyzz
-                                                if (hex.All(c => HexDigits.Contains(char.ToUpper(c))))
+                                                if (hex.All(c => hexDigits.Contains(char.ToUpper(c))))
                                                 {
                                                     encodeCharacter1 = false;
                                                     isEncodingSpecialCharacterSequence = true;
@@ -166,7 +221,7 @@ namespace NHapi.Base.Parser
 
                                                 break;
                                             case "\\X":
-                                                if (hex.All(c => HexDigits.Contains(char.ToUpper(c))))
+                                                if (hex.All(c => hexDigits.Contains(char.ToUpper(c))))
                                                 {
                                                     encodeCharacter1 = false;
                                                     isEncodingSpecialCharacterSequence = true;
@@ -211,13 +266,23 @@ namespace NHapi.Base.Parser
             }
         }
 
+        [Obsolete("This method has been replaced by 'UnescapeText'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public static string unescape(string text, EncodingCharacters encChars)
+        {
+            return UnescapeText(text, encChars);
+        }
+
         /// <summary>
-        /// Unescape the string.
+        /// Un-escape the string.
         /// </summary>
         /// <param name="text"></param>
         /// <param name="encChars"></param>
         /// <returns></returns>
-        public static string unescape(string text, EncodingCharacters encChars)
+        public static string UnescapeText(string text, EncodingCharacters encChars)
         {
             // is there an escape character in the text at all?
             if (text.IndexOf(encChars.EscapeCharacter) == -1)
@@ -227,7 +292,7 @@ namespace NHapi.Base.Parser
 
             StringBuilder result = new StringBuilder();
             int textLength = text.Length;
-            Hashtable esc = getEscapeSequences(encChars);
+            Hashtable esc = GetEscapeSequences(encChars);
             SupportClass.ISetSupport keys = new SupportClass.HashSetSupport(esc.Keys);
             string escChar = Convert.ToString(encChars.EscapeCharacter);
             int position = 0;
@@ -264,7 +329,7 @@ namespace NHapi.Base.Parser
         /// <summary> Returns a HashTable with escape sequences as keys, and corresponding
         /// Strings as values.
         /// </summary>
-        private static Hashtable getEscapeSequences(EncodingCharacters encChars)
+        private static Hashtable GetEscapeSequences(EncodingCharacters encChars)
         {
             // escape sequence strings must be assembled using the given escape character
             // see if this has already been done for this set of encoding characters
@@ -273,7 +338,7 @@ namespace NHapi.Base.Parser
             if (o == null)
             {
                 // this means we haven't got the sequences for these encoding characters yet - let's make them
-                escapeSequences = makeEscapeSequences(encChars);
+                escapeSequences = MakeEscapeSequences(encChars);
                 variousEncChars[encChars] = escapeSequences;
             }
             else
@@ -288,12 +353,19 @@ namespace NHapi.Base.Parser
         /// <summary> Constructs escape sequences using the given escape character - this should only
         /// be called by getEscapeCharacter(), which will cache the results for subsequent use.
         /// </summary>
-        private static Hashtable makeEscapeSequences(EncodingCharacters ec)
+        private static Hashtable MakeEscapeSequences(EncodingCharacters ec)
         {
             Hashtable seqs = new Hashtable();
             char[] codes = new char[] { 'F', 'S', 'T', 'R', 'E' };
             char[] values = new char[]
-            {ec.FieldSeparator, ec.ComponentSeparator, ec.SubcomponentSeparator, ec.RepetitionSeparator, ec.EscapeCharacter};
+            {
+                ec.FieldSeparator,
+                ec.ComponentSeparator,
+                ec.SubcomponentSeparator,
+                ec.RepetitionSeparator,
+                ec.EscapeCharacter,
+            };
+
             for (int i = 0; i < codes.Length; i++)
             {
                 StringBuilder seq = new StringBuilder();
@@ -304,67 +376,22 @@ namespace NHapi.Base.Parser
             }
 
             // \\x....\\ denotes hexadecimal escaping
-            // Convert the .... hexadecimal values into decimal, which map to ascii characters
+            // Convert the .... hexadecimal values into decimal, which map to ASCII characters
             seqs["\\X000d\\"] = Convert.ToString('\r'); // 00 > null, 0D > CR
             seqs["\\X0A\\"] = Convert.ToString('\n'); // 0A > LF
             return seqs;
         }
 
-        /// <summary> Test harness.</summary>
-        [STAThread]
-        public static void Main(string[] args)
+        private static Hashtable InvertHash(Hashtable htIn)
         {
-            string testString = "foo$r$this is $ $p$test$r$r$ string";
-
-            // System.out.println(testString);
-            // System.out.println(replace(testString, "$r$", "***"));
-            // System.out.println(replace(testString, "$", "+"));
-
-            // test speed gain with cache
-            int n = 100000;
-            Hashtable seqs;
-            EncodingCharacters ec = new EncodingCharacters('|', "^~\\&");
-
-            // warm up the JIT
-            for (int i = 0; i < n; i++)
+            Hashtable ht = new Hashtable(htIn.Count);
+            foreach (string key in htIn.Keys)
             {
-                seqs = makeEscapeSequences(ec);
+                char[] newKey = htIn[key].ToString().ToCharArray();
+                ht[newKey[0]] = key;
             }
 
-            for (int i = 0; i < n; i++)
-            {
-                seqs = getEscapeSequences(ec);
-            }
-
-            // time
-            long start = (DateTime.Now.Ticks - 621355968000000000) / 10000;
-            for (int i = 0; i < n; i++)
-            {
-                seqs = makeEscapeSequences(ec);
-            }
-
-            Console.Out.WriteLine("Time to make " + n + " times: " + ((DateTime.Now.Ticks - 621355968000000000) / 10000 - start));
-            start = (DateTime.Now.Ticks - 621355968000000000) / 10000;
-            for (int i = 0; i < n; i++)
-            {
-                seqs = getEscapeSequences(ec);
-            }
-
-            Console.Out.WriteLine("Time to get " + n + " times: " + ((DateTime.Now.Ticks - 621355968000000000) / 10000 - start));
-            start = (DateTime.Now.Ticks - 621355968000000000) / 10000;
-            for (int i = 0; i < n; i++)
-            {
-                seqs = makeEscapeSequences(ec);
-            }
-
-            Console.Out.WriteLine("Time to make " + n + " times: " + ((DateTime.Now.Ticks - 621355968000000000) / 10000 - start));
-
-            // test escape:
-            testString = "this | is ^ a field \\T\\ with & some ~ bad stuff \\T\\";
-            Console.Out.WriteLine("Original:  " + testString);
-            string escaped = escape(testString, ec);
-            Console.Out.WriteLine("Escaped:   " + escaped);
-            Console.Out.WriteLine("Unescaped: " + unescape(escaped, ec));
+            return ht;
         }
     }
 }

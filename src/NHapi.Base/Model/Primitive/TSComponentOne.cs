@@ -30,44 +30,45 @@ namespace NHapi.Base.Model.Primitive
     using System.Globalization;
     using System.Threading;
 
-   /// <summary>
-   /// <para>
-   /// Represents an HL7 timestamp, which is related to the HL7 TS type.
-   /// </para>
-   ///
-   /// <para>
-   /// In version 2.5, TS is a composite type. The first component is type DTM, which corresponds to this class
-   /// (actually Model.v25.datatype.DTM inherits from this class at time of writing).
-   /// </para>
-   ///
-   /// <para>
-   /// In HL7 versions 2.2-2.4, it wasn't perfectly clear whether TS was composite or primitive. HAPI interprets
-   /// it as composite, with the first component having a type that isn't defined by HL7, and we call
-   /// this type TSComponentOne.
-   /// </para>
-   ///
-   /// <para>
-   /// In v2.1, TS is primitive, and corresponds one-to-one with this class.
-   /// </para>
-   /// </summary>
-   /// <author><a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a></author>
-   /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
-   /// <version>
-   /// $Revision: 1.4 $ updated on $Date: 2005/06/14 20:09:39 $ by $Author: bryan_tripp $.
-   /// </version>
+    /// <summary>
+    /// <para>
+    /// Represents an HL7 timestamp, which is related to the HL7 TS type.
+    /// </para>
+    ///
+    /// <para>
+    /// In version 2.5, TS is a composite type. The first component is type DTM, which corresponds to this class
+    /// (actually Model.v25.datatype.DTM inherits from this class at time of writing).
+    /// </para>
+    ///
+    /// <para>
+    /// In HL7 versions 2.2-2.4, it wasn't perfectly clear whether TS was composite or primitive. HAPI interprets
+    /// it as composite, with the first component having a type that isn't defined by HL7, and we call
+    /// this type TSComponentOne.
+    /// </para>
+    ///
+    /// <para>
+    /// In v2.1, TS is primitive, and corresponds one-to-one with this class.
+    /// </para>
+    /// </summary>
+    /// <author><a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a></author>
+    /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
+    /// <version>
+    /// $Revision: 1.4 $ updated on $Date: 2005/06/14 20:09:39 $ by $Author: bryan_tripp $.
+    /// </version>
     public class TSComponentOne : AbstractPrimitive
     {
-        private CommonTS Detail
-        {
-            get
-            {
-                if (myDetail == null)
-                {
-                    myDetail = new CommonTS(Value);
-                }
+        private CommonTS myDetail;
 
-                return myDetail;
-            }
+        /// <param name="theMessage">message to which this Type belongs.
+        /// </param>
+        public TSComponentOne(IMessage theMessage)
+            : base(theMessage)
+        {
+        }
+
+        public TSComponentOne(IMessage theMessage, string description)
+            : base(theMessage, description)
+        {
         }
 
         public override string Value
@@ -167,53 +168,6 @@ namespace NHapi.Base.Model.Primitive
             get { return Detail.GMTOffset; }
         }
 
-        private CommonTS myDetail;
-
-        /// <param name="theMessage">message to which this Type belongs.
-        /// </param>
-        public TSComponentOne(IMessage theMessage)
-            : base(theMessage)
-        {
-        }
-
-        public TSComponentOne(IMessage theMessage, string description)
-            : base(theMessage, description)
-        {
-        }
-
-        /// <seealso cref="CommonTS.setDatePrecision(int, int, int)">
-        /// </seealso>
-        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this.  </throws>
-        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
-        /// this method is called.
-        /// </summary>
-        public virtual void setDatePrecision(int yr, int mnth, int dy)
-        {
-            Detail.setDatePrecision(yr, mnth, dy);
-        }
-
-        /// <seealso cref="CommonTS.setDateMinutePrecision(int, int, int, int, int)">
-        /// </seealso>
-        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this.  </throws>
-        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
-        /// this method is called.
-        /// </summary>
-        public virtual void setDateMinutePrecision(int yr, int mnth, int dy, int hr, int min)
-        {
-            Detail.setDateMinutePrecision(yr, mnth, dy, hr, min);
-        }
-
-        /// <seealso cref="CommonTS.setDateSecondPrecision(int, int, int, int, int, float)">
-        /// </seealso>
-        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this.  </throws>
-        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
-        /// this method is called.
-        /// </summary>
-        public virtual void setDateSecondPrecision(int yr, int mnth, int dy, int hr, int min, float sec)
-        {
-            Detail.setDateSecondPrecision(yr, mnth, dy, hr, min, sec);
-        }
-
         /// <summary>
         /// Used for setting the format of a long date (Year, Month, Day, Hour, Minute).
         /// </summary>
@@ -252,6 +206,82 @@ namespace NHapi.Base.Model.Primitive
         protected virtual string ShortDateTimeFormat
         {
             get { return "yyyyMMdd"; }
+        }
+
+        private CommonTS Detail
+        {
+            get
+            {
+                if (myDetail == null)
+                {
+                    myDetail = new CommonTS(Value);
+                }
+
+                return myDetail;
+            }
+        }
+
+        [Obsolete("This method has been replaced by 'SetDatePrecision'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual void setDatePrecision(int yr, int mnth, int dy)
+        {
+            SetDatePrecision(yr, mnth, dy);
+        }
+
+        /// <seealso cref="CommonTS.setDatePrecision(int, int, int)">
+        /// </seealso>
+        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this.  </throws>
+        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
+        /// this method is called.
+        /// </summary>
+        public virtual void SetDatePrecision(int yr, int mnth, int dy)
+        {
+            Detail.SetDatePrecision(yr, mnth, dy);
+        }
+
+        [Obsolete("This method has been replaced by 'SetDateMinutePrecision'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual void setDateMinutePrecision(int yr, int mnth, int dy, int hr, int min)
+        {
+            SetDateMinutePrecision(yr, mnth, dy, hr, min);
+        }
+
+        /// <seealso cref="CommonTS.setDateMinutePrecision(int, int, int, int, int)">
+        /// </seealso>
+        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this.  </throws>
+        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
+        /// this method is called.
+        /// </summary>
+        public virtual void SetDateMinutePrecision(int yr, int mnth, int dy, int hr, int min)
+        {
+            Detail.SetDateMinutePrecision(yr, mnth, dy, hr, min);
+        }
+
+        [Obsolete("This method has been replaced by 'SetDateSecondPrecision'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual void setDateSecondPrecision(int yr, int mnth, int dy, int hr, int min, float sec)
+        {
+            SetDateSecondPrecision(yr, mnth, dy, hr, min, sec);
+        }
+
+        /// <seealso cref="CommonTS.setDateSecondPrecision(int, int, int, int, int, float)">
+        /// </seealso>
+        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this.  </throws>
+        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
+        /// this method is called.
+        /// </summary>
+        public virtual void SetDateSecondPrecision(int yr, int mnth, int dy, int hr, int min, float sec)
+        {
+            Detail.SetDateSecondPrecision(yr, mnth, dy, hr, min, sec);
         }
 
         /// <summary>
@@ -327,8 +357,8 @@ namespace NHapi.Base.Model.Primitive
             }
             catch (FormatException)
             {
-                throw new HL7Exception("Could not format the date " + value + " to a long date.  Format must be " +
-                                              LongDateTimeFormat);
+                throw new HL7Exception(
+                    "Could not format the date " + value + " to a long date.  Format must be " + LongDateTimeFormat);
             }
         }
     }

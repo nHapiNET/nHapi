@@ -26,14 +26,12 @@
 
 namespace NHapi.Base.Model
 {
-    using System;
-
-   /// <summary> Part of an HL7 message: either a segment or group.  There are certain methods (e.g. Group.get())
-   /// that will always return either a segment or a group.  This interface allows methods like this
-   /// to declare a return type of Structure instead of Object.
-   /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
-   /// </author>
+    /// <summary> Part of an HL7 message: either a segment or group.  There are certain methods (e.g. Group.get())
+    /// that will always return either a segment or a group.  This interface allows methods like this
+    /// to declare a return type of Structure instead of Object.
+    /// </summary>
+    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
+    /// </author>
     public interface IStructure
     {
         /// <summary> Returns the Message object to which this structure belongs.  This should normally be set at

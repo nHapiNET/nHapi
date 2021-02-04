@@ -1,5 +1,5 @@
 /*
-* Created on 21-Apr-2005
+  Created on 21-Apr-2005
 */
 
 namespace NHapi.Base.Parser

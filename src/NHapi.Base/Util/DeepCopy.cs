@@ -1,16 +1,26 @@
 namespace NHapi.Base.Util
 {
     using System;
-    using NHapi.Base;
+
     using NHapi.Base.Model;
 
-    /// <summary> Tools for copying data recurvisely from one message element into another.  Currently only Types are
+    /// <summary> Tools for copying data recursively from one message element into another.  Currently only Types are
     /// supported.
     /// </summary>
     /// <author>  Bryan Tripp.
     /// </author>
     public class DeepCopy
     {
+        [Obsolete("This method has been replaced by 'Copy'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public static void copy(IType from, IType to)
+        {
+            Copy(from, to);
+        }
+
         /// <summary> Copies data from the "from" Type into the "to" Type.  Either Type may be
         /// a Primitive, Composite, or Varies.  If a Varies is provided, the operation is
         /// performed on the result of calling its getData() method.  A Primitive may be
@@ -20,7 +30,7 @@ namespace NHapi.Base.Util
         /// numbers of components, the first components are copied, up to the length
         /// of the smaller one.
         /// </summary>
-        public static void copy(IType from, IType to)
+        public static void Copy(IType from, IType to)
         {
             for (int i = 1; i <= Terser.numComponents(from); i++)
             {
@@ -30,6 +40,16 @@ namespace NHapi.Base.Util
                     Terser.getPrimitive(to, i, j).Value = val;
                 }
             }
+        }
+
+        [Obsolete("This method has been replaced by 'Copy'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public static void copy(ISegment from, ISegment to)
+        {
+            Copy(from, to);
         }
 
         /// <summary> Copies contents from the source segment to the destination segment.  This
@@ -42,7 +62,7 @@ namespace NHapi.Base.Util
         /// </param>
         /// <param name="to">the segment into which data are copied.
         /// </param>
-        public static void copy(ISegment from, ISegment to)
+        public static void Copy(ISegment from, ISegment to)
         {
             int n = from.NumFields();
             for (int i = 1; i <= n; i++)
@@ -50,7 +70,7 @@ namespace NHapi.Base.Util
                 IType[] reps = from.GetField(i);
                 for (int j = 0; j < reps.Length; j++)
                 {
-                    copy(reps[j], to.GetField(i, j));
+                    Copy(reps[j], to.GetField(i, j));
                 }
             }
         }

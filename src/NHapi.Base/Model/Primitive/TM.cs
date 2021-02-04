@@ -28,27 +28,31 @@ namespace NHapi.Base.Model.Primitive
 {
     using System;
 
-   /// <summary>
-   /// Represents an HL7 TM (time) datatype.
-   /// </summary>
-   /// <author><a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a></author>
-   /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
-   /// <version>
-   /// $Revision: 1.3 $ updated on $Date: 2005/06/08 00:28:25 $ by $Author: bryan_tripp $.
-   /// </version>
+    /// <summary>
+    /// Represents an HL7 TM (time) datatype.
+    /// </summary>
+    /// <author><a href="mailto:neal.acharya@uhn.on.ca">Neal Acharya</a></author>
+    /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
+    /// <version>
+    /// $Revision: 1.3 $ updated on $Date: 2005/06/08 00:28:25 $ by $Author: bryan_tripp $.
+    /// </version>
     public abstract class TM : AbstractPrimitive
     {
-        private CommonTM Detail
-        {
-            get
-            {
-                if (myDetail == null)
-                {
-                    myDetail = new CommonTM(Value);
-                }
+        private CommonTM myDetail;
 
-                return myDetail;
-            }
+        /// <param name="theMessage">message to which this Type belongs.
+        /// </param>
+        protected TM(IMessage theMessage)
+            : base(theMessage)
+        {
+        }
+
+        /// <summary>Construct the type.</summary>
+        /// <param name="theMessage">message to which this Type belongs.</param>
+        /// <param name="description">The description of this type.</param>
+        protected TM(IMessage theMessage, string description)
+            : base(theMessage, description)
+        {
         }
 
         /// <inheritdoc />
@@ -133,21 +137,27 @@ namespace NHapi.Base.Model.Primitive
             get { return Detail.GMTOffset; }
         }
 
-        private CommonTM myDetail;
-
-        /// <param name="theMessage">message to which this Type belongs.
-        /// </param>
-        protected TM(IMessage theMessage)
-            : base(theMessage)
+        private CommonTM Detail
         {
+            get
+            {
+                if (myDetail == null)
+                {
+                    myDetail = new CommonTM(Value);
+                }
+
+                return myDetail;
+            }
         }
 
-        /// <summary>Construct the type.</summary>
-        /// <param name="theMessage">message to which this Type belongs.</param>
-        /// <param name="description">The description of this type.</param>
-        protected TM(IMessage theMessage, string description)
-            : base(theMessage, description)
+        [Obsolete("This method has been replaced by 'SetHourMinutePrecision'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual void setHourMinutePrecision(int hr, int min)
         {
+            SetHourMinutePrecision(hr, min);
         }
 
         /// <seealso cref="CommonTM.setHourMinutePrecision(int, int)">
@@ -156,9 +166,19 @@ namespace NHapi.Base.Model.Primitive
         /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
         /// this method is called.
         /// </summary>
-        public virtual void setHourMinutePrecision(int hr, int min)
+        public virtual void SetHourMinutePrecision(int hr, int min)
         {
-            Detail.setHourMinutePrecision(hr, min);
+            Detail.SetHourMinutePrecision(hr, min);
+        }
+
+        [Obsolete("This method has been replaced by 'SetHourMinSecondPrecision'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual void setHourMinSecondPrecision(int hr, int min, float sec)
+        {
+            SetHourMinSecondPrecision(hr, min, sec);
         }
 
         /// <seealso cref="CommonTM.setHourMinSecondPrecision(int, int, float)">
@@ -167,9 +187,9 @@ namespace NHapi.Base.Model.Primitive
         /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
         /// this method is called.
         /// </summary>
-        public virtual void setHourMinSecondPrecision(int hr, int min, float sec)
+        public virtual void SetHourMinSecondPrecision(int hr, int min, float sec)
         {
-            Detail.setHourMinSecondPrecision(hr, min, sec);
+            Detail.SetHourMinSecondPrecision(hr, min, sec);
         }
     }
 }

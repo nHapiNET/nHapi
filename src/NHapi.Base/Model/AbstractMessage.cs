@@ -26,17 +26,24 @@
 
 namespace NHapi.Base.Model
 {
-    using System;
     using System.Text;
     using System.Text.RegularExpressions;
+
     using NHapi.Base.Parser;
     using NHapi.Base.validation;
 
-   /// <summary> A default implementation of Message. </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
-   /// </author>
+    /// <summary> A default implementation of Message. </summary>
+    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
+    /// </author>
     public abstract class AbstractMessage : AbstractGroup, IMessage
     {
+        /// <param name="theFactory">factory for model classes (e.g. group, segment) for this message.
+        /// </param>
+        public AbstractMessage(IModelClassFactory theFactory)
+            : base(theFactory)
+        {
+        }
+
         /// <summary> Returns this Message object - this is an implementation of the
         /// abstract method in AbstractGroup.
         /// </summary>
@@ -91,22 +98,8 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        /// The validation contect.
+        /// The validation context.
         /// </summary>
-        public virtual IValidationContext ValidationContext
-        {
-            get { return myContext; }
-
-            set { myContext = value; }
-        }
-
-        private IValidationContext myContext;
-
-        /// <param name="theFactory">factory for model classes (e.g. group, segment) for this message.
-        /// </param>
-        public AbstractMessage(IModelClassFactory theFactory)
-            : base(theFactory)
-        {
-        }
+        public virtual IValidationContext ValidationContext { get; set; }
     }
 }

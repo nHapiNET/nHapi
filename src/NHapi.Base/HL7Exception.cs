@@ -29,14 +29,15 @@ namespace NHapi.Base
 {
     using System;
     using System.Text;
+
     using NHapi.Base.Model;
     using NHapi.Base.Util;
 
-   /// <summary> Represents an exception encountered while processing
-   /// an HL7 message.
-   /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
-   /// </author>
+    /// <summary> Represents an exception encountered while processing
+    /// an HL7 message.
+    /// </summary>
+    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
+    /// </author>
     [Serializable]
     public class HL7Exception : Exception
     {
@@ -102,21 +103,21 @@ namespace NHapi.Base
         }
 
         /// <summary>
-        /// Acknowledgement Application Accept.
+        /// Acknowledgment Application Accept.
         /// </summary>
         /// <remarks>Deprecated use <see cref="AcknowledgmentCode.AA"/> instead.</remarks>
         [Obsolete("Deprecated use 'AcknowledgementCode.AA' instead.")]
         public const int ACK_AA = 1;
 
         /// <summary>
-        /// Acknowledgement Application Error.
+        /// Acknowledgment Application Error.
         /// </summary>
         /// <remarks>Deprecated use <see cref="AcknowledgmentCode.AE"/> instead.</remarks>
         [Obsolete("Deprecated use 'AcknowledgementCode.AE' instead.")]
         public const int ACK_AE = 2;
 
         /// <summary>
-        /// Acknowledgement Application Reject.
+        /// Acknowledgment Application Reject.
         /// </summary>
         /// <remarks>Deprecated use <see cref="AcknowledgmentCode.AR"/> instead.</remarks>
         [Obsolete("Deprecated use 'AcknowledgmentCode.AR' instead.")]
@@ -215,7 +216,7 @@ namespace NHapi.Base
 
         /// <summary> Creates an <see cref="HL7Exception" />.
         /// <param name="message">The error message</param>
-        /// <param name="errorCondition">a code describing the the error condition, from HL7
+        /// <param name="errorCondition">a code describing the error condition, from HL7
         /// table 0357 (see section 2.16.8 of standard v 2.4) - <see cref="Base.ErrorCode" /> defines
         /// these codes as integer constants that can be used here (e.g.
         /// <c>ErrorCode.UNSUPPORTED_MESSAGE_TYPE.GetCode()</c>)
@@ -231,7 +232,7 @@ namespace NHapi.Base
 
         /// <summary> Creates an <see cref="HL7Exception" />.
         /// <param name="message">The error message</param>
-        /// <param name="errorCondition">a code describing the the error condition, from HL7
+        /// <param name="errorCondition">a code describing the error condition, from HL7
         /// table 0357 (see section 2.16.8 of standard v 2.4) - <see cref="Base.ErrorCode"/> defines
         /// these codes as integer constants that can be used here (e.g.
         /// <seealso cref="ErrorCode.UNSUPPORTED_MESSAGE_TYPE" />)
@@ -247,7 +248,7 @@ namespace NHapi.Base
 
         /// <summary> Creates an <see cref="HL7Exception" />.
         /// <param name="message">the error message</param>
-        /// <param name="errorCondition">a code describing the the error condition, from HL7
+        /// <param name="errorCondition">a code describing the error condition, from HL7
         /// table 0357 (see section 2.16.8 of standard v 2.4) - <see cref="Base.ErrorCode"/> defines
         /// these codes as integer constants that can be used here (e.g.
         /// <c>ErrorCode.UNSUPPORTED_MESSAGE_TYPE.GetCode()</c>)
@@ -261,7 +262,7 @@ namespace NHapi.Base
 
         /// <summary> Creates an <see cref="HL7Exception" />.
         /// <param name="message">the error message</param>
-        /// <param name="errorCondition">a code describing the the error condition, from HL7
+        /// <param name="errorCondition">a code describing the error condition, from HL7
         /// table 0357 (see section 2.16.8 of standard v 2.4) - <see cref="Base.ErrorCode"/> defines
         /// these codes as integer constants that can be used here (e.g.
         /// <seealso cref="ErrorCode.UNSUPPORTED_MESSAGE_TYPE" />)

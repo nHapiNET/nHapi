@@ -27,18 +27,35 @@
 
 namespace NHapi.Base.Model
 {
-    using System;
-
-   /// <summary> An abstract Type that provides a default implementation of getName().
-   ///
-   /// </summary>
-   /// <author>  Bryan Tripp.
-   /// </author>
+    /// <summary> An abstract Type that provides a default implementation of getName().
+    ///
+    /// </summary>
+    /// <author>  Bryan Tripp.
+    /// </author>
     public class AbstractType : IType
     {
         private ExtraComponents extra;
         private IMessage message;
         private string description;
+
+        /// <summary> Creates a new instance of AbstractType.</summary>
+        /// <param name="message">message to which this type belongs.
+        /// </param>
+        public AbstractType(IMessage message)
+            : this(message, null)
+        {
+        }
+
+        /// <summary> Creates a new instance of AbstractType.</summary>
+        /// <param name="message">message to which this type belongs.
+        /// <param name="description">The type description</param>
+        /// </param>
+        public AbstractType(IMessage message, string description)
+        {
+            extra = new ExtraComponents(message);
+            this.description = description;
+            this.message = message;
+        }
 
         /// <summary>
         /// Returns the name of the type (used in XML encoding and profile checking).
@@ -73,25 +90,6 @@ namespace NHapi.Base.Model
         public virtual string Description
         {
             get { return description; }
-        }
-
-        /// <summary> Creates a new instance of AbstractType.</summary>
-        /// <param name="message">message to which this type belongs.
-        /// </param>
-        public AbstractType(IMessage message)
-            : this(message, null)
-        {
-        }
-
-        /// <summary> Creates a new instance of AbstractType.</summary>
-        /// <param name="message">message to which this type belongs.
-        /// <param name="description">The type description</param>
-        /// </param>
-        public AbstractType(IMessage message, string description)
-        {
-            extra = new ExtraComponents(message);
-            this.description = description;
-            this.message = message;
         }
     }
 }

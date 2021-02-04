@@ -33,13 +33,13 @@ namespace NHapi.Base.Model
 {
     using System;
 
-   /// <summary> An abstraction representing >1 message parts which may repeated together.
-   /// An implementation of Group should enforce constraints about on the contents of the group
-   /// and throw an exception if an attempt is made to add a Structure that the Group instance
-   /// does not recognize.
-   /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
-   /// </author>
+    /// <summary> An abstraction representing >1 message parts which may repeated together.
+    /// An implementation of Group should enforce constraints about on the contents of the group
+    /// and throw an exception if an attempt is made to add a Structure that the Group instance
+    /// does not recognize.
+    /// </summary>
+    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
+    /// </author>
     public interface IGroup : IStructure
     {
         /// <summary> Returns an ordered array of the names of the Structures in this
@@ -83,6 +83,13 @@ namespace NHapi.Base.Model
         /// <summary> Returns the Class of the Structure at the given name index.  </summary>
         Type GetClass(string name);
 
+        [Obsolete("This method has been replaced by 'AddNonstandardSegment'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        string addNonstandardSegment(string name);
+
         /// <summary>
         /// Expands the group definition to include a segment that is not
         /// defined by HL7 to be part of this group (eg: an unregistered Z segment).
@@ -91,18 +98,6 @@ namespace NHapi.Base.Model
         /// If the segment name is unrecognized a GenericSegment is used.  The
         /// segment is defined as repeating and not required.
         /// </summary>
-        string addNonstandardSegment(string name);
+        string AddNonstandardSegment(string name);
     }
-
-    // sample code ...
-    /*Group m = new MessageImpl();
-    try {
-    m.add(new MSH());
-    ((MSH)m.get("MSH")).getFieldSeparator().setValue("|");
-    m.getMSH().getFieldSeparator().setValue("|");
-
-    m.getERR(0).getThing();
-    } catch (HL7Exception e) {
-
-    }*/
 }

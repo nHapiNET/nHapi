@@ -29,31 +29,66 @@ namespace NHapi.Base.Model
 {
     using System;
     using System.Linq;
+
     using NHapi.Base.Log;
     using NHapi.Base.Parser;
     using NHapi.Base.Util;
 
-   /// <summary>
-   /// Varies is a Type used as a placeholder for another Type in cases where
-   /// the appropriate Type is not known until run-time (e.g. OBX-5).
-   /// Parsers and validators may have logic that enforces restrictions on the
-   /// Type based on other features of a segment.
-   /// <para>
-   /// If you want to set both the type and the values of a Varies object, you should
-   /// set the type first by calling setData(Type t), keeping a reference to your Type,
-   /// and then set values by calling methods on the Type.
-   /// </para>
-   /// </summary>
-   /// <example>
-   /// <code>
-   /// CN cn = new CN();
-   /// variesObject.Data = cn;
-   /// cn.IDNumber.Value = "foo";
-   /// </code>
-   /// </example>
-   /// <author>Bryan Tripp (bryan_tripp@users.sourceforge.net).</author>
+    /// <summary>
+    /// Varies is a Type used as a placeholder for another Type in cases where
+    /// the appropriate Type is not known until run-time (e.g. OBX-5).
+    /// Parsers and validators may have logic that enforces restrictions on the
+    /// Type based on other features of a segment.
+    /// <para>
+    /// If you want to set both the type and the values of a Varies object, you should
+    /// set the type first by calling setData(Type t), keeping a reference to your Type,
+    /// and then set values by calling methods on the Type.
+    /// </para>
+    /// </summary>
+    /// <example>
+    /// <code>
+    /// CN cn = new CN();
+    /// variesObject.Data = cn;
+    /// cn.IDNumber.Value = "foo";
+    /// </code>
+    /// </example>
+    /// <author>Bryan Tripp (bryan_tripp@users.sourceforge.net).</author>
     public class Varies : IType
     {
+        private static readonly IHapiLog Log;
+
+        private IType data;
+        private IMessage message;
+        private string description;
+
+        static Varies()
+        {
+            Log = HapiLogFactory.GetHapiLog(typeof(Varies));
+        }
+
+        /// <summary> Creates new Varies.
+        ///
+        /// </summary>
+        /// <param name="message">message to which this type belongs.
+        /// </param>
+        public Varies(IMessage message)
+        {
+            data = new GenericPrimitive(message);
+            this.message = message;
+        }
+
+        /// <summary> Creates new Varies.
+        ///
+        /// </summary>
+        /// <param name="message">message to which this type belongs.</param>
+        /// <param name="description">description of what this Type represents.</param>
+        public Varies(IMessage message, string description)
+        {
+            data = new GenericPrimitive(message);
+            this.message = message;
+            this.description = description;
+        }
+
         /// <summary>
         /// <para>
         /// GET => Returns the data contained by this instance of Varies.  Returns a GenericPrimitive unless
@@ -69,7 +104,10 @@ namespace NHapi.Base.Model
         /// </summary>
         public virtual IType Data
         {
-            get { return data; }
+            get
+            {
+                return data;
+            }
 
             set
             {
@@ -119,39 +157,20 @@ namespace NHapi.Base.Model
             get { return description; }
         }
 
-        private static readonly IHapiLog log;
-
-        private IType data;
-        private IMessage message;
-        private string description;
-
-        /// <summary> Creates new Varies.
-        ///
-        /// </summary>
-        /// <param name="message">message to which this type belongs.
-        /// </param>
-        public Varies(IMessage message)
+        [Obsolete("This method has been replaced by 'FixOBX5'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public static void fixOBX5(ISegment segment, IModelClassFactory factory)
         {
-            data = new GenericPrimitive(message);
-            this.message = message;
-        }
-
-        /// <summary> Creates new Varies.
-        ///
-        /// </summary>
-        /// <param name="message">message to which this type belongs.</param>
-        /// <param name="description">description of what this Type represents.</param>
-        public Varies(IMessage message, string description)
-        {
-            data = new GenericPrimitive(message);
-            this.message = message;
-            this.description = description;
+            FixOBX5(segment, factory);
         }
 
         /// <summary> Sets the data type of field 5 in the given OBX segment to the value of OBX-2.  The argument
         /// is a Segment as opposed to a particular OBX because it is meant to work with any version.
         /// </summary>
-        public static void fixOBX5(ISegment segment, IModelClassFactory factory)
+        public static void FixOBX5(ISegment segment, IModelClassFactory factory)
         {
             try
             {
@@ -197,7 +216,7 @@ namespace NHapi.Base.Model
                             var constructor = type.GetConstructor(new[] { typeof(IMessage), typeof(string) });
                             v.Data = (IType)constructor.Invoke(new object[] { v.Message, v.Description });
                         }
-                        catch (NullReferenceException _)
+                        catch (NullReferenceException)
                         {
                             var constructor = type.GetConstructor(new[] { typeof(IMessage) });
                             v.Data = (IType)constructor.Invoke(new object[] { v.Message });
@@ -213,7 +232,8 @@ namespace NHapi.Base.Model
             {
                 throw new HL7Exception(
                     $"{e.GetType().FullName} trying to set data type of OBX-5",
-                    ErrorCode.APPLICATION_INTERNAL_ERROR, e);
+                    ErrorCode.APPLICATION_INTERNAL_ERROR,
+                    e);
             }
         }
 
@@ -225,11 +245,6 @@ namespace NHapi.Base.Model
             {
                 obx2.Value = "DT";
             }
-        }
-
-        static Varies()
-        {
-            log = HapiLogFactory.GetHapiLog(typeof(Varies));
         }
     }
 }

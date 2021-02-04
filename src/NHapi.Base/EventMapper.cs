@@ -1,20 +1,17 @@
 namespace NHapi.Base
 {
-    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Text;
 
     internal class EventMapper
     {
-        private Hashtable _map = new Hashtable();
-        private static readonly EventMapper _instance = new EventMapper();
+        private static readonly EventMapper InstanceValue = new EventMapper();
 
-        #region Constructors
+        private Hashtable map = new Hashtable();
 
         static EventMapper()
         {
@@ -42,8 +39,18 @@ namespace NHapi.Base
                     structures = GetAssemblyEventMapping(assembly, package);
                 }
 
-                _map[package.Version] = structures;
+                map[package.Version] = structures;
             }
+        }
+
+        public static EventMapper Instance
+        {
+            get { return InstanceValue; }
+        }
+
+        public Hashtable Maps
+        {
+            get { return map; }
         }
 
         private static string RemoveTrailingDot(Hl7Package package)
@@ -59,24 +66,6 @@ namespace NHapi.Base
             return assemblyString;
         }
 
-        #endregion
-
-        #region Properties
-
-        public static EventMapper Instance
-        {
-            get { return _instance; }
-        }
-
-        public Hashtable Maps
-        {
-            get { return _map; }
-        }
-
-        #endregion
-
-        #region Methods
-
         private NameValueCollection GetAssemblyEventMapping(Assembly assembly, Hl7Package package)
         {
             NameValueCollection structures = new NameValueCollection();
@@ -89,7 +78,7 @@ namespace NHapi.Base
                         string line = sr.ReadLine();
                         while (line != null)
                         {
-                            if ((line.Length > 0) && ('#' != line[0]))
+                            if ((line.Length > 0) && (line[0] != '#'))
                             {
                                 string[] lineElements = line.Split(' ', '\t');
                                 structures.Add(lineElements[0], lineElements[1]);
@@ -103,7 +92,5 @@ namespace NHapi.Base
 
             return structures;
         }
-
-        #endregion
     }
 }

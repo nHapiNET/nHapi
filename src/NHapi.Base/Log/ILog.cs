@@ -1,8 +1,6 @@
 namespace NHapi.Base.Log
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     ///
@@ -10,16 +8,34 @@ namespace NHapi.Base.Log
     /// <remarks>Added for conversion will need to replace.</remarks>
     public interface ILog
     {
+        /// <summary>
+        /// Gets a value indicating whether or not debug level logging is enabled.
+        /// </summary>
         bool DebugEnabled { get; }
 
+        /// <summary>
+        /// Gets a value indicating whether or not error level logging is enabled.
+        /// </summary>
         bool ErrorEnabled { get; }
 
+        /// <summary>
+        /// Gets a value indicating whether or not fatal level logging is enabled.
+        /// </summary>
         bool FatalEnabled { get; }
 
+        /// <summary>
+        /// Gets a value indicating whether or not info level logging is enabled.
+        /// </summary>
         bool InfoEnabled { get; }
 
+        /// <summary>
+        /// Gets a value indicating whether or not trace level logging is enabled.
+        /// </summary>
         bool TraceEnabled { get; }
 
+        /// <summary>
+        /// Gets a value indicating whether or not warning level logging is enabled.
+        /// </summary>
         bool WarnEnabled { get; }
 
         void Debug(object message);
@@ -52,170 +68,112 @@ namespace NHapi.Base.Log
     /// </summary>
     public sealed class DummyLogger : ILog
     {
-        #region Log Members
-
-        /// <summary>
-        /// Is debug enabled.
-        /// </summary>
+        /// <inheritdoc />
         public bool DebugEnabled
         {
             get { return false; }
         }
 
-        /// <summary>
-        /// Is error enabled.
-        /// </summary>
+        /// <inheritdoc />
         public bool ErrorEnabled
         {
             get { return false; }
         }
 
-        /// <summary>
-        /// Is fatal enabled.
-        /// </summary>
+        /// <inheritdoc />
         public bool FatalEnabled
         {
             get { return false; }
         }
 
-        /// <summary>
-        /// Is info enabled.
-        /// </summary>
+        /// <inheritdoc />
         public bool InfoEnabled
         {
             get { return false; }
         }
 
-        /// <summary>
-        /// is trace enabled.
-        /// </summary>
+        /// <inheritdoc />
         public bool TraceEnabled
         {
             get { return false; }
         }
 
-        /// <summary>
-        /// Is warn enabled.
-        /// </summary>
+        /// <inheritdoc />
         public bool WarnEnabled
         {
             get { return false; }
         }
 
-        /// <summary>
-        /// Write debug message.
-        /// </summary>
-        /// <param name="message"></param>
+        /// <inheritdoc />
         public void Debug(object message)
         {
             // No implementation
         }
 
-        /// <summary>
-        /// Write debug message.
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="t"></param>
+        /// <inheritdoc />
         public void Debug(object message, Exception t)
         {
             // No implementation
         }
 
-        /// <summary>
-        /// Write error.
-        /// </summary>
-        /// <param name="message"></param>
+        /// <inheritdoc />
         public void Error(object message)
         {
             // No implementation
         }
 
-        /// <summary>
-        /// Write error.
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="t"></param>
+        /// <inheritdoc />
         public void Error(object message, Exception t)
         {
             // No implementation
         }
 
-        /// <summary>
-        /// Write fatal.
-        /// </summary>
-        /// <param name="message"></param>
+        /// <inheritdoc />
         public void Fatal(object message)
         {
             // No implementation
         }
 
-        /// <summary>
-        /// Write fatal.
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="t"></param>
+        /// <inheritdoc />
         public void Fatal(object message, Exception t)
         {
             // No implementation
         }
 
-        /// <summary>
-        /// Write info.
-        /// </summary>
-        /// <param name="message"></param>
+        /// <inheritdoc />
         public void Info(object message)
         {
             // No implementation
         }
 
-        /// <summary>
-        /// Write info.
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="t"></param>
+        /// <inheritdoc />
         public void Info(object message, Exception t)
         {
             // No implementation
         }
 
-        /// <summary>
-        /// Write trace.
-        /// </summary>
-        /// <param name="message"></param>
+        /// <inheritdoc />
         public void Trace(object message)
         {
             // No implementation
         }
 
-        /// <summary>
-        /// Write trace.
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="t"></param>
+        /// <inheritdoc />
         public void Trace(object message, Exception t)
         {
             // No implementation
         }
 
-        /// <summary>
-        /// Write warn.
-        /// </summary>
-        /// <param name="message"></param>
+        /// <inheritdoc />
         public void Warn(object message)
         {
             // No implementation
         }
 
-        /// <summary>
-        /// Write warn.
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="t"></param>
+        /// <inheritdoc />
         public void Warn(object message, Exception t)
         {
             // No implementation
         }
-
-        #endregion
     }
 }

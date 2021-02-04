@@ -2,19 +2,13 @@ namespace NHapi.Base.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.Text;
-    using NHapi.Base.Model;
 
     /// <summary>
     /// Abstract group item.
     /// </summary>
     public class AbstractGroupItem
     {
-        private string _name;
-        private List<IStructure> _structures = new List<IStructure>();
-        private bool _isRequired = false;
-        private bool _isRepeating = false;
-        private Type _class;
+        private List<IStructure> structures = new List<IStructure>();
 
         /// <summary>
         /// Constructor.
@@ -25,50 +19,38 @@ namespace NHapi.Base.Model
         /// <param name="classType"></param>
         public AbstractGroupItem(string name, bool required, bool repeating, Type classType)
         {
-            _name = name;
-            _isRequired = required;
-            _isRepeating = repeating;
-            _class = classType;
+            Name = name;
+            IsRequired = required;
+            IsRepeating = repeating;
+            ClassType = classType;
         }
 
         /// <summary>
         /// Name of the item.
         /// </summary>
-        public string Name
-        {
-            get { return _name; }
-        }
+        public string Name { get; }
 
         /// <summary>
         /// The type of class.
         /// </summary>
-        public Type ClassType
-        {
-            get { return _class; }
-        }
+        public Type ClassType { get; }
 
         /// <summary>
         /// Is item repeating.
         /// </summary>
-        public bool IsRepeating
-        {
-            get { return _isRepeating; }
-        }
+        public bool IsRepeating { get; }
 
         /// <summary>
         /// Is item required.
         /// </summary>
-        public bool IsRequired
-        {
-            get { return _isRequired; }
-        }
+        public bool IsRequired { get; }
 
         /// <summary>
         /// The structures of the group item.
         /// </summary>
         public List<IStructure> Structures
         {
-            get { return _structures; }
+            get { return structures; }
         }
 
         /// <summary>
@@ -78,16 +60,19 @@ namespace NHapi.Base.Model
         /// <returns></returns>
         public IStructure this[int index]
         {
-            get { return _structures[index]; }
+            get
+            {
+                return structures[index];
+            }
 
             set
             {
-                if (index > 0 && !_isRepeating)
+                if (index > 0 && !IsRepeating)
                 {
-                    throw new HL7Exception("Cannot add multiple strucutres to " + _name + ".  Item is non-repeating");
+                    throw new HL7Exception("Cannot add multiple structures to " + Name + ".  Item is non-repeating");
                 }
 
-                _structures[index] = value;
+                structures[index] = value;
             }
         }
     }

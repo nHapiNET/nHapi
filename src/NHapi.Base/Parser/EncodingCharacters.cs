@@ -30,13 +30,78 @@ namespace NHapi.Base.Parser
     using System;
     using System.Text;
 
-   /// <summary>
-   /// Represents the set of special characters used to encode traditionally
-   /// encoded HL7 messages.
-   /// </summary>
-   /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
+    /// <summary>
+    /// Represents the set of special characters used to encode traditionally
+    /// encoded HL7 messages.
+    /// </summary>
+    /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
     public class EncodingCharacters : object, ICloneable
     {
+        private char fieldSep;
+        private char[] encChars;
+
+        /// <summary>
+        /// Creates new EncodingCharacters object with the given character
+        /// values. If the encodingCharacters argument is null, the default
+        /// values are used.
+        /// </summary>
+        /// <param name="fieldSeparator">The field separator.</param>
+        /// <param name="encodingCharacters">
+        /// Consists of the characters that appear in
+        /// MSH-2 (see section 2.8 of the HL7 spec). The characters are
+        /// Component Separator, Repetition Separator, Escape Character, and
+        /// Subcomponent Separator (in that order).
+        /// </param>
+        public EncodingCharacters(char fieldSeparator, string encodingCharacters)
+        {
+            fieldSep = fieldSeparator;
+
+            encChars = new char[4];
+
+            if (encodingCharacters == null)
+            {
+                encChars[0] = '^';
+
+                encChars[1] = '~';
+
+                encChars[2] = '\\';
+
+                encChars[3] = '&';
+            }
+            else
+            {
+                SupportClass.GetCharsFromString(encodingCharacters, 0, 4, encChars, 0);
+            }
+        }
+
+        public EncodingCharacters(
+            char fieldSeparator,
+            char componentSeparator,
+            char repetitionSeparator,
+            char escapeCharacter,
+            char subcomponentSeparator)
+            : this(
+                fieldSeparator,
+                Convert.ToString(componentSeparator) + repetitionSeparator + escapeCharacter + subcomponentSeparator)
+        {
+        }
+
+        /// <summary>copies contents of "other". </summary>
+        public EncodingCharacters(EncodingCharacters other)
+        {
+            fieldSep = other.FieldSeparator;
+
+            encChars = new char[4];
+
+            encChars[0] = other.ComponentSeparator;
+
+            encChars[1] = other.RepetitionSeparator;
+
+            encChars[2] = other.EscapeCharacter;
+
+            encChars[3] = other.SubcomponentSeparator;
+        }
+
         /// <summary>
         /// Returns the field separator.
         ///
@@ -90,68 +155,6 @@ namespace NHapi.Base.Parser
             get { return encChars[3]; }
 
             set { encChars[3] = value; }
-        }
-
-        private char fieldSep;
-
-        private char[] encChars;
-
-        /// <summary>
-        /// Creates new EncodingCharacters object with the given character
-        /// values. If the encodingCharacters argument is null, the default
-        /// values are used.
-        /// </summary>
-        /// <param name="fieldSeparator">The field separator.</param>
-        /// <param name="encodingCharacters">
-        /// Consists of the characters that appear in
-        /// MSH-2 (see section 2.8 of the HL7 spec). The characters are
-        /// Component Separator, Repetition Separator, Escape Character, and
-        /// Subcomponent Separator (in that order).
-        /// </param>
-        public EncodingCharacters(char fieldSeparator, string encodingCharacters)
-        {
-            fieldSep = fieldSeparator;
-
-            encChars = new char[4];
-
-            if (encodingCharacters == null)
-            {
-                encChars[0] = '^';
-
-                encChars[1] = '~';
-
-                encChars[2] = '\\';
-
-                encChars[3] = '&';
-            }
-            else
-            {
-                SupportClass.GetCharsFromString(encodingCharacters, 0, 4, encChars, 0);
-            }
-        }
-
-        public EncodingCharacters(char fieldSeparator, char componentSeparator, char repetitionSeparator, char escapeCharacter,
-            char subcomponentSeparator)
-            : this(
-                fieldSeparator, Convert.ToString(componentSeparator) + repetitionSeparator + escapeCharacter + subcomponentSeparator
-                )
-        {
-        }
-
-        /// <summary>copies contents of "other". </summary>
-        public EncodingCharacters(EncodingCharacters other)
-        {
-            fieldSep = other.FieldSeparator;
-
-            encChars = new char[4];
-
-            encChars[0] = other.ComponentSeparator;
-
-            encChars[1] = other.RepetitionSeparator;
-
-            encChars[2] = other.EscapeCharacter;
-
-            encChars[3] = other.SubcomponentSeparator;
         }
 
         /// <summary>

@@ -28,62 +28,90 @@ namespace NHapi.Base.Model.Primitive
 {
     using System;
     using System.Globalization;
+
     using NHapi.Base.Log;
 
-   /// <summary>
-   /// This class contains functionality used by the TS class
-   /// in the version 2.3.0, 2.3.1, and 2.4 packages
-   ///
-   /// Note: The class description below has been excerpted from the Hl7 2.4 documentation. Sectional
-   /// references made below also refer to the same documentation.
-   ///
-   /// Format: YYYY[MM[DD[HHMM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ]^[Degree of precision]
-   /// Contains the exact time of an event, including the date and time. The date portion of a time stamp follows the rules of a
-   /// date field and the time portion follows the rules of a time field. The time zone (+/-ZZZZ) is represented as +/-HHMM
-   /// offset from UTC (formerly Greenwich Mean Time (GMT)), where +0000 or -0000 both represent UTC (without offset).
-   /// The specific data representations used in the HL7 encoding rules are compatible with ISO 8824-1987(E).
-   /// In prior versions of HL7, an optional second component indicates the degree of precision of the time stamp (Y = year, L
-   /// = month, D = day, H = hour, M = minute, S = second). This optional second component is retained only for purposes of
-   /// backward compatibility.
-   /// By site-specific agreement, YYYYMMDD[HHMM[SS[.S[S[S[S]]]]]][+/-ZZZZ]^[degree of precision] may be used
-   /// where backward compatibility must be maintained.
-   /// In the current and future versions of HL7, the precision is indicated by limiting the number of digits used, unless the
-   /// optional second component is present. Thus, YYYY is used to specify a precision of "year," YYYYMM specifies a
-   /// precision of "month," YYYYMMDD specifies a precision of "day," YYYYMMDDHH is used to specify a precision of
-   /// "hour," YYYYMMDDHHMM is used to specify a precision of "minute," YYYYMMDDHHMMSS is used to specify a
-   /// precision of seconds, and YYYYMMDDHHMMSS.SSSS is used to specify a precision of ten thousandths of a second.
-   /// In each of these cases, the time zone is an optional component. Note that if the time zone is not included, the timezone
-   /// defaults to that of the local time zone of the sender. Also note that a TS valued field with the HHMM part set to "0000"
-   /// represents midnight of the night extending from the previous day to the day given by the YYYYMMDD part (see example
-   /// below). Maximum length of the time stamp is 26. Examples:
-   /// |19760704010159-0500|
-   /// 1:01:59 on July 4, 1976 in the Eastern Standard Time zone (USA).
-   /// |19760704010159-0400|
-   /// 1:01:59 on July 4, 1976 in the Eastern Daylight Saving Time zone (USA).
-   /// |198807050000|
-   /// Midnight of the night extending from July 4 to July 5, 1988 in the local time zone of the sender.
-   /// |19880705|
-   /// Same as prior example, but precision extends only to the day. Could be used for a birthdate, if the time of birth is
-   /// unknown.
-   /// |19981004010159+0100|
-   /// 1:01:59 on October 4, 1998 in Amsterdam, NL. (Time zone=+0100).
-   /// The HL7 Standard strongly recommends that all systems routinely send the time zone offset but does not require it. All
-   /// HL7 systems are required to accept the time zone offset, but its implementation is application specific. For many
-   /// applications the time of interest is the local time of the sender. For example, an application in the Eastern Standard Time
-   /// zone receiving notification of an admission that takes place at 11:00 PM in San Francisco on December 11 would prefer
-   /// to treat the admission as having occurred on December 11 rather than advancing the date to December 12.
-   /// Note: The time zone [+/-ZZZZ], when used, is restricted to legally-defined time zones and is represented in HHMM
-   /// format.
-   /// One exception to this rule would be a clinical system that processed patient data collected in a clinic and a nearby hospital
-   /// that happens to be in a different time zone. Such applications may choose to convert the data to a common
-   /// representation. Similar concerns apply to the transitions to and from daylight saving time. HL7 supports such requirements
-   /// by requiring that the time zone information be present when the information is sent. It does not, however, specify which of
-   /// the treatments discussed here will be applied by the receiving system.
-   /// </summary>
-   /// <author>  Neal Acharya.
-   /// </author>
+    /// <summary>
+    /// This class contains functionality used by the TS class
+    /// in the version 2.3.0, 2.3.1, and 2.4 packages
+    ///
+    /// Note: The class description below has been excerpted from the Hl7 2.4 documentation. Sectional
+    /// references made below also refer to the same documentation.
+    ///
+    /// Format: YYYY[MM[DD[HHMM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ]^[Degree of precision]
+    /// Contains the exact time of an event, including the date and time. The date portion of a time stamp follows the rules of a
+    /// date field and the time portion follows the rules of a time field. The time zone (+/-ZZZZ) is represented as +/-HHMM
+    /// offset from UTC (formerly Greenwich Mean Time (GMT)), where +0000 or -0000 both represent UTC (without offset).
+    /// The specific data representations used in the HL7 encoding rules are compatible with ISO 8824-1987(E).
+    /// In prior versions of HL7, an optional second component indicates the degree of precision of the time stamp (Y = year, L
+    /// = month, D = day, H = hour, M = minute, S = second). This optional second component is retained only for purposes of
+    /// backward compatibility.
+    /// By site-specific agreement, YYYYMMDD[HHMM[SS[.S[S[S[S]]]]]][+/-ZZZZ]^[degree of precision] may be used
+    /// where backward compatibility must be maintained.
+    /// In the current and future versions of HL7, the precision is indicated by limiting the number of digits used, unless the
+    /// optional second component is present. Thus, YYYY is used to specify a precision of "year," YYYYMM specifies a
+    /// precision of "month," YYYYMMDD specifies a precision of "day," YYYYMMDDHH is used to specify a precision of
+    /// "hour," YYYYMMDDHHMM is used to specify a precision of "minute," YYYYMMDDHHMMSS is used to specify a
+    /// precision of seconds, and YYYYMMDDHHMMSS.SSSS is used to specify a precision of ten thousandths of a second.
+    /// In each of these cases, the time zone is an optional component. Note that if the time zone is not included, the timezone
+    /// defaults to that of the local time zone of the sender. Also note that a TS valued field with the HHMM part set to "0000"
+    /// represents midnight of the night extending from the previous day to the day given by the YYYYMMDD part (see example
+    /// below). Maximum length of the time stamp is 26. Examples:
+    /// |19760704010159-0500|
+    /// 1:01:59 on July 4, 1976 in the Eastern Standard Time zone (USA).
+    /// |19760704010159-0400|
+    /// 1:01:59 on July 4, 1976 in the Eastern Daylight Saving Time zone (USA).
+    /// |198807050000|
+    /// Midnight of the night extending from July 4 to July 5, 1988 in the local time zone of the sender.
+    /// |19880705|
+    /// Same as prior example, but precision extends only to the day. Could be used for a birth date, if the time of birth is
+    /// unknown.
+    /// |19981004010159+0100|
+    /// 1:01:59 on October 4, 1998 in Amsterdam, NL. (Time zone=+0100).
+    /// The HL7 Standard strongly recommends that all systems routinely send the time zone offset but does not require it. All
+    /// HL7 systems are required to accept the time zone offset, but its implementation is application specific. For many
+    /// applications the time of interest is the local time of the sender. For example, an application in the Eastern Standard Time
+    /// zone receiving notification of an admission that takes place at 11:00 PM in San Francisco on December 11 would prefer
+    /// to treat the admission as having occurred on December 11 rather than advancing the date to December 12.
+    /// Note: The time zone [+/-ZZZZ], when used, is restricted to legally-defined time zones and is represented in HHMM
+    /// format.
+    /// One exception to this rule would be a clinical system that processed patient data collected in a clinic and a nearby hospital
+    /// that happens to be in a different time zone. Such applications may choose to convert the data to a common
+    /// representation. Similar concerns apply to the transitions to and from daylight saving time. HL7 supports such requirements
+    /// by requiring that the time zone information be present when the information is sent. It does not, however, specify which of
+    /// the treatments discussed here will be applied by the receiving system.
+    /// </summary>
+    /// <author>  Neal Acharya.
+    /// </author>
     public class CommonTS
     {
+        private static readonly IHapiLog Log;
+
+        private CommonDT dt;
+        private CommonTM tm;
+
+        static CommonTS()
+        {
+            Log = HapiLogFactory.GetHapiLog(typeof(CommonTS));
+        }
+
+        /// <summary>Creates new ValidTS
+        /// zero argument constructor.
+        /// Creates an uninitialized TS datatype.
+        /// </summary>
+        public CommonTS()
+        {
+        }
+
+        /// <summary> Constructs a TS object with the given value.
+        /// The stored value will be in the following
+        /// format YYYY[MM[DD[HHMM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ].
+        /// </summary>
+        public CommonTS(string val)
+        {
+            Value = val;
+        }
+
         /// <summary> Returns the HL7 TS string value.</summary>
         /// <summary> This method takes in a string HL7 Time Stamp value and performs validations.
         /// The stored value will be in the following
@@ -116,7 +144,7 @@ namespace NHapi.Base.Model.Primitive
                         }
                         else
                         {
-                            // set value to date concatonated with time value
+                            // set value to date concatenated with time value
                             value_Renamed = value_Renamed + tm.Value;
                         }
                     } // end if
@@ -129,7 +157,7 @@ namespace NHapi.Base.Model.Primitive
                         string offsetStr = string.Empty;
                         if (offset > -99)
                         {
-                            offsetStr = DataTypeUtil.preAppendZeroes(Math.Abs(offset), 4);
+                            offsetStr = DataTypeUtil.PreAppendZeroes(Math.Abs(offset), 4);
                             if (tm.GMTOffset >= 0)
                             {
                                 offsetStr = "+" + offsetStr;
@@ -236,7 +264,7 @@ namespace NHapi.Base.Model.Primitive
                         // set the value of the date object to the input date value
                         dt.Value = dateVal;
 
-                        // if the offset does not exist and a timvalue does not exist then
+                        // if the offset does not exist and a time value does not exist then
                         // we must provide a default offset = to the local time zone
                         if (timeVal == null && offsetExists == false)
                         {
@@ -301,7 +329,7 @@ namespace NHapi.Base.Model.Primitive
                     // end catch
                     catch (Exception e)
                     {
-                        throw new DataTypeException("An unexpected exception ocurred", e);
+                        throw new DataTypeException("An unexpected exception occurred", e);
                     } // end catch
                 }
 
@@ -362,7 +390,7 @@ namespace NHapi.Base.Model.Primitive
                 // end catch
                 catch (Exception e)
                 {
-                    throw new DataTypeException("An unexpected exception ocurred", e);
+                    throw new DataTypeException("An unexpected exception occurred", e);
                 } // end catch
             }
         }
@@ -487,141 +515,20 @@ namespace NHapi.Base.Model.Primitive
             }
         }
 
-        private static readonly IHapiLog log;
-
-        private CommonDT dt;
-        private CommonTM tm;
-
-        /// <summary>Creates new ValidTS
-        /// zero argument constructor.
-        /// Creates an uninitailized TS datatype.
-        /// </summary>
-        public CommonTS()
+        [Obsolete("This method has been replaced by 'ToHl7TSFormat'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public static string toHl7TSFormat(GregorianCalendar cal)
         {
-        } // zero arg constructor
-
-        /// <summary> Constructs a TS object with the given value.
-        /// The stored value will be in the following
-        /// format YYYY[MM[DD[HHMM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ].
-        /// </summary>
-        public CommonTS(string val)
-        {
-            Value = val;
-        } // end constructor
-
-        /// <summary> This method takes in integer values for the year and month and day
-        /// and performs validations, it then sets the value in the object
-        /// formatted as an HL7 Time Stamp value with year and month and day precision (YYYYMMDD).
-        ///
-        /// </summary>
-        public virtual void setDatePrecision(int yr, int mnth, int dy)
-        {
-            try
-            {
-                // create date object if there isn't one
-                if (dt == null)
-                {
-                    dt = new CommonDT();
-                }
-
-                // set the value of the date object to the input date value
-                dt.setYearMonthDayPrecision(yr, mnth, dy);
-
-                // clear the time value object
-                tm = null;
-            }
-
-            // end try
-            catch (DataTypeException e)
-            {
-                throw e;
-            }
-
-            // end catch
-            catch (Exception e)
-            {
-                throw new DataTypeException("An unexpected exception ocurred", e);
-            } // end catch
-        }
-
-        /// <summary> This method takes in integer values for the year, month, day, hour
-        /// and minute and performs validations, it then sets the value in the object
-        /// formatted as an HL7 Time Stamp value with year and month and day and hour and minute precision (YYYYMMDDHHMM).
-        /// </summary>
-        public virtual void setDateMinutePrecision(int yr, int mnth, int dy, int hr, int min)
-        {
-            try
-            {
-                // set the value of the date object to the input date value
-                setDatePrecision(yr, mnth, dy);
-
-                // create new time object is there isn't one
-                if (tm == null)
-                {
-                    tm = new CommonTM();
-                }
-
-                // set the value of the time object to the minute precision with the input values
-                tm.setHourMinutePrecision(hr, min);
-            }
-
-            // end try
-            catch (DataTypeException e)
-            {
-                throw e;
-            }
-
-            // end catch
-            catch (Exception e)
-            {
-                throw new DataTypeException("An unexpected exception ocurred", e);
-            } // end catch
-        }
-
-        /// <summary> This method takes in integer values for the year, month, day, hour, minute, seconds,
-        /// and fractional seconds (going to the tenthousandths precision).
-        /// The method performs validations and then sets the value in the object formatted as an
-        /// HL7 time value with a precision that starts from the year and goes down to the tenthousandths
-        /// of a second (YYYYMMDDHHMMSS.SSSS).
-        /// The Gmt Offset will not be effected.
-        /// Note: all of the precisions from tenths down to
-        /// tenthousandths of a second are optional. If the precision goes below tenthousandths
-        /// of a second then the second value will be rounded to the nearest tenthousandths of a second.
-        /// </summary>
-        public virtual void setDateSecondPrecision(int yr, int mnth, int dy, int hr, int min, float sec)
-        {
-            try
-            {
-                // set the value of the date object to the input date value
-                setDatePrecision(yr, mnth, dy);
-
-                // create new time object is there isn't one
-                if (tm == null)
-                {
-                    tm = new CommonTM();
-                }
-
-                // set the value of the time object to the second precision with the input values
-                tm.setHourMinSecondPrecision(hr, min, sec);
-            }
-
-            // end try
-            catch (DataTypeException e)
-            {
-                throw e;
-            }
-
-            // end catch
-            catch (Exception e)
-            {
-                throw new DataTypeException("An unexpected exception ocurred", e);
-            } // end catch
+            return ToHl7TSFormat(cal);
         }
 
         /// <summary> Returns a string value representing the input Gregorian Calendar object in
         /// an Hl7 TimeStamp Format.
         /// </summary>
-        public static string toHl7TSFormat(GregorianCalendar cal)
+        public static string ToHl7TSFormat(GregorianCalendar cal)
         {
             string val = string.Empty;
             try
@@ -636,7 +543,7 @@ namespace NHapi.Base.Model.Primitive
                 int calSec = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.SECOND);
                 int calMilli = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MILLISECOND);
 
-                // the inputs seconds and milli seconds should be combined into a float type
+                // the inputs seconds and milliseconds should be combined into a float type
                 float fractSec = calMilli / 1000F;
                 float calSecFloat = calSec + fractSec;
                 int calOffset = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.ZONE_OFFSET);
@@ -664,7 +571,7 @@ namespace NHapi.Base.Model.Primitive
                 // Create an object of the TS class and populate it with the above values
                 // then return the HL7 string value from the object
                 CommonTS ts = new CommonTS();
-                ts.setDateSecondPrecision(calYear, calMonth, calDay, calHour, calMin, calSecFloat);
+                ts.SetDateSecondPrecision(calYear, calMonth, calDay, calHour, calMin, calSecFloat);
                 ts.Offset = calOffset;
                 val = ts.Value;
             }
@@ -678,15 +585,149 @@ namespace NHapi.Base.Model.Primitive
             // end catch
             catch (Exception e)
             {
-                throw new DataTypeException("An unexpected exception ocurred", e);
+                throw new DataTypeException("An unexpected exception occurred", e);
             } // end catch
 
             return val;
         }
 
-        static CommonTS()
+        [Obsolete("This method has been replaced by 'SetDatePrecision'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual void setDatePrecision(int yr, int mnth, int dy)
         {
-            log = HapiLogFactory.GetHapiLog(typeof(CommonTS));
+            SetDatePrecision(yr, mnth, dy);
         }
-    } // end class
+
+        /// <summary> This method takes in integer values for the year and month and day
+        /// and performs validations, it then sets the value in the object
+        /// formatted as an HL7 Time Stamp value with year and month and day precision (YYYYMMDD).
+        ///
+        /// </summary>
+        public virtual void SetDatePrecision(int yr, int mnth, int dy)
+        {
+            try
+            {
+                // create date object if there isn't one
+                if (dt == null)
+                {
+                    dt = new CommonDT();
+                }
+
+                // set the value of the date object to the input date value
+                dt.SetYearMonthDayPrecision(yr, mnth, dy);
+
+                // clear the time value object
+                tm = null;
+            }
+
+            // end try
+            catch (DataTypeException e)
+            {
+                throw e;
+            }
+
+            // end catch
+            catch (Exception e)
+            {
+                throw new DataTypeException("An unexpected exception occurred", e);
+            } // end catch
+        }
+
+        [Obsolete("This method has been replaced by 'SetDateMinutePrecision'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual void setDateMinutePrecision(int yr, int mnth, int dy, int hr, int min)
+        {
+            SetDateMinutePrecision(yr, mnth, dy, hr, min);
+        }
+
+        /// <summary> This method takes in integer values for the year, month, day, hour
+        /// and minute and performs validations, it then sets the value in the object
+        /// formatted as an HL7 Time Stamp value with year and month and day and hour and minute precision (YYYYMMDDHHMM).
+        /// </summary>
+        public virtual void SetDateMinutePrecision(int yr, int mnth, int dy, int hr, int min)
+        {
+            try
+            {
+                // set the value of the date object to the input date value
+                SetDatePrecision(yr, mnth, dy);
+
+                // create new time object is there isn't one
+                if (tm == null)
+                {
+                    tm = new CommonTM();
+                }
+
+                // set the value of the time object to the minute precision with the input values
+                tm.SetHourMinutePrecision(hr, min);
+            }
+
+            // end try
+            catch (DataTypeException e)
+            {
+                throw e;
+            }
+
+            // end catch
+            catch (Exception e)
+            {
+                throw new DataTypeException("An unexpected exception occurred", e);
+            } // end catch
+        }
+
+        [Obsolete("This method has been replaced by 'SetDateSecondPrecision'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual void setDateSecondPrecision(int yr, int mnth, int dy, int hr, int min, float sec)
+        {
+            SetDateSecondPrecision(yr, mnth, dy, hr, min, sec);
+        }
+
+        /// <summary> This method takes in integer values for the year, month, day, hour, minute, seconds,
+        /// and fractional seconds (going to the ten thousandths precision).
+        /// The method performs validations and then sets the value in the object formatted as an
+        /// HL7 time value with a precision that starts from the year and goes down to the ten thousandths
+        /// of a second (YYYYMMDDHHMMSS.SSSS).
+        /// The GMT Offset will not be effected.
+        /// Note: all of the precisions from tenths down to
+        /// ten thousandths of a second are optional. If the precision goes below ten thousandths
+        /// of a second then the second value will be rounded to the nearest ten thousandths of a second.
+        /// </summary>
+        public virtual void SetDateSecondPrecision(int yr, int mnth, int dy, int hr, int min, float sec)
+        {
+            try
+            {
+                // set the value of the date object to the input date value
+                SetDatePrecision(yr, mnth, dy);
+
+                // create new time object is there isn't one
+                if (tm == null)
+                {
+                    tm = new CommonTM();
+                }
+
+                // set the value of the time object to the second precision with the input values
+                tm.SetHourMinSecondPrecision(hr, min, sec);
+            }
+
+            // end try
+            catch (DataTypeException e)
+            {
+                throw e;
+            }
+
+            // end catch
+            catch (Exception e)
+            {
+                throw new DataTypeException("An unexpected exception occurred", e);
+            } // end catch
+        }
+    }
 }

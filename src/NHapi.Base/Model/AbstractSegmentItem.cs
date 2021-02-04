@@ -2,17 +2,12 @@ namespace NHapi.Base.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.Text;
 
     internal class AbstractSegmentItem
     {
-        private List<IType> _fields = new List<IType>();
-        private Type _type;
-        private bool _required = false;
-        private int _length = 0;
-        private List<object> _args = new List<object>();
-        private int _maxReps = -1;
-        private string _description;
+        private List<IType> fields = new List<IType>();
+        private List<object> args = new List<object>();
+        private int maxReps = -1;
 
         /// <summary>
         /// Constructor.
@@ -42,7 +37,12 @@ namespace NHapi.Base.Model
         /// if new instances of this class are created (use null for zero-arg constructor).</param>
         /// <param name="description">Description of the segment.</param>
         /// <throws>  HL7Exception if the given class does not inherit from IType or if it cannot be instantiated. </throws>
-        public AbstractSegmentItem(Type t, bool required, int maxReps, int length, object[] constructorArgs,
+        public AbstractSegmentItem(
+            Type t,
+            bool required,
+            int maxReps,
+            int length,
+            object[] constructorArgs,
             string description)
         {
             if (!typeof(IType).IsAssignableFrom(t))
@@ -52,48 +52,39 @@ namespace NHapi.Base.Model
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
-            _type = t;
-            _length = length;
-            _required = required;
-            _maxReps = maxReps;
+            FieldType = t;
+            Length = length;
+            IsRequired = required;
+            this.maxReps = maxReps;
             if (constructorArgs != null)
             {
-                _args.AddRange(constructorArgs);
+                args.AddRange(constructorArgs);
             }
 
-            _description = description;
+            Description = description;
         }
 
         /// <summary>
         ///     The IType of this field in the segment.
         /// </summary>
-        public Type FieldType
-        {
-            get { return _type; }
-        }
+        public Type FieldType { get; }
 
         /// <summary>
         /// Is this a required field.
         /// </summary>
-        public bool IsRequired
-        {
-            get { return _required; }
-        }
+        public bool IsRequired { get; }
 
         /// <summary>
         /// What is the length in characters of the field.
         /// </summary>
-        public int Length
-        {
-            get { return _length; }
-        }
+        public int Length { get; }
 
         /// <summary>
         /// Arguments to pass to a constructor for this field.
         /// </summary>
         public object[] Args
         {
-            get { return _args.ToArray(); }
+            get { return args.ToArray(); }
         }
 
         /// <summary>
@@ -103,26 +94,33 @@ namespace NHapi.Base.Model
         {
             get
             {
-                if (_maxReps <= 0)
+                if (maxReps <= 0)
                 {
                     return int.MaxValue;
                 }
                 else
                 {
-                    return _maxReps;
+                    return maxReps;
                 }
             }
 
-            set { _maxReps = value; }
+            set
+            {
+                maxReps = value;
+            }
         }
 
         /// <summary>
         /// What is this field.
         /// </summary>
-        public string Description
+        public string Description { get; set; }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public IList<IType> Fields
         {
-            get { return _description; }
-            set { _description = value; }
+            get { return fields; }
         }
 
         /// <summary>
@@ -132,27 +130,19 @@ namespace NHapi.Base.Model
         /// <returns></returns>
         public IType this[int index]
         {
-            get { return _fields[index]; }
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        public IList<IType> Fields
-        {
-            get { return _fields; }
+            get { return fields[index]; }
         }
 
         public IType[] GetAllFieldsAsITypeArray()
         {
-            IType[] fields = new IType[_fields.Count];
+            IType[] f = new IType[fields.Count];
             int i = 0;
-            foreach (IType type in _fields)
+            foreach (IType type in fields)
             {
-                fields[i++] = type;
+                f[i++] = type;
             }
 
-            return fields;
+            return f;
         }
     }
 }

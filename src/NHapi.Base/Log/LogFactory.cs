@@ -1,8 +1,6 @@
 namespace NHapi.Base.Log
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Placeholder for LogFactory to get project to compile.

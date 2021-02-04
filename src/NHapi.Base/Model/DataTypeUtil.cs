@@ -28,9 +28,16 @@ namespace NHapi.Base.Model
 {
     using System;
 
-   /// <summary> This class is used to provide utility functions for other datatype classes and methods.</summary>
+    /// <summary> This class is used to provide utility functions for other datatype classes and methods.</summary>
     public class DataTypeUtil
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        public DataTypeUtil()
+        {
+        }
+
         /// <summary> This method will return a signed four digit integer indicating the local
         /// GMT offset. This is the HL7 Offset format in integer representation.
         /// </summary>
@@ -49,36 +56,41 @@ namespace NHapi.Base.Model
             var gmtOffSet = timeZone.GetUtcOffset(time);
 
             // return the offset value HL7 format
-            return gmtOffSet.Hours * 100 + gmtOffSet.Minutes;
+            return (gmtOffSet.Hours * 100) + gmtOffSet.Minutes;
         }
 
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        public DataTypeUtil()
-        {
-        } // end zero arg constructor
-
-        /// <summary> This method will preappend the zeros to the beginning of num such that the total length
-        /// equals totalDigitLength. It will also return the string representation of the new number.
-        /// </summary>
+        [Obsolete("This method has been replaced by 'PreAppendZeroes'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
         public static string preAppendZeroes(int num, int totalDigitLength)
         {
-            /* preappend the zeros to the beginning of num such that the total length
+            return PreAppendZeroes(num, totalDigitLength);
+        }
+
+        /// <summary> This method will pre-append the zeros to the beginning of num such that the total length
+        /// equals totalDigitLength. It will also return the string representation of the new number.
+        /// </summary>
+        public static string PreAppendZeroes(int num, int totalDigitLength)
+        {
+            /* pre-append the zeros to the beginning of num such that the total length
             equals totalDigitLength. Return the string representation of the new number*/
             string a = Convert.ToString(num);
             if (a.Length >= totalDigitLength)
+            {
                 return a;
+            }
             else
             {
                 int preAppendAmnt = totalDigitLength - a.Length;
                 for (int j = 0; j < preAppendAmnt; j++)
                 {
                     a = "0" + a;
-                } // end for
+                }
 
                 return a;
-            } // end else
+            }
         }
-    } // end class
+    }
 }
