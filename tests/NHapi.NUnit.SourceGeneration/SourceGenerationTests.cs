@@ -7,7 +7,8 @@
     [TestFixture]
     public class SourceGenerationTests
     {
-        [Test, Explicit]
+        [Test]
+        [Explicit]
         public void Test_Generate_Versions()
         {
             string[] versionsToGenerate = new[]
@@ -29,6 +30,7 @@
 
             foreach (var versionToGenerate in versionsToGenerate)
             {
+                // TODO: Should make these paths and connections strings configurable
                 var builder = new ModelBuilder();
                 builder.BasePath = @"D:\Checkouts\duane\nHapi_monsterclean\NHapi20";
                 builder.ConnectionString = @"Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=Z:\projects\hl7\hl7db.mdb;";
