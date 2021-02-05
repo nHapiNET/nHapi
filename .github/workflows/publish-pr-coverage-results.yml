@@ -1,4 +1,4 @@
-name: Publish Pull Request Test Results
+name: Publish Code Coverage Results
 
 on:
   workflow_run:
@@ -19,14 +19,10 @@ jobs:
       - name: Download Artifacts
         uses: actions/download-artifact@v2
         with:
-          name: Unit Test Results
+          name: Coverage Reports
           path: artifacts
 
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1.7
+      - name: Publish Code Coverage Results
+        uses: codecov/codecov-action@v1
         with:
-          check_name: Unit Test Results
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          files: "**/*.xml"
-          report_individual_runs: true
-          check_run_annotations: all tests, skipped tests
+          token: ${{ secrets.CODECOV_TOKEN }}
