@@ -47,19 +47,19 @@
             switch (MessageTypeToBuild)
             {
                 case MessageType.All:
-                    SourceGenerator.makeAll(BasePath, Version);
+                    SourceGenerator.MakeAll(BasePath, Version);
                     break;
                 case MessageType.EventMapping:
                     SourceGenerator.MakeEventMapping(BasePath, Version);
                     break;
                 case MessageType.Segment:
-                    SegmentGenerator.makeAll(BasePath, Version);
+                    SegmentGenerator.MakeAll(BasePath, Version);
                     break;
                 case MessageType.Message:
-                    MessageGenerator.makeAll(BasePath, Version);
+                    MessageGenerator.MakeAll(BasePath, Version);
                     break;
                 case MessageType.DataType:
-                    DataTypeGenerator.makeAll(BasePath, Version);
+                    DataTypeGenerator.MakeAll(BasePath, Version);
                     break;
             }
         }

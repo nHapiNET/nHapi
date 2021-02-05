@@ -11,17 +11,13 @@ namespace NHapi.SourceGeneration
     /// </summary>
     public class OdbcDBSchema
     {
-        private DataTable schemaData = null;
-        private OdbcConnection Connection;
-        private ConnectionState ConnectionState;
-
         /// <summary>
         /// Constructs a new member with the provided connection.
         /// </summary>
-        /// <param name="Connection">The connection to assign to the new member.</param>
-        public OdbcDBSchema(OdbcConnection Connection)
+        /// <param name="connection">The connection to assign to the new member.</param>
+        public OdbcDBSchema(OdbcConnection connection)
         {
-            this.Connection = Connection;
+            this.Connection = connection;
         }
 
         /// <summary>
@@ -37,260 +33,6 @@ namespace NHapi.SourceGeneration
                 CloseConnection();
                 return result;
             }
-        }
-
-        /// <summary>
-        /// Opens the connection.
-        /// </summary>
-        private void OpenConnection()
-        {
-            ConnectionState = Connection.State;
-            Connection.Close();
-            Connection.Open();
-            schemaData = null;
-        }
-
-        /// <summary>
-        /// Closes the connection.
-        /// </summary>
-        private void CloseConnection()
-        {
-            if (this.ConnectionState == ConnectionState.Open)
-            {
-                Connection.Close();
-            }
-        }
-
-        /// <summary>
-        /// Gets the info of the row.
-        /// </summary>
-        /// <param name="filter">Filter to apply to the row.</param>
-        /// <param name="RowName">The row from which to obtain the filter.</param>
-        /// <returns>A new String with the info from the row.</returns>
-        private string GetMaxInfo(string filter, string RowName)
-        {
-            string result = string.Empty;
-            schemaData = null;
-            OpenConnection();
-            schemaData = Connection.GetSchema("DbInfoLiterals", null);
-            foreach (DataRow DataRow in schemaData.Rows)
-            {
-                if (DataRow["LiteralName"].ToString() == filter)
-                {
-                    result = DataRow[RowName].ToString();
-                    break;
-                }
-            }
-
-            CloseConnection();
-            return result;
-        }
-
-        /// <summary>
-        /// Gets the catalogs from the database to which it is connected.
-        /// </summary>
-        public DataTable Catalogs
-        {
-            get
-            {
-                OpenConnection();
-                schemaData = Connection.GetSchema("Catalogs", null);
-                CloseConnection();
-                return schemaData;
-            }
-        }
-
-        /// <summary>
-        /// Gets the OleDBConnection for the current member.
-        /// </summary>
-        /// <returns></returns>
-        public OdbcConnection GetConnection()
-        {
-            return Connection;
-        }
-
-        /// <summary>
-        /// Gets a description of the stored procedures available.
-        /// </summary>
-        /// <param name="catalog">The catalog from which to obtain the procedures.</param>
-        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema.</param>
-        /// <param name="procedureNamePattern">a procedure name pattern.</param>
-        /// <returns>each row but withing a procedure description.</returns>
-        public DataTable GetProcedures(string catalog, string schemaPattern, string procedureNamePattern)
-        {
-            OpenConnection();
-            schemaData = Connection.GetSchema(
-                "Procedures",
-                new[] { catalog, schemaPattern, procedureNamePattern, null });
-            CloseConnection();
-            return schemaData;
-        }
-
-        /// <summary>
-        /// Gets a collection of the descriptions of the stored procedures parameters and result columns.
-        /// </summary>
-        /// <param name="catalog">Retrieves those without a catalog.</param>
-        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema.</param>
-        /// <param name="procedureNamePattern">a procedure name pattern.</param>
-        /// <param name="columnNamePattern">a columng name patterm.</param>
-        /// <returns>Each row but withing a procedure description or column.</returns>
-        public DataTable GetProcedureColumns(string catalog, string schemaPattern, string procedureNamePattern,
-            string columnNamePattern)
-        {
-            OpenConnection();
-            schemaData = Connection.GetSchema(
-                "Procedure_Parameters",
-                new[] { catalog, schemaPattern, procedureNamePattern, columnNamePattern });
-            CloseConnection();
-            return schemaData;
-        }
-
-        /// <summary>
-        /// Gets a description of the tables available for the catalog.
-        /// </summary>
-        /// <param name="catalog">A catalog, retrieves those without a catalog.</param>
-        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema.</param>
-        /// <param name="tableNamePattern">A table name pattern.</param>
-        /// <param name="types">a list of table types to include.</param>
-        /// <returns>Each row.</returns>
-        public DataTable GetTables(string catalog, string schemaPattern, string tableNamePattern, string[] types)
-        {
-            OpenConnection();
-            schemaData = Connection.GetSchema(
-                "Tables",
-                new[] { catalog, schemaPattern, tableNamePattern, types[0] });
-            if (types != null)
-            {
-                for (int i = 1; i < types.Length; i++)
-                {
-                    DataTable temp_Table = Connection.GetSchema(
-                        "Tables",
-                        new[] { catalog, schemaPattern, tableNamePattern, types[i] });
-                    for (int j = 0; j < temp_Table.Rows.Count; j++)
-                    {
-                        schemaData.ImportRow(temp_Table.Rows[j]);
-                    }
-                }
-            }
-
-            CloseConnection();
-            return schemaData;
-        }
-
-        /// <summary>
-        /// Gets a description of the table rights.
-        /// </summary>
-        /// <param name="catalog">A catalog, retrieves those without a catalog.</param>
-        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema.</param>
-        /// <param name="tableNamePattern">A table name pattern.</param>
-        /// <returns>A description of the table rights.</returns>
-        public DataTable GetTablePrivileges(string catalog, string schemaPattern, string tableNamePattern)
-        {
-            OpenConnection();
-            schemaData = Connection.GetSchema(
-                "Table_Privileges",
-                new[] { catalog, schemaPattern, tableNamePattern });
-            CloseConnection();
-            return schemaData;
-        }
-
-        /// <summary>
-        /// Gets the table types available.
-        /// </summary>
-        public DataTable TableTypes
-        {
-            get
-            {
-                OpenConnection();
-                schemaData = Connection.GetSchema("Tables", null);
-                ArrayList tableTypes = new ArrayList(schemaData.Rows.Count);
-
-                string tableType = string.Empty;
-                foreach (DataRow DataRow in schemaData.Rows)
-                {
-                    tableType = DataRow[schemaData.Columns["TABLE_TYPE"]].ToString();
-                    if (! tableTypes.Contains(tableType))
-                    {
-                        tableTypes.Add(tableType);
-                    }
-                }
-
-                schemaData = new DataTable();
-                schemaData.Columns.Add("TABLE_TYPE");
-                for (int index = 0; index < tableTypes.Count; index++)
-                {
-                    schemaData.Rows.Add(new object[] { tableTypes[index] });
-                }
-
-                CloseConnection();
-                return schemaData;
-            }
-        }
-
-        /// <summary>
-        /// Gets a description of the table columns available.
-        /// </summary>
-        /// <param name="catalog">A catalog, retrieves those without a catalog.</param>
-        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema.</param>
-        /// <param name="tableNamePattern">A table name pattern.</param>
-        /// <param name="columnNamePattern">a columng name patterm.</param>
-        /// <returns>A description of the table columns available.</returns>
-        public DataTable GetColumns(string catalog, string schemaPattern, string tableNamePattern, string columnNamePattern)
-        {
-            OpenConnection();
-            schemaData = Connection.GetSchema(
-                "Columns",
-                new[] { catalog, schemaPattern, tableNamePattern, columnNamePattern });
-            CloseConnection();
-            return schemaData;
-        }
-
-        /// <summary>
-        /// Gets a description of the primary keys available.
-        /// </summary>
-        /// <param name="catalog">A catalog, retrieves those without a catalog.</param>
-        /// <param name="schema">Schema name, retrieves those without the schema.</param>
-        /// <param name="table">A table name.</param>
-        /// <returns>A description of the primary keys available.</returns>
-        public DataTable GetPrimaryKeys(string catalog, string schema, string table)
-        {
-            OpenConnection();
-            schemaData = Connection.GetSchema("Primary_Keys", new[] { catalog, schema, table });
-            CloseConnection();
-            return schemaData;
-        }
-
-        /// <summary>
-        /// Gets a description of the foreign keys available.
-        /// </summary>
-        /// <param name="catalog">A catalog, retrieves those without a catalog.</param>
-        /// <param name="schema">Schema name, retrieves those without the schema.</param>
-        /// <param name="table">A table name.</param>
-        /// <returns>A description of the foreign keys available.</returns>
-        public DataTable GetForeignKeys(string catalog, string schema, string table)
-        {
-            OpenConnection();
-            schemaData = Connection.GetSchema("Foreign_Keys", new[] { catalog, schema, table });
-            CloseConnection();
-            return schemaData;
-        }
-
-        /// <summary>
-        /// Gets a description of the access rights for a table columns.
-        /// </summary>
-        /// <param name="catalog">A catalog, retrieves those without a catalog.</param>
-        /// <param name="schema">Schema name, retrieves those without the schema.</param>
-        /// <param name="table">A table name.</param>
-        /// <param name="columnNamePattern">A column name patter.</param>
-        /// <returns>A description of the access rights for a table columns.</returns>
-        public DataTable GetColumnPrivileges(string catalog, string schema, string table, string columnNamePattern)
-        {
-            OpenConnection();
-            schemaData = Connection.GetSchema(
-                "Column_Privileges",
-                new[] { catalog, schema, table, columnNamePattern });
-            CloseConnection();
-            return schemaData;
         }
 
         /// <summary>
@@ -317,8 +59,8 @@ namespace NHapi.SourceGeneration
             {
                 int result = -1;
                 OpenConnection();
-                DbTransaction Transaction = Connection.BeginTransaction();
-                result = (int)Transaction.IsolationLevel;
+                DbTransaction transaction = Connection.BeginTransaction();
+                result = (int)transaction.IsolationLevel;
                 CloseConnection();
                 return result;
             }
@@ -332,9 +74,9 @@ namespace NHapi.SourceGeneration
             get
             {
                 OpenConnection();
-                schemaData = Connection.GetSchema("Schemata", null);
+                SchemaData = Connection.GetSchema("Schemata", null);
                 CloseConnection();
-                return schemaData;
+                return SchemaData;
             }
         }
 
@@ -346,9 +88,9 @@ namespace NHapi.SourceGeneration
             get
             {
                 OpenConnection();
-                schemaData = Connection.GetSchema("Provider_Types", null);
+                SchemaData = Connection.GetSchema("Provider_Types", null);
                 CloseConnection();
-                return schemaData;
+                return SchemaData;
             }
         }
 
@@ -361,7 +103,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the maximum binary length permited.
+        /// Gets the maximum binary length permitted.
         /// </summary>
         public int MaxBinaryLiteralLength
         {
@@ -380,7 +122,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the maximum catalog name length permited.
+        /// Gets the maximum catalog name length permitted.
         /// </summary>
         public int MaxCatalogNameLength
         {
@@ -399,7 +141,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary>
-        /// Gets the maximum character literal length permited.
+        /// Gets the maximum character literal length permitted.
         /// </summary>
         public int MaxCharLiteralLength
         {
@@ -530,6 +272,268 @@ namespace NHapi.SourceGeneration
                 }
             }
         }
-    }
 
+        /// <summary>
+        /// Gets the catalogs from the database to which it is connected.
+        /// </summary>
+        public DataTable Catalogs
+        {
+            get
+            {
+                OpenConnection();
+                SchemaData = Connection.GetSchema("Catalogs", null);
+                CloseConnection();
+                return SchemaData;
+            }
+        }
+
+        /// <summary>
+        /// Gets the table types available.
+        /// </summary>
+        public DataTable TableTypes
+        {
+            get
+            {
+                OpenConnection();
+                SchemaData = Connection.GetSchema("Tables", null);
+                ArrayList tableTypes = new ArrayList(SchemaData.Rows.Count);
+
+                string tableType = string.Empty;
+                foreach (DataRow dataRow in SchemaData.Rows)
+                {
+                    tableType = dataRow[SchemaData.Columns["TABLE_TYPE"]].ToString();
+                    if (!tableTypes.Contains(tableType))
+                    {
+                        tableTypes.Add(tableType);
+                    }
+                }
+
+                SchemaData = new DataTable();
+                SchemaData.Columns.Add("TABLE_TYPE");
+                for (int index = 0; index < tableTypes.Count; index++)
+                {
+                    SchemaData.Rows.Add(new object[] { tableTypes[index] });
+                }
+
+                CloseConnection();
+                return SchemaData;
+            }
+        }
+
+        private OdbcConnection Connection { get; }
+
+        private ConnectionState ConnectionState { get; set; }
+
+        private DataTable SchemaData { get; set; } = null;
+
+        /// <summary>
+        /// Gets the OleDBConnection for the current member.
+        /// </summary>
+        /// <returns></returns>
+        public OdbcConnection GetConnection()
+        {
+            return Connection;
+        }
+
+        /// <summary>
+        /// Gets a description of the stored procedures available.
+        /// </summary>
+        /// <param name="catalog">The catalog from which to obtain the procedures.</param>
+        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema.</param>
+        /// <param name="procedureNamePattern">a procedure name pattern.</param>
+        /// <returns>each row but withing a procedure description.</returns>
+        public DataTable GetProcedures(string catalog, string schemaPattern, string procedureNamePattern)
+        {
+            OpenConnection();
+            SchemaData = Connection.GetSchema(
+                "Procedures",
+                new[] { catalog, schemaPattern, procedureNamePattern, null });
+            CloseConnection();
+            return SchemaData;
+        }
+
+        /// <summary>
+        /// Gets a collection of the descriptions of the stored procedures parameters and result columns.
+        /// </summary>
+        /// <param name="catalog">Retrieves those without a catalog.</param>
+        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema.</param>
+        /// <param name="procedureNamePattern">a procedure name pattern.</param>
+        /// <param name="columnNamePattern">a column name pattern.</param>
+        /// <returns>Each row but withing a procedure description or column.</returns>
+        public DataTable GetProcedureColumns(
+            string catalog,
+            string schemaPattern,
+            string procedureNamePattern,
+            string columnNamePattern)
+        {
+            OpenConnection();
+            SchemaData = Connection.GetSchema(
+                "Procedure_Parameters",
+                new[] { catalog, schemaPattern, procedureNamePattern, columnNamePattern });
+            CloseConnection();
+            return SchemaData;
+        }
+
+        /// <summary>
+        /// Gets a description of the tables available for the catalog.
+        /// </summary>
+        /// <param name="catalog">A catalog, retrieves those without a catalog.</param>
+        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema.</param>
+        /// <param name="tableNamePattern">A table name pattern.</param>
+        /// <param name="types">a list of table types to include.</param>
+        /// <returns>Each row.</returns>
+        public DataTable GetTables(string catalog, string schemaPattern, string tableNamePattern, string[] types)
+        {
+            OpenConnection();
+            SchemaData = Connection.GetSchema(
+                "Tables",
+                new[] { catalog, schemaPattern, tableNamePattern, types[0] });
+            if (types != null)
+            {
+                for (int i = 1; i < types.Length; i++)
+                {
+                    DataTable temp_Table = Connection.GetSchema(
+                        "Tables",
+                        new[] { catalog, schemaPattern, tableNamePattern, types[i] });
+                    for (int j = 0; j < temp_Table.Rows.Count; j++)
+                    {
+                        SchemaData.ImportRow(temp_Table.Rows[j]);
+                    }
+                }
+            }
+
+            CloseConnection();
+            return SchemaData;
+        }
+
+        /// <summary>
+        /// Gets a description of the table rights.
+        /// </summary>
+        /// <param name="catalog">A catalog, retrieves those without a catalog.</param>
+        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema.</param>
+        /// <param name="tableNamePattern">A table name pattern.</param>
+        /// <returns>A description of the table rights.</returns>
+        public DataTable GetTablePrivileges(string catalog, string schemaPattern, string tableNamePattern)
+        {
+            OpenConnection();
+            SchemaData = Connection.GetSchema(
+                "Table_Privileges",
+                new[] { catalog, schemaPattern, tableNamePattern });
+            CloseConnection();
+            return SchemaData;
+        }
+
+        /// <summary>
+        /// Gets a description of the table columns available.
+        /// </summary>
+        /// <param name="catalog">A catalog, retrieves those without a catalog.</param>
+        /// <param name="schemaPattern">Schema pattern, retrieves those without the schema.</param>
+        /// <param name="tableNamePattern">A table name pattern.</param>
+        /// <param name="columnNamePattern">a column name pattern.</param>
+        /// <returns>A description of the table columns available.</returns>
+        public DataTable GetColumns(string catalog, string schemaPattern, string tableNamePattern, string columnNamePattern)
+        {
+            OpenConnection();
+            SchemaData = Connection.GetSchema(
+                "Columns",
+                new[] { catalog, schemaPattern, tableNamePattern, columnNamePattern });
+            CloseConnection();
+            return SchemaData;
+        }
+
+        /// <summary>
+        /// Gets a description of the primary keys available.
+        /// </summary>
+        /// <param name="catalog">A catalog, retrieves those without a catalog.</param>
+        /// <param name="schema">Schema name, retrieves those without the schema.</param>
+        /// <param name="table">A table name.</param>
+        /// <returns>A description of the primary keys available.</returns>
+        public DataTable GetPrimaryKeys(string catalog, string schema, string table)
+        {
+            OpenConnection();
+            SchemaData = Connection.GetSchema("Primary_Keys", new[] { catalog, schema, table });
+            CloseConnection();
+            return SchemaData;
+        }
+
+        /// <summary>
+        /// Gets a description of the foreign keys available.
+        /// </summary>
+        /// <param name="catalog">A catalog, retrieves those without a catalog.</param>
+        /// <param name="schema">Schema name, retrieves those without the schema.</param>
+        /// <param name="table">A table name.</param>
+        /// <returns>A description of the foreign keys available.</returns>
+        public DataTable GetForeignKeys(string catalog, string schema, string table)
+        {
+            OpenConnection();
+            SchemaData = Connection.GetSchema("Foreign_Keys", new[] { catalog, schema, table });
+            CloseConnection();
+            return SchemaData;
+        }
+
+        /// <summary>
+        /// Gets a description of the access rights for a table columns.
+        /// </summary>
+        /// <param name="catalog">A catalog, retrieves those without a catalog.</param>
+        /// <param name="schema">Schema name, retrieves those without the schema.</param>
+        /// <param name="table">A table name.</param>
+        /// <param name="columnNamePattern">A column name patter.</param>
+        /// <returns>A description of the access rights for a table columns.</returns>
+        public DataTable GetColumnPrivileges(string catalog, string schema, string table, string columnNamePattern)
+        {
+            OpenConnection();
+            SchemaData = Connection.GetSchema(
+                "Column_Privileges",
+                new[] { catalog, schema, table, columnNamePattern });
+            CloseConnection();
+            return SchemaData;
+        }
+
+        /// <summary>
+        /// Opens the connection.
+        /// </summary>
+        private void OpenConnection()
+        {
+            ConnectionState = Connection.State;
+            Connection.Close();
+            Connection.Open();
+            SchemaData = null;
+        }
+
+        /// <summary>
+        /// Closes the connection.
+        /// </summary>
+        private void CloseConnection()
+        {
+            if (this.ConnectionState == ConnectionState.Open)
+            {
+                Connection.Close();
+            }
+        }
+
+        /// <summary>
+        /// Gets the info of the row.
+        /// </summary>
+        /// <param name="filter">Filter to apply to the row.</param>
+        /// <param name="rowName">The row from which to obtain the filter.</param>
+        /// <returns>A new String with the info from the row.</returns>
+        private string GetMaxInfo(string filter, string rowName)
+        {
+            string result = string.Empty;
+            SchemaData = null;
+            OpenConnection();
+            SchemaData = Connection.GetSchema("DbInfoLiterals", null);
+            foreach (DataRow dataRow in SchemaData.Rows)
+            {
+                if (dataRow["LiteralName"].ToString() == filter)
+                {
+                    result = dataRow[rowName].ToString();
+                    break;
+                }
+            }
+
+            CloseConnection();
+            return result;
+        }
+    }
 }

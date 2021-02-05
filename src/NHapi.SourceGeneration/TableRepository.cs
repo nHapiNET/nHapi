@@ -26,17 +26,17 @@
 
 namespace NHapi.SourceGeneration
 {
-    using System;
-
-   /// <summary> A place where table keys and values are stored.  This may be implemented
-   /// with a database, an LDAP directory, local RAM, etc.  At a minimum, any
-   /// underlying repository must supply the values for standard HL7 tables.
-   /// Site-defined tables may also be supported.
-   /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
-   /// </author>
+    /// <summary> A place where table keys and values are stored.  This may be implemented
+    /// with a database, an LDAP directory, local RAM, etc.  At a minimum, any
+    /// underlying repository must supply the values for standard HL7 tables.
+    /// Site-defined tables may also be supported.
+    /// </summary>
+    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
+    /// </author>
     public abstract class TableRepository
     {
+        private static TableRepository rep = null;
+
         /// <summary> Returns a TableRepository object.</summary>
         public static TableRepository Instance
         {
@@ -55,40 +55,14 @@ namespace NHapi.SourceGeneration
         /// <summary> Returns a list of HL7 tables.  </summary>
         public abstract int[] Tables { get; }
 
-        private static TableRepository rep = null;
-
         /// <summary> Returns true if the given value exists in the given table.</summary>
-        public abstract bool checkValue(int table, string value_Renamed);
+        public abstract bool CheckValue(int table, string value_Renamed);
 
         /// <summary> Returns a list of the values in the given table. </summary>
-        public abstract string[] getValues(int table);
+        public abstract string[] GetValues(int table);
 
         /// <summary> Returns the value corresponding to the given table and key.</summary>
         /// <throws>  UnknownValueException if the value can not be found.  This may be an UnknownTableException.   </throws>
-        public abstract string getDescription(int table, string value_Renamed);
-
-        // test
-        /*
-        public static void main(String[] args) {
-
-        if (args.length != 2) {
-        System.out.println("Usage: TableRepository table value");
-        System.exit(1);
-        }
-        int table = Integer.parseInt(args[0]);
-        String value = args[1];
-
-        try {
-        //needed by normative DB ...
-        Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-        System.setProperty("ca.on.uhn.hl7.database.url", "jdbc:odbc:hl7");
-        System.out.println("Description: " + TableRepository.getInstance().getDescription(table, value));
-        } catch (UnknownValueException e) {
-        e.printStackTrace();
-        Log.tryToLog(e, "");
-        } catch (ClassNotFoundException cne) {
-        cne.printStackTrace();
-        }
-        }*/
+        public abstract string GetDescription(int table, string value_Renamed);
     }
 }

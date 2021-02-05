@@ -1,14 +1,14 @@
 ﻿namespace NHapi.SourceGeneration.Generators
 {
-    using System;
     using System.Data.Common;
     using System.Data.Odbc;
     using System.IO;
+
     using NHapi.Base;
 
     public class EventMappingGenerator
     {
-        public static void makeAll(string baseDirectory, string version)
+        public static void MakeAll(string baseDirectory, string version)
         {
             // make base directory
             if (!(baseDirectory.EndsWith("\\") || baseDirectory.EndsWith("/")))
@@ -17,7 +17,7 @@
             }
 
             FileInfo targetDir =
-                SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "EventMapping");
+                SourceGenerator.MakeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "EventMapping");
 
             // get list of data types
             OdbcConnection conn = NormativeDatabase.Instance.Connection;

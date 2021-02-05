@@ -5,6 +5,8 @@ namespace NHapi.SourceGeneration
 
     public class ConfigurationSettings
     {
+        private static string connectionString = string.Empty;
+
         public static bool UseFactory
         {
             get
@@ -20,22 +22,23 @@ namespace NHapi.SourceGeneration
             }
         }
 
-        private static string _connectionString = string.Empty;
-
         public static string ConnectionString
         {
             get
             {
                 string connFromConfig = ConfigurationManager.AppSettings["ConnectionString"];
-                if (string.IsNullOrEmpty(_connectionString) && !string.IsNullOrEmpty(connFromConfig))
+                if (string.IsNullOrEmpty(connectionString) && !string.IsNullOrEmpty(connFromConfig))
                 {
-                    _connectionString = connFromConfig;
+                    connectionString = connFromConfig;
                 }
 
-                return _connectionString;
+                return connectionString;
             }
 
-            set { _connectionString = value; }
+            set
+            {
+                connectionString = value;
+            }
         }
     }
 }

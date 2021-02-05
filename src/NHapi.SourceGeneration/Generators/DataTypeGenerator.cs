@@ -34,25 +34,49 @@ namespace NHapi.SourceGeneration.Generators
     using System.IO;
     using System.Linq;
     using System.Text;
+
     using NHapi.Base;
     using NHapi.Base.Log;
 
-   /// <summary> Generates skeletal source code for Datatype classes based on the
-   /// HL7 database.
-   /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
-   /// </author>
-   /// <author>  Eric Poiseau.
-   /// </author>
+    /// <summary> Generates skeletal source code for Datatype classes based on the
+    /// HL7 database.
+    /// </summary>
+    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
+    /// </author>
+    /// <author>  Eric Poiseau.
+    /// </author>
     public class DataTypeGenerator : object
     {
-        private static readonly IHapiLog log;
+        private static readonly IHapiLog Log;
+
+        static DataTypeGenerator()
+        {
+            Log = HapiLogFactory.GetHapiLog(typeof(DataTypeGenerator));
+        }
+
+        // test
+        [STAThread]
+        public static void Main(string[] args)
+        {
+            // System.out.println(makePrimitive("ID", "identifier"));
+            try
+            {
+                Type.GetType("sun.jdbc.odbc.JdbcOdbcDriver");
+
+                // TODO: may want to make this path configurable
+                MakeAll("c:/testsourcegen", "2.5");
+            }
+            catch (Exception e)
+            {
+                SupportClass.WriteStackTrace(e, Console.Error);
+            }
+        }
 
         /// <summary> Creates skeletal source code (without correct data structure but no business
         /// logic) for all data types found in the normative database.  For versions > 2.2, Primitive data types
         /// are not generated, because they are coded manually (as of HAPI 0.3).
         /// </summary>
-        public static void makeAll(string baseDirectory, string version)
+        public static void MakeAll(string baseDirectory, string version)
         {
             // make base directory
             if (!(baseDirectory.EndsWith("\\") || baseDirectory.EndsWith("/")))
@@ -61,13 +85,13 @@ namespace NHapi.SourceGeneration.Generators
             }
 
             FileInfo targetDir =
-                SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Datatype");
-            SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Datatype");
+                SourceGenerator.MakeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Datatype");
+            SourceGenerator.MakeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Datatype");
 
             // get list of data types
             ArrayList types = new ArrayList();
             OdbcConnection conn = NormativeDatabase.Instance.Connection;
-            DbCommand stmt = TransactionManager.manager.CreateStatement(conn);
+            DbCommand stmt = TransactionManager.Manager.CreateStatement(conn);
 
             // get normal data types ...
             DbCommand temp_OleDbCommand;
@@ -99,19 +123,19 @@ namespace NHapi.SourceGeneration.Generators
             }
 
             stmt.Dispose();
-            NormativeDatabase.Instance.returnConnection(conn);
+            NormativeDatabase.Instance.ReturnConnection(conn);
 
             Console.Out.WriteLine("Generating " + types.Count + " datatypes for version " + version);
             if (types.Count == 0)
             {
-                log.Warn("No version " + version + " data types found in database " + conn.Database);
+                Log.Warn("No version " + version + " data types found in database " + conn.Database);
             }
 
             foreach (string type in types.Cast<string>())
             {
                 if (!type.Equals("*"))
                 {
-                    make(targetDir, type, version);
+                    Make(targetDir, type, version);
                 }
             }
         }
@@ -122,7 +146,7 @@ namespace NHapi.SourceGeneration.Generators
         /// <param name="targetDirectory">the directory into which the file will be written.</param>
         /// <param name="dataType">the name (e.g. ST, ID, etc.) of the data type to be created.</param>
         /// <param name="version">the HL7 version of the intended data type.</param>
-        public static void make(FileInfo targetDirectory, string dataType, string version)
+        public static void Make(FileInfo targetDirectory, string dataType, string version)
         {
             Console.WriteLine(" Writing " + targetDirectory.FullName + dataType);
 
@@ -134,7 +158,7 @@ namespace NHapi.SourceGeneration.Generators
 
             // get any components for this data type
             OdbcConnection conn = NormativeDatabase.Instance.Connection;
-            DbCommand stmt = TransactionManager.manager.CreateStatement(conn);
+            DbCommand stmt = TransactionManager.Manager.CreateStatement(conn);
             StringBuilder sql = new StringBuilder();
 
             // this query is adapted from the XML SIG informative document
@@ -187,7 +211,6 @@ namespace NHapi.SourceGeneration.Generators
                     }
                 }
 
-                // System.out.println("Component: " + de + "  Data Type: " + dt);  //for debugging
                 dataTypes.Add(dt);
                 descriptions.Add(de);
                 tables.Add(ta);
@@ -200,7 +223,7 @@ namespace NHapi.SourceGeneration.Generators
 
             rs.Close();
             stmt.Dispose();
-            NormativeDatabase.Instance.returnConnection(conn);
+            NormativeDatabase.Instance.ReturnConnection(conn);
 
             // if there is only one component make a Primitive, otherwise make a Composite
             string source = null;
@@ -209,7 +232,7 @@ namespace NHapi.SourceGeneration.Generators
                 if (dataType.Equals("FT") || dataType.Equals("ST") || dataType.Equals("TX") || dataType.Equals("NM") ||
                      dataType.Equals("SI") || dataType.Equals("TN") || dataType.Equals("GTS"))
                 {
-                    source = makePrimitive(dataType, description, version);
+                    source = MakePrimitive(dataType, description, version);
                 }
                 else
                 {
@@ -231,7 +254,7 @@ namespace NHapi.SourceGeneration.Generators
                     table[i] = (int)tables[i];
                 }
 
-                source = makeComposite(dataType, description, type, desc, table, version);
+                source = MakeComposite(dataType, description, type, desc, table, version);
             }
             else
             {
@@ -253,13 +276,15 @@ namespace NHapi.SourceGeneration.Generators
                 }
             }
             else
+            {
                 Console.WriteLine("No Source for " + dataType);
+            }
         }
 
         /// <summary> Returns a String containing the complete source code for a Primitive HL7 data
         /// type.  Note: this method is no longer used, as all Primitives are now coded manually.
         /// </summary>
-        private static string makePrimitive(string datatype, string description, string version)
+        private static string MakePrimitive(string datatype, string description, string version)
         {
             StringBuilder source = new StringBuilder();
 
@@ -336,8 +361,13 @@ namespace NHapi.SourceGeneration.Generators
         /// dataTypes array contains the data type names (e.g. ST) of each component.
         /// The descriptions array contains the corresponding descriptions (e.g. string).
         /// </summary>
-        private static string makeComposite(string dataType, string description, string[] dataTypes, string[] descriptions,
-            int[] tables, string version)
+        private static string MakeComposite(
+            string dataType,
+            string description,
+            string[] dataTypes,
+            string[] descriptions,
+            int[] tables,
+            string version)
         {
             StringBuilder source = new StringBuilder();
             source.Append("using System;\n");
@@ -399,7 +429,7 @@ namespace NHapi.SourceGeneration.Generators
                 source.Append("\t\tdata[");
                 source.Append(i);
                 source.Append("] = new ");
-                source.Append(SourceGenerator.getAlternateType(dataTypes[i], version));
+                source.Append(SourceGenerator.GetAlternateType(dataTypes[i], version));
                 if (dataTypes[i].Equals("ID") || dataTypes[i].Equals("IS"))
                 {
                     source.Append("(message, ");
@@ -455,7 +485,7 @@ namespace NHapi.SourceGeneration.Generators
             // make type-specific accessors ...
             for (int i = 0; i < dataTypes.Length; i++)
             {
-                string dtName = SourceGenerator.getAlternateType(dataTypes[i], version);
+                string dtName = SourceGenerator.GetAlternateType(dataTypes[i], version);
                 source.Append("\t///<summary>\r\n");
                 source.Append("\t/// Returns ");
                 source.Append(GetDescription(descriptions[i]));
@@ -488,7 +518,7 @@ namespace NHapi.SourceGeneration.Generators
                 source.Append("\t   } catch (DataTypeException e) {\r\n");
                 source.Append(
                     "\t      HapiLogFactory.GetHapiLog(this.GetType()).Error(\"Unexpected problem accessing known data type component - this is a bug.\", e);\r\n");
-                source.Append("\t      throw new System.Exception(\"An unexpected error ocurred\",e);\r\n");
+                source.Append("\t      throw new System.Exception(\"An unexpected error occurred\",e);\r\n");
                 source.Append("\t   }\r\n");
                 source.Append("\t   return ret;\r\n");
                 source.Append("}\r\n\r\n");
@@ -508,31 +538,6 @@ namespace NHapi.SourceGeneration.Generators
             string ret = description;
             ret = ret.Replace("&", "and");
             return ret;
-        }
-
-        // test
-        [STAThread]
-        public static void Main(string[] args)
-        {
-            // System.out.println(makePrimitive("ID", "identifier"));
-            try
-            {
-                Type.GetType("sun.jdbc.odbc.JdbcOdbcDriver");
-
-                // System.setProperty("ca.on.uhn.hl7.database.url", "jdbc:odbc:hl7v25");
-                // make(new File("c:/testsourcegen"), args[0], args[1]);
-                // make(new File("c:/testsourcegen"), "CE_0048", "2.3");
-                makeAll("c:/testsourcegen", "2.5");
-            }
-            catch (Exception e)
-            {
-                SupportClass.WriteStackTrace(e, Console.Error);
-            }
-        }
-
-        static DataTypeGenerator()
-        {
-            log = HapiLogFactory.GetHapiLog(typeof(DataTypeGenerator));
         }
     }
 }

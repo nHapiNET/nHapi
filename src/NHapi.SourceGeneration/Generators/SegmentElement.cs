@@ -33,30 +33,38 @@ namespace NHapi.SourceGeneration.Generators
     /// </author>
     internal class SegmentElement
     {
-        public int field;
-        public string rep;
-        public string AccessorNameToAppend = string.Empty;
-        public int repetitions;
-        public string desc;
-        public int length;
-        public int table;
-        public string opt;
-        public string type;
-
-        public virtual string GetDescriptionWithoutSpecialCharacters()
-        {
-            string desc = this.desc;
-            desc = desc.Replace('\n', ' ');
-            desc = desc.Replace('\"', '\'');
-            desc = desc.Replace("&", "and");
-            return desc;
-        }
-
         /// <summary>
         /// Creates new SegmentElement.
         /// </summary>
         public SegmentElement()
         {
+        }
+
+        public int Field { get; set; }
+
+        public string Rep { get; set; }
+
+        public string AccessorNameToAppend { get; set; } = string.Empty;
+
+        public int Repetitions { get; set; }
+
+        public string Desc { get; set; }
+
+        public int Length { get; set; }
+
+        public int Table { get; set; }
+
+        public string Opt { get; set; }
+
+        public string Type { get; set; }
+
+        public virtual string GetDescriptionWithoutSpecialCharacters()
+        {
+            string desc = Desc;
+            desc = desc.Replace('\n', ' ');
+            desc = desc.Replace('\"', '\'');
+            desc = desc.Replace("&", "and");
+            return desc;
         }
     }
 }

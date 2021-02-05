@@ -27,17 +27,27 @@
 
 namespace NHapi.SourceGeneration.Generators
 {
-    using System;
-
-   /// <summary> Information about a message segment used in the creation of
-   /// source code for a Group class.  SegmentDef is a slight misnomer because this
-   /// also includes group start/end indicators, with group names.
-   ///
-   /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
-   /// </author>
+    /// <summary> Information about a message segment used in the creation of
+    /// source code for a Group class.  SegmentDef is a slight misnomer because this
+    /// also includes group start/end indicators, with group names.
+    ///
+    /// </summary>
+    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
+    /// </author>
     public class SegmentDef : IStructureDef
     {
+        private string name;
+
+        /// <summary>Creates new SegmentDef. </summary>
+        public SegmentDef(string name, string groupName, bool required, bool repeating, string description)
+        {
+            this.name = name;
+            GroupName = groupName;
+            Required = required;
+            Repeating = repeating;
+            Description = description;
+        }
+
         /// <returns> name of segment.
         /// </returns>
         public virtual string Name
@@ -56,28 +66,16 @@ namespace NHapi.SourceGeneration.Generators
 
         /// <returns> name of group, if this is not really a segment but a group start indicator.
         /// </returns>
-        public virtual string GroupName
-        {
-            get { return groupName; }
-        }
+        public virtual string GroupName { get; }
 
         /// <summary> Returns true if this structure is required in the Group.  </summary>
-        public virtual bool Required
-        {
-            get { return required; }
-        }
+        public virtual bool Required { get; }
 
         /// <summary> Returns true if this structure can repeat in the Group.  </summary>
-        public virtual bool Repeating
-        {
-            get { return repeating; }
-        }
+        public virtual bool Repeating { get; }
 
         /// <summary> Returns a text description of the structure.</summary>
-        public virtual string Description
-        {
-            get { return description; }
-        }
+        public virtual string Description { get; }
 
         /// <summary> Returns a list of the names of the segments that are children of this Structure.
         /// If the structure is a Segment, a 1-element array is returned containing the segment
@@ -92,22 +90,6 @@ namespace NHapi.SourceGeneration.Generators
                 string[] result = new string[] { Name };
                 return result;
             }
-        }
-
-        private string name;
-        private string groupName;
-        private string description;
-        private bool required;
-        private bool repeating;
-
-        /// <summary>Creates new SegmentDef. </summary>
-        public SegmentDef(string name, string groupName, bool required, bool repeating, string description)
-        {
-            this.name = name;
-            this.groupName = groupName;
-            this.required = required;
-            this.repeating = repeating;
-            this.description = description;
         }
     }
 }

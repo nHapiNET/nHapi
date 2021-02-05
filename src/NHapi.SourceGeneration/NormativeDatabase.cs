@@ -31,38 +31,59 @@ namespace NHapi.SourceGeneration
     using System.Data.Common;
     using System.Data.Odbc;
     using System.Diagnostics;
+
     using NHapi.Base.Log;
 
-   /// <summary>
-   /// Point of access to a copy of the HL7 normative database.
-   /// </summary>
-   /// <example>
-   /// A typical way of obtaining and using a database connection would be ...
-   /// <para>
-   /// <code>
-   /// Connection c = NormativeDatabase.getInstance().getConnection();<br />
-   /// // ... use the database ... <br />
-   /// NormativeDatabase.returnConnection(c);
-   /// </code>
-   /// </para>
-   /// <para>
-   /// Since the database may be installed differently on different systems, certain system
-   /// properties must be set with the required connection information, as follows: <br />
-   /// <code>ca.on.uhn.hl7.database.url</code> - the URL of the JDBC connection.<br />
-   /// <code>ca.on.uhn.hl7.database.user</code> - the user ID needed to connect (if required).<br />
-   /// <code>ca.on.uhn.hl7.database.passsword</code> - the password associated with the above user (if required).<br />
-   /// </para>
-   /// <para>
-   /// The required JDBC driver must also be loaded (this can be done by ensuring that the
-   /// required driver appears in the classpath and appending the class name to the
-   /// "jdbc.drivers" system property.
-   /// </para>
-   /// </example>
-   /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
+    /// <summary>
+    /// Point of access to a copy of the HL7 normative database.
+    /// </summary>
+    /// <example>
+    /// A typical way of obtaining and using a database connection would be ...
+    /// <para>
+    /// <code>
+    /// Connection c = NormativeDatabase.getInstance().getConnection();<br />
+    /// // ... use the database ... <br />
+    /// NormativeDatabase.returnConnection(c);
+    /// </code>
+    /// </para>
+    /// <para>
+    /// Since the database may be installed differently on different systems, certain system
+    /// properties must be set with the required connection information, as follows: <br />
+    /// <code>ca.on.uhn.hl7.database.url</code> - the URL of the JDBC connection.<br />
+    /// <code>ca.on.uhn.hl7.database.user</code> - the user ID needed to connect (if required).<br />
+    /// <code>ca.on.uhn.hl7.database.passsword</code> - the password associated with the above user (if required).<br />
+    /// </para>
+    /// <para>
+    /// The required JDBC driver must also be loaded (this can be done by ensuring that the
+    /// required driver appears in the class path and appending the class name to the
+    /// "jdbc.drivers" system property.
+    /// </para>
+    /// </example>
+    /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
     public class NormativeDatabase
     {
+        private static readonly IHapiLog Log;
+
+        private static NormativeDatabase db = null;
+        private string connectionString;
+
         /// <summary> Returns the singleton instance of NormativeDatabase.  </summary>
-        private OdbcConnection _conn;
+        private OdbcConnection odbcConnection;
+
+        static NormativeDatabase()
+        {
+            Log = HapiLogFactory.GetHapiLog(typeof(NormativeDatabase));
+        }
+
+        /// <summary> Private constructor ... checks system properties for connection
+        /// information.
+        /// </summary>
+        private NormativeDatabase()
+        {
+            connectionString = ConfigurationSettings.ConnectionString;
+            odbcConnection = new OdbcConnection(connectionString);
+            odbcConnection.Open();
+        }
 
         public static NormativeDatabase Instance
         {
@@ -90,66 +111,9 @@ namespace NHapi.SourceGeneration
                 lock (this)
                 {
                     OpenConnectionIfNeeded();
-                    return _conn;
+                    return odbcConnection;
                 }
             }
-        }
-
-        [DebuggerHidden]
-        private void OpenConnectionIfNeeded()
-        {
-            try
-            {
-                if (_conn.State != ConnectionState.Open)
-                {
-                    _conn.Open();
-                }
-            }
-            catch (Exception)
-            {
-                _conn = new OdbcConnection(_connectionString);
-                _conn.Open();
-            }
-        }
-
-        public void OpenNewConnection(string conn)
-        {
-            lock (this)
-            {
-                _connectionString = conn;
-                if (_conn.State == ConnectionState.Open)
-                {
-                    _conn.Close();
-                }
-
-                _conn.ConnectionString = conn;
-                _conn.Open();
-            }
-        }
-
-        private static readonly IHapiLog log;
-
-        private static NormativeDatabase db = null;
-        private string _connectionString;
-
-        /// <summary> Private constructor ... checks system properties for connection
-        /// information.
-        /// </summary>
-        private NormativeDatabase()
-        {
-            _connectionString = ConfigurationSettings.ConnectionString;
-            _conn = new OdbcConnection(_connectionString);
-            _conn.Open();
-        }
-
-        /// <summary> Used to return an HL7 normative database connection to the connection pool.  If the
-        /// given connection is not in fact a connection to the normative database, it is
-        /// discarded.
-        /// </summary>
-        public virtual void returnConnection(OdbcConnection conn)
-        {
-            // check if this is a normative DB connection
-            _conn.Close();
         }
 
         // test
@@ -159,7 +123,7 @@ namespace NHapi.SourceGeneration
             try
             {
                 OdbcConnection conn = Instance.Connection;
-                DbCommand stmt = TransactionManager.manager.CreateStatement(conn);
+                DbCommand stmt = TransactionManager.Manager.CreateStatement(conn);
                 DbCommand temp_OleDbCommand;
                 temp_OleDbCommand = stmt;
                 temp_OleDbCommand.CommandText = "select * from TableValues";
@@ -174,17 +138,54 @@ namespace NHapi.SourceGeneration
             }
             catch (DbException e)
             {
-                log.Error("test msg!!", e);
+                Log.Error("test msg!!", e);
             }
             catch (Exception e)
             {
-                log.Error("test msg!!", e);
+                Log.Error("test msg!!", e);
             }
         }
 
-        static NormativeDatabase()
+        public void OpenNewConnection(string conn)
         {
-            log = HapiLogFactory.GetHapiLog(typeof(NormativeDatabase));
+            lock (this)
+            {
+                connectionString = conn;
+                if (this.odbcConnection.State == ConnectionState.Open)
+                {
+                    this.odbcConnection.Close();
+                }
+
+                this.odbcConnection.ConnectionString = conn;
+                this.odbcConnection.Open();
+            }
+        }
+
+        /// <summary> Used to return an HL7 normative database connection to the connection pool.  If the
+        /// given connection is not in fact a connection to the normative database, it is
+        /// discarded.
+        /// </summary>
+        public virtual void ReturnConnection(OdbcConnection conn)
+        {
+            // check if this is a normative DB connection
+            this.odbcConnection.Close();
+        }
+
+        [DebuggerHidden]
+        private void OpenConnectionIfNeeded()
+        {
+            try
+            {
+                if (odbcConnection.State != ConnectionState.Open)
+                {
+                    odbcConnection.Open();
+                }
+            }
+            catch (Exception)
+            {
+                odbcConnection = new OdbcConnection(connectionString);
+                odbcConnection.Open();
+            }
         }
     }
 }

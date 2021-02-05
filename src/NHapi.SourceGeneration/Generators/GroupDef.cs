@@ -28,18 +28,37 @@
 
 namespace NHapi.SourceGeneration.Generators
 {
-    using System;
     using System.Collections;
     using System.Text;
 
-   /// <summary> Contains the information needed to create source code for a Group (a
-   /// Group is a part of a message that may repeat, and that contains two or
-   /// more segments or other groups).
-   /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
-   /// </author>
+    /// <summary> Contains the information needed to create source code for a Group (a
+    /// Group is a part of a message that may repeat, and that contains two or
+    /// more segments or other groups).
+    /// </summary>
+    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
+    /// </author>
     public class GroupDef : IStructureDef
     {
+        private ArrayList elements;
+        private string messageName;
+        private string groupName;
+        private string description;
+        private bool required;
+        private bool repeating;
+        private Hashtable existingNames;
+
+        /// <summary>Creates new GroupDef. </summary>
+        public GroupDef(string messageName, string groupName, bool required, bool repeating, string description)
+        {
+            this.messageName = messageName;
+            this.groupName = groupName;
+            elements = new ArrayList();
+            this.required = required;
+            this.repeating = repeating;
+            this.description = description;
+            existingNames = new Hashtable();
+        }
+
         /// <summary> Returns the Java class name of this Group.  This is derived from the
         /// message structure and the group elements.  This should only be called
         /// after all the elements are added.
@@ -72,7 +91,7 @@ namespace NHapi.SourceGeneration.Generators
             }
         }
 
-        /// <returns> group name without message name prepended.
+        /// <returns> group name without message name pre-pended.
         /// </returns>
         public virtual string UnqualifiedName
         {
@@ -147,28 +166,8 @@ namespace NHapi.SourceGeneration.Generators
             }
         }
 
-        private ArrayList elements;
-        private string messageName;
-        private string groupName;
-        private string description;
-        private bool required;
-        private bool repeating;
-        private Hashtable existingNames;
-
-        /// <summary>Creates new GroupDef. </summary>
-        public GroupDef(string messageName, string groupName, bool required, bool repeating, string description)
-        {
-            this.messageName = messageName;
-            this.groupName = groupName;
-            elements = new ArrayList();
-            this.required = required;
-            this.repeating = repeating;
-            this.description = description;
-            existingNames = new Hashtable();
-        }
-
         /// <summary> Adds an element (segment or group) to this group.  </summary>
-        public virtual void addStructure(IStructureDef s)
+        public virtual void AddStructure(IStructureDef s)
         {
             elements.Add(s);
         }
@@ -182,7 +181,7 @@ namespace NHapi.SourceGeneration.Generators
         /// method is called matters: it should be called ONCE for each element of the group in the
         /// order in which they appear.
         /// </summary>
-        protected internal virtual string getIndexName(string name)
+        protected internal virtual string GetIndexName(string name)
         {
             // see if this name is already being used
             object o = existingNames[name];

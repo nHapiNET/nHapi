@@ -1,8 +1,8 @@
 namespace NHapi.SourceGeneration.Generators
 {
-    using System;
     using System.IO;
     using System.Text;
+
     using NHapi.Base;
 
     internal class BaseDataTypeGenerator

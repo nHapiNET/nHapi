@@ -32,40 +32,46 @@ namespace NHapi.SourceGeneration.Generators
     using System.Data.Odbc;
     using System.IO;
     using System.Text;
+
     using NHapi.Base;
     using NHapi.Base.Log;
 
-   /// <summary> Creates source code for HL7 Message objects, using the normative DB.  HL7 Group
-   /// objects are also created as a byproduct.
-   ///
-   /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
-   /// </author>
-   /// <author>  Eric Poiseau.
-   /// </author>
+    /// <summary> Creates source code for HL7 Message objects, using the normative DB.  HL7 Group
+    /// objects are also created as a byproduct.
+    ///
+    /// </summary>
+    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
+    /// </author>
+    /// <author>  Eric Poiseau.
+    /// </author>
     public class MessageGenerator : object
     {
-        /// <summary> If the system property by this name is true, groups are generated to use a ModelClassFactory
-        /// for segment class lookup.  This makes segment creation more flexible, but may slow down parsing
-        /// substantially.
-        /// </summary>
-        public static string MODEL_CLASS_FACTORY_KEY = "NHapi.Base.Sourcegen.modelclassfactory";
+        private static readonly IHapiLog Log;
 
-        private static readonly IHapiLog log;
+        static MessageGenerator()
+        {
+            Log = HapiLogFactory.GetHapiLog(typeof(MessageGenerator));
+        }
 
         /// <summary>Creates new MessageGenerator. </summary>
         public MessageGenerator()
         {
         }
 
+        /// <summary> If the system property by this name is true, groups are generated to use a ModelClassFactory
+        /// for segment class lookup.  This makes segment creation more flexible, but may slow down parsing
+        /// substantially.
+        /// </summary>
+        public static string MODEL_CLASS_FACTORY_KEY => "NHapi.Base.Sourcegen.modelclassfactory";
+
         /// <summary> Creates and writes source code for all Messages and Groups.</summary>
-        public static void makeAll(string baseDirectory, string version)
+        public static void MakeAll(string baseDirectory, string version)
         {
             // get list of messages ...
             using (OdbcConnection conn = NormativeDatabase.Instance.Connection)
             {
-                string sql = getMessageListQuery(version);
-                DbCommand stmt = TransactionManager.manager.CreateStatement(conn);
+                string sql = GetMessageListQuery(version);
+                DbCommand stmt = TransactionManager.Manager.CreateStatement(conn);
                 DbCommand temp_OleDbCommand;
                 temp_OleDbCommand = stmt;
                 temp_OleDbCommand.CommandText = sql;
@@ -79,36 +85,20 @@ namespace NHapi.SourceGeneration.Generators
                 }
 
                 rs.Close();
-                NormativeDatabase.Instance.returnConnection(conn);
+                NormativeDatabase.Instance.ReturnConnection(conn);
 
                 if (messages.Count == 0)
                 {
-                    log.Warn("No version " + version + " messages found in database " + conn.Database);
+                    Log.Warn("No version " + version + " messages found in database " + conn.Database);
                 }
 
                 for (int i = 0; i < messages.Count; i++)
                 {
                     string message = (string)messages[i];
                     string chapter = (string)chapters[i];
-                    make(message, baseDirectory, chapter, version);
+                    Make(message, baseDirectory, chapter, version);
                 }
             }
-        }
-
-        /// <summary> Returns an SQL query with which to get a list of messages from the normative
-        /// database.
-        /// </summary>
-        private static string getMessageListQuery(string version)
-        {
-            // UNION because the messages are defined in different tables for different versions.
-            return "SELECT distinct  [message_type]+'_'+[event_code] AS msg_struct, '[AAA]'" +
-                     " FROM HL7Versions RIGHT JOIN HL7EventMessageTypeSegments ON HL7EventMessageTypeSegments.version_id = HL7Versions.version_id " +
-                     "WHERE HL7Versions.hl7_version ='" + version + "' and Not (message_type='ACK') " + "UNION " +
-                     "select distinct HL7MsgStructIDs.message_structure, [section] from HL7Versions RIGHT JOIN (HL7MsgStructIDSegments " +
-                     " inner join HL7MsgStructIDs on HL7MsgStructIDSegments.message_structure = HL7MsgStructIDs.message_structure " +
-                     " and HL7MsgStructIDSegments.version_id = HL7MsgStructIDs.version_id) " +
-                     " ON HL7MsgStructIDSegments.version_id = HL7Versions.version_id " + " where HL7Versions.hl7_version = '" +
-                     version + "' and HL7MsgStructIDs.message_structure not like 'ACK_%'"; // note: allows "ACK" itself
         }
 
         /// <summary> Creates source code for a specific message structure and
@@ -116,14 +106,14 @@ namespace NHapi.SourceGeneration.Generators
         /// throws IllegalArgumentException if there is no message structure
         /// for this message in the normative database.
         /// </summary>
-        public static void make(string message, string baseDirectory, string chapter, string version)
+        public static void Make(string message, string baseDirectory, string chapter, string version)
         {
             try
             {
-                SegmentDef[] segments = getSegments(message, version);
+                SegmentDef[] segments = GetSegments(message, version);
 
                 // System.out.println("Making: " + message + " with " + segments.length + " segments (not writing message code - just groups)");
-                GroupDef group = GroupGenerator.getGroupDef(segments, null, baseDirectory, version, message);
+                GroupDef group = GroupGenerator.GetGroupDef(segments, null, baseDirectory, version, message);
                 IStructureDef[] contents = group.Structures;
 
                 // make base directory
@@ -133,15 +123,15 @@ namespace NHapi.SourceGeneration.Generators
                 }
 
                 FileInfo targetDir =
-                    SourceGenerator.makeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Message");
+                    SourceGenerator.MakeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Message");
                 Console.Out.WriteLine("Writing " + message + " to " + targetDir.FullName);
                 using (StreamWriter out_Renamed = new StreamWriter(targetDir.FullName + "/" + message + ".cs"))
                 {
-                    out_Renamed.Write(makePreamble(contents, message, chapter, version));
-                    out_Renamed.Write(makeConstructor(contents, message, version));
+                    out_Renamed.Write(MakePreamble(contents, message, chapter, version));
+                    out_Renamed.Write(MakeConstructor(contents, message, version));
                     for (int i = 0; i < contents.Length; i++)
                     {
-                        string groupAccessor = GroupGenerator.makeAccessor(@group, i);
+                        string groupAccessor = GroupGenerator.MakeAccessor(@group, i);
                         out_Renamed.Write(groupAccessor);
                     }
 
@@ -152,86 +142,17 @@ namespace NHapi.SourceGeneration.Generators
             }
             catch (Exception e)
             {
-                log.Error("Error while creating source code", e);
+                Log.Error("Error while creating source code", e);
 
-                log.Warn("Warning: could not write source code for message structure " + message + " - " + e.GetType().FullName +
+                Log.Warn("Warning: could not write source code for message structure " + message + " - " + e.GetType().FullName +
                             ": " + e.Message);
             }
-        }
-
-        /// <summary> Queries the normative database for a list of segments comprising
-        /// the message structure.  The returned list may also contain strings
-        /// that denote repetition and optionality.  Choice indicators (i.e. begin choice,
-        /// next choice, end choice) for alternative segments are ignored, so that the class
-        /// structure allows all choices.  The matter of enforcing that only a single choice is
-        /// populated can't be handled by the class structure, and should be handled elsewhere.
-        /// </summary>
-        private static SegmentDef[] getSegments(string message, string version)
-        {
-            /*String sql = "select HL7Segments.seg_code, repetitional, optional, description " +
-            "from (HL7MsgStructIDSegments inner join HL7Segments on HL7MsgStructIDSegments.seg_code = HL7Segments.seg_code " +
-            "and HL7MsgStructIDSegments.version_id = HL7Segments.version_id) " +
-            "where HL7Segments.version_id = 6 and message_structure = '" + message + "' order by seq_no";*/
-            string sql = getSegmentListQuery(message, version);
-
-            // System.out.println(sql.toString());
-            SegmentDef[] segments = new SegmentDef[200]; // presumably there won't be more than 200
-            OdbcConnection conn = NormativeDatabase.Instance.Connection;
-            DbCommand stmt = TransactionManager.manager.CreateStatement(conn);
-            DbCommand temp_OleDbCommand;
-            temp_OleDbCommand = stmt;
-            temp_OleDbCommand.CommandText = sql;
-            DbDataReader rs = temp_OleDbCommand.ExecuteReader();
-            int c = -1;
-            while (rs.Read())
-            {
-                string name = SegmentGenerator.altSegName(Convert.ToString(rs[1 - 1]));
-                bool repeating = rs.GetBoolean(2 - 1);
-                bool optional = rs.GetBoolean(3 - 1);
-                string desc = Convert.ToString(rs[4 - 1]);
-                string groupName = Convert.ToString(rs[6 - 1]);
-
-                // ignore the "choice" directives ... the message class structure has to include all choices ...
-                //  if this is enforced (i.e. exception thrown if >1 choice populated) this will have to be done separately.
-                if (!(name.Equals("<") || name.Equals("|") || name.Equals(">")))
-                {
-                    c++;
-                    segments[c] = new SegmentDef(name, groupName, !optional, repeating, desc);
-                }
-            }
-
-            rs.Close();
-            SegmentDef[] ret = new SegmentDef[c + 1];
-            Array.Copy(segments, 0, ret, 0, c + 1);
-            return ret;
-        }
-
-        /// <summary> Returns an SQL query with which to get a list of the segments that
-        /// are part of the given message from the normative database.  The query
-        /// varies with different versions.  The fields returned are as follows:
-        /// segment_code, repetitional, optional, description.
-        /// </summary>
-        private static string getSegmentListQuery(string message, string version)
-        {
-            string sql = null;
-
-            sql = "SELECT HL7Segments.seg_code, repetitional, optional, HL7Segments.description, seq_no, groupname " +
-                    "FROM HL7Versions RIGHT JOIN (HL7Segments INNER JOIN HL7EventMessageTypeSegments ON (HL7Segments.version_id = HL7EventMessageTypeSegments.version_id) " +
-                    "AND (HL7Segments.seg_code = HL7EventMessageTypeSegments.seg_code)) " +
-                    "ON HL7Segments.version_id = HL7Versions.version_id " + "WHERE (((HL7Versions.hl7_version)= '" + version +
-                    "') " + "AND (([message_type]+'_'+[event_code])='" + message + "')) UNION " +
-                    "select HL7Segments.seg_code, repetitional, optional, HL7Segments.description, seq_no, groupname  " +
-                    "from HL7Versions RIGHT JOIN (HL7MsgStructIDSegments inner join HL7Segments on HL7MsgStructIDSegments.seg_code = HL7Segments.seg_code " +
-                    "and HL7MsgStructIDSegments.version_id = HL7Segments.version_id) " +
-                    "ON HL7Segments.version_id = HL7Versions.version_id " + "where HL7Versions.hl7_version = '" + version +
-                    "' and message_structure = '" + message + "' order by seq_no";
-            return sql;
         }
 
         /// <summary> Returns header material for the source code of a Message class (including
         /// package, imports, JavaDoc, and class declaration).
         /// </summary>
-        public static string makePreamble(IStructureDef[] contents, string message, string chapter, string version)
+        public static string MakePreamble(IStructureDef[] contents, string message, string chapter, string version)
         {
             StringBuilder preamble = new StringBuilder();
             preamble.Append("using System;\r\n");
@@ -261,7 +182,7 @@ namespace NHapi.SourceGeneration.Generators
             preamble.Append(chapter);
             preamble.Append("). This structure contains the \r\n");
             preamble.Append("/// following elements:\r\n");
-            preamble.Append(GroupGenerator.makeElementsDoc(contents));
+            preamble.Append(GroupGenerator.MakeElementsDoc(contents));
             preamble.Append("///</summary>\r\n");
             preamble.Append("[Serializable]\r\n");
             preamble.Append("public class ");
@@ -280,8 +201,8 @@ namespace NHapi.SourceGeneration.Generators
             return preamble.ToString();
         }
 
-        /// <summary> Returns source code for the contructor for this Message class.</summary>
-        public static string makeConstructor(IStructureDef[] structs, string messageName, string version)
+        /// <summary> Returns source code for the constructor for this Message class.</summary>
+        public static string MakeConstructor(IStructureDef[] structs, string messageName, string version)
         {
             bool useFactory = ConfigurationSettings.UseFactory;
 
@@ -308,7 +229,7 @@ namespace NHapi.SourceGeneration.Generators
             source.Append("\t   init(new DefaultModelClassFactory());\r\n");
             source.Append("\t}\r\n\r\n");
             source.Append("\t///<summary>\r\n");
-            source.Append("\t/// initalize method for ");
+            source.Append("\t/// initialize method for ");
             source.Append(messageName);
             source.Append(".  This does the segment setup for the message. \r\n");
             source.Append("\t///</summary> \r\n");
@@ -357,9 +278,85 @@ namespace NHapi.SourceGeneration.Generators
             return source.ToString();
         }
 
-        static MessageGenerator()
+        /// <summary> Returns an SQL query with which to get a list of messages from the normative
+        /// database.
+        /// </summary>
+        private static string GetMessageListQuery(string version)
         {
-            log = HapiLogFactory.GetHapiLog(typeof(MessageGenerator));
+            // UNION because the messages are defined in different tables for different versions.
+            return "SELECT distinct  [message_type]+'_'+[event_code] AS msg_struct, '[AAA]'" +
+                     " FROM HL7Versions RIGHT JOIN HL7EventMessageTypeSegments ON HL7EventMessageTypeSegments.version_id = HL7Versions.version_id " +
+                     "WHERE HL7Versions.hl7_version ='" + version + "' and Not (message_type='ACK') " + "UNION " +
+                     "select distinct HL7MsgStructIDs.message_structure, [section] from HL7Versions RIGHT JOIN (HL7MsgStructIDSegments " +
+                     " inner join HL7MsgStructIDs on HL7MsgStructIDSegments.message_structure = HL7MsgStructIDs.message_structure " +
+                     " and HL7MsgStructIDSegments.version_id = HL7MsgStructIDs.version_id) " +
+                     " ON HL7MsgStructIDSegments.version_id = HL7Versions.version_id " + " where HL7Versions.hl7_version = '" +
+                     version + "' and HL7MsgStructIDs.message_structure not like 'ACK_%'"; // note: allows "ACK" itself
+        }
+
+        /// <summary> Queries the normative database for a list of segments comprising
+        /// the message structure.  The returned list may also contain strings
+        /// that denote repetition and optionality.  Choice indicators (i.e. begin choice,
+        /// next choice, end choice) for alternative segments are ignored, so that the class
+        /// structure allows all choices.  The matter of enforcing that only a single choice is
+        /// populated can't be handled by the class structure, and should be handled elsewhere.
+        /// </summary>
+        private static SegmentDef[] GetSegments(string message, string version)
+        {
+            string sql = GetSegmentListQuery(message, version);
+
+            // System.out.println(sql.toString());
+            SegmentDef[] segments = new SegmentDef[200]; // presumably there won't be more than 200
+            OdbcConnection conn = NormativeDatabase.Instance.Connection;
+            DbCommand stmt = TransactionManager.Manager.CreateStatement(conn);
+            DbCommand temp_OleDbCommand;
+            temp_OleDbCommand = stmt;
+            temp_OleDbCommand.CommandText = sql;
+            DbDataReader rs = temp_OleDbCommand.ExecuteReader();
+            int c = -1;
+            while (rs.Read())
+            {
+                string name = SegmentGenerator.AltSegName(Convert.ToString(rs[1 - 1]));
+                bool repeating = rs.GetBoolean(2 - 1);
+                bool optional = rs.GetBoolean(3 - 1);
+                string desc = Convert.ToString(rs[4 - 1]);
+                string groupName = Convert.ToString(rs[6 - 1]);
+
+                // ignore the "choice" directives ... the message class structure has to include all choices ...
+                //  if this is enforced (i.e. exception thrown if >1 choice populated) this will have to be done separately.
+                if (!(name.Equals("<") || name.Equals("|") || name.Equals(">")))
+                {
+                    c++;
+                    segments[c] = new SegmentDef(name, groupName, !optional, repeating, desc);
+                }
+            }
+
+            rs.Close();
+            SegmentDef[] ret = new SegmentDef[c + 1];
+            Array.Copy(segments, 0, ret, 0, c + 1);
+            return ret;
+        }
+
+        /// <summary> Returns an SQL query with which to get a list of the segments that
+        /// are part of the given message from the normative database.  The query
+        /// varies with different versions.  The fields returned are as follows:
+        /// segment_code, repetitional, optional, description.
+        /// </summary>
+        private static string GetSegmentListQuery(string message, string version)
+        {
+            string sql = null;
+
+            sql = "SELECT HL7Segments.seg_code, repetitional, optional, HL7Segments.description, seq_no, groupname " +
+                    "FROM HL7Versions RIGHT JOIN (HL7Segments INNER JOIN HL7EventMessageTypeSegments ON (HL7Segments.version_id = HL7EventMessageTypeSegments.version_id) " +
+                    "AND (HL7Segments.seg_code = HL7EventMessageTypeSegments.seg_code)) " +
+                    "ON HL7Segments.version_id = HL7Versions.version_id " + "WHERE (((HL7Versions.hl7_version)= '" + version +
+                    "') " + "AND (([message_type]+'_'+[event_code])='" + message + "')) UNION " +
+                    "select HL7Segments.seg_code, repetitional, optional, HL7Segments.description, seq_no, groupname  " +
+                    "from HL7Versions RIGHT JOIN (HL7MsgStructIDSegments inner join HL7Segments on HL7MsgStructIDSegments.seg_code = HL7Segments.seg_code " +
+                    "and HL7MsgStructIDSegments.version_id = HL7Segments.version_id) " +
+                    "ON HL7Segments.version_id = HL7Versions.version_id " + "where HL7Versions.hl7_version = '" + version +
+                    "' and message_structure = '" + message + "' order by seq_no";
+            return sql;
         }
     }
 }

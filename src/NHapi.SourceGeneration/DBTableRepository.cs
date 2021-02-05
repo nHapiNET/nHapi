@@ -32,15 +32,36 @@ namespace NHapi.SourceGeneration
     using System.Data.Common;
     using System.Data.Odbc;
     using System.Text;
+
     using NHapi.Base.Log;
 
-   /// <summary> Implements TableRepository by looking up values from the default HL7
-   /// normative database.  Values are cached after they are looked up once.
-   /// </summary>
-   /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
-   /// </author>
+    /// <summary> Implements TableRepository by looking up values from the default HL7
+    /// normative database.  Values are cached after they are looked up once.
+    /// </summary>
+    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
+    /// </author>
     public class DBTableRepository : TableRepository
     {
+        private static readonly IHapiLog Log;
+
+        private int[] tableList;
+        private Hashtable tables;
+        private int bufferSize = 3000; // max # of tables or values that can be cached at a time
+
+        static DBTableRepository()
+        {
+            Log = HapiLogFactory.GetHapiLog(typeof(DBTableRepository));
+        }
+
+        /// <summary>
+        /// Table repository.
+        /// </summary>
+        protected internal DBTableRepository()
+        {
+            tableList = null;
+            tables = new Hashtable();
+        }
+
         /// <summary> Returns a list of HL7 lookup tables that are defined in the normative database.  </summary>
         public override int[] Tables
         {
@@ -51,7 +72,7 @@ namespace NHapi.SourceGeneration
                     try
                     {
                         OdbcConnection conn = NormativeDatabase.Instance.Connection;
-                        DbCommand stmt = TransactionManager.manager.CreateStatement(conn);
+                        DbCommand stmt = TransactionManager.Manager.CreateStatement(conn);
                         DbCommand temp_OleDbCommand;
                         temp_OleDbCommand = stmt;
                         temp_OleDbCommand.CommandText = "select distinct table_id from TableValues";
@@ -64,7 +85,7 @@ namespace NHapi.SourceGeneration
                         }
 
                         stmt.Dispose();
-                        NormativeDatabase.Instance.returnConnection(conn);
+                        NormativeDatabase.Instance.ReturnConnection(conn);
 
                         tableList = new int[c];
                         Array.Copy(roomyList, 0, tableList, 0, c);
@@ -79,27 +100,12 @@ namespace NHapi.SourceGeneration
             }
         }
 
-        private static readonly IHapiLog log;
-
-        private int[] tableList;
-        private Hashtable tables;
-        private int bufferSize = 3000; // max # of tables or values that can be cached at a time
-
-        /// <summary>
-        /// Table repository.
-        /// </summary>
-        protected internal DBTableRepository()
-        {
-            tableList = null;
-            tables = new Hashtable();
-        }
-
         /// <summary> Returns true if the given value exists in the given table.</summary>
-        public override bool checkValue(int table, string value_Renamed)
+        public override bool CheckValue(int table, string value_Renamed)
         {
             bool exists = false;
 
-            string[] values = getValues(table);
+            string[] values = GetValues(table);
 
             int c = 0;
             while (c < values.Length && !exists)
@@ -114,7 +120,7 @@ namespace NHapi.SourceGeneration
         }
 
         /// <summary> Returns a list of the values for the given table in the normative database. </summary>
-        public override string[] getValues(int table)
+        public override string[] GetValues(int table)
         {
             int key = (int)table;
             string[] values = null;
@@ -135,7 +141,7 @@ namespace NHapi.SourceGeneration
                 try
                 {
                     OdbcConnection conn = NormativeDatabase.Instance.Connection;
-                    DbCommand stmt = TransactionManager.manager.CreateStatement(conn);
+                    DbCommand stmt = TransactionManager.Manager.CreateStatement(conn);
                     StringBuilder sql = new StringBuilder("select table_value from TableValues where table_id = ");
                     sql.Append(table);
                     DbCommand temp_OleDbCommand;
@@ -150,7 +156,7 @@ namespace NHapi.SourceGeneration
                     }
 
                     stmt.Dispose();
-                    NormativeDatabase.Instance.returnConnection(conn);
+                    NormativeDatabase.Instance.ReturnConnection(conn);
                 }
                 catch (DbException sqle)
                 {
@@ -175,7 +181,7 @@ namespace NHapi.SourceGeneration
         /// this method performs a database call each time - caching should probably be added,
         /// although this method will probably not be used very often.
         /// </summary>
-        public override string getDescription(int table, string value_Renamed)
+        public override string GetDescription(int table, string value_Renamed)
         {
             string description = null;
 
@@ -188,7 +194,7 @@ namespace NHapi.SourceGeneration
             try
             {
                 OdbcConnection conn = NormativeDatabase.Instance.Connection;
-                DbCommand stmt = TransactionManager.manager.CreateStatement(conn);
+                DbCommand stmt = TransactionManager.Manager.CreateStatement(conn);
                 DbCommand temp_OleDbCommand;
                 temp_OleDbCommand = stmt;
                 temp_OleDbCommand.CommandText = sql.ToString();
@@ -204,7 +210,7 @@ namespace NHapi.SourceGeneration
                 }
 
                 stmt.Dispose();
-                NormativeDatabase.Instance.returnConnection(conn);
+                NormativeDatabase.Instance.ReturnConnection(conn);
             }
             catch (DbException e)
             {
@@ -212,11 +218,6 @@ namespace NHapi.SourceGeneration
             }
 
             return description;
-        }
-
-        static DBTableRepository()
-        {
-            log = HapiLogFactory.GetHapiLog(typeof(DBTableRepository));
         }
     }
 }
