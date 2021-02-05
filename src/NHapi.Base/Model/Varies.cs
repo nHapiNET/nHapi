@@ -115,7 +115,7 @@ namespace NHapi.Base.Model
                 {
                     if (!(data is IPrimitive) || ((IPrimitive)data).Value != null)
                     {
-                        DeepCopy.copy(data, value);
+                        DeepCopy.Copy(data, value);
                     }
                 }
 

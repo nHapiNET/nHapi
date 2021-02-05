@@ -39,69 +39,12 @@ namespace NHapi.Base
     /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
     /// </author>
     [Serializable]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+        "StyleCop.CSharp.NamingRules",
+        "SA1310:Field names should not contain underscore",
+        Justification = "Choosing to allow this convention in this class for now to help maintain backward compatibility.")]
     public class HL7Exception : Exception
     {
-        /// <value>
-        /// The name of the segment where the error occurred.
-        /// <para>(returns null if not set).</para>
-        /// </value>
-        public virtual string SegmentName { get; set; }
-
-        /// <value>
-        /// The sequence number of the segment where the error occurred (if there
-        /// are multiple segments with the same name).
-        /// <para> Numbering starts at 1. </para>
-        /// <para> (returns -1 if not set). </para>
-        /// </value>
-        public virtual int SegmentRepetition { get; set; } = -1;
-
-        /// <value>
-        /// The field number within the segment where the error occurred.
-        /// <para>Numbering starts at 1.</para>
-        /// <para> (returns -1 if not set). </para>
-        /// </value>
-        public virtual int FieldPosition { get; set; } = -1;
-
-        /// <value>
-        /// The <see cref="Base.ErrorCode"/> value associated with the <see cref="HL7Exception"/>.
-        /// </value>
-        public ErrorCode ErrorCode { get; private set; } = ErrorCode.APPLICATION_INTERNAL_ERROR;
-
-        /// <value>
-        /// The message that describes the current exception.
-        /// </value>
-        /// <remarks>Overrides <see cref="Exception.Message" /> to add
-        /// the field location of the problem if available.</remarks>
-        public override string Message
-        {
-            get
-            {
-                StringBuilder msg = new StringBuilder();
-                msg.Append(base.Message);
-
-                if (SegmentName != null)
-                {
-                    msg.Append(": Segment: ");
-                    msg.Append(SegmentName);
-                }
-
-                if (SegmentRepetition != -1)
-                {
-                    msg.Append(" (rep ");
-                    msg.Append(SegmentRepetition);
-                    msg.Append(")");
-                }
-
-                if (FieldPosition != -1)
-                {
-                    msg.Append(" Field #");
-                    msg.Append(FieldPosition);
-                }
-
-                return msg.ToString();
-            }
-        }
-
         /// <summary>
         /// Acknowledgment Application Accept.
         /// </summary>
@@ -291,10 +234,81 @@ namespace NHapi.Base
         {
         }
 
+        /// <value>
+        /// The name of the segment where the error occurred.
+        /// <para>(returns null if not set).</para>
+        /// </value>
+        public virtual string SegmentName { get; set; }
+
+        /// <value>
+        /// The sequence number of the segment where the error occurred (if there
+        /// are multiple segments with the same name).
+        /// <para> Numbering starts at 1. </para>
+        /// <para> (returns -1 if not set). </para>
+        /// </value>
+        public virtual int SegmentRepetition { get; set; } = -1;
+
+        /// <value>
+        /// The field number within the segment where the error occurred.
+        /// <para>Numbering starts at 1.</para>
+        /// <para> (returns -1 if not set). </para>
+        /// </value>
+        public virtual int FieldPosition { get; set; } = -1;
+
+        /// <value>
+        /// The <see cref="Base.ErrorCode"/> value associated with the <see cref="HL7Exception"/>.
+        /// </value>
+        public ErrorCode ErrorCode { get; private set; } = ErrorCode.APPLICATION_INTERNAL_ERROR;
+
+        /// <value>
+        /// The message that describes the current exception.
+        /// </value>
+        /// <remarks>Overrides <see cref="Exception.Message" /> to add
+        /// the field location of the problem if available.</remarks>
+        public override string Message
+        {
+            get
+            {
+                StringBuilder msg = new StringBuilder();
+                msg.Append(base.Message);
+
+                if (SegmentName != null)
+                {
+                    msg.Append(": Segment: ");
+                    msg.Append(SegmentName);
+                }
+
+                if (SegmentRepetition != -1)
+                {
+                    msg.Append(" (rep ");
+                    msg.Append(SegmentRepetition);
+                    msg.Append(")");
+                }
+
+                if (FieldPosition != -1)
+                {
+                    msg.Append(" Field #");
+                    msg.Append(FieldPosition);
+                }
+
+                return msg.ToString();
+            }
+        }
+
+        [Obsolete("This method has been replaced by 'Populate'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual void populate(ISegment errorSegment)
+        {
+            Populate(errorSegment);
+        }
+
         /// <summary> Populates the given error segment with information from this Exception.</summary>
         // TODO: this is out of sync with hapi see
         // https://github.com/hapifhir/hapi-hl7v2/blob/809516e3f4851d7cd97573efb6dedf24959a1063/hapi-base/src/main/java/ca/uhn/hl7v2/AbstractHL7Exception.java#L134
-        public virtual void populate(ISegment errorSegment)
+        public virtual void Populate(ISegment errorSegment)
         {
             // make sure it's an ERR
             if (!errorSegment.GetStructureName().Equals("ERR"))

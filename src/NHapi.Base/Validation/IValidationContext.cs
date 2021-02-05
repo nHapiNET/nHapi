@@ -26,7 +26,6 @@
 
 namespace NHapi.Base.Validation
 {
-
     using NHapi.Base.Model;
 
     /// <summary> A set of rules for message validation.

@@ -124,12 +124,12 @@ namespace NHapi.Base.Parser
         public static string Encode(IType source, EncodingCharacters encodingChars)
         {
             StringBuilder field = new StringBuilder();
-            for (int i = 1; i <= Terser.numComponents(source); i++)
+            for (int i = 1; i <= Terser.NumComponents(source); i++)
             {
                 StringBuilder comp = new StringBuilder();
-                for (int j = 1; j <= Terser.numSubComponents(source, i); j++)
+                for (int j = 1; j <= Terser.NumSubComponents(source, i); j++)
                 {
-                    IPrimitive p = Terser.getPrimitive(source, i, j);
+                    IPrimitive p = Terser.GetPrimitive(source, i, j);
                     comp.Append(EncodePrimitive(p, encodingChars));
                     comp.Append(encodingChars.SubcomponentSeparator);
                 }
@@ -395,7 +395,7 @@ namespace NHapi.Base.Parser
                         IType field = destination.GetField(i + fieldOffset, j);
                         if (isMSH2)
                         {
-                            Terser.getPrimitive(field, 1, 1).Value = reps[j];
+                            Terser.GetPrimitive(field, 1, 1).Value = reps[j];
                         }
                         else
                         {
@@ -824,7 +824,7 @@ namespace NHapi.Base.Parser
                         val = Escape.UnescapeText(val, encodingCharacters);
                     }
 
-                    Terser.getPrimitive(destinationField, i + 1, j + 1).Value = val;
+                    Terser.GetPrimitive(destinationField, i + 1, j + 1).Value = val;
                 }
             }
         }

@@ -32,12 +32,12 @@ namespace NHapi.Base.Util
         /// </summary>
         public static void Copy(IType from, IType to)
         {
-            for (int i = 1; i <= Terser.numComponents(from); i++)
+            for (int i = 1; i <= Terser.NumComponents(from); i++)
             {
-                for (int j = 1; j <= Terser.numSubComponents(from, i); j++)
+                for (int j = 1; j <= Terser.NumSubComponents(from, i); j++)
                 {
-                    string val = Terser.getPrimitive(from, i, j).Value;
-                    Terser.getPrimitive(to, i, j).Value = val;
+                    string val = Terser.GetPrimitive(from, i, j).Value;
+                    Terser.GetPrimitive(to, i, j).Value = val;
                 }
             }
         }

@@ -228,9 +228,9 @@ namespace NHapi.Base.Parser
                                                                      message.Substring(0, Math.Min(message.Length, 50) - 0));
             }
 
-            messageValidator.validate(message, encoding.Equals("XML"), version);
+            messageValidator.Validate(message, encoding.Equals("XML"), version);
             IMessage result = DoParse(message, version);
-            messageValidator.validate(result);
+            messageValidator.Validate(result);
 
             return result;
         }
@@ -254,9 +254,9 @@ namespace NHapi.Base.Parser
         /// </summary>
         public virtual string Encode(IMessage source, string encoding)
         {
-            messageValidator.validate(source);
+            messageValidator.Validate(source);
             string result = DoEncode(source, encoding);
-            messageValidator.validate(result, encoding.Equals("XML"), source.Version);
+            messageValidator.Validate(result, encoding.Equals("XML"), source.Version);
 
             return result;
         }
@@ -272,9 +272,9 @@ namespace NHapi.Base.Parser
         {
             string encoding = DefaultEncoding;
 
-            messageValidator.validate(source);
+            messageValidator.Validate(source);
             string result = DoEncode(source);
-            messageValidator.validate(result, encoding.Equals("XML"), source.Version);
+            messageValidator.Validate(result, encoding.Equals("XML"), source.Version);
 
             return result;
         }

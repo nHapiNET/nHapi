@@ -26,15 +26,25 @@
 
 namespace NHapi.Base.Validation.Implementation
 {
-    /// <summary> Checks that Primitive values conform to a certain size limit.
-    ///
+    /// <summary>
+    /// Checks that Primitive values conform to a certain size limit.
     /// </summary>
-    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
-    /// </author>
-    /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $.
+    /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
+    /// <version>
+    /// $Revision: 1.3 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $.
     /// </version>
     public class SizeRule : IPrimitiveTypeRule
     {
+        private int myMaxChars;
+
+        /// <param name="theMaxChars">the maximum number of characters this rule allows in a
+        /// primitive value.
+        /// </param>
+        public SizeRule(int theMaxChars)
+        {
+            myMaxChars = theMaxChars;
+        }
+
         /// <summary>
         /// <seealso cref="IRule.Description" />
         /// </summary>
@@ -49,16 +59,6 @@ namespace NHapi.Base.Validation.Implementation
         public virtual string SectionReference
         {
             get { return null; }
-        }
-
-        private int myMaxChars;
-
-        /// <param name="theMaxChars">the maximum number of characters this rule allows in a
-        /// primitive value.
-        /// </param>
-        public SizeRule(int theMaxChars)
-        {
-            myMaxChars = theMaxChars;
         }
 
         /// <summary>

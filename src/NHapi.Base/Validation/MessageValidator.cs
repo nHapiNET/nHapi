@@ -27,6 +27,7 @@
 
 namespace NHapi.Base.Validation
 {
+    using System;
 
     using NHapi.Base.Log;
     using NHapi.Base.Model;
@@ -39,10 +40,15 @@ namespace NHapi.Base.Validation
     /// </author>
     public class MessageValidator
     {
-        private static readonly IHapiLog ourLog;
+        private static readonly IHapiLog OurLog;
 
         private IValidationContext myContext;
         private bool failOnError;
+
+        static MessageValidator()
+        {
+            OurLog = HapiLogFactory.GetHapiLog(typeof(MessageValidator));
+        }
 
         /// <param name="theContext">context that determines which validation rules apply.
         /// </param>
@@ -54,12 +60,22 @@ namespace NHapi.Base.Validation
             failOnError = theFailOnErrorFlag;
         }
 
+        [Obsolete("This method has been replaced by 'Validate'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual bool validate(IMessage message)
+        {
+            return Validate(message);
+        }
+
         /// <param name="message">a parsed message to validate (note that MSH-9-1 and MSH-9-2 must be valued).
         /// </param>
         /// <returns> true if the message is OK.
         /// </returns>
         /// <throws>  HL7Exception if there is at least one error and this validator is set to fail on errors. </throws>
-        public virtual bool validate(IMessage message)
+        public virtual bool Validate(IMessage message)
         {
             Terser t = new Terser(message);
             IMessageRule[] rules = myContext.getMessageRules(message.Version, t.Get("MSH-9-1"), t.Get("MSH-9-2"));
@@ -72,7 +88,7 @@ namespace NHapi.Base.Validation
                 for (int j = 0; j < ex.Length; j++)
                 {
                     result = false;
-                    ourLog.Error("Invalid message", ex[j]);
+                    OurLog.Error("Invalid message", ex[j]);
                     if (failOnError && toThrow == null)
                     {
                         toThrow = ex[j];
@@ -86,6 +102,16 @@ namespace NHapi.Base.Validation
             }
 
             return result;
+        }
+
+        [Obsolete("This method has been replaced by 'Validate'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual bool validate(string message, bool isXML, string version)
+        {
+            return Validate(message, isXML, version);
         }
 
         /// <param name="message">an ER7 or XML encoded message to validate.
@@ -97,7 +123,7 @@ namespace NHapi.Base.Validation
         /// <returns> true if the message is OK.
         /// </returns>
         /// <throws>  HL7Exception if there is at least one error and this validator is set to fail on errors. </throws>
-        public virtual bool validate(string message, bool isXML, string version)
+        public virtual bool Validate(string message, bool isXML, string version)
         {
             IEncodingRule[] rules = myContext.getEncodingRules(version, isXML ? "XML" : "ER7");
             ValidationException toThrow = null;
@@ -108,7 +134,7 @@ namespace NHapi.Base.Validation
                 for (int j = 0; j < ex.Length; j++)
                 {
                     result = false;
-                    ourLog.Error("Invalid message", ex[j]);
+                    OurLog.Error("Invalid message", ex[j]);
                     if (failOnError && toThrow == null)
                     {
                         toThrow = ex[j];
@@ -122,11 +148,6 @@ namespace NHapi.Base.Validation
             }
 
             return result;
-        }
-
-        static MessageValidator()
-        {
-            ourLog = HapiLogFactory.GetHapiLog(typeof(MessageValidator));
         }
     }
 }

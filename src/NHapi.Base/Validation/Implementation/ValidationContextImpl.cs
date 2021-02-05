@@ -31,15 +31,26 @@ namespace NHapi.Base.Validation.Implementation
 
     using NHapi.Base.Model;
 
-    /// <summary> A default implementation of. <code>ValidationContext</code>.
-    ///
+    /// <summary>
+    /// A default implementation of. <code>ValidationContext</code>.
     /// </summary>
-    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
-    /// </author>
-    /// <version>  $Revision: 1.5 $ updated on $Date: 2005/06/27 22:42:18 $ by $Author: bryan_tripp $.
+    /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
+    /// <version>
+    /// $Revision: 1.5 $ updated on $Date: 2005/06/27 22:42:18 $ by $Author: bryan_tripp $.
     /// </version>
     public class ValidationContextImpl : IValidationContext
     {
+        private IList myPrimitiveRuleBindings;
+        private IList myMessageRuleBindings;
+        private IList myEncodingRuleBindings;
+
+        public ValidationContextImpl()
+        {
+            myPrimitiveRuleBindings = new ArrayList(30);
+            myMessageRuleBindings = new ArrayList(20);
+            myEncodingRuleBindings = new ArrayList(10);
+        }
+
         /// <returns> a List of. <code>RuleBinding</code>s for. <code>PrimitiveTypeRule</code>s.
         /// </returns>
         public virtual IList PrimitiveRuleBindings
@@ -59,31 +70,6 @@ namespace NHapi.Base.Validation.Implementation
         public virtual IList EncodingRuleBindings
         {
             get { return myEncodingRuleBindings; }
-
-            // /**
-            //     * @see NHapi.Base.validation.ValidationContext#getCheckPrimitivesOnSet()
-            //     */
-            //    public boolean getCheckPrimitivesOnSet() {
-            //        return myCheckPrimitivesFlag;
-            //    }
-            //
-            //    /**
-            //     * @see NHapi.Base.validation.ValidationContext#setCheckPrimitivesOnSet(boolean)
-            //     */
-            //    public void setCheckPrimitivesOnSet(boolean check) {
-            //        myCheckPrimitivesFlag = check;
-            //    }
-        }
-
-        private IList myPrimitiveRuleBindings;
-        private IList myMessageRuleBindings;
-        private IList myEncodingRuleBindings;
-
-        public ValidationContextImpl()
-        {
-            myPrimitiveRuleBindings = new ArrayList(30);
-            myMessageRuleBindings = new ArrayList(20);
-            myEncodingRuleBindings = new ArrayList(10);
         }
 
         public virtual IPrimitiveTypeRule[] getPrimitiveRules(string theVersion, string theTypeName, IPrimitive theType)
@@ -98,7 +84,7 @@ namespace NHapi.Base.Validation.Implementation
                 }
 
                 RuleBinding binding = (RuleBinding)o;
-                if (binding.Active && binding.appliesToVersion(theVersion) && binding.appliesToScope(theTypeName))
+                if (binding.Active && binding.AppliesToVersion(theVersion) && binding.AppliesToScope(theTypeName))
                 {
                     active.Add(binding.Rule);
                 }
@@ -119,8 +105,8 @@ namespace NHapi.Base.Validation.Implementation
                 }
 
                 RuleBinding binding = (RuleBinding)o;
-                if (binding.Active && binding.appliesToVersion(theVersion) &&
-                     binding.appliesToScope(theMessageType + "^" + theTriggerEvent))
+                if (binding.Active && binding.AppliesToVersion(theVersion) &&
+                     binding.AppliesToScope(theMessageType + "^" + theTriggerEvent))
                 {
                     active.Add(binding.Rule);
                 }
@@ -141,7 +127,7 @@ namespace NHapi.Base.Validation.Implementation
                 }
 
                 RuleBinding binding = (RuleBinding)o;
-                if (binding.Active && binding.appliesToVersion(theVersion) && binding.appliesToScope(theEncoding))
+                if (binding.Active && binding.AppliesToVersion(theVersion) && binding.AppliesToScope(theEncoding))
                 {
                     active.Add(binding.Rule);
                 }

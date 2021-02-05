@@ -9,6 +9,9 @@
   the architecture of the resulting solution may differ somewhat.
 */
 
+// TODO: Temporarily disabling rule violations in this file until it can be refactored.
+#pragma warning disable
+
 namespace NHapi.Base
 {
     using System;

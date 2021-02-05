@@ -26,16 +26,40 @@
 
 namespace NHapi.Base.Validation.Implementation
 {
-    /// <summary> An association between a type of item to be validated (eg a datatype or
-    /// message) and a validation. <code>Rule</code>.
-    ///
+    using System;
+
+    /// <summary>
+    /// An association between a type of item to be validated (eg a datatype or
+    /// message) and a validation <see cref="IRule"/>.
     /// </summary>
-    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
-    /// </author>
-    /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $.
+    /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
+    /// <version>
+    /// $Revision: 1.3 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $.
     /// </version>
     public class RuleBinding
     {
+        private bool myActiveFlag;
+        private string myVersion;
+        private string myScope;
+        private IRule myRule;
+
+        /// <summary> Active by default.
+        ///
+        /// </summary>
+        /// <param name="theVersion">see {@link #getVersion()}.
+        /// </param>
+        /// <param name="theScope">see {@link #getScope()}.
+        /// </param>
+        /// <param name="theRule">see {@link #getRule()}.
+        /// </param>
+        public RuleBinding(string theVersion, string theScope, IRule theRule)
+        {
+            myActiveFlag = true;
+            myVersion = theVersion;
+            myScope = theScope;
+            myRule = theRule;
+        }
+
         /// <summary>
         /// Gets or sets a value indicating whether or not the binding is currently active.
         /// </summary>
@@ -82,44 +106,42 @@ namespace NHapi.Base.Validation.Implementation
             get { return myRule; }
         }
 
-        private bool myActiveFlag;
-        private string myVersion;
-        private string myScope;
-        private IRule myRule;
-
-        /// <summary> Active by default.
-        ///
-        /// </summary>
-        /// <param name="theVersion">see {@link #getVersion()}.
-        /// </param>
-        /// <param name="theScope">see {@link #getScope()}.
-        /// </param>
-        /// <param name="theRule">see {@link #getRule()}.
-        /// </param>
-        public RuleBinding(string theVersion, string theScope, IRule theRule)
+        [Obsolete("This method has been replaced by 'AppliesToVersion'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual bool appliesToVersion(string theVersion)
         {
-            myActiveFlag = true;
-            myVersion = theVersion;
-            myScope = theScope;
-            myRule = theRule;
+            return AppliesToVersion(theVersion);
         }
 
         /// <param name="theVersion">an HL7 version.
         /// </param>
         /// <returns> true if this binding applies to the given version (ie getVersion() matches or is *).
         /// </returns>
-        public virtual bool appliesToVersion(string theVersion)
+        public virtual bool AppliesToVersion(string theVersion)
         {
-            return applies(Version, theVersion);
+            return Applies(Version, theVersion);
+        }
+
+        [Obsolete("This method has been replaced by 'AppliesToScope'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual bool appliesToScope(string theType)
+        {
+            return AppliesToScope(theType);
         }
 
         /// <param name="theType">an item description to be checked against getScope().
         /// </param>
         /// <returns> true if the given type is within scope, ie if it matches getScope() or getScope() is *.
         /// </returns>
-        public virtual bool appliesToScope(string theType)
+        public virtual bool AppliesToScope(string theType)
         {
-            return applies(Scope, theType);
+            return Applies(Scope, theType);
         }
 
         /// <summary> An abstraction of appliesToVersion() and appliesToScope().
@@ -131,7 +153,7 @@ namespace NHapi.Base.Validation.Implementation
         /// </param>
         /// <returns>
         /// </returns>
-        protected internal virtual bool applies(string theBindingData, string theItemData)
+        protected internal virtual bool Applies(string theBindingData, string theItemData)
         {
             bool applies = false;
             if (theBindingData.Equals(theItemData) || theBindingData.Equals("*"))

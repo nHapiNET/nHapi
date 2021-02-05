@@ -28,16 +28,30 @@ namespace NHapi.Base.Validation.Implementation
 {
     using System.Text.RegularExpressions;
 
-    /// <summary> A. <code>PrimitiveTypeRule</code> that validates primitive values
+    /// <summary>
+    /// A <see cref="IPrimitiveTypeRule"/> that validates primitive values
     /// using a regular expression.
-    ///
     /// </summary>
-    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
-    /// </author>
-    /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:15:12 $ by $Author: bryan_tripp $.
+    /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
+    /// <version>
+    /// $Revision: 1.3 $ updated on $Date: 2005/06/14 20:15:12 $ by $Author: bryan_tripp $.
     /// </version>
     public class RegexPrimitiveRule : IPrimitiveTypeRule
     {
+        private Regex myPattern;
+        private string mySectionReference;
+
+        /// <param name="theRegex">a regular expression against which to validate primitive
+        /// values.
+        /// </param>
+        /// <param name="theSectionReference">to be returned by. <code>getSectionReference()</code>
+        /// </param>
+        public RegexPrimitiveRule(string theRegex, string theSectionReference)
+        {
+            myPattern = new Regex(theRegex);
+            mySectionReference = theSectionReference;
+        }
+
         /// <summary>
         /// The description.
         /// </summary>
@@ -52,20 +66,6 @@ namespace NHapi.Base.Validation.Implementation
         public virtual string SectionReference
         {
             get { return mySectionReference; }
-        }
-
-        private Regex myPattern;
-        private string mySectionReference;
-
-        /// <param name="theRegex">a regular expression against which to validate primitive
-        /// values.
-        /// </param>
-        /// <param name="theSectionReference">to be returned by. <code>getSectionReference()</code>
-        /// </param>
-        public RegexPrimitiveRule(string theRegex, string theSectionReference)
-        {
-            myPattern = new Regex(theRegex);
-            mySectionReference = theSectionReference;
         }
 
         /// <summary> Empty string, null, and the HL7 explicit null (two double-quotes) are passed.
