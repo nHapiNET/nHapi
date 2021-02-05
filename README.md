@@ -1,6 +1,8 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/llfc0qjtahffnpdw?svg=true)](https://ci.appveyor.com/project/DuaneEdwards/nhapi)
+[![Build Status](https://github.com/nHapiNET/nHapi/workflows/Build%20Status/badge.svg)](https://github.com/nHapiNET/nHapi/actions?query=workflow%3A%22Build+Status%22+branch%3Amaster)
+[![codecov](https://codecov.io/gh/nHapiNET/nHapi/branch/master/graph/badge.svg?token=pGlqcCryYr)](https://codecov.io/gh/nHapiNET/nHapi)
 
-# This repository is now actively maintained as of 10/21/2020.
+This repository is now actively maintained as of 10/21/2020.
 
 # nHapi
 NHapi is a .NET port of the original Java project [HAPI](https://github.com/hapifhir/hapi-hl7v2).
@@ -12,7 +14,7 @@ This project is **NOT** affiliated with the HL7 organization. This software just
 **Key Benefits**
 
 - Easy object model  
-- Microsoft .NET 3.5 library that conforms to HL7 2.1, 2.2, 2.3, 2.3.1, 2.4, 2.5, 2.5.1, 2.6, 2.7, 2.7.1, 2.8 and 2.8.1 specifications  
+- Microsoft .NET 3.5 and netstandard2.0 library that conforms to HL7 2.1, 2.2, 2.3, 2.3.1, 2.4, 2.5, 2.5.1, 2.6, 2.7, 2.7.1, 2.8 and 2.8.1 specifications  
 - Can take a pipe delimited or XML formatted HL7 2.x message and build the C# object model for use in code  
 - Can take the C# HL7 object model and produce pipe delimited or XML formatted HL7  
 - FREE! (You can't beat that price) and open source  

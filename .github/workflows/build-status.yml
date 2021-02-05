@@ -1,0 +1,48 @@
+name: Build Status
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-test:
+    name: Build And Test
+    runs-on: windows-2019
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+    - name: Restore nHapi
+      run: |
+        dotnet restore nHapi.sln --configfile build\.nuget\NuGet.config
+        dotnet restore Hl7Models.sln --configfile build\.nuget\NuGet.config
+    - name: Build nHapi
+      run: |
+        dotnet build nHapi.sln -c Release --no-restore
+        dotnet build Hl7Models.sln -c Release --no-restore
+    - name: Run tests for all target frameworks
+      run: |
+        dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net461 --no-restore --no-build
+        dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+        dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net461 --no-restore --no-build
+        dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+        dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net461 --no-restore --no-build
+        dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+    - name: Merge Coverage Reports
+      run: |
+        dotnet tool install -g dotnet-reportgenerator-globaltool
+        reportgenerator "-reports:TestResults/**/coverage.cobertura.xml" "-targetdir:coverage" "-reporttypes:Cobertura"
+
+    - name: Publish Code Coverage Results
+      uses: codecov/codecov-action@v1
+      with:
+        files: coverage/Cobertura.xml
+
+    - name: Test bash Coverage Uploader
+      run: |
+        Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+        bash codecov.sh -f '"coverage/Cobertura.xml"'

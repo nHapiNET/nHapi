@@ -1,0 +1,7 @@
+codecov:
+  require_ci_to_pass: false
+  disable_default_path_fixes: false
+
+fixes:
+  - "D:\\a\\nHapi\\nHapi\\::"
+  - "D:/a/nHapi/nHapi/::"

@@ -1,4 +1,4 @@
-name: Publish Test Results
+name: Publish Code Coverage Results
 
 on:
   workflow_run:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   publish-test-results:
-    name: Publish Test Results
+    name: Publish Code Coverage Results
     runs-on: ubuntu-latest
     # the build-and-test job might be skipped, we don't need to run this job then
     if: >
@@ -26,7 +26,7 @@ jobs:
                run_id: ${{github.event.workflow_run.id }},
             });
             var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
-              return artifact.name == "unit-test-results"
+              return artifact.name == "coverage-reports"
             })[0];
             var download = await github.actions.downloadArtifact({
                owner: context.repo.owner,
@@ -35,14 +35,22 @@ jobs:
                archive_format: 'zip',
             });
             var fs = require('fs');
-            fs.writeFileSync('${{github.workspace}}/unit-test-results.zip', Buffer.from(download.data));
-      - run: unzip unit-test-results.zip
+            fs.writeFileSync('${{github.workspace}}/coverage-reports.zip', Buffer.from(download.data));
+      - run: |
+          unzip coverage-reports.zip
+          rm coverage-reports.zip
 
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1.7
+      - name: Publish Code Coverage Results
+        uses: codecov/codecov-action@v1
         with:
-          check_name: Unit Test Results
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          files: "**/*.xml"
-          report_individual_runs: true
-          check_run_annotations: all tests, skipped tests
+          files: "**/Cobertura.xml"
+
+      - name: Test bash Coverage Uploader
+        run: |
+          Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+          bash codecov.sh -f '"**/Cobertura.xml"'
+
+      - name: Publish Code Coverage Results
+        uses: 5monkeys/cobertura-action@master
+        with:
+          path: "**/Cobertura.xml"
