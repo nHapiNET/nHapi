@@ -24,17 +24,15 @@
   this file under either the MPL or the GPL.
 */
 
-namespace NHapi.Base.validation.impl
+namespace NHapi.Base.Validation.Implementation
 {
-    using System;
-
-   /// <summary> Performs no validation but removes leading whitespace in the correct() method.
-   ///
-   /// </summary>
-   /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
-   /// </author>
-   /// <version>  $Revision: 1.2 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $.
-   /// </version>
+    /// <summary> Performs no validation but removes leading whitespace in the correct() method.
+    ///
+    /// </summary>
+    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
+    /// </author>
+    /// <version>  $Revision: 1.2 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $.
+    /// </version>
     public class TrimLeadingWhitespace : IPrimitiveTypeRule
     {
         /// <summary>

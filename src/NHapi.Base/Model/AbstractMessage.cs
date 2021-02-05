@@ -30,7 +30,7 @@ namespace NHapi.Base.Model
     using System.Text.RegularExpressions;
 
     using NHapi.Base.Parser;
-    using NHapi.Base.validation;
+    using NHapi.Base.Validation;
 
     /// <summary> A default implementation of Message. </summary>
     /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).

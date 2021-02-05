@@ -24,13 +24,13 @@
   this file under either the MPL or the GPL.
 */
 
-namespace NHapi.Base.validation
+namespace NHapi.Base.Validation
 {
     using System;
 
-   /// <summary> A failure to validate against a rule.  </summary>
-   /// <author>  Bryan Tripp.
-   /// </author>
+    /// <summary> A failure to validate against a rule.  </summary>
+    /// <author>  Bryan Tripp.
+    /// </author>
     [Serializable]
     public class ValidationException : Exception
     {

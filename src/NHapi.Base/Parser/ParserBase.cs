@@ -35,8 +35,8 @@ namespace NHapi.Base.Parser
 
     using NHapi.Base.Log;
     using NHapi.Base.Model;
-    using NHapi.Base.validation;
-    using NHapi.Base.validation.impl;
+    using NHapi.Base.Validation;
+    using NHapi.Base.Validation.Implementation;
 
     /// <summary> Parses HL7 message Strings into HL7 Message objects and
     /// encodes HL7 Message objects into HL7 message Strings.

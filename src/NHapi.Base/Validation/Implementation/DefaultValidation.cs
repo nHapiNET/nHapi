@@ -24,10 +24,8 @@
   this file under either the MPL or the GPL.
 */
 
-namespace NHapi.Base.validation.impl
+namespace NHapi.Base.Validation.Implementation
 {
-    using System;
-
     /// <summary> A. <code>ValidationContext</code> with a default set of rules initially defined.
     /// This can be used as-is for a reasonable level of primitive type validation.
     ///

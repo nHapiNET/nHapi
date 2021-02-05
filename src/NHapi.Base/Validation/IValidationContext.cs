@@ -24,18 +24,18 @@
   this file under either the MPL or the GPL.
 */
 
-namespace NHapi.Base.validation
+namespace NHapi.Base.Validation
 {
-    using System;
+
     using NHapi.Base.Model;
 
-   /// <summary> A set of rules for message validation.
-   ///
-   /// </summary>
-   /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
-   /// </author>
-   /// <version>  $Revision: 1.4 $ updated on $Date: 2005/06/27 22:42:18 $ by $Author: bryan_tripp $.
-   /// </version>
+    /// <summary> A set of rules for message validation.
+    ///
+    /// </summary>
+    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
+    /// </author>
+    /// <version>  $Revision: 1.4 $ updated on $Date: 2005/06/27 22:42:18 $ by $Author: bryan_tripp $.
+    /// </version>
     public interface IValidationContext
     {
         /// <param name="theVersion">an HL7 version (eg "2.1").

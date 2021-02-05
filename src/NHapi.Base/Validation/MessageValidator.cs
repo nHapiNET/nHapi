@@ -25,18 +25,18 @@
   this file under either the MPL or the GPL.
 */
 
-namespace NHapi.Base.validation
+namespace NHapi.Base.Validation
 {
-    using System;
+
     using NHapi.Base.Log;
     using NHapi.Base.Model;
     using NHapi.Base.Util;
 
-   /// <summary> Validation utilities for parsed and encoded messages.
-   ///
-   /// </summary>
-   /// <author>  Bryan Tripp.
-   /// </author>
+    /// <summary> Validation utilities for parsed and encoded messages.
+    ///
+    /// </summary>
+    /// <author>  Bryan Tripp.
+    /// </author>
     public class MessageValidator
     {
         private static readonly IHapiLog ourLog;

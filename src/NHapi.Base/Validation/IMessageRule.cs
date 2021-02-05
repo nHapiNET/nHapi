@@ -24,7 +24,7 @@
   this file under either the MPL or the GPL.
 */
 
-namespace NHapi.Base.validation
+namespace NHapi.Base.Validation
 {
     using NHapi.Base.Model;
 

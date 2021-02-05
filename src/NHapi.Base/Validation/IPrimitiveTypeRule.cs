@@ -24,7 +24,7 @@
   this file under either the MPL or the GPL.
 */
 
-namespace NHapi.Base.validation
+namespace NHapi.Base.Validation
 {
     /// <summary> A rule that applies to a primitive datatype. </summary>
     /// <author>  Bryan Tripp.

@@ -24,18 +24,16 @@
   this file under either the MPL or the GPL.
 */
 
-namespace NHapi.Base.validation.impl
+namespace NHapi.Base.Validation.Implementation
 {
-    using System;
-
-   /// <summary> An association between a type of item to be validated (eg a datatype or
-   /// message) and a validation. <code>Rule</code>.
-   ///
-   /// </summary>
-   /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
-   /// </author>
-   /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $.
-   /// </version>
+    /// <summary> An association between a type of item to be validated (eg a datatype or
+    /// message) and a validation. <code>Rule</code>.
+    ///
+    /// </summary>
+    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
+    /// </author>
+    /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $.
+    /// </version>
     public class RuleBinding
     {
         /// <summary>

@@ -24,7 +24,7 @@
   this file under either the MPL or the GPL.
 */
 
-namespace NHapi.Base.validation
+namespace NHapi.Base.Validation
 {
     /// <summary> A validation rule that applies to encoded message strings.  Rules that
     /// apply to message content are not included in this category (they are MessageRules

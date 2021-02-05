@@ -24,17 +24,15 @@
   this file under either the MPL or the GPL.
 */
 
-namespace NHapi.Base.validation.impl
+namespace NHapi.Base.Validation.Implementation
 {
-    using System;
-
-   /// <summary> Checks that Primitive values conform to a certain size limit.
-   ///
-   /// </summary>
-   /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
-   /// </author>
-   /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $.
-   /// </version>
+    /// <summary> Checks that Primitive values conform to a certain size limit.
+    ///
+    /// </summary>
+    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
+    /// </author>
+    /// <version>  $Revision: 1.3 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $.
+    /// </version>
     public class SizeRule : IPrimitiveTypeRule
     {
         /// <summary>

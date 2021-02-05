@@ -26,7 +26,7 @@
 
 namespace NHapi.Base.Model
 {
-    using NHapi.Base.validation;
+    using NHapi.Base.Validation;
 
     /// <summary> Represents a complete HL7 message including all structures, segments, and fields.  </summary>
     /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).

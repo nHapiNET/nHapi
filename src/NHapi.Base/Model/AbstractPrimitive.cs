@@ -28,7 +28,7 @@ namespace NHapi.Base.Model
 {
     using System;
 
-    using NHapi.Base.validation;
+    using NHapi.Base.Validation;
 
     /// <summary> Base class for Primitives.  Performs validation in setValue().
     ///
