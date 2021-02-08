@@ -1,72 +1,82 @@
-﻿using System;
-using System.Collections.Generic;
-using NHapi.Base.Model;
-using NUnit.Framework;
-
 namespace NHapi.Base.NUnit
 {
-	[TestFixture]
-	public class DataTypeUtilTests
-	{
-		private bool IsWindows { get; set; }
+    using System;
+    using System.Collections.Generic;
 
-		[SetUp]
-		public void Setup()
-		{
-			var nonWindows = new List<PlatformID>
-			{
-				PlatformID.MacOSX,
-				PlatformID.Unix
-			};
+    using global::NUnit.Framework;
 
-			IsWindows = !nonWindows.Contains(Environment.OSVersion.Platform);
-		}
+    using NHapi.Base.Model;
 
-		private string GetAppropriateTimeZoneId(string timeZoneId)
-		{
-			return IsWindows
-				? timeZoneId
-				: TimeZoneConverter.TZConvert.WindowsToIana(timeZoneId);
-		}
+    [TestFixture]
+    public class DataTypeUtilTests
+    {
+        private bool IsWindows { get; set; }
 
-		[Test]
-		public void GetGMTOffset_PST()
-		{
-			var timeZone = GetAppropriateTimeZoneId("Pacific Standard Time");
+        [SetUp]
+        public void Setup()
+        {
+            var nonWindows = new List<PlatformID>
+            {
+                PlatformID.MacOSX,
+                PlatformID.Unix,
+            };
 
-			var offset = DataTypeUtil.GetGMTOffset(TimeZoneInfo.FindSystemTimeZoneById(timeZone),
-				new DateTime(2014, 12, 1));
-			Assert.AreEqual(-800, offset);
-		}
+            IsWindows = !nonWindows.Contains(Environment.OSVersion.Platform);
+        }
 
-		[Test]
-		public void GetGMTOffset_PDT()
-		{
-			var timeZone = GetAppropriateTimeZoneId("Pacific Standard Time");
+        [Test]
+        public void GetGMTOffset_PST()
+        {
+            var timeZone = GetAppropriateTimeZoneId("Pacific Standard Time");
 
-			var offset = DataTypeUtil.GetGMTOffset(TimeZoneInfo.FindSystemTimeZoneById(timeZone),
-				new DateTime(2014, 10, 1));
-			Assert.AreEqual(-700, offset);
-		}
+            var offset = DataTypeUtil.GetGMTOffset(
+                TimeZoneInfo.FindSystemTimeZoneById(timeZone),
+                new DateTime(2014, 12, 1));
 
-		[Test]
-		public void GetGMTOffset_For_TimeZone_With_Non_Zero_Minutes()
-		{
-			var timeZone = GetAppropriateTimeZoneId("Myanmar Standard Time");
+            Assert.AreEqual(-800, offset);
+        }
 
-			var offset = DataTypeUtil.GetGMTOffset(TimeZoneInfo.FindSystemTimeZoneById(timeZone),
-				new DateTime(2014, 11, 1));
-			Assert.AreEqual(630, offset);
-		}
+        [Test]
+        public void GetGMTOffset_PDT()
+        {
+            var timeZone = GetAppropriateTimeZoneId("Pacific Standard Time");
 
-		[Test]
-		public void GetGMTOffset_For_TimeZone_With_Offset_Greater_Than_12()
-		{
-			var timeZone = GetAppropriateTimeZoneId("Line Islands Standard Time");
+            var offset = DataTypeUtil.GetGMTOffset(
+                TimeZoneInfo.FindSystemTimeZoneById(timeZone),
+                new DateTime(2014, 10, 1));
 
-			var offset = DataTypeUtil.GetGMTOffset(TimeZoneInfo.FindSystemTimeZoneById(timeZone),
-				new DateTime(2014, 11, 1));
-			Assert.AreEqual(1400, offset);
-		}
-	}
+            Assert.AreEqual(-700, offset);
+        }
+
+        [Test]
+        public void GetGMTOffset_For_TimeZone_With_Non_Zero_Minutes()
+        {
+            var timeZone = GetAppropriateTimeZoneId("Myanmar Standard Time");
+
+            var offset = DataTypeUtil.GetGMTOffset(
+                TimeZoneInfo.FindSystemTimeZoneById(timeZone),
+                new DateTime(2014, 11, 1));
+
+            Assert.AreEqual(630, offset);
+        }
+
+        [Test]
+        public void GetGMTOffset_For_TimeZone_With_Offset_Greater_Than_12()
+        {
+            var timeZone = GetAppropriateTimeZoneId("Line Islands Standard Time");
+
+            var offset = DataTypeUtil.GetGMTOffset(
+                TimeZoneInfo.FindSystemTimeZoneById(timeZone),
+                new DateTime(2014, 11, 1));
+
+            Assert.AreEqual(1400, offset);
+        }
+
+        private string GetAppropriateTimeZoneId(string timeZoneId)
+        {
+            return IsWindows
+                ? timeZoneId
+                : TimeZoneConverter.TZConvert.WindowsToIana(timeZoneId);
+        }
+    }
 }
