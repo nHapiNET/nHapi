@@ -210,9 +210,11 @@ dotnet_naming_style.begins_with_i.word_separator =
 dotnet_naming_style.begins_with_i.capitalization = pascal_case
 
 # SA1633: File should have header
+## Justification: not required in each indiviaul file as a top level license file exists
 dotnet_diagnostic.SA1633.severity = none
 
 # SA1101: Prefix local calls with this
+## Justification: this conflicts with the default .editorconfig ruleset
 dotnet_diagnostic.SA1101.severity = none
 
 # Temporarily disabling documentation rules
@@ -227,3 +229,8 @@ dotnet_diagnostic.SA1615.severity = none
 dotnet_diagnostic.SA1616.severity = none
 dotnet_diagnostic.SA1623.severity = none
 dotnet_diagnostic.SA1642.severity = none
+
+# Temporarily disabling obsolete warnings
+# CS0618: Type or member is obsolete
+## TODO: This needs to be turned back on once we regenerate the model projects
+dotnet_diagnostic.CS0618.severity = none
