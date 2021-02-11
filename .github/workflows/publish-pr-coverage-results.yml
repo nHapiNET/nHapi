@@ -39,16 +39,14 @@ jobs:
       - run: |
           unzip coverage-reports.zip
           rm coverage-reports.zip
+      
+      - run: echo ${{ github.event.workflow_run }}
 
       - name: Publish Code Coverage Results
         uses: codecov/codecov-action@v1
         with:
           files: "**/Cobertura.xml"
-
-      - name: Test bash Coverage Uploader
-        run: |
-          Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-          bash codecov.sh -f '"**/Cobertura.xml"'
+          override_commit: ${{ github.event.workflow_run.head_sha }}
 
       - name: Publish Code Coverage Results
         uses: 5monkeys/cobertura-action@master

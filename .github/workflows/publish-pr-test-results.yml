@@ -43,6 +43,7 @@ jobs:
         with:
           check_name: Unit Test Results
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit: ${{ github.event.workflow_run.head_sha }}
           files: "**/*.xml"
           report_individual_runs: true
           check_run_annotations: all tests, skipped tests
