@@ -20,7 +20,8 @@ namespace NHapi.NUnit
 			string hl7Data = @"MSH|^~\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||ADT^A28^ADT_A05|1|P|2.5|
 EVN|
 PID|1|12345
-PV1|1";
+PV1|1".Replace(Environment.NewLine, "\r");
+
 			PipeParser parser = new PipeParser();
 			IMessage msg = parser.Parse(hl7Data);
 
@@ -76,7 +77,8 @@ PV1|1";
 PID|1||1711114||Appt^Test||19720501||||||||||||001020006
 ORC|||||F
 OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
-OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}Value||||||F";
+OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}Value||||||F"
+			.Replace(Environment.NewLine, "\r");
 
 			var parser = new PipeParser();
 

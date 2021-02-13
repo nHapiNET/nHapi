@@ -21,7 +21,7 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\nHapi.Base\NHapi.Base.csproj" />
+    <ProjectReference Include="..\..\src\NHapi.Base\NHapi.Base.csproj" />
     <ProjectReference Include="..\..\src\NHapi.Model.V21\NHapi.Model.V21.csproj" />
     <ProjectReference Include="..\..\src\NHapi.Model.V22\NHapi.Model.V22.csproj" />
     <ProjectReference Include="..\..\src\NHapi.Model.V22_ZSegments\NHapi.Model.V22_ZSegments.csproj" />

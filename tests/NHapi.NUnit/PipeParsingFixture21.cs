@@ -22,6 +22,8 @@ PV1||I|19^D415^01P|05|07008496||180658^DOCTOR NAME|||81|||||||180658^DOCTOR NAME
 DG1|1|I9|412|NAISSANCE||01
 Z01|1||S|NOUVEAU-NE||FATHER NAME^D|||||0||||A||||||N|||1|GFATHER NAME|G-PERE||(450)432-9999|21||S||20071006101800||N||0||||0000000000||||||||00000000000000|00000000||||||||||01|00000000|00000000000000|05|00|75017|00|00|||||||||||||||||||000000000|000000000|||00000000000000|||01|0";
 
+			message = message.Replace(Environment.NewLine, "\r");
+
 			PipeParser parser = new PipeParser();
 
 			IMessage m = parser.Parse(message);
@@ -42,7 +44,8 @@ Z01|1||S|NOUVEAU-NE||FATHER NAME^D|||||0||||A||||||N|||1|GFATHER NAME|G-PERE||(4
 PID|1||1711114||Appt^Test||19720501||||||||||||001020006
 ORC|||||F
 OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
-OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}Value||||||F";
+OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}Value||||||F"
+			.Replace(Environment.NewLine, "\r");
 
 			var parser = new PipeParser();
 

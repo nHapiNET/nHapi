@@ -1,4 +1,5 @@
-﻿using NHapi.Base.Parser;
+﻿using System;
+using NHapi.Base.Parser;
 using NHapi.Model.V231.Message;
 using NUnit.Framework;
 
@@ -18,7 +19,7 @@ OBR|1|20060307110114||003038^Urinalysis^L|||20060307110114";
 		public void TestORMDescriptionExtract()
 		{
 			var parser = new PipeParser();
-			var results = parser.Parse(Message_ORMSample);
+			var results = parser.Parse(Message_ORMSample.Replace(Environment.NewLine, "\r"));
 			var typed = results as ORM_O01;
 
 			Assert.AreEqual(typed.PATIENT.PID.DateTimeOfBirth.Description, @"Date/Time Of Birth");

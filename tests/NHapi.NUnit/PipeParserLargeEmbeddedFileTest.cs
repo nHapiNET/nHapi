@@ -58,7 +58,7 @@ OBX|20|ED|PDF^Display format in PDF^AUSPDI||^TX^PDF^Base64^JVBERi0xLjcNJeLjz9MNC
 			var testResultSummary = testGroup.PlanAndExecute(
 				string.Format("LargeEmbeddedFiles"), () =>
 				{
-					oru = (ORU_R01) parser.Parse(LargeEmbeddedFileTest);
+					oru = (ORU_R01) parser.Parse(LargeEmbeddedFileTest.Replace(Environment.NewLine, "\r"));
 
 					int expectedObservationCount = 20;
 					int parsedObservations = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBSERVATIONRepetitionsUsed;

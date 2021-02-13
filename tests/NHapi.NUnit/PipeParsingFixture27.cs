@@ -19,7 +19,8 @@ ORC|||||F
 OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
 OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F
 OBX|2|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F
-OBX|3|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
+OBX|3|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F"
+			.Replace(Environment.NewLine, "\r");
 		}
 
 		[Test]
@@ -54,6 +55,8 @@ OBX|3|TM|||TMValue||||||F"
 		)]
 		public void Test_27DataTypesParseCorrectly(string message)
 		{
+			message = message.Replace(Environment.NewLine, "\r");
+
 			var parser = new PipeParser();
 			var oru = new ORU_R01();
 			oru = (ORU_R01)parser.Parse(message);
@@ -81,7 +84,8 @@ OBX|3|TM|||TMValue||||||F"
 			string hl7Data = @"MSH|^~\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||ADT^A04|1|P|2.7|
 EVN|
 PID|1|12345
-PV1|1";
+PV1|1".Replace(Environment.NewLine, "\r");
+
 			PipeParser parser = new PipeParser();
 			IMessage msg = parser.Parse(hl7Data);
 
@@ -122,8 +126,9 @@ PV1|1";
 PID|1||1711114||Appt^Test||19720501||||||||||||001020006
 ORC|||||F
 OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
-OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}Value||||||F";
-
+OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}Value||||||F"
+			.Replace(Environment.NewLine, "\r");
+			
 			var parser = new PipeParser();
 
 			var parsed = (ORU_R01)parser.Parse(message);
