@@ -5,7 +5,7 @@ on:
       - master
 
 jobs:
-  build-and-test:
+  build-and-test-windows:
     name: Build And Test
     runs-on: windows-2019
 
@@ -15,34 +15,89 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.301
+        dotnet-version: 3.1.405
+
     - name: Restore nHapi
       run: |
         dotnet restore nHapi.sln --configfile build\.nuget\NuGet.config
         dotnet restore Hl7Models.sln --configfile build\.nuget\NuGet.config
+
     - name: Build nHapi
       run: |
         dotnet build nHapi.sln -c Release --no-restore
         dotnet build Hl7Models.sln -c Release --no-restore
+
     - name: Run tests for all target frameworks
       run: |
-        dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net461 --no-restore --no-build
-        dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
-        dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net461 --no-restore --no-build
-        dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
-        dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net461 --no-restore --no-build
-        dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+         dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj -r TestResults -c Release -f net461 --no-restore --no-build
+         dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+         dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj -r TestResults -c Release -f net461 --no-restore --no-build
+         dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+         dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj -r TestResults -c Release -f net461 --no-restore --no-build
+         dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+
+  build-and-test-linux:
+    name: Build And Test Linux
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.405
+
+    - name: Restore nHapi
+      run: |
+        dotnet restore nHapi.sln --configfile build/.nuget/NuGet.config
+        dotnet restore Hl7Models.sln --configfile build/.nuget/NuGet.config
+
+    - name: Build nHapi
+      run: |
+        dotnet build nHapi.sln -c Release --no-restore
+        dotnet build Hl7Models.sln -c Release --no-restore
+
+    - name: Run tests for all target frameworks
+      run: |
+         dotnet test tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj -r TestResults -c Release -f net461 --no-restore --no-build
+         dotnet test tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+         dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj -r TestResults -c Release -f net461 --no-restore --no-build
+         dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+         dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj -r TestResults -c Release -f net461 --no-restore --no-build
+         dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+
     - name: Merge Coverage Reports
+      if: ${{ success() || failure() }}
       run: |
         dotnet tool install -g dotnet-reportgenerator-globaltool
         reportgenerator "-reports:TestResults/**/coverage.cobertura.xml" "-targetdir:coverage" "-reporttypes:Cobertura"
 
-    - name: Publish Code Coverage Results
-      uses: codecov/codecov-action@v1
+    - name: Upload Code Coverage Report
+      if: always()
+      uses: actions/upload-artifact@v2
       with:
-        files: coverage/Cobertura.xml
+        name: coverage-reports
+        path: |
+          coverage/Cobertura.xml
 
-    - name: Test bash Coverage Uploader
-      run: |
-        Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-        bash codecov.sh -f '"coverage/Cobertura.xml"'
+  publish-coverage-results:
+    needs: build-and-test-linux
+    name: Publish Code Coverage Results
+    runs-on: ubuntu-latest
+    # the build-and-test job might be skipped, we don't need to run this job then
+    if: always()
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: 'Download artifact'
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage-reports
+
+      - name: Publish Code Coverage Results
+        uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageLocations: Cobertura.xml:cobertura

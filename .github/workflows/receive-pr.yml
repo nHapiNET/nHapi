@@ -3,7 +3,7 @@ name: Receive Pull Request
 on: [pull_request]
 
 jobs:
-  build-and-test:
+  build-and-test-windows:
     name: Build And Test
     runs-on: windows-2019
 
@@ -13,32 +13,31 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.301
+        dotnet-version: 3.1.405
     - name: Restore nHapi
       run: |
         dotnet restore nHapi.sln --configfile build\.nuget\NuGet.config
         dotnet restore Hl7Models.sln --configfile build\.nuget\NuGet.config
+
     - name: Build nHapi
       run: |
         dotnet build nHapi.sln -c Release --no-restore
         dotnet build Hl7Models.sln -c Release --no-restore
+
     - name: Run tests for all target frameworks
       run: |
-        dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f net461 --no-restore --no-build
-        dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
-        dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f net461 --no-restore --no-build
-        dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
-        dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --collect:"XPlat Code Coverage" --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f net461 --no-restore --no-build
-        dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --collect:"XPlat Code Coverage" --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+        dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f net461 --no-restore --no-build
+        dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+        dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f net461 --no-restore --no-build
+        dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+        dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f net461 --no-restore --no-build
+        dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+
     - name: Convert trx to junit
+      if: ${{ success() || failure() }}
       run: |
         dotnet tool install -g trx2junit
         trx2junit TestResults/*.trx
-
-    - name: Merge Coverage Reports
-      run: |
-        dotnet tool install -g dotnet-reportgenerator-globaltool
-        reportgenerator "-reports:TestResults/**/coverage.cobertura.xml" "-targetdir:coverage" "-reporttypes:Cobertura"
 
     - name: Upload Unit Test Results
       if: always()
@@ -47,11 +46,47 @@ jobs:
         name: unit-test-results
         path: TestResults\TestResults*.xml
 
+  build-and-test-linux:
+    name: Build And Test Linux
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.405
+
+    - name: Restore nHapi
+      run: |
+        dotnet restore nHapi.sln --configfile build/.nuget/NuGet.config
+        dotnet restore Hl7Models.sln --configfile build/.nuget/NuGet.config
+
+    - name: Build nHapi
+      run: |
+        dotnet build nHapi.sln -c Release --no-restore
+        dotnet build Hl7Models.sln -c Release --no-restore
+
+    - name: Run tests for all target frameworks
+      run: |
+         dotnet test tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj -r TestResults -c Release -f net461 --no-restore --no-build
+         dotnet test tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+         dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj -r TestResults -c Release -f net461 --no-restore --no-build
+         dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+         dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj -r TestResults -c Release -f net461 --no-restore --no-build
+         dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+
+    - name: Merge Coverage Reports
+      if: ${{ success() || failure() }}
+      run: |
+        dotnet tool install -g dotnet-reportgenerator-globaltool
+        reportgenerator "-reports:TestResults/**/coverage.cobertura.xml" "-targetdir:coverage" "-reporttypes:Cobertura"
+
     - name: Upload Code Coverage Report
       if: always()
       uses: actions/upload-artifact@v2
       with:
         name: coverage-reports
         path: |
-          codecov.yml
-          coverage\Cobertura.xml
+          coverage/Cobertura.xml

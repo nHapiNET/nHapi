@@ -1,6 +1,6 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/llfc0qjtahffnpdw?svg=true)](https://ci.appveyor.com/project/DuaneEdwards/nhapi)
 [![Build Status](https://github.com/nHapiNET/nHapi/workflows/Build%20Status/badge.svg)](https://github.com/nHapiNET/nHapi/actions?query=workflow%3A%22Build+Status%22+branch%3Amaster)
-[![codecov](https://codecov.io/gh/nHapiNET/nHapi/branch/master/graph/badge.svg?token=pGlqcCryYr)](https://codecov.io/gh/nHapiNET/nHapi)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/63027fc59b840d0008fd/test_coverage)](https://codeclimate.com/github/nHapiNET/nHapi/test_coverage)
 
 This repository is now actively maintained as of 10/21/2020.
 
