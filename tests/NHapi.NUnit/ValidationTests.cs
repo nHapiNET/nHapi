@@ -91,7 +91,7 @@ OBX|1|NM|||1.5||||||F";
             ORU_R01 oru;
 
             parser.ValidationContext = new StrictValidation();
-            string message = string.Format(
+            var message = string.Format(
                 "Strict validation {0} throw a {1} when parsing a NM field with alpha values",
                 shouldThrow ? "should" : "should not",
                 typeof(DataTypeException).Name);

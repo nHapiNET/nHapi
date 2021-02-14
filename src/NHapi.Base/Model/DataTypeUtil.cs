@@ -41,10 +41,7 @@ namespace NHapi.Base.Model
         /// <summary> This method will return a signed four digit integer indicating the local
         /// GMT offset. This is the HL7 Offset format in integer representation.
         /// </summary>
-        public static int LocalGMTOffset
-        {
-            get { return GetGMTOffset(TimeZoneInfo.Local, DateTime.Now); }
-        }
+        public static int LocalGMTOffset => GetGMTOffset(TimeZoneInfo.Local, DateTime.Now);
 
         /// <summary>
         /// This method will return a signed four digit integer indicating the
@@ -76,15 +73,15 @@ namespace NHapi.Base.Model
         {
             /* pre-append the zeros to the beginning of num such that the total length
             equals totalDigitLength. Return the string representation of the new number*/
-            string a = Convert.ToString(num);
+            var a = Convert.ToString(num);
             if (a.Length >= totalDigitLength)
             {
                 return a;
             }
             else
             {
-                int preAppendAmnt = totalDigitLength - a.Length;
-                for (int j = 0; j < preAppendAmnt; j++)
+                var preAppendAmnt = totalDigitLength - a.Length;
+                for (var j = 0; j < preAppendAmnt; j++)
                 {
                     a = "0" + a;
                 }

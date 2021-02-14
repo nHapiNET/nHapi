@@ -30,7 +30,6 @@ namespace NHapi.SourceGeneration.Generators
     using System.Collections;
     using System.Collections.Generic;
     using System.Data.Common;
-    using System.Data.Odbc;
     using System.IO;
     using System.Linq;
     using System.Text;
@@ -38,14 +37,12 @@ namespace NHapi.SourceGeneration.Generators
     using NHapi.Base;
     using NHapi.Base.Log;
 
-    /// <summary> This class is responsible for generating source code for HL7 segment objects.
+    /// <summary>
+    /// This class is responsible for generating source code for HL7 segment objects.
     /// Each automatically generated segment inherits from AbstractSegment.
-    ///
     /// </summary>
-    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
-    /// </author>
-    /// <author>  Eric Poiseau.
-    /// </author>
+    /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
+    /// <author>Eric Poiseau.</author>
     public class SegmentGenerator : object
     {
         private static readonly IHapiLog Log;
@@ -77,8 +74,8 @@ namespace NHapi.SourceGeneration.Generators
                 }
                 else
                 {
-                    string source = MakeSegment(args[1], "2.4");
-                    StreamWriter w =
+                    var source = MakeSegment(args[1], "2.4");
+                    var w =
                         new StreamWriter(
                             new StreamWriter(args[0] + "/" + args[1] + ".java", false, Encoding.Default).BaseStream,
                             new StreamWriter(args[0] + "/" + args[1] + ".java", false, Encoding.Default).Encoding);
@@ -104,23 +101,23 @@ namespace NHapi.SourceGeneration.Generators
                 baseDirectory = baseDirectory + "/";
             }
 
-            FileInfo targetDir =
+            var targetDir =
                 SourceGenerator.MakeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Segment");
 
             // get list of data types
-            OdbcConnection conn = NormativeDatabase.Instance.Connection;
-            string sql =
+            var conn = NormativeDatabase.Instance.Connection;
+            var sql =
                 "SELECT seg_code, [section] from HL7Segments, HL7Versions where HL7Segments.version_id = HL7Versions.version_id AND hl7_version = '" +
                 version + "'";
             DbCommand temp_OleDbCommand = conn.CreateCommand();
             temp_OleDbCommand.Connection = conn;
             temp_OleDbCommand.CommandText = sql;
-            DbDataReader rs = temp_OleDbCommand.ExecuteReader();
+            var rs = temp_OleDbCommand.ExecuteReader();
 
-            ArrayList segments = new ArrayList();
+            var segments = new ArrayList();
             while (rs.Read())
             {
-                string segName = Convert.ToString(rs[1 - 1]);
+                var segName = Convert.ToString(rs[1 - 1]);
                 if (char.IsLetter(segName[0]))
                 {
                     segments.Add(AltSegName(segName));
@@ -132,16 +129,16 @@ namespace NHapi.SourceGeneration.Generators
 
             if (segments.Count == 0)
             {
-                Log.Warn("No version " + version + " segments found in database " + conn.Database);
+                Log.Warn($"No version {version} segments found in database {conn.Database}");
             }
 
-            for (int i = 0; i < segments.Count; i++)
+            for (var i = 0; i < segments.Count; i++)
             {
                 try
                 {
-                    string seg = (string)segments[i];
-                    string source = MakeSegment(seg, version);
-                    using (StreamWriter w = new StreamWriter(targetDir.ToString() + @"\" + GetSpecialFilename(seg) + ".cs"))
+                    var seg = (string)segments[i];
+                    var source = MakeSegment(seg, version);
+                    using (var w = new StreamWriter(targetDir.ToString() + @"\" + GetSpecialFilename(seg) + ".cs"))
                     {
                         w.Write(source);
                         w.Write("}");
@@ -149,40 +146,36 @@ namespace NHapi.SourceGeneration.Generators
                 }
                 catch (Exception e)
                 {
-                    Console.Error.WriteLine("Error creating source code for all segments: " + e.Message);
+                    Console.Error.WriteLine($"Error creating source code for all segments: {e.Message}");
                     SupportClass.WriteStackTrace(e, Console.Error);
                 }
             }
         }
 
-        /// <summary> <p>Returns an alternate segment name to replace the given segment name.  Substitutions
-        /// made include:  </p>
-        /// <ul><li>Replacing Z.. with Z</li>
-        /// <li>Replacing ??? with ???</li></ul>
+        /// <summary>
+        /// Returns an alternate segment name to replace the given segment name.
+        /// Substitutions made include...
+        /// <ul>
+        /// <li>Replacing Z.. with Z</li>
+        /// </ul>
         /// </summary>
         public static string AltSegName(string segmentName)
         {
-            string ret = segmentName;
-            if (ret.Equals("Z.."))
-            {
-                ret = "Z";
-            }
-
-            return ret;
+            return segmentName.Equals("Z..") ? "Z" : segmentName;
         }
 
         /// <summary> Returns the Java source code for a class that represents the specified segment.</summary>
         public static string MakeSegment(string name, string version)
         {
             Console.WriteLine("Making segment " + name);
-            StringBuilder source = new StringBuilder();
+            var source = new StringBuilder();
             try
             {
-                ArrayList elements = new ArrayList();
+                var elements = new ArrayList();
                 SegmentElement se;
                 string segDesc = null;
-                OdbcConnection conn = NormativeDatabase.Instance.Connection;
-                StringBuilder sql = new StringBuilder();
+                var conn = NormativeDatabase.Instance.Connection;
+                var sql = new StringBuilder();
                 sql.Append("SELECT HL7SegmentDataElements.seg_code, HL7SegmentDataElements.seq_no, ");
                 sql.Append("HL7SegmentDataElements.repetitional, HL7SegmentDataElements.repetitions, ");
                 sql.Append("HL7DataElements.description, HL7DataElements.length_old, HL7DataElements.table_id, ");
@@ -199,11 +192,11 @@ namespace NHapi.SourceGeneration.Generators
                 sql.Append("' and HL7Versions.hl7_version = '");
                 sql.Append(version);
                 sql.Append("' ORDER BY HL7SegmentDataElements.seg_code, HL7SegmentDataElements.seq_no;");
-                DbCommand stmt = TransactionManager.Manager.CreateStatement(conn);
+                var stmt = TransactionManager.Manager.CreateStatement(conn);
                 DbCommand temp_OleDbCommand;
                 temp_OleDbCommand = stmt;
                 temp_OleDbCommand.CommandText = sql.ToString();
-                DbDataReader rs = temp_OleDbCommand.ExecuteReader();
+                var rs = temp_OleDbCommand.ExecuteReader();
 
                 while (rs.Read())
                 {
@@ -276,7 +269,7 @@ namespace NHapi.SourceGeneration.Generators
 
                 PrepareAppendStringsForElementsWithDuplicateDescriptions(name, elements);
 
-                for (int i = 0; i < elements.Count; i++)
+                for (var i = 0; i < elements.Count; i++)
                 {
                     se = (SegmentElement)elements[i];
                     source.Append("///");
@@ -328,10 +321,10 @@ namespace NHapi.SourceGeneration.Generators
                 if (elements.Count > 0)
                 {
                     source.Append("    try {\r\n");
-                    for (int i = 0; i < elements.Count; i++)
+                    for (var i = 0; i < elements.Count; i++)
                     {
                         se = (SegmentElement)elements[i];
-                        string type = SourceGenerator.GetAlternateType(se.Type, version);
+                        var type = SourceGenerator.GetAlternateType(se.Type, version);
                         source.Append("       this.add(");
                         source.Append("typeof(" + type + ")");
 
@@ -395,13 +388,13 @@ namespace NHapi.SourceGeneration.Generators
                 source.Append("  }\r\n\r\n");
 
                 // write a datatype-specific accessor for each field
-                for (int i = 0; i < elements.Count; i++)
+                for (var i = 0; i < elements.Count; i++)
                 {
                     se = (SegmentElement)elements[i];
                     if (!se.Desc.ToUpper().Equals("UNUSED".ToUpper()))
                     {
                         // some entries in 2.1 DB say "unused"
-                        string type = SourceGenerator.GetAlternateType(se.Type, version);
+                        var type = SourceGenerator.GetAlternateType(se.Type, version);
                         source.Append("\t///<summary>\r\n");
                         source.Append("\t/// Returns ");
                         if (se.Repetitions != 1)
@@ -568,18 +561,13 @@ namespace NHapi.SourceGeneration.Generators
         }
 
         /// <summary>
-        /// There are certain filenames that are reserved in windows.  CON is one of them.
+        /// There are certain filenames that are reserved in windows. CON is one of them.
         /// </summary>
         /// <param name="seg"></param>
         /// <returns></returns>
         private static string GetSpecialFilename(string seg)
         {
-            if (seg.Equals("CON"))
-            {
-                return "CON1";
-            }
-
-            return seg;
+            return seg.Equals("CON") ? "CON1" : seg;
         }
 
         private static void PrepareAppendStringsForElementsWithDuplicateDescriptions(string name, ArrayList elements)
@@ -588,7 +576,7 @@ namespace NHapi.SourceGeneration.Generators
             var toProcess = new List<SegmentElement>();
             foreach (var segmentElement in segmentElements)
             {
-                bool duplicateField =
+                var duplicateField =
                     segmentElements.Count(
                         element =>
                             element.GetDescriptionWithoutSpecialCharacters() == segmentElement.GetDescriptionWithoutSpecialCharacters()) > 1;
@@ -600,14 +588,14 @@ namespace NHapi.SourceGeneration.Generators
 
             foreach (var element in toProcess)
             {
-                string toAppend = "_" + name + element.Field;
+                var toAppend = "_" + name + element.Field;
                 element.AccessorNameToAppend += toAppend;
             }
         }
 
         private static int DetermineLength(DbDataReader rs)
         {
-            string length = rs.GetValue(6 - 1) as string;
+            var length = rs.GetValue(6 - 1) as string;
             if (!string.IsNullOrEmpty(length) && length.Contains(".."))
             {
                 length = length.Split(new[] { ".." }, StringSplitOptions.None).Last();

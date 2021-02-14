@@ -1,7 +1,7 @@
 /*
-* HapiLog.java
-*
-* Created on May 7, 2003 at 2:23:45 PM
+  HapiLog.java
+
+  Created on May 7, 2003 at 2:23:45 PM
 */
 
 namespace NHapi.Base.Log
@@ -126,7 +126,7 @@ namespace NHapi.Base.Log
         /// <inheritdoc />
         public virtual void Debug(string msgPattern, object[] values, Exception t)
         {
-            string message = string.Format(msgPattern, values);
+            var message = string.Format(msgPattern, values);
             innerLog.Debug(message, t);
         }
     }

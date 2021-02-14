@@ -9,7 +9,7 @@ namespace NHapi.SourceGeneration.Generators
     {
         public static void BuildBaseDataTypes(string baseDirectory, string version)
         {
-            string targetDir = baseDirectory + @"\" + PackageManager.GetVersionPackagePath(version) + "Datatype";
+            var targetDir = baseDirectory + @"\" + PackageManager.GetVersionPackagePath(version) + "Datatype";
 
             BuildFile("DT", targetDir, version);
             BuildFile("ST", targetDir, version);
@@ -20,28 +20,28 @@ namespace NHapi.SourceGeneration.Generators
 
         private static void BuildFile(string dataType, string targetDir, string version)
         {
-            string fileName = targetDir + @"\" + dataType + ".cs";
-            using (FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite))
+            var fileName = targetDir + @"\" + dataType + ".cs";
+            using (var fs = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite))
             {
-                string source = GetClassSource(dataType, version);
-                byte[] data = ASCIIEncoding.ASCII.GetBytes(source);
+                var source = GetClassSource(dataType, version);
+                var data = ASCIIEncoding.ASCII.GetBytes(source);
                 fs.Write(data, 0, data.Length);
             }
         }
 
         private static string GetClassSource(string dataType, string version)
         {
-            string namespaceName = PackageManager.GetVersionPackageName(version);
+            var namespaceName = PackageManager.GetVersionPackageName(version);
             namespaceName = namespaceName.Substring(0, namespaceName.Length - 1);
 
-            string baseClass = "NHapi.Base.Model.Primitive." + dataType;
+            var baseClass = "NHapi.Base.Model.Primitive." + dataType;
 
             if (dataType.Equals("ST"))
             {
                 baseClass = "AbstractPrimitive";
             }
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("using System;\n\n");
             sb.Append("using NHapi.Base.Model;\n");
 

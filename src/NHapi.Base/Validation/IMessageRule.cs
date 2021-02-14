@@ -26,25 +26,36 @@
 
 namespace NHapi.Base.Validation
 {
+    using System;
+
     using NHapi.Base.Model;
 
-    /// <summary> A validation rule that applies to a fully populated message object.  Message rules
+    /// <summary>
+    /// A validation rule that applies to a fully populated message object. Message rules
     /// may be called (depending on runtime configuration) just after an inbound message
     /// is parsed, or just before an outbound message is encoded.
     /// </summary>
-    /// <author>  Bryan Tripp.
-    /// </author>
+    /// <author>Bryan Tripp.</author>
     public interface IMessageRule : IRule
     {
-        /// <summary> Tests the given (fully populated) message against the criteria
+        [Obsolete("This method has been replaced by 'Test'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        ValidationException[] test(IMessage msg);
+
+        /// <summary>
+        /// Tests the given (fully populated) message against the criteria
         /// defined by this rule class.
         /// </summary>
-        /// <returns> a list of exceptions indicating points at which the given
+        /// <returns>
+        /// A list of exceptions indicating points at which the given
         /// message failed to validate (empty if validation succeeds; may
         /// not be a complete list as testing may be aborted after failure).
         /// The list should be empty if this rule is evaluated against a type
         /// of message to which it doesn't apply.
         /// </returns>
-        ValidationException[] test(IMessage msg);
+        ValidationException[] Test(IMessage msg);
     }
 }

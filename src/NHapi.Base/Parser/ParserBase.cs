@@ -31,23 +31,21 @@ namespace NHapi.Base.Parser
     using System.Collections;
     using System.Collections.Specialized;
     using System.IO;
-    using System.Reflection;
 
     using NHapi.Base.Log;
     using NHapi.Base.Model;
     using NHapi.Base.Validation;
     using NHapi.Base.Validation.Implementation;
 
-    /// <summary> Parses HL7 message Strings into HL7 Message objects and
+    /// <summary>
+    /// Parses HL7 message Strings into HL7 Message objects and
     /// encodes HL7 Message objects into HL7 message Strings.
     /// </summary>
-    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
-    /// </author>
+    /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
     public abstract class ParserBase
     {
         private static readonly IHapiLog Log;
 
-        private IModelClassFactory modelClassFactory;
         private IValidationContext validationContext;
         private MessageValidator messageValidator;
 
@@ -66,16 +64,14 @@ namespace NHapi.Base.Parser
         /// </param>
         public ParserBase(IModelClassFactory theFactory)
         {
-            modelClassFactory = theFactory;
+            Factory = theFactory;
             ValidationContext = new DefaultValidation();
         }
 
-        /// <returns> the factory used by this Parser for model class lookup.
-        /// </returns>
-        public virtual IModelClassFactory Factory
-        {
-            get { return modelClassFactory; }
-        }
+        /// <summary>
+        /// Gets the factory used by this Parser for model class lookup.
+        /// </summary>
+        public virtual IModelClassFactory Factory { get; }
 
         /// <summary>
         /// Gets or sets the set of validation rules that is applied to messages parsed or encoded by this parser.
@@ -94,43 +90,43 @@ namespace NHapi.Base.Parser
             }
         }
 
-        /// <returns> the preferred encoding of this Parser.
-        /// </returns>
+        /// <summary>
+        /// Gets the preferred encoding of this Parser.
+        /// </summary>
         public abstract string DefaultEncoding { get; }
 
-        /// <summary> Returns event->structure maps.  </summary>
-        private static IDictionary MessageStructures
-        {
-            get { return EventMapper.Instance.Maps; }
-        }
+        /// <summary>
+        /// Returns event->structure maps.
+        /// </summary>
+        private static IDictionary MessageStructures => EventMapper.Instance.Maps;
 
-        /// <summary> Creates a version-specific MSH object and returns it as a version-independent
+        /// <summary>
+        /// Creates a version-specific MSH object and returns it as a version-independent
         /// MSH interface.
         /// throws HL7Exception if there is a problem, e.g. invalid version, code not available
         /// for given version.
         /// </summary>
         public static ISegment MakeControlMSH(string version, IModelClassFactory factory)
         {
-            ISegment msh = null;
-
+            ISegment msh;
             try
             {
-                IMessage dummy =
+                var dummy =
                     (IMessage)GenericMessage
                         .GetGenericMessageClass(version)
                         .GetConstructor(new Type[] { typeof(IModelClassFactory) })
                         .Invoke(new object[] { factory });
 
-                Type[] constructorParamTypes = new Type[] { typeof(IGroup), typeof(IModelClassFactory) };
-                object[] constructorParamArgs = new object[] { dummy, factory };
-                Type c = factory.GetSegmentClass("MSH", version);
-                ConstructorInfo constructor = c.GetConstructor(constructorParamTypes);
+                var constructorParamTypes = new Type[] { typeof(IGroup), typeof(IModelClassFactory) };
+                var constructorParamArgs = new object[] { dummy, factory };
+                var c = factory.GetSegmentClass("MSH", version);
+                var constructor = c.GetConstructor(constructorParamTypes);
                 msh = (ISegment)constructor.Invoke(constructorParamArgs);
             }
             catch (Exception e)
             {
                 throw new HL7Exception(
-                    "Couldn't create MSH for version " + version + " (does your class path include this version?) ... ",
+                    $"Couldn't create MSH for version {version} (does your class path include this version?) ... ",
                     ErrorCode.APPLICATION_INTERNAL_ERROR,
                     e);
             }
@@ -146,25 +142,22 @@ namespace NHapi.Base.Parser
             return PackageManager.Instance.IsValidVersion(version);
         }
 
-        /// <summary> Given a concatenation of message type and event (e.g. ADT_A04), and the
+        /// <summary>
+        /// Given a concatenation of message type and event (e.g. ADT_A04), and the
         /// version, finds the corresponding message structure (e.g. ADT_A01).  This
         /// is needed because some events share message structures, although it is not needed
         /// when the message structure is explicitly valued in MSH-9-3.
         /// If no mapping is found, returns the original name.
         /// </summary>
-        /// <throws>  HL7Exception if there is an error retrieving the map, or if the given.  </throws>
-        /// <summary>      version is invalid.
-        /// </summary>
+        /// <exception cref="HL7Exception">Thrown if there is an error retrieving the map, or if the given version is invalid.</exception>
         public static string GetMessageStructureForEvent(string name, string version)
         {
-            string structure = null;
-
             if (!ValidVersion(version))
             {
-                throw new HL7Exception("The version " + version + " is unknown");
+                throw new HL7Exception($"The version {version} is unknown");
             }
 
-            NameValueCollection p = null;
+            NameValueCollection p;
             try
             {
                 p = (NameValueCollection)MessageStructures[version];
@@ -176,11 +169,10 @@ namespace NHapi.Base.Parser
 
             if (p == null)
             {
-                throw new HL7Exception("No map found for version " + version);
+                throw new HL7Exception($"No map found for version {version}");
             }
 
-            structure = p.Get(name);
-
+            var structure = p.Get(name);
             if (structure == null)
             {
                 structure = name;
@@ -189,24 +181,20 @@ namespace NHapi.Base.Parser
             return structure;
         }
 
-        /// <summary> Parses a message string and returns the corresponding Message object.
-        ///
+        /// <summary>
+        /// Parses a message string and returns the corresponding Message object.
         /// </summary>
-        /// <param name="message">a String that contains an HL7 message.
-        /// </param>
-        /// <returns> a HAPI Message object parsed from the given String.
-        /// </returns>
-        /// <throws>  HL7Exception if the message is not correctly formatted.   </throws>
-        /// <throws>  EncodingNotSupportedException if the message encoded.  </throws>
-        /// <summary>      is not supported by this parser.
-        /// </summary>
+        /// <param name="message">a String that contains an HL7 message.</param>
+        /// <returns>A HAPI Message object parsed from the given String.</returns>
+        /// <exception cref="HL7Exception">if the message is not correctly formatted.</exception>
+        /// <exception cref="EncodingNotSupportedException">Thrown if the message encoded is not supported by this parser.</exception>
         public virtual IMessage Parse(string message)
         {
-            string version = GetVersion(message);
+            var version = GetVersion(message);
             if (!ValidVersion(version))
             {
                 throw new HL7Exception(
-                    "Can't process message of version '" + version + "' - version not recognized",
+                    $"Can't process message of version '{version}' - version not recognized",
                     ErrorCode.UNSUPPORTED_VERSION_ID);
             }
 
@@ -221,65 +209,60 @@ namespace NHapi.Base.Parser
         /// <returns></returns>
         public virtual IMessage Parse(string message, string version)
         {
-            string encoding = GetEncoding(message);
+            var encoding = GetEncoding(message);
             if (!SupportsEncoding(encoding))
             {
-                throw new EncodingNotSupportedException("Can't parse message beginning " +
-                                                                     message.Substring(0, Math.Min(message.Length, 50) - 0));
+                throw new EncodingNotSupportedException(
+                    $"Can't parse message beginning {message.Substring(0, Math.Min(message.Length, 50) - 0)}");
             }
 
             messageValidator.Validate(message, encoding.Equals("XML"), version);
-            IMessage result = DoParse(message, version);
+            var result = DoParse(message, version);
             messageValidator.Validate(result);
 
             return result;
         }
 
-        /// <summary> Formats a Message object into an HL7 message string using the given
-        /// encoding.
-        ///
+        /// <summary>
+        /// Formats a Message object into an HL7 message string using the given encoding.
         /// </summary>
-        /// <param name="source">a Message object from which to construct an encoded message string.
-        /// </param>
+        /// <param name="source">a Message object from which to construct an encoded message string.</param>
         /// <param name="encoding">the name of the HL7 encoding to use (eg "XML"; most implementations support only
         /// one encoding).
         /// </param>
-        /// <returns> the encoded message.
-        /// </returns>
-        /// <throws>  HL7Exception if the data fields in the message do not permit encoding.  </throws>
-        /// <summary>      (e.g. required fields are null).
-        /// </summary>
-        /// <throws>  EncodingNotSupportedException if the requested encoding is not.  </throws>
-        /// <summary>      supported by this parser.
-        /// </summary>
+        /// <returns>The encoded message.</returns>
+        /// <exception cref="HL7Exception">Thrown if the data fields in the message do not permit encoding (e.g. required fields are null).</exception>
+        /// <exception cref="EncodingNotSupportedException">Thrown if the requested encoding is not supported by this parser.</exception>
         public virtual string Encode(IMessage source, string encoding)
         {
             messageValidator.Validate(source);
-            string result = DoEncode(source, encoding);
+            var result = DoEncode(source, encoding);
             messageValidator.Validate(result, encoding.Equals("XML"), source.Version);
 
             return result;
         }
 
-        /// <summary> Formats a Message object into an HL7 message string using this parser's
+        /// <summary>
+        /// Formats a Message object into an HL7 message string using this parser's
         /// default encoding.
-        ///
         /// </summary>
-        /// <param name="source">a Message object from which to construct an encoded message string.
+        /// <param name="source">
+        /// A Message object from which to construct an encoded message string.
         /// </param>
         /// <returns>The encoded message.</returns>
         public virtual string Encode(IMessage source)
         {
-            string encoding = DefaultEncoding;
+            var encoding = DefaultEncoding;
 
             messageValidator.Validate(source);
-            string result = DoEncode(source);
+            var result = DoEncode(source);
             messageValidator.Validate(result, encoding.Equals("XML"), source.Version);
 
             return result;
         }
 
-        /// <summary> Returns a String representing the encoding of the given message, if
+        /// <summary>
+        /// Returns a String representing the encoding of the given message, if
         /// the encoding is recognized.  For example if the given message appears
         /// to be encoded using HL7 2.x XML rules then "XML" would be returned.
         /// If the encoding is not recognized then null is returned.  That this
@@ -290,29 +273,37 @@ namespace NHapi.Base.Parser
         /// </summary>
         public abstract string GetEncoding(string message);
 
-        /// <summary> Returns true if and only if the given encoding is supported
+        /// <summary>
+        /// Returns true if and only if the given encoding is supported
         /// by this Parser.
         /// </summary>
         public abstract bool SupportsEncoding(string encoding);
 
-        /// <summary> <p>Returns a minimal amount of data from a message string, including only the
+        /// <summary>
+        /// Returns a minimal amount of data from a message string, including only the
         /// data needed to send a response to the remote system.  This includes the
         /// following fields:
-        /// <ul><li>field separator</li>
+        /// <para>
+        /// <ul>
+        /// <li>field separator</li>
         /// <li>encoding characters</li>
         /// <li>processing ID</li>
-        /// <li>message control ID</li></ul>
+        /// <li>message control ID</li>
+        /// </ul>
+        /// </para>
+        /// <para>
         /// This method is intended for use when there is an error parsing a message,
         /// (so the Message object is unavailable) but an error message must be sent
         /// back to the remote system including some of the information in the inbound
         /// message.  This method parses only that required information, hopefully
-        /// avoiding the condition that caused the original error.</p>
+        /// avoiding the condition that caused the original error.
+        /// </para>
         /// </summary>
-        /// <returns> an MSH segment.
-        /// </returns>
+        /// <returns>An MSH segment.</returns>
         public abstract ISegment GetCriticalResponseData(string message);
 
-        /// <summary> For response messages, returns the value of MSA-2 (the message ID of the message
+        /// <summary>
+        /// For response messages, returns the value of MSA-2 (the message ID of the message
         /// sent by the sending system).  This value may be needed prior to main message parsing,
         /// so that (particularly in a multi-threaded scenario) the message can be routed to
         /// the thread that sent the request.  We need this information first so that any
@@ -323,59 +314,41 @@ namespace NHapi.Base.Parser
         /// </summary>
         public abstract string GetAckID(string message);
 
-        /// <summary> Returns the version ID (MSH-12) from the given message, without fully parsing the message.
+        /// <summary>
+        /// Returns the version ID (MSH-12) from the given message, without fully parsing the message.
         /// The version is needed prior to parsing in order to determine the message class
         /// into which the text of the message should be parsed.
         /// </summary>
-        /// <throws>  HL7Exception if the version field can not be found.  </throws>
+        /// <exception cref="HL7Exception">Thrown if the version field can not be found.</exception>
         public abstract string GetVersion(string message);
 
-        /// <summary> Called by encode(Message, String) to perform implementation-specific encoding work.
-        ///
+        /// <summary>
+        /// Called by encode(Message, String) to perform implementation-specific encoding work.
         /// </summary>
-        /// <param name="source">a Message object from which to construct an encoded message string.
-        /// </param>
-        /// <param name="encoding">the name of the HL7 encoding to use (eg "XML"; most implementations support only
-        /// one encoding).
-        /// </param>
-        /// <returns> the encoded message.
-        /// </returns>
-        /// <throws>  HL7Exception if the data fields in the message do not permit encoding.  </throws>
-        /// <summary>      (e.g. required fields are null).
-        /// </summary>
-        /// <throws>  EncodingNotSupportedException if the requested encoding is not.  </throws>
-        /// <summary>      supported by this parser.
-        /// </summary>
+        /// <param name="source">a Message object from which to construct an encoded message string.</param>
+        /// <param name="encoding">the name of the HL7 encoding to use (eg "XML"; most implementations support only one encoding).</param>
+        /// <returns>The encoded message.</returns>
+        /// <exception cref="HL7Exception">Thrown if the data fields in the message do not permit encoding (e.g. required fields are null).</exception>
+        /// <exception cref="EncodingNotSupportedException">Thrown if the requested encoding is not supported by this parser.</exception>
         protected internal abstract string DoEncode(IMessage source, string encoding);
 
-        /// <summary> Called by encode(Message) to perform implementation-specific encoding work.
-        ///
+        /// <summary>
+        /// Called by encode(Message) to perform implementation-specific encoding work.
         /// </summary>
-        /// <param name="source">a Message object from which to construct an encoded message string.
-        /// </param>
-        /// <returns> the encoded message.
-        /// </returns>
-        /// <throws>  HL7Exception if the data fields in the message do not permit encoding.  </throws>
-        /// <summary>      (e.g. required fields are null).
-        /// </summary>
-        /// <throws>  EncodingNotSupportedException if the requested encoding is not.  </throws>
-        /// <summary>      supported by this parser.
-        /// </summary>
+        /// <param name="source">a Message object from which to construct an encoded message string.</param>
+        /// <returns>The encoded message.</returns>
+        /// <exception cref="HL7Exception">Thrown if the data fields in the message do not permit encoding (e.g. required fields are null).</exception>
+        /// <exception cref="EncodingNotSupportedException">Thrown if the requested encoding is not supported by this parser.</exception>
         protected internal abstract string DoEncode(IMessage source);
 
-        /// <summary> Called by parse() to perform implementation-specific parsing work.
-        ///
+        /// <summary>
+        /// Called by parse() to perform implementation-specific parsing work.
         /// </summary>
-        /// <param name="message">a String that contains an HL7 message.
-        /// </param>
-        /// <param name="version">the name of the HL7 version to which the message belongs (eg "2.5").
-        /// </param>
-        /// <returns> a HAPI Message object parsed from the given String.
-        /// </returns>
-        /// <throws>  HL7Exception if the message is not correctly formatted.   </throws>
-        /// <throws>  EncodingNotSupportedException if the message encoded.  </throws>
-        /// <summary>      is not supported by this parser.
-        /// </summary>
+        /// <param name="message">a String that contains an HL7 message.</param>
+        /// <param name="version">the name of the HL7 version to which the message belongs (eg "2.5").</param>
+        /// <returns>A HAPI Message object parsed from the given String.</returns>
+        /// <exception cref="HL7Exception">Thrown if the data fields in the message do not permit encoding (e.g. required fields are null).</exception>
+        /// <exception cref="EncodingNotSupportedException">Thrown if the requested encoding is not supported by this parser.</exception>
         protected internal abstract IMessage DoParse(string message, string version);
 
         /// <summary>
@@ -393,16 +366,15 @@ namespace NHapi.Base.Parser
         /// <exception cref="HL7Exception">Thrown when the version is not recognized or no appropriate class can be found or the Message.</exception>
         protected internal virtual IMessage InstantiateMessage(string theName, string theVersion, bool isExplicit)
         {
-            IMessage result = null;
-            Type messageClass = modelClassFactory.GetMessageClass(theName, theVersion, isExplicit);
+            var messageClass = Factory.GetMessageClass(theName, theVersion, isExplicit);
             if (messageClass == null)
             {
-                throw new Exception("Can't find message class in current package list: " + theName);
+                throw new Exception($"Can't find message class in current package list: {theName}");
             }
 
-            Log.Info("Instantiating msg of class " + messageClass.FullName);
-            ConstructorInfo constructor = messageClass.GetConstructor(new Type[] { typeof(IModelClassFactory) });
-            result = (IMessage)constructor.Invoke(new object[] { modelClassFactory });
+            Log.Info($"Instantiating msg of class {messageClass.FullName}");
+            var constructor = messageClass.GetConstructor(new Type[] { typeof(IModelClassFactory) });
+            var result = (IMessage)constructor.Invoke(new object[] { Factory });
             result.ValidationContext = validationContext;
             return result;
         }

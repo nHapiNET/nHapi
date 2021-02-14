@@ -8,8 +8,6 @@ namespace NHapi.Base.Model
     /// </summary>
     public class AbstractGroupItem
     {
-        private List<IStructure> structures = new List<IStructure>();
-
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -48,10 +46,7 @@ namespace NHapi.Base.Model
         /// <summary>
         /// The structures of the group item.
         /// </summary>
-        public List<IStructure> Structures
-        {
-            get { return structures; }
-        }
+        public List<IStructure> Structures { get; } = new List<IStructure>();
 
         /// <summary>
         /// Structure indexer.
@@ -62,17 +57,18 @@ namespace NHapi.Base.Model
         {
             get
             {
-                return structures[index];
+                return Structures[index];
             }
 
             set
             {
                 if (index > 0 && !IsRepeating)
                 {
-                    throw new HL7Exception("Cannot add multiple structures to " + Name + ".  Item is non-repeating");
+                    throw new HL7Exception(
+                        $"Cannot add multiple structures to {Name}. Item is non-repeating");
                 }
 
-                structures[index] = value;
+                Structures[index] = value;
             }
         }
     }

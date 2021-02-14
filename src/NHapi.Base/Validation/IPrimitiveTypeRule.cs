@@ -26,25 +26,41 @@
 
 namespace NHapi.Base.Validation
 {
-    /// <summary> A rule that applies to a primitive datatype. </summary>
-    /// <author>  Bryan Tripp.
-    /// </author>
+    using System;
+
+    /// <summary>
+    /// A rule that applies to a primitive datatype.
+    /// </summary>
+    /// <author>Bryan Tripp.</author>
     public interface IPrimitiveTypeRule : IRule
     {
-        /// <summary> Optionally performs an automatic correction on given data to make it
-        /// conform (eg trims leading whitespace).  This is to be called prior to
-        /// test().  If no corrections are performed, the original value is returned.
-        ///
-        /// </summary>
-        /// <param name="originalValue">an original value to be corrected.
-        /// </param>
-        /// <returns> a corrected version of the given value.
-        /// </returns>
+        [Obsolete("This method has been replaced by 'Correct'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
         string correct(string originalValue);
 
-        /// <summary> Tests the given string against the criteria defined by this
+        /// <summary>
+        /// Optionally performs an automatic correction on given data to make it
+        /// conform (eg trims leading whitespace). This is to be called prior to
+        /// test(). If no corrections are performed, the original value is returned.
+        /// </summary>
+        /// <param name="originalValue">An original value to be corrected.</param>
+        /// <returns>A corrected version of the given value.</returns>
+        string Correct(string originalValue);
+
+        [Obsolete("This method has been replaced by 'Test'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        bool test(string testValu);
+
+        /// <summary>
+        /// Tests the given string against the criteria defined by this
         /// rule -- returns true if it passes the test, false otherwise.
         /// </summary>
-        bool test(string testValu);
+        bool Test(string testValu);
     }
 }

@@ -19,8 +19,8 @@ namespace NHapi.Base
 
         private EventMapper()
         {
-            IList<Hl7Package> packages = PackageManager.Instance.GetAllPackages();
-            foreach (Hl7Package package in packages)
+            var packages = PackageManager.Instance.GetAllPackages();
+            foreach (var package in packages)
             {
                 Assembly assembly = null;
                 try
@@ -33,7 +33,7 @@ namespace NHapi.Base
                     // Just skip, this assembly is not used
                 }
 
-                NameValueCollection structures = new NameValueCollection();
+                var structures = new NameValueCollection();
                 if (assembly != null)
                 {
                     structures = GetAssemblyEventMapping(assembly, package);
@@ -43,21 +43,15 @@ namespace NHapi.Base
             }
         }
 
-        public static EventMapper Instance
-        {
-            get { return InstanceValue; }
-        }
+        public static EventMapper Instance => InstanceValue;
 
-        public Hashtable Maps
-        {
-            get { return map; }
-        }
+        public Hashtable Maps => map;
 
         private static string RemoveTrailingDot(Hl7Package package)
         {
-            string assemblyString = package.PackageName;
-            char lastChar = assemblyString.LastOrDefault();
-            bool trailingDot = lastChar != default(char) && lastChar.ToString() == ".";
+            var assemblyString = package.PackageName;
+            var lastChar = assemblyString.LastOrDefault();
+            var trailingDot = lastChar != default(char) && lastChar.ToString() == ".";
             if (trailingDot)
             {
                 assemblyString = assemblyString.Substring(0, assemblyString.Length - 1);
@@ -68,19 +62,19 @@ namespace NHapi.Base
 
         private NameValueCollection GetAssemblyEventMapping(Assembly assembly, Hl7Package package)
         {
-            NameValueCollection structures = new NameValueCollection();
-            using (Stream inResource = assembly.GetManifestResourceStream(package.EventMappingResourceName))
+            var structures = new NameValueCollection();
+            using (var inResource = assembly.GetManifestResourceStream(package.EventMappingResourceName))
             {
                 if (inResource != null)
                 {
-                    using (StreamReader sr = new StreamReader(inResource))
+                    using (var sr = new StreamReader(inResource))
                     {
-                        string line = sr.ReadLine();
+                        var line = sr.ReadLine();
                         while (line != null)
                         {
                             if ((line.Length > 0) && (line[0] != '#'))
                             {
-                                string[] lineElements = line.Split(' ', '\t');
+                                var lineElements = line.Split(' ', '\t');
                                 structures.Add(lineElements[0], lineElements[1]);
                             }
 

@@ -89,7 +89,7 @@ namespace NHapi.Base.Model
         /// </summary>
         private void EnsureComponentAndPredecessorsExist(int comp)
         {
-            for (int i = comps.Count; i <= comp; i++)
+            for (var i = comps.Count; i <= comp; i++)
             {
                 comps.Add(new Varies(message));
             }

@@ -87,10 +87,10 @@ namespace NHapi.Base.Parser
                     if (packages == null)
                     {
                         isLoadingPackages = true;
-                        IList<Hl7Package> packageList = PackageManager.Instance.GetAllPackages();
+                        var packageList = PackageManager.Instance.GetAllPackages();
 
                         packages = new Hashtable(packageList.Count);
-                        foreach (Hl7Package package in packageList)
+                        foreach (var package in packageList)
                         {
                             AddPackage(packages, package);
                         }
@@ -207,7 +207,7 @@ namespace NHapi.Base.Parser
                 packages[package.Version] = new List<string>();
             }
 
-            List<string> versions = (List<string>)packages[package.Version];
+            var versions = (List<string>)packages[package.Version];
             versions.Add(package.PackageName);
         }
 
@@ -226,26 +226,26 @@ namespace NHapi.Base.Parser
             }
 
             // get list of packages to search for the corresponding message class
-            List<string> packages = PackageList(version);
+            var packages = PackageList(version);
 
             // get sub-package for component type
-            string typeString = type.ToString();
-            string subpackage = typeString.Substring(0, 1).ToUpper() + typeString.Substring(1);
+            var typeString = type.ToString();
+            var subpackage = typeString.Substring(0, 1).ToUpper() + typeString.Substring(1);
 
             // try to load class from each package
             Type compClass = null;
-            int c = 0;
+            var c = 0;
             while (compClass == null && c < packages.Count)
             {
                 try
                 {
-                    string p = packages[c];
+                    var p = packages[c];
                     if (!p.EndsWith("."))
                     {
                         p = p + ".";
                     }
 
-                    string classNameToTry = p + subpackage + "." + name;
+                    var classNameToTry = p + subpackage + "." + name;
 
                     classNameToTry = AddAssemblyName(p, classNameToTry);
                     if (Log.DebugEnabled)

@@ -34,10 +34,6 @@ namespace NHapi.Base.Model
     /// </author>
     public class AbstractType : IType
     {
-        private ExtraComponents extra;
-        private IMessage message;
-        private string description;
-
         /// <summary> Creates a new instance of AbstractType.</summary>
         /// <param name="message">message to which this type belongs.
         /// </param>
@@ -52,9 +48,9 @@ namespace NHapi.Base.Model
         /// </param>
         public AbstractType(IMessage message, string description)
         {
-            extra = new ExtraComponents(message);
-            this.description = description;
-            this.message = message;
+            ExtraComponents = new ExtraComponents(message);
+            Description = description;
+            Message = message;
         }
 
         /// <summary>
@@ -64,7 +60,7 @@ namespace NHapi.Base.Model
         {
             get
             {
-                string longClassName = GetType().FullName;
+                var longClassName = GetType().FullName;
                 return longClassName.Substring(longClassName.LastIndexOf('.') + 1);
             }
         }
@@ -72,24 +68,15 @@ namespace NHapi.Base.Model
         /// <summary>
         /// Extra components.
         /// </summary>
-        public virtual ExtraComponents ExtraComponents
-        {
-            get { return extra; }
-        }
+        public virtual ExtraComponents ExtraComponents { get; }
 
         /// <returns> the message to which this Type belongs.
         /// </returns>
-        public virtual IMessage Message
-        {
-            get { return message; }
-        }
+        public virtual IMessage Message { get; }
 
         /// <summary>
         /// Return the description of the type.
         /// </summary>
-        public virtual string Description
-        {
-            get { return description; }
-        }
+        public virtual string Description { get; }
     }
 }

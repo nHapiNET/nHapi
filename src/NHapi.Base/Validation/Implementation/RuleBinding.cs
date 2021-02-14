@@ -38,11 +38,6 @@ namespace NHapi.Base.Validation.Implementation
     /// </version>
     public class RuleBinding
     {
-        private bool myActiveFlag;
-        private string myVersion;
-        private string myScope;
-        private IRule myRule;
-
         /// <summary> Active by default.
         ///
         /// </summary>
@@ -54,29 +49,21 @@ namespace NHapi.Base.Validation.Implementation
         /// </param>
         public RuleBinding(string theVersion, string theScope, IRule theRule)
         {
-            myActiveFlag = true;
-            myVersion = theVersion;
-            myScope = theScope;
-            myRule = theRule;
+            Active = true;
+            Version = theVersion;
+            Scope = theScope;
+            Rule = theRule;
         }
 
         /// <summary>
         /// Gets or sets a value indicating whether or not the binding is currently active.
         /// </summary>
-        public virtual bool Active
-        {
-            get { return myActiveFlag; }
-
-            set { myActiveFlag = value; }
-        }
+        public virtual bool Active { get; set; }
 
         /// <summary>
         /// Gets the version to which the binding applies (* means all versions).
         /// </summary>
-        public virtual string Version
-        {
-            get { return myVersion; }
-        }
+        public virtual string Version { get; }
 
         /// <summary>
         /// Gets the scope of item types to which the rule applies.
@@ -93,18 +80,12 @@ namespace NHapi.Base.Validation.Implementation
         /// For <see cref="IEncodingRule"/> this is the encoding name (again, * means any).
         /// </para>
         /// </remarks>
-        public virtual string Scope
-        {
-            get { return myScope; }
-        }
+        public virtual string Scope { get; }
 
         /// <summary>
         /// Gets the rule that applies to the associated version and scope.
         /// </summary>
-        public virtual IRule Rule
-        {
-            get { return myRule; }
-        }
+        public virtual IRule Rule { get; }
 
         [Obsolete("This method has been replaced by 'AppliesToVersion'.")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -144,24 +125,15 @@ namespace NHapi.Base.Validation.Implementation
             return Applies(Scope, theType);
         }
 
-        /// <summary> An abstraction of appliesToVersion() and appliesToScope().
-        ///
+        /// <summary>
+        /// An abstraction of appliesToVersion() and appliesToScope().
         /// </summary>
-        /// <param name="theBindingData">
-        /// </param>
-        /// <param name="theItemData">
-        /// </param>
-        /// <returns>
-        /// </returns>
+        /// <param name="theBindingData"></param>
+        /// <param name="theItemData"></param>
+        /// <returns></returns>
         protected internal virtual bool Applies(string theBindingData, string theItemData)
         {
-            bool applies = false;
-            if (theBindingData.Equals(theItemData) || theBindingData.Equals("*"))
-            {
-                applies = true;
-            }
-
-            return applies;
+            return theBindingData.Equals(theItemData) || theBindingData.Equals("*");
         }
     }
 }

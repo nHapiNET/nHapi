@@ -269,7 +269,7 @@ namespace NHapi.Base
         {
             get
             {
-                StringBuilder msg = new StringBuilder();
+                var msg = new StringBuilder();
                 msg.Append(base.Message);
 
                 if (SegmentName != null)
@@ -313,8 +313,8 @@ namespace NHapi.Base
             // make sure it's an ERR
             if (!errorSegment.GetStructureName().Equals("ERR"))
             {
-                throw new HL7Exception("Can only populate an ERR segment with an exception -- got: " +
-                                              errorSegment.GetType().FullName);
+                throw new HL7Exception(
+                    $"Can only populate an ERR segment with an exception -- got: {errorSegment.GetType().FullName}");
             }
 
             var rep = errorSegment.GetField(1).Length; // append after existing reps

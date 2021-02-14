@@ -65,16 +65,16 @@ namespace NHapi.Base.Model
                 string version = null;
 
                 // TODO: Revisit.
-                Regex p = new Regex("\\.(V2[0-9][0-9]?)\\.");
-                Match m = p.Match(GetType().FullName);
+                var p = new Regex("\\.(V2[0-9][0-9]?)\\.");
+                var m = p.Match(GetType().FullName);
                 if (m.Success)
                 {
-                    string verFolder = m.Groups[1].Value;
+                    var verFolder = m.Groups[1].Value;
                     if (verFolder.Length > 0)
                     {
-                        char[] chars = verFolder.ToCharArray();
-                        StringBuilder buf = new StringBuilder();
-                        for (int i = 1; i < chars.Length; i++)
+                        var chars = verFolder.ToCharArray();
+                        var buf = new StringBuilder();
+                        for (var i = 1; i < chars.Length; i++)
                         {
                             // start at 1 to avoid the 'v'
                             buf.Append(chars[i]);

@@ -42,12 +42,7 @@ namespace NHapi.SourceGeneration
         {
             get
             {
-                if (rep == null)
-                {
-                    // currently using DBTableRepository ...
-                    rep = new DBTableRepository();
-                }
-
+                rep = rep ?? new DBTableRepository();
                 return rep;
             }
         }

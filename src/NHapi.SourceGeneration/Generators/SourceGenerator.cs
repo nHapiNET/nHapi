@@ -85,12 +85,12 @@ namespace NHapi.SourceGeneration.Generators
 
         public static string MakeName(string fieldDesc)
         {
-            StringBuilder aName = new StringBuilder();
-            char[] chars = fieldDesc.ToCharArray();
-            bool lastCharWasNotLetter = true;
-            int inBrackets = 0;
-            StringBuilder bracketContents = new StringBuilder();
-            for (int i = 0; i < chars.Length; i++)
+            var aName = new StringBuilder();
+            var chars = fieldDesc.ToCharArray();
+            var lastCharWasNotLetter = true;
+            var inBrackets = 0;
+            var bracketContents = new StringBuilder();
+            for (var i = 0; i < chars.Length; i++)
             {
                 if (chars[i] == '(')
                 {
@@ -150,8 +150,7 @@ namespace NHapi.SourceGeneration.Generators
 
         public static string MakePropertyName(string fieldDesc)
         {
-            string name = MakeName(fieldDesc);
-            return name;
+            return MakeName(fieldDesc);
         }
 
         /// <summary> Make a Java-ish accessor method name out of a field or component description
@@ -166,8 +165,9 @@ namespace NHapi.SourceGeneration.Generators
             return MakeName(fieldDesc);
         }
 
-        /// <summary> Make a C#-ish accessor method name out of a field or component description
-        /// by removing non-letters and adding "get".  One complication is that some description
+        /// <summary>
+        /// Make a C#-ish accessor method name out of a field or component description
+        /// by removing non-letters and adding "get". One complication is that some description
         /// entries in the DB have their data types in brackets, and these should not be
         /// part of the method name.  On the other hand, sometimes critical distinguishing
         /// information is in brackets, so we can't omit everything in brackets.  The approach
@@ -175,19 +175,14 @@ namespace NHapi.SourceGeneration.Generators
         /// </summary>
         public static string MakeAccessorName(string fieldDesc, int repitions)
         {
-            string name = MakeName(fieldDesc);
-            if (repitions != 1 && !name.StartsWith("Get"))
-            {
-                name = "Get" + name;
-            }
-
-            return name;
+            var name = MakeName(fieldDesc);
+            return (repitions != 1 && !name.StartsWith("Get")) ? $"Get{name}" : name;
         }
 
         /// <summary> Creates the given directory if it does not exist.</summary>
         public static FileInfo MakeDirectory(string directory)
         {
-            SupportClass.Tokenizer tok = new SupportClass.Tokenizer(directory, "\\/", false);
+            var tok = new SupportClass.Tokenizer(directory, "\\/", false);
             if (!Directory.Exists(directory))
             {
                 return new FileInfo(Directory.CreateDirectory(directory).FullName);
@@ -198,37 +193,24 @@ namespace NHapi.SourceGeneration.Generators
             }
         }
 
-        /// <summary> <p>Returns either the given data type name or an alternate data type that Composites
-        /// and Segments should use in place of the given Type.  </p>
-        /// <p>As currently implemented, substitutions
-        /// may be desired if there is a validating subclass of the given Type.
-        /// By convention such classes would be named ValidX (where X is the Type name).  This
-        /// method checks the class path for classes of this name in the datatype package and
-        /// returns this name if one is found.</p>
-        /// <p>Also converts "varies" to Varies which is an implementation of Type that contains
-        /// a Type that can be set at run-time.</p>
+        /// <summary>
+        /// Returns either the given data type name or an alternate data type that Composites
+        /// and Segments should use in place of the given Type.
+        /// <para>
+        /// As currently implemented, substitutions may be desired if there is a
+        /// validating subclass of the given Type. By convention such classes
+        /// would be named ValidX (where X is the Type name). This method checks
+        /// the class path for classes of this name in the datatype package and
+        /// returns this name if one is found.
+        /// </para>
+        /// <para>
+        /// Also converts "varies" to Varies which is an implementation of Type
+        /// that contains a Type that can be set at run-time.
+        /// </para>
         /// </summary>
         public static string GetAlternateType(string dataTypeName, string version)
         {
-            string ret = dataTypeName;
-
-            // convert to varies to Varies
-            if (ret.Equals("varies"))
-            {
-                ret = "Varies";
-            }
-
-            // Valid.. classes are removed as of HAPI 0.3 (validating code implemented directly in Primitive classes
-            /*try {
-            Class.forName(getVersionPackageName(version) + "datatype.Valid" + dataTypeName);
-            ret = "Valid" + dataTypeName;
-            } catch (Exception e) {
-            // fine ... there isn't a ValidX implementation
-            // I don't like using Class.forName here but I don't know a better way to
-            // search for the class
-            }*/
-
-            return ret;
+            return dataTypeName.Equals("varies") ? "Varies" : dataTypeName;
         }
 
         /// <summary> Bracketed text in a field description should be included in the accessor
@@ -241,8 +223,8 @@ namespace NHapi.SourceGeneration.Generators
         /// </summary>
         private static string FilterBracketedText(string text)
         {
-            string filtered = string.Empty;
-            bool isDataType = true;
+            var filtered = string.Empty;
+            var isDataType = true;
             if (!text.Equals(text.ToUpper()))
             {
                 isDataType = false;
@@ -264,7 +246,7 @@ namespace NHapi.SourceGeneration.Generators
         /// <summary>Capitalizes first character of the given text. </summary>
         private static string Capitalize(string text)
         {
-            StringBuilder cap = new StringBuilder();
+            var cap = new StringBuilder();
             if (text.Length > 0)
             {
                 cap.Append(char.ToUpper(text[0]));

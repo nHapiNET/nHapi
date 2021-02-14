@@ -64,9 +64,9 @@ OBX|20|ED|PDF^Display format in PDF^AUSPDI||^TX^PDF^Base64^JVBERi0xLjcNJeLjz9MNC
                 {
                     oru = (ORU_R01)parser.Parse(LargeEmbeddedFileTest.Replace(Environment.NewLine, "\r"));
 
-                    int expectedObservationCount = 20;
-                    int parsedObservations = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBSERVATIONRepetitionsUsed;
-                    bool parsedCorrectNumberOfObservations = parsedObservations == expectedObservationCount;
+                    var expectedObservationCount = 20;
+                    var parsedObservations = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBSERVATIONRepetitionsUsed;
+                    var parsedCorrectNumberOfObservations = parsedObservations == expectedObservationCount;
                     Assert.IsTrue(
                         parsedCorrectNumberOfObservations,
                         string.Format("Expected 3 OBX repetitions used for this segment, found {0}", parsedObservations));

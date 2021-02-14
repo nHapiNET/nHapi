@@ -15,13 +15,13 @@ namespace NHapi.NUnit
         [Test]
         public void TestMSH3Set()
         {
-            ADT_A01 a01 = new ADT_A01();
+            var a01 = new ADT_A01();
             a01.MSH.SendingApplication.UniversalID.Value = "TEST";
 
-            PipeParser parser = new PipeParser();
-            string hl7 = parser.Encode(a01);
+            var parser = new PipeParser();
+            var hl7 = parser.Encode(a01);
 
-            string[] data = hl7.Split('|');
+            var data = hl7.Split('|');
             Assert.AreEqual("ADT^A01", data[8]);
         }
     }

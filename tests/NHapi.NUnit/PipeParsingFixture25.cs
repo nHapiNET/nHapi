@@ -19,16 +19,16 @@ namespace NHapi.NUnit
         [Test]
         public void TestAdtA28MappingFromHl7()
         {
-            string hl7Data = @"MSH|^~\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||ADT^A28^ADT_A05|1|P|2.5|
+            var hl7Data = @"MSH|^~\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||ADT^A28^ADT_A05|1|P|2.5|
 EVN|
 PID|1|12345
 PV1|1".Replace(Environment.NewLine, "\r");
 
-            PipeParser parser = new PipeParser();
-            IMessage msg = parser.Parse(hl7Data);
+            var parser = new PipeParser();
+            var msg = parser.Parse(hl7Data);
 
             Assert.IsNotNull(msg, "Message should not be null");
-            ADT_A05 a05 = (ADT_A05)msg;
+            var a05 = (ADT_A05)msg;
 
             Assert.AreEqual("A28", a05.MSH.MessageType.TriggerEvent.Value);
             Assert.AreEqual("1", a05.PID.SetIDPID.Value);
@@ -37,15 +37,15 @@ PV1|1".Replace(Environment.NewLine, "\r");
         [Test]
         public void TestAdtA28MappingToHl7()
         {
-            ADT_A05 a05 = new ADT_A05();
+            var a05 = new ADT_A05();
 
             a05.MSH.MessageType.MessageCode.Value = "ADT";
             a05.MSH.MessageType.TriggerEvent.Value = "A28";
             a05.MSH.MessageType.MessageStructure.Value = "ADT_A05";
-            PipeParser parser = new PipeParser();
-            string msg = parser.Encode(a05);
+            var parser = new PipeParser();
+            var msg = parser.Encode(a05);
 
-            string[] data = msg.Split('|');
+            var data = msg.Split('|');
             Assert.AreEqual("ADT^A28^ADT_A05", data[8]);
         }
 
@@ -53,7 +53,7 @@ PV1|1".Replace(Environment.NewLine, "\r");
         public void TestAdtA04AndA01MessageStructure()
         {
             var result = PipeParser.GetMessageStructureForEvent("ADT_A04", "2.5");
-            bool isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
+            var isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
             Assert.IsTrue(isSame, "ADT_A04 returns ADT_A01");
 
             result = PipeParser.GetMessageStructureForEvent("ADT_A13", "2.5");

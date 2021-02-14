@@ -5,21 +5,21 @@ namespace NHapi.Base.Model
 
     internal class AbstractSegmentItem
     {
-        private List<IType> fields = new List<IType>();
         private List<object> args = new List<object>();
         private int maxReps = -1;
 
         /// <summary>
         /// Constructor.
-        /// <param name="t">the class of the data for this field - this should inherit from IType</param>
-        /// <param name="required">whether a value for this field is required in order for the segment
-        /// to be valid</param>
-        /// <param name="maxReps">the maximum number of repetitions - 0 implies that there is no limit</param>
-        /// <param name="length">the maximum length of each repetition of the field (in characters) </param>
-        /// <param name="constructorArgs">an array of objects that will be used as constructor arguments
-        /// if new instances of this class are created (use null for zero-arg constructor)</param>
-        /// <throws>  HL7Exception if the given class does not inherit from IType or if it cannot be instantiated. </throws>
         /// </summary>
+        /// <param name="t">the class of the data for this field - this should inherit from IType.</param>
+        /// <param name="required">whether a value for this field is required in order for the segment to be valid.</param>
+        /// <param name="maxReps">the maximum number of repetitions - 0 implies that there is no limit.</param>
+        /// <param name="length">the maximum length of each repetition of the field (in characters).</param>
+        /// <param name="constructorArgs">
+        /// an array of objects that will be used as constructor arguments
+        /// if new instances of this class are created (use null for zero-arg constructor).
+        /// </param>
+        /// <exception cref="HL7Exception">Thrown if the given class does not inherit from IType or if it cannot be instantiated.</exception>
         public AbstractSegmentItem(Type t, bool required, int maxReps, int length, object[] constructorArgs)
             : this(t, required, maxReps, length, constructorArgs, string.Empty)
         {
@@ -29,14 +29,12 @@ namespace NHapi.Base.Model
         /// Constructor.
         /// </summary>
         /// <param name="t">the class of the data for this field - this should inherit from IType.</param>
-        /// <param name="required">whether a value for this field is required in order for the segment
-        /// to be valid.</param>
+        /// <param name="required">whether a value for this field is required in order for the segment to be valid.</param>
         /// <param name="maxReps">the maximum number of repetitions - 0 implies that there is no limit.</param>
         /// <param name="length">the maximum length of each repetition of the field (in characters). </param>
-        /// <param name="constructorArgs">an array of objects that will be used as constructor arguments
-        /// if new instances of this class are created (use null for zero-arg constructor).</param>
+        /// <param name="constructorArgs">an array of objects that will be used as constructor arguments if new instances of this class are created (use null for zero-arg constructor).</param>
         /// <param name="description">Description of the segment.</param>
-        /// <throws>  HL7Exception if the given class does not inherit from IType or if it cannot be instantiated. </throws>
+        /// <exception cref="HL7Exception">Thrown if the given class does not inherit from IType or if it cannot be instantiated.</exception>
         public AbstractSegmentItem(
             Type t,
             bool required,
@@ -48,7 +46,7 @@ namespace NHapi.Base.Model
             if (!typeof(IType).IsAssignableFrom(t))
             {
                 throw new HL7Exception(
-                    "Class " + t.FullName + " does not inherit from " + "NHapi.Base.Model.IType",
+                    $"Class {t.FullName} does not inherit from NHapi.Base.Model.IType",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -65,7 +63,7 @@ namespace NHapi.Base.Model
         }
 
         /// <summary>
-        ///     The IType of this field in the segment.
+        /// The IType of this field in the segment.
         /// </summary>
         public Type FieldType { get; }
 
@@ -82,32 +80,15 @@ namespace NHapi.Base.Model
         /// <summary>
         /// Arguments to pass to a constructor for this field.
         /// </summary>
-        public object[] Args
-        {
-            get { return args.ToArray(); }
-        }
+        public object[] Args => args.ToArray();
 
         /// <summary>
         /// Maximum number of repetitions of this field.
         /// </summary>
         public int MaxRepetitions
         {
-            get
-            {
-                if (maxReps <= 0)
-                {
-                    return int.MaxValue;
-                }
-                else
-                {
-                    return maxReps;
-                }
-            }
-
-            set
-            {
-                maxReps = value;
-            }
+            get { return (maxReps <= 0) ? int.MaxValue : maxReps; }
+            set { maxReps = value; }
         }
 
         /// <summary>
@@ -118,31 +99,25 @@ namespace NHapi.Base.Model
         /// <summary>
         ///
         /// </summary>
-        public IList<IType> Fields
-        {
-            get { return fields; }
-        }
+        public IList<IType> Fields { get; } = new List<IType>();
 
         /// <summary>
         /// Return a specific repetition of this field.
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public IType this[int index]
-        {
-            get { return fields[index]; }
-        }
+        public IType this[int index] => Fields[index];
 
         public IType[] GetAllFieldsAsITypeArray()
         {
-            IType[] f = new IType[fields.Count];
-            int i = 0;
-            foreach (IType type in fields)
+            var fields = new IType[Fields.Count];
+            var i = 0;
+            foreach (var type in Fields)
             {
-                f[i++] = type;
+                fields[i++] = type;
             }
 
-            return f;
+            return fields;
         }
     }
 }

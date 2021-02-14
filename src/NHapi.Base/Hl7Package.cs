@@ -13,8 +13,6 @@ namespace NHapi.Base
         public string PackageName { get; }
 
         public string EventMappingResourceName
-        {
-            get { return PackageName + "EventMapping.EventMap.properties"; }
-        }
+            => $"{PackageName}EventMapping.EventMap.properties";
     }
 }

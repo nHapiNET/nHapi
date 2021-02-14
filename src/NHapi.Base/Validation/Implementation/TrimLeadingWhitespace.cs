@@ -26,39 +26,39 @@
 
 namespace NHapi.Base.Validation.Implementation
 {
-    /// <summary> Performs no validation but removes leading whitespace in the correct() method.
-    ///
+    /// <summary>
+    /// Performs no validation but removes leading whitespace in the correct() method.
     /// </summary>
-    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
-    /// </author>
-    /// <version>  $Revision: 1.2 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $.
+    /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
+    /// <version>
+    /// $Revision: 1.2 $ updated on $Date: 2005/06/14 20:16:01 $ by $Author: bryan_tripp $.
     /// </version>
     public class TrimLeadingWhitespace : IPrimitiveTypeRule
     {
         /// <summary>
-        /// Description of the rule.
+        /// Gets the rule description.
         /// </summary>
-        public virtual string Description
-        {
-            get { return "Leading whitespace removed"; }
-        }
+        public virtual string Description => "Leading whitespace removed";
 
         /// <summary>
-        /// Section reference.
+        /// Gets the section reference.
         /// </summary>
-        public virtual string SectionReference
+        public virtual string SectionReference => null;
+
+        /// <inheritdoc />
+        public virtual string correct(string originalValue)
         {
-            get { return null; }
+            return Correct(originalValue);
         }
 
-        /// <summary> Removes leading whitespace.</summary>
-        public virtual string correct(string value_Renamed)
+        /// <inheritdoc />
+        public virtual string Correct(string originalValue)
         {
             string trmValue = null;
-            if (value_Renamed != null)
+            if (originalValue != null)
             {
-                char[] stringChr = value_Renamed.ToCharArray();
-                for (int i = 0; i < stringChr.Length && trmValue == null; i++)
+                var stringChr = originalValue.ToCharArray();
+                for (var i = 0; i < stringChr.Length && trmValue == null; i++)
                 {
                     if (!char.IsWhiteSpace(stringChr[i]))
                     {
@@ -70,8 +70,14 @@ namespace NHapi.Base.Validation.Implementation
             return trmValue;
         }
 
-        /// <summary> Returns true. </summary>
-        public virtual bool test(string value_Renamed)
+        /// <inheritdoc />
+        public virtual bool test(string value)
+        {
+            return Test(value);
+        }
+
+        /// <inheritdoc />
+        public virtual bool Test(string value)
         {
             return true;
         }

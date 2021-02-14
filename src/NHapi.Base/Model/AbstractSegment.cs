@@ -102,13 +102,11 @@ namespace NHapi.Base.Model
             if (number < 1 || number > items.Count)
             {
                 throw new HL7Exception(
-                    "Can't retrieve field " + number + " from segment " + GetType().FullName + " - there are only " +
-                    items[number - 1].Fields.Count + " fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
+                    $"Can't retrieve field {number} from segment {GetType().FullName} - there are only {items[number - 1].Fields.Count} fields.",
+                    ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
             return items[number - 1].GetAllFieldsAsITypeArray();
-
-            // return (IType[])_items[number - 1].fields; //note: fields are numbered from 1 from the user's perspective
         }
 
         /// <summary> Return the field description.  Fields are numbered from 1.
@@ -119,8 +117,8 @@ namespace NHapi.Base.Model
             if (number < 1 || number > items.Count)
             {
                 throw new HL7Exception(
-                    "Can't retrieve field " + number + " from segment " + GetType().FullName + " - there are only " + items.Count +
-                    " fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
+                    $"Can't retrieve field {number} from segment {GetType().FullName} - there are only {items.Count} fields.",
+                    ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
             return items[number - 1].Description;
@@ -154,25 +152,25 @@ namespace NHapi.Base.Model
             if (number < 1 || number > items.Count)
             {
                 throw new HL7Exception(
-                    "Can't retrieve field " + number + " from segment " + GetType().FullName + " - there are only " +
-                    items[number - 1].Fields.Count + " fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
+                    $"Can't retrieve field {number} from segment {GetType().FullName} - there are only {items[number - 1].Fields.Count} fields.",
+                    ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
-            int currentReps = items[number - 1].Fields.Count;
+            var currentReps = items[number - 1].Fields.Count;
 
             // check if out of range ...
             if (rep > currentReps)
             {
                 throw new HL7Exception(
-                    "Can't get repetition " + rep + " from field " + number + " - there are currently only " + currentReps + " reps.",
+                    $"Can't get repetition {rep} from field {number} - there are currently only {currentReps} reps.",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
             if (rep > items[number - 1].MaxRepetitions)
             {
                 throw new HL7Exception(
-                    "Can't get repetition " + rep + " from field " + number + " - maximum repetitions is only " +
-                    items[number - 1].MaxRepetitions + " reps.", ErrorCode.APPLICATION_INTERNAL_ERROR);
+                    $"Can't get repetition {rep} from field {number} - maximum repetitions is only {items[number - 1].MaxRepetitions} reps.",
+                    ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
             // add a rep if necessary ...
@@ -193,11 +191,11 @@ namespace NHapi.Base.Model
             if (number < 1 || number > items.Count)
             {
                 throw new HL7Exception(
-                    "Can't retrieve optionality of field " + number + " from segment " + GetType().FullName + " - there are only " +
-                    items[number - 1].Fields.Count + " fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
+                    $"Can't retrieve optionality of field {number} from segment {GetType().FullName} - there are only {items[number - 1].Fields.Count} fields.",
+                    ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
-            bool ret = false;
+            var ret = false;
             try
             {
                 ret = items[number - 1].IsRequired;
@@ -205,7 +203,7 @@ namespace NHapi.Base.Model
             catch (Exception e)
             {
                 throw new HL7Exception(
-                    "Can't retrieve optionality of field " + number + ": " + e.Message,
+                    $"Can't retrieve optionality of field {number}: {e.Message}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -221,11 +219,11 @@ namespace NHapi.Base.Model
             if (number < 1 || number > items.Count)
             {
                 throw new HL7Exception(
-                    "Can't retrieve max length of field " + number + " from segment " + GetType().FullName + " - there are only " +
-                    items[number - 1].Fields.Count + " fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
+                    $"Can't retrieve max length of field {number} from segment {GetType().FullName} - there are only {items[number - 1].Fields.Count} fields.",
+                    ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
-            int ret = 0;
+            var ret = 0;
             try
             {
                 ret = items[number - 1].Length; // fields #d from 1 to user
@@ -233,7 +231,7 @@ namespace NHapi.Base.Model
             catch (Exception e)
             {
                 throw new HL7Exception(
-                    "Can't retrieve max length of field " + number + ": " + e.Message,
+                    $"Can't retrieve max length of field {number}: {e.Message}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -247,11 +245,11 @@ namespace NHapi.Base.Model
             if (number < 1 || number > items.Count)
             {
                 throw new HL7Exception(
-                    "Can't retrieve cardinality of field " + number + " from segment " + GetType().FullName + " - there are only " +
-                    items[number - 1].Fields.Count + " fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
+                    $"Can't retrieve cardinality of field {number} from segment {GetType().FullName} - there are only {items[number - 1].Fields.Count} fields.",
+                    ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
-            int reps = 0;
+            var reps = 0;
             try
             {
                 reps = items[number - 1].MaxRepetitions; // fields #d from 1 to user
@@ -259,7 +257,7 @@ namespace NHapi.Base.Model
             catch (Exception e)
             {
                 throw new HL7Exception(
-                    "Can't retrieve max repetitions of field " + number + ": " + e.Message,
+                    $"Can't retrieve max repetitions of field {number}: {e.Message}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -275,19 +273,23 @@ namespace NHapi.Base.Model
         {
             if (fieldNum < 1 || fieldNum > items.Count)
             {
-                throw new HL7Exception($"Can't retrieve field {fieldNum} from segment {GetType().FullName} - there are only {items[fieldNum - 1].Fields.Count} fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
+                throw new HL7Exception(
+                    $"Can't retrieve field {fieldNum} from segment {GetType().FullName} - there are only {items[fieldNum - 1].Fields.Count} fields.",
+                    ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
             var fields = items[fieldNum - 1].Fields;
 
             if (fields.Count == 0)
             {
-                throw new HL7Exception($"Invalid index: {index}, structure {fields.GetType().FullName} has no repetitions");
+                throw new HL7Exception(
+                    $"Invalid index: {index}, structure {fields.GetType().FullName} has no repetitions");
             }
 
             if (fields.Count <= index)
             {
-                throw new HL7Exception($"Invalid index: {index}, structure {fields.GetType().FullName} must be between 0 and {fields.Count - 1}");
+                throw new HL7Exception(
+                    $"Invalid index: {index}, structure {fields.GetType().FullName} must be between 0 and {fields.Count - 1}");
             }
 
             fields.RemoveAt(index);
@@ -304,19 +306,23 @@ namespace NHapi.Base.Model
         {
             if (fieldNum < 1 || fieldNum > items.Count)
             {
-                throw new HL7Exception($"Can't retrieve field {fieldNum} from segment {GetType().FullName} - there are only {items[fieldNum - 1].Fields.Count} fields.", ErrorCode.APPLICATION_INTERNAL_ERROR);
+                throw new HL7Exception(
+                    $"Can't retrieve field {fieldNum} from segment {GetType().FullName} - there are only {items[fieldNum - 1].Fields.Count} fields.",
+                    ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
             var fields = items[fieldNum - 1].Fields;
 
             if (fields.Count == 0)
             {
-                throw new HL7Exception($"Structure {fields.GetType().FullName} has no repetitions");
+                throw new HL7Exception(
+                    $"Structure {fields.GetType().FullName} has no repetitions");
             }
 
             if (!fields.Contains(removeItem))
             {
-                throw new HL7Exception($"Invalid item specified, structure {fields.GetType().FullName} does not contain {removeItem.ToString()}");
+                throw new HL7Exception(
+                    $"Invalid item specified, structure {fields.GetType().FullName} does not contain {removeItem}");
             }
 
             fields.Remove(removeItem);
@@ -345,7 +351,7 @@ namespace NHapi.Base.Model
         /// <summary> Returns the class name (excluding package). </summary>
         public virtual string GetStructureName()
         {
-            string fullName = GetType().FullName;
+            var fullName = GetType().FullName;
             return fullName.Substring(fullName.LastIndexOf('.') + 1, fullName.Length - (fullName.LastIndexOf('.') + 1));
         }
 
@@ -420,7 +426,7 @@ namespace NHapi.Base.Model
             if (!typeof(IType).IsAssignableFrom(c))
             {
                 throw new HL7Exception(
-                    "Class " + c.FullName + " does not inherit from " + "ca.on.uhn.datatype.Type",
+                    $"Class {c.FullName} does not inherit from ca.on.uhn.datatype.Type",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -430,17 +436,17 @@ namespace NHapi.Base.Model
         /// <summary> Creates a new instance of the Type at the given field number in this segment.  </summary>
         private IType CreateNewType(int field)
         {
-            int number = field - 1;
-            Type c = items[number].FieldType;
+            var number = field - 1;
+            var c = items[number].FieldType;
 
             var description = items[number].Description;
 
             IType newType = null;
             try
             {
-                object[] args = GetArgs(number, description);
-                Type[] argClasses = new Type[args.Length];
-                for (int i = 0; i < args.Length; i++)
+                var args = GetArgs(number, description);
+                var argClasses = new Type[args.Length];
+                for (var i = 0; i < args.Length; i++)
                 {
                     if (args[i] is IMessage)
                     {
@@ -457,25 +463,25 @@ namespace NHapi.Base.Model
             catch (UnauthorizedAccessException iae)
             {
                 throw new HL7Exception(
-                    "Can't access class " + c.FullName + " (" + iae.GetType().FullName + "): " + iae.Message,
+                    $"Can't access class {c.FullName} ({iae.GetType().FullName}): {iae.Message}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
             catch (TargetInvocationException ite)
             {
                 throw new HL7Exception(
-                    "Can't instantiate class " + c.FullName + " (" + ite.GetType().FullName + "): " + ite.Message,
+                    $"Can't instantiate class {c.FullName} ({ite.GetType().FullName}): {ite.Message}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
             catch (MethodAccessException nme)
             {
                 throw new HL7Exception(
-                    "Can't instantiate class " + c.FullName + " (" + nme.GetType().FullName + "): " + nme.Message,
+                    $"Can't instantiate class {c.FullName} ({nme.GetType().FullName}): {nme.Message}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
             catch (Exception ie)
             {
                 throw new HL7Exception(
-                    "Can't instantiate class " + c.FullName + " (" + ie.GetType().FullName + "): " + ie.Message,
+                    $"Can't instantiate class {c.FullName} ({ie.GetType().FullName}): {ie.Message}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -497,7 +503,7 @@ namespace NHapi.Base.Model
                 result = new object[] { Message };
             }
 
-            bool appendDescription = !string.IsNullOrEmpty(description);
+            var appendDescription = !string.IsNullOrEmpty(description);
             if (appendDescription)
             {
                 Array.Resize(ref result, result.Length + 1);
@@ -513,7 +519,7 @@ namespace NHapi.Base.Model
         /// </summary>
         private void EnsureEnoughFields(int fieldRequested)
         {
-            int fieldsToAdd = fieldRequested - NumFields();
+            var fieldsToAdd = fieldRequested - NumFields();
             if (fieldsToAdd < 0)
             {
                 fieldsToAdd = 0;
@@ -521,14 +527,16 @@ namespace NHapi.Base.Model
 
             try
             {
-                for (int i = 0; i < fieldsToAdd; i++)
+                for (var i = 0; i < fieldsToAdd; i++)
                 {
                     Add(typeof(Varies), false, 0, 65536, null); // using 65536 following example of OBX-5
                 }
             }
             catch (HL7Exception e)
             {
-                Log.Error("Can't create additional generic fields to handle request for field " + fieldRequested, e);
+                Log.Error(
+                    $"Can't create additional generic fields to handle request for field {fieldRequested}",
+                    e);
             }
         }
     }

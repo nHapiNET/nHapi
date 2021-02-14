@@ -149,7 +149,7 @@ namespace NHapi.Base.Util
         {
             while (iter.MoveNext())
             {
-                object object_Renamed = iter.Current;
+                var object_Renamed = iter.Current;
                 if (predicate.Evaluate(object_Renamed))
                 {
                     nextObject = object_Renamed;

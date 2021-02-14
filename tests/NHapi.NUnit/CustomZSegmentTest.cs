@@ -16,7 +16,7 @@ namespace NHapi.NUnit
         public void ParseADT_A08()
         {
             // this is some fictive data
-            string message = @"MSH|^~\&|SUNS1|OVI02|AZIS|CMD|200606221348||ADT^A08|1049691900|P|2.2
+            var message = @"MSH|^~\&|SUNS1|OVI02|AZIS|CMD|200606221348||ADT^A08|1049691900|P|2.2
 EVN|A08|200601060800
 PID||8912716038^^^51276|0216128^^^51276||BARDOUN^LEA SACHA||19981201|F|||AVENUE FRANC GOLD 8^^LUXEMBOURGH^^6780^150||053/12456789||N|S|||99120162652||^^^|||||B
 PV1||O|^^|U|||07632^MORTELO^POL^^^DR.|^^^^^|||||N||||||0200001198
@@ -48,7 +48,7 @@ ZIN|0164652011399|0164652011399|101|101|45789^Broken bone"
             * ***********************************************************/
             var parser = new PipeParser();
 
-            IMessage m = parser.Parse(message, Constants.VERSION);
+            var m = parser.Parse(message, Constants.VERSION);
 
             Assert.IsNotNull(m);
 

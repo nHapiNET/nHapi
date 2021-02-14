@@ -26,17 +26,26 @@
 
 namespace NHapi.Base.Validation
 {
+    using System;
+
     using NHapi.Base.Model;
 
-    /// <summary> A set of rules for message validation.
-    ///
+    /// <summary>
+    /// A set of rules for message validation.
     /// </summary>
-    /// <author>  <a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a>
-    /// </author>
-    /// <version>  $Revision: 1.4 $ updated on $Date: 2005/06/27 22:42:18 $ by $Author: bryan_tripp $.
+    /// <author><a href="mailto:bryan.tripp@uhn.on.ca">Bryan Tripp</a></author>
+    /// <version>
+    /// $Revision: 1.4 $ updated on $Date: 2005/06/27 22:42:18 $ by $Author: bryan_tripp $.
     /// </version>
     public interface IValidationContext
     {
+        [Obsolete("This method has been replaced by 'GetPrimitiveRules'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        IPrimitiveTypeRule[] getPrimitiveRules(string theVersion, string theTypeName, IPrimitive theType);
+
         /// <param name="theVersion">an HL7 version (eg "2.1").
         /// </param>
         /// <param name="theTypeName">a primitive datatype name (eg "ST").
@@ -45,7 +54,14 @@ namespace NHapi.Base.Validation
         /// </param>
         /// <returns> active rules for checking the given type in the given version.
         /// </returns>
-        IPrimitiveTypeRule[] getPrimitiveRules(string theVersion, string theTypeName, IPrimitive theType);
+        IPrimitiveTypeRule[] GetPrimitiveRules(string theVersion, string theTypeName, IPrimitive theType);
+
+        [Obsolete("This method has been replaced by 'GetMessageRules'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        IMessageRule[] getMessageRules(string theVersion, string theMessageType, string theTriggerEvent);
 
         /// <param name="theVersion">an HL7 version (eg "2.1").
         /// </param>
@@ -56,7 +72,14 @@ namespace NHapi.Base.Validation
         /// <returns> the active rules that apply to message of the given version, message type,
         /// and trigger event.
         /// </returns>
-        IMessageRule[] getMessageRules(string theVersion, string theMessageType, string theTriggerEvent);
+        IMessageRule[] GetMessageRules(string theVersion, string theMessageType, string theTriggerEvent);
+
+        [Obsolete("This method has been replaced by 'GetEncodingRules'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        IEncodingRule[] getEncodingRules(string theVersion, string theEncoding);
 
         /// <param name="theVersion">an HL7 version (eg "2.1").
         /// </param>
@@ -64,6 +87,6 @@ namespace NHapi.Base.Validation
         /// </param>
         /// <returns> the active encoding rules that apply to the given version and encoding.
         /// </returns>
-        IEncodingRule[] getEncodingRules(string theVersion, string theEncoding);
+        IEncodingRule[] GetEncodingRules(string theVersion, string theEncoding);
     }
 }

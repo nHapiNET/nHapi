@@ -6,20 +6,15 @@
     public class HL7PackageCollection : ConfigurationElementCollection
     {
         public override ConfigurationElementCollectionType CollectionType
-        {
-            get { return ConfigurationElementCollectionType.BasicMap; }
-        }
+            => ConfigurationElementCollectionType.BasicMap;
 
-        protected override string ElementName
-        {
-            get { return "HL7Package"; }
-        }
+        protected override string ElementName => "HL7Package";
 
         protected override object GetElementKey(ConfigurationElement element)
         {
             if (element is HL7PackageElement)
             {
-                HL7PackageElement el = (HL7PackageElement)element;
+                var el = (HL7PackageElement)element;
 
                 return el.Name;
             }

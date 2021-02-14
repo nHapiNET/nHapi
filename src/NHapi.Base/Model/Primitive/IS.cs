@@ -54,8 +54,6 @@ namespace NHapi.Base.Model.Primitive
     /// </version>
     public abstract class IS : AbstractPrimitive
     {
-        private int myTable = 0;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="IS"/> class.
         /// </summary>
@@ -83,7 +81,7 @@ namespace NHapi.Base.Model.Primitive
         protected IS(IMessage theMessage, int theTable)
             : base(theMessage)
         {
-            myTable = theTable;
+            Table = theTable;
         }
 
         /// <summary>
@@ -95,17 +93,12 @@ namespace NHapi.Base.Model.Primitive
         protected IS(IMessage theMessage, int theTable, string description)
             : base(theMessage, description)
         {
-            myTable = theTable;
+            Table = theTable;
         }
 
         /// <summary>
         /// Gets or sets the number of the HL7 table from which values should be drawn (defaults to 0).
         /// </summary>
-        public virtual int Table
-        {
-            get { return myTable; }
-
-            set { myTable = value; }
-        }
+        public virtual int Table { get; set; } = 0;
     }
 }

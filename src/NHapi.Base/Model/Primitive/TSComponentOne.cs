@@ -75,14 +75,7 @@ namespace NHapi.Base.Model.Primitive
         {
             get
             {
-                string result = base.Value;
-
-                if (myDetail != null)
-                {
-                    result = myDetail.Value;
-                }
-
-                return result;
+                return (myDetail != null) ? myDetail.Value : base.Value;
             }
 
             set
@@ -107,106 +100,67 @@ namespace NHapi.Base.Model.Primitive
         /// <summary>
         /// Returns the year as an integer.
         /// </summary>
-        public virtual int Year
-        {
-            get { return Detail.Year; }
-        }
+        public virtual int Year => Detail.Year;
 
         /// <summary>
         /// Returns the month as an integer.
         /// </summary>
-        public virtual int Month
-        {
-            get { return Detail.Month; }
-        }
+        public virtual int Month => Detail.Month;
 
         /// <summary>
         /// Returns the day as an integer.
         /// </summary>
-        public virtual int Day
-        {
-            get { return Detail.Day; }
-        }
+        public virtual int Day => Detail.Day;
 
         /// <summary>
         /// Returns the hour as an integer.
         /// </summary>
-        public virtual int Hour
-        {
-            get { return Detail.Hour; }
-        }
+        public virtual int Hour => Detail.Hour;
 
         /// <summary>
         /// Returns the minute as an integer.
         /// </summary>
-        public virtual int Minute
-        {
-            get { return Detail.Minute; }
-        }
+        public virtual int Minute => Detail.Minute;
 
         /// <summary>
         /// Returns the second as an integer.
         /// </summary>
-        public virtual int Second
-        {
-            get { return Detail.Second; }
-        }
+        public virtual int Second => Detail.Second;
 
         /// <summary>
         /// Returns the fractional second value as a float.
         /// </summary>
-        public virtual float FractSecond
-        {
-            get { return Detail.FractSecond; }
-        }
+        public virtual float FractSecond => Detail.FractSecond;
 
         /// <summary>
         /// Returns the GMT offset value as an integer.
         /// </summary>
-        public virtual int GMTOffset
-        {
-            get { return Detail.GMTOffset; }
-        }
+        public virtual int GMTOffset => Detail.GMTOffset;
 
         /// <summary>
         /// Used for setting the format of a long date (Year, Month, Day, Hour, Minute).
         /// </summary>
-        protected virtual string LongDateTimeFormat
-        {
-            get { return "yyyyMMddHHmm"; }
-        }
+        protected virtual string LongDateTimeFormat => "yyyyMMddHHmm";
 
         /// <summary>
         /// Used for setting the format of a long date (Year, Month, Day, Hour, Minute, Second).
         /// </summary>
-        protected virtual string LongDateTimeFormatWithSecond
-        {
-            get { return "yyyyMMddHHmmss"; }
-        }
+        protected virtual string LongDateTimeFormatWithSecond => "yyyyMMddHHmmss";
 
         /// <summary>
         /// Used for setting the format of a long date (Year, Month, Day, Hour, Minute, Second, Offset from GMT).
         /// </summary>
-        protected virtual string LongDateTimeFormatWithOffset
-        {
-            get { return "yyyyMMddHHmmsszzz"; }
-        }
+        protected virtual string LongDateTimeFormatWithOffset => "yyyyMMddHHmmsszzz";
 
         /// <summary>
         /// Used for setting the format of a long date (Year, Month, Day, Hour, Minute, Second, Fraction of second).
         /// </summary>
-        protected virtual string LongDateTimeFormatWithFractionOfSecond
-        {
-            get { return "yyyyMMddHHmmss.FFFF"; }
-        }
+        protected virtual string LongDateTimeFormatWithFractionOfSecond => "yyyyMMddHHmmss.FFFF";
 
         /// <summary>
         /// Used for setting the format of a short date (Year, Month, Day).
         /// </summary>
-        protected virtual string ShortDateTimeFormat
-        {
-            get { return "yyyyMMdd"; }
-        }
+        protected virtual string ShortDateTimeFormat => "yyyyMMdd";
 
         private CommonTS Detail
         {
@@ -292,9 +246,9 @@ namespace NHapi.Base.Model.Primitive
         {
             try
             {
-                string[] dateFormats = new string[] { LongDateTimeFormat, ShortDateTimeFormat, LongDateTimeFormatWithSecond, LongDateTimeFormatWithOffset, LongDateTimeFormatWithFractionOfSecond };
-                DateTime val = DateTime.MinValue;
-                CultureInfo culture = Thread.CurrentThread.CurrentCulture;
+                var dateFormats = new string[] { LongDateTimeFormat, ShortDateTimeFormat, LongDateTimeFormatWithSecond, LongDateTimeFormatWithOffset, LongDateTimeFormatWithFractionOfSecond };
+                var val = DateTime.MinValue;
+                var culture = Thread.CurrentThread.CurrentCulture;
                 if (Value != null && Value.Length > 0)
                 {
                     val = DateTime.ParseExact(Value, dateFormats, culture, DateTimeStyles.NoCurrentDateDefault);

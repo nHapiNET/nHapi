@@ -28,7 +28,6 @@
 namespace NHapi.Base.Parser
 {
     using System;
-    using System.Text;
 
     /// <summary>
     /// Represents the set of special characters used to encode traditionally
@@ -37,7 +36,6 @@ namespace NHapi.Base.Parser
     /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
     public class EncodingCharacters : object, ICloneable
     {
-        private char fieldSep;
         private char[] encChars;
 
         /// <summary>
@@ -54,7 +52,7 @@ namespace NHapi.Base.Parser
         /// </param>
         public EncodingCharacters(char fieldSeparator, string encodingCharacters)
         {
-            fieldSep = fieldSeparator;
+            FieldSeparator = fieldSeparator;
 
             encChars = new char[4];
 
@@ -82,14 +80,14 @@ namespace NHapi.Base.Parser
             char subcomponentSeparator)
             : this(
                 fieldSeparator,
-                Convert.ToString(componentSeparator) + repetitionSeparator + escapeCharacter + subcomponentSeparator)
+                new string(new[] { componentSeparator, repetitionSeparator, escapeCharacter, subcomponentSeparator }))
         {
         }
 
         /// <summary>copies contents of "other". </summary>
         public EncodingCharacters(EncodingCharacters other)
         {
-            fieldSep = other.FieldSeparator;
+            FieldSeparator = other.FieldSeparator;
 
             encChars = new char[4];
 
@@ -104,18 +102,11 @@ namespace NHapi.Base.Parser
 
         /// <summary>
         /// Returns the field separator.
-        ///
         /// </summary>
-        public virtual char FieldSeparator
-        {
-            get { return fieldSep; }
-
-            set { fieldSep = value; }
-        }
+        public virtual char FieldSeparator { get; set; }
 
         /// <summary>
         /// Returns the component separator.
-        ///
         /// </summary>
         public virtual char ComponentSeparator
         {
@@ -126,7 +117,6 @@ namespace NHapi.Base.Parser
 
         /// <summary>
         /// Returns the repetition separator.
-        ///
         /// </summary>
         public virtual char RepetitionSeparator
         {
@@ -137,7 +127,6 @@ namespace NHapi.Base.Parser
 
         /// <summary>
         /// Returns the escape character.
-        ///
         /// </summary>
         public virtual char EscapeCharacter
         {
@@ -148,7 +137,6 @@ namespace NHapi.Base.Parser
 
         /// <summary>
         /// Returns the subcomponent separator.
-        ///
         /// </summary>
         public virtual char SubcomponentSeparator
         {
@@ -159,20 +147,11 @@ namespace NHapi.Base.Parser
 
         /// <summary>
         /// Returns the encoding characters (not including field separator)
-        ///
         /// as a string.
-        ///
         /// </summary>
         public override string ToString()
         {
-            StringBuilder ret = new StringBuilder();
-
-            for (int i = 0; i < encChars.Length; i++)
-            {
-                ret.Append(encChars[i]);
-            }
-
-            return ret.ToString();
+            return new string(encChars);
         }
 
         public virtual object Clone()
@@ -184,7 +163,7 @@ namespace NHapi.Base.Parser
         {
             if (o is EncodingCharacters)
             {
-                EncodingCharacters other = (EncodingCharacters)o;
+                var other = (EncodingCharacters)o;
                 if (FieldSeparator == other.FieldSeparator && ComponentSeparator == other.ComponentSeparator &&
                      EscapeCharacter == other.EscapeCharacter && RepetitionSeparator == other.RepetitionSeparator &&
                      SubcomponentSeparator == other.SubcomponentSeparator)

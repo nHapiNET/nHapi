@@ -1,5 +1,6 @@
 namespace NHapi.Base
 {
+    using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.Text;
@@ -8,8 +9,8 @@ namespace NHapi.Base
 
     internal class PackageManager
     {
+        // TODO: Consider using Lazy<T> or other locking to ensure this is thread safe
         private static readonly PackageManager InstanceValue = new PackageManager();
-        private List<Hl7Package> packages = new List<Hl7Package>();
 
         static PackageManager()
         {
@@ -21,10 +22,9 @@ namespace NHapi.Base
             LoadAdditionalVersions();
         }
 
-        public static PackageManager Instance
-        {
-            get { return InstanceValue; }
-        }
+        public static PackageManager Instance => InstanceValue;
+
+        public List<Hl7Package> Packages { get; } = new List<Hl7Package>();
 
         /// <summary> Returns the path to the base package for model elements of the given version
         /// - e.g. "NHapi.Model.VXXX".
@@ -33,10 +33,10 @@ namespace NHapi.Base
         /// </summary>
         public static string GetVersionPackagePath(string ver)
         {
-            StringBuilder path = new StringBuilder("NHapi.Model.V");
-            char[] versionChars = new char[ver.Length];
+            var path = new StringBuilder("NHapi.Model.V");
+            var versionChars = new char[ver.Length];
             SupportClass.GetCharsFromString(ver, 0, ver.Length, versionChars, 0);
-            for (int i = 0; i < versionChars.Length; i++)
+            for (var i = 0; i < versionChars.Length; i++)
             {
                 if (versionChars[i] != '.')
                 {
@@ -55,21 +55,22 @@ namespace NHapi.Base
         /// </summary>
         public static string GetVersionPackageName(string ver)
         {
-            string path = GetVersionPackagePath(ver);
-            string packg = path.Replace('/', '.');
+            var path = GetVersionPackagePath(ver);
+            var packg = path.Replace('/', '.');
             packg = packg.Replace('\\', '.');
             return packg;
         }
 
+        [Obsolete("Prefer the property 'Packages' instead")]
         public IList<Hl7Package> GetAllPackages()
         {
-            return packages;
+            return Packages;
         }
 
         public bool IsValidVersion(string version)
         {
             version = version.ToUpper().Trim();
-            foreach (Hl7Package package in packages)
+            foreach (var package in Packages)
             {
                 if (package.Version.ToUpper().Trim().Equals(version))
                 {
@@ -82,11 +83,11 @@ namespace NHapi.Base
 
         private void LoadBaseVersions()
         {
-            string[] versions = new string[] { "2.1", "2.2", "2.3", "2.3.1", "2.4", "2.5", "2.5.1", "2.6", "2.7", "2.7.1", "2.8", "2.8.1" };
-            foreach (string version in versions)
+            var versions = new string[] { "2.1", "2.2", "2.3", "2.3.1", "2.4", "2.5", "2.5.1", "2.6", "2.7", "2.7.1", "2.8", "2.8.1" };
+            foreach (var version in versions)
             {
-                string packageName = GetVersionPackageName(version);
-                packages.Add(new Hl7Package(packageName, version));
+                var packageName = GetVersionPackageName(version);
+                Packages.Add(new Hl7Package(packageName, version));
             }
         }
 
@@ -97,7 +98,7 @@ namespace NHapi.Base
             {
                 foreach (HL7PackageElement package in configSection.Packages)
                 {
-                    packages.Insert(0, new Hl7Package(package.Name, package.Version));
+                    Packages.Insert(0, new Hl7Package(package.Name, package.Version));
                 }
             }
         }

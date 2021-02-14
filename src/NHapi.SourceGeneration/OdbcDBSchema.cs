@@ -27,7 +27,7 @@ namespace NHapi.SourceGeneration
         {
             get
             {
-                string result = string.Empty;
+                var result = string.Empty;
                 OpenConnection();
                 result = Connection.Driver;
                 CloseConnection();
@@ -42,7 +42,7 @@ namespace NHapi.SourceGeneration
         {
             get
             {
-                string result = string.Empty;
+                var result = string.Empty;
                 OpenConnection();
                 result = Connection.ServerVersion;
                 CloseConnection();
@@ -57,7 +57,7 @@ namespace NHapi.SourceGeneration
         {
             get
             {
-                int result = -1;
+                var result = -1;
                 OpenConnection();
                 DbTransaction transaction = Connection.BeginTransaction();
                 result = (int)transaction.IsolationLevel;
@@ -109,7 +109,7 @@ namespace NHapi.SourceGeneration
         {
             get
             {
-                string len = GetMaxInfo("Binary_Literal", "Maxlen");
+                var len = GetMaxInfo("Binary_Literal", "Maxlen");
                 if (len.Equals(string.Empty))
                 {
                     return 0;
@@ -128,7 +128,7 @@ namespace NHapi.SourceGeneration
         {
             get
             {
-                string len = GetMaxInfo("Catalog_Name", "Maxlen");
+                var len = GetMaxInfo("Catalog_Name", "Maxlen");
                 if (len.Equals(string.Empty))
                 {
                     return 0;
@@ -147,7 +147,7 @@ namespace NHapi.SourceGeneration
         {
             get
             {
-                string len = GetMaxInfo("Char_Literal", "Maxlen");
+                var len = GetMaxInfo("Char_Literal", "Maxlen");
                 if (len.Equals(string.Empty))
                 {
                     return 0;
@@ -166,7 +166,7 @@ namespace NHapi.SourceGeneration
         {
             get
             {
-                string len = GetMaxInfo("Column_Name", "Maxlen");
+                var len = GetMaxInfo("Column_Name", "Maxlen");
                 if (len.Equals(string.Empty))
                 {
                     return 0;
@@ -185,7 +185,7 @@ namespace NHapi.SourceGeneration
         {
             get
             {
-                string len = GetMaxInfo("Cursor_Name", "Maxlen");
+                var len = GetMaxInfo("Cursor_Name", "Maxlen");
                 if (len.Equals(string.Empty))
                 {
                     return 0;
@@ -204,7 +204,7 @@ namespace NHapi.SourceGeneration
         {
             get
             {
-                string len = GetMaxInfo("Procedure_Name", "Maxlen");
+                var len = GetMaxInfo("Procedure_Name", "Maxlen");
                 if (len.Equals(string.Empty))
                 {
                     return 0;
@@ -223,7 +223,7 @@ namespace NHapi.SourceGeneration
         {
             get
             {
-                string len = GetMaxInfo("Schema_Name", "Maxlen");
+                var len = GetMaxInfo("Schema_Name", "Maxlen");
                 if (len.Equals(string.Empty))
                 {
                     return 0;
@@ -242,7 +242,7 @@ namespace NHapi.SourceGeneration
         {
             get
             {
-                string len = GetMaxInfo("Table_Name", "Maxlen");
+                var len = GetMaxInfo("Table_Name", "Maxlen");
                 if (len.Equals(string.Empty))
                 {
                     return 0;
@@ -261,7 +261,7 @@ namespace NHapi.SourceGeneration
         {
             get
             {
-                string len = GetMaxInfo("User_Name", "Maxlen");
+                var len = GetMaxInfo("User_Name", "Maxlen");
                 if (len.Equals(string.Empty))
                 {
                     return 0;
@@ -296,9 +296,9 @@ namespace NHapi.SourceGeneration
             {
                 OpenConnection();
                 SchemaData = Connection.GetSchema("Tables", null);
-                ArrayList tableTypes = new ArrayList(SchemaData.Rows.Count);
+                var tableTypes = new ArrayList(SchemaData.Rows.Count);
 
-                string tableType = string.Empty;
+                var tableType = string.Empty;
                 foreach (DataRow dataRow in SchemaData.Rows)
                 {
                     tableType = dataRow[SchemaData.Columns["TABLE_TYPE"]].ToString();
@@ -310,7 +310,7 @@ namespace NHapi.SourceGeneration
 
                 SchemaData = new DataTable();
                 SchemaData.Columns.Add("TABLE_TYPE");
-                for (int index = 0; index < tableTypes.Count; index++)
+                for (var index = 0; index < tableTypes.Count; index++)
                 {
                     SchemaData.Rows.Add(new object[] { tableTypes[index] });
                 }
@@ -390,12 +390,12 @@ namespace NHapi.SourceGeneration
                 new[] { catalog, schemaPattern, tableNamePattern, types[0] });
             if (types != null)
             {
-                for (int i = 1; i < types.Length; i++)
+                for (var i = 1; i < types.Length; i++)
                 {
-                    DataTable temp_Table = Connection.GetSchema(
+                    var temp_Table = Connection.GetSchema(
                         "Tables",
                         new[] { catalog, schemaPattern, tableNamePattern, types[i] });
-                    for (int j = 0; j < temp_Table.Rows.Count; j++)
+                    for (var j = 0; j < temp_Table.Rows.Count; j++)
                     {
                         SchemaData.ImportRow(temp_Table.Rows[j]);
                     }
@@ -519,7 +519,7 @@ namespace NHapi.SourceGeneration
         /// <returns>A new String with the info from the row.</returns>
         private string GetMaxInfo(string filter, string rowName)
         {
-            string result = string.Empty;
+            var result = string.Empty;
             SchemaData = null;
             OpenConnection();
             SchemaData = Connection.GetSchema("DbInfoLiterals", null);

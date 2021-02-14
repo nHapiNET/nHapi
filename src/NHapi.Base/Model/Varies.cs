@@ -58,8 +58,6 @@ namespace NHapi.Base.Model
         private static readonly IHapiLog Log;
 
         private IType data;
-        private IMessage message;
-        private string description;
 
         static Varies()
         {
@@ -74,7 +72,7 @@ namespace NHapi.Base.Model
         public Varies(IMessage message)
         {
             data = new GenericPrimitive(message);
-            this.message = message;
+            Message = message;
         }
 
         /// <summary> Creates new Varies.
@@ -85,8 +83,8 @@ namespace NHapi.Base.Model
         public Varies(IMessage message, string description)
         {
             data = new GenericPrimitive(message);
-            this.message = message;
-            this.description = description;
+            Message = message;
+            Description = description;
         }
 
         /// <summary>
@@ -123,39 +121,18 @@ namespace NHapi.Base.Model
             }
         }
 
-        public virtual string TypeName
-        {
-            get
-            {
-                string name = "*";
-                if (data != null)
-                {
-                    name = data.TypeName;
-                }
-
-                return name;
-            }
-        }
+        public virtual string TypeName => data?.TypeName ?? "*";
 
         /// <summary>Returns extra components from the underlying Type. </summary>
-        public virtual ExtraComponents ExtraComponents
-        {
-            get { return data.ExtraComponents; }
-        }
+        public virtual ExtraComponents ExtraComponents => data.ExtraComponents;
 
         /// <returns> the message to which this Type belongs.
         /// </returns>
-        public virtual IMessage Message
-        {
-            get { return message; }
-        }
+        public virtual IMessage Message { get; private set; }
 
         /// <returns> the description of what this Type represents.
         /// </returns>
-        public virtual string Description
-        {
-            get { return description; }
-        }
+        public virtual string Description { get; private set; }
 
         [Obsolete("This method has been replaced by 'FixOBX5'.")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -175,11 +152,11 @@ namespace NHapi.Base.Model
             try
             {
                 // get unqualified class name
-                IPrimitive obx2 = (IPrimitive)segment.GetField(2, 0);
+                var obx2 = (IPrimitive)segment.GetField(2, 0);
 
-                foreach (IType repetition in segment.GetField(5))
+                foreach (var repetition in segment.GetField(5))
                 {
-                    Varies v = (Varies)repetition;
+                    var v = (Varies)repetition;
 
                     if (obx2.Value == null)
                     {
@@ -197,7 +174,7 @@ namespace NHapi.Base.Model
                     {
                         UseDTInsteadOfDTMForEarlierVersionsOfHL7(segment, obx2);
 
-                        Type type = factory.GetTypeClass(obx2.Value, segment.Message.Version);
+                        var type = factory.GetTypeClass(obx2.Value, segment.Message.Version);
 
                         if (type == null)
                         {
@@ -239,8 +216,8 @@ namespace NHapi.Base.Model
 
         private static void UseDTInsteadOfDTMForEarlierVersionsOfHL7(ISegment segment, IPrimitive obx2)
         {
-            string[] versionsWithoutDTM = new string[] { "2.1", "2.2", "2.3", "2.3.1", "2.4", "2.5" };
-            bool useDTInsteadOfDTM = obx2.Value == "DTM" && versionsWithoutDTM.Contains(segment.Message.Version);
+            var versionsWithoutDTM = new string[] { "2.1", "2.2", "2.3", "2.3.1", "2.4", "2.5" };
+            var useDTInsteadOfDTM = obx2.Value == "DTM" && versionsWithoutDTM.Contains(segment.Message.Version);
             if (useDTInsteadOfDTM)
             {
                 obx2.Value = "DT";

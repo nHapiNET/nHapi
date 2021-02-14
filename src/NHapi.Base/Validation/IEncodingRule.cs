@@ -26,23 +26,34 @@
 
 namespace NHapi.Base.Validation
 {
-    /// <summary> A validation rule that applies to encoded message strings.  Rules that
+    using System;
+
+    /// <summary>
+    /// A validation rule that applies to encoded message strings. Rules that
     /// apply to message content are not included in this category (they are MessageRules
-    /// and are evaluated against parsed Message object).  EncodingRules are intended
+    /// and are evaluated against parsed Message object). EncodingRules are intended
     /// for criteria that are specific to the encoded form of a message, e.g. "no empty
     /// tags in an XML message".
     /// </summary>
-    /// <author>  Bryan Tripp.
-    /// </author>
+    /// <author>Bryan Tripp.</author>
     public interface IEncodingRule : IRule
     {
-        /// <summary> Tests the given encoded message text against the criteria
+        [Obsolete("This method has been replaced by 'Test'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        ValidationException[] test(string msg);
+
+        /// <summary>
+        /// Tests the given encoded message text against the criteria
         /// defined by this rule class.
         /// </summary>
-        /// <returns> a list of exceptions indicating points at which the given
+        /// <returns>
+        /// A list of exceptions indicating points at which the given
         /// message failed to validate (empty if validation succeeds; may
         /// not be a complete list as testing may be aborted after failure).
         /// </returns>
-        ValidationException[] test(string msg);
+        ValidationException[] Test(string msg);
     }
 }

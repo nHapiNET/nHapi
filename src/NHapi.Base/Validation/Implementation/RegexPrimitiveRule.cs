@@ -38,9 +38,6 @@ namespace NHapi.Base.Validation.Implementation
     /// </version>
     public class RegexPrimitiveRule : IPrimitiveTypeRule
     {
-        private Regex myPattern;
-        private string mySectionReference;
-
         /// <param name="theRegex">a regular expression against which to validate primitive
         /// values.
         /// </param>
@@ -48,49 +45,50 @@ namespace NHapi.Base.Validation.Implementation
         /// </param>
         public RegexPrimitiveRule(string theRegex, string theSectionReference)
         {
-            myPattern = new Regex(theRegex);
-            mySectionReference = theSectionReference;
+            MyPattern = new Regex(theRegex);
+            SectionReference = theSectionReference;
         }
 
         /// <summary>
-        /// The description.
+        /// Gets the rule description.
         /// </summary>
-        public virtual string Description
-        {
-            get { return "Matches the regular expression " + myPattern.ToString(); }
-        }
+        public virtual string Description => $"Matches the regular expression {MyPattern}";
 
         /// <summary>
-        /// The section reference.
+        /// Gets the section reference.
         /// </summary>
-        public virtual string SectionReference
+        public virtual string SectionReference { get; }
+
+        private Regex MyPattern { get; }
+
+        public virtual bool test(string value)
         {
-            get { return mySectionReference; }
+            return Test(value);
         }
 
-        /// <summary> Empty string, null, and the HL7 explicit null (two double-quotes) are passed.
-        ///
-        /// </summary>
-        public virtual bool test(string value_Renamed)
+        /// <inheritdoc />
+        public virtual bool Test(string value)
         {
-            if (value_Renamed == null || value_Renamed.Equals("\"\"") || value_Renamed.Equals(string.Empty))
+            if (value == null || value.Equals("\"\"") || value.Equals(string.Empty))
             {
                 return true;
             }
             else
             {
-                return myPattern.IsMatch(value_Renamed);
+                return MyPattern.IsMatch(value);
             }
         }
 
-        /// <summary>
-        /// Is this rule correct.
-        /// </summary>
-        /// <param name="value_Renamed"></param>
-        /// <returns></returns>
-        public virtual string correct(string value_Renamed)
+        /// <inheritdoc />
+        public virtual string correct(string originalValue)
         {
-            return value_Renamed;
+            return Correct(originalValue);
+        }
+
+        /// <inheritdoc />
+        public virtual string Correct(string originalValue)
+        {
+            return originalValue;
         }
     }
 }

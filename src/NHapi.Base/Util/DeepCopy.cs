@@ -32,11 +32,11 @@ namespace NHapi.Base.Util
         /// </summary>
         public static void Copy(IType from, IType to)
         {
-            for (int i = 1; i <= Terser.NumComponents(from); i++)
+            for (var i = 1; i <= Terser.NumComponents(from); i++)
             {
-                for (int j = 1; j <= Terser.NumSubComponents(from, i); j++)
+                for (var j = 1; j <= Terser.NumSubComponents(from, i); j++)
                 {
-                    string val = Terser.GetPrimitive(from, i, j).Value;
+                    var val = Terser.GetPrimitive(from, i, j).Value;
                     Terser.GetPrimitive(to, i, j).Value = val;
                 }
             }
@@ -64,11 +64,11 @@ namespace NHapi.Base.Util
         /// </param>
         public static void Copy(ISegment from, ISegment to)
         {
-            int n = from.NumFields();
-            for (int i = 1; i <= n; i++)
+            var n = from.NumFields();
+            for (var i = 1; i <= n; i++)
             {
-                IType[] reps = from.GetField(i);
-                for (int j = 0; j < reps.Length; j++)
+                var reps = from.GetField(i);
+                for (var j = 0; j < reps.Length; j++)
                 {
                     Copy(reps[j], to.GetField(i, j));
                 }

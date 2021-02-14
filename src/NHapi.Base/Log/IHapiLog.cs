@@ -1,7 +1,7 @@
 /*
-* HapiLog.java
-*
-* Created on May 7, 2003 at 3:53:44 PM
+  HapiLog.java
+
+  Created on May 7, 2003 at 3:53:44 PM
 */
 
 namespace NHapi.Base.Log

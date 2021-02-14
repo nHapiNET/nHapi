@@ -153,8 +153,8 @@ namespace NHapi.Base.Model.Primitive
                     {
                         // here we know we both have the date and just the time offset value
                         // change the offset value from an integer to a signed string
-                        int offset = tm.GMTOffset;
-                        string offsetStr = string.Empty;
+                        var offset = tm.GMTOffset;
+                        var offsetStr = string.Empty;
                         if (offset > -99)
                         {
                             offsetStr = DataTypeUtil.PreAppendZeroes(Math.Abs(offset), 4);
@@ -187,8 +187,8 @@ namespace NHapi.Base.Model.Primitive
                         // 8 characters in length
                         if (value.Length < 4)
                         {
-                            string msg = "The length of the TS datatype value must be at least 4 characters in length.";
-                            DataTypeException e = new DataTypeException(msg);
+                            var msg = "The length of the TS datatype value must be at least 4 characters in length.";
+                            var e = new DataTypeException(msg);
                             throw e;
                         }
 
@@ -196,8 +196,8 @@ namespace NHapi.Base.Model.Primitive
                         // than 24 characters in length
                         if (value.Length > 24)
                         {
-                            string msg = "The length of the TS datatype value must not be more than 24 characters in length.";
-                            DataTypeException e = new DataTypeException(msg);
+                            var msg = "The length of the TS datatype value must not be more than 24 characters in length.";
+                            var e = new DataTypeException(msg);
                             throw e;
                         }
 
@@ -206,11 +206,11 @@ namespace NHapi.Base.Model.Primitive
                         string dateVal = null;
                         string timeVal = null;
                         string timeValLessOffset = null;
-                        int sp = value.IndexOf("+");
-                        int sm = value.IndexOf("-");
-                        int indexOfSign = -1;
-                        bool offsetExists = false;
-                        bool timeValIsOffsetOnly = false;
+                        var sp = value.IndexOf("+");
+                        var sm = value.IndexOf("-");
+                        var indexOfSign = -1;
+                        var offsetExists = false;
+                        var timeValIsOffsetOnly = false;
                         if ((sp != -1) || (sm != -1))
                         {
                             offsetExists = true;
@@ -268,7 +268,7 @@ namespace NHapi.Base.Model.Primitive
                         // we must provide a default offset = to the local time zone
                         if (timeVal == null && offsetExists == false)
                         {
-                            int defaultOffset = DataTypeUtil.LocalGMTOffset;
+                            var defaultOffset = DataTypeUtil.LocalGMTOffset;
                             tm = new CommonTM();
                             tm.Offset = defaultOffset;
                         } // end if
@@ -281,10 +281,10 @@ namespace NHapi.Base.Model.Primitive
                             // at the very least -- must be at least 4chars in length.
                             if (timeValLessOffset.Length < 4)
                             {
-                                string msg = "The length of the time component for the TM datatype" +
+                                var msg = "The length of the time component for the TM datatype" +
                                                  " value does not conform to the allowable format" +
                                                  " YYYY[MM[DD[HHMM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ].";
-                                DataTypeException e = new DataTypeException(msg);
+                                var e = new DataTypeException(msg);
                                 throw e;
                             } // end if
 
@@ -301,9 +301,9 @@ namespace NHapi.Base.Model.Primitive
                             // offset field in the tm object
                             if (timeVal.Length != 5)
                             {
-                                string msg = "The length of the GMT offset for the TM datatype value does" +
+                                var msg = "The length of the GMT offset for the TM datatype value does" +
                                                  " not conform to the allowable format [+/-ZZZZ]";
-                                DataTypeException e = new DataTypeException(msg);
+                                var e = new DataTypeException(msg);
                                 throw e;
                             } // end if
 
@@ -315,7 +315,7 @@ namespace NHapi.Base.Model.Primitive
                                 timeVal = timeVal.Substring(1);
                             } // end if
 
-                            int signedOffset = int.Parse(timeVal);
+                            var signedOffset = int.Parse(timeVal);
                             tm.Offset = signedOffset;
                         } // end if
                     }
@@ -400,7 +400,7 @@ namespace NHapi.Base.Model.Primitive
         {
             get
             {
-                int year = 0;
+                var year = 0;
                 if (dt != null)
                 {
                     year = dt.Year;
@@ -415,7 +415,7 @@ namespace NHapi.Base.Model.Primitive
         {
             get
             {
-                int month = 0;
+                var month = 0;
                 if (dt != null)
                 {
                     month = dt.Month;
@@ -430,7 +430,7 @@ namespace NHapi.Base.Model.Primitive
         {
             get
             {
-                int day = 0;
+                var day = 0;
                 if (dt != null)
                 {
                     day = dt.Day;
@@ -445,7 +445,7 @@ namespace NHapi.Base.Model.Primitive
         {
             get
             {
-                int hour = 0;
+                var hour = 0;
                 if (tm != null)
                 {
                     hour = tm.Hour;
@@ -460,7 +460,7 @@ namespace NHapi.Base.Model.Primitive
         {
             get
             {
-                int minute = 0;
+                var minute = 0;
                 if (tm != null)
                 {
                     minute = tm.Minute;
@@ -475,7 +475,7 @@ namespace NHapi.Base.Model.Primitive
         {
             get
             {
-                int seconds = 0;
+                var seconds = 0;
                 if (tm != null)
                 {
                     seconds = tm.Second;
@@ -505,7 +505,7 @@ namespace NHapi.Base.Model.Primitive
         {
             get
             {
-                int offSet = 0;
+                var offSet = 0;
                 if (tm != null)
                 {
                     offSet = tm.GMTOffset;
@@ -530,23 +530,23 @@ namespace NHapi.Base.Model.Primitive
         /// </summary>
         public static string ToHl7TSFormat(GregorianCalendar cal)
         {
-            string val = string.Empty;
+            var val = string.Empty;
             try
             {
                 // set the input cal object so that it can report errors
                 // on it's value
-                int calYear = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.YEAR);
-                int calMonth = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MONTH) + 1;
-                int calDay = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.DAY_OF_MONTH);
-                int calHour = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.HOUR_OF_DAY);
-                int calMin = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MINUTE);
-                int calSec = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.SECOND);
-                int calMilli = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MILLISECOND);
+                var calYear = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.YEAR);
+                var calMonth = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MONTH) + 1;
+                var calDay = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.DAY_OF_MONTH);
+                var calHour = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.HOUR_OF_DAY);
+                var calMin = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MINUTE);
+                var calSec = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.SECOND);
+                var calMilli = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.MILLISECOND);
 
                 // the inputs seconds and milliseconds should be combined into a float type
-                float fractSec = calMilli / 1000F;
-                float calSecFloat = calSec + fractSec;
-                int calOffset = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.ZONE_OFFSET);
+                var fractSec = calMilli / 1000F;
+                var calSecFloat = calSec + fractSec;
+                var calOffset = SupportClass.CalendarManager.manager.Get(cal, SupportClass.CalendarManager.ZONE_OFFSET);
 
                 // Note the input's Offset value is in milliseconds, we must convert it to
                 // a 4 digit integer in the HL7 Offset format.
@@ -561,16 +561,16 @@ namespace NHapi.Base.Model.Primitive
                 }
 
                 // get the absolute value of the gmtOffSet
-                int absGmtOffSet = Math.Abs(calOffset);
-                int gmtOffSetHours = absGmtOffSet / (3600 * 1000);
-                int gmtOffSetMin = (absGmtOffSet / 60000) % 60;
+                var absGmtOffSet = Math.Abs(calOffset);
+                var gmtOffSetHours = absGmtOffSet / (3600 * 1000);
+                var gmtOffSetMin = (absGmtOffSet / 60000) % 60;
 
                 // reset calOffset
                 calOffset = ((gmtOffSetHours * 100) + gmtOffSetMin) * offSetSignInt;
 
                 // Create an object of the TS class and populate it with the above values
                 // then return the HL7 string value from the object
-                CommonTS ts = new CommonTS();
+                var ts = new CommonTS();
                 ts.SetDateSecondPrecision(calYear, calMonth, calDay, calHour, calMin, calSecFloat);
                 ts.Offset = calOffset;
                 val = ts.Value;

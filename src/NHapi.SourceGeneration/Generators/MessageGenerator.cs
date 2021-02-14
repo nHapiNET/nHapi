@@ -68,16 +68,16 @@ namespace NHapi.SourceGeneration.Generators
         public static void MakeAll(string baseDirectory, string version)
         {
             // get list of messages ...
-            using (OdbcConnection conn = NormativeDatabase.Instance.Connection)
+            using (var conn = NormativeDatabase.Instance.Connection)
             {
-                string sql = GetMessageListQuery(version);
-                DbCommand stmt = TransactionManager.Manager.CreateStatement(conn);
+                var sql = GetMessageListQuery(version);
+                var stmt = TransactionManager.Manager.CreateStatement(conn);
                 DbCommand temp_OleDbCommand;
                 temp_OleDbCommand = stmt;
                 temp_OleDbCommand.CommandText = sql;
-                DbDataReader rs = temp_OleDbCommand.ExecuteReader();
-                ArrayList messages = new ArrayList();
-                ArrayList chapters = new ArrayList();
+                var rs = temp_OleDbCommand.ExecuteReader();
+                var messages = new ArrayList();
+                var chapters = new ArrayList();
                 while (rs.Read())
                 {
                     messages.Add(Convert.ToString(rs[1 - 1]));
@@ -92,10 +92,10 @@ namespace NHapi.SourceGeneration.Generators
                     Log.Warn("No version " + version + " messages found in database " + conn.Database);
                 }
 
-                for (int i = 0; i < messages.Count; i++)
+                for (var i = 0; i < messages.Count; i++)
                 {
-                    string message = (string)messages[i];
-                    string chapter = (string)chapters[i];
+                    var message = (string)messages[i];
+                    var chapter = (string)chapters[i];
                     Make(message, baseDirectory, chapter, version);
                 }
             }
@@ -110,11 +110,11 @@ namespace NHapi.SourceGeneration.Generators
         {
             try
             {
-                SegmentDef[] segments = GetSegments(message, version);
+                var segments = GetSegments(message, version);
 
                 // System.out.println("Making: " + message + " with " + segments.length + " segments (not writing message code - just groups)");
-                GroupDef group = GroupGenerator.GetGroupDef(segments, null, baseDirectory, version, message);
-                IStructureDef[] contents = group.Structures;
+                var group = GroupGenerator.GetGroupDef(segments, null, baseDirectory, version, message);
+                var contents = group.Structures;
 
                 // make base directory
                 if (!(baseDirectory.EndsWith("\\") || baseDirectory.EndsWith("/")))
@@ -122,16 +122,16 @@ namespace NHapi.SourceGeneration.Generators
                     baseDirectory = baseDirectory + "/";
                 }
 
-                FileInfo targetDir =
+                var targetDir =
                     SourceGenerator.MakeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Message");
                 Console.Out.WriteLine("Writing " + message + " to " + targetDir.FullName);
-                using (StreamWriter out_Renamed = new StreamWriter(targetDir.FullName + "/" + message + ".cs"))
+                using (var out_Renamed = new StreamWriter(targetDir.FullName + "/" + message + ".cs"))
                 {
                     out_Renamed.Write(MakePreamble(contents, message, chapter, version));
                     out_Renamed.Write(MakeConstructor(contents, message, version));
-                    for (int i = 0; i < contents.Length; i++)
+                    for (var i = 0; i < contents.Length; i++)
                     {
-                        string groupAccessor = GroupGenerator.MakeAccessor(@group, i);
+                        var groupAccessor = GroupGenerator.MakeAccessor(@group, i);
                         out_Renamed.Write(groupAccessor);
                     }
 
@@ -154,7 +154,7 @@ namespace NHapi.SourceGeneration.Generators
         /// </summary>
         public static string MakePreamble(IStructureDef[] contents, string message, string chapter, string version)
         {
-            StringBuilder preamble = new StringBuilder();
+            var preamble = new StringBuilder();
             preamble.Append("using System;\r\n");
             preamble.Append("using System.Collections.Generic;\r\n");
             preamble.Append("using NHapi.Base.Log;\r\n");
@@ -204,9 +204,9 @@ namespace NHapi.SourceGeneration.Generators
         /// <summary> Returns source code for the constructor for this Message class.</summary>
         public static string MakeConstructor(IStructureDef[] structs, string messageName, string version)
         {
-            bool useFactory = ConfigurationSettings.UseFactory;
+            var useFactory = ConfigurationSettings.UseFactory;
 
-            StringBuilder source = new StringBuilder();
+            var source = new StringBuilder();
 
             source.Append("\t///<summary> \r\n");
             source.Append("\t/// Creates a new ");
@@ -235,10 +235,10 @@ namespace NHapi.SourceGeneration.Generators
             source.Append("\t///</summary> \r\n");
             source.Append("\tprivate void init(IModelClassFactory factory) {\r\n");
             source.Append("\t   try {\r\n");
-            int numStructs = structs.Length;
-            for (int i = 0; i < numStructs; i++)
+            var numStructs = structs.Length;
+            for (var i = 0; i < numStructs; i++)
             {
-                IStructureDef def = structs[i];
+                var def = structs[i];
                 if (useFactory)
                 {
                     source.Append("\t      this.add(factory.get");
@@ -303,24 +303,24 @@ namespace NHapi.SourceGeneration.Generators
         /// </summary>
         private static SegmentDef[] GetSegments(string message, string version)
         {
-            string sql = GetSegmentListQuery(message, version);
+            var sql = GetSegmentListQuery(message, version);
 
             // System.out.println(sql.toString());
-            SegmentDef[] segments = new SegmentDef[200]; // presumably there won't be more than 200
-            OdbcConnection conn = NormativeDatabase.Instance.Connection;
-            DbCommand stmt = TransactionManager.Manager.CreateStatement(conn);
+            var segments = new SegmentDef[200]; // presumably there won't be more than 200
+            var conn = NormativeDatabase.Instance.Connection;
+            var stmt = TransactionManager.Manager.CreateStatement(conn);
             DbCommand temp_OleDbCommand;
             temp_OleDbCommand = stmt;
             temp_OleDbCommand.CommandText = sql;
-            DbDataReader rs = temp_OleDbCommand.ExecuteReader();
-            int c = -1;
+            var rs = temp_OleDbCommand.ExecuteReader();
+            var c = -1;
             while (rs.Read())
             {
-                string name = SegmentGenerator.AltSegName(Convert.ToString(rs[1 - 1]));
-                bool repeating = rs.GetBoolean(2 - 1);
-                bool optional = rs.GetBoolean(3 - 1);
-                string desc = Convert.ToString(rs[4 - 1]);
-                string groupName = Convert.ToString(rs[6 - 1]);
+                var name = SegmentGenerator.AltSegName(Convert.ToString(rs[1 - 1]));
+                var repeating = rs.GetBoolean(2 - 1);
+                var optional = rs.GetBoolean(3 - 1);
+                var desc = Convert.ToString(rs[4 - 1]);
+                var groupName = Convert.ToString(rs[6 - 1]);
 
                 // ignore the "choice" directives ... the message class structure has to include all choices ...
                 //  if this is enforced (i.e. exception thrown if >1 choice populated) this will have to be done separately.
@@ -332,7 +332,7 @@ namespace NHapi.SourceGeneration.Generators
             }
 
             rs.Close();
-            SegmentDef[] ret = new SegmentDef[c + 1];
+            var ret = new SegmentDef[c + 1];
             Array.Copy(segments, 0, ret, 0, c + 1);
             return ret;
         }

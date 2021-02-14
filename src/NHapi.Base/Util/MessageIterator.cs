@@ -7,21 +7,21 @@ namespace NHapi.Base.Util
     using NHapi.Base.Log;
     using NHapi.Base.Model;
 
-    /// <summary> Iterates over all defined nodes (ie segments, groups) in a message,
+    /// <summary>
+    /// Iterates over all defined nodes (ie segments, groups) in a message,
     /// regardless of whether they have been instantiated previously.  This is a
     /// tricky process, because the number of nodes is infinite, due to infinitely
     /// repeating segments and groups.  See. <code>next()</code> for details on
     /// how this is handled.
-    ///
+    /// <para>
     /// This implementation assumes that the first segment in each group is present (as per
     /// HL7 rules).  Specifically, when looking for a segment location, an empty group that has
     /// a spot for the segment will be overlooked if there is anything else before that spot.
     /// This may result in surprising (but sensible) behaviour if a message is missing the
     /// first segment in a group.
-    ///
+    /// </para>
     /// </summary>
-    /// <author>  Bryan Tripp.
-    /// </author>
+    /// <author>Bryan Tripp.</author>
     public class MessageIterator : IEnumerator
     {
         private static readonly IHapiLog Log;
@@ -145,21 +145,21 @@ namespace NHapi.Base.Util
             bool firstDescendentsOnly,
             bool upToFirstRequired)
         {
-            bool matchExists = false;
+            var matchExists = false;
 
             // check next rep of self (if any)
             if (pos.Parent.IsRepeating(pos.Index.Name))
             {
-                IStructure s = pos.Parent.GetStructure(pos.Index.Name, pos.Index.Rep);
+                var s = pos.Parent.GetStructure(pos.Index.Name, pos.Index.Rep);
                 matchExists = Contains(s, name, firstDescendentsOnly, upToFirstRequired);
             }
 
             // check later siblings (if any)
             if (!matchExists)
             {
-                string[] siblings = pos.Parent.Names;
-                bool after = false;
-                for (int i = 0; i < siblings.Length && !matchExists; i++)
+                var siblings = pos.Parent.Names;
+                var after = false;
+                for (var i = 0; i < siblings.Length && !matchExists; i++)
                 {
                     if (after)
                     {
@@ -180,8 +180,8 @@ namespace NHapi.Base.Util
             // recurse to parent (if parent is not message root)
             if (!matchExists && !typeof(IMessage).IsAssignableFrom(pos.Parent.GetType()))
             {
-                IGroup grandparent = pos.Parent.ParentStructure;
-                Position parentPos = new Position(grandparent, GetIndex(grandparent, pos.Parent));
+                var grandparent = pos.Parent.ParentStructure;
+                var parentPos = new Position(grandparent, GetIndex(grandparent, pos.Parent));
                 matchExists = MatchExistsAfterPosition(parentPos, name, firstDescendentsOnly, upToFirstRequired);
             }
 
@@ -205,15 +205,15 @@ namespace NHapi.Base.Util
         public static Index GetIndex(IGroup parent, IStructure child)
         {
             Index index = null;
-            string[] names = parent.Names;
-            for (int i = 0; i < names.Length; i++)
+            var names = parent.Names;
+            for (var i = 0; i < names.Length; i++)
             {
                 if (names[i].StartsWith(child.GetStructureName()))
                 {
                     try
                     {
-                        IStructure[] reps = parent.GetAll(names[i]);
-                        for (int j = 0; j < reps.Length; j++)
+                        var reps = parent.GetAll(names[i]);
+                        for (var j = 0; j < reps.Length; j++)
                         {
                             if (child == reps[j])
                             {
@@ -262,7 +262,7 @@ namespace NHapi.Base.Util
         /// </param>
         public static bool Contains(IStructure s, string name, bool firstDescendentsOnly, bool upToFirstRequired)
         {
-            bool contains = false;
+            var contains = false;
             if (typeof(ISegment).IsAssignableFrom(s.GetType()))
             {
                 if (s.GetStructureName().Equals(name))
@@ -272,9 +272,9 @@ namespace NHapi.Base.Util
             }
             else
             {
-                IGroup g = (IGroup)s;
-                string[] names = g.Names;
-                for (int i = 0; i < names.Length && !contains; i++)
+                var g = (IGroup)s;
+                var names = g.Names;
+                for (var i = 0; i < names.Length && !contains; i++)
                 {
                     try
                     {
@@ -314,7 +314,7 @@ namespace NHapi.Base.Util
         /// </summary>
         public static bool IsLast(Position p)
         {
-            string[] names = p.Parent.Names;
+            var names = p.Parent.Names;
             return names[names.Length - 1].Equals(p.Index.Name);
         }
 
@@ -337,7 +337,7 @@ namespace NHapi.Base.Util
         /// <summary> Returns true if another object exists in the iteration sequence.  </summary>
         public virtual bool MoveNext()
         {
-            bool has = true;
+            var has = true;
             if (nextRenamedField == null)
             {
                 if (typeof(IGroup).IsAssignableFrom(currentStructure.GetType()))
@@ -346,9 +346,9 @@ namespace NHapi.Base.Util
                 }
                 else
                 {
-                    IGroup parent = currentStructure.ParentStructure;
-                    Index i = GetIndex(parent, currentStructure);
-                    Position currentPosition = new Position(parent, i);
+                    var parent = currentStructure.ParentStructure;
+                    var i = GetIndex(parent, currentStructure);
+                    var currentPosition = new Position(parent, i);
 
                     try
                     {
@@ -384,13 +384,13 @@ namespace NHapi.Base.Util
         /// </summary>
         private void NextSibling(Position pos)
         {
-            string[] names = pos.Parent.Names;
-            int i = 0;
+            var names = pos.Parent.Names;
+            var i = 0;
             for (; i < names.Length && !names[i].Equals(pos.Index.Name); i++)
             {
             }
 
-            string nextName = names[i + 1];
+            var nextName = names[i + 1];
 
             nextRenamedField = new Position(pos.Parent, nextName, 0);
         }
@@ -430,7 +430,7 @@ namespace NHapi.Base.Util
         /// </summary>
         private bool NextPosition(Position currPos, string direction, bool makeNewSegmentIfNeeded)
         {
-            bool nextExists = true;
+            var nextExists = true;
             if (IsLast(currPos))
             {
                 nextExists = NextFromGroupEnd(currPos, direction, makeNewSegmentIfNeeded);
@@ -447,7 +447,7 @@ namespace NHapi.Base.Util
         private bool NextFromGroupEnd(Position currPos, string direction, bool makeNewSegmentIfNeeded)
         {
             // assert isLast(currPos);
-            bool nextExists = true;
+            var nextExists = true;
 
             // the following conditional logic is a little convoluted -- its meant as an optimization
             // i.e. trying to avoid calling matchExistsAfterCurrentPosition
@@ -457,13 +457,13 @@ namespace NHapi.Base.Util
             }
             else if (!makeNewSegmentIfNeeded || MatchExistsAfterPosition(currPos, direction, false, true))
             {
-                IGroup grandparent = currPos.Parent.ParentStructure;
-                Index parentIndex = GetIndex(grandparent, currPos.Parent);
-                Position parentPos = new Position(grandparent, parentIndex);
+                var grandparent = currPos.Parent.ParentStructure;
+                var parentIndex = GetIndex(grandparent, currPos.Parent);
+                var parentPos = new Position(grandparent, parentIndex);
 
                 try
                 {
-                    bool parentRepeats = parentPos.Parent.IsRepeating(parentPos.Index.Name);
+                    var parentRepeats = parentPos.Parent.IsRepeating(parentPos.Index.Name);
                     if (parentRepeats && Contains(parentPos.Parent.GetStructure(parentPos.Index.Name, 0), direction, false, true))
                     {
                         NextRep(parentPos);
@@ -555,10 +555,10 @@ namespace NHapi.Base.Util
             /// <returns></returns>
             public override bool Equals(object o)
             {
-                bool equals = false;
+                var equals = false;
                 if (o != null && o is Index)
                 {
-                    Index i = (Index)o;
+                    var i = (Index)o;
                     if (i.Rep == Rep && i.Name.Equals(Name))
                     {
                         equals = true;
@@ -666,10 +666,10 @@ namespace NHapi.Base.Util
             /// <returns>true if objects are equal.</returns>
             public override bool Equals(object o)
             {
-                bool equals = false;
+                var equals = false;
                 if (o != null && o is Position)
                 {
-                    Position p = (Position)o;
+                    var p = (Position)o;
                     if (p.Parent.Equals(Parent) && p.Index.Equals(Index))
                     {
                         equals = true;
@@ -694,7 +694,7 @@ namespace NHapi.Base.Util
             /// <returns></returns>
             public override string ToString()
             {
-                StringBuilder ret = new StringBuilder(Parent.GetStructureName());
+                var ret = new StringBuilder(Parent.GetStructureName());
                 ret.Append(":");
                 ret.Append(Index.Name);
                 ret.Append("(");

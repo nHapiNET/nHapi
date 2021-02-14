@@ -85,6 +85,7 @@ namespace NHapi.SourceGeneration
             odbcConnection.Open();
         }
 
+        // TODO: Consider using Lazy<T> or other locking semantics to make this thread safe
         public static NormativeDatabase Instance
         {
             get
@@ -122,17 +123,17 @@ namespace NHapi.SourceGeneration
         {
             try
             {
-                OdbcConnection conn = Instance.Connection;
-                DbCommand stmt = TransactionManager.Manager.CreateStatement(conn);
+                var conn = Instance.Connection;
+                var stmt = TransactionManager.Manager.CreateStatement(conn);
                 DbCommand temp_OleDbCommand;
                 temp_OleDbCommand = stmt;
                 temp_OleDbCommand.CommandText = "select * from TableValues";
-                DbDataReader rs = temp_OleDbCommand.ExecuteReader();
+                var rs = temp_OleDbCommand.ExecuteReader();
                 while (rs.Read())
                 {
-                    object tabNum = rs.GetValue(1 - 1);
-                    object val = rs.GetValue(3 - 1);
-                    object desc = rs.GetValue(4 - 1);
+                    var tabNum = rs.GetValue(1 - 1);
+                    var val = rs.GetValue(3 - 1);
+                    var desc = rs.GetValue(4 - 1);
                     Console.Out.WriteLine("Table: " + tabNum + " Value: " + val + " Description: " + desc);
                 }
             }

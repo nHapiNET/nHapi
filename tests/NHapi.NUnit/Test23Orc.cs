@@ -12,9 +12,9 @@
         [Test]
         public void Test()
         {
-            ORM_O01 msg = new ORM_O01();
-            ORM_O01_ORDER order = msg.GetORDER(0);
-            EI placerNumber = order.ORC.GetPlacerOrderNumber(0);
+            var msg = new ORM_O01();
+            var order = msg.GetORDER(0);
+            var placerNumber = order.ORC.GetPlacerOrderNumber(0);
             placerNumber.EntityIdentifier.Value = "123";
         }
     }

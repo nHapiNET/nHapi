@@ -60,14 +60,7 @@ namespace NHapi.Base.Model.Primitive
         {
             get
             {
-                string result = base.Value;
-
-                if (myDetail != null)
-                {
-                    result = myDetail.Value;
-                }
-
-                return result;
+                return (myDetail != null) ? myDetail.Value : base.Value;
             }
 
             set
@@ -100,42 +93,27 @@ namespace NHapi.Base.Model.Primitive
         /// <summary>
         /// Returns the hour as an integer.
         /// </summary>
-        public virtual int Hour
-        {
-            get { return Detail.Hour; }
-        }
+        public virtual int Hour => Detail.Hour;
 
         /// <summary>
         /// Returns the minute as an integer.
         /// </summary>
-        public virtual int Minute
-        {
-            get { return Detail.Minute; }
-        }
+        public virtual int Minute => Detail.Minute;
 
         /// <summary>
         /// Returns the second as an integer.
         /// </summary>
-        public virtual int Second
-        {
-            get { return Detail.Second; }
-        }
+        public virtual int Second => Detail.Second;
 
         /// <summary>
         /// Returns the fractional second value as a float.
         /// </summary>
-        public virtual float FractSecond
-        {
-            get { return Detail.FractSecond; }
-        }
+        public virtual float FractSecond => Detail.FractSecond;
 
         /// <summary>
         /// Returns the GMT offset value as an integer.
         /// </summary>
-        public virtual int GMTOffset
-        {
-            get { return Detail.GMTOffset; }
-        }
+        public virtual int GMTOffset => Detail.GMTOffset;
 
         private CommonTM Detail
         {

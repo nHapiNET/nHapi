@@ -88,7 +88,6 @@ namespace NHapi.Base.Util
     public class Terser
     {
         private static IHapiLog log;
-        private SegmentFinder finder;
 
         static Terser()
         {
@@ -98,7 +97,7 @@ namespace NHapi.Base.Util
         /// <summary>Creates a new instance of Terser. </summary>
         public Terser(IMessage message)
         {
-            finder = new SegmentFinder(message);
+            Finder = new SegmentFinder(message);
         }
 
         /// <summary>
@@ -107,10 +106,7 @@ namespace NHapi.Base.Util
         /// when the full path of the segment is not specified the segment will
         /// be sought beginning at the current location of the finder.
         /// </summary>
-        public virtual SegmentFinder Finder
-        {
-            get { return finder; }
-        }
+        public virtual SegmentFinder Finder { get; private set; }
 
         /// <summary> Returns the string value of the Primitive at the given location.</summary>
         /// <param name="segment">the segment from which to get the primitive.
@@ -125,14 +121,14 @@ namespace NHapi.Base.Util
         /// </param>
         public static string Get(ISegment segment, int field, int rep, int component, int subcomponent)
         {
-            IPrimitive prim = GetPrimitive(segment, field, rep, component, subcomponent);
+            var prim = GetPrimitive(segment, field, rep, component, subcomponent);
             return prim.Value;
         }
 
         /// <summary> Sets the string value of the Primitive at the given location.</summary>
         public static void Set(ISegment segment, int field, int rep, int component, int subcomponent, string value_Renamed)
         {
-            IPrimitive prim = GetPrimitive(segment, field, rep, component, subcomponent);
+            var prim = GetPrimitive(segment, field, rep, component, subcomponent);
             prim.Value = value_Renamed;
         }
 
@@ -153,8 +149,8 @@ namespace NHapi.Base.Util
         /// </summary>
         public static IPrimitive GetPrimitive(IType type, int component, int subcomponent)
         {
-            IType comp = GetComponent(type, component);
-            IType sub = GetComponent(comp, subcomponent);
+            var comp = GetComponent(type, component);
+            var sub = GetComponent(comp, subcomponent);
             return GetPrimitive(sub);
         }
 
@@ -174,7 +170,7 @@ namespace NHapi.Base.Util
         /// </summary>
         public static int[] GetIndices(string spec)
         {
-            SupportClass.Tokenizer tok = new SupportClass.Tokenizer(spec, "-", false);
+            var tok = new SupportClass.Tokenizer(spec, "-", false);
             tok.NextToken(); // skip over segment
             if (!tok.HasMoreTokens())
             {
@@ -184,27 +180,27 @@ namespace NHapi.Base.Util
             int[] ret = null;
             try
             {
-                SupportClass.Tokenizer fieldSpec = new SupportClass.Tokenizer(tok.NextToken(), "()", false);
-                int fieldNum = int.Parse(fieldSpec.NextToken());
-                int fieldRep = 0;
+                var fieldSpec = new SupportClass.Tokenizer(tok.NextToken(), "()", false);
+                var fieldNum = int.Parse(fieldSpec.NextToken());
+                var fieldRep = 0;
                 if (fieldSpec.HasMoreTokens())
                 {
                     fieldRep = int.Parse(fieldSpec.NextToken());
                 }
 
-                int component = 1;
+                var component = 1;
                 if (tok.HasMoreTokens())
                 {
                     component = int.Parse(tok.NextToken());
                 }
 
-                int subcomponent = 1;
+                var subcomponent = 1;
                 if (tok.HasMoreTokens())
                 {
                     subcomponent = int.Parse(tok.NextToken());
                 }
 
-                int[] result = new int[] { fieldNum, fieldRep, component, subcomponent };
+                var result = new int[] { fieldNum, fieldRep, component, subcomponent };
                 ret = result;
             }
             catch (FormatException)
@@ -234,7 +230,7 @@ namespace NHapi.Base.Util
         /// <param name="component">numbered from 1.</param>
         public static int NumSubComponents(IType type, int component)
         {
-            int n = -1;
+            var n = -1;
             if (component == 1 && typeof(IPrimitive).IsAssignableFrom(type.GetType()))
             {
                 // note that getComponent(primitive, 1) below returns the primitive
@@ -244,7 +240,7 @@ namespace NHapi.Base.Util
             }
             else
             {
-                IType comp = GetComponent(type, component);
+                var comp = GetComponent(type, component);
                 n = NumComponents(comp);
             }
 
@@ -289,10 +285,10 @@ namespace NHapi.Base.Util
         /// </summary>
         public virtual string Get(string spec)
         {
-            SupportClass.Tokenizer tok = new SupportClass.Tokenizer(spec, "-", false);
-            ISegment segment = GetSegment(tok.NextToken());
+            var tok = new SupportClass.Tokenizer(spec, "-", false);
+            var segment = GetSegment(tok.NextToken());
 
-            int[] ind = GetIndices(spec);
+            var ind = GetIndices(spec);
             return Get(segment, ind[0], ind[1], ind[2], ind[3]);
         }
 
@@ -316,12 +312,12 @@ namespace NHapi.Base.Util
                 Finder.Reset();
             }
 
-            SupportClass.Tokenizer tok = new SupportClass.Tokenizer(segSpec, "/", false);
-            SegmentFinder finder = Finder;
+            var tok = new SupportClass.Tokenizer(segSpec, "/", false);
+            var finder = Finder;
             while (tok.HasMoreTokens())
             {
-                string pathSpec = tok.NextToken();
-                PathSpec ps = ParsePathSpec(pathSpec);
+                var pathSpec = tok.NextToken();
+                var ps = ParsePathSpec(pathSpec);
                 if (tok.HasMoreTokens())
                 {
                     ps.IsGroup = true;
@@ -364,10 +360,10 @@ namespace NHapi.Base.Util
         /// <summary> Sets the string value of the field specified.  See class docs for location spec syntax.</summary>
         public virtual void Set(string spec, string value_Renamed)
         {
-            SupportClass.Tokenizer tok = new SupportClass.Tokenizer(spec, "-", false);
-            ISegment segment = GetSegment(tok.NextToken());
+            var tok = new SupportClass.Tokenizer(spec, "-", false);
+            var segment = GetSegment(tok.NextToken());
 
-            int[] ind = GetIndices(spec);
+            var ind = GetIndices(spec);
             if (log.DebugEnabled)
             {
                 log.Debug("Setting " + spec + " seg: " + segment.GetStructureName() + " ind: " + ind[0] + " " + ind[1] + " " +
@@ -380,7 +376,7 @@ namespace NHapi.Base.Util
         /// <summary> Returns the Primitive object at the given location.</summary>
         private static IPrimitive GetPrimitive(ISegment segment, int field, int rep, int component, int subcomponent)
         {
-            IType type = segment.GetField(field, rep);
+            var type = segment.GetField(field, rep);
             return GetPrimitive(type, component, subcomponent);
         }
 
@@ -425,7 +421,7 @@ namespace NHapi.Base.Util
             IType ret = null;
             if (typeof(Varies).IsAssignableFrom(type.GetType()))
             {
-                Varies v = (Varies)type;
+                var v = (Varies)type;
 
                 try
                 {
@@ -436,7 +432,7 @@ namespace NHapi.Base.Util
                 }
                 catch (DataTypeException de)
                 {
-                    string message = "Unexpected exception copying data to generic composite: " + de.Message;
+                    var message = "Unexpected exception copying data to generic composite: " + de.Message;
                     log.Error(message, de);
                     throw new ApplicationException(message);
                 }
@@ -475,7 +471,7 @@ namespace NHapi.Base.Util
 
         private static int NumStandardComponents(IType t)
         {
-            int n = 0;
+            var n = 0;
             if (typeof(Varies).IsAssignableFrom(t.GetType()))
             {
                 n = NumStandardComponents(((Varies)t).Data);
@@ -495,7 +491,7 @@ namespace NHapi.Base.Util
         /// <summary>Gets path information from a path spec. </summary>
         private PathSpec ParsePathSpec(string spec)
         {
-            PathSpec ps = new PathSpec(this);
+            var ps = new PathSpec(this);
 
             if (spec.StartsWith("."))
             {
@@ -512,11 +508,11 @@ namespace NHapi.Base.Util
                 throw new HL7Exception("Invalid path (some path element is either empty or contains only a dot)");
             }
 
-            SupportClass.Tokenizer tok = new SupportClass.Tokenizer(spec, "()", false);
+            var tok = new SupportClass.Tokenizer(spec, "()", false);
             ps.Pattern = tok.NextToken();
             if (tok.HasMoreTokens())
             {
-                string repString = tok.NextToken();
+                var repString = tok.NextToken();
                 try
                 {
                     ps.Rep = int.Parse(repString);

@@ -11,7 +11,7 @@
         [Explicit]
         public void Test_Generate_Versions()
         {
-            string[] versionsToGenerate = new[]
+            var versionsToGenerate = new[]
             {
                 // Known good generations:
                 "2.1",

@@ -125,7 +125,7 @@ namespace NHapi.Base.Util
         /// <param name="rep">the repetition of the segment to return.</param>
         public virtual ISegment GetSegment(string namePattern, int rep)
         {
-            IStructure s = GetStructure(namePattern, rep);
+            var s = GetStructure(namePattern, rep);
             if (!typeof(ISegment).IsAssignableFrom(s.GetType()))
             {
                 throw new HL7Exception(s.GetStructureName() + " is not a segment", ErrorCode.APPLICATION_INTERNAL_ERROR);
@@ -147,7 +147,7 @@ namespace NHapi.Base.Util
         /// <summary> As getSegment() but will only return a group.</summary>
         public virtual IGroup GetGroup(string namePattern, int rep)
         {
-            IStructure s = GetStructure(namePattern, rep);
+            var s = GetStructure(namePattern, rep);
             if (!typeof(IGroup).IsAssignableFrom(s.GetType()))
             {
                 throw new HL7Exception(s.GetStructureName() + " is not a group", ErrorCode.APPLICATION_INTERNAL_ERROR);
@@ -164,7 +164,7 @@ namespace NHapi.Base.Util
             while (s == null)
             {
                 Iterate(false, false);
-                string currentName = GetCurrentStructure(0).GetStructureName();
+                var currentName = GetCurrentStructure(0).GetStructureName();
                 if (Matches(namePattern, currentName))
                 {
                     s = GetCurrentStructure(rep);
@@ -183,8 +183,8 @@ namespace NHapi.Base.Util
                 DrillDown(0);
             }
 
-            string[] names = GetCurrentStructure(0).ParentStructure.Names;
-            for (int i = 0; i < names.Length && s == null; i++)
+            var names = GetCurrentStructure(0).ParentStructure.Names;
+            for (var i = 0; i < names.Length && s == null; i++)
             {
                 if (Matches(namePattern, names[i]))
                 {

@@ -17,14 +17,14 @@ namespace NHapi.NUnit
         [Test]
         public void ParseQRYR02()
         {
-            string message = @"MSH|^~\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||QRY^R02^QRY_R02|1|P|2.3|
+            var message = @"MSH|^~\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||QRY^R02^QRY_R02|1|P|2.3|
 QRD|20060228155525|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||";
 
-            PipeParser parser = new PipeParser();
+            var parser = new PipeParser();
 
-            IMessage m = parser.Parse(message);
+            var m = parser.Parse(message);
 
-            QRY_R02 qryR02 = m as QRY_R02;
+            var qryR02 = m as QRY_R02;
 
             Assert.IsNotNull(qryR02);
             Assert.AreEqual("38923", qryR02.QRD.GetWhoSubjectFilter(0).IDNumber.Value);
@@ -33,8 +33,8 @@ QRD|20060228155525|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||";
         [Test]
         public void CreateBlankMessage()
         {
-            ADT_A01 a01 = new ADT_A01();
-            DateTime birthDate = new DateTime(1980, 4, 1);
+            var a01 = new ADT_A01();
+            var birthDate = new DateTime(1980, 4, 1);
             a01.MSH.SendingApplication.UniversalID.Value = "ThisOne";
             a01.MSH.ReceivingApplication.UniversalID.Value = "COHIE";
             a01.PID.PatientIDExternalID.ID.Value = "123456";
@@ -42,14 +42,14 @@ QRD|20060228155525|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||";
             a01.PV1.GetAttendingDoctor(0).GivenName.Value = "Mike";
             a01.PID.DateOfBirth.TimeOfAnEvent.SetShortDate(birthDate);
 
-            PipeParser parser = new PipeParser();
+            var parser = new PipeParser();
 
-            string pipeMessage = parser.Encode(a01);
+            var pipeMessage = parser.Encode(a01);
 
             Assert.IsNotNull(pipeMessage);
 
-            IMessage test = parser.Parse(pipeMessage);
-            ADT_A01 a01Test = test as ADT_A01;
+            var test = parser.Parse(pipeMessage);
+            var a01Test = test as ADT_A01;
             Assert.IsNotNull(a01Test);
 
             Assert.AreEqual(a01Test.MSH.ReceivingApplication.UniversalID.Value, "COHIE");
@@ -65,7 +65,7 @@ QRD|20060228155525|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||";
         [Test]
         public void ParseORFR04()
         {
-            string message =
+            var message =
                 @"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3|
 MSA|AA|123456789|
 QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
@@ -74,11 +74,11 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-            PipeParser parser = new PipeParser();
+            var parser = new PipeParser();
 
-            IMessage m = parser.Parse(message);
+            var m = parser.Parse(message);
 
-            ORF_R04 orfR04 = m as ORF_R04;
+            var orfR04 = m as ORF_R04;
             Assert.IsNotNull(orfR04);
             Assert.AreEqual(
                 "12",
@@ -88,7 +88,7 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
         [Test]
         public void ParseORFR04ToXML()
         {
-            string message =
+            var message =
                 @"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3|
 MSA|AA|123456789|
 QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
@@ -97,17 +97,17 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-            PipeParser parser = new PipeParser();
+            var parser = new PipeParser();
 
-            IMessage m = parser.Parse(message);
+            var m = parser.Parse(message);
 
-            ORF_R04 orfR04 = m as ORF_R04;
+            var orfR04 = m as ORF_R04;
 
             Assert.IsNotNull(orfR04);
 
             XMLParser xmlParser = new DefaultXMLParser();
 
-            string recoveredMessage = xmlParser.Encode(orfR04);
+            var recoveredMessage = xmlParser.Encode(orfR04);
 
             Assert.IsNotNull(recoveredMessage);
             Assert.IsFalse(string.Empty.Equals(recoveredMessage));
@@ -116,18 +116,18 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
         [Test]
         public void ParseXMLToHL7()
         {
-            string message = GetQRYR02XML();
+            var message = GetQRYR02XML();
 
             XMLParser xmlParser = new DefaultXMLParser();
-            IMessage m = xmlParser.Parse(message);
+            var m = xmlParser.Parse(message);
 
-            QRY_R02 qryR02 = m as QRY_R02;
+            var qryR02 = m as QRY_R02;
 
             Assert.IsNotNull(qryR02);
 
-            PipeParser pipeParser = new PipeParser();
+            var pipeParser = new PipeParser();
 
-            string pipeOutput = pipeParser.Encode(qryR02);
+            var pipeOutput = pipeParser.Encode(qryR02);
 
             Assert.IsNotNull(pipeOutput);
             Assert.IsFalse(string.Empty.Equals(pipeOutput));
@@ -136,7 +136,7 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
         [Test]
         public void ParseORFR04ToXmlNoOCR()
         {
-            string message =
+            var message =
                 @"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3|
 MSA|AA|123456789|
 QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
@@ -145,17 +145,17 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-            PipeParser parser = new PipeParser();
+            var parser = new PipeParser();
 
-            IMessage m = parser.Parse(message);
+            var m = parser.Parse(message);
 
-            ORF_R04 orfR04 = m as ORF_R04;
+            var orfR04 = m as ORF_R04;
 
             Assert.IsNotNull(orfR04);
 
             XMLParser xmlParser = new DefaultXMLParser();
 
-            string recoveredMessage = xmlParser.Encode(orfR04);
+            var recoveredMessage = xmlParser.Encode(orfR04);
 
             Assert.IsNotNull(recoveredMessage);
             Assert.IsFalse(recoveredMessage.IndexOf("ORC") > -1, "Returned message added ORC segment.");
@@ -164,7 +164,7 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
         [Test]
         public void TestOBXDataTypes()
         {
-            string message = @"MSH|^~\&|EPIC|AIDI|||20070921152053|ITFCOHIEIN|ORF^R04|297|P|2.3|||
+            var message = @"MSH|^~\&|EPIC|AIDI|||20070921152053|ITFCOHIEIN|ORF^R04|297|P|2.3|||
 MSA|CA|1
 QRD|20060725141358|R|||||10^RD|1130851^^^^MRN|RES|||
 QRF|||||||||
@@ -185,23 +185,23 @@ OBX|13|DT|5315037^Start Date^Start Collection Dat^ABC||18APR06||||||F|||20060419
 QAK||OK||1|1|0
 ";
 
-            PipeParser parser = new PipeParser();
+            var parser = new PipeParser();
 
-            IMessage m = parser.Parse(message);
+            var m = parser.Parse(message);
 
-            ORF_R04 orfR04 = m as ORF_R04;
+            var orfR04 = m as ORF_R04;
 
             Assert.IsNotNull(orfR04);
 
             XMLParser xmlParser = new DefaultXMLParser();
 
-            string recoveredMessage = xmlParser.Encode(orfR04);
+            var recoveredMessage = xmlParser.Encode(orfR04);
         }
 
         [Test]
         public void ParseORFR04ToXmlNoNTE()
         {
-            string message =
+            var message =
                 @"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3|
 MSA|AA|123456789|
 QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
@@ -210,17 +210,17 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-            PipeParser parser = new PipeParser();
+            var parser = new PipeParser();
 
-            IMessage m = parser.Parse(message);
+            var m = parser.Parse(message);
 
-            ORF_R04 orfR04 = m as ORF_R04;
+            var orfR04 = m as ORF_R04;
 
             Assert.IsNotNull(orfR04);
 
             XMLParser xmlParser = new DefaultXMLParser();
 
-            string recoveredMessage = xmlParser.Encode(orfR04);
+            var recoveredMessage = xmlParser.Encode(orfR04);
 
             Assert.IsNotNull(recoveredMessage);
             Assert.IsFalse(recoveredMessage.IndexOf("NTE") > -1, "Returned message added ORC segment.");
@@ -300,7 +300,7 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
         [Test]
         public void TestPopulateEVNSegmenValuesGenerically()
         {
-            string message = @"MSH|^~\&|SUNS1|OVI02|AZIS|CMD|200606221348||ADT^A01|1049691900|P|2.3
+            var message = @"MSH|^~\&|SUNS1|OVI02|AZIS|CMD|200606221348||ADT^A01|1049691900|P|2.3
 EVN|A01|200601060800
 PID||8912716038^^^51276|0216128^^^51276||BARDOUN^LEA SACHA||19981201|F|||AVENUE FRANC GOLD 8^^LUXEMBOURGH^^6780^150||053/12456789||N|S|||99120162652||^^^|||||B
 PV1||O|^^|U|||07632^MORTELO^POL^^^DR.|^^^^^|||||N||||||0200001198
@@ -340,25 +340,25 @@ ZIN|0164652011399|0164652011399|101|101|45789^Broken bone";
         [Test]
         public void TestGithubIssue25CantGetRepetition()
         {
-            string message = @"MSH|^~\&|MILL|EMRY|MQ|EMRY|20150619155451||ADT^A08|Q2043855220T2330403781X928163|P|2.3||||||8859/1
+            var message = @"MSH|^~\&|MILL|EMRY|MQ|EMRY|20150619155451||ADT^A08|Q2043855220T2330403781X928163|P|2.3||||||8859/1
 EVN|A08|20150619155451
 PID|1|935307^^^EUH MRN^MRN^EH01|25106376^^^TEC MRN~1781893^^^CLH MRN~935307^^^EUH MRN~5938067^^^EMPI|1167766^^^CPI NBR^^EXTERNAL~90509411^^^HNASYSID~10341880^^^HNASYSID~50627780^^^HNASYSID~5938067^^^MSG_CERNPHR|Patient^Test^Test^^^^Cur_Name||19400101|F||WHI|123 ENDOFTHE RD^UNIT 123^ATLANTA^GA^40000^USA^HOME^^||5555555555^HOME~6666666666^YAHOO@YAHOO.COM^EMAIL|6666666666^BUS|ENG|M|OTH|12345665161^^^EUH FIN^FIN NBR^EH01|123454103|GA123450071||Non-Hispanic|||0|""|""|""||N";
 
-            PipeParser parser = new PipeParser();
+            var parser = new PipeParser();
 
-            IMessage m = parser.Parse(message);
+            var m = parser.Parse(message);
 
-            ADT_A01 adtA01 = m as ADT_A01; // a08 is mapped to a01
+            var adtA01 = m as ADT_A01; // a08 is mapped to a01
 
             Assert.IsNotNull(adtA01);
 
-            for (int rep = 0; rep < adtA01.PID.PatientIDInternalIDRepetitionsUsed; rep++)
+            for (var rep = 0; rep < adtA01.PID.PatientIDInternalIDRepetitionsUsed; rep++)
             {
                 var cx = adtA01.PID.GetPatientIDInternalID(rep);
                 Console.WriteLine(cx.ID.Value);
             }
 
-            for (int rep = 0; rep < adtA01.PID.AlternatePatientIDRepetitionsUsed; rep++)
+            for (var rep = 0; rep < adtA01.PID.AlternatePatientIDRepetitionsUsed; rep++)
             {
                 var cx = adtA01.PID.GetAlternatePatientID(rep);
                 Console.WriteLine(cx.ID.Value);

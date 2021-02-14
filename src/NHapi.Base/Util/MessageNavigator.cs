@@ -48,10 +48,8 @@ namespace NHapi.Base.Util
     /// </author>
     public class MessageNavigator
     {
-        private IGroup root;
         private ArrayList ancestors;
         private int currentChild; // -1 means current structure is current group (special case used for root)
-        private IGroup currentGroup;
         private string[] childNames;
 
         /// <summary> Creates a new instance of MessageNavigator.</summary>
@@ -61,25 +59,19 @@ namespace NHapi.Base.Util
         /// </param>
         public MessageNavigator(IGroup root)
         {
-            this.root = root;
+            Root = root;
             Reset();
         }
 
         /// <summary>
         /// THe root element of this message.
         /// </summary>
-        public virtual IGroup Root
-        {
-            get { return root; }
-        }
+        public virtual IGroup Root { get; }
 
         /// <summary> Returns the group within which the pointer is currently located.
         /// If at the root, the root is returned.
         /// </summary>
-        public virtual IGroup CurrentGroup
-        {
-            get { return currentGroup; }
-        }
+        public virtual IGroup CurrentGroup { get; private set; }
 
         /// <summary> Returns the array of structures at the current location.
         /// Throws an exception if pointer is at root.
@@ -88,13 +80,13 @@ namespace NHapi.Base.Util
         {
             get
             {
-                if (currentGroup == root && currentChild == -1)
+                if (CurrentGroup == Root && currentChild == -1)
                 {
                     throw new HL7Exception("Pointer is at root of navigator: there is no current child");
                 }
 
-                string childName = childNames[currentChild];
-                return currentGroup.GetAll(childName);
+                var childName = childNames[currentChild];
+                return CurrentGroup.GetAll(childName);
             }
         }
 
@@ -119,23 +111,23 @@ namespace NHapi.Base.Util
         {
             if (childNumber != -1)
             {
-                IStructure s = currentGroup.GetStructure(childNames[childNumber], rep);
+                var s = CurrentGroup.GetStructure(childNames[childNumber], rep);
                 if (!(s is IGroup))
                 {
                     throw new HL7Exception("Can't drill into segment", ErrorCode.APPLICATION_INTERNAL_ERROR);
                 }
 
-                IGroup group = (IGroup)s;
+                var group = (IGroup)s;
 
                 // stack the current group and location
-                GroupContext gc = new GroupContext(this, currentGroup, currentChild);
+                var gc = new GroupContext(this, CurrentGroup, currentChild);
                 ancestors.Add(gc);
 
-                currentGroup = group;
+                CurrentGroup = group;
             }
 
             currentChild = 0;
-            childNames = currentGroup.Names;
+            childNames = CurrentGroup.Names;
         }
 
         [Obsolete("This method has been replaced by 'DrillDown'.")]
@@ -174,10 +166,10 @@ namespace NHapi.Base.Util
             // pop the top group and resume search there
             if (!(ancestors.Count == 0))
             {
-                GroupContext gc = (GroupContext)SupportClass.StackSupport.Pop(ancestors);
-                currentGroup = gc.Group;
+                var gc = (GroupContext)SupportClass.StackSupport.Pop(ancestors);
+                CurrentGroup = gc.Group;
                 currentChild = gc.Child;
-                childNames = currentGroup.Names;
+                childNames = CurrentGroup.Names;
                 return true;
             }
             else
@@ -204,17 +196,12 @@ namespace NHapi.Base.Util
             return HasNextChild();
         }
 
-        /// <summary> Returns true if there is a sibling following the current location.</summary>
+        /// <summary>
+        /// Returns true if there is a sibling following the current location.
+        /// </summary>
         public virtual bool HasNextChild()
         {
-            if (childNames.Length > currentChild + 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return childNames.Length > (currentChild + 1);
         }
 
         [Obsolete("This method has been replaced by 'NextChild'.")]
@@ -230,7 +217,7 @@ namespace NHapi.Base.Util
         /// <summary> Moves to the next sibling of the current location.</summary>
         public virtual void NextChild()
         {
-            int child = currentChild + 1;
+            var child = currentChild + 1;
             ToChild(child);
         }
 
@@ -273,9 +260,9 @@ namespace NHapi.Base.Util
         public virtual void Reset()
         {
             ancestors = new ArrayList();
-            currentGroup = root;
+            CurrentGroup = Root;
             currentChild = -1;
-            childNames = currentGroup.Names;
+            childNames = CurrentGroup.Names;
         }
 
         [Obsolete("This method has been replaced by 'GetCurrentStructure'.")]
@@ -296,12 +283,12 @@ namespace NHapi.Base.Util
             IStructure ret = null;
             if (currentChild != -1)
             {
-                string childName = childNames[currentChild];
-                ret = currentGroup.GetStructure(childName, rep);
+                var childName = childNames[currentChild];
+                ret = CurrentGroup.GetStructure(childName, rep);
             }
             else
             {
-                ret = currentGroup;
+                ret = CurrentGroup;
             }
 
             return ret;
@@ -334,11 +321,11 @@ namespace NHapi.Base.Util
 
             if (currentChild == -1)
             {
-                start = currentGroup;
+                start = CurrentGroup;
             }
             else
             {
-                start = currentGroup.GetStructure(childNames[currentChild]);
+                start = CurrentGroup.GetStructure(childNames[currentChild]);
             }
 
             // using a non-existent direction and not allowing segment creation means that only
@@ -352,7 +339,7 @@ namespace NHapi.Base.Util
 
             if (it.MoveNext())
             {
-                IStructure next = (IStructure)it.Current;
+                var next = (IStructure)it.Current;
                 DrillHere(next);
             }
             else if (loop)
@@ -370,19 +357,19 @@ namespace NHapi.Base.Util
         /// <summary> Navigates to a specific location in the message.</summary>
         private void DrillHere(IStructure destination)
         {
-            IStructure pathElem = destination;
-            ArrayList pathStack = new ArrayList();
-            ArrayList indexStack = new ArrayList();
+            var pathElem = destination;
+            var pathStack = new ArrayList();
+            var indexStack = new ArrayList();
             do
             {
-                MessageIterator.Index index = MessageIterator.GetIndex(pathElem.ParentStructure, pathElem);
+                var index = MessageIterator.GetIndex(pathElem.ParentStructure, pathElem);
                 indexStack.Add(index);
                 pathElem = pathElem.ParentStructure;
                 pathStack.Add(pathElem);
             }
-            while (!root.Equals(pathElem) && !typeof(IMessage).IsAssignableFrom(pathElem.GetType()));
+            while (!Root.Equals(pathElem) && !typeof(IMessage).IsAssignableFrom(pathElem.GetType()));
 
-            if (!root.Equals(pathElem))
+            if (!Root.Equals(pathElem))
             {
                 throw new HL7Exception("The destination provided is not under the root of this navigator");
             }
@@ -390,9 +377,9 @@ namespace NHapi.Base.Util
             Reset();
             while (!(pathStack.Count == 0))
             {
-                IGroup parent = (IGroup)SupportClass.StackSupport.Pop(pathStack);
-                MessageIterator.Index index = (MessageIterator.Index)SupportClass.StackSupport.Pop(indexStack);
-                int child = Search(parent.Names, index.Name);
+                var parent = (IGroup)SupportClass.StackSupport.Pop(pathStack);
+                var index = (MessageIterator.Index)SupportClass.StackSupport.Pop(indexStack);
+                var child = Search(parent.Names, index.Name);
                 if (!(pathStack.Count == 0))
                 {
                     DrillDown(child, 0);
@@ -409,8 +396,8 @@ namespace NHapi.Base.Util
         /// </summary>
         private int Search(object[] list, object item)
         {
-            int found = -1;
-            for (int i = 0; i < list.Length && found == -1; i++)
+            var found = -1;
+            for (var i = 0; i < list.Length && found == -1; i++)
             {
                 if (list[i].Equals(item))
                 {
@@ -429,7 +416,7 @@ namespace NHapi.Base.Util
                 currentChild = 0;
             }
 
-            Type c = currentGroup.GetClass(childNames[currentChild]);
+            var c = CurrentGroup.GetClass(childNames[currentChild]);
             if (typeof(IGroup).IsAssignableFrom(c))
             {
                 DrillDown(currentChild, 0);
@@ -473,14 +460,7 @@ namespace NHapi.Base.Util
 
             public virtual bool Evaluate(object obj)
             {
-                if (typeof(ISegment).IsAssignableFrom(obj.GetType()))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return typeof(ISegment).IsAssignableFrom(obj.GetType());
             }
         }
     }

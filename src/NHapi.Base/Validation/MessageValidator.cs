@@ -77,15 +77,15 @@ namespace NHapi.Base.Validation
         /// <throws>  HL7Exception if there is at least one error and this validator is set to fail on errors. </throws>
         public virtual bool Validate(IMessage message)
         {
-            Terser t = new Terser(message);
-            IMessageRule[] rules = myContext.getMessageRules(message.Version, t.Get("MSH-9-1"), t.Get("MSH-9-2"));
+            var t = new Terser(message);
+            var rules = myContext.getMessageRules(message.Version, t.Get("MSH-9-1"), t.Get("MSH-9-2"));
 
             ValidationException toThrow = null;
-            bool result = true;
-            for (int i = 0; i < rules.Length; i++)
+            var result = true;
+            for (var i = 0; i < rules.Length; i++)
             {
-                ValidationException[] ex = rules[i].test(message);
-                for (int j = 0; j < ex.Length; j++)
+                var ex = rules[i].test(message);
+                for (var j = 0; j < ex.Length; j++)
                 {
                     result = false;
                     OurLog.Error("Invalid message", ex[j]);
@@ -125,13 +125,13 @@ namespace NHapi.Base.Validation
         /// <throws>  HL7Exception if there is at least one error and this validator is set to fail on errors. </throws>
         public virtual bool Validate(string message, bool isXML, string version)
         {
-            IEncodingRule[] rules = myContext.getEncodingRules(version, isXML ? "XML" : "ER7");
+            var rules = myContext.getEncodingRules(version, isXML ? "XML" : "ER7");
             ValidationException toThrow = null;
-            bool result = true;
-            for (int i = 0; i < rules.Length; i++)
+            var result = true;
+            for (var i = 0; i < rules.Length; i++)
             {
-                ValidationException[] ex = rules[i].test(message);
-                for (int j = 0; j < ex.Length; j++)
+                var ex = rules[i].test(message);
+                for (var j = 0; j < ex.Length; j++)
                 {
                     result = false;
                     OurLog.Error("Invalid message", ex[j]);

@@ -18,14 +18,14 @@ namespace NHapi.SourceGeneration
                 DbTransaction transaction;
                 if (this[connection] != null)
                 {
-                    ConnectionProperties properties = (ConnectionProperties)this[connection];
+                    var properties = (ConnectionProperties)this[connection];
                     transaction = properties.Transaction;
                     command.Transaction = transaction;
                     command.CommandTimeout = 0;
                 }
                 else
                 {
-                    ConnectionProperties tempProp = new ConnectionProperties();
+                    var tempProp = new ConnectionProperties();
                     tempProp.AutoCommit = true;
                     tempProp.TransactionLevel = 0;
                     command.Transaction = tempProp.Transaction;
@@ -40,8 +40,8 @@ namespace NHapi.SourceGeneration
             {
                 if (this[connection] != null && !((ConnectionProperties)this[connection]).AutoCommit)
                 {
-                    ConnectionProperties properties = (ConnectionProperties)this[connection];
-                    DbTransaction transaction = properties.Transaction;
+                    var properties = (ConnectionProperties)this[connection];
+                    var transaction = properties.Transaction;
                     transaction.Commit();
                     if (properties.TransactionLevel == 0)
                     {
@@ -58,8 +58,8 @@ namespace NHapi.SourceGeneration
             {
                 if (this[connection] != null && !((ConnectionProperties)this[connection]).AutoCommit)
                 {
-                    ConnectionProperties properties = (ConnectionProperties)this[connection];
-                    DbTransaction transaction = properties.Transaction;
+                    var properties = (ConnectionProperties)this[connection];
+                    var transaction = properties.Transaction;
                     transaction.Rollback();
                     if (properties.TransactionLevel == 0)
                     {
@@ -76,7 +76,7 @@ namespace NHapi.SourceGeneration
             {
                 if (this[connection] != null)
                 {
-                    ConnectionProperties properties = (ConnectionProperties)this[connection];
+                    var properties = (ConnectionProperties)this[connection];
                     if (properties.AutoCommit != boolean)
                     {
                         properties.AutoCommit = boolean;
@@ -93,7 +93,7 @@ namespace NHapi.SourceGeneration
                         }
                         else
                         {
-                            DbTransaction transaction = properties.Transaction;
+                            var transaction = properties.Transaction;
                             if (transaction != null)
                             {
                                 transaction.Commit();
@@ -103,7 +103,7 @@ namespace NHapi.SourceGeneration
                 }
                 else
                 {
-                    ConnectionProperties tempProp = new ConnectionProperties();
+                    var tempProp = new ConnectionProperties();
                     tempProp.AutoCommit = boolean;
                     tempProp.TransactionLevel = 0;
                     if (!boolean)
@@ -117,7 +117,7 @@ namespace NHapi.SourceGeneration
 
             public DbCommand PrepareStatement(OdbcConnection connection, string sql)
             {
-                DbCommand command = CreateStatement(connection);
+                var command = CreateStatement(connection);
                 command.CommandText = sql;
                 command.CommandTimeout = 0;
                 return command;
@@ -125,7 +125,7 @@ namespace NHapi.SourceGeneration
 
             public DbCommand PrepareCall(OdbcConnection connection, string sql)
             {
-                DbCommand command = CreateStatement(connection);
+                var command = CreateStatement(connection);
                 command.CommandText = sql;
                 command.CommandTimeout = 0;
                 return command;
@@ -169,7 +169,7 @@ namespace NHapi.SourceGeneration
             {
                 if (this[connection] != null)
                 {
-                    ConnectionProperties properties = (ConnectionProperties)this[connection];
+                    var properties = (ConnectionProperties)this[connection];
                     if (properties.TransactionLevel != 0)
                     {
                         return (int)properties.TransactionLevel;

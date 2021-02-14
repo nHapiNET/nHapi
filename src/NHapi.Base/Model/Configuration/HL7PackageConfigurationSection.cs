@@ -5,9 +5,6 @@ namespace NHapi.Base.Model.Configuration
     public class HL7PackageConfigurationSection : ConfigurationSection
     {
         [ConfigurationProperty("", IsDefaultCollection = true)]
-        public HL7PackageCollection Packages
-        {
-            get { return (HL7PackageCollection)this[string.Empty]; }
-        }
+        public HL7PackageCollection Packages => (HL7PackageCollection)this[string.Empty];
     }
 }

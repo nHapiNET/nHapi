@@ -6,18 +6,17 @@ namespace NHapi.Base.Model
     using NHapi.Base.Log;
     using NHapi.Base.Parser;
 
-    /// <summary> A generic HL7 message, meant for parsing message with unrecognized structures
+    /// <summary>
+    /// A generic HL7 message, meant for parsing message with unrecognized structures
     /// into a flat list of segments.
     /// </summary>
-    /// <author>  Bryan Tripp.
-    /// </author>
+    /// <author>Bryan Tripp.</author>
     public abstract class GenericMessage : AbstractMessage
     {
-        /// <summary> Creates a new instance of GenericMessage.
-        ///
+        /// <summary>
+        /// Creates a new instance of GenericMessage.
         /// </summary>
-        /// <param name="factory">class factory for contained structures.
-        /// </param>
+        /// <param name="factory">class factory for contained structures.</param>
         public GenericMessage(IModelClassFactory factory)
             : base(factory)
         {
@@ -27,7 +26,7 @@ namespace NHapi.Base.Model
             }
             catch (HL7Exception e)
             {
-                string message = "Unexpected error adding GenericSegment to GenericMessage.";
+                var message = "Unexpected error adding GenericSegment to GenericMessage.";
                 HapiLogFactory.GetHapiLog(GetType()).Error(message, e);
                 throw new ApplicationException(message);
             }
@@ -43,7 +42,8 @@ namespace NHapi.Base.Model
             return GetGenericMessageClass(version);
         }
 
-        /// <summary> Returns a subclass of GenericMessage corresponding to a certain version.
+        /// <summary>
+        /// Returns a subclass of GenericMessage corresponding to a certain version.
         /// This is needed so that version-specific segments can be added as the message
         /// is parsed.
         /// </summary>
@@ -51,9 +51,10 @@ namespace NHapi.Base.Model
         {
             if (!ParserBase.ValidVersion(version))
             {
-                throw new ArgumentException("The version " + version + " is not recognized");
+                throw new ArgumentException($"The version {version} is not recognized");
             }
 
+            // TODO: Think about converting this to a switch statement
             Type c = null;
             if (version.Equals("2.1"))
             {
@@ -100,10 +101,7 @@ namespace NHapi.Base.Model
             /// <summary>
             /// Version of message.
             /// </summary>
-            public override string Version
-            {
-                get { return "2.1"; }
-            }
+            public override string Version => "2.1";
         }
 
         /// <summary>
@@ -123,10 +121,7 @@ namespace NHapi.Base.Model
             /// <summary>
             /// Version of message.
             /// </summary>
-            public override string Version
-            {
-                get { return "2.2"; }
-            }
+            public override string Version => "2.2";
         }
 
         /// <summary>
@@ -146,10 +141,7 @@ namespace NHapi.Base.Model
             /// <summary>
             /// Version of message.
             /// </summary>
-            public override string Version
-            {
-                get { return "2.3"; }
-            }
+            public override string Version => "2.3";
         }
 
         /// <summary>
@@ -169,10 +161,7 @@ namespace NHapi.Base.Model
             /// <summary>
             /// Version of message.
             /// </summary>
-            public override string Version
-            {
-                get { return "2.3.1"; }
-            }
+            public override string Version => "2.3.1";
         }
 
         /// <summary>
@@ -192,10 +181,7 @@ namespace NHapi.Base.Model
             /// <summary>
             /// Version of message.
             /// </summary>
-            public override string Version
-            {
-                get { return "2.4"; }
-            }
+            public override string Version => "2.4";
         }
 
         /// <summary>
@@ -215,10 +201,7 @@ namespace NHapi.Base.Model
             /// <summary>
             /// Version of message.
             /// </summary>
-            public override string Version
-            {
-                get { return "2.5"; }
-            }
+            public override string Version => "2.5";
         }
     }
 }

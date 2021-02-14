@@ -16,26 +16,26 @@
                 baseDirectory = baseDirectory + "/";
             }
 
-            FileInfo targetDir =
+            var targetDir =
                 SourceGenerator.MakeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "EventMapping");
 
             // get list of data types
-            OdbcConnection conn = NormativeDatabase.Instance.Connection;
-            string sql =
+            var conn = NormativeDatabase.Instance.Connection;
+            var sql =
                 "SELECT * from HL7EventMessageTypes inner join HL7Versions on HL7EventMessageTypes.version_id = HL7Versions.version_id where HL7Versions.hl7_version = '" +
                 version + "'";
             DbCommand temp_OleDbCommand = conn.CreateCommand();
             temp_OleDbCommand.Connection = conn;
             temp_OleDbCommand.CommandText = sql;
-            DbDataReader rs = temp_OleDbCommand.ExecuteReader();
+            var rs = temp_OleDbCommand.ExecuteReader();
 
-            using (StreamWriter sw = new StreamWriter(targetDir.FullName + @"\EventMap.properties", false))
+            using (var sw = new StreamWriter(targetDir.FullName + @"\EventMap.properties", false))
             {
                 sw.WriteLine("#event -> structure map for " + version);
                 while (rs.Read())
                 {
-                    string messageType = string.Format("{0}_{1}", rs["message_typ_snd"], rs["event_code"]);
-                    string structure = (string)rs["message_structure_snd"];
+                    var messageType = string.Format("{0}_{1}", rs["message_typ_snd"], rs["event_code"]);
+                    var structure = (string)rs["message_structure_snd"];
 
                     sw.WriteLine(string.Format("{0} {1}", messageType, structure));
                 }

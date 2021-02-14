@@ -27,16 +27,15 @@
 
 namespace NHapi.SourceGeneration.Generators
 {
-    /// <summary> Information about a message segment used in the creation of
-    /// source code for a Group class.  SegmentDef is a slight misnomer because this
+    /// <summary>
+    /// Information about a message segment used in the creation of
+    /// source code for a Group class. SegmentDef is a slight misnomer because this
     /// also includes group start/end indicators, with group names.
-    ///
     /// </summary>
-    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
-    /// </author>
+    /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
     public class SegmentDef : IStructureDef
     {
-        private string name;
+        private readonly string name;
 
         /// <summary>Creates new SegmentDef. </summary>
         public SegmentDef(string name, string groupName, bool required, bool repeating, string description)
@@ -50,19 +49,7 @@ namespace NHapi.SourceGeneration.Generators
 
         /// <returns> name of segment.
         /// </returns>
-        public virtual string Name
-        {
-            get
-            {
-                string result = name;
-                if (result != null && result.Equals("?"))
-                {
-                    result = "GenericSegment";
-                }
-
-                return result;
-            }
-        }
+        public virtual string Name => (name?.Equals("?") == true) ? "GenericSegment" : name;
 
         /// <returns> name of group, if this is not really a segment but a group start indicator.
         /// </returns>
@@ -77,19 +64,13 @@ namespace NHapi.SourceGeneration.Generators
         /// <summary> Returns a text description of the structure.</summary>
         public virtual string Description { get; }
 
-        /// <summary> Returns a list of the names of the segments that are children of this Structure.
+        /// <summary>
+        /// Returns a list of the names of the segments that are children of this Structure.
         /// If the structure is a Segment, a 1-element array is returned containing the segment
-        /// name.  If a Group, an array of all the segments in the Group, including those nested
-        /// in subgroups (depth first).  This method is used to support the XML SIG's convention
+        /// name. If a Group, an array of all the segments in the Group, including those nested
+        /// in subgroups (depth first). This method is used to support the XML SIG's convention
         /// for deriving group names.
         /// </summary>
-        public virtual string[] ChildSegments
-        {
-            get
-            {
-                string[] result = new string[] { Name };
-                return result;
-            }
-        }
+        public virtual string[] ChildSegments => new string[] { Name };
     }
 }

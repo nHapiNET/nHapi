@@ -29,8 +29,7 @@ namespace NHapi.SourceGeneration.Generators
     /// <summary>
     /// A structure for storing a single data element of a segment ...
     /// </summary>
-    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
-    /// </author>
+    /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
     internal class SegmentElement
     {
         /// <summary>
@@ -60,11 +59,10 @@ namespace NHapi.SourceGeneration.Generators
 
         public virtual string GetDescriptionWithoutSpecialCharacters()
         {
-            string desc = Desc;
-            desc = desc.Replace('\n', ' ');
-            desc = desc.Replace('\"', '\'');
-            desc = desc.Replace("&", "and");
-            return desc;
+            return Desc
+                .Replace('\n', ' ')
+                .Replace('\"', '\'')
+                .Replace("&", "and");
         }
     }
 }

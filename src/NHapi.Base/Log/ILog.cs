@@ -69,40 +69,22 @@ namespace NHapi.Base.Log
     public sealed class DummyLogger : ILog
     {
         /// <inheritdoc />
-        public bool DebugEnabled
-        {
-            get { return false; }
-        }
+        public bool DebugEnabled => false;
 
         /// <inheritdoc />
-        public bool ErrorEnabled
-        {
-            get { return false; }
-        }
+        public bool ErrorEnabled => false;
 
         /// <inheritdoc />
-        public bool FatalEnabled
-        {
-            get { return false; }
-        }
+        public bool FatalEnabled => false;
 
         /// <inheritdoc />
-        public bool InfoEnabled
-        {
-            get { return false; }
-        }
+        public bool InfoEnabled => false;
 
         /// <inheritdoc />
-        public bool TraceEnabled
-        {
-            get { return false; }
-        }
+        public bool TraceEnabled => false;
 
         /// <inheritdoc />
-        public bool WarnEnabled
-        {
-            get { return false; }
-        }
+        public bool WarnEnabled => false;
 
         /// <inheritdoc />
         public void Debug(object message)

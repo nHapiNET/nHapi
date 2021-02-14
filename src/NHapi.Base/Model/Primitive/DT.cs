@@ -60,14 +60,7 @@ namespace NHapi.Base.Model.Primitive
         {
             get
             {
-                string result = base.Value;
-
-                if (myDetail != null)
-                {
-                    result = myDetail.Value;
-                }
-
-                return result;
+                return (myDetail != null) ? myDetail.Value : base.Value;
             }
 
             set
@@ -86,35 +79,20 @@ namespace NHapi.Base.Model.Primitive
             set { Detail.YearPrecision = value; }
         }
 
-        /// <summary> Returns the year as an integer.</summary>
-        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this.  </throws>
-        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
-        /// this method is called.
+        /// <summary>
+        /// Gets the year as an integer.
         /// </summary>
-        public virtual int Year
-        {
-            get { return Detail.Year; }
-        }
+        public virtual int Year => Detail.Year;
 
-        /// <summary> Returns the month as an integer.</summary>
-        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this.  </throws>
-        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
-        /// this method is called.
+        /// <summary>
+        /// Gets the month as an integer.
         /// </summary>
-        public virtual int Month
-        {
-            get { return Detail.Month; }
-        }
+        public virtual int Month => Detail.Month;
 
-        /// <summary> Returns the day as an integer.</summary>
-        /// <throws>  DataTypeException if the value is incorrectly formatted.  If validation is enabled, this.  </throws>
-        /// <summary>      exception should be thrown at setValue(), but if not, detailed parsing may be deferred until
-        /// this method is called.
+        /// <summary>
+        /// Gets the day as an integer.
         /// </summary>
-        public virtual int Day
-        {
-            get { return Detail.Day; }
-        }
+        public virtual int Day => Detail.Day;
 
         private CommonDT Detail
         {

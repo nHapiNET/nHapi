@@ -8,21 +8,21 @@
 
   The Original Code is "DBTableRepository.java".  Description:
   "Implements TableRepository by looking up values from the default HL7
-  normative database" 
-  
-  The Initial Developer of the Original Code is University Health Network. Copyright (C) 
-  2001.  All Rights Reserved. 
-  
-  Contributor(s): ______________________________________. 
-  
-  Alternatively, the contents of this file may be used under the terms of the 
-  GNU General Public License (the "GPL"), in which case the provisions of the GPL are 
-  applicable instead of those above.  If you wish to allow use of your version of this 
-  file only under the terms of the GPL and not to allow others to use your version 
-  of this file under the MPL, indicate your decision by deleting  the provisions above 
-  and replace  them with the notice and other provisions required by the GPL License.  
-  If you do not delete the provisions above, a recipient may use your version of 
-  this file under either the MPL or the GPL. 
+  normative database"
+
+  The Initial Developer of the Original Code is University Health Network. Copyright (C)
+  2001.  All Rights Reserved.
+
+  Contributor(s): ______________________________________.
+
+  Alternatively, the contents of this file may be used under the terms of the
+  GNU General Public License (the "GPL"), in which case the provisions of the GPL are
+  applicable instead of those above.  If you wish to allow use of your version of this
+  file only under the terms of the GPL and not to allow others to use your version
+  of this file under the MPL, indicate your decision by deleting  the provisions above
+  and replace  them with the notice and other provisions required by the GPL License.
+  If you do not delete the provisions above, a recipient may use your version of
+  this file under either the MPL or the GPL.
 */
 
 namespace NHapi.SourceGeneration
@@ -30,27 +30,24 @@ namespace NHapi.SourceGeneration
     using System;
     using System.Collections;
     using System.Data.Common;
-    using System.Data.Odbc;
     using System.Text;
 
     using NHapi.Base.Log;
 
-    /// <summary> Implements TableRepository by looking up values from the default HL7
+    /// <summary>
+    /// Implements TableRepository by looking up values from the default HL7
     /// normative database.  Values are cached after they are looked up once.
     /// </summary>
-    /// <author>  Bryan Tripp (bryan_tripp@sourceforge.net).
-    /// </author>
+    /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
     public class DBTableRepository : TableRepository
     {
-        private static readonly IHapiLog Log;
-
+        private readonly Hashtable tables;
+        private readonly int bufferSize = 3000; // max # of tables or values that can be cached at a time
         private int[] tableList;
-        private Hashtable tables;
-        private int bufferSize = 3000; // max # of tables or values that can be cached at a time
 
         static DBTableRepository()
         {
-            Log = HapiLogFactory.GetHapiLog(typeof(DBTableRepository));
+            _ = HapiLogFactory.GetHapiLog(typeof(DBTableRepository));
         }
 
         /// <summary>
@@ -71,14 +68,14 @@ namespace NHapi.SourceGeneration
                 {
                     try
                     {
-                        OdbcConnection conn = NormativeDatabase.Instance.Connection;
-                        DbCommand stmt = TransactionManager.Manager.CreateStatement(conn);
+                        var conn = NormativeDatabase.Instance.Connection;
+                        var stmt = TransactionManager.Manager.CreateStatement(conn);
                         DbCommand temp_OleDbCommand;
                         temp_OleDbCommand = stmt;
                         temp_OleDbCommand.CommandText = "select distinct table_id from TableValues";
-                        DbDataReader rs = temp_OleDbCommand.ExecuteReader();
-                        int[] roomyList = new int[bufferSize];
-                        int c = 0;
+                        var rs = temp_OleDbCommand.ExecuteReader();
+                        var roomyList = new int[bufferSize];
+                        var c = 0;
                         while (rs.Read())
                         {
                             roomyList[c++] = rs.GetInt32(1 - 1);
@@ -103,11 +100,11 @@ namespace NHapi.SourceGeneration
         /// <summary> Returns true if the given value exists in the given table.</summary>
         public override bool CheckValue(int table, string value_Renamed)
         {
-            bool exists = false;
+            var exists = false;
 
-            string[] values = GetValues(table);
+            var values = GetValues(table);
 
-            int c = 0;
+            var c = 0;
             while (c < values.Length && !exists)
             {
                 if (value_Renamed.Equals(values[c++]))
@@ -122,12 +119,12 @@ namespace NHapi.SourceGeneration
         /// <summary> Returns a list of the values for the given table in the normative database. </summary>
         public override string[] GetValues(int table)
         {
-            int key = (int)table;
-            string[] values = null;
+            var key = table;
 
             // see if the value list exists in the cache
-            object o = tables[key];
+            var o = tables[key];
 
+            string[] values;
             if (o != null)
             {
                 values = (string[])o;
@@ -136,18 +133,18 @@ namespace NHapi.SourceGeneration
             {
                 // not cached yet ...
                 int c;
-                string[] roomyValues = new string[bufferSize];
+                var roomyValues = new string[bufferSize];
 
                 try
                 {
-                    OdbcConnection conn = NormativeDatabase.Instance.Connection;
-                    DbCommand stmt = TransactionManager.Manager.CreateStatement(conn);
-                    StringBuilder sql = new StringBuilder("select table_value from TableValues where table_id = ");
+                    var conn = NormativeDatabase.Instance.Connection;
+                    var stmt = TransactionManager.Manager.CreateStatement(conn);
+                    var sql = new StringBuilder("select table_value from TableValues where table_id = ");
                     sql.Append(table);
                     DbCommand temp_OleDbCommand;
                     temp_OleDbCommand = stmt;
                     temp_OleDbCommand.CommandText = sql.ToString();
-                    DbDataReader rs = temp_OleDbCommand.ExecuteReader();
+                    var rs = temp_OleDbCommand.ExecuteReader();
 
                     c = 0;
                     while (rs.Read())
@@ -183,22 +180,21 @@ namespace NHapi.SourceGeneration
         /// </summary>
         public override string GetDescription(int table, string value_Renamed)
         {
-            string description = null;
-
-            StringBuilder sql = new StringBuilder("select Description from TableValues where table_id = ");
+            var sql = new StringBuilder("select Description from TableValues where table_id = ");
             sql.Append(table);
             sql.Append(" and table_value = '");
             sql.Append(value_Renamed);
             sql.Append("'");
 
+            string description;
             try
             {
-                OdbcConnection conn = NormativeDatabase.Instance.Connection;
-                DbCommand stmt = TransactionManager.Manager.CreateStatement(conn);
+                var conn = NormativeDatabase.Instance.Connection;
+                var stmt = TransactionManager.Manager.CreateStatement(conn);
                 DbCommand temp_OleDbCommand;
                 temp_OleDbCommand = stmt;
                 temp_OleDbCommand.CommandText = sql.ToString();
-                DbDataReader rs = temp_OleDbCommand.ExecuteReader();
+                var rs = temp_OleDbCommand.ExecuteReader();
                 if (rs.Read())
                 {
                     description = Convert.ToString(rs[1 - 1]);

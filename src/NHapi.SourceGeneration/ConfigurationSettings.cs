@@ -11,8 +11,8 @@ namespace NHapi.SourceGeneration
         {
             get
             {
-                bool useFactory = false;
-                string useFactoryFromConfig = ConfigurationManager.AppSettings["UseFactory"];
+                var useFactory = false;
+                var useFactoryFromConfig = ConfigurationManager.AppSettings["UseFactory"];
                 if (useFactoryFromConfig != null && useFactoryFromConfig.Length > 0)
                 {
                     useFactory = Convert.ToBoolean(useFactoryFromConfig);
@@ -26,7 +26,7 @@ namespace NHapi.SourceGeneration
         {
             get
             {
-                string connFromConfig = ConfigurationManager.AppSettings["ConnectionString"];
+                var connFromConfig = ConfigurationManager.AppSettings["ConnectionString"];
                 if (string.IsNullOrEmpty(connectionString) && !string.IsNullOrEmpty(connFromConfig))
                 {
                     connectionString = connFromConfig;

@@ -36,15 +36,15 @@ namespace NHapi.Base.Validation.Implementation
             IRule number = new RegexPrimitiveRule(@"^(\+|\-)?\d*\.?\d*$", "NM Fields should only contain numbers / decimals");
             PrimitiveRuleBindings.Add(new RuleBinding("*", "NM", number));
 
-            string datePattern = @"^(\d{4}([01]\d(\d{2})?)?)?$"; // YYYY[MM[DD]]
+            var datePattern = @"^(\d{4}([01]\d(\d{2})?)?)?$"; // YYYY[MM[DD]]
             IRule date = new RegexPrimitiveRule(datePattern, "Version 2.5 Section 2.16.24");
             PrimitiveRuleBindings.Add(new RuleBinding("*", "DT", date));
 
-            string timePattern = @"([012]\d([0-5]\d([0-5]\d(\.\d(\d(\d(\d)?)?)?)?)?)?)?([\+\-]\d{4})?";
+            var timePattern = @"([012]\d([0-5]\d([0-5]\d(\.\d(\d(\d(\d)?)?)?)?)?)?)?([\+\-]\d{4})?";
             IRule time = new RegexPrimitiveRule(timePattern, "Version 2.5 Section 2.16.79");
             PrimitiveRuleBindings.Add(new RuleBinding("*", "TM", time));
 
-            string datetimePattern =
+            var datetimePattern =
                 @"(\d{4}([01]\d(\d{2}([012]\d([0-5]\d([0-5]\d(\.\d(\d(\d(\d)?)?)?)?)?)?)?)?)?)?([\+\-]\d{4})?";
             IRule datetime = new RegexPrimitiveRule(datetimePattern, "Version 2.5 Section 2.16.25");
             PrimitiveRuleBindings.Add(new RuleBinding("*", "TSComponentOne", datetime));

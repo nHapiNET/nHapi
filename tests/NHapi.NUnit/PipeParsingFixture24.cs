@@ -19,14 +19,14 @@ namespace NHapi.NUnit
         [Test]
         public void ParseQRYR02()
         {
-            string message = @"MSH|^~\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||QRY^R02^QRY_R02|1|P|2.4|
+            var message = @"MSH|^~\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||QRY^R02^QRY_R02|1|P|2.4|
 QRD|20060228155525|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||";
 
-            PipeParser parser = new PipeParser();
+            var parser = new PipeParser();
 
-            IMessage m = parser.Parse(message);
+            var m = parser.Parse(message);
 
-            QRY_R02 qryR02 = m as QRY_R02;
+            var qryR02 = m as QRY_R02;
 
             Assert.IsNotNull(qryR02);
             Assert.AreEqual("38923", qryR02.QRD.GetWhoSubjectFilter(0).IDNumber.Value);
@@ -35,7 +35,7 @@ QRD|20060228155525|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||";
         [Test]
         public void ParseORFR04()
         {
-            string message =
+            var message =
                 @"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.4|
 MSA|AA|123456789|
 QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
@@ -44,11 +44,11 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-            PipeParser parser = new PipeParser();
+            var parser = new PipeParser();
 
-            IMessage m = parser.Parse(message);
+            var m = parser.Parse(message);
 
-            ORF_R04 orfR04 = m as ORF_R04;
+            var orfR04 = m as ORF_R04;
             Assert.IsNotNull(orfR04);
             Assert.AreEqual("12", orfR04.GetRESPONSE().GetORDER().GetOBSERVATION().OBX.GetObservationValue()[0].Data.ToString());
         }
@@ -56,7 +56,7 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
         [Test]
         public void ParseORFR04ToXML()
         {
-            string message =
+            var message =
                 @"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.4|
 MSA|AA|123456789|
 QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
@@ -65,17 +65,17 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-            PipeParser parser = new PipeParser();
+            var parser = new PipeParser();
 
-            IMessage m = parser.Parse(message);
+            var m = parser.Parse(message);
 
-            ORF_R04 orfR04 = m as ORF_R04;
+            var orfR04 = m as ORF_R04;
 
             Assert.IsNotNull(orfR04);
 
             XMLParser xmlParser = new DefaultXMLParser();
 
-            string recoveredMessage = xmlParser.Encode(orfR04);
+            var recoveredMessage = xmlParser.Encode(orfR04);
 
             Assert.IsNotNull(recoveredMessage);
             Assert.IsFalse(string.Empty.Equals(recoveredMessage));
@@ -84,18 +84,18 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
         [Test]
         public void ParseXMLToHL7()
         {
-            string message = GetQRYR02XML();
+            var message = GetQRYR02XML();
 
             XMLParser xmlParser = new DefaultXMLParser();
-            IMessage m = xmlParser.Parse(message);
+            var m = xmlParser.Parse(message);
 
-            QRY_R02 qryR02 = m as QRY_R02;
+            var qryR02 = m as QRY_R02;
 
             Assert.IsNotNull(qryR02);
 
-            PipeParser pipeParser = new PipeParser();
+            var pipeParser = new PipeParser();
 
-            string pipeOutput = pipeParser.Encode(qryR02);
+            var pipeOutput = pipeParser.Encode(qryR02);
 
             Assert.IsNotNull(pipeOutput);
             Assert.IsFalse(string.Empty.Equals(pipeOutput));
@@ -104,7 +104,7 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
         [Test]
         public void ParseORFR04ToXmlNoOCR()
         {
-            string message =
+            var message =
                 @"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.4|
 MSA|AA|123456789|
 QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
@@ -113,17 +113,17 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-            PipeParser parser = new PipeParser();
+            var parser = new PipeParser();
 
-            IMessage m = parser.Parse(message);
+            var m = parser.Parse(message);
 
-            ORF_R04 orfR04 = m as ORF_R04;
+            var orfR04 = m as ORF_R04;
 
             Assert.IsNotNull(orfR04);
 
             XMLParser xmlParser = new DefaultXMLParser();
 
-            string recoveredMessage = xmlParser.Encode(orfR04);
+            var recoveredMessage = xmlParser.Encode(orfR04);
 
             Assert.IsNotNull(recoveredMessage);
             Assert.IsFalse(recoveredMessage.IndexOf("ORC") > -1, "Returned message added ORC segment.");
@@ -132,7 +132,7 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
         [Test]
         public void TestOBXDataTypes()
         {
-            string message = @"MSH|^~\&|EPIC|AIDI|||20070921152053|ITFCOHIEIN|ORF^R04^ORF_R04|297|P|2.4|||
+            var message = @"MSH|^~\&|EPIC|AIDI|||20070921152053|ITFCOHIEIN|ORF^R04^ORF_R04|297|P|2.4|||
 MSA|CA|1
 QRD|20060725141358|R|||||10^RD|1130851^^^^MRN|RES|||
 QRF|||||||||
@@ -153,23 +153,23 @@ OBX|13|DT|5315037^Start Date^Start Collection Dat^ABC||18APR06||||||F|||20060419
 QAK||OK||1|1|0
 ";
 
-            PipeParser parser = new PipeParser();
+            var parser = new PipeParser();
 
-            IMessage m = parser.Parse(message);
+            var m = parser.Parse(message);
 
-            ORF_R04 orfR04 = m as ORF_R04;
+            var orfR04 = m as ORF_R04;
 
             Assert.IsNotNull(orfR04);
 
             XMLParser xmlParser = new DefaultXMLParser();
 
-            string recoveredMessage = xmlParser.Encode(orfR04);
+            var recoveredMessage = xmlParser.Encode(orfR04);
         }
 
         [Test]
         public void ParseORFR04ToXmlNoNTE()
         {
-            string message =
+            var message =
                 @"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.4|
 MSA|AA|123456789|
 QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
@@ -178,17 +178,17 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-            PipeParser parser = new PipeParser();
+            var parser = new PipeParser();
 
-            IMessage m = parser.Parse(message);
+            var m = parser.Parse(message);
 
-            ORF_R04 orfR04 = m as ORF_R04;
+            var orfR04 = m as ORF_R04;
 
             Assert.IsNotNull(orfR04);
 
             XMLParser xmlParser = new DefaultXMLParser();
 
-            string recoveredMessage = xmlParser.Encode(orfR04);
+            var recoveredMessage = xmlParser.Encode(orfR04);
 
             Assert.IsNotNull(recoveredMessage);
             Assert.IsFalse(recoveredMessage.IndexOf("NTE") > -1, "Returned message added ORC segment.");
@@ -271,7 +271,7 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
         [Test]
         public void TestGithubIssue24CantGetIN1Segment()
         {
-            string message = @"MSH|^~\&|SUNS1|OVI02|AZIS|CMD|200606221348||ADT^A01|1049691900|P|2.4
+            var message = @"MSH|^~\&|SUNS1|OVI02|AZIS|CMD|200606221348||ADT^A01|1049691900|P|2.4
 	EVN|A01|200601060800
 	PID||8912716038^^^51276|0216128^^^51276||BARDOUN^LEA SACHA||19981201|F|||AVENUE FRANC GOLD 8^^LUXEMBOURGH^^6780^150||053/12456789||N|S|||99120162652||^^^|||||B
 	PV1||O|^^|U|||07632^MORTELO^POL^^^DR.|^^^^^|||||N||||||0200001198
@@ -329,17 +329,17 @@ OBX|3|NM|LHFSHQ^LH-FSH-Quotient^MOLIS||37.4||(<2.0)|H|||F|||20030331053409|||||
 OBX|4|NM|PROL^Prolactin^MOLIS||10.3|�g/l^^L|(2.3-25.0) \ (2.3-10.0)Menopause||||F|||20030331053409|||||
 OBX|5|NM|E2^Estradiol, E2^MOLIS||39|pmol/l^^L|(70-672)Follikul�r \ (551-1938)Peak \ (220-774)Luteal \ (<114)Menopause||||F|||20030331053409||||| ";
 
-            PipeParser parser = new PipeParser();
+            var parser = new PipeParser();
 
-            IMessage m = parser.Parse(message);
+            var m = parser.Parse(message);
 
             var oru_r = m as ORU_R01;
 
             foreach (var pr in oru_r.PATIENT_RESULTs)
             {
-                int resultSet = 1;
+                var resultSet = 1;
 
-                int expectedRepetitions = 3; // 3 orders
+                var expectedRepetitions = 3; // 3 orders
                 Assert.IsTrue(pr.ORDER_OBSERVATIONRepetitionsUsed == expectedRepetitions, string.Format("Expected {0} in result {1}", expectedRepetitions, resultSet));
                 foreach (var oo in pr.ORDER_OBSERVATIONs)
                 {
@@ -350,13 +350,13 @@ OBX|5|NM|E2^Estradiol, E2^MOLIS||39|pmol/l^^L|(70-672)Follikul�r \ (551-1938)P
 
                         var obx = oo.OBSERVATIONs.First().OBX;
                         var valueType = obx.ValueType.Value;
-                        string expectedValueType = "FT";
+                        var expectedValueType = "FT";
 
                         Assert.IsTrue(valueType == expectedValueType, string.Format("Expected Value Type of {0} but found {1} for result set {2}", expectedValueType, valueType, resultSet));
 
                         var data = obx.GetObservationValue(0);
-                        string value = data.Data.ToString();
-                        string toFind = "Allergiepass";
+                        var value = data.Data.ToString();
+                        var toFind = "Allergiepass";
 
                         Assert.IsTrue(value.Contains(toFind), string.Format("Expected to find '{0}' in data '{1}' but didn't.", toFind, value));
                     }
@@ -368,13 +368,13 @@ OBX|5|NM|E2^Estradiol, E2^MOLIS||39|pmol/l^^L|(70-672)Follikul�r \ (551-1938)P
 
                         var obx = oo.OBSERVATIONs.First().OBX;
                         var valueType = obx.ValueType.Value;
-                        string expectedValueType = "TX";
+                        var expectedValueType = "TX";
 
                         Assert.IsTrue(valueType == expectedValueType, string.Format("Expected Value Type of {0} but found {1} for result set {2}", expectedValueType, valueType, resultSet));
 
                         var data = obx.GetObservationValue(0);
-                        string value = data.Data.ToString();
-                        string toFind = "negativ";
+                        var value = data.Data.ToString();
+                        var toFind = "negativ";
 
                         Assert.IsTrue(value.Contains(toFind), string.Format("Expected to find '{0}' in data '{1}' but didn't.", toFind, value));
                     }
@@ -386,13 +386,13 @@ OBX|5|NM|E2^Estradiol, E2^MOLIS||39|pmol/l^^L|(70-672)Follikul�r \ (551-1938)P
 
                         var obx = oo.OBSERVATIONs.First().OBX;
                         var valueType = obx.ValueType.Value;
-                        string expectedValueType = "NM";
+                        var expectedValueType = "NM";
 
                         Assert.IsTrue(valueType == expectedValueType, string.Format("Expected Value Type of {0} but found {1} for result set {2}", expectedValueType, valueType, resultSet));
 
                         var data = obx.GetObservationValue(0);
-                        string value = data.Data.ToString();
-                        string toFind = "1.0";
+                        var value = data.Data.ToString();
+                        var toFind = "1.0";
 
                         Assert.IsTrue(value.Contains(toFind), string.Format("Expected to find '{0}' in data '{1}' but didn't.", toFind, value));
                     }

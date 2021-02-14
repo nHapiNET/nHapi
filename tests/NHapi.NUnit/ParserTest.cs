@@ -38,111 +38,111 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
         [Test]
         public void TestSpecialCharacterEncoding()
         {
-            PipeParser parser = new PipeParser();
-            ORU_R01 oru = new ORU_R01();
+            var parser = new PipeParser();
+            var oru = new ORU_R01();
             oru = (ORU_R01)parser.Parse(GetMessage());
 
-            FT data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
+            var data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
             Assert.AreEqual(@"This\.br\is\.br\A Test", data.Value);
         }
 
         [Test]
         public void TestSpecialCharacterEntry()
         {
-            PipeParser parser = new PipeParser();
-            ORU_R01 oru = new ORU_R01();
+            var parser = new PipeParser();
+            var oru = new ORU_R01();
             oru.MSH.MessageType.MessageType.Value = "ORU";
             oru.MSH.MessageType.TriggerEvent.Value = "R01";
             oru.MSH.EncodingCharacters.Value = @"^~\&";
             oru.MSH.VersionID.VersionID.Value = "2.3.1";
             oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType.Value = "FT";
             oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBR.SetIDOBR.Value = "1";
-            Varies v =
+            var v =
                 oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0);
-            ST text = new ST(oru);
+            var text = new ST(oru);
             text.Value = @"This\.br\is\.br\A Test";
             v.Data = text;
 
-            string encodedData = parser.Encode(oru);
+            var encodedData = parser.Encode(oru);
             Console.WriteLine(encodedData);
-            IMessage msg = parser.Parse(encodedData);
+            var msg = parser.Parse(encodedData);
             Console.WriteLine(msg.GetStructureName());
             oru = (ORU_R01)msg;
-            FT data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
+            var data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
             Assert.AreEqual(@"This\.br\is\.br\A Test", data.Value);
         }
 
         [Test]
         public void TestSpecialCharacterEntryEndingSlash()
         {
-            PipeParser parser = new PipeParser();
-            ORU_R01 oru = new ORU_R01();
+            var parser = new PipeParser();
+            var oru = new ORU_R01();
             oru.MSH.MessageType.MessageType.Value = "ORU";
             oru.MSH.MessageType.TriggerEvent.Value = "R01";
             oru.MSH.EncodingCharacters.Value = @"^~\&";
             oru.MSH.VersionID.VersionID.Value = "2.3.1";
             oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType.Value = "FT";
             oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBR.SetIDOBR.Value = "1";
-            Varies v =
+            var v =
                 oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0);
-            ST text = new ST(oru);
+            var text = new ST(oru);
             text.Value = @"This\.br\is\.br\A Test~";
             v.Data = text;
 
-            string encodedData = parser.Encode(oru);
-            IMessage msg = parser.Parse(encodedData);
+            var encodedData = parser.Encode(oru);
+            var msg = parser.Parse(encodedData);
             oru = (ORU_R01)msg;
-            FT data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
+            var data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
             Assert.AreEqual(@"This\.br\is\.br\A Test~", data.Value);
         }
 
         [Test]
         public void TestSpecialCharacterEntryWithAllSpecialCharacters()
         {
-            PipeParser parser = new PipeParser();
-            ORU_R01 oru = new ORU_R01();
+            var parser = new PipeParser();
+            var oru = new ORU_R01();
             oru.MSH.MessageType.MessageType.Value = "ORU";
             oru.MSH.MessageType.TriggerEvent.Value = "R01";
             oru.MSH.EncodingCharacters.Value = @"^~\&";
             oru.MSH.VersionID.VersionID.Value = "2.3.1";
             oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType.Value = "FT";
             oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBR.SetIDOBR.Value = "1";
-            Varies v =
+            var v =
                 oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0);
-            ST text = new ST(oru);
+            var text = new ST(oru);
             text.Value = @"Th&is\.br\is\.br\A T|e\H\st\";
             v.Data = text;
 
-            string encodedData = parser.Encode(oru);
+            var encodedData = parser.Encode(oru);
             Console.WriteLine(encodedData);
-            IMessage msg = parser.Parse(encodedData);
+            var msg = parser.Parse(encodedData);
             oru = (ORU_R01)msg;
-            FT data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
+            var data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
             Assert.AreEqual(@"Th&is\.br\is\.br\A T|e\H\st\", data.Value);
         }
 
         [Test]
         public void TestValidHl7Data()
         {
-            PipeParser parser = new PipeParser();
-            ORU_R01 oru = new ORU_R01();
+            var parser = new PipeParser();
+            var oru = new ORU_R01();
             oru.MSH.MessageType.MessageType.Value = "ORU";
             oru.MSH.MessageType.TriggerEvent.Value = "R01";
             oru.MSH.EncodingCharacters.Value = @"^~\&";
             oru.MSH.VersionID.VersionID.Value = "2.3.1";
             oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType.Value = "FT";
             oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBR.SetIDOBR.Value = "1";
-            Varies v =
+            var v =
                 oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0);
-            ST text = new ST(oru);
+            var text = new ST(oru);
             text.Value = @"Th&is\.br\is\.br\A T|est\";
             v.Data = text;
 
-            string encodedData = parser.Encode(oru);
+            var encodedData = parser.Encode(oru);
 
-            string[] segs = encodedData.Split('\r');
-            string[] fields = segs[2].Split('|');
-            string data = fields[5];
+            var segs = encodedData.Split('\r');
+            var fields = segs[2].Split('|');
+            var data = fields[5];
 
             Assert.AreEqual(@"Th\T\is\E\.br\E\is\E\.br\E\A T\F\est\E\", data);
         }

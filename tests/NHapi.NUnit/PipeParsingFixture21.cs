@@ -16,7 +16,7 @@ namespace NHapi.NUnit
         [Test]
         public void ParseADTA01()
         {
-            string message = @"MSH|^~\&|ADT|Admitting|RADIO|ARTEFACT|200710061035||ADT^A01|00000040|P|2.1
+            var message = @"MSH|^~\&|ADT|Admitting|RADIO|ARTEFACT|200710061035||ADT^A01|00000040|P|2.1
 EVN|A01|200710061035
 PID||1144270^4^M10|0699999^2^M10||XXXXXX|XXXCXCXX|20071006|F|||10 THE ADDRESS||(450)999-9999|||S||||||||||||||N
 NK1|1
@@ -26,11 +26,11 @@ Z01|1||S|NOUVEAU-NE||FATHER NAME^D|||||0||||A||||||N|||1|GFATHER NAME|G-PERE||(4
 
             message = message.Replace(Environment.NewLine, "\r");
 
-            PipeParser parser = new PipeParser();
+            var parser = new PipeParser();
 
-            IMessage m = parser.Parse(message);
+            var m = parser.Parse(message);
 
-            ADT_A01 parsedMessage = m as ADT_A01;
+            var parsedMessage = m as ADT_A01;
 
             Assert.IsNotNull(parsedMessage);
             Assert.AreEqual("1144270", parsedMessage.PID.PATIENTIDEXTERNALEXTERNALID.IDNumber.Value);

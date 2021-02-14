@@ -72,23 +72,23 @@ namespace NHapi.Base.Model
 
             set
             {
-                IMessage message = Message;
+                var message = Message;
 
                 if (message != null)
                 {
-                    IValidationContext context = message.ValidationContext;
-                    string version = message.Version;
+                    var context = message.ValidationContext;
+                    var version = message.Version;
 
                     if (context != null)
                     {
-                        IPrimitiveTypeRule[] rules = context.getPrimitiveRules(version, TypeName, this);
+                        var rules = context.getPrimitiveRules(version, TypeName, this);
 
-                        foreach (IPrimitiveTypeRule rule in rules)
+                        foreach (var rule in rules)
                         {
                             value = rule.correct(value);
                             if (!rule.test(value))
                             {
-                                string validationFailureMessage = "Failed validation rule: " + rule.Description;
+                                var validationFailureMessage = "Failed validation rule: " + rule.Description;
                                 if (!string.IsNullOrEmpty(rule.SectionReference))
                                 {
                                     validationFailureMessage += Environment.NewLine + "Reason: " + rule.SectionReference;

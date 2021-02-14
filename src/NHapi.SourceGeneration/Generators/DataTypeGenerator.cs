@@ -84,14 +84,14 @@ namespace NHapi.SourceGeneration.Generators
                 baseDirectory = baseDirectory + "/";
             }
 
-            FileInfo targetDir =
+            var targetDir =
                 SourceGenerator.MakeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Datatype");
             SourceGenerator.MakeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Datatype");
 
             // get list of data types
-            ArrayList types = new ArrayList();
-            OdbcConnection conn = NormativeDatabase.Instance.Connection;
-            DbCommand stmt = TransactionManager.Manager.CreateStatement(conn);
+            var types = new ArrayList();
+            var conn = NormativeDatabase.Instance.Connection;
+            var stmt = TransactionManager.Manager.CreateStatement(conn);
 
             // get normal data types ...
             DbCommand temp_OleDbCommand;
@@ -99,7 +99,7 @@ namespace NHapi.SourceGeneration.Generators
             temp_OleDbCommand.CommandText =
                 "select data_type_code from HL7DataTypes, HL7Versions where HL7Versions.version_id = HL7DataTypes.version_id and HL7Versions.hl7_version = '" +
                 version + "'";
-            DbDataReader rs = temp_OleDbCommand.ExecuteReader();
+            var rs = temp_OleDbCommand.ExecuteReader();
             while (rs.Read())
             {
                 types.Add(Convert.ToString(rs[1 - 1]));
@@ -131,7 +131,7 @@ namespace NHapi.SourceGeneration.Generators
                 Log.Warn("No version " + version + " data types found in database " + conn.Database);
             }
 
-            foreach (string type in types.Cast<string>())
+            foreach (var type in types.Cast<string>())
             {
                 if (!type.Equals("*"))
                 {
@@ -157,9 +157,9 @@ namespace NHapi.SourceGeneration.Generators
             }
 
             // get any components for this data type
-            OdbcConnection conn = NormativeDatabase.Instance.Connection;
-            DbCommand stmt = TransactionManager.Manager.CreateStatement(conn);
-            StringBuilder sql = new StringBuilder();
+            var conn = NormativeDatabase.Instance.Connection;
+            var stmt = TransactionManager.Manager.CreateStatement(conn);
+            var sql = new StringBuilder();
 
             // this query is adapted from the XML SIG informative document
             sql.Append(
@@ -181,11 +181,11 @@ namespace NHapi.SourceGeneration.Generators
             DbCommand temp_OleDbCommand;
             temp_OleDbCommand = stmt;
             temp_OleDbCommand.CommandText = sql.ToString();
-            DbDataReader rs = temp_OleDbCommand.ExecuteReader();
+            var rs = temp_OleDbCommand.ExecuteReader();
 
-            ArrayList dataTypes = new ArrayList(20);
-            ArrayList descriptions = new ArrayList(20);
-            ArrayList tables = new ArrayList(20);
+            var dataTypes = new ArrayList(20);
+            var descriptions = new ArrayList(20);
+            var tables = new ArrayList(20);
             string description = null;
             while (rs.Read())
             {
@@ -194,9 +194,9 @@ namespace NHapi.SourceGeneration.Generators
                     description = Convert.ToString(rs[3 - 1]);
                 }
 
-                string de = Convert.ToString(rs[5 - 1]);
-                string dt = Convert.ToString(rs[8 - 1]);
-                int ta = -1;
+                var de = Convert.ToString(rs[5 - 1]);
+                var dt = Convert.ToString(rs[8 - 1]);
+                var ta = -1;
                 if (!rs.IsDBNull(4 - 1))
                 {
                     ta = rs.GetInt32(4 - 1);
@@ -241,13 +241,13 @@ namespace NHapi.SourceGeneration.Generators
             }
             else if (dataTypes.Count > 1)
             {
-                int numComponents = dataTypes.Count;
+                var numComponents = dataTypes.Count;
 
                 // copy data into arrays ...
-                string[] type = new string[numComponents];
-                string[] desc = new string[numComponents];
-                int[] table = new int[numComponents];
-                for (int i = 0; i < numComponents; i++)
+                var type = new string[numComponents];
+                var desc = new string[numComponents];
+                var table = new int[numComponents];
+                for (var i = 0; i < numComponents; i++)
                 {
                     type[i] = (string)dataTypes[i];
                     desc[i] = (string)descriptions[i];
@@ -268,8 +268,8 @@ namespace NHapi.SourceGeneration.Generators
             // write to file ...
             if (source != null)
             {
-                string targetFile = targetDirectory + "/" + dataType + ".cs";
-                using (StreamWriter writer = new StreamWriter(targetFile))
+                var targetFile = targetDirectory + "/" + dataType + ".cs";
+                using (var writer = new StreamWriter(targetFile))
                 {
                     writer.Write(source);
                     writer.Write("}"); // End namespace
@@ -286,7 +286,7 @@ namespace NHapi.SourceGeneration.Generators
         /// </summary>
         private static string MakePrimitive(string datatype, string description, string version)
         {
-            StringBuilder source = new StringBuilder();
+            var source = new StringBuilder();
 
             source.Append("using System;\n");
             source.Append("using NHapi.Base.Model;\n");
@@ -369,7 +369,7 @@ namespace NHapi.SourceGeneration.Generators
             int[] tables,
             string version)
         {
-            StringBuilder source = new StringBuilder();
+            var source = new StringBuilder();
             source.Append("using System;\n");
             source.Append("using NHapi.Base.Model;\n");
             source.Append("using NHapi.Base.Log;\n");
@@ -385,7 +385,7 @@ namespace NHapi.SourceGeneration.Generators
             source.Append(" (");
             source.Append(description);
             source.Append(") data type.  Consists of the following components: </p><ol>\r\n");
-            for (int i = 0; i < dataTypes.Length; i++)
+            for (var i = 0; i < dataTypes.Length; i++)
             {
                 source.Append("/// <li>");
                 source.Append(GetDescription(descriptions[i]));
@@ -424,7 +424,7 @@ namespace NHapi.SourceGeneration.Generators
             source.Append("\t\tdata = new IType[");
             source.Append(dataTypes.Length);
             source.Append("];\r\n");
-            for (int i = 0; i < dataTypes.Length; i++)
+            for (var i = 0; i < dataTypes.Length; i++)
             {
                 source.Append("\t\tdata[");
                 source.Append(i);
@@ -442,7 +442,7 @@ namespace NHapi.SourceGeneration.Generators
 
                 if (descriptions[i] != null && descriptions[i].Trim().Length > 0)
                 {
-                    string desc = descriptions[i];
+                    var desc = descriptions[i];
                     desc = desc.Replace("\"", "'");
                     desc = desc.Substring(0, 1).ToUpper() + desc.Substring(1);
                     source.Append(",\"" + desc + "\"");
@@ -483,9 +483,9 @@ namespace NHapi.SourceGeneration.Generators
             source.Append("\t} \r\n");
 
             // make type-specific accessors ...
-            for (int i = 0; i < dataTypes.Length; i++)
+            for (var i = 0; i < dataTypes.Length; i++)
             {
-                string dtName = SourceGenerator.GetAlternateType(dataTypes[i], version);
+                var dtName = SourceGenerator.GetAlternateType(dataTypes[i], version);
                 source.Append("\t///<summary>\r\n");
                 source.Append("\t/// Returns ");
                 source.Append(GetDescription(descriptions[i]));
@@ -498,7 +498,7 @@ namespace NHapi.SourceGeneration.Generators
                 source.Append(dtName);
                 source.Append(" ");
                 source.Append(SourceGenerator.MakeAccessorName(descriptions[i]));
-                bool duplicateField = descriptions.Count(element => GetDescription(element) == GetDescription(descriptions[i])) > 1;
+                var duplicateField = descriptions.Count(element => GetDescription(element) == GetDescription(descriptions[i])) > 1;
                 if (duplicateField)
                 {
                     source.Append("_" + i);
@@ -535,7 +535,7 @@ namespace NHapi.SourceGeneration.Generators
 
         private static string GetDescription(string description)
         {
-            string ret = description;
+            var ret = description;
             ret = ret.Replace("&", "and");
             return ret;
         }

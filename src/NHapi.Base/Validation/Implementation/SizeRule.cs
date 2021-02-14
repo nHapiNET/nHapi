@@ -35,53 +35,55 @@ namespace NHapi.Base.Validation.Implementation
     /// </version>
     public class SizeRule : IPrimitiveTypeRule
     {
-        private int myMaxChars;
-
         /// <param name="theMaxChars">the maximum number of characters this rule allows in a
         /// primitive value.
         /// </param>
         public SizeRule(int theMaxChars)
         {
-            myMaxChars = theMaxChars;
+            MyMaxChars = theMaxChars;
         }
 
         /// <summary>
+        /// Gets the rule description.
+        /// </summary>
         /// <seealso cref="IRule.Description" />
-        /// </summary>
-        public virtual string Description
-        {
-            get { return "Maximum size <= " + myMaxChars + " characters"; }
-        }
+        public virtual string Description => $"Maximum size <= {MyMaxChars} characters";
 
         /// <summary>
+        /// Gets the section reference.
+        /// </summary>
         /// <seealso cref="IRule.SectionReference" />
-        /// </summary>
-        public virtual string SectionReference
+        public virtual string SectionReference => null;
+
+        private int MyMaxChars { get; }
+
+        /// <inheritdoc />
+        public virtual string correct(string originalValue)
         {
-            get { return null; }
+            return Correct(originalValue);
         }
 
-        /// <summary>
-        /// Does nothing. If what you wanted was to trim the value to the max size, you should
+        /// <inheritdoc />
+        /// <remarks>
+        /// Does nothing and simply returns the value passed in.
+        /// If what you wanted was to trim the value to the max size, you should
         /// make a separate rule for that.
-        /// </summary>
-        /// <seealso cref="IPrimitiveTypeRule.correct" />
-        /// <returns>The value that was passed in as <paramref name="value_Renamed"/>.</returns>
-        public virtual string correct(string value_Renamed)
+        /// </remarks>
+        public virtual string Correct(string originalValue)
         {
-            return value_Renamed;
+            return originalValue;
         }
 
-        /// <seealso cref="IPrimitiveTypeRule.test" />
-        public virtual bool test(string value_Renamed)
+        /// <inheritdoc />
+        public virtual bool test(string value)
         {
-            bool ok = true;
-            if (value_Renamed != null && value_Renamed.Length > myMaxChars)
-            {
-                ok = false;
-            }
+            return Test(value);
+        }
 
-            return ok;
+        /// <inheritdoc />
+        public virtual bool Test(string value)
+        {
+            return !(value != null && value.Length > MyMaxChars);
         }
     }
 }
