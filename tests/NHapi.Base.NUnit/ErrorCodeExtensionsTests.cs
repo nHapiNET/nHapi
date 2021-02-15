@@ -19,7 +19,7 @@ namespace NHapi.Base.NUnit
 #if NETCOREAPP
 			var expectedMessage = "The integer provided is not a valid ErrorCode value (Parameter 'errorCode')";
 #elif NETFRAMEWORK
-			var expectedMessage = "The integer provided is not a valid ErrorCode value\r\nParameter name: errorCode";
+			var expectedMessage = $"The integer provided is not a valid ErrorCode value{Environment.NewLine}Parameter name: errorCode";
 #endif
 
 			Assert.That(ex.Message, Is.EqualTo(expectedMessage));

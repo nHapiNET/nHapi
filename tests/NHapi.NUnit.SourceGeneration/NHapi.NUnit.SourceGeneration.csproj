@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\ModelGenerator\ModelGenerator.csproj" />
-    <ProjectReference Include="..\..\src\nHapi.Base\NHapi.Base.csproj" />
+    <ProjectReference Include="..\..\src\NHapi.Base\NHapi.Base.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">

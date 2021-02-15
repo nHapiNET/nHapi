@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHapi.Model.V23", "src\NHapi.Model.V23\NHapi.Model.V23.csproj", "{796D663F-E12D-45C2-92E6-8FD050558A86}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHapi.Base", "src\nHapi.Base\NHapi.Base.csproj", "{5A080123-0597-46C3-AE78-2007EFB0DD68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHapi.Base", "src\NHapi.Base\NHapi.Base.csproj", "{5A080123-0597-46C3-AE78-2007EFB0DD68}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHapi.Model.V24", "src\NHapi.Model.V24\NHapi.Model.V24.csproj", "{C5DE87CB-F026-4EB3-9CE8-5017BF3FB5CC}"
 EndProject

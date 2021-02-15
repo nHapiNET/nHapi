@@ -3,7 +3,7 @@
   araSpect (araspect.sourceforge.net).  The original copyright follows ...
   
   =================================================================
-  Copyright (c) 2001,2002 aragost ag, Zürich, Switzerland.
+  Copyright (c) 2001,2002 aragost ag, ZÃ¼rich, Switzerland.
   All rights reserved.
   
   This software is provided 'as-is', without any express or implied

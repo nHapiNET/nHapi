@@ -415,7 +415,8 @@ OBX|5|NM|E2^Estradiol, E2^MOLIS||39|pmol/l^^L|(70-672)Follikul�r \ (551-1938)P
 PID|1||1711114||Appt^Test||19720501||||||||||||001020006
 ORC|||||F
 OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
-OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}Value||||||F";
+OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}Value||||||F"
+			.Replace(Environment.NewLine, "\r");
 
 			var parser = new PipeParser();
 

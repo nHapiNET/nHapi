@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHapi.Base", "src\nHapi.Base\NHapi.Base.csproj", "{5A080123-0597-46C3-AE78-2007EFB0DD68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHapi.Base", "src\NHapi.Base\NHapi.Base.csproj", "{5A080123-0597-46C3-AE78-2007EFB0DD68}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelGenerator", "src\ModelGenerator\ModelGenerator.csproj", "{EBB8E9C9-7FF2-49C4-96EF-C5B87E4C2617}"
 EndProject

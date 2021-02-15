@@ -375,7 +375,8 @@ PID|1|935307^^^EUH MRN^MRN^EH01|25106376^^^TEC MRN~1781893^^^CLH MRN~935307^^^EU
 PID|1||1711114||Appt^Test||19720501||||||||||||001020006
 ORC|||||F
 OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
-OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}Value||||||F";
+OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}Value||||||F"
+			.Replace(Environment.NewLine, "\r");
 
 			var parser = new PipeParser();
 
