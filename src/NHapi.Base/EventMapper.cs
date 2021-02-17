@@ -1,105 +1,90 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-
 namespace NHapi.Base
 {
-	internal class EventMapper
-	{
-		private Hashtable _map = new Hashtable();
-		private static readonly EventMapper _instance = new EventMapper();
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Collections.Specialized;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
 
-		#region Constructors
+    internal class EventMapper
+    {
+        private static readonly EventMapper InstanceValue = new EventMapper();
 
-		static EventMapper()
-		{
-		}
+        private Hashtable map = new Hashtable();
 
-		private EventMapper()
-		{
-			IList<Hl7Package> packages = PackageManager.Instance.GetAllPackages();
-			foreach (Hl7Package package in packages)
-			{
-				Assembly assembly = null;
-				try
-				{
-					var assemblyToLoad = RemoveTrailingDot(package);
-					assembly = Assembly.Load(assemblyToLoad);
-				}
-				catch (FileNotFoundException)
-				{
-					//Just skip, this assembly is not used
-				}
+        static EventMapper()
+        {
+        }
 
-				NameValueCollection structures = new NameValueCollection();
-				if (assembly != null)
-				{
-					structures = GetAssemblyEventMapping(assembly, package);
-				}
-				_map[package.Version] = structures;
-			}
-		}
+        private EventMapper()
+        {
+            var packages = PackageManager.Instance.GetAllPackages();
+            foreach (var package in packages)
+            {
+                Assembly assembly = null;
+                try
+                {
+                    var assemblyToLoad = RemoveTrailingDot(package);
+                    assembly = Assembly.Load(assemblyToLoad);
+                }
+                catch (FileNotFoundException)
+                {
+                    // Just skip, this assembly is not used
+                }
 
-		private static string RemoveTrailingDot(Hl7Package package)
-		{
-			string assemblyString = package.PackageName;
-			char lastChar = assemblyString.LastOrDefault();
-			bool trailingDot = lastChar != default(char) && lastChar.ToString() == ".";
-			if (trailingDot)
-			{
-				assemblyString = assemblyString.Substring(0, assemblyString.Length - 1);
-			}
-			return assemblyString;
-		}
+                var structures = new NameValueCollection();
+                if (assembly != null)
+                {
+                    structures = GetAssemblyEventMapping(assembly, package);
+                }
 
-		#endregion
+                map[package.Version] = structures;
+            }
+        }
 
-		#region Properties
+        public static EventMapper Instance => InstanceValue;
 
-		public static EventMapper Instance
-		{
-			get { return _instance; }
-		}
+        public Hashtable Maps => map;
 
-		public Hashtable Maps
-		{
-			get { return _map; }
-		}
+        private static string RemoveTrailingDot(Hl7Package package)
+        {
+            var assemblyString = package.PackageName;
+            var lastChar = assemblyString.LastOrDefault();
+            var trailingDot = lastChar != default(char) && lastChar.ToString() == ".";
+            if (trailingDot)
+            {
+                assemblyString = assemblyString.Substring(0, assemblyString.Length - 1);
+            }
 
-		#endregion
+            return assemblyString;
+        }
 
-		#region Methods
+        private NameValueCollection GetAssemblyEventMapping(Assembly assembly, Hl7Package package)
+        {
+            var structures = new NameValueCollection();
+            using (var inResource = assembly.GetManifestResourceStream(package.EventMappingResourceName))
+            {
+                if (inResource != null)
+                {
+                    using (var sr = new StreamReader(inResource))
+                    {
+                        var line = sr.ReadLine();
+                        while (line != null)
+                        {
+                            if ((line.Length > 0) && (line[0] != '#'))
+                            {
+                                var lineElements = line.Split(' ', '\t');
+                                structures.Add(lineElements[0], lineElements[1]);
+                            }
 
-		private NameValueCollection GetAssemblyEventMapping(Assembly assembly, Hl7Package package)
-		{
-			NameValueCollection structures = new NameValueCollection();
-			using (Stream inResource = assembly.GetManifestResourceStream(package.EventMappingResourceName))
-			{
-				if (inResource != null)
-				{
-					using (StreamReader sr = new StreamReader(inResource))
-					{
-						string line = sr.ReadLine();
-						while (line != null)
-						{
-							if ((line.Length > 0) && ('#' != line[0]))
-							{
-								string[] lineElements = line.Split(' ', '\t');
-								structures.Add(lineElements[0], lineElements[1]);
-							}
-							line = sr.ReadLine();
-						}
-					}
-				}
-			}
-			return structures;
-		}
+                            line = sr.ReadLine();
+                        }
+                    }
+                }
+            }
 
-		#endregion
-	}
+            return structures;
+        }
+    }
 }

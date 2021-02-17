@@ -1,261 +1,312 @@
-using System;
-using System.Collections;
-using System.Data;
-using System.Data.Common;
-using System.Data.Odbc;
-
 namespace NHapi.SourceGeneration
 {
-   public class TransactionManager
-	{
-		public static ConnectionHashTable manager = new ConnectionHashTable();
+    using System;
+    using System.Collections;
+    using System.Data;
+    using System.Data.Common;
+    using System.Data.Odbc;
 
-		public class ConnectionHashTable : Hashtable
-		{
-			public DbCommand CreateStatement(OdbcConnection connection)
-			{
-				DbCommand command = connection.CreateCommand();
-				DbTransaction transaction;
-				if (this[connection] != null)
-				{
-					ConnectionProperties Properties = ((ConnectionProperties)this[connection]);
-					transaction = Properties.Transaction;
-					command.Transaction = transaction;
-					command.CommandTimeout = 0;
-				}
-				else
-				{
-					ConnectionProperties TempProp = new ConnectionProperties();
-					TempProp.AutoCommit = true;
-					TempProp.TransactionLevel = 0;
-					command.Transaction = TempProp.Transaction;
-					command.CommandTimeout = 0;
-					Add(connection, TempProp);
-				}
-				return command;
-			}
+    public class TransactionManager
+    {
+        public static ConnectionHashTable Manager { get; set; } = new ConnectionHashTable();
 
-			public void Commit(OdbcConnection connection)
-			{
-				if (this[connection] != null && !((ConnectionProperties)this[connection]).AutoCommit)
-				{
-					ConnectionProperties Properties = ((ConnectionProperties)this[connection]);
-					DbTransaction transaction = Properties.Transaction;
-					transaction.Commit();
-					if (Properties.TransactionLevel == 0)
-						Properties.Transaction = connection.BeginTransaction();
-					else
-						Properties.Transaction = connection.BeginTransaction(Properties.TransactionLevel);
-				}
-			}
+        public class ConnectionHashTable : Hashtable
+        {
+            public DbCommand CreateStatement(OdbcConnection connection)
+            {
+                DbCommand command = connection.CreateCommand();
+                DbTransaction transaction;
+                if (this[connection] != null)
+                {
+                    var properties = (ConnectionProperties)this[connection];
+                    transaction = properties.Transaction;
+                    command.Transaction = transaction;
+                    command.CommandTimeout = 0;
+                }
+                else
+                {
+                    var tempProp = new ConnectionProperties();
+                    tempProp.AutoCommit = true;
+                    tempProp.TransactionLevel = 0;
+                    command.Transaction = tempProp.Transaction;
+                    command.CommandTimeout = 0;
+                    Add(connection, tempProp);
+                }
 
-			public void RollBack(OdbcConnection connection)
-			{
-				if (this[connection] != null && !((ConnectionProperties)this[connection]).AutoCommit)
-				{
-					ConnectionProperties Properties = ((ConnectionProperties)this[connection]);
-					DbTransaction transaction = Properties.Transaction;
-					transaction.Rollback();
-					if (Properties.TransactionLevel == 0)
-						Properties.Transaction = connection.BeginTransaction();
-					else
-						Properties.Transaction = connection.BeginTransaction(Properties.TransactionLevel);
-				}
-			}
+                return command;
+            }
 
-			public void SetAutoCommit(OdbcConnection connection, bool boolean)
-			{
-				if (this[connection] != null)
-				{
-					ConnectionProperties Properties = ((ConnectionProperties)this[connection]);
-					if (Properties.AutoCommit != boolean)
-					{
-						Properties.AutoCommit = boolean;
-						if (!boolean)
-						{
-							if (Properties.TransactionLevel == 0)
-								Properties.Transaction = connection.BeginTransaction();
-							else
-								Properties.Transaction = connection.BeginTransaction(Properties.TransactionLevel);
-						}
-						else
-						{
-							DbTransaction transaction = Properties.Transaction;
-							if (transaction != null)
-							{
-								transaction.Commit();
-							}
-						}
-					}
-				}
-				else
-				{
-					ConnectionProperties TempProp = new ConnectionProperties();
-					TempProp.AutoCommit = boolean;
-					TempProp.TransactionLevel = 0;
-					if (!boolean)
-						TempProp.Transaction = connection.BeginTransaction();
-					Add(connection, TempProp);
-				}
-			}
+            public void Commit(OdbcConnection connection)
+            {
+                if (this[connection] != null && !((ConnectionProperties)this[connection]).AutoCommit)
+                {
+                    var properties = (ConnectionProperties)this[connection];
+                    var transaction = properties.Transaction;
+                    transaction.Commit();
+                    if (properties.TransactionLevel == 0)
+                    {
+                        properties.Transaction = connection.BeginTransaction();
+                    }
+                    else
+                    {
+                        properties.Transaction = connection.BeginTransaction(properties.TransactionLevel);
+                    }
+                }
+            }
 
-			public DbCommand PrepareStatement(OdbcConnection connection, String sql)
-			{
-				DbCommand command = CreateStatement(connection);
-				command.CommandText = sql;
-				command.CommandTimeout = 0;
-				return command;
-			}
+            public void RollBack(OdbcConnection connection)
+            {
+                if (this[connection] != null && !((ConnectionProperties)this[connection]).AutoCommit)
+                {
+                    var properties = (ConnectionProperties)this[connection];
+                    var transaction = properties.Transaction;
+                    transaction.Rollback();
+                    if (properties.TransactionLevel == 0)
+                    {
+                        properties.Transaction = connection.BeginTransaction();
+                    }
+                    else
+                    {
+                        properties.Transaction = connection.BeginTransaction(properties.TransactionLevel);
+                    }
+                }
+            }
 
-			public DbCommand PrepareCall(OdbcConnection connection, String sql)
-			{
-				DbCommand command = CreateStatement(connection);
-				command.CommandText = sql;
-				command.CommandTimeout = 0;
-				return command;
-			}
+            public void SetAutoCommit(OdbcConnection connection, bool boolean)
+            {
+                if (this[connection] != null)
+                {
+                    var properties = (ConnectionProperties)this[connection];
+                    if (properties.AutoCommit != boolean)
+                    {
+                        properties.AutoCommit = boolean;
+                        if (!boolean)
+                        {
+                            if (properties.TransactionLevel == 0)
+                            {
+                                properties.Transaction = connection.BeginTransaction();
+                            }
+                            else
+                            {
+                                properties.Transaction = connection.BeginTransaction(properties.TransactionLevel);
+                            }
+                        }
+                        else
+                        {
+                            var transaction = properties.Transaction;
+                            if (transaction != null)
+                            {
+                                transaction.Commit();
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    var tempProp = new ConnectionProperties();
+                    tempProp.AutoCommit = boolean;
+                    tempProp.TransactionLevel = 0;
+                    if (!boolean)
+                    {
+                        tempProp.Transaction = connection.BeginTransaction();
+                    }
 
-			public void SetTransactionIsolation(OdbcConnection connection, int level)
-			{
-				ConnectionProperties Properties;
-				if (level == (int)IsolationLevel.ReadCommitted)
-					SetAutoCommit(connection, false);
-				else if (level == (int)IsolationLevel.ReadUncommitted)
-					SetAutoCommit(connection, false);
-				else if (level == (int)IsolationLevel.RepeatableRead)
-					SetAutoCommit(connection, false);
-				else if (level == (int)IsolationLevel.Serializable)
-					SetAutoCommit(connection, false);
+                    Add(connection, tempProp);
+                }
+            }
 
-				if (this[connection] != null)
-				{
-					Properties = ((ConnectionProperties)this[connection]);
-					Properties.TransactionLevel = (IsolationLevel)level;
-				}
-				else
-				{
-					Properties = new ConnectionProperties();
-					Properties.AutoCommit = true;
-					Properties.TransactionLevel = (IsolationLevel)level;
-					Add(connection, Properties);
-				}
-			}
+            public DbCommand PrepareStatement(OdbcConnection connection, string sql)
+            {
+                var command = CreateStatement(connection);
+                command.CommandText = sql;
+                command.CommandTimeout = 0;
+                return command;
+            }
 
-			public int GetTransactionIsolation(OdbcConnection connection)
-			{
-				if (this[connection] != null)
-				{
-					ConnectionProperties Properties = ((ConnectionProperties)this[connection]);
-					if (Properties.TransactionLevel != 0)
-						return (int)Properties.TransactionLevel;
-					else
-						return 2;
-				}
-				else
-					return 2;
-			}
+            public DbCommand PrepareCall(OdbcConnection connection, string sql)
+            {
+                var command = CreateStatement(connection);
+                command.CommandText = sql;
+                command.CommandTimeout = 0;
+                return command;
+            }
 
-			public bool GetAutoCommit(OdbcConnection connection)
-			{
-				if (this[connection] != null)
-					return ((ConnectionProperties)this[connection]).AutoCommit;
-				else
-					return true;
-			}
+            public void SetTransactionIsolation(OdbcConnection connection, int level)
+            {
+                ConnectionProperties properties;
+                if (level == (int)IsolationLevel.ReadCommitted)
+                {
+                    SetAutoCommit(connection, false);
+                }
+                else if (level == (int)IsolationLevel.ReadUncommitted)
+                {
+                    SetAutoCommit(connection, false);
+                }
+                else if (level == (int)IsolationLevel.RepeatableRead)
+                {
+                    SetAutoCommit(connection, false);
+                }
+                else if (level == (int)IsolationLevel.Serializable)
+                {
+                    SetAutoCommit(connection, false);
+                }
 
-			/// <summary>
-			/// Sets the value of a parameter using any permitted object.  The given argument object will be converted to the
-			/// corresponding SQL type before being sent to the database.
-			/// </summary>
-			/// <param name="command">Command object to be changed.</param>
-			/// <param name="parameterIndex">One-based index of the parameter to be set.</param>
-			/// <param name="parameter">The object containing the input parameter value.</param>
-			public void SetValue(DbCommand command, int parameterIndex, Object parameter)
-			{
-				if (command.Parameters.Count < parameterIndex)
-					command.Parameters.Add(command.CreateParameter());
-				command.Parameters[parameterIndex - 1].Value = parameter;
-			}
+                if (this[connection] != null)
+                {
+                    properties = (ConnectionProperties)this[connection];
+                    properties.TransactionLevel = (IsolationLevel)level;
+                }
+                else
+                {
+                    properties = new ConnectionProperties();
+                    properties.AutoCommit = true;
+                    properties.TransactionLevel = (IsolationLevel)level;
+                    Add(connection, properties);
+                }
+            }
 
-			/// <summary>
-			/// Sets a parameter to SQL NULL.
-			/// </summary>
-			/// <param name="command">Command object to be changed.</param>
-			/// <param name="parameterIndex">One-based index of the parameter to be set.</param>
-			/// <param name="sqlType">The SQL type to be sent to the database.</param>
-			public void SetNull(DbCommand command, int parameterIndex, int sqlType)
-			{
-				if (command.Parameters.Count < parameterIndex)
-					command.Parameters.Add(command.CreateParameter());
-				command.Parameters[parameterIndex - 1].Value = Convert.DBNull;
-				command.Parameters[parameterIndex - 1].DbType = (DbType)sqlType;
-			}
+            public int GetTransactionIsolation(OdbcConnection connection)
+            {
+                if (this[connection] != null)
+                {
+                    var properties = (ConnectionProperties)this[connection];
+                    if (properties.TransactionLevel != 0)
+                    {
+                        return (int)properties.TransactionLevel;
+                    }
+                    else
+                    {
+                        return 2;
+                    }
+                }
+                else
+                {
+                    return 2;
+                }
+            }
 
-			/// <summary>
-			/// Sets the value of a parameter using an object.  The given argument object will be converted to the
-			/// corresponding SQL type before being sent to the database.
-			/// </summary>
-			/// <param name="command">Command object to be changed.</param>
-			/// <param name="parameterIndex">One-based index of the parameter to be set.</param>
-			/// <param name="parameter">The object containing the input parameter value.</param>
-			/// <param name="targetSqlType">The SQL type to be sent to the database.</param>
-			public void SetObject(DbCommand command, int parameterIndex, Object parameter, int targetSqlType)
-			{
-				if (command.Parameters.Count < parameterIndex)
-					command.Parameters.Add(command.CreateParameter());
-				command.Parameters[parameterIndex - 1].Value = parameter;
-				command.Parameters[parameterIndex - 1].DbType = (DbType)targetSqlType;
-			}
+            public bool GetAutoCommit(OdbcConnection connection)
+            {
+                if (this[connection] != null)
+                {
+                    return ((ConnectionProperties)this[connection]).AutoCommit;
+                }
+                else
+                {
+                    return true;
+                }
+            }
 
-			/// <summary>
-			/// Sets the value of a parameter using an object.  The given argument object will be converted to the
-			/// corresponding SQL type before being sent to the database.
-			/// </summary>
-			/// <param name="command">Command object to be changed.</param>
-			/// <param name="parameterIndex">One-based index of the parameter to be set.</param>
-			/// <param name="parameter">The object containing the input parameter value.</param>
-			public void SetObject(DbCommand command, int parameterIndex, Object parameter)
-			{
-				if (command.Parameters.Count < parameterIndex)
-					command.Parameters.Add(command.CreateParameter());
-				command.Parameters[parameterIndex - 1].Value = parameter;
-			}
+            /// <summary>
+            /// Sets the value of a parameter using any permitted object.  The given argument object will be converted to the
+            /// corresponding SQL type before being sent to the database.
+            /// </summary>
+            /// <param name="command">Command object to be changed.</param>
+            /// <param name="parameterIndex">One-based index of the parameter to be set.</param>
+            /// <param name="parameter">The object containing the input parameter value.</param>
+            public void SetValue(DbCommand command, int parameterIndex, object parameter)
+            {
+                if (command.Parameters.Count < parameterIndex)
+                {
+                    command.Parameters.Add(command.CreateParameter());
+                }
 
-			/// <summary>
-			/// This method is for such prepared statements verify if the connection is autoCommit for assign the transaction to the command.
-			/// </summary>
-			/// <param name="command">The command to be tested.</param>
-			/// <returns>The number of rows affected.</returns>
-			public int ExecuteUpdate(DbCommand command)
-			{
-				if (!(((ConnectionProperties)this[command.Connection]).AutoCommit))
-				{
-					command.Transaction = ((ConnectionProperties)this[command.Connection]).Transaction;
-					return command.ExecuteNonQuery();
-				}
-				else
-					return command.ExecuteNonQuery();
-			}
+                command.Parameters[parameterIndex - 1].Value = parameter;
+            }
 
-			/// <summary>
-			/// This method Closes the connection, and if the property of auto commit is true make the commit operation
-			/// </summary>
-			/// <param name="Connection"> The command to be closed</param>		
-			public void Close(OdbcConnection Connection)
-			{
-				if ((this[Connection] != null) && !(((ConnectionProperties)this[Connection]).AutoCommit))
-				{
-					Commit(Connection);
-				}
-				Connection.Close();
-			}
+            /// <summary>
+            /// Sets a parameter to SQL NULL.
+            /// </summary>
+            /// <param name="command">Command object to be changed.</param>
+            /// <param name="parameterIndex">One-based index of the parameter to be set.</param>
+            /// <param name="sqlType">The SQL type to be sent to the database.</param>
+            public void SetNull(DbCommand command, int parameterIndex, int sqlType)
+            {
+                if (command.Parameters.Count < parameterIndex)
+                {
+                    command.Parameters.Add(command.CreateParameter());
+                }
 
-			private class ConnectionProperties
-			{
-				public bool AutoCommit;
-				public DbTransaction Transaction;
-				public IsolationLevel TransactionLevel;
-			}
-		}
-	}
+                command.Parameters[parameterIndex - 1].Value = Convert.DBNull;
+                command.Parameters[parameterIndex - 1].DbType = (DbType)sqlType;
+            }
+
+            /// <summary>
+            /// Sets the value of a parameter using an object.  The given argument object will be converted to the
+            /// corresponding SQL type before being sent to the database.
+            /// </summary>
+            /// <param name="command">Command object to be changed.</param>
+            /// <param name="parameterIndex">One-based index of the parameter to be set.</param>
+            /// <param name="parameter">The object containing the input parameter value.</param>
+            /// <param name="targetSqlType">The SQL type to be sent to the database.</param>
+            public void SetObject(DbCommand command, int parameterIndex, object parameter, int targetSqlType)
+            {
+                if (command.Parameters.Count < parameterIndex)
+                {
+                    command.Parameters.Add(command.CreateParameter());
+                }
+
+                command.Parameters[parameterIndex - 1].Value = parameter;
+                command.Parameters[parameterIndex - 1].DbType = (DbType)targetSqlType;
+            }
+
+            /// <summary>
+            /// Sets the value of a parameter using an object.  The given argument object will be converted to the
+            /// corresponding SQL type before being sent to the database.
+            /// </summary>
+            /// <param name="command">Command object to be changed.</param>
+            /// <param name="parameterIndex">One-based index of the parameter to be set.</param>
+            /// <param name="parameter">The object containing the input parameter value.</param>
+            public void SetObject(DbCommand command, int parameterIndex, object parameter)
+            {
+                if (command.Parameters.Count < parameterIndex)
+                {
+                    command.Parameters.Add(command.CreateParameter());
+                }
+
+                command.Parameters[parameterIndex - 1].Value = parameter;
+            }
+
+            /// <summary>
+            /// This method is for such prepared statements verify if the connection is autoCommit for assign the transaction to the command.
+            /// </summary>
+            /// <param name="command">The command to be tested.</param>
+            /// <returns>The number of rows affected.</returns>
+            public int ExecuteUpdate(DbCommand command)
+            {
+                if (!((ConnectionProperties)this[command.Connection]).AutoCommit)
+                {
+                    command.Transaction = ((ConnectionProperties)this[command.Connection]).Transaction;
+                    return command.ExecuteNonQuery();
+                }
+                else
+                {
+                    return command.ExecuteNonQuery();
+                }
+            }
+
+            /// <summary>
+            /// This method Closes the connection, and if the property of auto commit is true make the commit operation.
+            /// </summary>
+            /// <param name="connection"> The command to be closed.</param>
+            public void Close(OdbcConnection connection)
+            {
+                if ((this[connection] != null) && !((ConnectionProperties)this[connection]).AutoCommit)
+                {
+                    Commit(connection);
+                }
+
+                connection.Close();
+            }
+
+            private class ConnectionProperties
+            {
+                public bool AutoCommit { get; set; }
+
+                public DbTransaction Transaction { get; set; }
+
+                public IsolationLevel TransactionLevel { get; set; }
+            }
+        }
+    }
 }

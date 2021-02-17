@@ -1,118 +1,120 @@
-using System;
-using System.Collections.Generic;
-using System.Xml;
-using NHapi.Base.Model;
-using NHapi.Base.Parser;
-using NHapi.Model.V231.Datatype;
-using NHapi.Model.V231.Message;
-using NUnit.Framework;
-
 namespace NHapi.NUnit
 {
-	[TestFixture]
-	public class PipeParsingFixture231
-	{
-		[Test]
-		public void ParseQRYR02()
-		{
-			string Message = @"MSH|^~\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||QRY^R02^QRY_R02|1|P|2.3.1|
+    using System;
+    using System.Collections.Generic;
+    using System.Xml;
+
+    using global::NUnit.Framework;
+
+    using NHapi.Base.Model;
+    using NHapi.Base.Parser;
+    using NHapi.Model.V231.Datatype;
+    using NHapi.Model.V231.Message;
+
+    [TestFixture]
+    public class PipeParsingFixture231
+    {
+        [Test]
+        public void ParseQRYR02()
+        {
+            var message = @"MSH|^~\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||QRY^R02^QRY_R02|1|P|2.3.1|
 QRD|20060228155525|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||";
 
-			PipeParser Parser = new PipeParser();
+            var parser = new PipeParser();
 
-			IMessage m = Parser.Parse(Message);
+            var m = parser.Parse(message);
 
-			QRY_R02 qryR02 = m as QRY_R02;
+            var qryR02 = m as QRY_R02;
 
-			Assert.IsNotNull(qryR02);
-			Assert.AreEqual("38923", qryR02.QRD.GetWhoSubjectFilter(0).IDNumber.Value);
-		}
+            Assert.IsNotNull(qryR02);
+            Assert.AreEqual("38923", qryR02.QRD.GetWhoSubjectFilter(0).IDNumber.Value);
+        }
 
-		[Test]
-		public void ParseORMo01PIDSegment()
-		{
-			string Message = @"MSH|^~\&|INVISION|DHC|SUNQUEST LAB||200606191615||ORM^O01|ORDR|P|2.3.1|LAB
+        [Test]
+        public void ParseORMo01PIDSegment()
+        {
+            var message = @"MSH|^~\&|INVISION|DHC|SUNQUEST LAB||200606191615||ORM^O01|ORDR|P|2.3.1|LAB
 PID|0001||3020956||TRAINONLYPOE^ONE||19770903|F||W||||||||40230443
 PV1|0001|I|MICU^W276^01||||045716^ABAZA, MONA M|||MED|||||||045716|F|000000030188
 ORC|NW|01444^00001|||||||||||L
 OBR||01444^00001||CAI^CALCIUM IONIZED|||200606191614||||L|||||045716^STEELE, ANDREW W|||||||||||00001&UNITS^ONCE&ONCE^000^200606191614^200606191614^ROUTINE
 ";
 
-			PipeParser Parser = new PipeParser();
+            var parser = new PipeParser();
 
-			IMessage m = Parser.Parse(Message);
+            var m = parser.Parse(message);
 
-			ORM_O01 ormo01 = m as ORM_O01;
+            var ormo01 = m as ORM_O01;
 
-			Assert.IsNotNull(ormo01);
-			Assert.AreEqual("TRAINONLYPOE", (ormo01.PATIENT.PID.GetPatientName()[0]).FamilyLastName.FamilyName.Value);
-			Assert.AreEqual("19770903", ormo01.PATIENT.PID.DateTimeOfBirth.TimeOfAnEvent.Value);
-			Assert.AreEqual("F", ormo01.PATIENT.PID.Sex.Value);
-			Assert.AreEqual("W", ((ormo01.PATIENT.PID.GetRace()[0]).Identifier.Value));
+            Assert.IsNotNull(ormo01);
+            Assert.AreEqual("TRAINONLYPOE", ormo01.PATIENT.PID.GetPatientName()[0].FamilyLastName.FamilyName.Value);
+            Assert.AreEqual("19770903", ormo01.PATIENT.PID.DateTimeOfBirth.TimeOfAnEvent.Value);
+            Assert.AreEqual("F", ormo01.PATIENT.PID.Sex.Value);
+            Assert.AreEqual("W", ormo01.PATIENT.PID.GetRace()[0].Identifier.Value);
 
-			Assert.AreEqual("ABAZA, MONA M",
-				ormo01.PATIENT.PATIENT_VISIT.PV1.GetAttendingDoctor(0).FamilyLastName.FamilyName.Value);
-		}
+            Assert.AreEqual(
+                "ABAZA, MONA M",
+                ormo01.PATIENT.PATIENT_VISIT.PV1.GetAttendingDoctor(0).FamilyLastName.FamilyName.Value);
+        }
 
-		[Test]
-		public void ParseORMo01ToXml()
-		{
-			string Message = @"MSH|^~\&|INVISION|DHC|SUNQUEST LAB||200606191615||ORM^O01|ORDR|P|2.3.1|LAB
+        [Test]
+        public void ParseORMo01ToXml()
+        {
+            var message = @"MSH|^~\&|INVISION|DHC|SUNQUEST LAB||200606191615||ORM^O01|ORDR|P|2.3.1|LAB
 PID|0001||3020956||TRAINONLYPOE^ONE||19770903|F||W||||||||40230443
 PV1|0001|I|MICU^W276^01||||045716^ABAZA, MONA M|||MED|||||||045716|F|000000030188
 ORC|NW|01444^00001|||||||||||L
 OBR||01444^00001||CAI^CALCIUM IONIZED|||200606191614||||L|||||045716^STEELE, ANDREW W|||||||||||00001&UNITS^ONCE&ONCE^000^200606191614^200606191614^ROUTINE
 ";
 
-			PipeParser Parser = new PipeParser();
+            var parser = new PipeParser();
 
-			IMessage m = Parser.Parse(Message);
+            var m = parser.Parse(message);
 
-			ORM_O01 ormo01 = m as ORM_O01;
+            var ormo01 = m as ORM_O01;
 
-			XMLParser xmlParser = new DefaultXMLParser();
+            XMLParser xmlParser = new DefaultXMLParser();
 
-			string recoveredMessage = xmlParser.Encode(ormo01);
+            var recoveredMessage = xmlParser.Encode(ormo01);
 
-			Assert.AreNotEqual(string.Empty, recoveredMessage);
+            Assert.AreNotEqual(string.Empty, recoveredMessage);
 
-			XmlDocument ormDoc = new XmlDocument();
-			ormDoc.LoadXml(recoveredMessage);
-			Assert.IsNotNull(ormDoc);
-		}
+            var ormDoc = new XmlDocument();
+            ormDoc.LoadXml(recoveredMessage);
+            Assert.IsNotNull(ormDoc);
+        }
 
-		[Test]
-		public void ParseORRo02ToXml()
-		{
-			string Message = @"MSH|^~\&|INVISION|DHC|SUNQUEST LAB||200607100719||ORR^O02|ORDR|T|2.3.1|LAB
+        [Test]
+        public void ParseORRo02ToXml()
+        {
+            var message = @"MSH|^~\&|INVISION|DHC|SUNQUEST LAB||200607100719||ORR^O02|ORDR|T|2.3.1|LAB
 PID|0001||3017864||HILBERT^MARY||19440823|F||W||||||||40244246
 PV1|0001|O|LW||||888883^DOCTOR, UNASSIGNED||||||||||888883|O|000000031540
 ORC|NA|00003^00001|F1492|||||||||888883
 OBR||00003^00001|F1492|RESPC^CULTURE RESPIRATORY ROUTINE|||||||L|||||||||F1492|||||||^ONCE&ONCE^^200607070600^200607070600^ROUTINE
 ";
 
-			PipeParser Parser = new PipeParser();
+            var parser = new PipeParser();
 
-			IMessage m = Parser.Parse(Message);
+            var m = parser.Parse(message);
 
-			ORR_O02 msg = m as ORR_O02;
+            var msg = m as ORR_O02;
 
-			XMLParser xmlParser = new DefaultXMLParser();
+            XMLParser xmlParser = new DefaultXMLParser();
 
-			string recoveredMessage = xmlParser.Encode(msg);
+            var recoveredMessage = xmlParser.Encode(msg);
 
-			Assert.AreNotEqual(string.Empty, recoveredMessage);
+            Assert.AreNotEqual(string.Empty, recoveredMessage);
 
-			XmlDocument orrDoc = new XmlDocument();
-			orrDoc.LoadXml(recoveredMessage);
-			Assert.IsNotNull(orrDoc);
-		}
+            var orrDoc = new XmlDocument();
+            orrDoc.LoadXml(recoveredMessage);
+            Assert.IsNotNull(orrDoc);
+        }
 
-
-		[Test]
-		public void ParseORUr01LongToXml()
-		{
-			string Message = @"MSH|^~\$|LAB|DHC|LCR|DH|200511291403||ORU^R01|52780002432|P|2.3.1
+        [Test]
+        public void ParseORUr01LongToXml()
+        {
+            var message = @"MSH|^~\$|LAB|DHC|LCR|DH|200511291403||ORU^R01|52780002432|P|2.3.1
 PID|0001|3013839|40206609||BARNES^TEST||19551005|F|||||||||||258452152
 OBR||00009^001|W442|CBC^CBC|||200509210520||||||||CBC^CBC|117564^STEEL||||||||DAH
 OBX|1|NM|WBC||20.0|k/uL|4.5-10.0|H|||Z
@@ -137,28 +139,28 @@ OBX|10|NM|MPV||10.0|fL|6.2-10.0||||Z
 OBX|10|TX|MPV|1|(Ref Range: 6 fL)|fL|6.2-10.0||||Z
 ";
 
-			PipeParser Parser = new PipeParser();
+            var parser = new PipeParser();
 
-			IMessage m = Parser.Parse(Message);
+            var m = parser.Parse(message);
 
-			ORU_R01 msg = m as ORU_R01;
+            var msg = m as ORU_R01;
 
-			XMLParser xmlParser = new DefaultXMLParser();
+            XMLParser xmlParser = new DefaultXMLParser();
 
-			string recoveredMessage = xmlParser.Encode(msg);
+            var recoveredMessage = xmlParser.Encode(msg);
 
-			Assert.AreNotEqual(string.Empty, recoveredMessage);
+            Assert.AreNotEqual(string.Empty, recoveredMessage);
 
-			XmlDocument orrDoc = new XmlDocument();
-			orrDoc.LoadXml(recoveredMessage);
-			Assert.IsNotNull(orrDoc);
-		}
+            var orrDoc = new XmlDocument();
+            orrDoc.LoadXml(recoveredMessage);
+            Assert.IsNotNull(orrDoc);
+        }
 
-		[Test]
-		public void ParseORFR04()
-		{
-			string Message =
-				@"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3.1|
+        [Test]
+        public void ParseORFR04()
+        {
+            var message =
+                @"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3.1|
 MSA|AA|123456789|
 QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
 QRF||20050101000000||
@@ -166,21 +168,22 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-			PipeParser Parser = new PipeParser();
+            var parser = new PipeParser();
 
-			IMessage m = Parser.Parse(Message);
+            var m = parser.Parse(message);
 
-			ORF_R04 orfR04 = m as ORF_R04;
-			Assert.IsNotNull(orfR04);
-			Assert.AreEqual("12",
-				orfR04.GetQUERY_RESPONSE().GetORDER().GetOBSERVATION().OBX.GetObservationValue()[0].Data.ToString());
-		}
+            var orfR04 = m as ORF_R04;
+            Assert.IsNotNull(orfR04);
+            Assert.AreEqual(
+                "12",
+                orfR04.GetQUERY_RESPONSE().GetORDER().GetOBSERVATION().OBX.GetObservationValue()[0].Data.ToString());
+        }
 
-		[Test]
-		public void ParseORFR04ToXML()
-		{
-			string Message =
-				@"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3.1|
+        [Test]
+        public void ParseORFR04ToXML()
+        {
+            var message =
+                @"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3.1|
 MSA|AA|123456789|
 QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
 QRF||20050101000000||
@@ -188,29 +191,29 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-			PipeParser Parser = new PipeParser();
+            var parser = new PipeParser();
 
-			IMessage m = Parser.Parse(Message);
+            var m = parser.Parse(message);
 
-			ORF_R04 orfR04 = m as ORF_R04;
+            var orfR04 = m as ORF_R04;
 
-			Assert.IsNotNull(orfR04);
+            Assert.IsNotNull(orfR04);
 
-			XMLParser xmlParser = new DefaultXMLParser();
+            XMLParser xmlParser = new DefaultXMLParser();
 
-			string recoveredMessage = xmlParser.Encode(orfR04);
+            var recoveredMessage = xmlParser.Encode(orfR04);
 
-			Assert.IsNotNull(recoveredMessage);
-			Assert.IsFalse(string.Empty.Equals(recoveredMessage));
-		}
+            Assert.IsNotNull(recoveredMessage);
+            Assert.IsFalse(string.Empty.Equals(recoveredMessage));
+        }
 
-		/// <summary>
-		/// translate a more complex ORM Message
-		/// </summary>
-		[Test]
-		public void ParseORMwithOBXToXML()
-		{
-			string Message = @"MSH|^~\&|INVISION|DHC|SUNQUEST LAB||200606191615||ORM^O01|ORDR|P|2.3.1|LAB
+        /// <summary>
+        /// translate a more complex ORM Message.
+        /// </summary>
+        [Test]
+        public void ParseORMwithOBXToXML()
+        {
+            var message = @"MSH|^~\&|INVISION|DHC|SUNQUEST LAB||200606191615||ORM^O01|ORDR|P|2.3.1|LAB
 PID|0001||3020956||TRAINONLYPOE^ONE||19770903|F||W||||||||40230443
 PV1|0001|I|MICU^W276^01||||045716^ABAZA, MONA M|||MED|||||||045716|F|000000030188
 ORC|NW|01444^00001|||||||||||L
@@ -219,29 +222,29 @@ OBX||NM|||999||||||
 OBX||NM|||999||||||
 OBX||NM|||999||||||";
 
-			PipeParser Parser = new PipeParser();
+            var parser = new PipeParser();
 
-			IMessage m = Parser.Parse(Message);
+            var m = parser.Parse(message);
 
-			ORM_O01 msgObj = m as ORM_O01;
+            var msgObj = m as ORM_O01;
 
-			Assert.IsNotNull(msgObj);
+            Assert.IsNotNull(msgObj);
 
-			XMLParser xmlParser = new DefaultXMLParser();
+            XMLParser xmlParser = new DefaultXMLParser();
 
-			string recoveredMessage = xmlParser.Encode(msgObj);
+            var recoveredMessage = xmlParser.Encode(msgObj);
 
-			Assert.IsNotNull(recoveredMessage);
-			Assert.IsFalse(string.Empty.Equals(recoveredMessage));
-		}
+            Assert.IsNotNull(recoveredMessage);
+            Assert.IsFalse(string.Empty.Equals(recoveredMessage));
+        }
 
-		/// <summary>
-		/// translate a more complex ORM Message
-		/// </summary>
-		[Test]
-		public void ParseORMwithCompleteOBXToXML()
-		{
-			string Message = @"MSH|^~\&|INVISION|DHC|SUNQUEST LAB||200606191615||ORM^O01|ORDR|P|2.3.1|LAB
+        /// <summary>
+        /// translate a more complex ORM Message.
+        /// </summary>
+        [Test]
+        public void ParseORMwithCompleteOBXToXML()
+        {
+            var message = @"MSH|^~\&|INVISION|DHC|SUNQUEST LAB||200606191615||ORM^O01|ORDR|P|2.3.1|LAB
 PID|0001||3020956||TRAINONLYPOE^ONE||19770903|F||W||||||||40230443
 PV1|0001|I|MICU^W276^01||||045716^ABAZA, MONA M|||MED|||||||045716|F|000000030188
 ORC|NW|01444^00001|||||||||||L
@@ -250,52 +253,51 @@ OBX|1|TX|SDES||Blood, peripheral||||||Z
 OBX|2|TX|SREQ||LEFT ANTECUBITAL||||||Z
 OBX|3|TX|CULT||Beta hemolytic Streptococcus Group A||||||Z
 OBX|4|TX|CULT||Critical result(s) called to and verification ";
-			Message += "\"read-back\"";
-			Message += @" received from: Nu~||||||Z
+            message += "\"read-back\"";
+            message += @" received from: Nu~||||||Z
 ";
 
-			PipeParser Parser = new PipeParser();
+            var parser = new PipeParser();
 
-			IMessage m = Parser.Parse(Message);
+            var m = parser.Parse(message);
 
-			ORM_O01 msgObj = m as ORM_O01;
+            var msgObj = m as ORM_O01;
 
-			Assert.IsNotNull(msgObj);
+            Assert.IsNotNull(msgObj);
 
-			XMLParser xmlParser = new DefaultXMLParser();
+            XMLParser xmlParser = new DefaultXMLParser();
 
-			string recoveredMessage = xmlParser.Encode(msgObj);
+            var recoveredMessage = xmlParser.Encode(msgObj);
 
-			Assert.IsNotNull(recoveredMessage);
-			Assert.IsFalse(string.Empty.Equals(recoveredMessage));
-		}
+            Assert.IsNotNull(recoveredMessage);
+            Assert.IsFalse(string.Empty.Equals(recoveredMessage));
+        }
 
-		[Test]
-		public void ParseXMLToHL7()
-		{
-			string Message = GetQRYR02XML();
+        [Test]
+        public void ParseXMLToHL7()
+        {
+            var message = GetQRYR02XML();
 
-			XMLParser xmlParser = new DefaultXMLParser();
-			IMessage m = xmlParser.Parse(Message);
+            XMLParser xmlParser = new DefaultXMLParser();
+            var m = xmlParser.Parse(message);
 
-			QRY_R02 qryR02 = m as QRY_R02;
+            var qryR02 = m as QRY_R02;
 
-			Assert.IsNotNull(qryR02);
+            Assert.IsNotNull(qryR02);
 
-			PipeParser pipeParser = new PipeParser();
+            var pipeParser = new PipeParser();
 
-			string pipeOutput = pipeParser.Encode(qryR02);
+            var pipeOutput = pipeParser.Encode(qryR02);
 
-			Assert.IsNotNull(pipeOutput);
-			Assert.IsFalse(string.Empty.Equals(pipeOutput));
-		}
+            Assert.IsNotNull(pipeOutput);
+            Assert.IsFalse(string.Empty.Equals(pipeOutput));
+        }
 
-
-		[Test]
-		public void ParseORFR04ToXmlNoOCR()
-		{
-			string Message =
-				@"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3.1|
+        [Test]
+        public void ParseORFR04ToXmlNoOCR()
+        {
+            var message =
+                @"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3.1|
 MSA|AA|123456789|
 QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
 QRF||20050101000000||
@@ -303,27 +305,27 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-			PipeParser Parser = new PipeParser();
+            var parser = new PipeParser();
 
-			IMessage m = Parser.Parse(Message);
+            var m = parser.Parse(message);
 
-			ORF_R04 orfR04 = m as ORF_R04;
+            var orfR04 = m as ORF_R04;
 
-			Assert.IsNotNull(orfR04);
+            Assert.IsNotNull(orfR04);
 
-			XMLParser xmlParser = new DefaultXMLParser();
+            XMLParser xmlParser = new DefaultXMLParser();
 
-			string recoveredMessage = xmlParser.Encode(orfR04);
+            var recoveredMessage = xmlParser.Encode(orfR04);
 
-			Assert.IsNotNull(recoveredMessage);
-			Assert.IsFalse(recoveredMessage.IndexOf("ORC") > -1, "Returned Message added ORC segment.");
-		}
+            Assert.IsNotNull(recoveredMessage);
+            Assert.IsFalse(recoveredMessage.IndexOf("ORC") > -1, "Returned Message added ORC segment.");
+        }
 
-		[Test]
-		public void ParseORFR04ToXmlNoNTE()
-		{
-			string Message =
-				@"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3.1|
+        [Test]
+        public void ParseORFR04ToXmlNoNTE()
+        {
+            var message =
+                @"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3.1|
 MSA|AA|123456789|
 QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
 QRF||20050101000000||
@@ -331,26 +333,26 @@ PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC  
 OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
 OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
-			PipeParser Parser = new PipeParser();
+            var parser = new PipeParser();
 
-			IMessage m = Parser.Parse(Message);
+            var m = parser.Parse(message);
 
-			ORF_R04 orfR04 = m as ORF_R04;
+            var orfR04 = m as ORF_R04;
 
-			Assert.IsNotNull(orfR04);
+            Assert.IsNotNull(orfR04);
 
-			XMLParser xmlParser = new DefaultXMLParser();
+            XMLParser xmlParser = new DefaultXMLParser();
 
-			string recoveredMessage = xmlParser.Encode(orfR04);
+            var recoveredMessage = xmlParser.Encode(orfR04);
 
-			Assert.IsNotNull(recoveredMessage);
-			Assert.IsFalse(recoveredMessage.IndexOf("NTE") > -1, "Returned Message added ORC segment.");
-		}
+            Assert.IsNotNull(recoveredMessage);
+            Assert.IsFalse(recoveredMessage.IndexOf("NTE") > -1, "Returned Message added ORC segment.");
+        }
 
-		[Test]
-		public void ParseORFR04FromDHTest()
-		{
-			string Message = @"MSH|^~\&|Clinical Data Provider|DHHA|COHIECentral|COHIE|200609221408||ORF^R04||P|2.3.1
+        [Test]
+        public void ParseORFR04FromDHTest()
+        {
+            var message = @"MSH|^~\&|Clinical Data Provider|DHHA|COHIECentral|COHIE|200609221408||ORF^R04||P|2.3.1
 MSA|AA|
 PID|2019877||2019877^^^DH^MR||LOPEZ1^JAMES^TRISTAN||19740804|M
 OBR||00677^001|M428|CBC^CBC|||200511071505||||||||CBC^CBC|045716^STEELE||||||||DAH
@@ -426,45 +428,44 @@ OBX|9|TX|PLTC|1|(Ref Range: 1 k/uL)|k/uL|150-400||||Z
 OBX|10|NM|MPV||10.0|fL|6.2-10.0||||Z
 OBX|10|TX|MPV|1|(Ref Range: 6 fL)|fL|6.2-10.0||||Z";
 
-			PipeParser Parser = new PipeParser();
+            var parser = new PipeParser();
 
-			IMessage m = Parser.Parse(Message);
+            var m = parser.Parse(message);
 
-			ORF_R04 orfR04 = m as ORF_R04;
+            var orfR04 = m as ORF_R04;
 
-			Assert.IsNotNull(orfR04);
+            Assert.IsNotNull(orfR04);
 
-			XMLParser xmlParser = new DefaultXMLParser();
+            XMLParser xmlParser = new DefaultXMLParser();
 
-			string recoveredMessage = xmlParser.Encode(orfR04);
+            var recoveredMessage = xmlParser.Encode(orfR04);
 
-			Assert.IsNotNull(recoveredMessage);
-			Assert.IsFalse(recoveredMessage.IndexOf("NTE") > -1, "Returned Message added ORC segment.");
-		}
+            Assert.IsNotNull(recoveredMessage);
+            Assert.IsFalse(recoveredMessage.IndexOf("NTE") > -1, "Returned Message added ORC segment.");
+        }
 
-		public void TestDHPatient1111111()
-		{
-			PipeParser Parser = new PipeParser();
+        public void TestDHPatient1111111()
+        {
+            var parser = new PipeParser();
 
-			IMessage m = Parser.Parse(GetDHPatient1111111());
+            var m = parser.Parse(GetDHPatient1111111());
 
-			ORF_R04 orfR04 = m as ORF_R04;
+            var orfR04 = m as ORF_R04;
 
-			Assert.IsNotNull(orfR04);
-			object range = orfR04.GetQUERY_RESPONSE().GetORDER().GetOBSERVATION().OBX.GetObservationValue(1);
+            Assert.IsNotNull(orfR04);
+            object range = orfR04.GetQUERY_RESPONSE().GetORDER().GetOBSERVATION().OBX.GetObservationValue(1);
 
-			XMLParser xmlParser = new DefaultXMLParser();
+            XMLParser xmlParser = new DefaultXMLParser();
 
-			string recoveredMessage = xmlParser.Encode(orfR04);
+            var recoveredMessage = xmlParser.Encode(orfR04);
 
-			Assert.IsNotNull(recoveredMessage);
-			Assert.IsFalse(recoveredMessage.IndexOf("NTE") > -1, "Returned Message added ORC segment.");
-		}
+            Assert.IsNotNull(recoveredMessage);
+            Assert.IsFalse(recoveredMessage.IndexOf("NTE") > -1, "Returned Message added ORC segment.");
+        }
 
-
-		private static string GetQRYR02XML()
-		{
-			return @"<QRY_R02 xmlns=""urn:hl7-org:v2xml"">
+        private static string GetQRYR02XML()
+        {
+            return @"<QRY_R02 xmlns=""urn:hl7-org:v2xml"">
   <MSH>
     <MSH.1>|</MSH.1>
     <MSH.2>^~\&amp;</MSH.2>
@@ -531,12 +532,12 @@ OBX|10|TX|MPV|1|(Ref Range: 6 fL)|fL|6.2-10.0||||Z";
   </QRF>
 </QRY_R02>
 ";
-		}
+        }
 
-		[Test]
-		public void TestOBXDataTypes()
-		{
-			string message = @"MSH|^~\&|EPIC|AIDI|||20070921152053|ITFCOHIEIN|ORF^R04^ORF_R04|297|P|2.3.1|||
+        [Test]
+        public void TestOBXDataTypes()
+        {
+            var message = @"MSH|^~\&|EPIC|AIDI|||20070921152053|ITFCOHIEIN|ORF^R04^ORF_R04|297|P|2.3.1|||
 MSA|CA|1
 QRD|20060725141358|R|||||10^RD|1130851^^^^MRN|RES|||
 QRF|||||||||
@@ -557,22 +558,22 @@ OBX|13|DT|5315037^Start Date^Start Collection Dat^ABC||18APR06||||||F|||20060419
 QAK||OK||1|1|0
 ";
 
-			PipeParser parser = new PipeParser();
+            var parser = new PipeParser();
 
-			IMessage m = parser.Parse(message);
+            var m = parser.Parse(message);
 
-			ORF_R04 orfR04 = m as ORF_R04;
+            var orfR04 = m as ORF_R04;
 
-			Assert.IsNotNull(orfR04);
+            Assert.IsNotNull(orfR04);
 
-			XMLParser xmlParser = new DefaultXMLParser();
+            XMLParser xmlParser = new DefaultXMLParser();
 
-			string recoveredMessage = xmlParser.Encode(orfR04);
-		}
+            var recoveredMessage = xmlParser.Encode(orfR04);
+        }
 
-		private static string GetDHPatient1111111()
-		{
-			return @"MSH|^~\&|Clinical Data Provider|DHHA|COHIECentral|COHIE|200609271344||ORF^R04||P|2.3.1
+        private static string GetDHPatient1111111()
+        {
+            return @"MSH|^~\&|Clinical Data Provider|DHHA|COHIECentral|COHIE|200609271344||ORF^R04||P|2.3.1
 MSA|AA|
 PID|1111111||1111111^^^DH^MR||DUCK^DONALD^MIDDLENAME||19600909|M
 OBR||00002^001|4514754|RAD18100388^SHOULDER MIN 2 VIEW, LT|||200609212235|||M01|||||^|124420^CHEN^YENTING^^^^EM||||||200609220854|||||1^^^^^R^^ROUTINE|||||128652&MANUEL&MISTY D&&&&RAR
@@ -593,61 +594,61 @@ OBX|6|NM|O2SAT||98|%|91-95|H|||F
 OBX|6|TX|O2SAT||(Ref Range: 91-95 %)|%|91-95||||F
 OBX|7|NM|FIO2||100.0||||||F
 ";
-		}
+        }
 
-		/// <summary>
-		/// https://github.com/nHapiNET/nHapi/issues/135
-		/// </summary>
-		[TestCaseSource(nameof(_validV231DataTypes))]
-		public void TestObx5DataTypeIsSetFromObx2_AndAllDataTypesAreConstructable(Type expectedObservationValueType)
-		{
-			var message = $@"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.3.1|||AL|||ASCII
+        /// <summary>
+        /// https://github.com/nHapiNET/nHapi/issues/135.
+        /// </summary>
+        [TestCaseSource(nameof(validV231DataTypes))]
+        public void TestObx5DataTypeIsSetFromObx2_AndAllDataTypesAreConstructable(Type expectedObservationValueType)
+        {
+            var message = $@"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.3.1|||AL|||ASCII
 PID|1||1711114||Appt^Test||19720501||||||||||||001020006
 ORC|||||F
 OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
 OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}Value||||||F"
-			.Replace(Environment.NewLine, "\r");
+            .Replace(Environment.NewLine, "\r");
 
-			var parser = new PipeParser();
+            var parser = new PipeParser();
 
-			var parsed = (ORU_R01)parser.Parse(message);
+            var parsed = (ORU_R01)parser.Parse(message);
 
-			var actualObservationValueType = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
+            var actualObservationValueType = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
 
-			Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
-		}
+            Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
+        }
 
-		/// <summary>
-		/// Specified in Table 0125
-		/// </summary>
-		private static IEnumerable<Type> _validV231DataTypes = new List<Type>
-		{
-			typeof(AD),
-			typeof(CE),
-			typeof(CF),
-			typeof(CK),
-			typeof(CN),
-			typeof(CP),
-			typeof(CX),
-			typeof(DT),
-			typeof(ED),
-			typeof(FT),
-			typeof(ID),
-			typeof(MO),
-			typeof(NM),
-			typeof(PN),
-			typeof(RP),
-			typeof(SN),
-			typeof(ST),
-			typeof(TM),
-			typeof(TN),
-			typeof(TS),
-			typeof(TX),
-			typeof(XAD),
-			typeof(XCN),
-			typeof(XON),
-			typeof(XPN),
-			typeof(XTN)
-		};
-	}
+        /// <summary>
+        /// Specified in Table 0125.
+        /// </summary>
+        private static IEnumerable<Type> validV231DataTypes = new List<Type>
+        {
+            typeof(AD),
+            typeof(CE),
+            typeof(CF),
+            typeof(CK),
+            typeof(CN),
+            typeof(CP),
+            typeof(CX),
+            typeof(DT),
+            typeof(ED),
+            typeof(FT),
+            typeof(ID),
+            typeof(MO),
+            typeof(NM),
+            typeof(PN),
+            typeof(RP),
+            typeof(SN),
+            typeof(ST),
+            typeof(TM),
+            typeof(TN),
+            typeof(TS),
+            typeof(TX),
+            typeof(XAD),
+            typeof(XCN),
+            typeof(XON),
+            typeof(XPN),
+            typeof(XTN),
+        };
+    }
 }

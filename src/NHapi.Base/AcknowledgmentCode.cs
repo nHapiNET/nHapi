@@ -1,43 +1,43 @@
-﻿using System.ComponentModel;
-
-namespace NHapi.Base
+﻿namespace NHapi.Base
 {
-   public enum AcknowledgmentCode
-	{
-		/// <summary>
-		/// Application Accept
-		/// </summary>
-		[Description("Application Accept")]
-		AA = 1,
+    using System.ComponentModel;
 
-		/// <summary>
-		/// Application Error
-		/// </summary>
-		[Description("Application Error")]
-		AE = 2,
+    public enum AcknowledgmentCode
+    {
+        /// <summary>
+        /// Application Accept
+        /// </summary>
+        [Description("Application Accept")]
+        AA = 1,
 
-		/// <summary>
-		/// Application Reject
-		/// </summary>
-		[Description("Application Reject")]
-		AR = 3,
+        /// <summary>
+        /// Application Error
+        /// </summary>
+        [Description("Application Error")]
+        AE = 2,
 
-		/// <summary>
-		/// Commit Accept
-		/// </summary>
-		[Description("Commit Accept")]
-		CA = 5,
+        /// <summary>
+        /// Application Reject
+        /// </summary>
+        [Description("Application Reject")]
+        AR = 3,
 
-		/// <summary>
-		/// Commit Error
-		/// </summary>
-		[Description("Commit Error")]
-		CE = 6,
+        /// <summary>
+        /// Commit Accept
+        /// </summary>
+        [Description("Commit Accept")]
+        CA = 5,
 
-		/// <summary>
-		/// Commit Reject
-		/// </summary>
-		[Description("Commit Reject")]
-		CR = 7 
-	}
+        /// <summary>
+        /// Commit Error
+        /// </summary>
+        [Description("Commit Error")]
+        CE = 6,
+
+        /// <summary>
+        /// Commit Reject
+        /// </summary>
+        [Description("Commit Reject")]
+        CR = 7,
+    }
 }

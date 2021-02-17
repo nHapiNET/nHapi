@@ -5,15 +5,15 @@
   Software distributed under the License is distributed on an "AS IS" basis,
   WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
   specific language governing rights and limitations under the License.
-  
+
   The Original Code is "AbstractPrimitive.java".  Description:
   "Base class for Primitives.  Performs validation in setValue()."
-  
+
   The Initial Developer of the Original Code is University Health Network. Copyright (C)
   2001-2005.  All Rights Reserved.
-  
+
   Contributor(s): ______________________________________.
-  
+
   Alternatively, the contents of this file may be used under the terms of the
   GNU General Public License (the "GPL"), in which case the provisions of the GPL are
   applicable instead of those above.  If you wish to allow use of your version of this
@@ -24,86 +24,90 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
-using NHapi.Base.validation;
-
 namespace NHapi.Base.Model
 {
-   /// <summary> Base class for Primitives.  Performs validation in setValue().
-   /// 
-   /// </summary>
-   /// <author>  Bryan Tripp
-   /// </author>
-   public abstract class AbstractPrimitive : AbstractType, IPrimitive
-	{
-		/// <summary> Sets the value of this Primitive, first performing validation as specified 
-		/// by <code>getMessage().getValidationContext()</code>.  No validation is performed 
-		/// if getMessage() returns null. 
-		/// 
-		/// </summary>
-		public virtual String Value
-		{
-			get { return myValue; }
+    using System;
 
-			set
-			{
-				IMessage message = Message;
+    using NHapi.Base.Validation;
 
-				if (message != null)
-				{
-					IValidationContext context = message.ValidationContext;
-					String version = message.Version;
+    /// <summary> Base class for Primitives.  Performs validation in setValue().
+    ///
+    /// </summary>
+    /// <author>  Bryan Tripp.
+    /// </author>
+    public abstract class AbstractPrimitive : AbstractType, IPrimitive
+    {
+        private string myValue;
 
-					if (context != null)
-					{
-						IPrimitiveTypeRule[] rules = context.getPrimitiveRules(version, TypeName, this);
+        /// <summary>
+        /// <param name="message">message to which this type belongs
+        /// </param>
+        /// </summary>
+        public AbstractPrimitive(IMessage message)
+            : this(message, null)
+        {
+        }
 
-						foreach (IPrimitiveTypeRule rule in rules)
-						{
-							value = rule.correct(value);
-							if (!rule.test(value))
-							{
-								string validationFailureMessage = "Failed validation rule: " + rule.Description;
-								if (!string.IsNullOrEmpty(rule.SectionReference))
-								{
-									validationFailureMessage += Environment.NewLine + "Reason: " + rule.SectionReference;
-								}
-								throw new DataTypeException(validationFailureMessage);
-							}
-						}
-					}
-				}
+        /// <summary>
+        /// <param name="message">message to which this type belongs
+        /// <param name="description">The description of the primitive</param>
+        /// </param>
+        /// </summary>
+        public AbstractPrimitive(IMessage message, string description)
+            : base(message, description)
+        {
+        }
 
-				myValue = value;
-			}
-		}
+        /// <summary> Sets the value of this Primitive, first performing validation as specified
+        /// by. <code>getMessage().getValidationContext()</code>.  No validation is performed
+        /// if getMessage() returns null.
+        ///
+        /// </summary>
+        public virtual string Value
+        {
+            get
+            {
+                return myValue;
+            }
 
-		///<summary>
-		/// <param name="message">message to which this type belongs
-		/// </param>
-		/// </summary>
-		public AbstractPrimitive(IMessage message)
-			: this(message, null)
-		{
-		}
+            set
+            {
+                var message = Message;
 
-		///<summary>
-		/// <param name="message">message to which this type belongs
-		/// <param name="description">The descption of the primitive</param>
-		/// </param>
-		/// </summary>
-		public AbstractPrimitive(IMessage message, string description)
-			: base(message, description)
-		{
-		}
+                if (message != null)
+                {
+                    var context = message.ValidationContext;
+                    var version = message.Version;
 
-		private String myValue;
+                    if (context != null)
+                    {
+                        var rules = context.getPrimitiveRules(version, TypeName, this);
 
-		/// <summary> Returns the value of getValue() </summary>
-		public override String ToString()
-		{
-			return Value;
-		}
-	}
+                        foreach (var rule in rules)
+                        {
+                            value = rule.correct(value);
+                            if (!rule.test(value))
+                            {
+                                var validationFailureMessage = "Failed validation rule: " + rule.Description;
+                                if (!string.IsNullOrEmpty(rule.SectionReference))
+                                {
+                                    validationFailureMessage += Environment.NewLine + "Reason: " + rule.SectionReference;
+                                }
+
+                                throw new DataTypeException(validationFailureMessage);
+                            }
+                        }
+                    }
+                }
+
+                myValue = value;
+            }
+        }
+
+        /// <summary> Returns the value of getValue(). </summary>
+        public override string ToString()
+        {
+            return Value;
+        }
+    }
 }

@@ -1,91 +1,75 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using NHapi.Base.Model;
-
 namespace NHapi.Base.Model
 {
-	/// <summary>
-	/// Abstract group item
-	/// </summary>
-	public class AbstractGroupItem
-	{
-		private string _name;
-		private List<IStructure> _structures = new List<IStructure>();
-		private bool _isRequired = false;
-		private bool _isRepeating = false;
-		private Type _class;
+    using System;
+    using System.Collections.Generic;
 
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="name"></param>
-		/// <param name="required"></param>
-		/// <param name="repeating"></param>
-		/// <param name="classType"></param>
-		public AbstractGroupItem(string name, bool required, bool repeating, Type classType)
-		{
-			_name = name;
-			_isRequired = required;
-			_isRepeating = repeating;
-			_class = classType;
-		}
+    /// <summary>
+    /// Abstract group item.
+    /// </summary>
+    public class AbstractGroupItem
+    {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="required"></param>
+        /// <param name="repeating"></param>
+        /// <param name="classType"></param>
+        public AbstractGroupItem(string name, bool required, bool repeating, Type classType)
+        {
+            Name = name;
+            IsRequired = required;
+            IsRepeating = repeating;
+            ClassType = classType;
+        }
 
-		/// <summary>
-		/// Name of the item
-		/// </summary>
-		public string Name
-		{
-			get { return _name; }
-		}
+        /// <summary>
+        /// Name of the item.
+        /// </summary>
+        public string Name { get; }
 
-		/// <summary>
-		/// The type of class
-		/// </summary>
-		public Type ClassType
-		{
-			get { return _class; }
-		}
+        /// <summary>
+        /// The type of class.
+        /// </summary>
+        public Type ClassType { get; }
 
-		/// <summary>
-		/// Is item repeating
-		/// </summary>
-		public bool IsRepeating
-		{
-			get { return _isRepeating; }
-		}
+        /// <summary>
+        /// Is item repeating.
+        /// </summary>
+        public bool IsRepeating { get; }
 
-		/// <summary>
-		/// Is item required
-		/// </summary>
-		public bool IsRequired
-		{
-			get { return _isRequired; }
-		}
+        /// <summary>
+        /// Is item required.
+        /// </summary>
+        public bool IsRequired { get; }
 
-		/// <summary>
-		/// The structures of the group item
-		/// </summary>
-		public List<IStructure> Structures
-		{
-			get { return _structures; }
-		}
+        /// <summary>
+        /// The structures of the group item.
+        /// </summary>
+        public List<IStructure> Structures { get; } = new List<IStructure>();
 
-		/// <summary>
-		/// Structure indexer
-		/// </summary>
-		/// <param name="index"></param>
-		/// <returns></returns>
-		public IStructure this[int index]
-		{
-			get { return _structures[index]; }
-			set
-			{
-				if (index > 0 && !_isRepeating)
-					throw new HL7Exception("Cannot add multiple strucutres to " + _name + ".  Item is non-repeating");
+        /// <summary>
+        /// Structure indexer.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public IStructure this[int index]
+        {
+            get
+            {
+                return Structures[index];
+            }
 
-				_structures[index] = value;
-			}
-		}
-	}
+            set
+            {
+                if (index > 0 && !IsRepeating)
+                {
+                    throw new HL7Exception(
+                        $"Cannot add multiple structures to {Name}. Item is non-repeating");
+                }
+
+                Structures[index] = value;
+            }
+        }
+    }
 }

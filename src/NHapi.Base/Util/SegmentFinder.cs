@@ -5,15 +5,15 @@
   Software distributed under the License is distributed on an "AS IS" basis,
   WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
   specific language governing rights and limitations under the License.
-  
+
   The Original Code is "SegmentFinder.java".  Description:
   "A tool for getting segments by name within a message or part of a message."
-  
+
   The Initial Developer of the Original Code is University Health Network. Copyright (C)
   2002.  All Rights Reserved.
-  
+
   Contributor(s): ______________________________________.
-  
+
   Alternatively, the contents of this file may be used under the terms of the
   GNU General Public License (the "GPL"), in which case the provisions of the GPL are
   applicable instead of those above.  If you wish to allow use of your version of this
@@ -24,148 +24,201 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-using System.Text.RegularExpressions;
-
-using NHapi.Base.Model;
-
 namespace NHapi.Base.Util
 {
-   /// <summary> A tool for getting segments by name within a message or part of a message.</summary>
-   /// <author>  Bryan Tripp
-   /// </author>
-   public class SegmentFinder : MessageNavigator
-	{
-		/// <summary> Creates a new instance of SegmentFinder.</summary>
-		/// <param name="root">the scope of searches -- may be a whole message or only a branch
-		/// </param>
-		public SegmentFinder(IGroup root)
-			: base(root)
-		{
-		}
+    using System;
+    using System.Text.RegularExpressions;
 
-		/// <summary>
-		/// Returns the first segment with a name that matches the given pattern, in a depth-first search.
-		/// Repeated searches are initiated from the location just AFTER where the last segment was found.
-		/// Call reset() is this is not desired.  Note: this means that the current location will not be found.
-		/// </summary>
-		/// <param name="namePattern">
-		/// The name of the segment to find. The wildcard * means any number 
-		/// of arbitrary characters; the wildcard ? one arbitrary character
-		/// (eg "P*" or "*ID" or "???" or "P??" would match on PID).
-		/// </param>
-		/// <param name="rep">the repetition of the segment to return.</param>
-		public virtual ISegment findSegment(String namePattern, int rep)
-		{
-			IStructure s = null;
-			do
-			{
-				s = findStructure(namePattern, rep);
-			} while (!typeof(ISegment).IsAssignableFrom(s.GetType()));
-			return (ISegment)s;
-		}
+    using NHapi.Base.Model;
 
-		/// <summary> As findSegment(), but will only return a group.</summary>
-		public virtual IGroup findGroup(String namePattern, int rep)
-		{
-			IStructure s = null;
-			do
-			{
-				s = findStructure(namePattern, rep);
-			} while (!typeof(IGroup).IsAssignableFrom(s.GetType()));
-			return (IGroup)s;
-		}
+    /// <summary> A tool for getting segments by name within a message or part of a message.</summary>
+    /// <author>  Bryan Tripp.
+    /// </author>
+    public class SegmentFinder : MessageNavigator
+    {
+        /// <summary> Creates a new instance of SegmentFinder.</summary>
+        /// <param name="root">the scope of searches -- may be a whole message or only a branch.
+        /// </param>
+        public SegmentFinder(IGroup root)
+            : base(root)
+        {
+        }
 
-		/// <summary> Returns the first matching structure AFTER the current position</summary>
-		private IStructure findStructure(String namePattern, int rep)
-		{
-			IStructure s = null;
+        [Obsolete("This method has been replaced by 'FindSegment'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual ISegment findSegment(string namePattern, int rep)
+        {
+            return FindSegment(namePattern, rep);
+        }
 
-			while (s == null)
-			{
-				iterate(false, false);
-				String currentName = getCurrentStructure(0).GetStructureName();
-				if (matches(namePattern, currentName))
-				{
-					s = getCurrentStructure(rep);
-				}
-			}
-			return s;
-		}
+        /// <summary>
+        /// Returns the first segment with a name that matches the given pattern, in a depth-first search.
+        /// Repeated searches are initiated from the location just AFTER where the last segment was found.
+        /// Call reset() is this is not desired.  Note: this means that the current location will not be found.
+        /// </summary>
+        /// <param name="namePattern">
+        /// The name of the segment to find. The wildcard * means any number
+        /// of arbitrary characters; the wildcard ? one arbitrary character
+        /// (eg "P*" or "*ID" or "???" or "P??" would match on PID).
+        /// </param>
+        /// <param name="rep">the repetition of the segment to return.</param>
+        public virtual ISegment FindSegment(string namePattern, int rep)
+        {
+            IStructure s = null;
+            do
+            {
+                s = FindStructure(namePattern, rep);
+            }
+            while (!typeof(ISegment).IsAssignableFrom(s.GetType()));
 
-		/// <summary>
-		/// Returns the first segment with a name matching the given pattern that is a sibling of
-		/// the structure at the current location. Other parts of the message are
-		/// not searched (in contrast to findSegment).
-		/// As a special case, if the pointer is at the root, the children of the root
-		/// are searched.
-		/// </summary>
-		/// <param name="namePattern">
-		/// The name of the segment to get. The wildcard * means any number 
-		/// of arbitrary characters; the wildcard ? one arbitrary character
-		/// (eg "P*" or "*ID" or "???" or "P??" would match on PID).
-		/// </param>
-		/// <param name="rep">the repetition of the segment to return.</param>
-		public virtual ISegment getSegment(String namePattern, int rep)
-		{
-			IStructure s = GetStructure(namePattern, rep);
-			if (!typeof(ISegment).IsAssignableFrom(s.GetType()))
-			{
-				throw new HL7Exception(s.GetStructureName() + " is not a segment", ErrorCode.APPLICATION_INTERNAL_ERROR);
-			}
-			return (ISegment)s;
-		}
+            return (ISegment)s;
+        }
 
-		/// <summary> As getSegment() but will only return a group.</summary>
-		public virtual IGroup getGroup(String namePattern, int rep)
-		{
-			IStructure s = GetStructure(namePattern, rep);
-			if (!typeof(IGroup).IsAssignableFrom(s.GetType()))
-			{
-				throw new HL7Exception(s.GetStructureName() + " is not a group", ErrorCode.APPLICATION_INTERNAL_ERROR);
-			}
-			return (IGroup)s;
-		}
+        [Obsolete("This method has been replaced by 'FindGroup'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual IGroup findGroup(string namePattern, int rep)
+        {
+            return FindGroup(namePattern, rep);
+        }
 
-		private IStructure GetStructure(String namePattern, int rep)
-		{
-			IStructure s = null;
+        /// <summary> As findSegment(), but will only return a group.</summary>
+        public virtual IGroup FindGroup(string namePattern, int rep)
+        {
+            IStructure s = null;
+            do
+            {
+                s = FindStructure(namePattern, rep);
+            }
+            while (!typeof(IGroup).IsAssignableFrom(s.GetType()));
 
-			if (getCurrentStructure(0).Equals(Root))
-				drillDown(0);
+            return (IGroup)s;
+        }
 
-			String[] names = getCurrentStructure(0).ParentStructure.Names;
-			for (int i = 0; i < names.Length && s == null; i++)
-			{
-				if (matches(namePattern, names[i]))
-				{
-					toChild(i);
-					s = getCurrentStructure(rep);
-				}
-			}
+        [Obsolete("This method has been replaced by 'GetSegment'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual ISegment getSegment(string namePattern, int rep)
+        {
+            return GetSegment(namePattern, rep);
+        }
 
-			if (s == null)
-				throw new HL7Exception("Can't find " + namePattern + " as a direct child", ErrorCode.APPLICATION_INTERNAL_ERROR);
+        /// <summary>
+        /// Returns the first segment with a name matching the given pattern that is a sibling of
+        /// the structure at the current location. Other parts of the message are
+        /// not searched (in contrast to findSegment).
+        /// As a special case, if the pointer is at the root, the children of the root
+        /// are searched.
+        /// </summary>
+        /// <param name="namePattern">
+        /// The name of the segment to get. The wildcard * means any number
+        /// of arbitrary characters; the wildcard ? one arbitrary character
+        /// (eg "P*" or "*ID" or "???" or "P??" would match on PID).
+        /// </param>
+        /// <param name="rep">the repetition of the segment to return.</param>
+        public virtual ISegment GetSegment(string namePattern, int rep)
+        {
+            var s = GetStructure(namePattern, rep);
+            if (!typeof(ISegment).IsAssignableFrom(s.GetType()))
+            {
+                throw new HL7Exception(s.GetStructureName() + " is not a segment", ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
 
-			return s;
-		}
+            return (ISegment)s;
+        }
 
-		/// <summary> Tests whether the given name matches the given pattern.</summary>
-		private bool matches(String pattern, String candidate)
-		{
-			//shortcut ...
-			if (pattern.Equals(candidate))
-			{
-				return true;
-			}
+        [Obsolete("This method has been replaced by 'GetGroup'.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        public virtual IGroup getGroup(string namePattern, int rep)
+        {
+            return GetGroup(namePattern, rep);
+        }
 
-			if (!Regex.IsMatch(pattern, "[\\w\\*\\?]*"))
-				throw new ArgumentException("The pattern " + pattern + " is not valid.  Only [\\w\\*\\?]* allowed.");
+        /// <summary> As getSegment() but will only return a group.</summary>
+        public virtual IGroup GetGroup(string namePattern, int rep)
+        {
+            var s = GetStructure(namePattern, rep);
+            if (!typeof(IGroup).IsAssignableFrom(s.GetType()))
+            {
+                throw new HL7Exception(s.GetStructureName() + " is not a group", ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
 
-			pattern = Regex.Replace(pattern, "\\*", ".*");
-			pattern = Regex.Replace(pattern, "\\?", ".");
+            return (IGroup)s;
+        }
 
-			return Regex.IsMatch(candidate, pattern);
-		}
-	}
+        /// <summary> Returns the first matching structure AFTER the current position.</summary>
+        private IStructure FindStructure(string namePattern, int rep)
+        {
+            IStructure s = null;
+
+            while (s == null)
+            {
+                Iterate(false, false);
+                var currentName = GetCurrentStructure(0).GetStructureName();
+                if (Matches(namePattern, currentName))
+                {
+                    s = GetCurrentStructure(rep);
+                }
+            }
+
+            return s;
+        }
+
+        private IStructure GetStructure(string namePattern, int rep)
+        {
+            IStructure s = null;
+
+            if (GetCurrentStructure(0).Equals(Root))
+            {
+                DrillDown(0);
+            }
+
+            var names = GetCurrentStructure(0).ParentStructure.Names;
+            for (var i = 0; i < names.Length && s == null; i++)
+            {
+                if (Matches(namePattern, names[i]))
+                {
+                    ToChild(i);
+                    s = GetCurrentStructure(rep);
+                }
+            }
+
+            if (s == null)
+            {
+                throw new HL7Exception("Can't find " + namePattern + " as a direct child", ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
+
+            return s;
+        }
+
+        /// <summary> Tests whether the given name matches the given pattern.</summary>
+        private bool Matches(string pattern, string candidate)
+        {
+            // shortcut ...
+            if (pattern.Equals(candidate))
+            {
+                return true;
+            }
+
+            if (!Regex.IsMatch(pattern, "[\\w\\*\\?]*"))
+            {
+                throw new ArgumentException("The pattern " + pattern + " is not valid.  Only [\\w\\*\\?]* allowed.");
+            }
+
+            pattern = Regex.Replace(pattern, "\\*", ".*");
+            pattern = Regex.Replace(pattern, "\\?", ".");
+
+            return Regex.IsMatch(candidate, pattern);
+        }
+    }
 }

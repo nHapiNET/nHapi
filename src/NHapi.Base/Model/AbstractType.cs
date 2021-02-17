@@ -5,16 +5,16 @@
   Software distributed under the License is distributed on an "AS IS" basis,
   WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
   specific language governing rights and limitations under the License.
-  
+
   The Original Code is "AbstractType.java".  Description:
-  
-  "An abstract Type that provides a default implementation of getName()" 
-  
+
+  "An abstract Type that provides a default implementation of getName()"
+
   The Initial Developer of the Original Code is University Health Network. Copyright (C)
   2001.  All Rights Reserved.
-  
+
   Contributor(s): ______________________________________.
-  
+
   Alternatively, the contents of this file may be used under the terms of the
   GNU General Public License (the "GPL"), in which case the provisions of the GPL are
   applicable instead of those above.  If you wish to allow use of your version of this
@@ -25,75 +25,58 @@
   this file under either the MPL or the GPL.
 */
 
-using System;
-
 namespace NHapi.Base.Model
 {
-   /// <summary> An abstract Type that provides a default implementation of getName(). 
-   /// 
-   /// </summary>
-   /// <author>  Bryan Tripp
-   /// </author>
-   public class AbstractType : IType
-	{
-		private ExtraComponents extra;
-		private IMessage message;
-		private string description;
+    /// <summary> An abstract Type that provides a default implementation of getName().
+    ///
+    /// </summary>
+    /// <author>  Bryan Tripp.
+    /// </author>
+    public class AbstractType : IType
+    {
+        /// <summary> Creates a new instance of AbstractType.</summary>
+        /// <param name="message">message to which this type belongs.
+        /// </param>
+        public AbstractType(IMessage message)
+            : this(message, null)
+        {
+        }
 
+        /// <summary> Creates a new instance of AbstractType.</summary>
+        /// <param name="message">message to which this type belongs.
+        /// <param name="description">The type description</param>
+        /// </param>
+        public AbstractType(IMessage message, string description)
+        {
+            ExtraComponents = new ExtraComponents(message);
+            Description = description;
+            Message = message;
+        }
 
-		/// <summary>
-		/// Returns the name of the type (used in XML encoding and profile checking)  
-		/// </summary>
-		public virtual String TypeName
-		{
-			get
-			{
-				String longClassName = GetType().FullName;
-				return longClassName.Substring(longClassName.LastIndexOf('.') + 1);
-			}
-		}
+        /// <summary>
+        /// Returns the name of the type (used in XML encoding and profile checking).
+        /// </summary>
+        public virtual string TypeName
+        {
+            get
+            {
+                var longClassName = GetType().FullName;
+                return longClassName.Substring(longClassName.LastIndexOf('.') + 1);
+            }
+        }
 
-		/// <summary>
-		/// Extra components
-		/// </summary>
-		public virtual ExtraComponents ExtraComponents
-		{
-			get { return extra; }
-		}
+        /// <summary>
+        /// Extra components.
+        /// </summary>
+        public virtual ExtraComponents ExtraComponents { get; }
 
-		/// <returns> the message to which this Type belongs
-		/// </returns>
-		public virtual IMessage Message
-		{
-			get { return message; }
-		}
+        /// <returns> the message to which this Type belongs.
+        /// </returns>
+        public virtual IMessage Message { get; }
 
-		/// <summary>
-		/// Return the description of the type
-		/// </summary>
-		public virtual string Description
-		{
-			get { return description; }
-		}
-
-
-		/// <summary> Creates a new instance of AbstractType</summary>
-		/// <param name="message">message to which this type belongs 
-		/// </param>
-		public AbstractType(IMessage message)
-			: this(message, null)
-		{
-		}
-
-		/// <summary> Creates a new instance of AbstractType</summary>
-		/// <param name="message">message to which this type belongs 
-		/// <param name="description">The type description</param>
-		/// </param>
-		public AbstractType(IMessage message, string description)
-		{
-			extra = new ExtraComponents(message);
-			this.description = description;
-			this.message = message;
-		}
-	}
+        /// <summary>
+        /// Return the description of the type.
+        /// </summary>
+        public virtual string Description { get; }
+    }
 }
