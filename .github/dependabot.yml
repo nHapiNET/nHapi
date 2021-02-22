@@ -8,72 +8,24 @@ updates:
   - package-ecosystem: "nuget" 
     directory: "/src/NHapi.Base"
     schedule:
-      interval: "daily"
-  - package-ecosystem: "nuget" 
-    directory: "/src/NHapi.Model.V21"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "nuget" 
-    directory: "/src/NHapi.Model.V22"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "nuget" 
-    directory: "/src/NHapi.Model.V22_ZSegments"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "nuget" 
-    directory: "/src/NHapi.Model.V23"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "nuget" 
-    directory: "/src/NHapi.Model.V231"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "nuget" 
-    directory: "/src/NHapi.Model.V24"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "nuget" 
-    directory: "/src/NHapi.Model.V25"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "nuget" 
-    directory: "/src/NHapi.Model.V251"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "nuget" 
-    directory: "/src/NHapi.Model.V26"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "nuget" 
-    directory: "/src/NHapi.Model.V271"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "nuget" 
-    directory: "/src/NHapi.Model.V28"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "nuget" 
-    directory: "/src/NHapi.Model.V281"
-    schedule:
-      interval: "daily"
+      interval: "weekly"
   - package-ecosystem: "nuget" 
     directory: "/src/ModelGenerator" 
     schedule:
-      interval: "daily"
+      interval: "weekly"
   - package-ecosystem: "nuget"
     directory: "/src/NHapi.SourceGeneration"
     schedule:
-      interval: "daily"
+      interval: "weekly"
   - package-ecosystem: "nuget"
     directory: "/tests/NHapi.Base.NUnit"
     schedule:
-      interval: "daily"
+      interval: "weekly"
   - package-ecosystem: "nuget"
     directory: "/tests/NHapi.NUnit"
     schedule:
-      interval: "daily"
+      interval: "weekly"
   - package-ecosystem: "nuget"
     directory: "/tests/NHapi.NUnit.SourceGeneration"
     schedule:
-      interval: "daily"
+      interval: "weekly"
