@@ -28,108 +28,27 @@
 namespace NHapi.Base.Parser
 {
     using System;
-    using System.Collections;
+    using System.Collections.Generic;
+    using System.Configuration;
     using System.Linq;
     using System.Text;
 
-    /// <summary> Handles "escaping" and "un-escaping" of text according to the HL7 escape sequence rules
+    using NHapi.Base.Model.Configuration;
+
+    /// <summary>
+    /// Handles "escaping" and "un-escaping" of text according to the HL7 escape sequence rules
     /// defined in section 2.10 of the standard (version 2.4).  Currently, escape sequences for
     /// multiple character sets are unsupported.  The highlighting, hexadecimal, and locally
     /// defined escape sequences are also unsupported.
     /// </summary>
-    /// <author>  Bryan Tripp.
-    /// </author>
+    /// <author>Bryan Tripp.</author>
     public class Escape
     {
-        // This items are to not be escaped when building the message
-        private static string[] nonEscapeCharacters = new string[] { @"\.", @"\X", @"\Z", @"\C", @"\M", @"\H", @"\N", @"\S" };
-        private static string[] singleCharNonEscapeCharacters = new string[] { @"H", @"N", @"S", @"T", @"R", @"F", @"E" };
-        private static string[] multiCharNonEscapeCharacters = new string[] { @"X", @"Z", @"C", @"M" };
-        private static Hashtable nonEscapeCharacterMapping = new Hashtable();
-        private static Hashtable singleCharNonEscapeCharacterMapping = new Hashtable();
-        private static Hashtable multiCharNonEscapeCharacterMapping = new Hashtable();
-        private static Hashtable variousEncChars = new Hashtable(5);
-        private static char[] hexDigits = new char[16] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-
-        static Escape()
-        {
-            foreach (var element in nonEscapeCharacters)
-            {
-                nonEscapeCharacterMapping.Add(element, element);
-            }
-
-            foreach (var element in singleCharNonEscapeCharacters)
-            {
-                singleCharNonEscapeCharacterMapping.Add(element, element);
-            }
-
-            foreach (var element in multiCharNonEscapeCharacters)
-            {
-                multiCharNonEscapeCharacterMapping.Add(element, element);
-            }
-        }
-
-        /// <summary>Creates a new instance of Escape. </summary>
-        public Escape()
-        {
-        }
-
-        /// <summary> Test harness.</summary>
-        [STAThread]
-        public static void Main(string[] args)
-        {
-            var testString = "foo$r$this is $ $p$test$r$r$ string";
-
-            // System.out.println(testString);
-            // System.out.println(replace(testString, "$r$", "***"));
-            // System.out.println(replace(testString, "$", "+"));
-
-            // test speed gain with cache
-            var n = 100000;
-            Hashtable seqs;
-            var ec = new EncodingCharacters('|', "^~\\&");
-
-            // warm up the JIT
-            for (var i = 0; i < n; i++)
-            {
-                seqs = MakeEscapeSequences(ec);
-            }
-
-            for (var i = 0; i < n; i++)
-            {
-                seqs = GetEscapeSequences(ec);
-            }
-
-            // time
-            var start = (DateTime.Now.Ticks - 621355968000000000) / 10000;
-            for (var i = 0; i < n; i++)
-            {
-                seqs = MakeEscapeSequences(ec);
-            }
-
-            Console.Out.WriteLine("Time to make " + n + " times: " + (((DateTime.Now.Ticks - 621355968000000000) / 10000) - start));
-            start = (DateTime.Now.Ticks - 621355968000000000) / 10000;
-            for (var i = 0; i < n; i++)
-            {
-                seqs = GetEscapeSequences(ec);
-            }
-
-            Console.Out.WriteLine("Time to get " + n + " times: " + (((DateTime.Now.Ticks - 621355968000000000) / 10000) - start));
-            start = (DateTime.Now.Ticks - 621355968000000000) / 10000;
-            for (var i = 0; i < n; i++)
-            {
-                seqs = MakeEscapeSequences(ec);
-            }
-
-            Console.Out.WriteLine("Time to make " + n + " times: " + (((DateTime.Now.Ticks - 621355968000000000) / 10000) - start));
-
-            // test escape:
-            testString = "this | is ^ a field \\T\\ with & some ~ bad stuff \\T\\";
-            Console.Out.WriteLine("Original:  " + testString);
-            var escaped = EscapeText(testString, ec);
-            Console.Out.WriteLine("Escaped:   " + escaped);
-            Console.Out.WriteLine("Un-escaped: " + UnescapeText(escaped, ec));
-        }
+        /// <summary>
+        /// Is used to cache multiple <see cref="EncodingLookups"/> keyed on <see cref="EncodingCharacters"/>
+        /// for quick re-use.
+        /// </summary>
+        private static readonly IDictionary<EncodingCharacters, EncodingLookups> VariousEncChars = new Dictionary<EncodingCharacters, EncodingLookups>();
 
         [Obsolete("This method has been replaced by 'EscapeText'.")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -145,125 +64,78 @@ namespace NHapi.Base.Parser
         /// Escape string.
         /// </summary>
         /// <param name="text"></param>
-        /// <param name="encChars"></param>
+        /// <param name="encodingCharacters"></param>
         /// <returns></returns>
-        public static string EscapeText(string text, EncodingCharacters encChars)
+        public static string EscapeText(string text, EncodingCharacters encodingCharacters)
         {
-            // Note: Special character sequences are like \.br\.  Items like this should not
-            // be escaped using the \E\ method for the \'s.  Instead, just tell the encoding to
-            // skip these items.
-            var textAsChar = text.ToCharArray();
+            var lookup = BuildEncodingLookups(encodingCharacters);
+            var result = new StringBuilder();
 
-            var result = new StringBuilder(text.Length);
-            var specialCharacters = InvertHash(GetEscapeSequences(encChars));
-            var isEncodingSpecialCharacterSequence = false;
-            var encodeCharacter = false;
-            for (var i = 0; i < textAsChar.Length; i++)
+            for (var i = 0; i < text.Length; i++)
             {
-                encodeCharacter = false;
-                if (isEncodingSpecialCharacterSequence)
+                var charReplaced = false;
+                var currentCharacter = text[i];
+
+                if (!lookup.SpecialCharacters.Contains(currentCharacter))
                 {
-                    encodeCharacter = false;
-                    if (textAsChar[i].Equals(encChars.EscapeCharacter))
-                    {
-                        isEncodingSpecialCharacterSequence = false;
-                    }
+                    result.Append(currentCharacter);
+                    continue;
                 }
-                else
+
+                // Formatting escape sequences such as \.br\ should be left alone
+                if (currentCharacter == encodingCharacters.EscapeCharacter)
                 {
-                    if (specialCharacters[textAsChar[i]] != null)
+                    var nextCharacterIndex = i + 1;
+
+                    if (nextCharacterIndex < text.Length)
                     {
-                        // Special character
-                        encodeCharacter = true;
-                        if (textAsChar[i].Equals(encChars.EscapeCharacter))
+                        var nextCharacter = text[nextCharacterIndex];
+
+                        // Check for \.br\
+                        switch (nextCharacter)
                         {
-                            var nextEscapeChar = text.IndexOf(encChars.EscapeCharacter, i + 1);
-                            if (nextEscapeChar == i + 2)
-                            {
-                                // The data is specially escaped, treat it that way by not encoding the escape character
-                                if (singleCharNonEscapeCharacterMapping[textAsChar[i + 1].ToString()] != null)
+                            case '.':
+                            case 'C':
+                            case 'M':
+                            case 'X':
+                            case 'Z':
+                                var nextEscapeCharacterIndex = text.IndexOf(currentCharacter, nextCharacterIndex);
+                                if (nextEscapeCharacterIndex > 0)
                                 {
-                                    // Start buffering this
-                                    encodeCharacter = false;
-                                    isEncodingSpecialCharacterSequence = true;
+                                    result.Append(text, i, (nextEscapeCharacterIndex + 1) - i);
+                                    charReplaced = true;
+                                    i = nextEscapeCharacterIndex;
                                 }
-                            }
-                            else if (nextEscapeChar != -1)
-                            {
-                                if (multiCharNonEscapeCharacterMapping[textAsChar[i + 1].ToString()] != null)
-                                {
-                                    // Contains /#xxyyzz..nn/ from the main string.
-                                    var potentialEscapeSequence = text.Substring(i, nextEscapeChar - i + 1);
-                                    var encodeCharacter1 = true;
 
-                                    // Get the hex component by striping initial slash, escape character, and last slash. Need to substring at index 2 for length - 3 characters.
-                                    var hex = potentialEscapeSequence.Substring(2, potentialEscapeSequence.Length - 3);
-                                    if (hex.Length % 2 == 0)
+                                break;
+
+                            case 'H':
+                            case 'N':
+                                var twoCharactersAheadIndex = i + 2;
+                                if (twoCharactersAheadIndex < text.Length && text[twoCharactersAheadIndex] == encodingCharacters.EscapeCharacter)
+                                {
+                                    if (twoCharactersAheadIndex > 0)
                                     {
-                                        switch (potentialEscapeSequence.Substring(0, 2))
-                                        {
-                                            case "\\C":
-                                                // Look for closing character of \Cxxyy\
-                                                if (hex.All(c => hexDigits.Contains(char.ToUpper(c))))
-                                                {
-                                                    encodeCharacter1 = false;
-                                                    isEncodingSpecialCharacterSequence = true;
-                                                }
-
-                                                break;
-                                            case "\\M":
-                                                // Look for closing character of \Mxxyy\ or Mxxyyzz
-                                                if (hex.All(c => hexDigits.Contains(char.ToUpper(c))))
-                                                {
-                                                    encodeCharacter1 = false;
-                                                    isEncodingSpecialCharacterSequence = true;
-                                                }
-
-                                                break;
-                                            case "\\X":
-                                                if (hex.All(c => hexDigits.Contains(char.ToUpper(c))))
-                                                {
-                                                    encodeCharacter1 = false;
-                                                    isEncodingSpecialCharacterSequence = true;
-                                                }
-
-                                                break;
-                                            case "\\Z":
-                                                // We don't support this.
-                                                // if (hex.All(c => HexDigits.Contains(char.ToUpper(c))))
-                                                // {
-                                                //    encodeCharacter = false;
-                                                //    isEncodingSpecialCharacterSequence = true;
-                                                // }
-                                                break;
-                                        }
+                                        result.Append(text, i, (twoCharactersAheadIndex + 1) - i);
+                                        charReplaced = true;
+                                        i = twoCharactersAheadIndex;
                                     }
-
-                                    encodeCharacter = encodeCharacter1;
                                 }
-                            }
+
+                                break;
                         }
                     }
                 }
 
-                if (encodeCharacter)
+                if (charReplaced)
                 {
-                    result.Append(specialCharacters[textAsChar[i]]);
+                    continue;
                 }
-                else
-                {
-                    result.Append(textAsChar[i]);
-                }
+
+                result.Append(lookup.EscapeSequences[currentCharacter]);
             }
 
-            if (result.Length > 0)
-            {
-                return result.ToString().Trim();
-            }
-            else
-            {
-                return string.Empty;
-            }
+            return result.ToString();
         }
 
         [Obsolete("This method has been replaced by 'UnescapeText'.")]
@@ -271,127 +143,180 @@ namespace NHapi.Base.Parser
             "StyleCop.CSharp.NamingRules",
             "SA1300:Element should begin with upper-case letter",
             Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
-        public static string unescape(string text, EncodingCharacters encChars)
+        public static string unescape(string text, EncodingCharacters encodingCharacters)
         {
-            return UnescapeText(text, encChars);
+            return UnescapeText(text, encodingCharacters);
         }
 
         /// <summary>
         /// Un-escape the string.
         /// </summary>
         /// <param name="text"></param>
-        /// <param name="encChars"></param>
+        /// <param name="encodingCharacters"></param>
         /// <returns></returns>
-        public static string UnescapeText(string text, EncodingCharacters encChars)
+        public static string UnescapeText(string text, EncodingCharacters encodingCharacters)
         {
+            // If the escape char isn't found, we don't need to look for escape sequences
             // is there an escape character in the text at all?
-            if (text.IndexOf(encChars.EscapeCharacter) == -1)
+            if (text.IndexOf(encodingCharacters.EscapeCharacter) == -1)
             {
                 return text;
             }
 
             var result = new StringBuilder();
-            var textLength = text.Length;
-            var esc = GetEscapeSequences(encChars);
-            SupportClass.ISetSupport keys = new SupportClass.HashSetSupport(esc.Keys);
-            var escChar = Convert.ToString(encChars.EscapeCharacter);
-            var position = 0;
-            while (position < textLength)
+            var lookup = BuildEncodingLookups(encodingCharacters);
+
+            for (var i = 0; i < text.Length; i++)
             {
-                var it = keys.GetEnumerator();
-                var isReplaced = false;
-                while (it.MoveNext() && !isReplaced)
+                var currentCharacter = text[i];
+
+                if (currentCharacter != encodingCharacters.EscapeCharacter)
                 {
-                    var seq = (string)it.Current;
-                    var val = (string)esc[seq];
-                    var seqLength = seq.Length;
-                    if (position + seqLength <= textLength)
+                    result.Append(currentCharacter);
+                    continue;
+                }
+
+                var foundEncoding = false;
+
+                foreach (var keyValuePair in lookup.EscapeSequences)
+                {
+                    var escapeSequence = keyValuePair.Value;
+                    var character = keyValuePair.Key;
+                    var escapeSequenceLength = escapeSequence.Length;
+
+                    var canExtractSubstring = i + escapeSequenceLength <= text.Length;
+                    if (canExtractSubstring && text.Substring(i, escapeSequenceLength).Equals(escapeSequence))
                     {
-                        if (text.Substring(position, (position + seqLength) - position).Equals(seq))
-                        {
-                            result.Append(val);
-                            isReplaced = true;
-                            position = position + seq.Length;
-                        }
+                        result.Append(character);
+                        i += escapeSequenceLength - 1;
+                        foundEncoding = true;
+                        break;
                     }
                 }
 
-                if (!isReplaced)
+                if (foundEncoding)
                 {
-                    result.Append(text.Substring(position, (position + 1) - position));
-                    position++;
+                    continue;
+                }
+
+                // If we haven't found this, there is one more option. Escape sequences of /.XXXXX/ are
+                // formatting codes. They should be left intact
+                var nextCharacterIndex = i + 1;
+                if (nextCharacterIndex < text.Length)
+                {
+                    var nextCharacter = text[nextCharacterIndex];
+                    var closingEscapeIndex = text.IndexOf(encodingCharacters.EscapeCharacter, nextCharacterIndex);
+                    var escapeSequenceLength = (closingEscapeIndex + 1) - i;
+
+                    switch (nextCharacter)
+                    {
+                        case '.':
+                        case 'C':
+                        case 'M':
+                        case 'X':
+                        case 'Z':
+                            if (closingEscapeIndex > 0)
+                            {
+                                var substring = text.Substring(i, escapeSequenceLength);
+                                result.Append(substring);
+                                i += substring.Length - 1;
+                            }
+
+                            break;
+                        case 'H':
+                        case 'N':
+                            var twoCharactersAheadIndex = i + 2;
+                            if (closingEscapeIndex == twoCharactersAheadIndex)
+                            {
+                                var substring = text.Substring(i, escapeSequenceLength);
+                                result.Append(substring);
+                                i += substring.Length - 1;
+                            }
+
+                            break;
+                    }
                 }
             }
 
             return result.ToString();
         }
 
-        /// <summary> Returns a HashTable with escape sequences as keys, and corresponding
-        /// Strings as values.
+        /// <summary>
+        /// Returns a <see cref="EncodingLookups"/> and caches for subsequent use
+        /// using <see cref="EncodingCharacters"/> as keys.
         /// </summary>
-        private static Hashtable GetEscapeSequences(EncodingCharacters encChars)
+        private static EncodingLookups BuildEncodingLookups(EncodingCharacters encChars)
         {
             // escape sequence strings must be assembled using the given escape character
             // see if this has already been done for this set of encoding characters
-            Hashtable escapeSequences = null;
-            var o = variousEncChars[encChars];
-            if (o == null)
+            if (!VariousEncChars.ContainsKey(encChars))
             {
                 // this means we haven't got the sequences for these encoding characters yet - let's make them
-                escapeSequences = MakeEscapeSequences(encChars);
-                variousEncChars[encChars] = escapeSequences;
-            }
-            else
-            {
-                // we already have escape sequences for these encoding characters
-                escapeSequences = (Hashtable)o;
+                VariousEncChars.Add(encChars, new EncodingLookups(encChars));
             }
 
-            return escapeSequences;
+            return VariousEncChars[encChars];
         }
 
-        /// <summary> Constructs escape sequences using the given escape character - this should only
-        /// be called by getEscapeCharacter(), which will cache the results for subsequent use.
-        /// </summary>
-        private static Hashtable MakeEscapeSequences(EncodingCharacters ec)
+        internal class EncodingLookups
         {
-            var seqs = new Hashtable();
-            var codes = new char[] { 'F', 'S', 'T', 'R', 'E' };
-            var values = new char[]
-            {
-                ec.FieldSeparator,
-                ec.ComponentSeparator,
-                ec.SubcomponentSeparator,
-                ec.RepetitionSeparator,
-                ec.EscapeCharacter,
-            };
+            private const char TruncateChar = '#';
 
-            for (var i = 0; i < codes.Length; i++)
+            private const char LineFeed = '\n';
+
+            private const char CarriageReturn = '\r';
+
+            public EncodingLookups(EncodingCharacters encoding)
             {
-                var seq = new StringBuilder();
-                seq.Append(ec.EscapeCharacter);
-                seq.Append(codes[i]);
-                seq.Append(ec.EscapeCharacter);
-                seqs[seq.ToString()] = Convert.ToString(values[i]);
+                LoadHexadecimalConfiguration();
+                BuildLookups(encoding);
             }
 
-            // \\x....\\ denotes hexadecimal escaping
-            // Convert the .... hexadecimal values into decimal, which map to ASCII characters
-            seqs["\\X000d\\"] = Convert.ToString('\r'); // 00 > null, 0D > CR
-            seqs["\\X0A\\"] = Convert.ToString('\n'); // 0A > LF
-            return seqs;
-        }
+            public char[] Codes { get; } = { 'F', 'S', 'T', 'R', 'E' };
 
-        private static Hashtable InvertHash(Hashtable htIn)
-        {
-            var ht = new Hashtable(htIn.Count);
-            foreach (string key in htIn.Keys)
+            public char[] SpecialCharacters { get; } = new char[8];
+
+            public Dictionary<char, string> EscapeSequences { get; } = new Dictionary<char, string>();
+
+            private LineFeedHexadecimal LineFeedHexadecimal { get; set; } = LineFeedHexadecimal.X0A;
+
+            private CarriageReturnHexadecimal CarriageReturnHexadecimal { get; set; } = CarriageReturnHexadecimal.X0D;
+
+            private void BuildLookups(EncodingCharacters encoding)
             {
-                var newKey = htIn[key].ToString().ToCharArray();
-                ht[newKey[0]] = key;
+                SpecialCharacters[0] = encoding.FieldSeparator;
+                SpecialCharacters[1] = encoding.ComponentSeparator;
+                SpecialCharacters[2] = encoding.SubcomponentSeparator;
+                SpecialCharacters[3] = encoding.RepetitionSeparator;
+                SpecialCharacters[4] = encoding.EscapeCharacter;
+                SpecialCharacters[5] = TruncateChar;
+                SpecialCharacters[6] = LineFeed;
+                SpecialCharacters[7] = CarriageReturn;
+
+                for (var i = 0; i < Codes.Length; i++)
+                {
+                    var seq = $"{encoding.EscapeCharacter}{Codes[i]}{encoding.EscapeCharacter}";
+
+                    EscapeSequences.Add(SpecialCharacters[i], seq);
+                }
+
+                // Escaping of truncation # is not implemented yet. It may only be escaped if it is the first character that
+                // exceeds the conformance length of the component (ch 2.5.5.2). As of now, this information is not
+                // available at this place.
+                EscapeSequences.Add(TruncateChar, $"{TruncateChar}");
+                EscapeSequences.Add(LineFeed, $"\\{LineFeedHexadecimal}\\");
+                EscapeSequences.Add(CarriageReturn, $"\\{CarriageReturnHexadecimal}\\");
             }
 
-            return ht;
+            private void LoadHexadecimalConfiguration()
+            {
+                if (ConfigurationManager.GetSection("EscapingConfiguration")
+                    is EscapingConfigurationSection configSection)
+                {
+                    LineFeedHexadecimal = configSection.HexadecimalEscaping.LineFeedHexadecimal;
+                    CarriageReturnHexadecimal = configSection.HexadecimalEscaping.CarriageReturnHexadecimal;
+                }
+            }
         }
     }
 }

@@ -36,7 +36,7 @@ namespace NHapi.Base.Parser
     /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
     public class EncodingCharacters : object, ICloneable
     {
-        private char[] encChars;
+        private readonly char[] encChars;
 
         /// <summary>
         /// Creates new EncodingCharacters object with the given character
@@ -161,30 +161,22 @@ namespace NHapi.Base.Parser
 
         public override bool Equals(object o)
         {
-            if (o is EncodingCharacters)
+            if (o is EncodingCharacters other)
             {
-                var other = (EncodingCharacters)o;
-                if (FieldSeparator == other.FieldSeparator && ComponentSeparator == other.ComponentSeparator &&
-                     EscapeCharacter == other.EscapeCharacter && RepetitionSeparator == other.RepetitionSeparator &&
-                     SubcomponentSeparator == other.SubcomponentSeparator)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return FieldSeparator == other.FieldSeparator &&
+                       ComponentSeparator == other.ComponentSeparator &&
+                       EscapeCharacter == other.EscapeCharacter &&
+                       RepetitionSeparator == other.RepetitionSeparator &&
+                       SubcomponentSeparator == other.SubcomponentSeparator;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
         public override int GetHashCode()
         {
-            return 7 * (int)ComponentSeparator * (int)EscapeCharacter * (int)FieldSeparator * (int)RepetitionSeparator *
-                     (int)SubcomponentSeparator;
+            return 7 * ComponentSeparator * EscapeCharacter * FieldSeparator * RepetitionSeparator *
+                     SubcomponentSeparator;
         }
     }
 }

@@ -144,7 +144,7 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
             var fields = segs[2].Split('|');
             var data = fields[5];
 
-            Assert.AreEqual(@"Th\T\is\E\.br\E\is\E\.br\E\A T\F\est\E\", data);
+            Assert.AreEqual(@"Th\T\is\.br\is\.br\A T\F\est\E\", data);
         }
 
         [Test]
@@ -152,7 +152,7 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
         {
             // Arrange
             const string content = @"MSH|^~\&|TestSys|432^testsys practice|TEST||201402171537||MDM^T02|121906|P|2.3.1||||||||
-OBX|1|TX|PROBLEM FOCUSED^PROBLEM FOCUSED^test|1|\T\#39;Thirty days have September,\X000d\April\X0A\June,\X0A\and November.\X0A\When short February is done,\E\X0A\E\all the rest have\T\nbsp;31.\T\#39";
+OBX|1|TX|PROBLEM FOCUSED^PROBLEM FOCUSED^test|1|\T\#39;Thirty days have September,\X0D\April\X0A\June,\X0A\and November.\X0A\When short February is done,\E\X0A\E\all the rest have\T\nbsp;31.\T\#39";
 
             var parser = new PipeParser();
             var msg = parser.Parse(content);
@@ -166,8 +166,8 @@ OBX|1|TX|PROBLEM FOCUSED^PROBLEM FOCUSED^test|1|\T\#39;Thirty days have Septembe
 
             // verify that data was properly un-escaped by NHapi
             // \E\X0A\E\ should be escaped to \X0A\
-            // \X0A\ should be un-escaped to \n
-            // \X000d\ should be un-escaped to \r
+            // \X0A\ should be un-escaped to \n - this is configurable
+            // \X0D\ should be un-escaped to \r - this is configurable
             // \t\ should be un-escaped to &
             const string expectedResult =
                 "&#39;Thirty days have September,\rApril\nJune,\nand November.\nWhen short February is done,\\X0A\\all the rest have&nbsp;31.&#39";
