@@ -380,11 +380,8 @@ namespace NHapi.Base.Parser
                 {
                     try
                     {
-                        var statusMessage = new StringBuilder("Parsing field ");
-                        statusMessage.Append(i + fieldOffset);
-                        statusMessage.Append(" repetition ");
-                        statusMessage.Append(j);
-                        Log.Debug(statusMessage.ToString());
+                        var statusMessage = $"Parsing field {i + fieldOffset} repetition {j}";
+                        Log.Debug(statusMessage);
 
                         var field = destination.GetField(i + fieldOffset, j);
                         if (isMSH2)
