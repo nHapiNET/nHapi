@@ -536,7 +536,7 @@ namespace NHapi.Base.Model
         private string GetStructureName(Type c)
         {
             var fullName = c.FullName;
-            var dotLoc = fullName.LastIndexOf('.');
+            int dotLoc = fullName.LastIndexOfAny(new char[] { '.', '_' });
             var name = fullName.Substring(dotLoc + 1, fullName.Length - (dotLoc + 1));
 
             // remove message name prefix from group names for compatibility with getters ...
