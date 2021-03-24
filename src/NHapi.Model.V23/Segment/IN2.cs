@@ -33,7 +33,7 @@ namespace NHapi.Model.V23.Segment{
 ///<li>IN2-21: Blood Deductible (ST)</li>
 ///<li>IN2-22: Special Coverage Approval Name (XPN)</li>
 ///<li>IN2-23: Special Coverage Approval Title (ST)</li>
-///<li>IN2-24: Non-Covered Insurance Code (ST)</li>
+///<li>IN2-24: Non-Covered Insurance Code (IS)</li>
 ///<li>IN2-25: Payor ID (CX)</li>
 ///<li>IN2-26: Payor Subscriber ID (CX)</li>
 ///<li>IN2-27: Eligibility Source (IS)</li>
@@ -99,15 +99,15 @@ public class IN2 : AbstractSegment  {
 	public IN2(IGroup parent, IModelClassFactory factory) : base(parent,factory) {
 	IMessage message = Message;
     try {
-       this.add(typeof(CX), false, 1, 59, new System.Object[]{message}, "Insured's Employee ID");
+       this.add(typeof(CX), false, 0, 59, new System.Object[]{message}, "Insured's Employee ID");
        this.add(typeof(ST), false, 1, 11, new System.Object[]{message}, "Insured's Social Security Number");
-       this.add(typeof(XCN), false, 1, 130, new System.Object[]{message}, "Insured's Employer Name");
+       this.add(typeof(XCN), false, 0, 130, new System.Object[]{message}, "Insured's Employer Name");
        this.add(typeof(IS), false, 1, 1, new System.Object[]{message, 139}, "Employer Information Data");
-       this.add(typeof(IS), false, 1, 1, new System.Object[]{message, 137}, "Mail Claim Party");
+       this.add(typeof(IS), false, 0, 1, new System.Object[]{message, 137}, "Mail Claim Party");
        this.add(typeof(ST), false, 1, 15, new System.Object[]{message}, "Medicare Health Ins Card Number");
-       this.add(typeof(XPN), false, 1, 48, new System.Object[]{message}, "Medicaid Case Name");
+       this.add(typeof(XPN), false, 0, 48, new System.Object[]{message}, "Medicaid Case Name");
        this.add(typeof(ST), false, 1, 15, new System.Object[]{message}, "Medicaid Case Number");
-       this.add(typeof(XPN), false, 1, 48, new System.Object[]{message}, "Champus Sponsor Name");
+       this.add(typeof(XPN), false, 0, 48, new System.Object[]{message}, "Champus Sponsor Name");
        this.add(typeof(ST), false, 1, 20, new System.Object[]{message}, "Champus ID Number");
        this.add(typeof(CE), false, 1, 80, new System.Object[]{message}, "Dependent of Champus Recipient");
        this.add(typeof(ST), false, 1, 25, new System.Object[]{message}, "Champus Organization");
@@ -120,9 +120,9 @@ public class IN2 : AbstractSegment  {
        this.add(typeof(ID), false, 1, 1, new System.Object[]{message, 136}, "Baby Coverage");
        this.add(typeof(ID), false, 1, 1, new System.Object[]{message, 136}, "Combine Baby Bill");
        this.add(typeof(ST), false, 1, 1, new System.Object[]{message}, "Blood Deductible");
-       this.add(typeof(XPN), false, 1, 48, new System.Object[]{message}, "Special Coverage Approval Name");
+       this.add(typeof(XPN), false, 0, 48, new System.Object[]{message}, "Special Coverage Approval Name");
        this.add(typeof(ST), false, 1, 30, new System.Object[]{message}, "Special Coverage Approval Title");
-       this.add(typeof(ST), false, 0, 8, new System.Object[]{message}, "Non-Covered Insurance Code");
+       this.add(typeof(IS), false, 0, 8, new System.Object[]{message}, "Non-Covered Insurance Code");
        this.add(typeof(CX), false, 1, 59, new System.Object[]{message}, "Payor ID");
        this.add(typeof(CX), false, 1, 59, new System.Object[]{message}, "Payor Subscriber ID");
        this.add(typeof(IS), false, 1, 1, new System.Object[]{message, 144}, "Eligibility Source");
@@ -176,33 +176,85 @@ public class IN2 : AbstractSegment  {
     }
   }
 
-	///<summary>
-	/// Returns Insured's Employee ID(IN2-1).
-	///</summary>
-	public CX InsuredSEmployeeID
-	{
-		get{
-			CX ret = null;
-			try
-			{
-			IType t = this.GetField(1, 0);
-				ret = (CX)t;
-			}
-			 catch (HL7Exception he) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-				throw new System.Exception("An unexpected error ocurred", he);
-		} catch (System.Exception ex) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
-				throw new System.Exception("An unexpected error ocurred", ex);
+    ///<summary>
+    /// Returns a single repetition of Insured's Employee ID(IN2-1).
+    /// throws HL7Exception if the repetition number is invalid.
+    /// <param name="rep">The repetition number (this is a repeating field)</param>
+    ///</summary>
+    public CX GetInsuredSEmployeeID(int rep)
+    {
+        CX ret = null;
+        try
+        {
+            IType t = this.GetField(1, rep);
+            ret = (CX)t;
+        }
+        catch (System.Exception ex)
+        {
+            HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+            throw new System.Exception("An unexpected error ocurred", ex);
+        }
+        return ret;
     }
-			return ret;
-	}
-  }
 
-	///<summary>
-	/// Returns Insured's Social Security Number(IN2-2).
-	///</summary>
-	public ST InsuredSSocialSecurityNumber
+
+    ///<summary>
+    /// Returns all repetitions of Insured's Employee ID(IN2-1).
+    ///</summary>
+    public CX[] GetInsuredSEmployeeID()
+    {
+        CX[] ret = null;
+        try
+        {
+            IType[] t = this.GetField(1);
+            ret = new CX[t.Length];
+            for (int i = 0; i < ret.Length; i++)
+            {
+                ret[i] = (CX)t[i];
+            }
+        }
+        catch (HL7Exception he)
+        {
+            HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+            throw new System.Exception("An unexpected error ocurred", he);
+        }
+        catch (System.Exception cce)
+        {
+            HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+            throw new System.Exception("An unexpected error ocurred", cce);
+        }
+        return ret;
+    }
+
+
+    ///<summary>
+    /// Returns the total repetitions of Insured's Employee ID(IN2-1).
+    ///</summary>
+    public int InsuredSEmployeeIDRepetitionsUsed
+    {
+        get
+        {
+            try
+            {
+                return GetTotalFieldRepetitionsUsed(1);
+            }
+            catch (HL7Exception he)
+            {
+                HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+                throw new System.Exception("An unexpected error ocurred", he);
+            }
+            catch (System.Exception cce)
+            {
+                HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+                throw new System.Exception("An unexpected error ocurred", cce);
+            }
+        }
+    }
+
+        ///<summary>
+        /// Returns Insured's Social Security Number(IN2-2).
+        ///</summary>
+        public ST InsuredSSocialSecurityNumber
 	{
 		get{
 			ST ret = null;
@@ -222,33 +274,85 @@ public class IN2 : AbstractSegment  {
 	}
   }
 
-	///<summary>
-	/// Returns Insured's Employer Name(IN2-3).
-	///</summary>
-	public XCN InsuredSEmployerName
-	{
-		get{
-			XCN ret = null;
-			try
-			{
-			IType t = this.GetField(3, 0);
-				ret = (XCN)t;
-			}
-			 catch (HL7Exception he) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-				throw new System.Exception("An unexpected error ocurred", he);
-		} catch (System.Exception ex) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
-				throw new System.Exception("An unexpected error ocurred", ex);
+    ///<summary>
+    /// Returns a single repetition of Insured's Employer Name(IN2-3).
+    /// throws HL7Exception if the repetition number is invalid.
+    /// <param name="rep">The repetition number (this is a repeating field)</param>
+    ///</summary>
+    public XCN GetInsuredSEmployerName(int rep)
+    {
+        XCN ret = null;
+        try
+        {
+            IType t = this.GetField(3, rep);
+            ret = (XCN)t;
+        }
+        catch (System.Exception ex)
+        {
+            HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+            throw new System.Exception("An unexpected error ocurred", ex);
+        }
+        return ret;
     }
-			return ret;
-	}
-  }
 
-	///<summary>
-	/// Returns Employer Information Data(IN2-4).
-	///</summary>
-	public IS EmployerInformationData
+
+    ///<summary>
+    /// Returns all repetitions of Insured's Employer Name(IN2-3).
+    ///</summary>
+    public XCN[] GetInsuredSEmployerName()
+    {
+        XCN[] ret = null;
+        try
+        {
+            IType[] t = this.GetField(3);
+            ret = new XCN[t.Length];
+            for (int i = 0; i < ret.Length; i++)
+            {
+                ret[i] = (XCN)t[i];
+            }
+        }
+        catch (HL7Exception he)
+        {
+            HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+            throw new System.Exception("An unexpected error ocurred", he);
+        }
+        catch (System.Exception cce)
+        {
+            HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+            throw new System.Exception("An unexpected error ocurred", cce);
+        }
+        return ret;
+    }
+
+
+    ///<summary>
+    /// Returns the total repetitions of Insured's Employer Name(IN2-3).
+    ///</summary>
+    public int InsuredSEmployerNameRepetitionsUsed
+    {
+        get
+        {
+            try
+            {
+                return GetTotalFieldRepetitionsUsed(3);
+            }
+            catch (HL7Exception he)
+            {
+                HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+                throw new System.Exception("An unexpected error ocurred", he);
+            }
+            catch (System.Exception cce)
+            {
+                HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+                throw new System.Exception("An unexpected error ocurred", cce);
+            }
+        }
+    }
+
+    ///<summary>
+    /// Returns Employer Information Data(IN2-4).
+    ///</summary>
+    public IS EmployerInformationData
 	{
 		get{
 			IS ret = null;
@@ -268,33 +372,85 @@ public class IN2 : AbstractSegment  {
 	}
   }
 
-	///<summary>
-	/// Returns Mail Claim Party(IN2-5).
-	///</summary>
-	public IS MailClaimParty
-	{
-		get{
-			IS ret = null;
-			try
-			{
-			IType t = this.GetField(5, 0);
-				ret = (IS)t;
-			}
-			 catch (HL7Exception he) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-				throw new System.Exception("An unexpected error ocurred", he);
-		} catch (System.Exception ex) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
-				throw new System.Exception("An unexpected error ocurred", ex);
+    ///<summary>
+    /// Returns a single repetition of Mail Claim Party(IN2-5).
+    /// throws HL7Exception if the repetition number is invalid.
+    /// <param name="rep">The repetition number (this is a repeating field)</param>
+    ///</summary>
+    public IS GetMailClaimParty(int rep)
+    {
+        IS ret = null;
+        try
+        {
+            IType t = this.GetField(5, rep);
+            ret = (IS)t;
+        }
+        catch (System.Exception ex)
+        {
+            HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+            throw new System.Exception("An unexpected error ocurred", ex);
+        }
+        return ret;
     }
-			return ret;
-	}
-  }
 
-	///<summary>
-	/// Returns Medicare Health Ins Card Number(IN2-6).
-	///</summary>
-	public ST MedicareHealthInsCardNumber
+
+    ///<summary>
+    /// Returns all repetitions of Mail Claim Party(IN2-5).
+    ///</summary>
+    public IS[] GetMailClaimParty()
+    {
+        IS[] ret = null;
+        try
+        {
+            IType[] t = this.GetField(5);
+            ret = new IS[t.Length];
+            for (int i = 0; i < ret.Length; i++)
+            {
+                ret[i] = (IS)t[i];
+            }
+        }
+        catch (HL7Exception he)
+        {
+            HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+            throw new System.Exception("An unexpected error ocurred", he);
+        }
+        catch (System.Exception cce)
+        {
+            HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+            throw new System.Exception("An unexpected error ocurred", cce);
+        }
+        return ret;
+    }
+
+
+    ///<summary>
+    /// Returns the total repetitions of Mail Claim Party(IN2-5).
+    ///</summary>
+    public int MailClaimPartyRepetitionsUsed
+    {
+        get
+        {
+            try
+            {
+                return GetTotalFieldRepetitionsUsed(5);
+            }
+            catch (HL7Exception he)
+            {
+                HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+                throw new System.Exception("An unexpected error ocurred", he);
+            }
+            catch (System.Exception cce)
+            {
+                HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+                throw new System.Exception("An unexpected error ocurred", cce);
+            }
+        }
+    }
+
+        ///<summary>
+        /// Returns Medicare Health Ins Card Number(IN2-6).
+        ///</summary>
+        public ST MedicareHealthInsCardNumber
 	{
 		get{
 			ST ret = null;
@@ -314,33 +470,84 @@ public class IN2 : AbstractSegment  {
 	}
   }
 
-	///<summary>
-	/// Returns Medicaid Case Name(IN2-7).
-	///</summary>
-	public XPN MedicaidCaseName
-	{
-		get{
-			XPN ret = null;
-			try
-			{
-			IType t = this.GetField(7, 0);
-				ret = (XPN)t;
-			}
-			 catch (HL7Exception he) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-				throw new System.Exception("An unexpected error ocurred", he);
-		} catch (System.Exception ex) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
-				throw new System.Exception("An unexpected error ocurred", ex);
+    ///<summary>
+    /// Returns a single repetition of Medicaid Case Name(IN2-7).
+    /// throws HL7Exception if the repetition number is invalid.
+    /// <param name="rep">The repetition number (this is a repeating field)</param>
+    ///</summary>
+    public XPN GetMedicaidCaseName(int rep)
+    {
+        XPN ret = null;
+        try
+        {
+            IType t = this.GetField(7, rep);
+            ret = (XPN)t;
+        }
+        catch (System.Exception ex)
+        {
+            HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+            throw new System.Exception("An unexpected error ocurred", ex);
+        }
+        return ret;
     }
-			return ret;
-	}
-  }
 
-	///<summary>
-	/// Returns Medicaid Case Number(IN2-8).
-	///</summary>
-	public ST MedicaidCaseNumber
+
+    ///<summary>
+    /// Returns all repetitions of Medicaid Case Name(IN2-7).
+    ///</summary>
+    public XPN[] GetMedicaidCaseName()
+    {
+        XPN[] ret = null;
+        try
+        {
+            IType[] t = this.GetField(7);
+            ret = new XPN[t.Length];
+            for (int i = 0; i < ret.Length; i++)
+            {
+                ret[i] = (XPN)t[i];
+            }
+        }
+        catch (HL7Exception he)
+        {
+            HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+            throw new System.Exception("An unexpected error ocurred", he);
+        }
+        catch (System.Exception cce)
+        {
+            HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+            throw new System.Exception("An unexpected error ocurred", cce);
+        }
+        return ret;
+    }
+
+
+    ///<summary>
+    /// Returns the total repetitions of Medicaid Case Name(IN2-7).
+    ///</summary>
+    public int MedicaidCaseNameRepetitionsUsed
+    {
+        get
+        {
+            try
+            {
+                return GetTotalFieldRepetitionsUsed(7);
+            }
+            catch (HL7Exception he)
+            {
+                HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+                throw new System.Exception("An unexpected error ocurred", he);
+            }
+            catch (System.Exception cce)
+            {
+                HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+                throw new System.Exception("An unexpected error ocurred", cce);
+            }
+        }
+    }
+        ///<summary>
+        /// Returns Medicaid Case Number(IN2-8).
+        ///</summary>
+        public ST MedicaidCaseNumber
 	{
 		get{
 			ST ret = null;
@@ -360,33 +567,85 @@ public class IN2 : AbstractSegment  {
 	}
   }
 
-	///<summary>
-	/// Returns Champus Sponsor Name(IN2-9).
-	///</summary>
-	public XPN ChampusSponsorName
-	{
-		get{
-			XPN ret = null;
-			try
-			{
-			IType t = this.GetField(9, 0);
-				ret = (XPN)t;
-			}
-			 catch (HL7Exception he) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-				throw new System.Exception("An unexpected error ocurred", he);
-		} catch (System.Exception ex) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
-				throw new System.Exception("An unexpected error ocurred", ex);
+    ///<summary>
+    /// Returns a single repetition of Champus Sponsor Name(IN2-9).
+    /// throws HL7Exception if the repetition number is invalid.
+    /// <param name="rep">The repetition number (this is a repeating field)</param>
+    ///</summary>
+    public XPN GetChampusSponsorName(int rep)
+    {
+        XPN ret = null;
+        try
+        {
+            IType t = this.GetField(9, rep);
+            ret = (XPN)t;
+        }
+        catch (System.Exception ex)
+        {
+            HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+            throw new System.Exception("An unexpected error ocurred", ex);
+        }
+        return ret;
     }
-			return ret;
-	}
-  }
 
-	///<summary>
-	/// Returns Champus ID Number(IN2-10).
-	///</summary>
-	public ST ChampusIDNumber
+
+    ///<summary>
+    /// Returns all repetitions of Champus Sponsor Name(IN2-9).
+    ///</summary>
+    public XPN[] GetChampusSponsorName()
+    {
+        XPN[] ret = null;
+        try
+        {
+            IType[] t = this.GetField(9);
+            ret = new XPN[t.Length];
+            for (int i = 0; i < ret.Length; i++)
+            {
+                ret[i] = (XPN)t[i];
+            }
+        }
+        catch (HL7Exception he)
+        {
+            HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+            throw new System.Exception("An unexpected error ocurred", he);
+        }
+        catch (System.Exception cce)
+        {
+            HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+            throw new System.Exception("An unexpected error ocurred", cce);
+        }
+        return ret;
+    }
+
+
+    ///<summary>
+    /// Returns the total repetitions of Champus Sponsor Name(IN2-9).
+    ///</summary>
+    public int ChampusSponsorNameRepetitionsUsed
+    {
+        get
+        {
+            try
+            {
+                return GetTotalFieldRepetitionsUsed(9);
+            }
+            catch (HL7Exception he)
+            {
+                HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+                throw new System.Exception("An unexpected error ocurred", he);
+            }
+            catch (System.Exception cce)
+            {
+                HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+                throw new System.Exception("An unexpected error ocurred", cce);
+            }
+        }
+    }
+
+        ///<summary>
+        /// Returns Champus ID Number(IN2-10).
+        ///</summary>
+        public ST ChampusIDNumber
 	{
 		get{
 			ST ret = null;
@@ -659,33 +918,85 @@ public class IN2 : AbstractSegment  {
 	}
   }
 
-	///<summary>
-	/// Returns Special Coverage Approval Name(IN2-22).
-	///</summary>
-	public XPN SpecialCoverageApprovalName
-	{
-		get{
-			XPN ret = null;
-			try
-			{
-			IType t = this.GetField(22, 0);
-				ret = (XPN)t;
-			}
-			 catch (HL7Exception he) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-				throw new System.Exception("An unexpected error ocurred", he);
-		} catch (System.Exception ex) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
-				throw new System.Exception("An unexpected error ocurred", ex);
+    ///<summary>
+    /// Returns a single repetition of Special Coverage Approval Name(IN2-22).
+    /// throws HL7Exception if the repetition number is invalid.
+    /// <param name="rep">The repetition number (this is a repeating field)</param>
+    ///</summary>
+    public XPN GetSpecialCoverageApprovalName(int rep)
+    {
+        XPN ret = null;
+        try
+        {
+            IType t = this.GetField(22, rep);
+            ret = (XPN)t;
+        }
+        catch (System.Exception ex)
+        {
+            HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+            throw new System.Exception("An unexpected error ocurred", ex);
+        }
+        return ret;
     }
-			return ret;
-	}
-  }
 
-	///<summary>
-	/// Returns Special Coverage Approval Title(IN2-23).
-	///</summary>
-	public ST SpecialCoverageApprovalTitle
+
+    ///<summary>
+    /// Returns all repetitions of Special Coverage Approval Name(IN2-22).
+    ///</summary>
+    public XPN[] GetSpecialCoverageApprovalName()
+    {
+        XPN[] ret = null;
+        try
+        {
+            IType[] t = this.GetField(22);
+            ret = new XPN[t.Length];
+            for (int i = 0; i < ret.Length; i++)
+            {
+                ret[i] = (XPN)t[i];
+            }
+        }
+        catch (HL7Exception he)
+        {
+            HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+            throw new System.Exception("An unexpected error ocurred", he);
+        }
+        catch (System.Exception cce)
+        {
+            HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+            throw new System.Exception("An unexpected error ocurred", cce);
+        }
+        return ret;
+    }
+
+
+    ///<summary>
+    /// Returns the total repetitions of Special Coverage Approval Name(IN2-22).
+    ///</summary>
+    public int SpecialCoverageApprovalNameRepetitionsUsed
+    {
+        get
+        {
+            try
+            {
+                return GetTotalFieldRepetitionsUsed(22);
+            }
+            catch (HL7Exception he)
+            {
+                HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+                throw new System.Exception("An unexpected error ocurred", he);
+            }
+            catch (System.Exception cce)
+            {
+                HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+                throw new System.Exception("An unexpected error ocurred", cce);
+            }
+        }
+    }
+
+        ///<summary>
+        /// Returns Special Coverage Approval Title(IN2-23).
+        ///</summary>
+        public ST SpecialCoverageApprovalTitle
 	{
 		get{
 			ST ret = null;
@@ -705,68 +1016,87 @@ public class IN2 : AbstractSegment  {
 	}
   }
 
-	///<summary>
-	/// Returns a single repetition of Non-Covered Insurance Code(IN2-24).
-	/// throws HL7Exception if the repetition number is invalid.
-	/// <param name="rep">The repetition number (this is a repeating field)</param>
-	///</summary>
-	public ST GetNonCoveredInsuranceCode(int rep)
-	{
-			ST ret = null;
-			try
-			{
-			IType t = this.GetField(24, rep);
-				ret = (ST)t;
-		} catch (System.Exception ex) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
-				throw new System.Exception("An unexpected error ocurred", ex);
-    }
-			return ret;
-  }
 
-  ///<summary>
-  /// Returns all repetitions of Non-Covered Insurance Code (IN2-24).
-   ///</summary>
-  public ST[] GetNonCoveredInsuranceCode() {
-     ST[] ret = null;
-    try {
-        IType[] t = this.GetField(24);  
-        ret = new ST[t.Length];
-        for (int i = 0; i < ret.Length; i++) {
-            ret[i] = (ST)t[i];
+    ///<summary>
+    /// Returns a single repetition of Non-Covered Insurance Code(IN2-24).
+    /// throws HL7Exception if the repetition number is invalid.
+    /// <param name="rep">The repetition number (this is a repeating field)</param>
+    ///</summary>
+    public IS GetNonCoveredInsuranceCode(int rep)
+    {
+        IS ret = null;
+        try
+        {
+            IType t = this.GetField(24, rep);
+            ret = (IS)t;
         }
-    } catch (HL7Exception he) {
-        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-        throw new System.Exception("An unexpected error ocurred", he);
-    } catch (System.Exception cce) {
-        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
-        throw new System.Exception("An unexpected error ocurred", cce);
-  }
- return ret;
-}
-
-  ///<summary>
-  /// Returns the total repetitions of Non-Covered Insurance Code (IN2-24).
-   ///</summary>
-  public int NonCoveredInsuranceCodeRepetitionsUsed
-{
-get{
-    try {
-	return GetTotalFieldRepetitionsUsed(24);
+        catch (System.Exception ex)
+        {
+            HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+            throw new System.Exception("An unexpected error ocurred", ex);
+        }
+        return ret;
     }
-catch (HL7Exception he) {
-        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-        throw new System.Exception("An unexpected error ocurred", he);
-} catch (System.Exception cce) {
-        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
-        throw new System.Exception("An unexpected error ocurred", cce);
-}
-}
-}
-	///<summary>
-	/// Returns Payor ID(IN2-25).
-	///</summary>
-	public CX PayorID
+
+
+    ///<summary>
+    /// Returns all repetitions of Non-Covered Insurance Code(IN2-24).
+    ///</summary>
+    public IS[] GetNonCoveredInsuranceCode()
+    {
+        IS[] ret = null;
+        try
+        {
+            IType[] t = this.GetField(24);
+            ret = new IS[t.Length];
+            for (int i = 0; i < ret.Length; i++)
+            {
+                ret[i] = (IS)t[i];
+            }
+        }
+        catch (HL7Exception he)
+        {
+            HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+            throw new System.Exception("An unexpected error ocurred", he);
+        }
+        catch (System.Exception cce)
+        {
+            HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+            throw new System.Exception("An unexpected error ocurred", cce);
+        }
+        return ret;
+    }
+
+
+    ///<summary>
+    /// Returns the total repetitions of Non-Covered Insurance Code(IN2-24).
+    ///</summary>
+    public int NonCoveredInsuranceCodeRepetitionsUsed
+    {
+        get
+        {
+            try
+            {
+                return GetTotalFieldRepetitionsUsed(24);
+            }
+            catch (HL7Exception he)
+            {
+                HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+                throw new System.Exception("An unexpected error ocurred", he);
+            }
+            catch (System.Exception cce)
+            {
+                HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+                throw new System.Exception("An unexpected error ocurred", cce);
+            }
+        }
+    }
+
+
+        ///<summary>
+        /// Returns Payor ID(IN2-25).
+        ///</summary>
+        public CX PayorID
 	{
 		get{
 			CX ret = null;

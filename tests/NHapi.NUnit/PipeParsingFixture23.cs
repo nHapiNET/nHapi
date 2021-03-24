@@ -1,4 +1,4 @@
-namespace NHapi.NUnit
+﻿namespace NHapi.NUnit
 {
     using System;
     using System.Collections.Generic;
@@ -363,6 +363,111 @@ PID|1|935307^^^EUH MRN^MRN^EH01|25106376^^^TEC MRN~1781893^^^CLH MRN~935307^^^EU
                 var cx = adtA01.PID.GetAlternatePatientID(rep);
                 Console.WriteLine(cx.ID.Value);
             }
+        }
+
+        /// <summary>
+        /// https://github.com/nHapiNET/nHapi/issues/191.
+        /// </summary>
+        [Test]
+        public void TestIN1andIN2fieldRepetitions()
+        {
+            var message = @"MSH|^~\&|EMM|SKL|TOE|SKL|202102031237||ADT^A08|36711904|P|2.3|||||D||DE
+EVN|A08|202102031237|202102031027||KKLLNN||
+PID|1|1000|1000||Test^Max^^^^||19370609|F|||NoSuch Str. 20^^Luneburg^^21337^D^L||04131/9786438^^PH|||||||||||N||D|
+NK1|1|Fr.Test^|6^Tochter|^^^^|||||||||||U|^YYYYMMDDHHMMSS|||||||||||||||||^^^ORBIS^PN^^^^~^^^ORBIS^PI^^^^~^^^ORBIS^PT^^^^|||||
+IN1|1||102114819^^^^NII~17101^^^^NIIP~AOK_00044^^^^XX|Die Gesundheitskasse~Comp 2~Comp 3|Hans-Böckler-Allee 30^^Hannover^^30001^D^P~Street 2^^Berlin~Street 3^^Moscow|John^Peak~Kit^Fin|0413189314641^PRN^PH^^^04131^89314641^~^PRN^FX^^^^^||AOK^1^^^&gesetzliche Krankenkasse^^NII~AOK^1^^^^^U|9283~7766~786~77663|Org1~Org2|||||Test^Max^^^^~Testor^N~Testoff^J~Testior^Y||19370609|Wilhelm Str. 44^^Lüneburg^^21337^D^P~Best Str^^Berlin|||H|||||||||R|||||S890768688|||||||W|Addr1~Addr2|||||S8907^^^^^^^~S9999|
+IN2|1234^^^^AMA~4567^^^^LANR||^Fam1~^Fam2||P~G~E||FN1~FN2~FN3~FN4||SP1~SP2~SP3^Tomas|||||||||||||SpCov1~SpCov2|||||||^PC^100||||D  |||J|||||||||||||||||||||||||||041319786438||||||||
+ZBE|13033374^ORBIS|202102031027|202102031237|UPDATE|";
+            var parser = new PipeParser();
+
+            var m = parser.Parse(message);
+
+            var adtA08 = m as ADT_A01; // a08 is mapped to a01
+
+            Assert.IsNotNull(adtA08);
+
+            var in1_3 = adtA08.GetINSURANCE().IN1.GetInsuranceCompanyID();
+            Assert.AreEqual(in1_3.Length, 3);
+            Assert.AreEqual(in1_3[0].IdentifierTypeCode.Value, "NII");
+            Assert.AreEqual(in1_3[1].IdentifierTypeCode.Value, "NIIP");
+            Assert.AreEqual(in1_3[2].IdentifierTypeCode.Value, "XX");
+
+            var in1_4 = adtA08.GetINSURANCE().IN1.GetInsuranceCompanyName();
+            Assert.AreEqual(in1_4.Length, 3);
+            Assert.AreEqual(in1_4[2].OrganizationName.Value, "Comp 3");
+
+            var in1_5 = adtA08.GetINSURANCE().IN1.GetInsuranceCompanyAddress();
+            Assert.AreEqual(in1_5.Length, 3);
+            Assert.AreEqual(in1_5[0].City.Value, "Hannover");
+            Assert.AreEqual(in1_5[1].City.Value, "Berlin");
+            Assert.AreEqual(in1_5[2].City.Value, "Moscow");
+
+            var in1_6 = adtA08.GetINSURANCE().IN1.GetInsuranceCoContactPpers();
+            Assert.AreEqual(in1_6.Length, 2);
+            Assert.AreEqual(in1_6[0].GivenName.Value, "Peak");
+            Assert.AreEqual(in1_6[1].GivenName.Value, "Fin");
+
+            var in1_7 = adtA08.GetINSURANCE().IN1.GetInsuranceCoPhoneNumber();
+            Assert.AreEqual(in1_7.Length, 2);
+            Assert.AreEqual(in1_7[0].TelecommunicationEquipmentType.Value, "PH");
+            Assert.AreEqual(in1_7[1].TelecommunicationEquipmentType.Value, "FX");
+
+            var in1_9 = adtA08.GetINSURANCE().IN1.GetGroupName();
+            Assert.AreEqual(in1_9.Length, 2);
+            Assert.AreEqual(in1_9[0].IdentifierTypeCode.Value, "NII");
+            Assert.AreEqual(in1_9[1].IdentifierTypeCode.Value, "U");
+
+            var in1_10 = adtA08.GetINSURANCE().IN1.GetInsuredSGroupEmployerID();
+            Assert.AreEqual(in1_10.Length, 4);
+
+            var in1_11 = adtA08.GetINSURANCE().IN1.GetInsuredSGroupEmpName();
+            Assert.AreEqual(in1_11.Length, 2);
+
+            var in1_16 = adtA08.GetINSURANCE().IN1.GetNameOfInsured();
+            Assert.AreEqual(in1_16.Length, 4);
+            Assert.AreEqual(in1_16[3].GivenName.Value, "Y");
+
+            var in1_19 = adtA08.GetINSURANCE().IN1.GetInsuredSAddress();
+            Assert.AreEqual(in1_19.Length, 2);
+            Assert.AreEqual(in1_19[1].City.Value, "Berlin");
+
+            var in1_44 = adtA08.GetINSURANCE().IN1.GetInsuredSEmployerAddress();
+            Assert.AreEqual(in1_44.Length, 2);
+            Assert.AreEqual(in1_44[0].StreetAddress.Value, "Addr1");
+            Assert.AreEqual(in1_44[1].StreetAddress.Value, "Addr2");
+
+            var in1_49 = adtA08.GetINSURANCE().IN1.GetInsuredSIDNumber();
+            Assert.AreEqual(in1_49.Length, 2);
+            Assert.AreEqual(in1_49[0].ID.Value, "S8907");
+            Assert.AreEqual(in1_49[1].ID.Value, "S9999");
+
+            var in2_1 = adtA08.GetINSURANCE().IN2.GetInsuredSEmployeeID();
+            Assert.AreEqual(in2_1.Length, 2);
+            Assert.AreEqual(in2_1[0].IdentifierTypeCode.Value, "AMA");
+            Assert.AreEqual(in2_1[1].IdentifierTypeCode.Value, "LANR");
+
+            var in2_3 = adtA08.GetINSURANCE().IN2.GetInsuredSEmployerName();
+            Assert.AreEqual(in2_3.Length, 2);
+            Assert.AreEqual(in2_3[0].FamilyName.Value, "Fam1");
+            Assert.AreEqual(in2_3[1].FamilyName.Value, "Fam2");
+
+            var in2_5 = adtA08.GetINSURANCE().IN2.GetMailClaimParty();
+            Assert.AreEqual(in2_5.Length, 3);
+            Assert.AreEqual(in2_5[0].Value, "P");
+            Assert.AreEqual(in2_5[1].Value, "G");
+            Assert.AreEqual(in2_5[2].Value, "E");
+
+            var in2_7 = adtA08.GetINSURANCE().IN2.GetMedicaidCaseName();
+            Assert.AreEqual(in2_7.Length, 4);
+            Assert.AreEqual(in2_7[3].FamilyName.Value, "FN4");
+
+            var in2_9 = adtA08.GetINSURANCE().IN2.GetChampusSponsorName();
+            Assert.AreEqual(in2_9.Length, 3);
+            Assert.AreEqual(in2_9[2].GivenName.Value, "Tomas");
+
+            var in2_22 = adtA08.GetINSURANCE().IN2.GetSpecialCoverageApprovalName();
+            Assert.AreEqual(in2_22.Length, 2);
+            Assert.AreEqual(in2_22[1].FamilyName.Value, "SpCov2");
         }
 
         /// <summary>
