@@ -540,6 +540,11 @@ namespace NHapi.Base.Parser
         public override string GetVersion(string message)
         {
             var startMSH = message.IndexOf("MSH");
+            if (startMSH < 0)
+            {
+                throw new HL7Exception("No MSH header segment found.", ErrorCode.REQUIRED_FIELD_MISSING);
+            }
+
             var endMSH = message.IndexOf(SegDelim, startMSH);
             if (endMSH < 0)
             {
@@ -560,7 +565,7 @@ namespace NHapi.Base.Parser
             var fields = Split(msh, fieldSep);
 
             string compSep;
-            if (fields.Length >= 2 && fields[1].Length > 0)
+            if (fields.Length >= 2 && fields[0] == "MSH" && fields[1] != null && fields[1].Length > 0)
             {
                 compSep = Convert.ToString(fields[1][0]); // get component separator as 1st encoding char
             }
@@ -574,6 +579,11 @@ namespace NHapi.Base.Parser
             string version;
             if (fields.Length >= 12)
             {
+                if (fields[11] == null)
+                {
+                    throw new HL7Exception("MSH Version field is null.", ErrorCode.REQUIRED_FIELD_MISSING);
+                }
+
                 version = Split(fields[11], compSep)[0];
             }
             else
@@ -934,7 +944,7 @@ namespace NHapi.Base.Parser
                 var structureName = ((IStructure)obj).GetStructureName();
                 Log.Debug($"PipeParser iterating message in direction {Name} at {structureName}");
 
-                return Regex.IsMatch(structureName, $"{Name}\\d*");
+                return Regex.IsMatch(structureName, Regex.Escape(Name) + $"\\d*");
             }
         }
     }

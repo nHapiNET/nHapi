@@ -11,23 +11,23 @@
     [TestFixture]
     public class BadInputTests
     {
-        private const string aoor1 = "tests/NHapi.NUnit/TestData/BadInputs/aoor1";
-        private const string sys1 = "tests/NHapi.NUnit/TestData/BadInputs/sys1";
-        private const string nullref1 = "tests/NHapi.NUnit/TestData/BadInputs/nullref1";
-        private const string ioor1 = "tests/NHapi.NUnit/TestData/BadInputs/ioor1";
-        private const string regex1 = "tests/NHapi.NUnit/TestData/BadInputs/regex1";
-        private const string sys2 = "tests/NHapi.NUnit/TestData/BadInputs/sys2";
-        private const string hang1 = "tests/NHapi.NUnit/TestData/BadInputs/hang1";
+        private const string AOOR1 = "TestData/BadInputs/aoor1";
+        private const string SYS1 = "TestData/BadInputs/sys1";
+        private const string NULLREF1 = "TestData/BadInputs/nullref1";
+        private const string IOOR1 = "TestData/BadInputs/ioor1";
+        private const string REGEX1 = "TestData/BadInputs/regex1";
+        private const string SYS2 = "TestData/BadInputs/sys2";
+        private const string HANG1 = "TestData/BadInputs/hang1";
 
         [Test]
         [Timeout(2000)]
-        [TestCase(new object[] { aoor1 })]
-        [TestCase(new object[] { sys1 })]
-        [TestCase(new object[] { nullref1 })]
-        [TestCase(new object[] { ioor1 })]
-        [TestCase(new object[] { regex1 })]
-        [TestCase(new object[] { sys2 })]
-        [TestCase(new object[] { hang1 })]
+        [TestCase(new object[] { AOOR1 })]
+        [TestCase(new object[] { SYS1 })]
+        [TestCase(new object[] { NULLREF1 })]
+        [TestCase(new object[] { IOOR1 })]
+        [TestCase(new object[] { REGEX1 })]
+        [TestCase(new object[] { SYS2 })]
+        [TestCase(new object[] { HANG1 })]
         public void TestBadInputs(string path)
         {
             var parser = new PipeParser();
