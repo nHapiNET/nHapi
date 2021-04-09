@@ -62,6 +62,30 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TestData\BadInputs\aoor1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\BadInputs\hang1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\BadInputs\ioor1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\BadInputs\nullref1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\BadInputs\regex1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\BadInputs\sys1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\BadInputs\sys2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
   <!-- the block below is ensures that the config file is read when running the unit tests with dotnet test and netcoreapp3.1 target framework-->
   <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
     <Copy SourceFiles="App.config" DestinationFiles="$(OutDir)\testhost.dll.config" />
