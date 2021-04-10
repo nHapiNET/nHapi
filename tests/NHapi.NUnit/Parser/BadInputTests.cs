@@ -30,8 +30,11 @@
         [TestCase(new object[] { HANG1 })]
         public void TestBadInputs(string path)
         {
+            // Arrange
             var parser = new PipeParser();
             var text = File.ReadAllText(path);
+
+            // Assert
             Assert.DoesNotThrow(() =>
             {
                 try

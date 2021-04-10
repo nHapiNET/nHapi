@@ -369,7 +369,7 @@ namespace NHapi.Base.Parser
             var messageClass = Factory.GetMessageClass(theName, theVersion, isExplicit);
             if (messageClass == null)
             {
-                throw new HL7Exception($"Can't find message class in current package list: {theName}");
+                throw new HL7Exception($"Can't find message class in current package list: {theName}", ErrorCode.UNSUPPORTED_MESSAGE_TYPE);
             }
 
             Log.Info($"Instantiating msg of class {messageClass.FullName}");
