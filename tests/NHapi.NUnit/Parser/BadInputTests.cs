@@ -18,6 +18,8 @@
         private const string REGEX1 = "TestData/BadInputs/regex1";
         private const string SYS2 = "TestData/BadInputs/sys2";
         private const string HANG1 = "TestData/BadInputs/hang1";
+        private const string SO = "TestData/BadInputs/stackoverflow1";
+        private const string SO2 = "TestData/BadInputs/stackoverflow2";
 
         [Test]
         [Timeout(2000)]
@@ -28,6 +30,8 @@
         [TestCase(new object[] { REGEX1 })]
         [TestCase(new object[] { SYS2 })]
         [TestCase(new object[] { HANG1 })]
+        [TestCase(new object[] { SO })]
+        [TestCase(new object[] { SO2 })]
         public void TestBadInputs(string path)
         {
             // Arrange
