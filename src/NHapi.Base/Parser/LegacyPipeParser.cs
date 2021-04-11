@@ -1,4 +1,4 @@
-/*
+﻿/*
   The contents of this file are subject to the Mozilla Public License Version 1.1
   (the "License"); you may not use this file except in compliance with the License.
   You may obtain a copy of the License at http://www.mozilla.org/MPL/
@@ -36,29 +36,34 @@ namespace NHapi.Base.Parser
     using NHapi.Base.Util;
 
     /// <summary>
-    /// An implementation of Parser that supports traditionally encoded (ie delimited with characters
-    /// like |, ^, and ~) HL7 messages.  Unexpected segments and fields are parsed into generic elements
-    /// that are added to the message.
+    /// This is a legacy implementation of the PipeParser and should not be used
+    /// for new projects.
+    /// <para>
+    /// In versions of NHapi prior to version 3, a behaviour was corrected where unexpected segments
+    /// would be placed at the tail end of the first segment group encountered.
+    /// </para>
+    /// Any legacy code which still depends on previous behaviour can use this
+    /// implementation.
     /// </summary>
-    /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
-    public class PipeParser : ParserBase
+    [Obsolete("Use PipeParser instead.")]
+    public class LegacyPipeParser : ParserBase
     {
         private const string SegDelim = "\r"; // see section 2.8 of spec
 
         private static readonly IHapiLog Log;
 
-        static PipeParser()
+        static LegacyPipeParser()
         {
-            Log = HapiLogFactory.GetHapiLog(typeof(PipeParser));
+            Log = HapiLogFactory.GetHapiLog(typeof(LegacyPipeParser));
         }
 
-        /// <summary>Creates a new PipeParser. </summary>
-        public PipeParser()
+        /// <summary>Creates a new LegacyPipeParser. </summary>
+        public LegacyPipeParser()
         {
         }
 
-        /// <summary>Creates a new PipeParser. </summary>
-        public PipeParser(IModelClassFactory factory)
+        /// <summary>Creates a new LegacyPipeParser. </summary>
+        public LegacyPipeParser(IModelClassFactory factory)
             : base(factory)
         {
         }
@@ -252,6 +257,54 @@ namespace NHapi.Base.Parser
             return out_Renamed.ToString();
         }
 
+        public override void Parse(IMessage message, string @string)
+        {
+            var messageIter = new Util.MessageIterator(message, "MSH", true);
+            FilterIterator.IPredicate segmentsOnly = new AnonymousClassPredicate(this);
+            var segmentIter = new FilterIterator(messageIter, segmentsOnly);
+
+            var segments = Split(@string, SegDelim);
+            var encodingChars = GetEncodingChars(@string);
+
+            var delimiter = '|';
+            for (var i = 0; i < segments.Length; i++)
+            {
+                // get rid of any leading whitespace characters ...
+                if (segments[i] != null && segments[i].Length > 0 && char.IsWhiteSpace(segments[i][0]))
+                {
+                    segments[i] = StripLeadingWhitespace(segments[i]);
+                }
+
+                // sometimes people put extra segment delimiters at end of msg ...
+                if (segments[i] != null && segments[i].Length >= 3)
+                {
+                    var name = segments[i].Substring(0, 3 - 0);
+                    if (i == 0)
+                    {
+                        name = segments[i].Substring(0, 3);
+                        delimiter = segments[i][3];
+                    }
+                    else
+                    {
+                        name = segments[i].IndexOf(delimiter) >= 0
+                            ? segments[i].Substring(0, segments[i].IndexOf(delimiter))
+                            : segments[i];
+                    }
+
+                    Log.Debug("Parsing segment " + name);
+
+                    messageIter.Direction = name;
+                    FilterIterator.IPredicate byDirection = new AnonymousClassPredicate1(name, this);
+                    var dirIter = new FilterIterator(segmentIter, byDirection);
+
+                    if (dirIter.MoveNext())
+                    {
+                        Parse((ISegment)dirIter.Current, segments[i], encodingChars);
+                    }
+                }
+            }
+        }
+
         /// <summary> Returns a String representing the encoding of the given message, if
         /// the encoding is recognized.  For example if the given message appears
         /// to be encoded using HL7 2.x XML rules then "XML" would be returned.
@@ -316,15 +369,6 @@ namespace NHapi.Base.Parser
             }
 
             return encoding;
-        }
-
-        /// <summary>
-        /// Returns true if and only if the given encoding is supported
-        /// by this Parser.
-        /// </summary>
-        public override bool SupportsEncoding(string encoding)
-        {
-            return (encoding ?? string.Empty).Equals("VB");
         }
 
         /// <deprecated> this method should not be public.
@@ -397,7 +441,7 @@ namespace NHapi.Base.Parser
                     {
                         // set the field location and throw again ...
                         e.FieldPosition = i + fieldOffset;
-                        e.SegmentRepetition = MessageIterator.GetIndex(destination.ParentStructure, destination).Rep;
+                        e.SegmentRepetition = Util.MessageIterator.GetIndex(destination.ParentStructure, destination).Rep;
                         e.SegmentName = destination.GetStructureName();
                         throw;
                     }
@@ -703,35 +747,7 @@ namespace NHapi.Base.Parser
             var structure = GetStructure(message);
             var m = InstantiateMessage(structure.Structure, version, structure.ExplicitlyDefined);
 
-            var messageIter = new MessageIterator(m, "MSH", true);
-            FilterIterator.IPredicate segmentsOnly = new AnonymousClassPredicate(this);
-            var segmentIter = new FilterIterator(messageIter, segmentsOnly);
-
-            var segments = Split(message, SegDelim);
-            var encodingChars = GetEncodingChars(message);
-            for (var i = 0; i < segments.Length; i++)
-            {
-                // get rid of any leading whitespace characters ...
-                if (segments[i] != null && segments[i].Length > 0 && char.IsWhiteSpace(segments[i][0]))
-                {
-                    segments[i] = StripLeadingWhitespace(segments[i]);
-                }
-
-                // sometimes people put extra segment delimiters at end of msg ...
-                if (segments[i] != null && segments[i].Length >= 3)
-                {
-                    var name = segments[i].Substring(0, 3 - 0);
-                    Log.Debug("Parsing segment " + name);
-
-                    messageIter.Direction = name;
-                    FilterIterator.IPredicate byDirection = new AnonymousClassPredicate1(name, this);
-                    var dirIter = new FilterIterator(segmentIter, byDirection);
-                    if (dirIter.MoveNext())
-                    {
-                        Parse((ISegment)dirIter.Current, segments[i], encodingChars);
-                    }
-                }
-            }
+            Parse(m, message);
 
             return m;
         }
@@ -902,12 +918,12 @@ namespace NHapi.Base.Parser
 
         private class AnonymousClassPredicate : FilterIterator.IPredicate
         {
-            public AnonymousClassPredicate(PipeParser enclosingInstance)
+            public AnonymousClassPredicate(LegacyPipeParser enclosingInstance)
             {
                 Enclosing_Instance = enclosingInstance;
             }
 
-            public PipeParser Enclosing_Instance { get; }
+            public LegacyPipeParser Enclosing_Instance { get; }
 
             public virtual bool evaluate(object obj)
             {
@@ -922,13 +938,13 @@ namespace NHapi.Base.Parser
 
         private class AnonymousClassPredicate1 : FilterIterator.IPredicate
         {
-            public AnonymousClassPredicate1(string name, PipeParser enclosingInstance)
+            public AnonymousClassPredicate1(string name, LegacyPipeParser enclosingInstance)
             {
                 Name = name;
                 Enclosing_Instance = enclosingInstance;
             }
 
-            public PipeParser Enclosing_Instance { get; }
+            public LegacyPipeParser Enclosing_Instance { get; }
 
             private string Name { get; }
 
@@ -942,7 +958,7 @@ namespace NHapi.Base.Parser
             public virtual bool Evaluate(object obj)
             {
                 var structureName = ((IStructure)obj).GetStructureName();
-                Log.Debug($"PipeParser iterating message in direction {Name} at {structureName}");
+                Log.Debug($"LegacyPipeParser iterating message in direction {Name} at {structureName}");
 
                 return Regex.IsMatch(structureName, Regex.Escape(Name) + $"\\d*");
             }
