@@ -34,8 +34,8 @@ public class PTA : AbstractType, IComposite{
 		data = new IType[4];
 		data[0] = new CWE(message,"Policy Type");
 		data[1] = new CWE(message,"Amount Class");
-        	// Withdrawn as of v2.7
-        	data[2] = new ST(message,"Money or Percentage Quantity");
+        // Withdrawn as of v2.7
+        data[2] = new ST(message,"Money or Percentage Quantity");
 		data[3] = new MOP(message,"Money or Percentage");
 	}
 
