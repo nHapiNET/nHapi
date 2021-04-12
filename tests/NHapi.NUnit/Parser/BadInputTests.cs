@@ -21,35 +21,39 @@
         private const string SO = "TestData/BadInputs/stackoverflow1";
         private const string SO2 = "TestData/BadInputs/stackoverflow2";
 
-        [Test]
+        [TestCase(AOOR1)]
+        [TestCase(SYS1)]
+        [TestCase(NULLREF1)]
+        [TestCase(IOOR1)]
+        [TestCase(SYS2)]
+        public void TestBadInputsThrowHL7(string path)
+        {
+            // Arrange
+            var parser = new PipeParser();
+            var text = File.ReadAllText(path);
+
+            // Act / Assert
+            var exception = Assert.Throws<HL7Exception>(
+                () => parser.Parse(text));
+
+            // Write exception details to console
+            Console.WriteLine(exception);
+        }
+
         [Timeout(2000)]
-        [TestCase(new object[] { AOOR1 })]
-        [TestCase(new object[] { SYS1 })]
-        [TestCase(new object[] { NULLREF1 })]
-        [TestCase(new object[] { IOOR1 })]
-        [TestCase(new object[] { REGEX1 })]
-        [TestCase(new object[] { SYS2 })]
-        [TestCase(new object[] { HANG1 })]
-        [TestCase(new object[] { SO })]
-        [TestCase(new object[] { SO2 })]
-        public void TestBadInputs(string path)
+        [TestCase(REGEX1)]
+        [TestCase(HANG1)]
+        [TestCase(SO)]
+        [TestCase(SO2)]
+        public void TestBadInputsDontThrow(string path)
         {
             // Arrange
             var parser = new PipeParser();
             var text = File.ReadAllText(path);
 
             // Assert
-            Assert.DoesNotThrow(() =>
-            {
-                try
-                {
-                    var msg = parser.Parse(text);
-                }
-                catch (HL7Exception e)
-                {
-                    Console.WriteLine(e);
-                }
-            });
+            Assert.DoesNotThrow(
+                () => parser.Parse(text));
         }
     }
 }
