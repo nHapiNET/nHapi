@@ -60,7 +60,8 @@ public class PPN : AbstractType, IComposite{
 		data[3] = new ST(message,"Second and Further Given Names or Initials Thereof");
 		data[4] = new ST(message,"Suffix (e.g., JR or III)");
 		data[5] = new ST(message,"Prefix (e.g., DR)");
-		data[6] = new PPN(message,"Degree (e.g., MD)");
+		// Withdrawn as of v2.7
+		data[6] = new ST(message,"Degree (e.g., MD)");
 		data[7] = new CWE(message,"Source Table");
 		data[8] = new HD(message,"Assigning Authority");
 		data[9] = new ID(message, 200,"Name Type Code");
@@ -71,7 +72,8 @@ public class PPN : AbstractType, IComposite{
 		data[14] = new DTM(message,"Date/Time Action Performed");
 		data[15] = new ID(message, 465,"Name Representation Code");
 		data[16] = new CWE(message,"Name Context");
-		data[17] = new PPN(message,"Name Validity Range");
+		// Withdrawn as of v2.7
+		data[17] = new ST(message,"Name Validity Range");
 		data[18] = new ID(message, 444,"Name Assembly Order");
 		data[19] = new DTM(message,"Effective Date");
 		data[20] = new DTM(message,"Expiration Date");
