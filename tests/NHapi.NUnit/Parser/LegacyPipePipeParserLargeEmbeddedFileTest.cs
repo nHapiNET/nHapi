@@ -1,13 +1,12 @@
 ﻿/*
   SimpleSpeedTester doesn't support netstandard or above
-  TODO these tests will need re-writing at some point to also
+  TODO: these tests will need re-writing at some point to also
   work when test run is targeted against netcoreapp3.1 or above
 */
-namespace NHapi.NUnit
+namespace NHapi.NUnit.Parser
 {
 #if NET461
     using System;
-    using System.IO;
 
     using global::NUnit.Framework;
 
@@ -19,7 +18,7 @@ namespace NHapi.NUnit
     using SimpleSpeedTester.Interfaces;
 
     [TestFixture]
-    public class PipeParserLargeEmbeddedFileTest
+    public class LegacyPipePipeParserLargeEmbeddedFileTest
     {
         public const string LargeEmbeddedFileTest =
             @"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII
@@ -55,21 +54,20 @@ OBX|20|ED|PDF^Display format in PDF^AUSPDI||^TX^PDF^Base64^JVBERi0xLjcNJeLjz9MNC
 
         private static ITestResultSummary ParseLargeEmbeddedFileMessageTimes(int count)
         {
-            var parser = new PipeParser();
-            var oru = new ORU_R01();
+            var parser = new LegacyPipeParser();
             var testGroup = new TestGroup("LargeEmbeddedFiles");
             var testResultSummary = testGroup.PlanAndExecute(
-                string.Format("LargeEmbeddedFiles"),
+                "LargeEmbeddedFiles",
                 () =>
                 {
-                    oru = (ORU_R01)parser.Parse(LargeEmbeddedFileTest.Replace(Environment.NewLine, "\r"));
+                    var oru = (ORU_R01)parser.Parse(LargeEmbeddedFileTest.Replace(Environment.NewLine, "\r"));
 
                     var expectedObservationCount = 20;
                     var parsedObservations = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBSERVATIONRepetitionsUsed;
                     var parsedCorrectNumberOfObservations = parsedObservations == expectedObservationCount;
                     Assert.IsTrue(
                         parsedCorrectNumberOfObservations,
-                        string.Format("Expected 3 OBX repetitions used for this segment, found {0}", parsedObservations));
+                        $"Expected 3 OBX repetitions used for this segment, found {parsedObservations}");
 
                     foreach (var obs in oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION().OBX.GetObservationValue())
                     {

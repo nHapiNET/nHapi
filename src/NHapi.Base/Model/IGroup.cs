@@ -42,9 +42,12 @@ namespace NHapi.Base.Model
     /// </author>
     public interface IGroup : IStructure
     {
-        /// <summary> Returns an ordered array of the names of the Structures in this
-        /// Group.  These names can be used to iterate through the group using
-        /// repeated calls to. <code>get(name)</code>.
+        /// <summary>
+        /// Returns an ordered array of the names of the Structures in this Group.
+        /// <para>
+        /// These names can be used to iterate through the group using repeated
+        /// calls to <see cref="GetStructure(string)"/>.
+        /// </para>
         /// </summary>
         string[] Names { get; }
 
@@ -52,26 +55,33 @@ namespace NHapi.Base.Model
         /// an MSH segment and "MSH" is supplied then this call would return a 1-element array
         /// containing the MSH segment.  Multiple elements are returned when the segment or
         /// group repeats.  The array may be empty if no repetitions have been accessed
-        /// yet using the get(...) methods.
+        /// yet using the GetStructure(...) methods.
         /// </summary>
-        /// <throws>  HL7Exception if the named Structure is not part of this Group.  </throws>
+        /// <param name="name">Name of the structure.</param>
+        /// <returns>Array of Structure objects.</returns>
+        /// <exception cref="HL7Exception">If the named Structure is not part of this Group.</exception>
         IStructure[] GetAll(string name);
 
         /// <summary> Returns the named structure.  If this Structure is repeating then the first
         /// repetition is returned.  Creates the Structure if necessary.
         /// </summary>
-        /// <throws>  HL7Exception if the named Structure is not part of this Group.  </throws>
+        /// <param name="name">Name of the structure.</param>
+        /// <returns>First (or only) structure object.</returns>
+        /// <exception cref="HL7Exception">If the named Structure is not part of this Group.</exception>
         IStructure GetStructure(string name);
 
         /// <summary> Returns a particular repetition of the named Structure. If the given repetition
         /// number is one greater than the existing number of repetitions then a new
         /// Structure is created.
         /// </summary>
-        /// <throws>  HL7Exception if the named Structure is not part of this group,. </throws>
-        /// <summary>    if the structure is not repeatable and the given rep is > 0,
+        /// <param name="name">Name of the structure.</param>
+        /// <param name="rep">Repetition (zero-based).</param>
+        /// <returns>particular repetition of the named structure.</returns>
+        /// <exception cref="HL7Exception">if the named Structure is not part of this Group,
+        /// if the structure is not repeatable and the given rep is > 0,
         /// or if the given repetition number is more than one greater than the
         /// existing number of repetitions.
-        /// </summary>
+        /// </exception>
         IStructure GetStructure(string name, int rep);
 
         /// <summary> Returns true if the named structure is required. </summary>
@@ -79,6 +89,25 @@ namespace NHapi.Base.Model
 
         /// <summary> Returns true if the named structure is repeating. </summary>
         bool IsRepeating(string name);
+
+        /// <summary>
+        /// Returns true if the named structure is a "choice element".
+        /// Some HL7 structures(e.g.ORM_O01 in v2.5) have groups that have
+        /// several possible first segments.In these structures, one of these
+        /// "choice elements" must be present, but not more than one.
+        /// </summary>
+        /// <param name="name">name of the structure nested in this group.</param>
+        /// <returns>true if structure is a choice element.</returns>
+        /// <exception cref="HL7Exception">if the named Structure is not part of this group.</exception>
+        bool IsChoiceElement(string name);
+
+        /// <summary>
+        /// Returns true if the named structure is a group.
+        /// </summary>
+        /// <param name="name">name of the structure nested in this group.</param>
+        /// <returns>true if structure is a choice element.</returns>
+        /// <exception cref="HL7Exception">if the named Structure is not part of this group.</exception>
+        bool IsGroup(string name);
 
         /// <summary> Returns the Class of the Structure at the given name index.  </summary>
         Type GetClass(string name);
@@ -90,14 +119,27 @@ namespace NHapi.Base.Model
             Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
         string addNonstandardSegment(string name);
 
-        /// <summary>
-        /// Expands the group definition to include a segment that is not
-        /// defined by HL7 to be part of this group (eg: an unregistered Z segment).
+        /// <summary> Expands the group definition to include a segment that is not
+        /// defined by HL7 to be part of this group (eg an unregistered Z segment).
         /// The new segment is slotted at the end of the group.  Thenceforward if
         /// such a segment is encountered it will be parsed into this location.
         /// If the segment name is unrecognized a GenericSegment is used.  The
         /// segment is defined as repeating and not required.
         /// </summary>
+        /// <param name="name">name of the segment.</param>
+        /// <exception cref="HL7Exception">Thrown when <see cref="IMessage.Version"/> returns null.</exception>
         string AddNonstandardSegment(string name);
+
+        /// <summary> Expands the group definition to include a segment that is not
+        /// defined by HL7 to be part of this group (eg an unregistered Z segment).
+        /// The new segment is slotted at the end of the group.  Thenceforward if
+        /// such a segment is encountered it will be parsed into this location.
+        /// If the segment name is unrecognized a GenericSegment is used.  The
+        /// segment is defined as repeating and not required.
+        /// </summary>
+        /// <param name="name">name of the segment.</param>
+        /// <param name="index">index (zero-based) at which to insert this segment.</param>
+        /// <exception cref="HL7Exception">Thrown when <see cref="IMessage.Version"/> returns null.</exception>
+        string AddNonstandardSegment(string name, int index);
     }
 }

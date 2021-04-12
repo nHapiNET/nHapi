@@ -54,15 +54,18 @@ namespace NHapi.Base.Parser
             Log = HapiLogFactory.GetHapiLog(typeof(ParserBase));
         }
 
-        /// <summary> Uses DefaultModelClassFactory for model class lookup. </summary>
-        public ParserBase()
+        /// <summary>
+        /// Uses DefaultModelClassFactory for model class lookup.
+        /// </summary>
+        protected ParserBase()
             : this(new DefaultModelClassFactory())
         {
         }
 
-        /// <param name="theFactory">custom factory to use for model class lookup.
+        /// <param name="theFactory">
+        /// custom factory to use for model class lookup.
         /// </param>
-        public ParserBase(IModelClassFactory theFactory)
+        protected ParserBase(IModelClassFactory theFactory)
         {
             Factory = theFactory;
             ValidationContext = new DefaultValidation();
@@ -76,7 +79,7 @@ namespace NHapi.Base.Parser
         /// <summary>
         /// Gets or sets the set of validation rules that is applied to messages parsed or encoded by this parser.
         /// </summary>
-        public virtual IValidationContext ValidationContext
+        public IValidationContext ValidationContext
         {
             get
             {
@@ -103,9 +106,11 @@ namespace NHapi.Base.Parser
         /// <summary>
         /// Creates a version-specific MSH object and returns it as a version-independent
         /// MSH interface.
-        /// throws HL7Exception if there is a problem, e.g. invalid version, code not available
-        /// for given version.
         /// </summary>
+        /// <param name="version">HL7 Version.</param>
+        /// <param name="factory">Model class factory to be used.</param>
+        /// <returns>MSH segment for this version returned by the model class factory.</returns>
+        /// <exception cref="HL7Exception">If no matching segment could be found.</exception>
         public static ISegment MakeControlMSH(string version, IModelClassFactory factory)
         {
             ISegment msh;
@@ -114,12 +119,12 @@ namespace NHapi.Base.Parser
                 var dummy =
                     (IMessage)GenericMessage
                         .GetGenericMessageClass(version)
-                        .GetConstructor(new Type[] { typeof(IModelClassFactory) })
+                        .GetConstructor(new[] { typeof(IModelClassFactory) })
                         .Invoke(new object[] { factory });
 
-                var constructorParamTypes = new Type[] { typeof(IGroup), typeof(IModelClassFactory) };
-                var constructorParamArgs = new object[] { dummy, factory };
                 var c = factory.GetSegmentClass("MSH", version);
+                var constructorParamTypes = new[] { typeof(IGroup), typeof(IModelClassFactory) };
+                var constructorParamArgs = new object[] { dummy, factory };
                 var constructor = c.GetConstructor(constructorParamTypes);
                 msh = (ISegment)constructor.Invoke(constructorParamArgs);
             }
@@ -134,8 +139,9 @@ namespace NHapi.Base.Parser
             return msh;
         }
 
-        /// <summary> Returns true if the given string represents a valid 2.x version.  Valid versions
-        /// include "2.0", "2.0D", "2.1", "2.2", "2.3", "2.3.1", "2.4", "2.5".
+        /// <summary>
+        /// Returns true if the given string represents a valid 2.x version.
+        /// Valid versions include "2.0", "2.0D", "2.1", "2.2", "2.3", "2.3.1", "2.4", "2.5".
         /// </summary>
         public static bool ValidVersion(string version)
         {
@@ -149,6 +155,8 @@ namespace NHapi.Base.Parser
         /// when the message structure is explicitly valued in MSH-9-3.
         /// If no mapping is found, returns the original name.
         /// </summary>
+        /// <param name="name">A concatenation of message type and event (e.g. ADT_A04).</param>
+        /// <param name="version">The name of the HL7 version to which the message belongs (eg "2.5").</param>
         /// <exception cref="HL7Exception">Thrown if there is an error retrieving the map, or if the given version is invalid.</exception>
         public static string GetMessageStructureForEvent(string name, string version)
         {
@@ -172,11 +180,7 @@ namespace NHapi.Base.Parser
                 throw new HL7Exception($"No map found for version {version}");
             }
 
-            var structure = p.Get(name);
-            if (structure == null)
-            {
-                structure = name;
-            }
+            var structure = p.Get(name) ?? name;
 
             return structure;
         }
@@ -184,12 +188,35 @@ namespace NHapi.Base.Parser
         /// <summary>
         /// Parses a message string and returns the corresponding Message object.
         /// </summary>
-        /// <param name="message">a String that contains an HL7 message.</param>
-        /// <returns>A HAPI Message object parsed from the given String.</returns>
-        /// <exception cref="HL7Exception">if the message is not correctly formatted.</exception>
-        /// <exception cref="EncodingNotSupportedException">Thrown if the message encoded is not supported by this parser.</exception>
+        /// <param name="message">A string that contains an HL7 message.</param>
+        /// <returns>A <see cref="IMessage"/> object parsed from the given string.</returns>
+        /// <exception cref="HL7Exception">If the message is not correctly formatted.</exception>
+        /// <exception cref="EncodingNotSupportedException">If the message encoded is not supported by this parser.</exception>
         public virtual IMessage Parse(string message)
         {
+            var encoding = GetEncoding(message);
+
+            if (!SupportsEncoding(encoding))
+            {
+                string startOfMessage = null;
+                if (message.StartsWith("MSH"))
+                {
+                    var indexOfCarriageReturn = message.IndexOf('\r');
+                    if (indexOfCarriageReturn > 0)
+                    {
+                        startOfMessage = message.Substring(0, indexOfCarriageReturn);
+                    }
+                }
+
+                if (startOfMessage == null)
+                {
+                    startOfMessage = message.Substring(0, Math.Min(message.Length, 50));
+                }
+
+                throw new EncodingNotSupportedException(
+                    $"Determine encoding for message. The following is the first 50 chars of the message for reference, although this may not be where the issue is: {startOfMessage}");
+            }
+
             var version = GetVersion(message);
             if (!ValidVersion(version))
             {
@@ -204,8 +231,8 @@ namespace NHapi.Base.Parser
         /// <summary>
         /// Parse a message to a specific assembly.
         /// </summary>
-        /// <param name="message"></param>
-        /// <param name="version"></param>
+        /// <param name="message">A string that contains an HL7 message.</param>
+        /// <param name="version">the name of the HL7 version to which the message belongs (eg "2.5").</param>
         /// <returns></returns>
         public virtual IMessage Parse(string message, string version)
         {
@@ -224,9 +251,17 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary>
-        /// Formats a Message object into an HL7 message string using the given encoding.
+        /// Parses a particular message and returns the encoded structure.
         /// </summary>
-        /// <param name="source">a Message object from which to construct an encoded message string.</param>
+        /// <param name="message">The message to encode.</param>
+        /// <param name="string">The string to parse.</param>
+        /// <exception cref="HL7Exception">If there is a problem encoding.</exception>
+        public abstract void Parse(IMessage message, string @string);
+
+        /// <summary>
+        /// Formats a <see cref="IMessage"/> object into an HL7 message string using the given encoding.
+        /// </summary>
+        /// <param name="source">An <see cref="IMessage"/> object from which to construct an encoded message string.</param>
         /// <param name="encoding">the name of the HL7 encoding to use (eg "XML"; most implementations support only
         /// one encoding).
         /// </param>
@@ -243,7 +278,7 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary>
-        /// Formats a Message object into an HL7 message string using this parser's
+        /// Formats a Message object into an HL7 message string using this parsers
         /// default encoding.
         /// </summary>
         /// <param name="source">
@@ -263,55 +298,75 @@ namespace NHapi.Base.Parser
 
         /// <summary>
         /// Returns a String representing the encoding of the given message, if
-        /// the encoding is recognized.  For example if the given message appears
+        /// the encoding is recognized.
+        /// <para>
+        /// For example if the given message appears
         /// to be encoded using HL7 2.x XML rules then "XML" would be returned.
-        /// If the encoding is not recognized then null is returned.  That this
-        /// method returns a specific encoding does not guarantee that the
+        /// </para>
+        /// <para>
+        /// If the encoding is not recognized then null is returned.
+        /// </para>
+        /// That this method returns a specific encoding does not guarantee that the
         /// message is correctly encoded (e.g. well formed XML) - just that
         /// it is not encoded using any other encoding than the one returned.
-        /// Returns null if the encoding is not recognized.
         /// </summary>
+        /// <param name="message">The message to inspect.</param>
+        /// <returns>
+        /// "XML" or "ER7" or null if the encoding is not recognized.
+        /// </returns>
         public abstract string GetEncoding(string message);
 
         /// <summary>
         /// Returns true if and only if the given encoding is supported
         /// by this Parser.
         /// </summary>
-        public abstract bool SupportsEncoding(string encoding);
+        /// <param name="encoding">The encoding, "XML" or "ER7".</param>
+        /// <returns>true if this parser supports parsing message encoded this way.</returns>
+        public bool SupportsEncoding(string encoding)
+        {
+            return DefaultEncoding.Equals(encoding);
+        }
 
         /// <summary>
         /// Returns a minimal amount of data from a message string, including only the
-        /// data needed to send a response to the remote system.  This includes the
-        /// following fields:
-        /// <para>
-        /// <ul>
-        /// <li>field separator</li>
-        /// <li>encoding characters</li>
-        /// <li>processing ID</li>
-        /// <li>message control ID</li>
-        /// </ul>
-        /// </para>
-        /// <para>
+        /// data needed to send a response to the remote system.
+        /// <para>This includes the following fields:</para>
+        /// <list type="bullet">
+        ///   <listHeader>field separator</listHeader>
+        ///   <item>encoding characters</item>
+        ///   <item>processing ID</item>
+        ///   <item>message control ID</item>
+        /// </list>
         /// This method is intended for use when there is an error parsing a message,
         /// (so the Message object is unavailable) but an error message must be sent
         /// back to the remote system including some of the information in the inbound
-        /// message.  This method parses only that required information, hopefully
+        /// message.
+        /// <para>This method parses only that required information, hopefully
         /// avoiding the condition that caused the original error.
         /// </para>
+        /// The other fields in the returned MSH segment are empty.
         /// </summary>
-        /// <returns>An MSH segment.</returns>
         public abstract ISegment GetCriticalResponseData(string message);
 
         /// <summary>
         /// For response messages, returns the value of MSA-2 (the message ID of the message
-        /// sent by the sending system).  This value may be needed prior to main message parsing,
+        /// sent by the sending system).
+        /// <para>
+        /// This value may be needed prior to main message parsing,
         /// so that (particularly in a multi-threaded scenario) the message can be routed to
-        /// the thread that sent the request.  We need this information first so that any
-        /// parse exceptions are thrown to the correct thread.  Implementers of Parsers should
+        /// the thread that sent the request.
+        /// </para>
+        /// We need this information first so that any
+        /// parse exceptions are thrown to the correct thread.
+        /// <para>
+        /// Implementers of Parsers should
         /// take care to make the implementation of this method very fast and robust.
-        /// Returns null if MSA-2 can not be found (e.g. if the message is not a
-        /// response message).
+        /// </para>
         /// </summary>
+        /// <returns>
+        /// null if MSA-2 can not be found (e.g. if the message is not a
+        /// response message).
+        /// </returns>
         public abstract string GetAckID(string message);
 
         /// <summary>
@@ -323,7 +378,7 @@ namespace NHapi.Base.Parser
         public abstract string GetVersion(string message);
 
         /// <summary>
-        /// Called by encode(Message, String) to perform implementation-specific encoding work.
+        /// Called by <see cref="Encode(IMessage, string)"/> to perform implementation-specific encoding work.
         /// </summary>
         /// <param name="source">a Message object from which to construct an encoded message string.</param>
         /// <param name="encoding">the name of the HL7 encoding to use (eg "XML"; most implementations support only one encoding).</param>
@@ -333,7 +388,7 @@ namespace NHapi.Base.Parser
         protected internal abstract string DoEncode(IMessage source, string encoding);
 
         /// <summary>
-        /// Called by encode(Message) to perform implementation-specific encoding work.
+        /// Called by <see cref="Encode(IMessage)"/> to perform implementation-specific encoding work.
         /// </summary>
         /// <param name="source">a Message object from which to construct an encoded message string.</param>
         /// <returns>The encoded message.</returns>
@@ -342,7 +397,7 @@ namespace NHapi.Base.Parser
         protected internal abstract string DoEncode(IMessage source);
 
         /// <summary>
-        /// Called by parse() to perform implementation-specific parsing work.
+        /// Called by <see cref="Parse(string, string)"/> to perform implementation-specific parsing work.
         /// </summary>
         /// <param name="message">a String that contains an HL7 message.</param>
         /// <param name="version">the name of the HL7 version to which the message belongs (eg "2.5").</param>
@@ -352,8 +407,8 @@ namespace NHapi.Base.Parser
         protected internal abstract IMessage DoParse(string message, string version);
 
         /// <summary>
-        /// Note that the validation context of the resulting message is set to this parser's validation
-        /// context. The validation context is used within Primitive.setValue().
+        /// Note that the validation context of the resulting message is set to this parsers validation
+        /// context. The validation context is used within <see cref="IPrimitive.Value"/>.
         /// </summary>
         /// <param name="theName">name of the desired structure in the form XXX_YYY.</param>
         /// <param name="theVersion">HL7 version (e.g. "2.3").</param>

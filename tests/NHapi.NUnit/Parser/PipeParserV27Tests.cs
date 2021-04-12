@@ -1,4 +1,4 @@
-﻿namespace NHapi.NUnit
+﻿namespace NHapi.NUnit.Parser
 {
     using System;
     using System.Collections.Generic;
@@ -6,23 +6,21 @@
 
     using global::NUnit.Framework;
 
-    using NHapi.Base.Model;
     using NHapi.Base.Parser;
-    using NHapi.Model.V251.Datatype;
-    using NHapi.Model.V251.Message;
+    using NHapi.Model.V27.Datatype;
+    using NHapi.Model.V27.Message;
 
-    internal class PipeParsingFixture251
+    public class PipeParserV27Tests
     {
         public string GetMessage()
         {
-            return @"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII
-PID|1||1711114||Appt^Test||19720501||||||||||||001020006
-ORC|||||F
-OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
-OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F
-OBX|2|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F
-OBX|3|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F"
-            .Replace(Environment.NewLine, "\r");
+            return "MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.7|||AL|||ASCII\r"
+                 + "PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r"
+                 + "ORC|||||F\r"
+                 + "OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r"
+                 + "OBX|1|FT|||This\\.br\\is\\.br\\A Test~MoreText~SomeMoreText||||||F\r"
+                 + "OBX|2|FT|||This\\.br\\is\\.br\\A Test~MoreText~SomeMoreText||||||F\r"
+                 + "OBX|3|FT|||This\\.br\\is\\.br\\A Test~MoreText~SomeMoreText||||||F";
         }
 
         [Test]
@@ -46,23 +44,24 @@ OBX|3|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F"
         }
 
         [Test]
-        public void Test_251DataTypesParseCorrectly()
+        public void Test_27DataTypesParseCorrectly()
         {
-            // OBX|4|ID|||IDValue||||||F //Doesn't work
-            // OBX|5|IS|||ISValue||||||F //Doesn't work
-            var message = @"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII
-PID|1||1711114||Appt^Test||19720501||||||||||||001020006
-ORC|||||F
-OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
-OBX|1|DT|||DTValue||||||F
-OBX|2|ST|||STValue||||||F
-OBX|3|TM|||TMValue||||||F".Replace(Environment.NewLine, "\r");
+            var message =
+                "MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.7|||AL|||ASCII\r"
+              + "PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r"
+              + "ORC|||||F\r"
+              + "OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r"
+              + "OBX|1|DT|||DTValue||||||F\r"
+              + "OBX|2|ST|||STValue||||||F\r"
+              + "OBX|3|TM|||TMValue||||||F\r"
+              + "OBX|4|ID|||IDValue||||||F\r"
+              + "OBX|5|IS|||ISValue||||||F";
 
             var parser = new PipeParser();
             var oru = new ORU_R01();
             oru = (ORU_R01)parser.Parse(message);
 
-            var expectedObservationCount = 3;
+            var expectedObservationCount = 5;
             var parsedObservations = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBSERVATIONRepetitionsUsed;
             var parsedCorrectNumberOfObservations = parsedObservations == expectedObservationCount;
             Assert.IsTrue(
@@ -78,15 +77,22 @@ OBX|3|TM|||TMValue||||||F".Replace(Environment.NewLine, "\r");
             index++;
             obs = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(index).OBX.GetObservationValue().FirstOrDefault();
             Assert.IsTrue(obs.Data is TM);
+            index++;
+            obs = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(index).OBX.GetObservationValue().FirstOrDefault();
+            Assert.IsTrue(obs.Data is ID);
+            index++;
+            obs = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(index).OBX.GetObservationValue().FirstOrDefault();
+            Assert.IsTrue(obs.Data is IS);
         }
 
         [Test]
         public void TestADTA04IsMappedAsA01()
         {
-            var hl7Data = @"MSH|^~\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||ADT^A04|1|P|2.5.1|
-EVN|
-PID|1|12345
-PV1|1".Replace(Environment.NewLine, "\r");
+            var hl7Data =
+                "MSH|^~\\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||ADT^A04|1|P|2.7|\r"
+              + "EVN|\r"
+              + "PID|1|12345\r"
+              + "PV1|1";
 
             var parser = new PipeParser();
             var msg = parser.Parse(hl7Data);
@@ -101,19 +107,19 @@ PV1|1".Replace(Environment.NewLine, "\r");
         [Test]
         public void TestAdtA04AndA01MessageStructure()
         {
-            var result = PipeParser.GetMessageStructureForEvent("ADT_A04", "2.5.1");
+            var result = PipeParser.GetMessageStructureForEvent("ADT_A04", "2.7");
             var isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
             Assert.IsTrue(isSame, "ADT_A04 returns ADT_A01");
 
-            result = PipeParser.GetMessageStructureForEvent("ADT_A13", "2.5.1");
+            result = PipeParser.GetMessageStructureForEvent("ADT_A13", "2.7");
             isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
             Assert.IsTrue(isSame, "ADT_A13 returns ADT_A01");
 
-            result = PipeParser.GetMessageStructureForEvent("ADT_A08", "2.5.1");
+            result = PipeParser.GetMessageStructureForEvent("ADT_A08", "2.7");
             isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
             Assert.IsTrue(isSame, "ADT_A08 returns ADT_A01");
 
-            result = PipeParser.GetMessageStructureForEvent("ADT_A01", "2.5.1");
+            result = PipeParser.GetMessageStructureForEvent("ADT_A01", "2.7");
             isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
             Assert.IsTrue(isSame, "ADT_A01 returns ADT_A01");
         }
@@ -121,15 +127,15 @@ PV1|1".Replace(Environment.NewLine, "\r");
         /// <summary>
         /// https://github.com/nHapiNET/nHapi/issues/135.
         /// </summary>
-        [TestCaseSource(nameof(validV251ValueTypes))]
+        [TestCaseSource(nameof(validV27ValueTypes))]
         public void TestObx5DataTypeIsSetFromObx2_AndAllDataTypesAreConstructable(Type expectedObservationValueType)
         {
-            var message = $@"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII
-PID|1||1711114||Appt^Test||19720501||||||||||||001020006
-ORC|||||F
-OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
-OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}Value||||||F"
-            .Replace(Environment.NewLine, "\r");
+            var message =
+                "MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.7|||AL|||ASCII\r"
+              + "PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r"
+              + "ORC|||||F\r"
+              + "OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r"
+             + $"OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}Value||||||F";
 
             var parser = new PipeParser();
 
@@ -143,10 +149,9 @@ OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}V
         /// <summary>
         /// Specified in Table 0125.
         /// </summary>
-        private static IEnumerable<Type> validV251ValueTypes = new List<Type>
+        private static IEnumerable<Type> validV27ValueTypes = new List<Type>
         {
             typeof(AD),
-            typeof(CE),
             typeof(CF),
             typeof(CP),
             typeof(CX),
@@ -160,7 +165,6 @@ OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}V
             typeof(SN),
             typeof(ST),
             typeof(TM),
-            typeof(TS),
             typeof(TX),
             typeof(XAD),
             typeof(XCN),

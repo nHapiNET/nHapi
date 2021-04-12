@@ -144,10 +144,26 @@ namespace NHapi.Base.Parser
         /// </summary>
         public override IMessage ParseDocument(XmlDocument xmlMessage, string version)
         {
-            var messageName = ((XmlElement)xmlMessage.DocumentElement).Name;
+            var messageName = xmlMessage.DocumentElement.Name;
             var message = InstantiateMessage(messageName, version, true);
-            Parse(message, (XmlElement)xmlMessage.DocumentElement);
+            Parse(message, xmlMessage.DocumentElement);
             return message;
+        }
+
+        /// <inheritdoc />
+        public override void Parse(IMessage message, string @string)
+        {
+            try
+            {
+                var xmlDocument = new XmlDocument();
+                xmlDocument.Load(new StringReader(@string));
+
+                Parse(message, xmlDocument.DocumentElement);
+            }
+            catch (XmlException e)
+            {
+                throw new HL7Exception("XmlException parsing XML", ErrorCode.APPLICATION_INTERNAL_ERROR, e);
+            }
         }
 
         /// <summary>

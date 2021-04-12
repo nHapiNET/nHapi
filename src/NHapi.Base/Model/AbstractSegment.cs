@@ -149,6 +149,7 @@ namespace NHapi.Base.Model
         public virtual IType GetField(int number, int rep)
         {
             EnsureEnoughFields(number);
+
             if (number < 1 || number > items.Count)
             {
                 throw new HL7Exception(

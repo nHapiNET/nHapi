@@ -29,6 +29,8 @@ namespace NHapi.Base.Parser
 {
     using System;
 
+    using NHapi.Base.Model;
+
     /// <summary>
     /// Represents the set of special characters used to encode traditionally
     /// encoded HL7 messages.
@@ -143,6 +145,34 @@ namespace NHapi.Base.Parser
             get { return encChars[3]; }
 
             set { encChars[3] = value; }
+        }
+
+        /// <summary>
+        /// Returns an instance using the MSH-1 and MSH-2 values of the given message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <returns>the encoding characters for this message.</returns>
+        /// <exception cref="HL7Exception">If either MSH-1 or MSH-2 are not populated.</exception>
+        public static EncodingCharacters FromMessage(IMessage message)
+        {
+            var firstSegment = (ISegment)message.GetStructure(message.Names[0]);
+            var msh2 = (IPrimitive)firstSegment.GetField(2, 0);
+
+            var encodingCharactersValue = msh2.Value;
+            if (string.IsNullOrEmpty(encodingCharactersValue))
+            {
+                throw new HL7Exception("encoding characters not populated");
+            }
+
+            var msh1 = (IPrimitive)firstSegment.GetField(1, 0);
+
+            var fieldSeparatorValue = msh1.Value;
+            if (fieldSeparatorValue == null)
+            {
+                throw new HL7Exception("Field separator not populated");
+            }
+
+            return new EncodingCharacters(fieldSeparatorValue[0], encodingCharactersValue);
         }
 
         /// <summary>

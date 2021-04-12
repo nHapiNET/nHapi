@@ -34,19 +34,28 @@ namespace NHapi.Base.Model
     /// </author>
     public interface IStructure
     {
-        /// <summary> Returns the Message object to which this structure belongs.  This should normally be set at
-        /// construction time.  A Structure can only belong to a single Message.  This is primarily
-        /// to avoid a situation where intended changes in one message cause unintended changes
+        /// <summary>
+        /// Returns the Message object to which this structure belongs.
+        /// <para>
+        /// This should normally be set at construction time.
+        /// </para>
+        /// <para>
+        /// A Structure can only belong to a single Message.
+        /// This is primarily to avoid a situation where intended changes in one message cause unintended changes
         /// in another that shares one of the same Structure objects.
+        /// </para>
         /// </summary>
         IMessage Message { get; }
 
-        /// <summary> Returns the parent group within which this structure exists (may be root
+        /// <summary>
+        /// Returns the parent group within which this structure exists (may be root
         /// message group).
         /// </summary>
         IGroup ParentStructure { get; }
 
-        /// <summary> Returns the structure's name. </summary>
+        /// <summary>
+        /// Returns the structure's name.
+        /// </summary>
         string GetStructureName();
     }
 }

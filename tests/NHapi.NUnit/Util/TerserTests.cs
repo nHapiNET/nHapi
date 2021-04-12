@@ -1,0 +1,299 @@
+﻿namespace NHapi.NUnit.Util
+{
+    using System;
+
+    using global::NUnit.Framework;
+
+    using NHapi.Base;
+    using NHapi.Base.Model;
+    using NHapi.Base.Parser;
+    using NHapi.Base.Util;
+    using NHapi.Model.V24.Datatype;
+    using NHapi.Model.V24.Message;
+
+    using RSP_K23 = NHapi.Model.V25.Message.RSP_K23;
+
+    [TestFixture]
+    public class TerserTests
+    {
+        private SIU_S12 suiS12;
+        private Terser sut;
+
+        [SetUp]
+        public void Init()
+        {
+            suiS12 = new SIU_S12();
+            suiS12.MSH.MessageType.TriggerEvent.Value = "a";
+            suiS12.GetPATIENT().PID.BirthPlace.Value = "b";
+            suiS12.GetRESOURCES().GetGENERAL_RESOURCE().AIG.GetResourceGroup(0).Identifier.Value = "c";
+            suiS12.GetRESOURCES().GetGENERAL_RESOURCE().AIG.GetResourceGroup(1).Identifier.Value = "d";
+            suiS12.GetRESOURCES(1).GetGENERAL_RESOURCE().AIG.GetResourceGroup(0).Identifier.Value = "e";
+            suiS12.SCH.GetPlacerContactPerson(0).AssigningAuthority.UniversalID.Value = "subcomp";
+            sut = new Terser(suiS12);
+        }
+
+        [Test]
+        [TestCase("MSH-9-2", "a")]
+        [TestCase("/MSH-9-2", "a")]
+        [TestCase("/*H-9-2", "a")]
+        [TestCase("/.PID-23", "b")]
+        [TestCase("/.*ID-23-1-1", "b")]
+        [TestCase("/.AIG-5-1", "c")]
+        [TestCase("/*RES*/GENERAL_RESOURCE/AIG-5-1", "c")]
+        [TestCase("/*RES*/GENERAL_RESOURCE/AIG-5(1)-1", "d")]
+        [TestCase("/*RES*(1)/GENERAL_RESOURCE/AIG-5(0)-1", "e")]
+        [TestCase("/SCH-12-9-2", "subcomp")]
+        public void Get_ValidSpec_ReturnsExpectedValue(string path, string expected)
+        {
+            var actual = sut.Get(path);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void Set_ValidSpec_SetsExpectedValue()
+        {
+            var path = "/*RES*(1)/GENERAL_RESOURCE/AIG-5-1";
+            var expected = "foot";
+            sut.Set(path, expected);
+
+            var actual = sut.Get(path);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void TestVaries()
+        {
+            var n = suiS12.MSH.NumFields() + 1;
+            var v = (Varies)suiS12.MSH.GetField(n, 0);
+            var p = (IPrimitive)v.Data; // will be generic primitive
+            var expected = "x";
+
+            p.Value = expected;
+
+            Assert.AreEqual(expected, sut.Get($"MSH-{n}"));
+
+            v.Data = new CE(suiS12);
+
+            Assert.AreEqual(expected, sut.Get($"MSH-{n}"));
+
+            ((CE)v.Data).Text.Value = "text";
+            Assert.AreEqual("text", sut.Get($"MSH-{n}-2"));
+        }
+
+        [Test]
+        public void TestExtraComponents()
+        {
+            sut.Set("/MSH-9-4", "foo");
+            Assert.AreEqual("foo", sut.Get("/MSH-9-4"));
+
+            sut.Set("/MSH-9-4-2", "bar");
+            Assert.AreEqual("bar", sut.Get("/MSH-9-4-2"));
+            Assert.AreEqual("foo", sut.Get("/MSH-9-4-1"));
+        }
+
+        [Test]
+        [TestCase("*MSH-9-2", "a")]
+        [TestCase("*SH-9-2", "a")]
+        [TestCase("*S*-9-2", "a")]
+        [TestCase("*H-9-2", "a")]
+        [TestCase("MS*-9-2", "a")]
+        [TestCase("*-9-2", "a")]
+        [TestCase("?SH-9-2", "a")]
+        [TestCase("?S?-9-2", "a")]
+        [TestCase("?S*-9-2", "a")]
+        public void Get_ValidPathWithWildcards_ReturnsExpectedValue(string path, string expected)
+        {
+            var actual = sut.Get(path);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        [TestCase("*QQQ-9-2")]
+        [TestCase("?MSH-9-2")]
+        public void Get_InValidPathWithWildcards_ThrowsHL7Exception(string path)
+        {
+            Assert.Throws<HL7Exception>(() => sut.Get(path));
+        }
+
+        /// <summary>
+        /// This test was copied wholesale from the hapi test suite.
+        /// </summary>
+        [Test]
+        public void TestSearch()
+        {
+            var msg = "MSH|^~\\&|POW|100||100|200012171800||RDE^O11|14718|P|2.4|||AL|NE|0\r"
+                    + "PID|0001|99999|2000006|000077777|Possible^Kim^||195002220000|F||1|100 E San Marcos Blvd^^San Marcos^CA^92069^USA^^^San Diego|||||M||2000006|123-45-6789|A0012345^CA||1|||||||||\r"
+                    + "ORC|NW|RX1|RX1||IP||^BID^X001^200012171800^200308200600|2045&OE^123&PH|200012171800|Nurse1|Nurse2|1^Order MD|||200012171800||||\r"
+                    + "RXR|XXX\r"
+                    + "RXE|^BID^X001^200012171800^200308200600|99089^DIGOXIN (LANOXIN) -- 0.25 mg|0.2500|0.2500|mg|TA|111^||||||||||||||222^||||0.0000|||||\r"
+                    + "RXR|PO||\r";
+
+            /*
+             * Note, these test cases assume the old behaviour of handling
+             * unexpected segments
+             */
+            var pipeParser = new LegacyPipeParser();
+
+            var message = pipeParser.Parse(msg);
+            var terser = new Terser(message);
+
+            var value = terser.Get("/.ORC-2");
+            Assert.AreEqual("RX1", value);
+
+            value = terser.Get("/ORDER*/RXR-1");
+            Assert.AreEqual("PO", value);
+            value = terser.Get("/*ORDER*/RXR-1");
+            Assert.AreEqual("PO", value);
+            value = terser.Get("/ORDER*/RXE-1-2");
+            Assert.AreEqual("BID", value);
+            value = terser.Get("/.ORC-1-1");
+            Assert.AreEqual("NW", value);
+
+            // fixed ... original error: yields HL7Exception: End of message reached --
+            // this is a peer to ORC, which does work with same syntax
+            value = terser.Get("/.RXE-1-2");
+            Assert.AreEqual("BID", value);
+
+            // makes sense ... value is in 2nd RXR ... adding segment before RXE to test this
+            // ... original error: yields "null" instead of "PO"
+            value = terser.Get("/.RXR-1");
+            Assert.AreEqual("XXX", value);
+
+            // makes sense ... value is in 2nd RXR ... original error: yields "null" instead of "PO"
+            // value = terser.Get("/.RDE_O11_RXR/RXR-1");
+            // Assert.AreEqual("XXX", value);
+
+            // as above
+            value = terser.Get("/ORDER*/.RXR(0)-1");
+            Assert.AreEqual("XXX", value);
+
+            // as above
+            value = terser.Get("/ORDER*/.RXR-1");
+            Assert.AreEqual("XXX", value);
+
+            // try getting to the PO value
+            // value = terser.Get("/RDE_O11_ORC*/.RXR-1");
+            // Assert.AreEqual("PO", value);
+
+            // OK (* finds first structure): yields NoSuchElementException
+            // value = terser.Get("/RDE_O11_ORC*/*/RXR-1");
+
+            // OK (* finds first structure): yields NoSuchElementException
+            // value = terser.Get("/*/RDE_O11_RXR/RXR-1");
+        }
+
+        /// <summary>
+        /// This test was copied wholesale from the hapi test suite.
+        /// </summary>
+        [Test]
+        public void TestEnumerators()
+        {
+            var segment = sut.GetSegment("MSH");
+            Assert.AreEqual(3, Terser.numComponents(segment.GetField(9, 0)));
+
+            segment.GetField(9, 0).ExtraComponents.GetComponent(0);
+            Assert.AreEqual(4, Terser.numComponents(segment.GetField(9, 0)));
+
+            segment.GetField(9, 0).ExtraComponents.GetComponent(1);
+            Assert.AreEqual(5, Terser.numComponents(segment.GetField(9, 0)));
+
+            segment.GetField(2, 0).ExtraComponents.GetComponent(0);
+            Assert.AreEqual(2, Terser.numComponents(segment.GetField(2, 0)));
+
+            ((IPrimitive)((IComposite)segment.GetField(9, 0)).Components[0].ExtraComponents.GetComponent(0).Data).Value = "xxx";
+            Assert.AreEqual(2, Terser.numSubComponents(segment.GetField(9, 0), 1));
+        }
+
+        [Test]
+        public void TestPatientId()
+        {
+            var msgString = "MSH|^~\\&|XYZ|a1510aae-cbcd-43d0-b0e2-4ad082f03775|HU|7d15ac56-8b12-4a07-8b10-3d2ae367f407|20100831104406||RSP^K23|20100831104406208095|P|2.5\r"
+                        + "MSA|AA|20100831104406208095\r"
+                        + "QAK||OK\r"
+                        + "QPD|QRY_1001^Query for Corresponding Identifiers^ICDO|QRY10502106|QBPQ231176^^^57f31a9b-8eff-4736-84c4-6fafd6f25039\r"
+                        + "PID|||QBPQ231177^^^DD95666A-76BA-444E-8FE8-C4E6BFC83E2D";
+
+            var qryMsg = (RSP_K23)new PipeParser().Parse(msgString);
+            var terser = new Terser(qryMsg);
+            var expected = "QBPQ231177";
+
+            Assert.AreEqual(expected, terser.Get("/.PID-3-1"));
+            Assert.AreEqual(expected, terser.Get("/QUERY_RESPONSE(0)/.PID-3-1"));
+        }
+
+        #region Static Methods
+
+        [Test]
+        public void Get_SegmentIsNull_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(
+                () => Terser.Get(null, 0, 0, 0, 0));
+        }
+
+        [Test]
+        public void Get_ComponentIsLessThan0_ThrowsArgumentOutOfRangeException()
+        {
+            var segment = suiS12.MSH;
+
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => Terser.Get(segment, 0, 0, -1, 0));
+        }
+
+        [Test]
+        public void Get_SubComponentIsLessThan0_ThrowsArgumentOutOfRangeException()
+        {
+            var segment = suiS12.MSH;
+
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => Terser.Get(segment, 0, 0, 0, -1));
+        }
+
+        [Test]
+        public void Get_RepIsLessThan0_ThrowsArgumentOutOfRangeException()
+        {
+            var segment = suiS12.MSH;
+
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => Terser.Get(segment, 0, -1, 0, 0));
+        }
+
+        [Test]
+        public void GetPrimitive_TypeIsNull_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(
+                () => Terser.GetPrimitive(null, 0, 0));
+        }
+
+        [Test]
+        public void GetPrimitive_ComponentIsLessThen0_ArgumentOutOfRangeException()
+        {
+            var type = suiS12.MSH.MessageType;
+
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => Terser.GetPrimitive(type, -1, 0));
+        }
+
+        [Test]
+        public void GetPrimitive_SubComponentIsLessThen0_ArgumentOutOfRangeException()
+        {
+            var type = suiS12.MSH.MessageType;
+
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => Terser.GetPrimitive(type, 0, -1));
+        }
+
+        [Test]
+        public void TestMultiArg()
+        {
+            var msh = suiS12.MSH;
+            var test = Terser.Get(msh, 9, 0, 2, 1);
+
+            Assert.AreEqual("a", test);
+        }
+
+        #endregion
+    }
+}

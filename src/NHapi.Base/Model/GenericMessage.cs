@@ -1,6 +1,7 @@
 namespace NHapi.Base.Model
 {
     using System;
+    using System.Collections.Generic;
 
     using NHapi.Base;
     using NHapi.Base.Log;
@@ -13,6 +14,8 @@ namespace NHapi.Base.Model
     /// <author>Bryan Tripp.</author>
     public abstract class GenericMessage : AbstractMessage
     {
+        private static readonly Dictionary<string, Type> GenericMessages = new Dictionary<string, Type>();
+
         /// <summary>
         /// Creates a new instance of GenericMessage.
         /// </summary>
@@ -54,31 +57,22 @@ namespace NHapi.Base.Model
                 throw new ArgumentException($"The version {version} is not recognized");
             }
 
-            // TODO: Think about converting this to a switch statement
-            Type c = null;
-            if (version.Equals("2.1"))
+            Type c;
+            if (GenericMessages.ContainsKey(version))
             {
-                c = typeof(V21);
+                c = GenericMessages[version];
             }
-            else if (version.Equals("2.2"))
+            else
             {
-                c = typeof(V22);
-            }
-            else if (version.Equals("2.3"))
-            {
-                c = typeof(V23);
-            }
-            else if (version.Equals("2.3.1"))
-            {
-                c = typeof(V231);
-            }
-            else if (version.Equals("2.4"))
-            {
-                c = typeof(V24);
-            }
-            else if (version.Equals("2.5"))
-            {
-                c = typeof(V25);
+                var versionClassName = $"V{version.Replace(".", string.Empty)}";
+                var fullName = $"{typeof(GenericMessage).FullName}+{versionClassName}";
+
+                c = Type.GetType(fullName, false);
+
+                if (c != null)
+                {
+                    GenericMessages.Add(version, c);
+                }
             }
 
             return c;
@@ -202,6 +196,126 @@ namespace NHapi.Base.Model
             /// Version of message.
             /// </summary>
             public override string Version => "2.5";
+        }
+
+        /// <summary>
+        /// Version 2.5.1 generic message.
+        /// </summary>
+        public class V251 : GenericMessage
+        {
+            /// <summary>
+            /// Constructor.
+            /// </summary>
+            /// <param name="factory"></param>
+            public V251(IModelClassFactory factory)
+                : base(factory)
+            {
+            }
+
+            /// <summary>
+            /// Version of message.
+            /// </summary>
+            public override string Version => "2.5.1";
+        }
+
+        /// <summary>
+        /// Version 2.6 generic message.
+        /// </summary>
+        public class V26 : GenericMessage
+        {
+            /// <summary>
+            /// Constructor.
+            /// </summary>
+            /// <param name="factory"></param>
+            public V26(IModelClassFactory factory)
+                : base(factory)
+            {
+            }
+
+            /// <summary>
+            /// Version of message.
+            /// </summary>
+            public override string Version => "2.6";
+        }
+
+        /// <summary>
+        /// Version 2.7 generic message.
+        /// </summary>
+        public class V27 : GenericMessage
+        {
+            /// <summary>
+            /// Constructor.
+            /// </summary>
+            /// <param name="factory"></param>
+            public V27(IModelClassFactory factory)
+                : base(factory)
+            {
+            }
+
+            /// <summary>
+            /// Version of message.
+            /// </summary>
+            public override string Version => "2.7";
+        }
+
+        /// <summary>
+        /// Version 2.7.1 generic message.
+        /// </summary>
+        public class V271 : GenericMessage
+        {
+            /// <summary>
+            /// Constructor.
+            /// </summary>
+            /// <param name="factory"></param>
+            public V271(IModelClassFactory factory)
+                : base(factory)
+            {
+            }
+
+            /// <summary>
+            /// Version of message.
+            /// </summary>
+            public override string Version => "2.7.1";
+        }
+
+        /// <summary>
+        /// Version 2.8 generic message.
+        /// </summary>
+        public class V28 : GenericMessage
+        {
+            /// <summary>
+            /// Constructor.
+            /// </summary>
+            /// <param name="factory"></param>
+            public V28(IModelClassFactory factory)
+                : base(factory)
+            {
+            }
+
+            /// <summary>
+            /// Version of message.
+            /// </summary>
+            public override string Version => "2.8";
+        }
+
+        /// <summary>
+        /// Version 2.8.1 generic message.
+        /// </summary>
+        public class V281 : GenericMessage
+        {
+            /// <summary>
+            /// Constructor.
+            /// </summary>
+            /// <param name="factory"></param>
+            public V281(IModelClassFactory factory)
+                : base(factory)
+            {
+            }
+
+            /// <summary>
+            /// Version of message.
+            /// </summary>
+            public override string Version => "2.8.1";
         }
     }
 }

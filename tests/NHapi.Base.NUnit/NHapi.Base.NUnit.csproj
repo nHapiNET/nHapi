@@ -27,6 +27,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\NHapi.Base\NHapi.Base.csproj" />
+    <ProjectReference Include="..\..\src\NHapi.Model.V24\NHapi.Model.V24.csproj" />
+    <ProjectReference Include="..\..\src\NHapi.Model.V22\NHapi.Model.V22.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">

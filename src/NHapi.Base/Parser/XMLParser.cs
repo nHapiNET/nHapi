@@ -66,7 +66,7 @@ namespace NHapi.Base.Parser
             Log = HapiLogFactory.GetHapiLog(typeof(XMLParser));
         }
 
-        public XMLParser()
+        protected XMLParser()
         {
             parser = new XmlDocument
             {
@@ -74,7 +74,7 @@ namespace NHapi.Base.Parser
             };
         }
 
-        public XMLParser(IModelClassFactory factory)
+        protected XMLParser(IModelClassFactory factory)
             : base(factory)
         {
             parser = new XmlDocument
@@ -159,7 +159,7 @@ namespace NHapi.Base.Parser
                     var reps = mess.GetAll(structNames[i]);
                     for (var j = 0; j < reps.Length; j++)
                     {
-                        if (typeof(ISegment).IsAssignableFrom(reps[j].GetType()))
+                        if (reps[j] is ISegment)
                         {
                             // ignore groups
                             var docBuilder = new XmlDocument();
@@ -231,15 +231,6 @@ namespace NHapi.Base.Parser
             }
 
             return encoding;
-        }
-
-        /// <summary>
-        /// Returns true if and only if the given encoding is supported
-        /// by this Parser.
-        /// </summary>
-        public override bool SupportsEncoding(string encoding)
-        {
-            return (encoding ?? string.Empty).Equals("XML");
         }
 
         /// <summary> <p>Creates and populates a Message object from an XML Document that contains an XML-encoded HL7 message.</p>
@@ -828,6 +819,10 @@ namespace NHapi.Base.Parser
             public override XmlDocument EncodeDocument(IMessage source)
             {
                 return null;
+            }
+
+            public override void Parse(IMessage message, string @string)
+            {
             }
 
             public override string GetVersion(string message)

@@ -1,11 +1,10 @@
-namespace NHapi.NUnit
+namespace NHapi.NUnit.Parser
 {
     using System;
     using System.Collections.Generic;
 
     using global::NUnit.Framework;
 
-    using NHapi.Base.Model;
     using NHapi.Base.Parser;
     using NHapi.Model.V25.Datatype;
     using NHapi.Model.V25.Message;
@@ -14,17 +13,18 @@ namespace NHapi.NUnit
     /// This test case is in response to BUG 1807858 on source forge.  This BUG really isn't a bug, but the expected functionality.
     /// </summary>
     [TestFixture]
-    public class PipeParsingFixture25
+    public class LegacyPipeParserV25Tests
     {
         [Test]
         public void TestAdtA28MappingFromHl7()
         {
-            var hl7Data = @"MSH|^~\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||ADT^A28^ADT_A05|1|P|2.5|
-EVN|
-PID|1|12345
-PV1|1".Replace(Environment.NewLine, "\r");
+            var hl7Data =
+                "MSH|^~\\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||ADT^A28^ADT_A05|1|P|2.5|\r"
+              + "EVN|\r"
+              + "PID|1|12345\r"
+              + "PV1|1";
 
-            var parser = new PipeParser();
+            var parser = new LegacyPipeParser();
             var msg = parser.Parse(hl7Data);
 
             Assert.IsNotNull(msg, "Message should not be null");
@@ -42,7 +42,7 @@ PV1|1".Replace(Environment.NewLine, "\r");
             a05.MSH.MessageType.MessageCode.Value = "ADT";
             a05.MSH.MessageType.TriggerEvent.Value = "A28";
             a05.MSH.MessageType.MessageStructure.Value = "ADT_A05";
-            var parser = new PipeParser();
+            var parser = new LegacyPipeParser();
             var msg = parser.Encode(a05);
 
             var data = msg.Split('|');
@@ -75,14 +75,14 @@ PV1|1".Replace(Environment.NewLine, "\r");
         [TestCaseSource(nameof(validV25ValueTypes))]
         public void TestObx5DataTypeIsSetFromObx2_AndAllDataTypesAreConstructable(Type expectedObservationValueType)
         {
-            var message = $@"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5|||AL|||ASCII
-PID|1||1711114||Appt^Test||19720501||||||||||||001020006
-ORC|||||F
-OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
-OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}Value||||||F"
-            .Replace(Environment.NewLine, "\r");
+            var message =
+                "MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5|||AL|||ASCII\r"
+              + "PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r"
+              + "ORC|||||F\r"
+              + "OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r"
+             + $"OBX|1|{expectedObservationValueType.Name}|||{expectedObservationValueType.Name}Value||||||F";
 
-            var parser = new PipeParser();
+            var parser = new LegacyPipeParser();
 
             var parsed = (ORU_R01)parser.Parse(message);
 

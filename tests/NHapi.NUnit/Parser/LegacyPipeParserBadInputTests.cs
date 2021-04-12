@@ -9,7 +9,7 @@
     using NHapi.Base.Parser;
 
     [TestFixture]
-    public class BadInputTests
+    public class LegacyPipeParserBadInputTests
     {
         private const string AOOR1 = "TestData/BadInputs/aoor1";
         private const string SYS1 = "TestData/BadInputs/sys1";
@@ -26,10 +26,10 @@
         [TestCase(NULLREF1)]
         [TestCase(IOOR1)]
         [TestCase(SYS2)]
-        public void TestBadInputsThrowHL7(string path)
+        public void TestBadInputsThrowHL7Exception(string path)
         {
             // Arrange
-            var parser = new PipeParser();
+            var parser = new LegacyPipeParser();
             var text = File.ReadAllText(path);
 
             // Act / Assert
@@ -45,10 +45,10 @@
         [TestCase(HANG1)]
         [TestCase(SO)]
         [TestCase(SO2)]
-        public void TestBadInputsDontThrow(string path)
+        public void TestBadInputsAreHandledGracefully(string path)
         {
             // Arrange
-            var parser = new PipeParser();
+            var parser = new LegacyPipeParser();
             var text = File.ReadAllText(path);
 
             // Assert

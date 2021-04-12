@@ -14,12 +14,14 @@ namespace NHapi.Base.Model
         /// <param name="name"></param>
         /// <param name="required"></param>
         /// <param name="repeating"></param>
+        /// <param name="choiceElement"></param>
         /// <param name="classType"></param>
-        public AbstractGroupItem(string name, bool required, bool repeating, Type classType)
+        public AbstractGroupItem(string name, bool required, bool repeating, bool choiceElement, Type classType)
         {
             Name = name;
             IsRequired = required;
             IsRepeating = repeating;
+            IsChoiceElement = choiceElement;
             ClassType = classType;
         }
 
@@ -42,6 +44,11 @@ namespace NHapi.Base.Model
         /// Is item required.
         /// </summary>
         public bool IsRequired { get; }
+
+        /// <summary>
+        /// Is item a "choice element".
+        /// </summary>
+        public bool IsChoiceElement { get; }
 
         /// <summary>
         /// The structures of the group item.
