@@ -24,7 +24,7 @@
             var result = message.GetStructure(segmentToTest, 1);
 
             // Assert
-            Assert.AreEqual(expectedSegmentType.Name, result.GetType().Name);
+            Assert.AreEqual(expectedSegmentType, result.GetType());
         }
 
         [Test]
@@ -40,7 +40,7 @@
             var result = message.GetStructure(segmentToTest);
 
             // Assert
-            Assert.AreEqual(expectedSegmentType.Name, result.GetType().Name);
+            Assert.AreEqual(expectedSegmentType, result.GetType());
         }
 
         [Test]

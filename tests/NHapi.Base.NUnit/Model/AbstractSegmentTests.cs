@@ -24,9 +24,9 @@
             msh.GetField(n + 3, 0);
 
             // Assert
-            Assert.AreEqual(nameof(Varies), msh.GetField(n + 1, 0).GetType().Name);
-            Assert.AreEqual(nameof(Varies), msh.GetField(n + 2, 0).GetType().Name);
-            Assert.AreEqual(nameof(Varies), msh.GetField(n + 3, 0).GetType().Name);
+            Assert.AreEqual(typeof(Varies), msh.GetField(n + 1, 0).GetType());
+            Assert.AreEqual(typeof(Varies), msh.GetField(n + 2, 0).GetType());
+            Assert.AreEqual(typeof(Varies), msh.GetField(n + 3, 0).GetType());
         }
 
         [Test]

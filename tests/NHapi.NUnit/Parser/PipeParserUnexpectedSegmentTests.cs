@@ -11,11 +11,12 @@
         [Test]
         public void Parse_V23_ORM_O01()
         {
-            var message = @"MSH|^~\&|sys1|sys1|sys2|sys2|20180503174921||ORM^O01|1234567890|P|2.3
-PID|||1^^^XXX~2^^^YYY||LastName^FirstName||19660429|F
-PV1||I|3906||||||||||||||||100001
-ORC|CA|1410|3121||CA
-OBR|1|1410|3121|RX50^ADDOME SUPINO";
+            var message =
+                "MSH|^~\\&|sys1|sys1|sys2|sys2|20180503174921||ORM^O01|1234567890|P|2.3\r"
+              + "PID|||1^^^XXX~2^^^YYY||LastName^FirstName||19660429|F\r"
+              + "PV1||I|3906||||||||||||||||100001\r"
+              + "ORC|CA|1410|3121||CA\r"
+              + "OBR|1|1410|3121|RX50^ADDOME SUPINO";
 
             var parser = new PipeParser();
 
@@ -30,12 +31,13 @@ OBR|1|1410|3121|RX50^ADDOME SUPINO";
         [Test]
         public void Parse_V23_ORM_O01_WithCustomEvnSegment()
         {
-            var message = @"MSH|^~\&|sys1|sys1|sys2|sys2|20180503174921||ORM^O01|1234567890|P|2.3
-EVN||20180503
-PID|||1^^^XXX~2^^^YYY||LastName^FirstName||19660429|F
-PV1||I|3906||||||||||||||||100001
-ORC|CA|1410|3121||CA
-OBR|1|1410|3121|RX50^ADDOME SUPINO";
+            var message =
+                "MSH|^~\\&|sys1|sys1|sys2|sys2|20180503174921||ORM^O01|1234567890|P|2.3\r"
+              + "EVN||20180503\r"
+              + "PID|||1^^^XXX~2^^^YYY||LastName^FirstName||19660429|F\r"
+              + "PV1||I|3906||||||||||||||||100001\r"
+              + "ORC|CA|1410|3121||CA\r"
+              + "OBR|1|1410|3121|RX50^ADDOME SUPINO";
 
             var parser = new PipeParser();
 
@@ -54,11 +56,12 @@ OBR|1|1410|3121|RX50^ADDOME SUPINO";
         [Test]
         public void Parse_V24_ORM_O01()
         {
-            var message = @"MSH|^~\&|sys1|sys1|sys2|sys2|20180503174921||ORM^O01|1234567890|P|2.4
-PID|||1^^^XXX~2^^^YYY||LastName^FirstName||19660429|F
-PV1||I|3906||||||||||||||||100001
-ORC|CA|1410|3121||CA
-OBR|1|1410|3121|RX50^ADDOME SUPINO";
+            var message =
+                "MSH|^~\\&|sys1|sys1|sys2|sys2|20180503174921||ORM^O01|1234567890|P|2.4\r"
+              + "PID|||1^^^XXX~2^^^YYY||LastName^FirstName||19660429|F\r"
+              + "PV1||I|3906||||||||||||||||100001\r"
+              + "ORC|CA|1410|3121||CA\r"
+              + "OBR|1|1410|3121|RX50^ADDOME SUPINO";
 
             var parser = new PipeParser();
 
@@ -73,12 +76,13 @@ OBR|1|1410|3121|RX50^ADDOME SUPINO";
         [Test]
         public void Parse_V24_ORM_O01_WithCustomEvnSegment()
         {
-            var message = @"MSH|^~\&|sys1|sys1|sys2|sys2|20180503174921||ORM^O01|1234567890|P|2.4
-EVN||20180503
-PID|||1^^^XXX~2^^^YYY||LastName^FirstName||19660429|F
-PV1||I|3906||||||||||||||||100001
-ORC|CA|1410|3121||CA
-OBR|1|1410|3121|RX50^ADDOME SUPINO";
+            var message =
+                "MSH|^~\\&|sys1|sys1|sys2|sys2|20180503174921||ORM^O01|1234567890|P|2.4\r"
+              + "EVN||20180503\r"
+              + "PID|||1^^^XXX~2^^^YYY||LastName^FirstName||19660429|F\r"
+              + "PV1||I|3906||||||||||||||||100001\r"
+              + "ORC|CA|1410|3121||CA\r"
+              + "OBR|1|1410|3121|RX50^ADDOME SUPINO";
 
             var parser = new PipeParser();
 
@@ -97,11 +101,12 @@ OBR|1|1410|3121|RX50^ADDOME SUPINO";
         [Test]
         public void Parse_V25_ORM_O01()
         {
-            var message = @"MSH|^~\&|sys1|sys1|sys2|sys2|20180503174921||ORM^O01|1234567890|P|2.5
-PID|||1^^^XXX~2^^^YYY||LastName^FirstName||19660429|F
-PV1||I|3906||||||||||||||||100001
-ORC|CA|1410|3121||CA
-OBR|1|1410|3121|RX50^ADDOME SUPINO";
+            var message =
+                "MSH|^~\\&|sys1|sys1|sys2|sys2|20180503174921||ORM^O01|1234567890|P|2.5\r"
+              + "PID|||1^^^XXX~2^^^YYY||LastName^FirstName||19660429|F\r"
+              + "PV1||I|3906||||||||||||||||100001\r"
+              + "ORC|CA|1410|3121||CA\r"
+              + "OBR|1|1410|3121|RX50^ADDOME SUPINO";
 
             var parser = new PipeParser();
 
@@ -116,12 +121,13 @@ OBR|1|1410|3121|RX50^ADDOME SUPINO";
         [Test]
         public void Parse_V25_ORM_O01_WithCustomEvnSegment()
         {
-            var message = @"MSH|^~\&|sys1|sys1|sys2|sys2|20180503174921||ORM^O01|1234567890|P|2.5
-EVN||20180503
-PID|||1^^^XXX~2^^^YYY||LastName^FirstName||19660429|F
-PV1||I|3906||||||||||||||||100001
-ORC|CA|1410|3121||CA
-OBR|1|1410|3121|RX50^ADDOME SUPINO";
+            var message =
+                "MSH|^~\\&|sys1|sys1|sys2|sys2|20180503174921||ORM^O01|1234567890|P|2.5\r"
+              + "EVN||20180503\r"
+              + "PID|||1^^^XXX~2^^^YYY||LastName^FirstName||19660429|F\r"
+              + "PV1||I|3906||||||||||||||||100001\r"
+              + "ORC|CA|1410|3121||CA\r"
+              + "OBR|1|1410|3121|RX50^ADDOME SUPINO";
 
             var parser = new PipeParser();
 
@@ -140,11 +146,12 @@ OBR|1|1410|3121|RX50^ADDOME SUPINO";
         [Test]
         public void Parse_V251_ORM_O01()
         {
-            var message = @"MSH|^~\&|sys1|sys1|sys2|sys2|20180503174921||ORM^O01|1234567890|P|2.5.1
-PID|||1^^^XXX~2^^^YYY||LastName^FirstName||19660429|F
-PV1||I|3906||||||||||||||||100001
-ORC|CA|1410|3121||CA
-OBR|1|1410|3121|RX50^ADDOME SUPINO";
+            var message =
+                "MSH|^~\\&|sys1|sys1|sys2|sys2|20180503174921||ORM^O01|1234567890|P|2.5.1\r"
+              + "PID|||1^^^XXX~2^^^YYY||LastName^FirstName||19660429|F\r"
+              + "PV1||I|3906||||||||||||||||100001\r"
+              + "ORC|CA|1410|3121||CA\r"
+              + "OBR|1|1410|3121|RX50^ADDOME SUPINO";
 
             var parser = new PipeParser();
 
@@ -159,12 +166,13 @@ OBR|1|1410|3121|RX50^ADDOME SUPINO";
         [Test]
         public void Parse_V251_ORM_O01_WithCustomEvnSegment()
         {
-            var message = @"MSH|^~\&|sys1|sys1|sys2|sys2|20180503174921||ORM^O01|1234567890|P|2.5.1
-EVN||20180503
-PID|||1^^^XXX~2^^^YYY||LastName^FirstName||19660429|F
-PV1||I|3906||||||||||||||||100001
-ORC|CA|1410|3121||CA
-OBR|1|1410|3121|RX50^ADDOME SUPINO";
+            var message =
+                "MSH|^~\\&|sys1|sys1|sys2|sys2|20180503174921||ORM^O01|1234567890|P|2.5.1\r"
+              + "EVN||20180503\r"
+              + "PID|||1^^^XXX~2^^^YYY||LastName^FirstName||19660429|F\r"
+              + "PV1||I|3906||||||||||||||||100001\r"
+              + "ORC|CA|1410|3121||CA\r"
+              + "OBR|1|1410|3121|RX50^ADDOME SUPINO";
 
             var parser = new PipeParser();
 

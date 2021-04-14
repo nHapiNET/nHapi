@@ -21,20 +21,17 @@
         private const string SO = "TestData/BadInputs/stackoverflow1";
         private const string SO2 = "TestData/BadInputs/stackoverflow2";
 
-        [TestCase(AOOR1)]
-        [TestCase(SYS1)]
-        [TestCase(NULLREF1)]
-        [TestCase(IOOR1)]
-        [TestCase(SYS2)]
-        public void TestBadInputsThrowHL7Exception(string path)
+        [TestCase(AOOR1, typeof(EncodingNotSupportedException))]
+        [TestCase(NULLREF1, typeof(EncodingNotSupportedException))]
+        [TestCase(IOOR1, typeof(HL7Exception))]
+        public void TestBadInputsThrowException(string path, Type expectedExceptionType)
         {
             // Arrange
             var parser = new LegacyPipeParser();
             var text = File.ReadAllText(path);
 
             // Act / Assert
-            var exception = Assert.Throws<HL7Exception>(
-                () => parser.Parse(text));
+            var exception = Assert.Throws(expectedExceptionType, () => parser.Parse(text));
 
             // Write exception details to console
             Console.WriteLine(exception);
@@ -45,6 +42,8 @@
         [TestCase(HANG1)]
         [TestCase(SO)]
         [TestCase(SO2)]
+        [TestCase(SYS1)]
+        [TestCase(SYS2)]
         public void TestBadInputsAreHandledGracefully(string path)
         {
             // Arrange
