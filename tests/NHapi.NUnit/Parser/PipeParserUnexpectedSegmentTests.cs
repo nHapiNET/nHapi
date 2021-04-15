@@ -101,6 +101,53 @@
 
         #region v25
 
+        /// <summary>
+        ///  Fixes https://github.com/nHapiNET/nHapi/issues/55.
+        /// </summary>
+        [Test]
+        public void Parse_V25_OUL_R22()
+        {
+            var message =
+                "MSH|^~\\&|XXX|LIFE|YYY|EFIL|20160804220502.3210+0100||OUL^R22^OUL_R22|HL7Gtw01565728BAF100|P|2.5||||||8859/1\r"
+              + "PID|1||11^^^PK^PK~15.478.857-3^^^CF^NNITA~15478857-3^^^CS^SS~2000091931^^^LIS^LIS||TEST@PINO^TEST TEST||19880218|M|||||28888888^PRN^PH^^^^^^^^^28888888|||||15.478.857-3|15478857-3\r"
+              + "PV1|1|I|100^^^^^^^^DiagnomedLab||||||||||||||||109101|||||||||||||||||||||||||20160804\r"
+              + "SPM|1|2007402901||15^Suero|||||||||||||20160804000000\r"
+              + "OBR|1|109101-1|20074029^DN^109101-20074029-201608040000|0302047^GLUCOSA^DN^0302047@1^^DN|||201608040000|||||||||admin241-1||||||||LAB-1|C||^^^201608040000\r"
+              + "ORC|SC|109101-1|20074029^DN^109101-20074029-201608040000|109101^DN|CM||^^^201608040000||20160804160500|||admin241-1|||||||||DiagnomedLab^^^^^^FI^^^100\r"
+              + "TQ1|1||||||201608040000||R\r"
+              + "OBX|1|NM|0302047^GLUCOSA^DN^0302047@1^^DN||85^^Hexoquinasa^false|mg/dL|70 - 100|false||0302047|C|||20160804160300||Utente Demo^Sin RUT\r"
+              + "SPM|2|2007402902||15^Suero|||||||||||||20160804000000\r"
+              + "OBR|1|109101-2|20074029^DN^109101-20074029-201608040000|0302060^ALBUMINA^DN^0302060@1^^DN|||201608040000|||||||||admin241-1||||||||LAB-1|C||^^^201608040000\r"
+              + "ORC|SC|109101-2|20074029^DN^109101-20074029-201608040000|109101^DN|CM||^^^201608040000||20160804160500|||admin241-1|||||||||DiagnomedLab^^^^^^FI^^^100\r"
+              + "TQ1|1||||||201608040000||R\r"
+              + "OBX|1|NM|0302060^ALBUMINA^DN^0302060@1^^DN||4.5^^BCP Mod.^false|g/dL|3.4 - 5|false||0302060|C|||20160804160300||Utente Demo^Sin RUT\r"
+              + "OBR|2|109101-3|20074029^DN^109101-20074029-201608040000|0303024^HORMONA TIROESTIMULANTE^DN^0303024@1^^DN|||201608040000|||||||||admin241-1||||||||LAB-1|C||^^^201608040000\r"
+              + "ORC|SC|109101-3|20074029^DN^109101-20074029-201608040000|109101^DN|CM||^^^201608040000||20160804160500|||admin241-1|||||||||DiagnomedLab^^^^^^FI^^^100\r"
+              + "TQ1|1||||||201608040000||R\r"
+              + "OBX|1|NM|0303024^HORMONA TIROESTIMULANTE^DN^0303024@1^^DN||4.1^^Quimioluminiscencia^false|uUI/mL|0.35 - 5.5|false||0303024|C|||20160804160300||Utente Demo^Sin RUT\r"
+              + "OBR|3|109101-4|20074029^DN^109101-20074029-201608040000|0303027^TIROXINA (T4)^DN^0303027@1^^DN|||201608040000|||||||||admin241-1||||||||LAB-1|C||^^^201608040000\r"
+              + "ORC|SC|109101-4|20074029^DN^109101-20074029-201608040000|109101^DN|CM||^^^201608040000||20160804160500|||admin241-1|||||||||DiagnomedLab^^^^^^FI^^^100\r"
+              + "TQ1|1||||||201608040000||R\r"
+              + "OBX|1|NM|0303027^TIROXINA (T4)^DN^0303027@1^^DN||13^^Quimioluminiscencia^false|ug/dL|4.5 - 12.5|false||0303027|C|||20160804160300||Utente Demo^Sin RUT\r"
+              + "SPM|3|2007402903||14^Sangre|||||||||||||20160804000000\r"
+              + "OBR|1|109101-5|20074029^DN^109101-20074029-201608040000|0301041^HEMOGLOBINA GLICOSILADA^DN^0301041@1^^DN|||201608040000|||||||||admin241-1||||||||LAB-1|C||^^^201608040000\r"
+              + "ORC|SC|109101-5|20074029^DN^109101-20074029-201608040000|109101^DN|CM||^^^201608040000||20160804160500|||admin241-1|||||||||DiagnomedLab^^^^^^FI^^^100\r"
+              + "TQ1|1||||||201608040000||R\r"
+              + "OBX|1|NM|0301041^HEMOGLOBINA GLICOSILADA^DN^0301041@1^^DN||5.3^^HPLC-Tosoh G8^false|%|No Diab\\X00E9\\tico\\X000D\\.sp\\Diab\\X00E9\\tico bien controlado: <7.0\\X000D\\.sp\\Diab\\X00E9\\tico medio controlado: 7.00 - 8.00\\X000D\\.sp\\Diab\\X00E9\\tico mal controlado: >8.00|false||0301041|C|||20160804160300||Utente Demo^Sin RUT";
+
+            var parser = new PipeParser();
+
+            var result = parser.Parse(message);
+
+            var oulR22 = result as NHapi.Model.V25.Message.OUL_R22;
+
+            Assert.IsNotNull(oulR22);
+            Assert.AreEqual(3, oulR22.SPECIMENRepetitionsUsed);
+            Assert.AreEqual(1, oulR22.GetSPECIMEN(0).ORDERRepetitionsUsed);
+            Assert.AreEqual(3, oulR22.GetSPECIMEN(1).ORDERRepetitionsUsed);
+            Assert.AreEqual(1, oulR22.GetSPECIMEN(2).ORDERRepetitionsUsed);
+        }
+
         [Test]
         public void Parse_V25_ORM_O01()
         {
