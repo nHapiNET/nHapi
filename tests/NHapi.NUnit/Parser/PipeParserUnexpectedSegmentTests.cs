@@ -11,6 +11,35 @@
     {
         #region v23
 
+        /// <summary>
+        ///  Fixes https://github.com/nHapiNET/nHapi/issues/72.
+        /// </summary>
+        [Test]
+        public void Parse_V23_ADT_A01()
+        {
+            var message =
+                "MSH|^~\\&|V500|01010|TEST|TEST|20170130125848||ADT^A01|12345||2.3||||||8859/1\r"
+                + "EVN|A01|20170130125600|||12345|20170130125600\r"
+                + "PID|1|12345^^^PATIENT MASTER^MRN^|12345^^^PATIENT MASTER^MRN^||TEST||20101114|F||4|16 Bothar Na Tra^^Ireland^^^1101^home^^||||2303|1||12345^^^EPISODE NUMBER^FIN NBR^|12312312310||||||0|Not Known / Not Stated||1101||\r"
+                + "PV1|1|I|TEST^08^011^A207^^Bed(s)^A207|01||^^^^^^|0121212J^Stephen^Peter^J^^Dr^^^Doctor Provider Number^Personnel^^^DOCUPIN^|||ONC|||1|01|||0121212J^Stephen^Peter^J^^Dr^^^Doctor Provider Number^Personnel^^^DOCUPIN^|8|12345^0^^^Visit Id|5M^20170130125600|||||||||||||||||||B2021||Active|||20170130125600\r"
+                + "NK1|1||||0404111111^^^test@test.com||Proxy\r"
+                + "NK1|2||||0404111112^^^test2@test.com||Proxy 2";
+
+            var parser = new PipeParser();
+
+            var adtA01 = (NHapi.Model.V23.Message.ADT_A01)parser.Parse(message);
+            var allNextOfKin = adtA01.GetAll("NK12");
+
+            Assert.IsNotNull(allNextOfKin);
+            Assert.IsNotEmpty(allNextOfKin);
+            Assert.AreEqual(
+                "test@test.com",
+                ((Model.V23.Segment.NK1)allNextOfKin[0]).GetPhoneNumber(0).EmailAddress.Value);
+            Assert.AreEqual(
+                "test2@test.com",
+                ((Model.V23.Segment.NK1)allNextOfKin[1]).GetPhoneNumber(0).EmailAddress.Value);
+        }
+
         [Test]
         public void Parse_V23_ORM_O01()
         {

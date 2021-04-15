@@ -234,7 +234,7 @@ namespace NHapi.Base.Model
             {
                 throw new HL7Exception(
                     $"The structure {name} does not have {rep} repetitions. ",
-                     ErrorCode.APPLICATION_INTERNAL_ERROR);
+                    ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
             item.Structures.RemoveAt(rep);
