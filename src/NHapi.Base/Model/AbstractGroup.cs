@@ -28,7 +28,6 @@ namespace NHapi.Base.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.Reflection;
 
     using NHapi.Base.Log;
     using NHapi.Base.Parser;
@@ -127,7 +126,7 @@ namespace NHapi.Base.Model
             if (item == null)
             {
                 throw new HL7Exception(
-                    name + " does not exist in the group " + GetType().FullName,
+                    $"{name} does not exist in the group {GetType().FullName}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -144,7 +143,7 @@ namespace NHapi.Base.Model
                 if (!repeats && item.Structures.Count > 0)
                 {
                     throw new HL7Exception(
-                        "Can't create repetition #" + rep + " of Structure " + name + " - this Structure is non-repeating",
+                        $"Can't create repetition #{rep} of Structure {name} - this Structure is non-repeating",
                         ErrorCode.APPLICATION_INTERNAL_ERROR);
                 }
 
@@ -156,7 +155,7 @@ namespace NHapi.Base.Model
             else
             {
                 throw new HL7Exception(
-                    "Can't return repetition #" + rep + " of " + name + " - there are only " + items.Count + " repetitions.",
+                    $"Can't return repetition #{rep} of {name} - there are only {items.Count} repetitions.",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -177,7 +176,7 @@ namespace NHapi.Base.Model
             if (item == null)
             {
                 throw new HL7Exception(
-                    name + " does not exist in the group " + GetType().FullName,
+                    $"{name} does not exist in the group {GetType().FullName}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -186,7 +185,7 @@ namespace NHapi.Base.Model
             if (!repeats && item.Structures.Count > 0)
             {
                 throw new HL7Exception(
-                    "Can't create repetition of Structure " + name + " - this Structure is non-repeating and this Structure already has an item present.",
+                    $"Can't create repetition of Structure {name} - this Structure is non-repeating and this Structure already has an item present.",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -210,7 +209,7 @@ namespace NHapi.Base.Model
             if (item == null)
             {
                 throw new HL7Exception(
-                    name + " does not exist in the group " + GetType().FullName,
+                    $"{name} does not exist in the group {GetType().FullName}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -227,14 +226,14 @@ namespace NHapi.Base.Model
             if (item == null)
             {
                 throw new HL7Exception(
-                    "The structure " + name + " does not exist in the group " + GetType().FullName,
+                    $"The structure {name} does not exist in the group {GetType().FullName}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
             if (rep >= item.Structures.Count)
             {
                 throw new HL7Exception(
-                     "The structure " + name + " does not have " + rep + " repetitions. ",
+                    $"The structure {name} does not have {rep} repetitions. ",
                      ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -253,7 +252,7 @@ namespace NHapi.Base.Model
             var version = Message.Version;
             if (version == null)
             {
-                throw new HL7Exception("Need message version to add segment by name; message.getVersion() returns null");
+                throw new HL7Exception("Need message version to add segment by name; message.Version returns null");
             }
 
             var c = myFactory.GetSegmentClass(name, version) ?? typeof(GenericSegment);
@@ -270,13 +269,13 @@ namespace NHapi.Base.Model
         {
             if (this is IMessage && index == 0)
             {
-                throw new HL7Exception($"Can not add nonstandard segment \"{name}\" to start of message.");
+                throw new HL7Exception($"Cannot add nonstandard segment '{name}' to start of message.");
             }
 
             var version = Message.Version;
             if (version == null)
             {
-                throw new HL7Exception("Need message version to add segment by name; message.getVersion() returns null");
+                throw new HL7Exception("Need message version to add segment by name; message.Version returns null");
             }
 
             var c = myFactory.GetSegmentClass(name, version) ?? typeof(GenericSegment);
@@ -293,7 +292,7 @@ namespace NHapi.Base.Model
             if (item == null)
             {
                 throw new HL7Exception(
-                    "The structure " + name + " does not exist in the group " + GetType().FullName,
+                    $"The structure {name} does not exist in the group {GetType().FullName}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -307,7 +306,7 @@ namespace NHapi.Base.Model
             if (item == null)
             {
                 throw new HL7Exception(
-                    "The structure " + name + " does not exist in the group " + GetType().FullName,
+                    $"The structure {name} does not exist in the group {GetType().FullName}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -359,7 +358,7 @@ namespace NHapi.Base.Model
             if (item == null)
             {
                 throw new HL7Exception(
-                    "The structure " + name + " does not exist in the group " + GetType().FullName,
+                    $"The structure {name} does not exist in the group {GetType().FullName}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -379,7 +378,7 @@ namespace NHapi.Base.Model
             if (item == null)
             {
                 throw new HL7Exception(
-                    "The structure " + name + " does not exist in the group " + GetType().FullName,
+                    $"The structure {name} does not exist in the group {GetType().FullName}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -525,7 +524,7 @@ namespace NHapi.Base.Model
                     object o;
                     try
                     {
-                        var argClasses = new Type[] { typeof(IGroup), typeof(IModelClassFactory) };
+                        var argClasses = new[] { typeof(IGroup), typeof(IModelClassFactory) };
                         var argObjects = new object[] { this, myFactory };
                         var con = c.GetConstructor(argClasses);
                         o = con.Invoke(argObjects);
@@ -538,7 +537,7 @@ namespace NHapi.Base.Model
                     if (!(o is IStructure))
                     {
                         throw new HL7Exception(
-                            "Class " + c.FullName + " does not implement " + "ca.on.uhn.hl7.message.Structure",
+                            $"Class {c.FullName} does not implement ca.on.uhn.hl7.message.Structure",
                             ErrorCode.APPLICATION_INTERNAL_ERROR);
                     }
 
@@ -552,7 +551,7 @@ namespace NHapi.Base.Model
                     throw (HL7Exception)e;
                 }
 
-                throw new HL7Exception("Can't instantiate class " + c.FullName, ErrorCode.APPLICATION_INTERNAL_ERROR, e);
+                throw new HL7Exception($"Can't instantiate class {c.FullName}", ErrorCode.APPLICATION_INTERNAL_ERROR, e);
             }
 
             return s;

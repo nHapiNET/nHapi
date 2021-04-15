@@ -14,6 +14,7 @@ namespace NHapi.Base.Model
     /// <author>Bryan Tripp.</author>
     public abstract class GenericMessage : AbstractMessage
     {
+        // TODO: when we only target netstandard2.0 and above consider converting to ConcurrentDictionary
         private static readonly Dictionary<string, Type> GenericMessages = new Dictionary<string, Type>();
 
         /// <summary>

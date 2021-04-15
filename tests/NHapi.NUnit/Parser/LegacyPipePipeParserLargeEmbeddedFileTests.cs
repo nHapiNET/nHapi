@@ -18,7 +18,7 @@ namespace NHapi.NUnit.Parser
     using SimpleSpeedTester.Interfaces;
 
     [TestFixture]
-    public class LegacyPipePipeParserLargeEmbeddedFileTest
+    public class LegacyPipePipeParserLargeEmbeddedFileTests
     {
         public const string LargeEmbeddedFileTest =
             @"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII

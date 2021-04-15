@@ -11,7 +11,7 @@ namespace NHapi.NUnit.Parser
     using NHapi.Model.V231.Message;
 
     [TestFixture]
-    public class PipeParserTest
+    public class LegacyPipeParserTests
     {
         public string GetMessage()
         {
@@ -25,7 +25,7 @@ namespace NHapi.NUnit.Parser
         [Test]
         public void TestOBR5RepeatingValuesMessage()
         {
-            var parser = new PipeParser();
+            var parser = new LegacyPipeParser();
             var oru = (ORU_R01)parser.Parse(GetMessage());
 
             foreach (var obs in oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION().OBX.GetObservationValue())
@@ -37,7 +37,7 @@ namespace NHapi.NUnit.Parser
         [Test]
         public void TestSpecialCharacterEncoding()
         {
-            var parser = new PipeParser();
+            var parser = new LegacyPipeParser();
             var oru = new ORU_R01();
             oru = (ORU_R01)parser.Parse(GetMessage());
 
@@ -48,7 +48,7 @@ namespace NHapi.NUnit.Parser
         [Test]
         public void TestSpecialCharacterEntry()
         {
-            var parser = new PipeParser();
+            var parser = new LegacyPipeParser();
             var oru = new ORU_R01();
             oru.MSH.MessageType.MessageType.Value = "ORU";
             oru.MSH.MessageType.TriggerEvent.Value = "R01";
@@ -74,7 +74,7 @@ namespace NHapi.NUnit.Parser
         [Test]
         public void TestSpecialCharacterEntryEndingSlash()
         {
-            var parser = new PipeParser();
+            var parser = new LegacyPipeParser();
             var oru = new ORU_R01();
             oru.MSH.MessageType.MessageType.Value = "ORU";
             oru.MSH.MessageType.TriggerEvent.Value = "R01";
@@ -98,7 +98,7 @@ namespace NHapi.NUnit.Parser
         [Test]
         public void TestSpecialCharacterEntryWithAllSpecialCharacters()
         {
-            var parser = new PipeParser();
+            var parser = new LegacyPipeParser();
             var oru = new ORU_R01();
             oru.MSH.MessageType.MessageType.Value = "ORU";
             oru.MSH.MessageType.TriggerEvent.Value = "R01";
@@ -123,7 +123,7 @@ namespace NHapi.NUnit.Parser
         [Test]
         public void TestValidHl7Data()
         {
-            var parser = new PipeParser();
+            var parser = new LegacyPipeParser();
             var oru = new ORU_R01();
             oru.MSH.MessageType.MessageType.Value = "ORU";
             oru.MSH.MessageType.TriggerEvent.Value = "R01";
@@ -153,7 +153,7 @@ namespace NHapi.NUnit.Parser
             const string content = "MSH|^~\\&|TestSys|432^testsys practice|TEST||201402171537||MDM^T02|121906|P|2.3.1||||||||\r"
                                 + "OBX|1|TX|PROBLEM FOCUSED^PROBLEM FOCUSED^test|1|\\T\\#39;Thirty days have September,\\X0D\\April\\X0A\\June,\\X0A\\and November.\\X0A\\When short February is done,\\E\\X0A\\E\\all the rest have\\T\\nbsp;31.\\T\\#39";
 
-            var parser = new PipeParser();
+            var parser = new LegacyPipeParser();
             var msg = parser.Parse(content);
 
             // Act
