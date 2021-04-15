@@ -177,6 +177,34 @@
             Assert.AreEqual(1, oulR22.GetSPECIMEN(2).ORDERRepetitionsUsed);
         }
 
+        /// <summary>
+        ///  Fixes https://github.com/nHapiNET/nHapi/issues/56.
+        /// </summary>
+        [Test]
+        public void Parse_V25_OML_033()
+        {
+            var message =
+                "MSH|^~\\&|xxxx|homxtest_9||homxtest_9|20160205112211||OML^O33|000500006894|P|2.5|||NE|AL||8859/15\r"
+                + "PID|1||1234567^^^Firstname~lastname^^^Firstname||Lastname&&Lastname^Firstname^B L J^^^^L||19991231|M|||Firstname^37^BE^^1234AB^nl|||||||||||||Y||||||N\r"
+                + "SPM|1|1602050005&xxxx||EDTA^Paarse dop^xxxx||||||||3^ml&ml&xxxx|||||20160205111800|||N|||||||01^01^xxxx^paars^01\r"
+                + "ORC|NW|1602-0006^xxxx|||IP||^^^20160205111800^^R||20160205112211||||^^^^^^^^^^xxxx\r"
+                + "OBR|1|1602-0006^xxxx||Na^Natrium^xxxx|||20160421114000||0^ml&ml&xxxx||||||EDTA^Paarse dop&xxxx|||||||20160205112211||A|I||^^^20160205111800^^S\r"
+                + "SPM|2|1602050004&xxxx||Citrate^Blauwe dop^xxxx||||||||0^ml&ml&xxxx|||||20160205111800|||N|||||||08^08^xxxx^blauw^08\r"
+                + "ORC|NW|1602-0006^xxxx|||IP||^^^20160205111800^^R||20160205112211||||^^^^^^^^^^xxxx\r"
+                + "OBR|2|1602-0006^xxxx||Na^Natrium^xxxx|||20160421114000||0^ml&ml&xxxx||||||Citrate^Blauwe dop&xxx|||||||20160205112211||A|I||^^^20160205111800^^S";
+
+            var parser = new PipeParser();
+
+            var result = parser.Parse(message);
+
+            var oulR22 = result as NHapi.Model.V25.Message.OML_O33;
+
+            Assert.IsNotNull(oulR22);
+            Assert.AreEqual(2, oulR22.SPECIMENRepetitionsUsed);
+            Assert.AreEqual(1, oulR22.GetSPECIMEN(0).ORDERRepetitionsUsed);
+            Assert.AreEqual(1, oulR22.GetSPECIMEN(1).ORDERRepetitionsUsed);
+        }
+
         [Test]
         public void Parse_V25_ORM_O01()
         {
@@ -223,7 +251,7 @@
         #region v251
 
         /// <summary>
-        ///  fixes https://github.com/nHapiNET/nHapi/issues/51.
+        /// Fixes https://github.com/nHapiNET/nHapi/issues/51.
         /// </summary>
         [Test]
         public void Parse_V251_RDE_O11()
