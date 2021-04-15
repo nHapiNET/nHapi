@@ -108,21 +108,43 @@ namespace NHapi.Base.Util
         /// </summary>
         public virtual SegmentFinder Finder { get; private set; }
 
-        /// <summary> Returns the string value of the Primitive at the given location.</summary>
-        /// <param name="segment">the segment from which to get the primitive.
-        /// </param>
-        /// <param name="field">the field number.
-        /// </param>
-        /// <param name="rep">the field repetition.
-        /// </param>
-        /// <param name="component">the component number (use 1 for primitive field).
-        /// </param>
-        /// <param name="subcomponent">the subcomponent number (use 1 for primitive component).
-        /// </param>
+        /// <summary>
+        /// Returns the string value of the Primitive at the given location.
+        /// </summary>
+        /// <param name="segment">the segment from which to get the primitive.</param>
+        /// <param name="field">the field number.</param>
+        /// <param name="rep">the field repetition.</param>
+        /// <param name="component">the component number (use 1 for primitive field).</param>
+        /// <param name="subcomponent">the Subcomponent number (use 1 for primitive component).</param>
         public static string Get(ISegment segment, int field, int rep, int component, int subcomponent)
         {
-            var prim = GetPrimitive(segment, field, rep, component, subcomponent);
-            return prim.Value;
+            if (segment == null)
+            {
+                throw new ArgumentNullException(nameof(segment), "segment may not be null");
+            }
+
+            if (rep < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(rep), "rep must not be negative");
+            }
+
+            if (component < 1)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(component),
+                    "component must not be 1 or more (note that this parameter is 1-indexed, not 0-indexed)");
+            }
+
+            if (subcomponent < 1)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(subcomponent),
+                    "subcomponent must not be 1 or more (note that this parameter is 1-indexed, not 0-indexed)");
+            }
+
+            var primitive = GetPrimitive(segment, field, rep, component, subcomponent);
+
+            return primitive.Value;
         }
 
         /// <summary> Sets the string value of the Primitive at the given location.</summary>
@@ -149,7 +171,48 @@ namespace NHapi.Base.Util
         /// </summary>
         public static IPrimitive GetPrimitive(IType type, int component, int subcomponent)
         {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type), "type may not be null");
+            }
+
+            if (component < 1)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(component),
+                    "component must not be 1 or more (note that this parameter is 1-indexed, not 0-indexed)");
+            }
+
+            if (subcomponent < 1)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(subcomponent),
+                    "subcomponent must not be 1 or more (note that this parameter is 1-indexed, not 0-indexed)");
+            }
+
             var comp = GetComponent(type, component);
+
+            if (type is Varies && comp is GenericPrimitive && subcomponent > 1)
+            {
+                try
+                {
+                    var varies = (Varies)type;
+                    var comp2 = new GenericComposite(type.Message);
+
+                    varies.Data = comp2;
+                    comp = GetComponent(type, component);
+                }
+                catch (DataTypeException ex)
+                {
+                    var message =
+                        $"Unexpected exception copying data to generic composite. This is probably a bug within NHapi. {ex.Message}";
+
+                    log.Error(message);
+
+                    throw new ApplicationException(message, ex);
+                }
+            }
+
             var sub = GetComponent(comp, subcomponent);
             return GetPrimitive(sub);
         }
@@ -373,10 +436,13 @@ namespace NHapi.Base.Util
             Set(segment, ind[0], ind[1], ind[2], ind[3], value_Renamed);
         }
 
-        /// <summary> Returns the Primitive object at the given location.</summary>
+        /// <summary>
+        /// Returns the Primitive object at the given location.
+        /// </summary>
         private static IPrimitive GetPrimitive(ISegment segment, int field, int rep, int component, int subcomponent)
         {
             var type = segment.GetField(field, rep);
+
             return GetPrimitive(type, component, subcomponent);
         }
 
@@ -385,28 +451,24 @@ namespace NHapi.Base.Util
         /// </summary>
         private static IPrimitive GetPrimitive(IType type)
         {
-            IPrimitive p = null;
-            if (typeof(Varies).IsAssignableFrom(type.GetType()))
+            if (type is IPrimitive)
             {
-                p = GetPrimitive(((Varies)type).Data);
+                return (IPrimitive)type;
             }
-            else if (typeof(IComposite).IsAssignableFrom(type.GetType()))
+
+            if (type is IComposite)
             {
                 try
                 {
-                    p = GetPrimitive(((IComposite)type)[0]);
+                    return GetPrimitive(((IComposite)type)[0]);
                 }
-                catch (HL7Exception)
+                catch (HL7Exception e)
                 {
-                    throw new ApplicationException("Internal error: HL7Exception thrown on Composite.getComponent(0).");
+                    throw new ApplicationException("Internal error: HL7Exception thrown on Composite.getComponent(0).", e);
                 }
-            }
-            else if (type is IPrimitive)
-            {
-                p = (IPrimitive)type;
             }
 
-            return p;
+            return GetPrimitive(((Varies)type).Data);
         }
 
         /// <summary> Returns the component (or sub-component, as the case may be) at the given
@@ -418,14 +480,35 @@ namespace NHapi.Base.Util
         /// </summary>
         private static IType GetComponent(IType type, int comp)
         {
-            IType ret = null;
-            if (typeof(Varies).IsAssignableFrom(type.GetType()))
+            if (type is IPrimitive && comp == 1)
+            {
+                return type;
+            }
+
+            if (type is IComposite)
+            {
+                if (comp <= NumStandardComponents(type) || type is GenericComposite)
+                {
+                    try
+                    {
+                        return ((IComposite)type)[comp - 1];
+                    }
+                    catch (DataTypeException ex)
+                    {
+                        throw new ApplicationException(
+                            "Internal error: HL7Exception thrown on getComponent(x) where x < # standard components.",
+                            ex);
+                    }
+                }
+            }
+
+            if (type is Varies)
             {
                 var v = (Varies)type;
 
                 try
                 {
-                    if (comp > 1 && typeof(GenericPrimitive).IsAssignableFrom(v.Data.GetType()))
+                    if (comp > 1 && v.Data is GenericPrimitive)
                     {
                         v.Data = new GenericComposite(v.Message);
                     }
@@ -434,39 +517,14 @@ namespace NHapi.Base.Util
                 {
                     var message = "Unexpected exception copying data to generic composite: " + de.Message;
                     log.Error(message, de);
+
                     throw new ApplicationException(message);
                 }
 
-                ret = GetComponent(v.Data, comp);
-            }
-            else
-            {
-                if (typeof(IPrimitive).IsAssignableFrom(type.GetType()) && comp == 1)
-                {
-                    ret = type;
-                }
-                else if (typeof(GenericComposite).IsAssignableFrom(type.GetType()) ||
-                            (typeof(IComposite).IsAssignableFrom(type.GetType()) && comp <= NumStandardComponents(type)))
-                {
-                    // note that GenericComposite can return components > number of standard components
-                    try
-                    {
-                        ret = ((IComposite)type)[comp - 1];
-                    }
-                    catch (Exception e)
-                    {
-                        // TODO:  This may not be the write exception type:  Error() was originally thrown, but was not in project.
-                        throw new ApplicationException(
-                            "Internal error: HL7Exception thrown on getComponent(x) where x < # standard components.", e);
-                    }
-                }
-                else
-                {
-                    ret = type.ExtraComponents.GetComponent(comp - NumStandardComponents(type) - 1);
-                }
+                return GetComponent(v.Data, comp);
             }
 
-            return ret;
+            return type.ExtraComponents.getComponent(comp - NumStandardComponents(type) - 1);
         }
 
         private static int NumStandardComponents(IType t)

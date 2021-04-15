@@ -39,7 +39,7 @@ OBX|1|SI|||-1||||||F";
             parser.ValidationContext = new StrictValidation();
             Assert.Throws<DataTypeException>(
                 () => { oru = (ORU_R01)parser.Parse(message); },
-                $"Strict validation should throw a {typeof(DataTypeException).Name} when parsing a SI field with a negative value");
+                $"Strict validation should throw a {nameof(DataTypeException)} when parsing a SI field with a negative value");
         }
 
         public const string MessageNMAlpha =
@@ -77,12 +77,11 @@ ORC|||||F
 OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
 OBX|1|NM|||1.5||||||F";
 
-        [Test]
-        [TestCase(new object[] { MessageNMAlpha, true })]
-        [TestCase(new object[] { MessageNMChar, true })]
-        [TestCase(new object[] { MessageNMNumber, false })]
-        [TestCase(new object[] { MessageNMNegativeNumber, false })]
-        [TestCase(new object[] { MessageNMDecimal, false })]
+        [TestCase(MessageNMAlpha, true)]
+        [TestCase(MessageNMChar, true)]
+        [TestCase(MessageNMNumber, false)]
+        [TestCase(MessageNMNegativeNumber, false)]
+        [TestCase(MessageNMDecimal, false)]
         public void TestStrictValidation_NMFields_ValidNumbers(string testMessage, bool shouldThrow)
         {
             testMessage = testMessage.Replace(Environment.NewLine, "\r");
@@ -91,10 +90,8 @@ OBX|1|NM|||1.5||||||F";
             ORU_R01 oru;
 
             parser.ValidationContext = new StrictValidation();
-            var message = string.Format(
-                "Strict validation {0} throw a {1} when parsing a NM field with alpha values",
-                shouldThrow ? "should" : "should not",
-                typeof(DataTypeException).Name);
+            var message =
+                $"Strict validation {(shouldThrow ? "should" : "should not")} throw a {nameof(DataTypeException)} when parsing a NM field with alpha values";
 
             if (shouldThrow)
             {

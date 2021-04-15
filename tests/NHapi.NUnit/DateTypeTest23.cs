@@ -4,7 +4,6 @@ namespace NHapi.NUnit
 
     using global::NUnit.Framework;
 
-    using NHapi.Base.Parser;
     using NHapi.Model.V23.Message;
 
     [TestFixture]
@@ -14,7 +13,6 @@ namespace NHapi.NUnit
         public void ConvertToDate()
         {
             var checkDate = DateTime.Now;
-            var parser = new PipeParser();
             var a01 = new ADT_A01();
             a01.PV1.AdmitDateTime.TimeOfAnEvent.Set(checkDate, "yyyyMMdd");
             Assert.AreEqual(a01.PV1.AdmitDateTime.TimeOfAnEvent.Value, checkDate.ToString("yyyyMMdd"));

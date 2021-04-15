@@ -28,8 +28,9 @@ namespace NHapi.Base.Parser
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
-    using System.Text.RegularExpressions;
 
     using NHapi.Base.Log;
     using NHapi.Base.Model;
@@ -43,36 +44,43 @@ namespace NHapi.Base.Parser
     /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
     public class PipeParser : ParserBase
     {
-        private const string SegDelim = "\r"; // see section 2.8 of spec
+        public const string SegmentDelimiter = "\r"; // see section 2.8 of spec
 
         private static readonly IHapiLog Log;
+
+        private readonly Dictionary<Type, Dictionary<string, StructureDefinition>> structureDefinitions =
+            new Dictionary<Type, Dictionary<string, StructureDefinition>>();
 
         static PipeParser()
         {
             Log = HapiLogFactory.GetHapiLog(typeof(PipeParser));
         }
 
-        /// <summary>Creates a new PipeParser. </summary>
+        /// <summary>
+        /// Creates a new PipeParser.
+        /// </summary>
         public PipeParser()
         {
         }
 
-        /// <summary>Creates a new PipeParser. </summary>
+        /// <summary>
+        /// Creates a new PipeParser.
+        /// </summary>
         public PipeParser(IModelClassFactory factory)
             : base(factory)
         {
         }
 
-        /// <summary>
-        /// Gets the preferred encoding of this Parser.
-        /// </summary>
+        /// <inheritdoc />
         public override string DefaultEncoding => "VB";
 
         /// <summary>
         /// Splits the given composite string into an array of components using
         /// the given delimiter.
         /// </summary>
-        public static string[] Split(string composite, string delim)
+        /// <param name="composite">Encoded composite string.</param>
+        /// <param name="delimiter">Delimiter to split upon.</param>
+        public static string[] Split(string composite, string delimiter)
         {
             var components = new ArrayList();
 
@@ -82,17 +90,17 @@ namespace NHapi.Base.Parser
                 composite = string.Empty;
             }
 
-            if (delim == null)
+            if (delimiter == null)
             {
-                delim = string.Empty;
+                delimiter = string.Empty;
             }
 
-            var tok = new SupportClass.Tokenizer(composite, delim, true);
+            var tok = new SupportClass.Tokenizer(composite, delimiter, true);
             var previousTokenWasDelim = true;
             while (tok.HasMoreTokens())
             {
                 var thisTok = tok.NextToken();
-                if (thisTok.Equals(delim))
+                if (thisTok.Equals(delimiter))
                 {
                     if (previousTokenWasDelim)
                     {
@@ -118,11 +126,27 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary>
-        /// Encodes the given Type, using the given encoding characters.
+        /// Returns given <see cref="IType"/> as a pipe-encoded string, using the given encoding characters.
+        /// <para>
         /// It is assumed that the Type represents a complete field rather than a component.
+        /// </para>
         /// </summary>
+        /// <param name="source">An <see cref="IType"/> object from which to construct an encoded string.</param>
+        /// <param name="encodingChars">Encoding characters to be used.</param>
+        /// <returns>The encoded type.</returns>
+        /// <exception cref="HL7Exception">Thrown if the data fields in the group do not permit encoding (e.g. required fields are null).</exception>
+        /// <exception cref="EncodingNotSupportedException">Thrown if the requested encoding is not supported by this parser.</exception>
         public static string Encode(IType source, EncodingCharacters encodingChars)
         {
+            if (source is Varies)
+            {
+                var varies = (Varies)source;
+                if (varies.Data != null)
+                {
+                    source = varies.Data;
+                }
+            }
+
             var field = new StringBuilder();
             for (var i = 1; i <= Terser.NumComponents(source); i++)
             {
@@ -142,9 +166,13 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary>
-        /// Returns given group serialized as a pipe-encoded string - this method is called
-        /// by encode(Message source, String encoding).
+        /// Returns given <see cref="IGroup"/> as a pipe-encoded string, using the given encoding characters.
         /// </summary>
+        /// <param name="source">An <see cref="IGroup"/> object from which to construct an encoded string.</param>
+        /// <param name="encodingChars">Encoding characters to be used.</param>
+        /// <returns>The encoded group.</returns>
+        /// <exception cref="HL7Exception">Thrown if the data fields in the group do not permit encoding (e.g. required fields are null).</exception>
+        /// <exception cref="EncodingNotSupportedException">Thrown if the requested encoding is not supported by this parser.</exception>
         public static string Encode(IGroup source, EncodingCharacters encodingChars)
         {
             var result = new StringBuilder();
@@ -174,6 +202,14 @@ namespace NHapi.Base.Parser
             return result.ToString();
         }
 
+        /// <summary>
+        /// Formats a <see cref="IMessage"/> object into an HL7 message string using the given encoding.
+        /// </summary>
+        /// <param name="source">An <see cref="IMessage"/> object from which to construct an encoded message string.</param>
+        /// <param name="encodingChars">Encoding characters to be used.</param>
+        /// <returns>The encoded message.</returns>
+        /// <exception cref="HL7Exception">Thrown if the data fields in the message do not permit encoding (e.g. required fields are null).</exception>
+        /// <exception cref="EncodingNotSupportedException">Thrown if the requested encoding is not supported by this parser.</exception>
         public static string Encode(ISegment source, EncodingCharacters encodingChars)
         {
             var result = new StringBuilder();
@@ -231,100 +267,27 @@ namespace NHapi.Base.Parser
         /// </summary>
         public static string StripLeadingWhitespace(string in_Renamed)
         {
-            var out_Renamed = new StringBuilder();
-            var chars = in_Renamed.ToCharArray();
-            var c = 0;
-            while (c < chars.Length)
-            {
-                if (!char.IsWhiteSpace(chars[c]))
-                {
-                    break;
-                }
-
-                c++;
-            }
-
-            for (var i = c; i < chars.Length; i++)
-            {
-                out_Renamed.Append(chars[i]);
-            }
-
-            return out_Renamed.ToString();
-        }
-
-        /// <summary> Returns a String representing the encoding of the given message, if
-        /// the encoding is recognized.  For example if the given message appears
-        /// to be encoded using HL7 2.x XML rules then "XML" would be returned.
-        /// If the encoding is not recognized then null is returned.  That this
-        /// method returns a specific encoding does not guarantee that the
-        /// message is correctly encoded (e.g. well formed XML) - just that
-        /// it is not encoded using any other encoding than the one returned.
-        /// </summary>
-        public override string GetEncoding(string message)
-        {
-            string encoding = null;
-
-            // quit if the string is too short
-            if (message.Length < 4)
-            {
-                return null;
-            }
-
-            // see if it looks like this message is | encoded ...
-            var ok = true;
-
-            // string should start with "MSH"
-            if (!message.StartsWith("MSH"))
-            {
-                return null;
-            }
-
-            // 4th character of each segment should be field delimiter
-            var fourthChar = message[3];
-            var st = new SupportClass.Tokenizer(message, Convert.ToString(SegDelim), false);
-            while (st.HasMoreTokens())
-            {
-                var x = st.NextToken();
-                if (x.Length > 0)
-                {
-                    if (char.IsWhiteSpace(x[0]))
-                    {
-                        x = StripLeadingWhitespace(x);
-                    }
-
-                    if (x.Length >= 4 && x[3] != fourthChar)
-                    {
-                        return null;
-                    }
-                }
-            }
-
-            // should be at least 11 field delimiters (because MSH-12 is required)
-            var nextFieldDelimLoc = 0;
-            for (var i = 0; i < 11; i++)
-            {
-                nextFieldDelimLoc = message.IndexOf((char)fourthChar, nextFieldDelimLoc + 1);
-                if (nextFieldDelimLoc < 0)
-                {
-                    return null;
-                }
-            }
-
-            if (ok)
-            {
-                encoding = "VB";
-            }
-
-            return encoding;
+            return in_Renamed.TrimStart();
         }
 
         /// <summary>
-        /// Returns true if and only if the given encoding is supported
-        /// by this Parser.
+        /// Returns a string representing the encoding of the given message, if the
+        /// encoding is recognised.
+        /// <para>
+        /// For example if the given message appears to be
+        /// encoded using HL7 2.x XML rules then "XML" would be returned.
+        /// </para>
+        /// <para>
+        /// If the encoding is not recognised then null is returned.
+        /// </para>
+        /// That this method returns a specific encoding does not guarantee that the
+        /// message is correctly encoded (e.g. well formed XML) - just that
+        /// it is not encoded using any other encoding than the one returned.
         /// </summary>
-        public override bool SupportsEncoding(string encoding)
+        /// <param name="message">Message to be examined.</param>
+        public override string GetEncoding(string message)
         {
-            return (encoding ?? string.Empty).Equals("VB");
+            return EncodingDetector.IsEr7Encoded(message) ? DefaultEncoding : null;
         }
 
         /// <deprecated> this method should not be public.
@@ -340,14 +303,37 @@ namespace NHapi.Base.Parser
             return GetStructure(message).Structure;
         }
 
-        /// <summary> Parses a segment string and populates the given Segment object.  Unexpected fields are
-        /// added as Varies' at the end of the segment.
-        ///
+        /// <summary>
+        /// Parses a segment string and populates the given Segment object.
+        /// <para>
+        /// Unexpected fields are added as Varies' at the end of the segment.
+        /// </para>
         /// </summary>
-        /// <throws>  HL7Exception if the given string does not contain the. </throws>
-        /// <summary>      given segment or if the string is not encoded properly.
-        /// </summary>
+        /// <param name="destination">Segment to parse the segment string into.</param>
+        /// <param name="segment">Encoded segment.</param>
+        /// <param name="encodingChars">Encoding characters to be used.</param>
+        /// <exception cref="HL7Exception">
+        /// If the given string does not contain the given segment or if the string is not encoded properly.
+        /// </exception>
         public virtual void Parse(ISegment destination, string segment, EncodingCharacters encodingChars)
+        {
+            Parse(destination, segment, encodingChars, 0);
+        }
+
+        /// <summary>
+        /// Parses a segment string and populates the given Segment object.
+        /// <para>
+        /// Unexpected fields are added as Varies' at the end of the segment.
+        /// </para>
+        /// </summary>
+        /// <param name="destination">Segment to parse the segment string into.</param>
+        /// <param name="segment">Encoded segment.</param>
+        /// <param name="encodingChars">Encoding characters to be used.</param>
+        /// <param name="repetition">The repetition number of this segment within its group.</param>
+        /// <exception cref="HL7Exception">
+        /// If the given string does not contain the given segment or if the string is not encoded properly.
+        /// </exception>
+        public virtual void Parse(ISegment destination, string segment, EncodingCharacters encodingChars, int repetition)
         {
             var fieldOffset = 0;
             if (IsDelimDefSegment(destination.GetStructureName()))
@@ -396,8 +382,12 @@ namespace NHapi.Base.Parser
                     catch (HL7Exception e)
                     {
                         // set the field location and throw again ...
-                        e.FieldPosition = i + fieldOffset;
-                        e.SegmentRepetition = MessageIterator.GetIndex(destination.ParentStructure, destination).Rep;
+                        e.FieldPosition = i;
+                        if (repetition > 1)
+                        {
+                            e.SegmentRepetition = repetition;
+                        }
+
                         e.SegmentName = destination.GetStructureName();
                         throw;
                     }
@@ -411,36 +401,96 @@ namespace NHapi.Base.Parser
             }
         }
 
-        /// <summary> <p>Returns a minimal amount of data from a message string, including only the
-        /// data needed to send a response to the remote system.  This includes the
-        /// following fields:
-        /// <ul><li>field separator</li>
-        /// <li>encoding characters</li>
-        /// <li>processing ID</li>
-        /// <li>message control ID</li></ul>
-        /// This method is intended for use when there is an error parsing a message,
-        /// (so the Message object is unavailable) but an error message must be sent
-        /// back to the remote system including some of the information in the inbound
-        /// message.  This method parses only that required information, hopefully
-        /// avoiding the condition that caused the original error.  The other
-        /// fields in the returned MSH segment are empty.</p>
-        /// </summary>
+        /// <inheritdoc />
+        public override void Parse(IMessage message, string @string)
+        {
+            var structureDefinition = GetStructureDefinition(message);
+            var messageIterator = new MessageIterator(message, structureDefinition, "MSH", true);
+
+            var segments = Split(@string, SegmentDelimiter);
+
+            if (segments.Length == 0)
+            {
+                throw new HL7Exception($"Invalid message content: \"{@string}\"");
+            }
+
+            if (segments[0] == null || segments[0].Length < 4)
+            {
+                throw new HL7Exception($"Invalid message content: \"{@string}\"");
+            }
+
+            var delimiter = '|';
+            string previousName = null;
+            var repetition = 1;
+            for (var i = 0; i < segments.Length; i++)
+            {
+                // get rid of any leading whitespace characters ...
+                if (segments[i] != null && segments[i].Length > 0 && char.IsWhiteSpace(segments[i][0]))
+                {
+                    segments[i] = StripLeadingWhitespace(segments[i]);
+                }
+
+                // sometimes people put extra segment delimiters at end of msg ...
+                if (segments[i] != null && segments[i].Length >= 3)
+                {
+                    string name;
+                    if (i == 0)
+                    {
+                        if (segments[i].Length < 4)
+                        {
+                            throw new HL7Exception($"Invalid message content: \"{@string}\"");
+                        }
+
+                        name = segments[i].Substring(0, 3);
+                        delimiter = segments[i][3];
+                    }
+                    else
+                    {
+                        name = segments[i].IndexOf(delimiter) >= 0
+                            ? segments[i].Substring(0, segments[i].IndexOf(delimiter))
+                            : segments[i];
+                    }
+
+                    Log.Trace($"Parsing segment {name}");
+
+                    if (name.Equals(previousName))
+                    {
+                        repetition++;
+                    }
+                    else
+                    {
+                        repetition = 1;
+                        previousName = name;
+                    }
+
+                    messageIterator.Direction = name;
+
+                    if (messageIterator.MoveNext())
+                    {
+                        var next = (ISegment)messageIterator.Current;
+                        Parse(next, segments[i], GetEncodingChars(@string), repetition);
+                    }
+                }
+            }
+        }
+
+        /// <inheritdoc />
         public override ISegment GetCriticalResponseData(string message)
         {
             // try to get MSH segment
-            var locStartMSH = message.IndexOf("MSH");
-            if (locStartMSH < 0)
+            var mshStart = message.IndexOf("MSH");
+            if (mshStart < 0)
             {
                 throw new HL7Exception("Couldn't find MSH segment in message: " + message, ErrorCode.SEGMENT_SEQUENCE_ERROR);
             }
 
-            var locEndMSH = message.IndexOf('\r', locStartMSH + 1);
-            if (locEndMSH < 0)
+            var mshEnd = message.IndexOf('\r', mshStart + 1);
+            if (mshEnd < 0)
             {
-                locEndMSH = message.Length;
+                mshEnd = message.Length;
             }
 
-            var mshString = message.Substring(locStartMSH, locEndMSH - locStartMSH);
+            var mshString = message.Substring(mshStart, mshEnd - mshStart);
 
             // find out what the field separator is
             var fieldSep = mshString[3];
@@ -453,9 +503,9 @@ namespace NHapi.Base.Parser
             {
                 // parse required fields
                 var encChars = fields[1];
-                var compSep = encChars[0];
-                var messControlID = fields[9];
-                var procIDComps = Split(fields[10], Convert.ToString(compSep));
+                var compSeparator = encChars[0];
+                var messageControlId = fields[9];
+                var processingIdComps = Split(fields[10], Convert.ToString(compSeparator));
 
                 // fill MSH segment
                 var version = "2.4"; // default
@@ -471,8 +521,8 @@ namespace NHapi.Base.Parser
                 msh = MakeControlMSH(version, Factory);
                 Terser.Set(msh, 1, 0, 1, 1, Convert.ToString(fieldSep));
                 Terser.Set(msh, 2, 0, 1, 1, encChars);
-                Terser.Set(msh, 10, 0, 1, 1, messControlID);
-                Terser.Set(msh, 11, 0, 1, 1, procIDComps[0]);
+                Terser.Set(msh, 10, 0, 1, 1, messageControlId);
+                Terser.Set(msh, 11, 0, 1, 1, processingIdComps[0]);
             }
             catch (Exception e)
             {
@@ -485,25 +535,20 @@ namespace NHapi.Base.Parser
             return msh;
         }
 
-        /// <summary> For response messages, returns the value of MSA-2 (the message ID of the message
-        /// sent by the sending system).  This value may be needed prior to main message parsing,
-        /// so that (particularly in a multi-threaded scenario) the message can be routed to
-        /// the thread that sent the request.  We need this information first so that any
-        /// parse exceptions are thrown to the correct thread.
-        /// Returns null if MSA-2 can not be found (e.g. if the message is not a
-        /// response message).
-        /// </summary>
+        /// <inheritdoc />
         public override string GetAckID(string message)
         {
             string ackID = null;
-            var startMSA = message.IndexOf("\rMSA");
-            if (startMSA >= 0)
+            var msaStart = message.IndexOf("\rMSA");
+
+            if (msaStart >= 0)
             {
-                var startFieldOne = startMSA + 5;
-                var fieldDelim = message[startFieldOne - 1];
-                var start = message.IndexOf((char)fieldDelim, startFieldOne) + 1;
-                var end = message.IndexOf((char)fieldDelim, start);
-                var segEnd = message.IndexOf(Convert.ToString(SegDelim), start);
+                var startFieldOne = msaStart + 5;
+                var fieldDelimiter = message[startFieldOne - 1];
+                var start = message.IndexOf(fieldDelimiter, startFieldOne) + 1;
+                var end = message.IndexOf(fieldDelimiter, start);
+                var segEnd = message.IndexOf(SegmentDelimiter, start);
+
                 if (segEnd > start && segEnd < end)
                 {
                     end = segEnd;
@@ -532,26 +577,18 @@ namespace NHapi.Base.Parser
             return ackID;
         }
 
-        /// <summary> Returns the version ID (MSH-12) from the given message, without fully parsing the message.
-        /// The version is needed prior to parsing in order to determine the message class
-        /// into which the text of the message should be parsed.
-        /// </summary>
-        /// <throws>  HL7Exception if the version field can not be found. </throws>
+        /// <inheritdoc />
         public override string GetVersion(string message)
         {
-            var startMSH = message.IndexOf("MSH");
-            if (startMSH < 0)
+            var startMsh = message.IndexOf("MSH");
+            var endMsh = message.IndexOf(SegmentDelimiter, startMsh);
+
+            if (endMsh < 0)
             {
-                throw new HL7Exception("No MSH header segment found.", ErrorCode.REQUIRED_FIELD_MISSING);
+                endMsh = message.Length;
             }
 
-            var endMSH = message.IndexOf(SegDelim, startMSH);
-            if (endMSH < 0)
-            {
-                endMSH = message.Length;
-            }
-
-            var msh = message.Substring(startMSH, endMSH - startMSH);
+            var msh = message.Substring(startMsh, endMsh - startMsh);
             string fieldSep;
             if (msh.Length > 3)
             {
@@ -559,32 +596,37 @@ namespace NHapi.Base.Parser
             }
             else
             {
-                throw new HL7Exception("Can't find field separator in MSH: " + msh, ErrorCode.UNSUPPORTED_VERSION_ID);
+                throw new HL7Exception($"Can't find field separator in MSH: {msh}", ErrorCode.UNSUPPORTED_VERSION_ID);
             }
 
             var fields = Split(msh, fieldSep);
 
             string compSep;
-            if (fields.Length >= 2 && fields[0] == "MSH" && fields[1] != null && fields[1].Length > 0)
+            if (fields.Length >= 2 && (fields[1].Length == 4 || fields[1].Length == 5))
             {
                 compSep = Convert.ToString(fields[1][0]); // get component separator as 1st encoding char
             }
             else
             {
                 throw new HL7Exception(
-                    "Can't find encoding characters - MSH has only " + fields.Length + " fields",
+                    $"Can't find encoding characters - MSH has only {fields.Length} fields",
                     ErrorCode.REQUIRED_FIELD_MISSING);
             }
 
             string version;
             if (fields.Length >= 12)
             {
-                if (fields[11] == null)
+                var comp = Split(fields[11], compSep);
+                if (comp.Length >= 1)
                 {
-                    throw new HL7Exception("MSH Version field is null.", ErrorCode.REQUIRED_FIELD_MISSING);
+                    version = comp[0];
                 }
-
-                version = Split(fields[11], compSep)[0];
+                else
+                {
+                    throw new HL7Exception(
+                        $"Can't find version ID - MSH.12 is {fields[11]}",
+                        ErrorCode.REQUIRED_FIELD_MISSING);
+                }
             }
             else
             {
@@ -593,18 +635,10 @@ namespace NHapi.Base.Parser
                     ErrorCode.REQUIRED_FIELD_MISSING);
             }
 
-            return version.Trim();
+            return version;
         }
 
-        /// <summary> Formats a Message object into an HL7 message string using the given
-        /// encoding.
-        /// </summary>
-        /// <throws>  HL7Exception if the data fields in the message do not permit encoding. </throws>
-        /// <summary>      (e.g. required fields are null).
-        /// </summary>
-        /// <throws>  EncodingNotSupportedException if the requested encoding is not. </throws>
-        /// <summary>      supported by this parser.
-        /// </summary>
+        /// <inheritdoc />
         protected internal override string DoEncode(IMessage source, string encoding)
         {
             if (!SupportsEncoding(encoding))
@@ -615,17 +649,13 @@ namespace NHapi.Base.Parser
             return Encode(source);
         }
 
-        /// <summary> Formats a Message object into an HL7 message string using this parser's
-        /// default encoding ("VB").
-        /// </summary>
-        /// <throws>  HL7Exception if the data fields in the message do not permit encoding. </throws>
-        /// <summary>      (e.g. required fields are null).
-        /// </summary>
+        /// <inheritdoc />
         protected internal override string DoEncode(IMessage source)
         {
             // get encoding characters ...
             var msh = (ISegment)source.GetStructure("MSH");
             var fieldSepString = Terser.Get(msh, 1, 0, 1, 1);
+
             if (fieldSepString == null)
             {
                 // cdc: This was breaking when trying to construct a blank message, and there is no way to set the fieldSeperator, so fill in a default
@@ -634,21 +664,11 @@ namespace NHapi.Base.Parser
                 Terser.Set(msh, 1, 0, 1, 1, fieldSepString);
             }
 
-            var fieldSep = '|';
-            if (fieldSepString != null && fieldSepString.Length > 0)
-            {
-                fieldSep = fieldSepString[0];
-            }
+            var fieldSep = fieldSepString.Length > 0
+                ? fieldSepString[0]
+                : '|';
 
-            var encCharString = Terser.Get(msh, 2, 0, 1, 1);
-
-            if (encCharString == null)
-            {
-                // cdc: This was breaking when trying to construct a blank message, and there is no way to set the EncChars, so fill in a default
-                // throw new HL7Exception("Can't encode message: MSH-2 (encoding characters) is missing");
-                encCharString = @"^~\&";
-                Terser.Set(msh, 2, 0, 1, 1, encCharString);
-            }
+            var encodingCharacters = GetValidEncodingCharacters(fieldSep, msh);
 
             var version = Terser.Get(msh, 12, 0, 1, 1);
             if (version == null)
@@ -676,85 +696,45 @@ namespace NHapi.Base.Parser
                 }
             }
 
-            if (encCharString.Length != 4)
-            {
-                throw new HL7Exception(
-                    "Encoding characters '" + encCharString + "' invalid -- must be 4 characters",
-                    ErrorCode.DATA_TYPE_ERROR);
-            }
-
-            var en = new EncodingCharacters(fieldSep, encCharString);
-
-            // pass down to group encoding method which will operate recursively on children ...
-            return Encode((IGroup)source, en);
+            // pass down to group encoding method which will operate recursively on
+            // children ...
+            return Encode(source, encodingCharacters);
         }
 
-        /// <summary> Parses a message string and returns the corresponding Message
-        /// object.  Unexpected segments added at the end of their group.
-        ///
-        /// </summary>
-        /// <throws>  HL7Exception if the message is not correctly formatted. </throws>
-        /// <throws>  EncodingNotSupportedException if the message encoded. </throws>
-        /// <summary>      is not supported by this parser.
-        /// </summary>
+        /// <inheritdoc />
         protected internal override IMessage DoParse(string message, string version)
         {
             // try to instantiate a message object of the right class
             var structure = GetStructure(message);
             var m = InstantiateMessage(structure.Structure, version, structure.ExplicitlyDefined);
-
-            var messageIter = new MessageIterator(m, "MSH", true);
-            FilterIterator.IPredicate segmentsOnly = new AnonymousClassPredicate(this);
-            var segmentIter = new FilterIterator(messageIter, segmentsOnly);
-
-            var segments = Split(message, SegDelim);
-            var encodingChars = GetEncodingChars(message);
-            for (var i = 0; i < segments.Length; i++)
-            {
-                // get rid of any leading whitespace characters ...
-                if (segments[i] != null && segments[i].Length > 0 && char.IsWhiteSpace(segments[i][0]))
-                {
-                    segments[i] = StripLeadingWhitespace(segments[i]);
-                }
-
-                // sometimes people put extra segment delimiters at end of msg ...
-                if (segments[i] != null && segments[i].Length >= 3)
-                {
-                    var name = segments[i].Substring(0, 3 - 0);
-                    Log.Debug("Parsing segment " + name);
-
-                    messageIter.Direction = name;
-                    FilterIterator.IPredicate byDirection = new AnonymousClassPredicate1(name, this);
-                    var dirIter = new FilterIterator(segmentIter, byDirection);
-                    if (dirIter.MoveNext())
-                    {
-                        Parse((ISegment)dirIter.Current, segments[i], encodingChars);
-                    }
-                }
-            }
+            Parse(m, message);
 
             return m;
         }
 
-        /// <summary> Returns object that contains the field separator and encoding characters
+        /// <summary>
+        /// Returns object that contains the field separator and encoding characters
         /// for this message.
+        /// <para>
+        /// There's an additional character starting with v2.7 (truncation), but we will
+        /// accept it in messages of any version.
+        /// </para>
         /// </summary>
         private static EncodingCharacters GetEncodingChars(string message)
         {
-            return new EncodingCharacters(message[3], message.Substring(4, 8 - 4));
+            if (message.Length < 9)
+            {
+                throw new HL7Exception($"Invalid message content: \"{message}\"");
+            }
+
+            return new EncodingCharacters(message[3], message.Substring(4,  4));
         }
 
         private static string EncodePrimitive(IPrimitive p, EncodingCharacters encodingChars)
         {
-            var val = ((IPrimitive)p).Value;
-            if (val == null)
-            {
-                val = string.Empty;
-            }
-            else
-            {
-                val = Escape.EscapeText(val, encodingChars);
-            }
+            var val = p.Value == null
+                ? string.Empty
+                : Escape.EscapeText(p.Value, encodingChars);
 
             return val;
         }
@@ -788,20 +768,18 @@ namespace NHapi.Base.Parser
             return ret;
         }
 
-        /// <returns> true if the segment is MSH, FHS, or BHS.  These need special treatment
-        /// because they define delimiters.
+        /// <returns>
+        /// true if the segment is MSH, FHS, or BHS.
+        /// These need special treatment because they define delimiters.
         /// </returns>
-        /// <param name="theSegmentName">
-        /// </param>
+        /// <param name="theSegmentName"></param>
         private static bool IsDelimDefSegment(string theSegmentName)
         {
-            var is_Renamed = false;
-            if (theSegmentName.Equals("MSH") || theSegmentName.Equals("FHS") || theSegmentName.Equals("BHS"))
-            {
-                is_Renamed = true;
-            }
+            var isRenamed = theSegmentName.Equals("MSH")
+                         || theSegmentName.Equals("FHS")
+                         || theSegmentName.Equals("BHS");
 
-            return is_Renamed;
+            return isRenamed;
         }
 
         /// <summary> Fills a field with values from an unparsed string representing the field.  </summary>
@@ -830,24 +808,56 @@ namespace NHapi.Base.Parser
             }
         }
 
-        /// <returns>s the message structure from MSH-9-3.
+        private EncodingCharacters GetValidEncodingCharacters(char fieldSep, ISegment msh)
+        {
+            var encCharString = Terser.Get(msh, 2, 0, 1, 1);
+
+            if (encCharString == null)
+            {
+                // cdc: This was breaking when trying to construct a blank message, and there is no way to set the EncChars, so fill in a default
+                // throw new HL7Exception("Can't encode message: MSH-2 (encoding characters) is missing");
+                encCharString = @"^~\&";
+                Terser.Set(msh, 2, 0, 1, 1, encCharString);
+            }
+
+            var version27 = new Version("2.7");
+            var messageVersion = new Version(msh.Message.Version);
+
+            if (version27 > messageVersion && encCharString.Length != 4)
+            {
+                throw new HL7Exception(
+                    $"Encoding characters (MSH-2) value '{encCharString}' invalid -- must be 4 characters", ErrorCode.DATA_TYPE_ERROR);
+            }
+
+            if (encCharString.Length != 4 && encCharString.Length != 5)
+            {
+                throw new HL7Exception(
+                    $"Encoding characters (MSH-2) value '{encCharString}' invalid -- must be 4 or 5 characters", ErrorCode.DATA_TYPE_ERROR);
+            }
+
+            return new EncodingCharacters(fieldSep, encCharString);
+        }
+
+        /// <returns>
+        /// The message structure from MSH-9-3.
         /// </returns>
         private MessageStructure GetStructure(string message)
         {
-            var ec = GetEncodingChars(message);
-            var explicityDefined = true;
+            var encodingCharacters = GetEncodingChars(message);
+            var explicitlyDefined = true;
             string wholeFieldNine;
             string messageStructure;
+
             try
             {
                 var fields = Split(
-                    message.Substring(0, Math.Max(message.IndexOf(SegDelim), message.Length) - 0),
-                    Convert.ToString(ec.FieldSeparator));
+                    message.Substring(0, Math.Max(message.IndexOf(SegmentDelimiter), message.Length) - 0),
+                    Convert.ToString(encodingCharacters.FieldSeparator));
                 wholeFieldNine = fields[8];
 
                 // message structure is component 3 but we'll accept a composite of 1 and 2 if there is no component 3 ...
-                //      if component 1 is ACK, then the structure is ACK regardless of component 2
-                var comps = Split(wholeFieldNine, Convert.ToString(ec.ComponentSeparator));
+                // if component 1 is ACK, then the structure is ACK regardless of component 2
+                var comps = Split(wholeFieldNine, Convert.ToString(encodingCharacters.ComponentSeparator));
                 if (comps.Length >= 3)
                 {
                     messageStructure = comps[2];
@@ -858,8 +868,8 @@ namespace NHapi.Base.Parser
                 }
                 else if (comps.Length == 2)
                 {
-                    explicityDefined = false;
-                    messageStructure = comps[0] + "_" + comps[1];
+                    explicitlyDefined = false;
+                    messageStructure = $"{comps[0]}_{comps[1]}";
                 }
                 else
                 {
@@ -880,7 +890,85 @@ namespace NHapi.Base.Parser
                 throw new HL7Exception("Can't find message structure (MSH-9-3): " + e.Message, ErrorCode.UNSUPPORTED_MESSAGE_TYPE);
             }
 
-            return new MessageStructure(messageStructure, explicityDefined);
+            return new MessageStructure(messageStructure, explicitlyDefined);
+        }
+
+        private IStructureDefinition GetStructureDefinition(IMessage theMessage)
+        {
+            var messageType = theMessage.GetType();
+            StructureDefinition retVal;
+
+            if (structureDefinitions.TryGetValue(messageType, out var definitions))
+            {
+                if (definitions.TryGetValue(theMessage.GetStructureName(), out retVal))
+                {
+                    return retVal;
+                }
+            }
+
+            Log.Info($"Instantiating msg of class {messageType.FullName}");
+            var constructor = messageType.GetConstructor(new[] { typeof(IModelClassFactory) });
+            var message = (IMessage)constructor.Invoke(new object[] { Factory });
+
+            StructureDefinition previousLeaf = null;
+            retVal = CreateStructureDefinition(message, ref previousLeaf);
+
+            if (structureDefinitions.ContainsKey(messageType))
+            {
+                return retVal;
+            }
+
+            var dictionary = new Dictionary<string, StructureDefinition>
+            {
+                { theMessage.GetStructureName(), retVal },
+            };
+
+            structureDefinitions.Add(messageType, dictionary);
+
+            return retVal;
+        }
+
+        private StructureDefinition CreateStructureDefinition(IStructure theStructure, ref StructureDefinition thePreviousLeaf)
+        {
+            var result = new StructureDefinition
+            {
+                Name = theStructure.GetStructureName(),
+            };
+
+            if (theStructure is IGroup)
+            {
+                result.IsSegment = false;
+                var group = (IGroup)theStructure;
+                var index = 0;
+                var childNames = group.Names.ToList();
+
+                foreach (var nextName in childNames)
+                {
+                    var nextChild = group.GetStructure(nextName);
+                    var structureDefinition = CreateStructureDefinition(nextChild, ref thePreviousLeaf);
+
+                    structureDefinition.NameAsItAppearsInParent = nextName;
+                    structureDefinition.IsRepeating = group.IsRepeating(nextName);
+                    structureDefinition.IsRequired = group.IsRequired(nextName);
+                    structureDefinition.IsChoiceElement = group.IsChoiceElement(nextName);
+                    structureDefinition.Position = index++;
+                    structureDefinition.Parent = result;
+
+                    result.Children.Add(structureDefinition);
+                }
+            }
+            else
+            {
+                if (thePreviousLeaf != null)
+                {
+                    thePreviousLeaf.NextLeaf = result;
+                }
+
+                thePreviousLeaf = result;
+                result.IsSegment = true;
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -898,54 +986,6 @@ namespace NHapi.Base.Parser
             public string Structure { get; }
 
             public bool ExplicitlyDefined { get; }
-        }
-
-        private class AnonymousClassPredicate : FilterIterator.IPredicate
-        {
-            public AnonymousClassPredicate(PipeParser enclosingInstance)
-            {
-                Enclosing_Instance = enclosingInstance;
-            }
-
-            public PipeParser Enclosing_Instance { get; }
-
-            public virtual bool evaluate(object obj)
-            {
-                return Evaluate(obj);
-            }
-
-            public virtual bool Evaluate(object obj)
-            {
-                return typeof(ISegment).IsAssignableFrom(obj.GetType());
-            }
-        }
-
-        private class AnonymousClassPredicate1 : FilterIterator.IPredicate
-        {
-            public AnonymousClassPredicate1(string name, PipeParser enclosingInstance)
-            {
-                Name = name;
-                Enclosing_Instance = enclosingInstance;
-            }
-
-            public PipeParser Enclosing_Instance { get; }
-
-            private string Name { get; }
-
-            /// <inheritdoc />
-            public virtual bool evaluate(object obj)
-            {
-                return Evaluate(obj);
-            }
-
-            /// <inheritdoc />
-            public virtual bool Evaluate(object obj)
-            {
-                var structureName = ((IStructure)obj).GetStructureName();
-                Log.Debug($"PipeParser iterating message in direction {Name} at {structureName}");
-
-                return Regex.IsMatch(structureName, Regex.Escape(Name) + $"\\d*");
-            }
         }
     }
 }

@@ -28,7 +28,6 @@ namespace NHapi.Base.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.Reflection;
 
     using NHapi.Base.Log;
     using NHapi.Base.Parser;
@@ -68,8 +67,8 @@ namespace NHapi.Base.Model
             Init();
         }
 
-        /// <summary> This constructor should only be used by classes that implement Message directly.
-        ///
+        /// <summary>
+        /// This constructor should only be used by classes that implement Message directly.
         /// </summary>
         /// <param name="factory">the factory for classes of segments, groups, and datatypes under this group.
         /// </param>
@@ -79,9 +78,7 @@ namespace NHapi.Base.Model
             Init();
         }
 
-        /// <summary>
-        /// A string[] of group names.
-        /// </summary>
+        /// <inheritdoc />
         public virtual string[] Names
         {
             get
@@ -97,13 +94,13 @@ namespace NHapi.Base.Model
             }
         }
 
-        /// <summary> Returns the Message to which this segment belongs.</summary>
+        /// <inheritdoc />
         public virtual IMessage Message
         {
             get
             {
                 IStructure s = this;
-                while (!typeof(IMessage).IsAssignableFrom(s.GetType()))
+                while (!(s is IMessage))
                 {
                     s = s.ParentStructure;
                 }
@@ -112,28 +109,16 @@ namespace NHapi.Base.Model
             }
         }
 
-        /// <summary>Returns the parent group within which this structure exists (may be root
-        /// message group).
-        /// </summary>
+        /// <inheritdoc />
         public virtual IGroup ParentStructure { get; }
 
-        /// <summary> Returns the named structure.  If this Structure is repeating then the first
-        /// repetition is returned.  Creates the Structure if necessary.
-        /// </summary>
-        /// <exception cref="HL7Exception">Thrown when the named Structure is not part of this Group.</exception>
+        /// <inheritdoc />
         public virtual IStructure GetStructure(string name)
         {
             return GetStructure(name, 0);
         }
 
-        /// <summary> Returns a particular repetition of the named Structure. If the given repetition
-        /// number is one greater than the existing number of repetitions then a new
-        /// Structure is created.
-        /// </summary>
-        /// <exception cref="HL7Exception">Thrown when the named Structure is not part of this group or
-        /// the structure is not repeatable and the given rep is > 0,
-        /// or if the given repetition number is more than one greater than the
-        /// existing number of repetitions.</exception>
+        /// <inheritdoc />
         public virtual IStructure GetStructure(string name, int rep)
         {
             var item = GetGroupItem(name);
@@ -141,7 +126,7 @@ namespace NHapi.Base.Model
             if (item == null)
             {
                 throw new HL7Exception(
-                    name + " does not exist in the group " + GetType().FullName,
+                    $"{name} does not exist in the group {GetType().FullName}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -158,7 +143,7 @@ namespace NHapi.Base.Model
                 if (!repeats && item.Structures.Count > 0)
                 {
                     throw new HL7Exception(
-                        "Can't create repetition #" + rep + " of Structure " + name + " - this Structure is non-repeating",
+                        $"Can't create repetition #{rep} of Structure {name} - this Structure is non-repeating",
                         ErrorCode.APPLICATION_INTERNAL_ERROR);
                 }
 
@@ -170,16 +155,20 @@ namespace NHapi.Base.Model
             else
             {
                 throw new HL7Exception(
-                    "Can't return repetition #" + rep + " of " + name + " - there are only " + items.Count + " repetitions.",
+                    $"Can't return repetition #{rep} of {name} - there are only {items.Count} repetitions.",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
             return ret;
         }
 
-        /// <summary> Adds a new item to the Structure. </summary>
-        /// <exception cref="HL7Exception">Thrown when the named Structure is not part of this group
-        /// or if the structure is not repeatable and an item already exists. </exception>
+        /// <summary>
+        /// Adds a new item to the Structure.
+        /// </summary>
+        /// <exception cref="HL7Exception">
+        /// Thrown when the named Structure is not part of this group
+        /// or if the structure is not repeatable and an item already exists.
+        /// </exception>
         public virtual IStructure AddStructure(string name)
         {
             var item = GetGroupItem(name);
@@ -187,7 +176,7 @@ namespace NHapi.Base.Model
             if (item == null)
             {
                 throw new HL7Exception(
-                    name + " does not exist in the group " + GetType().FullName,
+                    $"{name} does not exist in the group {GetType().FullName}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -196,7 +185,7 @@ namespace NHapi.Base.Model
             if (!repeats && item.Structures.Count > 0)
             {
                 throw new HL7Exception(
-                    "Can't create repetition of Structure " + name + " - this Structure is non-repeating and this Structure already has an item present.",
+                    $"Can't create repetition of Structure {name} - this Structure is non-repeating and this Structure already has an item present.",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -207,8 +196,12 @@ namespace NHapi.Base.Model
             return ret;
         }
 
-        /// <summary> Removes the given structure from the named Structure. </summary>
-        /// <exception cref="HL7Exception">Thrown when the named Structure is not part of this Group.</exception>
+        /// <summary>
+        /// Removes the given structure from the named Structure.
+        /// </summary>
+        /// <exception cref="HL7Exception">
+        /// Thrown when the named Structure is not part of this Group.
+        /// </exception>
         public virtual void RemoveStructure(string name, IStructure toRemove)
         {
             var item = GetGroupItem(name);
@@ -216,7 +209,7 @@ namespace NHapi.Base.Model
             if (item == null)
             {
                 throw new HL7Exception(
-                    name + " does not exist in the group " + GetType().FullName,
+                    $"{name} does not exist in the group {GetType().FullName}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -233,15 +226,15 @@ namespace NHapi.Base.Model
             if (item == null)
             {
                 throw new HL7Exception(
-                    "The structure " + name + " does not exist in the group " + GetType().FullName,
+                    $"The structure {name} does not exist in the group {GetType().FullName}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
             if (rep >= item.Structures.Count)
             {
                 throw new HL7Exception(
-                     "The structure " + name + " does not have " + rep + " repetitions. ",
-                     ErrorCode.APPLICATION_INTERNAL_ERROR);
+                    $"The structure {name} does not have {rep} repetitions. ",
+                    ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
             item.Structures.RemoveAt(rep);
@@ -253,61 +246,99 @@ namespace NHapi.Base.Model
             return AddNonstandardSegment(name);
         }
 
-        /// <summary> Expands the group definition to include a segment that is not
-        /// defined by HL7 to be part of this group (eg an unregistered Z segment).
-        /// The new segment is slotted at the end of the group.  Thenceforward if
-        /// such a segment is encountered it will be parsed into this location.
-        /// If the segment name is unrecognized a GenericSegment is used.  The
-        /// segment is defined as repeating and not required.
-        /// </summary>
-        /// <exception cref="HL7Exception">Thrown when 'Message.Version' returns null.</exception>
+        /// <inheritdoc />
         public virtual string AddNonstandardSegment(string name)
         {
             var version = Message.Version;
             if (version == null)
             {
-                throw new HL7Exception("Need message version to add segment by name; message.getVersion() returns null");
+                throw new HL7Exception("Need message version to add segment by name; message.Version returns null");
             }
 
-            var c = myFactory.GetSegmentClass(name, version);
-            if (c == null)
-            {
-                c = typeof(GenericSegment);
-            }
+            var c = myFactory.GetSegmentClass(name, version) ?? typeof(GenericSegment);
 
             var index = Names.Length;
 
             TryToInstantiateStructure(c, name); // may throw exception
 
-            return Insert(c, false, true, index, name);
+            return Insert(c, false, true, false, index, name);
         }
 
-        /// <summary> Returns true if the named structure is required. </summary>
+        /// <inheritdoc />
+        public virtual string AddNonstandardSegment(string name, int index)
+        {
+            if (this is IMessage && index == 0)
+            {
+                throw new HL7Exception($"Cannot add nonstandard segment '{name}' to start of message.");
+            }
+
+            var version = Message.Version;
+            if (version == null)
+            {
+                throw new HL7Exception("Need message version to add segment by name; message.Version returns null");
+            }
+
+            var c = myFactory.GetSegmentClass(name, version) ?? typeof(GenericSegment);
+
+            TryToInstantiateStructure(c, name); // may throw exception
+
+            return Insert(c, false, true, false, index, name);
+        }
+
+        /// <inheritdoc />
         public virtual bool IsRequired(string name)
         {
             var item = GetGroupItem(name);
             if (item == null)
             {
                 throw new HL7Exception(
-                    "The structure " + name + " does not exist in the group " + GetType().FullName,
+                    $"The structure {name} does not exist in the group {GetType().FullName}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
             return item.IsRequired;
         }
 
-        /// <summary> Returns true if the named structure is required. </summary>
+        /// <inheritdoc />
         public virtual bool IsRepeating(string name)
         {
             var item = GetGroupItem(name);
             if (item == null)
             {
                 throw new HL7Exception(
-                    "The structure " + name + " does not exist in the group " + GetType().FullName,
+                    $"The structure {name} does not exist in the group {GetType().FullName}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
             return item.IsRepeating;
+        }
+
+        /// <inheritdoc />
+        public virtual bool IsChoiceElement(string name)
+        {
+            var item = GetGroupItem(name);
+            if (item == null)
+            {
+                throw new HL7Exception(
+                    $"The structure {name} does not exist in the group {GetType().FullName}",
+                    ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
+
+            return item.IsChoiceElement;
+        }
+
+        /// <inheritdoc />
+        public virtual bool IsGroup(string name)
+        {
+            var item = GetGroupItem(name);
+            if (item == null)
+            {
+                throw new HL7Exception(
+                    $"The structure {name} does not exist in the group {GetType().FullName}",
+                    ErrorCode.APPLICATION_INTERNAL_ERROR);
+            }
+
+            return typeof(IGroup).IsAssignableFrom(item.ClassType);
         }
 
         [Obsolete("This method has been replaced by 'CurrentReps'.")]
@@ -327,7 +358,7 @@ namespace NHapi.Base.Model
             if (item == null)
             {
                 throw new HL7Exception(
-                    "The structure " + name + " does not exist in the group " + GetType().FullName,
+                    $"The structure {name} does not exist in the group {GetType().FullName}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -347,7 +378,7 @@ namespace NHapi.Base.Model
             if (item == null)
             {
                 throw new HL7Exception(
-                    "The structure " + name + " does not exist in the group " + GetType().FullName,
+                    $"The structure {name} does not exist in the group {GetType().FullName}",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
@@ -400,7 +431,7 @@ namespace NHapi.Base.Model
         {
             var name = GetStructureName(c);
 
-            return Insert(c, required, repeating, items.Count, name);
+            return Insert(c, required, repeating, false, items.Count, name);
         }
 
         /// <summary>
@@ -434,7 +465,7 @@ namespace NHapi.Base.Model
         /// of the group's normal children should be done at construction time, using the
         /// add(...) method.
         /// </summary>
-        private string Insert(Type classType, bool required, bool repeating, int index, string name)
+        private string Insert(Type classType, bool required, bool repeating, bool choiceElement, int index, string name)
         {
             // see if there is already something by this name and make a new name if necessary ...
             if (NameExists(name))
@@ -449,7 +480,7 @@ namespace NHapi.Base.Model
                 name = newName;
             }
 
-            var item = new AbstractGroupItem(name, required, repeating, classType);
+            var item = new AbstractGroupItem(name, required, repeating, choiceElement, classType);
             items.Insert(index, item);
             return name;
         }
@@ -476,10 +507,9 @@ namespace NHapi.Base.Model
         /// </param>
         private IStructure TryToInstantiateStructure(Type c, string name)
         {
-            IStructure s = null;
+            IStructure s;
             try
             {
-                object o = null;
                 if (typeof(GenericSegment).IsAssignableFrom(c))
                 {
                     s = new GenericSegment(this, name);
@@ -491,9 +521,10 @@ namespace NHapi.Base.Model
                 else
                 {
                     // first try to instantiate using constructor w/ Message arg ...
+                    object o;
                     try
                     {
-                        var argClasses = new Type[] { typeof(IGroup), typeof(IModelClassFactory) };
+                        var argClasses = new[] { typeof(IGroup), typeof(IModelClassFactory) };
                         var argObjects = new object[] { this, myFactory };
                         var con = c.GetConstructor(argClasses);
                         o = con.Invoke(argObjects);
@@ -506,7 +537,7 @@ namespace NHapi.Base.Model
                     if (!(o is IStructure))
                     {
                         throw new HL7Exception(
-                            "Class " + c.FullName + " does not implement " + "ca.on.uhn.hl7.message.Structure",
+                            $"Class {c.FullName} does not implement ca.on.uhn.hl7.message.Structure",
                             ErrorCode.APPLICATION_INTERNAL_ERROR);
                     }
 
@@ -519,10 +550,8 @@ namespace NHapi.Base.Model
                 {
                     throw (HL7Exception)e;
                 }
-                else
-                {
-                    throw new HL7Exception("Can't instantiate class " + c.FullName, ErrorCode.APPLICATION_INTERNAL_ERROR, e);
-                }
+
+                throw new HL7Exception($"Can't instantiate class {c.FullName}", ErrorCode.APPLICATION_INTERNAL_ERROR, e);
             }
 
             return s;
