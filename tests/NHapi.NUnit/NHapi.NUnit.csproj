@@ -63,7 +63,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="TestData\BadInputs\*">
+    <None Update="TestData\BadInputs\**\*">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

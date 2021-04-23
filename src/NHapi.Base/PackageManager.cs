@@ -69,6 +69,11 @@ namespace NHapi.Base
 
         public bool IsValidVersion(string version)
         {
+            if (version == null)
+            {
+                return false;
+            }
+
             version = version.ToUpper().Trim();
             foreach (var package in Packages)
             {

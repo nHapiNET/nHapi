@@ -10,15 +10,16 @@
     using NHapi.Base.Parser;
 
     [TestFixture]
-    public class LegacyPipeParserBadInputTests
+    public class PipeParserBadInputTests
     {
         [TestCaseSource(nameof(TestPaths), new object[] { "EncodingNotSupportedException", typeof(EncodingNotSupportedException) })]
         [TestCaseSource(nameof(TestPaths), new object[] { "HL7Exception", typeof(HL7Exception) })]
         public void TestBadInputsThrowException(string path, Type expectedExceptionType)
         {
             // Arrange
-            var parser = new LegacyPipeParser();
-            var text = File.ReadAllText(path);
+            var parser = new PipeParser();
+            var fileText = File.ReadAllText(path);
+            var text = $"{fileText}\n";
 
             // Act / Assert
             var exception = Assert.Throws(expectedExceptionType, () => parser.Parse(text));
@@ -32,7 +33,7 @@
         public void TestBadInputsAreHandledGracefully(string path, Type not_required)
         {
             // Arrange
-            var parser = new LegacyPipeParser();
+            var parser = new PipeParser();
             var text = File.ReadAllText(path);
 
             // Assert
@@ -43,7 +44,7 @@
         private static IEnumerable<object[]> TestPaths(string dirName, Type exception)
         {
             var testDataDir =
-                $"{TestContext.CurrentContext.TestDirectory}/TestData/BadInputs/LegacyPipeParser/{dirName}";
+                $"{TestContext.CurrentContext.TestDirectory}/TestData/BadInputs/PipeParser/{dirName}";
 
             foreach (var filepath in Directory.GetFiles(testDataDir))
             {

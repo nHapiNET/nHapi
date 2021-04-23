@@ -421,10 +421,24 @@ namespace NHapi.Base.Parser
         /// <exception cref="HL7Exception">Thrown when the version is not recognized or no appropriate class can be found or the Message.</exception>
         protected internal virtual IMessage InstantiateMessage(string theName, string theVersion, bool isExplicit)
         {
-            var messageClass = Factory.GetMessageClass(theName, theVersion, isExplicit);
+            Type messageClass;
+            try
+            {
+                messageClass = Factory.GetMessageClass(theName, theVersion, isExplicit);
+            }
+            catch (Exception ex)
+            {
+                throw new HL7Exception(
+                    $"Can't find message class in current package list: {theName}",
+                    ErrorCode.UNSUPPORTED_MESSAGE_TYPE,
+                    ex);
+            }
+
             if (messageClass == null)
             {
-                throw new HL7Exception($"Can't find message class in current package list: {theName}", ErrorCode.UNSUPPORTED_MESSAGE_TYPE);
+                throw new HL7Exception(
+                    $"Can't find message class in current package list: {theName}",
+                    ErrorCode.UNSUPPORTED_MESSAGE_TYPE);
             }
 
             Log.Info($"Instantiating msg of class {messageClass.FullName}");

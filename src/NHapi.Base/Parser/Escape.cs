@@ -295,17 +295,18 @@ namespace NHapi.Base.Parser
 
                 for (var i = 0; i < Codes.Length; i++)
                 {
+                    var key = SpecialCharacters[i];
                     var seq = $"{encoding.EscapeCharacter}{Codes[i]}{encoding.EscapeCharacter}";
 
-                    EscapeSequences.Add(SpecialCharacters[i], seq);
+                    TryAddEscapeSequence(key, seq);
                 }
 
                 // Escaping of truncation # is not implemented yet. It may only be escaped if it is the first character that
                 // exceeds the conformance length of the component (ch 2.5.5.2). As of now, this information is not
                 // available at this place.
-                EscapeSequences.Add(TruncateChar, $"{TruncateChar}");
-                EscapeSequences.Add(LineFeed, $"\\{LineFeedHexadecimal}\\");
-                EscapeSequences.Add(CarriageReturn, $"\\{CarriageReturnHexadecimal}\\");
+                TryAddEscapeSequence(TruncateChar, $"{TruncateChar}");
+                TryAddEscapeSequence(LineFeed, $"\\{LineFeedHexadecimal}\\");
+                TryAddEscapeSequence(CarriageReturn, $"\\{CarriageReturnHexadecimal}\\");
             }
 
             private void LoadHexadecimalConfiguration()
@@ -315,6 +316,14 @@ namespace NHapi.Base.Parser
                 {
                     LineFeedHexadecimal = configSection.HexadecimalEscaping.LineFeedHexadecimal;
                     CarriageReturnHexadecimal = configSection.HexadecimalEscaping.CarriageReturnHexadecimal;
+                }
+            }
+
+            private void TryAddEscapeSequence(char key, string value)
+            {
+                if (!EscapeSequences.ContainsKey(key))
+                {
+                    EscapeSequences.Add(key, value);
                 }
             }
         }

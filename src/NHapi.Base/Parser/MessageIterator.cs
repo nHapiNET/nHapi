@@ -230,23 +230,25 @@ namespace NHapi.Base.Parser
             }
             else
             {
-                try
-                {
-                    newSegmentName = parentStructure.AddNonstandardSegment(direction, index);
-                }
-                catch (HL7Exception e)
-                {
-                    throw new InvalidOperationException($"Unable to add nonstandard segment {direction}: ", e);
-                }
+                newSegmentName = parentStructure.AddNonstandardSegment(direction, index);
             }
 
-            var previousSibling = GetCurrentPosition().StructureDefinition;
-            var parentStructureDefinition = parentDefinitionPath.Last().StructureDefinition;
-            var nextDefinition = new NonStandardStructureDefinition(parentStructureDefinition, previousSibling, newSegmentName, index);
-            currentDefinitionPath = parentDefinitionPath;
-            currentDefinitionPath.Add(new Position(nextDefinition, 0));
+            try
+            {
+                var previousSibling = GetCurrentPosition().StructureDefinition;
+                var parentStructureDefinition = parentDefinitionPath.Last().StructureDefinition;
+                var nextDefinition = new NonStandardStructureDefinition(parentStructureDefinition, previousSibling, newSegmentName, index);
+                currentDefinitionPath = parentDefinitionPath;
+                currentDefinitionPath.Add(new Position(nextDefinition, 0));
 
-            nextIsSet = true;
+                nextIsSet = true;
+            }
+            catch (Exception ex)
+            {
+                throw new HL7Exception(
+                    $"Could not add non-standard segment at current position.",
+                    ex);
+            }
         }
 
         private IStructure NavigateToStructure(IEnumerable<Position> theDefinitionPath)
@@ -260,17 +262,10 @@ namespace NHapi.Base.Parser
                 }
                 else
                 {
-                    try
-                    {
-                        var structureDefinition = next.StructureDefinition;
-                        var currentStructureGroup = (IGroup)currentStructure;
-                        var nextStructureName = structureDefinition.NameAsItAppearsInParent;
-                        currentStructure = currentStructureGroup.GetStructure(nextStructureName, next.Repetition);
-                    }
-                    catch (HL7Exception e)
-                    {
-                        throw new InvalidOperationException("Failed to retrieve structure: ", e);
-                    }
+                    var structureDefinition = next.StructureDefinition;
+                    var currentStructureGroup = (IGroup)currentStructure;
+                    var nextStructureName = structureDefinition.NameAsItAppearsInParent;
+                    currentStructure = currentStructureGroup.GetStructure(nextStructureName, next.Repetition);
                 }
             }
 
@@ -282,6 +277,12 @@ namespace NHapi.Base.Parser
             while (true)
             {
                 theDefinitionPath = new List<Position>(theDefinitionPath.GetRange(0, theDefinitionPath.Count - 1));
+
+                if (theDefinitionPath.Count == 0)
+                {
+                    Log.Debug($"The created list of positions contains no elements.");
+                    return null;
+                }
 
                 var newCurrentPosition = theDefinitionPath.Last();
                 var newCurrentStructureDefinition = newCurrentPosition.StructureDefinition;

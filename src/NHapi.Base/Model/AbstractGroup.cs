@@ -537,7 +537,7 @@ namespace NHapi.Base.Model
                     if (!(o is IStructure))
                     {
                         throw new HL7Exception(
-                            $"Class {c.FullName} does not implement ca.on.uhn.hl7.message.Structure",
+                            $"Class {c.FullName} does not implement IStructure",
                             ErrorCode.APPLICATION_INTERNAL_ERROR);
                     }
 
@@ -546,12 +546,10 @@ namespace NHapi.Base.Model
             }
             catch (Exception e)
             {
-                if (e is HL7Exception)
-                {
-                    throw (HL7Exception)e;
-                }
-
-                throw new HL7Exception($"Can't instantiate class {c.FullName}", ErrorCode.APPLICATION_INTERNAL_ERROR, e);
+                throw new HL7Exception(
+                    $"Can't instantiate class {c.FullName}",
+                    ErrorCode.APPLICATION_INTERNAL_ERROR,
+                    e);
             }
 
             return s;
