@@ -30,7 +30,6 @@ namespace NHapi.SourceGeneration.Generators
     using System;
     using System.Collections;
     using System.Data.Common;
-    using System.Data.Odbc;
     using System.IO;
     using System.Linq;
     using System.Text;
@@ -205,7 +204,7 @@ namespace NHapi.SourceGeneration.Generators
                 // trim all CE_x to CE
                 if (dt != null)
                 {
-                    if (dt.StartsWith("CE"))
+                    if (dt.StartsWith("CE", StringComparison.Ordinal))
                     {
                         dt = "CE";
                     }

@@ -117,7 +117,7 @@ namespace NHapi.Base.Parser
 
                 var structureDefinition = currentPosition.StructureDefinition;
 
-                if (structureDefinition.IsSegment && structureDefinition.Name.StartsWith(direction) && (structureDefinition.IsRepeating || currentPosition.Repetition == -1))
+                if (structureDefinition.IsSegment && structureDefinition.Name.StartsWith(direction, StringComparison.Ordinal) && (structureDefinition.IsRepeating || currentPosition.Repetition == -1))
                 {
                     nextIsSet = true;
                     currentPosition.IncrementRepetition();
@@ -224,7 +224,7 @@ namespace NHapi.Base.Parser
             // Check if the structure already has a non-standard segment in the appropriate
             // position
             var currentNames = parentStructure.Names;
-            if (index < currentNames.Length && currentNames[index].StartsWith(direction))
+            if (index < currentNames.Length && currentNames[index].StartsWith(direction, StringComparison.Ordinal))
             {
                 newSegmentName = currentNames[index];
             }

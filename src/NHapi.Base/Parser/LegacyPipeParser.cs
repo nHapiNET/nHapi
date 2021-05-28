@@ -327,7 +327,7 @@ namespace NHapi.Base.Parser
             var ok = true;
 
             // string should start with "MSH"
-            if (!message.StartsWith("MSH"))
+            if (!message.StartsWith("MSH", StringComparison.Ordinal))
             {
                 return null;
             }

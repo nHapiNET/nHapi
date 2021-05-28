@@ -199,7 +199,7 @@ namespace NHapi.Base.Parser
             if (!SupportsEncoding(encoding))
             {
                 string startOfMessage = null;
-                if (message.StartsWith("MSH"))
+                if (message.StartsWith("MSH", StringComparison.Ordinal))
                 {
                     var indexOfCarriageReturn = message.IndexOf('\r');
                     if (indexOfCarriageReturn > 0)

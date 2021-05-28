@@ -18,8 +18,7 @@
         {
             // Arrange
             var parser = new PipeParser();
-            var fileText = File.ReadAllText(path);
-            var text = $"{fileText}";
+            var text = File.ReadAllText(path);
 
             // Act / Assert
             var exception = Assert.Throws(expectedExceptionType, () => parser.Parse(text));

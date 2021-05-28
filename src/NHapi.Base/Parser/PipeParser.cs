@@ -471,7 +471,7 @@ namespace NHapi.Base.Parser
 
                         if (next == null)
                         {
-                            throw new HL7Exception($"Current segment does not implement  ISegment and therefore cannot be parsed.");
+                            throw new HL7Exception($"Current segment does not implement ISegment and therefore cannot be parsed.");
                         }
 
                         Parse(next, segments[i], GetEncodingChars(@string), repetition);

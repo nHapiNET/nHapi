@@ -53,7 +53,7 @@ namespace NHapi.Base.Parser
             }
 
             // string should start with "MSH"
-            if (!message.StartsWith("MSH"))
+            if (!message.StartsWith("MSH", StringComparison.Ordinal))
             {
                 throw new ArgumentException("The message does not start with MSH");
             }

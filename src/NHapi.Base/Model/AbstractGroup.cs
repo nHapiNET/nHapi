@@ -570,7 +570,7 @@ namespace NHapi.Base.Model
             if (typeof(IGroup).IsAssignableFrom(c) && !typeof(IMessage).IsAssignableFrom(c))
             {
                 var messageName = Message.GetStructureName();
-                if (name.StartsWith(messageName) && name.Length > messageName.Length)
+                if (name.StartsWith(messageName, StringComparison.Ordinal) && name.Length > messageName.Length)
                 {
                     name = name.Substring(messageName.Length + 1);
                 }

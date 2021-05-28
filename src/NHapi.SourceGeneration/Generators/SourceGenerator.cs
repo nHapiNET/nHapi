@@ -176,7 +176,7 @@ namespace NHapi.SourceGeneration.Generators
         public static string MakeAccessorName(string fieldDesc, int repitions)
         {
             var name = MakeName(fieldDesc);
-            return (repitions != 1 && !name.StartsWith("Get")) ? $"Get{name}" : name;
+            return (repitions != 1 && !name.StartsWith("Get", StringComparison.Ordinal)) ? $"Get{name}" : name;
         }
 
         /// <summary> Creates the given directory if it does not exist.</summary>
