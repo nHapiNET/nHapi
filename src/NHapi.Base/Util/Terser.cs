@@ -551,7 +551,7 @@ namespace NHapi.Base.Util
         {
             var ps = new PathSpec(this);
 
-            if (spec.StartsWith("."))
+            if (spec.StartsWith(".", StringComparison.Ordinal))
             {
                 ps.Find = true;
                 spec = spec.Substring(1);

@@ -236,7 +236,7 @@ namespace NHapi.SourceGeneration.Generators
                     se.Type = Convert.ToString(rs[10 - 1]);
 
                     // shorten CE_x to CE
-                    if (se.Type.StartsWith("CE"))
+                    if (se.Type.StartsWith("CE", StringComparison.Ordinal))
                     {
                         se.Type = "CE";
                     }

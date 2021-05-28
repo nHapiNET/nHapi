@@ -309,7 +309,7 @@
         }
 
         [Test]
-        [Explicit]
+        [Ignore("Contains a path that does not exist within the solution.")]
         public void ParseKnownMessageTypeFromFile()
         {
             var filePath = @"C:\Users\Duane\Desktop\ParseErrors\20160628_142635469_b94dde77-857a-4881-8915-6814809c5442.HL7";

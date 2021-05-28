@@ -208,7 +208,7 @@ namespace NHapi.Base.Util
             var names = parent.Names;
             for (var i = 0; i < names.Length; i++)
             {
-                if (names[i].StartsWith(child.GetStructureName()))
+                if (names[i].StartsWith(child.GetStructureName(), StringComparison.Ordinal))
                 {
                     try
                     {

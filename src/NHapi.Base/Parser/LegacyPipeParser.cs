@@ -327,7 +327,7 @@ namespace NHapi.Base.Parser
             var ok = true;
 
             // string should start with "MSH"
-            if (!message.StartsWith("MSH"))
+            if (!message.StartsWith("MSH", StringComparison.Ordinal))
             {
                 return null;
             }
@@ -620,21 +620,23 @@ namespace NHapi.Base.Parser
                     ErrorCode.REQUIRED_FIELD_MISSING);
             }
 
-            string version;
-            if (fields.Length >= 12)
-            {
-                if (fields[11] == null)
-                {
-                    throw new HL7Exception("MSH Version field is null.", ErrorCode.REQUIRED_FIELD_MISSING);
-                }
-
-                version = Split(fields[11], compSep)[0];
-            }
-            else
+            if (fields.Length < 12)
             {
                 throw new HL7Exception(
-                    "Can't find version ID - MSH has only " + fields.Length + " fields.",
+                    $"Can't find version ID - MSH has only {fields.Length} fields.",
                     ErrorCode.REQUIRED_FIELD_MISSING);
+            }
+
+            if (fields[11] == null)
+            {
+                throw new HL7Exception("MSH Version field is null.", ErrorCode.REQUIRED_FIELD_MISSING);
+            }
+
+            var version = Split(fields[11], compSep)[0];
+
+            if (version == null)
+            {
+                throw new HL7Exception("MSH Version field is invalid.", ErrorCode.REQUIRED_FIELD_MISSING);
             }
 
             return version.Trim();

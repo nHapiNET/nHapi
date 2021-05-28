@@ -96,8 +96,9 @@
         public void UnescapeText_StringAlreadyEscaped_ReturnsStringUnescaped()
         {
             // Arrange
-            var uuenEncodedEscapeString = File.ReadAllText("TestData/Parser/uuencoded_escaped.txt");
-            var expected = File.ReadAllText("TestData/Parser/uuencoded_unescaped.txt");
+            var testDataDir = $"{TestContext.CurrentContext.TestDirectory}/TestData/Parser";
+            var uuenEncodedEscapeString = File.ReadAllText($"{testDataDir}/uuencoded_escaped.txt");
+            var expected = File.ReadAllText($"{testDataDir}/uuencoded_unescaped.txt");
 
             // Action
             // Assert

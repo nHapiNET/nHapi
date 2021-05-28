@@ -467,7 +467,13 @@ namespace NHapi.Base.Parser
 
                     if (messageIterator.MoveNext())
                     {
-                        var next = (ISegment)messageIterator.Current;
+                        var next = messageIterator.Current as ISegment;
+
+                        if (next == null)
+                        {
+                            throw new HL7Exception($"Current segment does not implement ISegment and therefore cannot be parsed.");
+                        }
+
                         Parse(next, segments[i], GetEncodingChars(@string), repetition);
                     }
                 }
@@ -602,7 +608,7 @@ namespace NHapi.Base.Parser
             var fields = Split(msh, fieldSep);
 
             string compSep;
-            if (fields.Length >= 2 && (fields[1].Length == 4 || fields[1].Length == 5))
+            if (fields.Length >= 2 && (fields[1]?.Length == 4 || fields[1]?.Length == 5))
             {
                 compSep = Convert.ToString(fields[1][0]); // get component separator as 1st encoding char
             }
@@ -613,29 +619,22 @@ namespace NHapi.Base.Parser
                     ErrorCode.REQUIRED_FIELD_MISSING);
             }
 
-            string version;
-            if (fields.Length >= 12)
-            {
-                var comp = Split(fields[11], compSep);
-                if (comp.Length >= 1)
-                {
-                    version = comp[0];
-                }
-                else
-                {
-                    throw new HL7Exception(
-                        $"Can't find version ID - MSH.12 is {fields[11]}",
-                        ErrorCode.REQUIRED_FIELD_MISSING);
-                }
-            }
-            else
+            if (fields.Length < 12)
             {
                 throw new HL7Exception(
-                    "Can't find version ID - MSH has only " + fields.Length + " fields.",
+                    $"Can't find version ID - MSH has only {fields.Length} fields.",
                     ErrorCode.REQUIRED_FIELD_MISSING);
             }
 
-            return version;
+            var comp = Split(fields[11], compSep);
+            if (comp.Length < 1)
+            {
+                throw new HL7Exception(
+                    $"Can't find version ID - MSH.12 is {fields[11]}",
+                    ErrorCode.REQUIRED_FIELD_MISSING);
+            }
+
+            return comp[0];
         }
 
         /// <inheritdoc />
@@ -724,10 +723,10 @@ namespace NHapi.Base.Parser
         {
             if (message.Length < 9)
             {
-                throw new HL7Exception($"Invalid message content: \"{message}\"");
+                throw new HL7Exception($"Invalid message content: '{message}'");
             }
 
-            return new EncodingCharacters(message[3], message.Substring(4,  4));
+            return new EncodingCharacters(message[3], message.Substring(4, 4));
         }
 
         private static string EncodePrimitive(IPrimitive p, EncodingCharacters encodingChars)
