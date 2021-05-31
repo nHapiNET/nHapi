@@ -25,6 +25,35 @@
             Assert.AreEqual(encodingCharacters[3], sut.SubcomponentSeparator);
         }
 
+        [TestCase(null)]
+        [TestCase("")]
+        public void Constructor_EncodingCharactersAreNullOrEmpty_SetsDefaultValues(string encodingCharacters)
+        {
+            // Arrange / Act
+            var sut = new EncodingCharacters('|', encodingCharacters);
+
+            // Assert
+            Assert.AreEqual('|', sut.FieldSeparator);
+            Assert.AreEqual('^', sut.ComponentSeparator);
+            Assert.AreEqual('~', sut.RepetitionSeparator);
+            Assert.AreEqual('\\', sut.EscapeCharacter);
+            Assert.AreEqual('&', sut.SubcomponentSeparator);
+        }
+
+        [TestCase("^^^^")]
+        [TestCase("~~~~")]
+        [TestCase("^~\\\\")]
+        [TestCase("^\\&&")]
+        [TestCase("0000")]
+        [TestCase("@#$$")]
+        [TestCase("****")]
+        public void Constructor_EncodingCharactersAreNotUnique_ThrowsHl7Exception(string encodingCharacters)
+        {
+            // Arrange / Act / Assert
+            Assert.Throws<HL7Exception>(
+                () => new EncodingCharacters('|', encodingCharacters));
+        }
+
         [TestCase('|', '^', '~', '\\', '&')]
         [TestCase('?', ']', '@', '/', '$')]
         [TestCase('>', '\\', '£', '^', '*')]

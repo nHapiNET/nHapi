@@ -52,13 +52,14 @@ namespace NHapi.Base.Parser
         /// Component Separator, Repetition Separator, Escape Character, and
         /// Subcomponent Separator (in that order).
         /// </param>
+        /// <exception cref="HL7Exception">If encoding characters are not unique.</exception>
         public EncodingCharacters(char fieldSeparator, string encodingCharacters)
         {
             FieldSeparator = fieldSeparator;
 
             encChars = new char[4];
 
-            if (encodingCharacters == null)
+            if (string.IsNullOrEmpty(encodingCharacters))
             {
                 encChars[0] = '^';
 
@@ -70,6 +71,11 @@ namespace NHapi.Base.Parser
             }
             else
             {
+                if (!SupportClass.CharsAreUnique(encodingCharacters))
+                {
+                    throw new HL7Exception("Encoding characters must be unique.");
+                }
+
                 SupportClass.GetCharsFromString(encodingCharacters, 0, 4, encChars, 0);
             }
         }

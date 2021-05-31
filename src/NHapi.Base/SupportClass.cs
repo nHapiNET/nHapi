@@ -18,6 +18,7 @@ namespace NHapi.Base
     using System.Collections;
     using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using System.Text;
     using System.Threading;
@@ -2128,6 +2129,19 @@ namespace NHapi.Base
                 sourceCounter++;
                 destinationCounter++;
             }
+        }
+
+        /// <summary>
+        /// Evaluates if a string is comprised of unique characters.
+        /// </summary>
+        /// <param name="input">string to evaluate.</param>
+        /// <returns>True if all characters are unique, otherwise False.</returns>
+        public static bool CharsAreUnique(string input)
+        {
+            var chars = input.ToCharArray();
+            var distinct = chars.Distinct().ToArray();
+
+            return chars.Length == distinct.Length;
         }
 
         /*******************************/
