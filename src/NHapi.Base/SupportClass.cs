@@ -2136,8 +2136,14 @@ namespace NHapi.Base
         /// </summary>
         /// <param name="input">string to evaluate.</param>
         /// <returns>True if all characters are unique, otherwise False.</returns>
+        /// <exception cref="ArgumentException">If <paramref name="input"/> is null or empty.</exception>
         public static bool CharsAreUnique(string input)
         {
+            if(string.IsNullOrEmpty(input))
+            {
+                throw new ArgumentException("Argument cannot be null or empty", nameof(input));
+            }
+
             var chars = input.ToCharArray();
             var distinct = chars.Distinct().ToArray();
 

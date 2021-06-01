@@ -28,6 +28,7 @@
 namespace NHapi.Base.Parser
 {
     using System;
+    using System.Linq;
 
     using NHapi.Base.Model;
 
@@ -55,11 +56,19 @@ namespace NHapi.Base.Parser
         /// <exception cref="HL7Exception">If encoding characters are not unique.</exception>
         public EncodingCharacters(char fieldSeparator, string encodingCharacters)
         {
+            if (char.IsWhiteSpace(fieldSeparator) || fieldSeparator == char.MinValue)
+            {
+                throw new HL7Exception("Field Seperator must be a printable character.");
+            }
+
             FieldSeparator = fieldSeparator;
 
             encChars = new char[4];
-
-            if (string.IsNullOrEmpty(encodingCharacters))
+#if NET35
+            if (string.IsNullOrEmpty(encodingCharacters) || encodingCharacters.Trim().Length == 0)
+#else
+            if (string.IsNullOrWhiteSpace(encodingCharacters))
+#endif
             {
                 encChars[0] = '^';
 
@@ -71,6 +80,11 @@ namespace NHapi.Base.Parser
             }
             else
             {
+                if (encodingCharacters.Any(@char => char.IsWhiteSpace(@char) || @char == char.MinValue))
+                {
+                    throw new HL7Exception("Encoding characters must be printable characters.");
+                }
+
                 if (!SupportClass.CharsAreUnique(encodingCharacters))
                 {
                     throw new HL7Exception("Encoding characters must be unique.");

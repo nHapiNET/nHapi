@@ -27,7 +27,11 @@
 
         [TestCase(null)]
         [TestCase("")]
-        public void Constructor_EncodingCharactersAreNullOrEmpty_SetsDefaultValues(string encodingCharacters)
+        [TestCase("\r")]
+        [TestCase("\t")]
+        [TestCase("\n")]
+        [TestCase(" ")]
+        public void Constructor_EncodingCharactersAreNullEmptyOrWhiteSpace_SetsDefaultValues(string encodingCharacters)
         {
             // Arrange / Act
             var sut = new EncodingCharacters('|', encodingCharacters);
@@ -38,6 +42,18 @@
             Assert.AreEqual('~', sut.RepetitionSeparator);
             Assert.AreEqual('\\', sut.EscapeCharacter);
             Assert.AreEqual('&', sut.SubcomponentSeparator);
+        }
+
+        [TestCase("^~\\ ")]
+        [TestCase("]@/\t")]
+        [TestCase("\"£\n*")]
+        [TestCase("\"\r£*")]
+        [TestCase("\"\0£*")]
+        public void Constructor_EncodingCharactersContainWhiteSpaceCharactersOrNullCharacter_ThrowsHl7Exception(string encodingCharacters)
+        {
+            // Arrange / Act / Assert
+            Assert.Throws<HL7Exception>(
+                () => new EncodingCharacters('|', encodingCharacters));
         }
 
         [TestCase("^^^^")]
@@ -52,6 +68,18 @@
             // Arrange / Act / Assert
             Assert.Throws<HL7Exception>(
                 () => new EncodingCharacters('|', encodingCharacters));
+        }
+
+        [TestCase(' ')]
+        [TestCase('\r')]
+        [TestCase('\n')]
+        [TestCase('\t')]
+        [TestCase('\0')]
+        public void Constructor_FieldSeperatorIsWhiteSpaceOrNullCharacter_ThrowsHl7Exception(char fieldSeperator)
+        {
+            // Arrange / Act / Assert
+            Assert.Throws<HL7Exception>(
+                () => new EncodingCharacters(fieldSeperator, "^~\\&"));
         }
 
         [TestCase('|', '^', '~', '\\', '&')]

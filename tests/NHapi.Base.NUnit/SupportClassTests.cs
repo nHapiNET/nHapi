@@ -1,5 +1,7 @@
 namespace NHapi.Base.NUnit
 {
+    using System;
+
     using global::NUnit.Framework;
 
     using NHapi.Base;
@@ -37,6 +39,15 @@ namespace NHapi.Base.NUnit
 
             // Assert
             Assert.IsFalse(actual);
+        }
+
+        [TestCase(null)]
+        [TestCase("")]
+        public void CharsAreUnique_InputIsNullOrEmpty_ThrowsArgumentException(string input)
+        {
+            // Arrange / Act / Assert
+            Assert.Throws<ArgumentException>(
+                () => SupportClass.CharsAreUnique(input));
         }
     }
 }
