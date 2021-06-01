@@ -12,8 +12,8 @@
     [TestFixture]
     public class LegacyPipeParserBadInputTests
     {
-        [TestCaseSource(nameof(TestPaths), new object[] { "EncodingNotSupportedException", typeof(EncodingNotSupportedException) })]
-        [TestCaseSource(nameof(TestPaths), new object[] { "HL7Exception", typeof(HL7Exception) })]
+        [TestCaseSource(nameof(TestPaths), new object[] { nameof(EncodingNotSupportedException), typeof(EncodingNotSupportedException) })]
+        [TestCaseSource(nameof(TestPaths), new object[] { nameof(HL7Exception), typeof(HL7Exception) })]
         public void TestBadInputsThrowException(string path, Type expectedExceptionType)
         {
             // Arrange

@@ -13,7 +13,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.405
+        dotnet-version: 3.1.409
     - name: Restore nHapi
       run: |
         dotnet restore nHapi.sln --configfile build\.nuget\NuGet.config
@@ -56,7 +56,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.405
+        dotnet-version: 3.1.409
 
     - name: Restore nHapi
       run: |

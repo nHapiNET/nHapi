@@ -25,6 +25,63 @@
             Assert.AreEqual(encodingCharacters[3], sut.SubcomponentSeparator);
         }
 
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("\r")]
+        [TestCase("\t")]
+        [TestCase("\n")]
+        [TestCase(" ")]
+        public void Constructor_EncodingCharactersAreNullEmptyOrWhiteSpace_SetsDefaultValues(string encodingCharacters)
+        {
+            // Arrange / Act
+            var sut = new EncodingCharacters('|', encodingCharacters);
+
+            // Assert
+            Assert.AreEqual('|', sut.FieldSeparator);
+            Assert.AreEqual('^', sut.ComponentSeparator);
+            Assert.AreEqual('~', sut.RepetitionSeparator);
+            Assert.AreEqual('\\', sut.EscapeCharacter);
+            Assert.AreEqual('&', sut.SubcomponentSeparator);
+        }
+
+        [TestCase("^~\\ ")]
+        [TestCase("]@/\t")]
+        [TestCase("\"£\n*")]
+        [TestCase("\"\r£*")]
+        [TestCase("\"\0£*")]
+        public void Constructor_EncodingCharactersContainWhiteSpaceCharactersOrNullCharacter_ThrowsHl7Exception(string encodingCharacters)
+        {
+            // Arrange / Act / Assert
+            Assert.Throws<HL7Exception>(
+                () => new EncodingCharacters('|', encodingCharacters));
+        }
+
+        [TestCase("^^^^")]
+        [TestCase("~~~~")]
+        [TestCase("^~\\\\")]
+        [TestCase("^\\&&")]
+        [TestCase("0000")]
+        [TestCase("@#$$")]
+        [TestCase("****")]
+        public void Constructor_EncodingCharactersAreNotUnique_ThrowsHl7Exception(string encodingCharacters)
+        {
+            // Arrange / Act / Assert
+            Assert.Throws<HL7Exception>(
+                () => new EncodingCharacters('|', encodingCharacters));
+        }
+
+        [TestCase(' ')]
+        [TestCase('\r')]
+        [TestCase('\n')]
+        [TestCase('\t')]
+        [TestCase('\0')]
+        public void Constructor_FieldSeperatorIsWhiteSpaceOrNullCharacter_ThrowsHl7Exception(char fieldSeperator)
+        {
+            // Arrange / Act / Assert
+            Assert.Throws<HL7Exception>(
+                () => new EncodingCharacters(fieldSeperator, "^~\\&"));
+        }
+
         [TestCase('|', '^', '~', '\\', '&')]
         [TestCase('?', ']', '@', '/', '$')]
         [TestCase('>', '\\', '£', '^', '*')]
