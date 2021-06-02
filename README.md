@@ -1,8 +1,5 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/llfc0qjtahffnpdw?svg=true)](https://ci.appveyor.com/project/DuaneEdwards/nhapi)
 [![Build Status](https://github.com/nHapiNET/nHapi/workflows/Build%20Status/badge.svg)](https://github.com/nHapiNET/nHapi/actions?query=workflow%3A%22Build+Status%22+branch%3Amaster)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/63027fc59b840d0008fd/test_coverage)](https://codeclimate.com/github/nHapiNET/nHapi/test_coverage)
-
-This repository is now actively maintained as of 10/21/2020.
 
 # nHapi
 NHapi is a .NET port of the original Java project [HAPI](https://github.com/hapifhir/hapi-hl7v2).
@@ -22,19 +19,23 @@ This project is **NOT** affiliated with the HL7 organization. This software just
 
 ## Requirements
 
-NHapi currently targets version 3.5 of the .NET Framework and netstandard2.0
+NHapi currently targets .NET Framework 3.5 and netstandard2.0.
 
 ## Getting Started
 
 The easiest way to get started using nHapi is to use the [NuGet package 'nHapi'](https://www.nuget.org/packages/nHapi/):
 
-Using the package manager console withing visual studio, simply run the following command:
+Using the package manager console within visual studio, simply run the following command:
 
 ```
 PM > Install-Package nHapi
 ```
+Or Using the .NET Cli
+```
+dotnet add package nHapi
+```
 
-## [Change Log](https://github.com/duaneedwards/nHapi/blob/master/CHANGELOG.md)
+## [Change Log](https://github.com/nHapiNET/nHapi/blob/master/CHANGELOG.md)
 
 ## Related Projects
 

@@ -4,12 +4,57 @@ All notable changes to this project will be documented in this file.
 ## Upcoming Release
 ###
 ## [3.0.0.0] - TBC
-### Added  (Submitted by haydenhall and milkshakeuk)
-- Update project to add support for netstandard2.0 #61
-
+Will include everything from the `3.0.0-preview.X` releases.
 
 ## Previous Releases
 ###
+
+## [3.0.0-preview.3] - 2021-06-02
+On top of the previous preview release this release includes the following changes:
+
+### Bug Fixes
+* [#185](https://github.com/nHapiNET/nHapi/pull/185) `Escape.cs` Improvements - hapi implementation port. (fixes for [#103](https://github.com/nHapiNET/nHapi/issues/103))
+* [#192](https://github.com/nHapiNET/nHapi/pull/192), [#202](https://github.com/nHapiNET/nHapi/pull/202) Update HL7 v. 2.3 IN1 and IN2 repeat flags for some fields. (fixes [#191](https://github.com/nHapiNET/nHapi/issues/191))
+* [#200](https://github.com/nHapiNET/nHapi/pull/200) PipeParser Enhancements - Fix issues related to unexpected segments. (fixes [#51](https://github.com/nHapiNET/nHapi/issues/51), [#55](https://github.com/nHapiNET/nHapi/issues/55), [#56](https://github.com/nHapiNET/nHapi/issues/56), [#72](https://github.com/nHapiNET/nHapi/issues/72), [#101](https://github.com/nHapiNET/nHapi/issues/101))
+* [#197](https://github.com/nHapiNET/nHapi/pull/197) Fixes Exceptions and permanent Hang when parsing bad input, Adds bad input tests. (fixes [#196](https://github.com/nHapiNET/nHapi/issues/196), [#198](https://github.com/nHapiNET/nHapi/issues/198))
+* [#205](https://github.com/nHapiNET/nHapi/pull/205) Added additional bad inputs and enhanced error handling. (fixes [#203](https://github.com/nHapiNET/nHapi/issues/203))
+* [#217](https://github.com/nHapiNET/nHapi/pull/217) Add changes to fix bad input from fuzzing. (fixes [#210](https://github.com/nHapiNET/nHapi/issues/210))
+
+### Other
+* [#135](https://github.com/nHapiNET/nHapi/pull/135), [#137](https://github.com/nHapiNET/nHapi/pull/137) Fix XML Build warnings. (fixes [#128](https://github.com/nHapiNET/nHapi/issues/128))
+* [#140](https://github.com/nHapiNET/nHapi/pull/140) Add license for nHapi. (fixes [#119](https://github.com/nHapiNET/nHapi/issues/119))
+* [#143](https://github.com/nHapiNET/nHapi/pull/143) Add StyleCopAnalyzers to main projects. (fixes [#138](https://github.com/nHapiNET/nHapi/issues/138))
+* [#141](https://github.com/nHapiNET/nHapi/pull/141) Create basic GitHub Actions for pull requests. (partially addresses [#124](https://github.com/nHapiNET/nHapi/issues/124))
+* [#142](https://github.com/nHapiNET/nHapi/pull/142) Add code coverage to the CI/CD, plus build status workflow for master. (partially addresses [#124](https://github.com/nHapiNET/nHapi/issues/124))
+* [#145](https://github.com/nHapiNET/nHapi/pull/145) Code Climate Coverage. (partially addresses [#124](https://github.com/nHapiNET/nHapi/issues/124))
+* [#147](https://github.com/nHapiNET/nHapi/pull/147), [#148](https://github.com/nHapiNET/nHapi/pull/148) Enable dependabot support to the repository
+* [#201](https://github.com/nHapiNET/nHapi/pull/201) Normalize all the line endings.
+* [#204](https://github.com/nHapiNET/nHapi/pull/204) Create Default GitHub Code Scanning Workflow
+
+### Breaking Changes
+Default escape sequence for carriage return has changed from `\X000d\` to `\X0D\` which brings it inline with other libraries and [InterSystems ensemble](https://docs.intersystems.com/latest/csp/docbook/Doc.View.cls?KEY=EHL72_escape_sequences).
+
+However if you rely on the old escape sequence of `\X0D\` for carriage returns you can now configure this, see [#185](https://github.com/nHapiNET/nHapi/pull/185) for options.
+
+The latest `PipeParser` implementation from hapi has been ported over to nHapi, there aren't any breaking changes that I am aware of, only benefits, however if you relied on the specific behaviour of the old `PipeParser.cs` then you can use `LegacyPipeParser.cs` instead, which is the old implementation.
+## [3.0.0-preview.2] - 2021-01-30
+On top of the previous preview release this release includes the following changes:
+### Bug Fixes
+* [#118](https://github.com/nHapiNET/nHapi/pull/118) Add LongDateTimeFormatWithFactionOfSecond format for date parsing (fixes [#104](https://github.com/nHapiNET/nHapi/issues/104))
+* [#134](https://github.com/nHapiNET/nHapi/pull/134) Fix spelling mistake
+* [#136](https://github.com/nHapiNET/nHapi/pull/136) Various Issue fixes (fixes for [#45](https://github.com/nHapiNET/nHapi/issues/45), [#62](https://github.com/nHapiNET/nHapi/issues/62), [#81](https://github.com/nHapiNET/nHapi/issues/81), [#84](https://github.com/nHapiNET/nHapi/issues/84), [#85](https://github.com/nHapiNET/nHapi/issues/85), [#86](https://github.com/nHapiNET/nHapi/issues/86), [#109](https://github.com/nHapiNET/nHapi/issues/109), [#133](https://github.com/nHapiNET/nHapi/issues/133))
+
+### Enhancements
+* [#75](https://github.com/nHapiNET/nHapi/pull/75) Add support for removing fields by index or by item/type
+
+### Other
+* [#117](https://github.com/nHapiNET/nHapi/pull/117) Add .vs into .gitignore file to ignore Visual Studio files
+* [#129](https://github.com/nHapiNET/nHapi/pull/129) restructure project to a more modern project structure
+* [#130](https://github.com/nHapiNET/nHapi/pull/130) Decouple NHapi source code generation from NHapi.Base
+* [#135](https://github.com/nHapiNET/nHapi/pull/135) NHapi.Base > Formatted XML License Comments
+## [3.0.0-preview.1] - 2020-11-02
+### Enhancements (Submitted by haydenhall and milkshakeuk)
+* [#112](https://github.com/nHapiNET/nHapi/pull/112) Adds support for netstandard2.0. (fixes [#61](https://github.com/nHapiNET/nHapi/issues/61))
 
 ## [2.5.0.6] - 2016-09-13
 ### Fixes
