@@ -3,6 +3,16 @@
   <PropertyGroup>
     <TargetFrameworks>net35;netstandard2.0</TargetFrameworks>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <PackageId>nHapi.Model.V23</PackageId>
+    <PackageVersion>3.0.0</PackageVersion>
+    <Authors>Chad Chenoweth;Duane Edwards</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/nHapiNET/nHapi</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/nHapiNET/nHapi.git</RepositoryUrl>
+    <Description>Contains the data types, segments, and messages that follow the HL7 2.3 schema.</Description>
+    <PackageTags>HL7;parsing;healthcare;HAPI;xml</PackageTags>
+    <PackageReleaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v3.0.0</PackageReleaseNotes>
+    <PackageReadmeFile>docs\README.md</PackageReadmeFile>
     <AssemblyOriginatorKeyFile>..\..\NHapi.snk</AssemblyOriginatorKeyFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <NoWarn>1591</NoWarn>
@@ -13,25 +23,26 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\docs\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs" Link="Properties\SharedAssemblyInfo.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="EventMapping\EventMap.properties" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <ProjectReference Include="..\NHapi.Base\NHapi.Base.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">
-    <PackageReference Include="jnm2.ReferenceAssemblies.net35" Version="1.0.1" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net35" Version="1.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>
