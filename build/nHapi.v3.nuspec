@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
     <metadata>
         <id>nHapi</id>
-        <version>3.0.0-preview.3</version>
+        <version>3.0.0</version>
         <authors>Chad Chenoweth, Duane Edwards</authors>
         <license type="expression">MPL-2.0</license>
         <projectUrl>https://github.com/nHapiNET/nHapi</projectUrl>
@@ -13,21 +13,22 @@
 NHapi allows Microsoft .NET developers to easily use an HL7 2.x object model. This object model allows for parsing and encoding HL7 2.x data to/from Pipe Delimited or XML formats. A very handy program for use in the health care industry.
 
 This project is NOT affiliated with the HL7 organization. This software just conforms to the HL7 2.x specifications.</description>
-        <releaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v3.0.0-preview.3</releaseNotes>
+        <releaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v3.0.0</releaseNotes>
         <tags>HL7 parsing healthcare HAPI xml</tags>
         <readme>docs\README.md</readme>
-    <dependencies>
-        <group targetFramework=".NETStandard2.0">
-            <dependency id="NETStandard.Library" version="2.0.0" />
-            <dependency id="System.Configuration.ConfigurationManager" version="5.0.0" />
-        </group>
-        <group targetFramework=".NETFramework3.5" />
-    </dependencies>
+        <dependencies>
+            <group targetFramework=".NETStandard2.0">
+                <dependency id="System.Configuration.ConfigurationManager" version="5.0.0" />
+            </group>
+            <group targetFramework=".NETFramework3.5" />
+        </dependencies>
+        <frameworkAssemblies>
+            <frameworkAssembly assemblyName="System.Configuration" targetFramework=".NETFramework3.5" />
+        </frameworkAssemblies>
     </metadata>
     <files>
-        <file src="..\dist\netstandard2.0\*.*" target="lib\netstandard2.0" />
-        <file src="..\dist\net35\*.*" target="lib\net35" />
+        <file src="..\dist\netstandard2.0\*.*" exclude="*V22_ZSegments.*" target="lib\netstandard2.0" />
+        <file src="..\dist\net35\*.*" exclude="*V22_ZSegments.*" target="lib\net35" />
         <file src="..\README.md" target="docs\" />
-        <file src="..\CHANGELOG.md" target="docs\" />
     </files>
 </package>

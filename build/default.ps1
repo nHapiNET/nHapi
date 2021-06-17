@@ -9,7 +9,6 @@ properties {
         "NHapi.Base",
         "NHapi.Model.V21",
         "NHapi.Model.V22",
-        "NHapi.Model.V22_ZSegments",
         "NHapi.Model.V23",
         "NHapi.Model.V24",
         "NHapi.Model.V25",
@@ -85,7 +84,11 @@ Task Package -depends Build {
         Copy-Item "..\src\$project\bin\Release\netstandard2.0\*.xml" ..\dist\netstandard2.0
     }
 
-	Exec { .nuget\nuget pack .\nHapi.v2.nuspec -OutputDirectory ..\dist }
+	Exec { .nuget\nuget pack .\nHapi.v3.nuspec -OutputDirectory ..\dist }
+
+    foreach($project in $projects) {
+        Exec { dotnet pack "..\src\$project\$project.csproj" -c Release --no-build --no-restore -o "..\dist" }
+    }
 }
 
 Task Deploy -depends Package {
