@@ -30,11 +30,11 @@ jobs:
     - name: Run tests for all target frameworks
       run: |
          dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj -r TestResults -c Release -f net461 --no-restore --no-build
-         dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+         dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj -r TestResults -c Release -f net5.0--no-restore --no-build
          dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj -r TestResults -c Release -f net461 --no-restore --no-build
-         dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+         dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj -r TestResults -c Release -f net5.0 --no-restore --no-build
          dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj -r TestResults -c Release -f net461 --no-restore --no-build
-         dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+         dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj -r TestResults -c Release -f net5.0  --no-restore --no-build
 
   build-and-test-linux:
     name: Build And Test Linux
@@ -61,11 +61,11 @@ jobs:
     - name: Run tests for all target frameworks
       run: |
          dotnet test tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj -r TestResults -c Release -f net461 --no-restore --no-build
-         dotnet test tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+         dotnet test tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net5.0 --no-restore --no-build
          dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj -r TestResults -c Release -f net461 --no-restore --no-build
-         dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+         dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net5.0 --no-restore --no-build
          dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj -r TestResults -c Release -f net461 --no-restore --no-build
-         dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f netcoreapp3.1  --no-restore --no-build
+         dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net5.0 --no-restore --no-build
 
     - name: Merge Coverage Reports
       if: ${{ success() || failure() }}
