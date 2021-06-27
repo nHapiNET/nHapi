@@ -3,12 +3,13 @@
   <PropertyGroup>
     <TargetFrameworks>net35;netstandard2.0</TargetFrameworks>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <PackageId>nHapi.Model.V281</PackageId>
+    <PackageId>nhapi.model.v281</PackageId>
     <PackageVersion>3.0.0</PackageVersion>
-    <Authors>Chad Chenoweth;Duane Edwards</Authors>
+    <Authors>Chad Chenoweth;Duane Edwards;Jake Aitchison</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/nHapiNET/nHapi</PackageProjectUrl>
     <RepositoryUrl>https://github.com/nHapiNET/nHapi.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
     <Description>Contains the data types, segments, and messages that follow the HL7 2.8.1 schema.</Description>
     <PackageTags>HL7;parsing;healthcare;HAPI;xml</PackageTags>
     <PackageReleaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v3.0.0</PackageReleaseNotes>

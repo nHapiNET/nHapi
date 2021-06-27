@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
     <metadata>
-        <id>nHapi</id>
+        <id>nhapi</id>
         <version>3.0.0</version>
-        <authors>Chad Chenoweth, Duane Edwards</authors>
+        <authors>Chad Chenoweth,Duane Edwards,Jake Aitchison</authors>
         <license type="expression">MPL-2.0</license>
         <projectUrl>https://github.com/nHapiNET/nHapi</projectUrl>
-        <repository type="git" url="https://github.com/nHapiNET/nHapi" />
+        <repository type="git" url="https://github.com/nHapiNET/nHapi.git" />
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>NHapi is a port of the original project HAPI.
 
@@ -27,8 +27,8 @@ This project is NOT affiliated with the HL7 organization. This software just con
         </frameworkAssemblies>
     </metadata>
     <files>
-        <file src="..\dist\netstandard2.0\*.*" exclude="*V22_ZSegments.*" target="lib\netstandard2.0" />
-        <file src="..\dist\net35\*.*" exclude="*V22_ZSegments.*" target="lib\net35" />
+        <file src="..\dist\netstandard2.0\*.*" target="lib\netstandard2.0" />
+        <file src="..\dist\net35\*.*" target="lib\net35" />
         <file src="..\README.md" target="docs\" />
     </files>
 </package>
