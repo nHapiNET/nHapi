@@ -25,12 +25,12 @@ properties {
 Task Default -depends Build
 
 Task Clean {
-	Remove-Item *.nupkg
+	Remove-Item ..\dist\*.nupkg
     Remove-Item ..\dist\net35\*.* -ErrorAction Ignore
     Remove-Item ..\dist\netstandard2.0\*.* -ErrorAction Ignore
 
-    Get-ChildItem -inc bin -rec | Remove-Item -rec -force
-    Get-ChildItem -inc obj -rec | Remove-Item -rec -force
+    Get-ChildItem -path ..\ -inc bin -rec | Remove-Item -rec -force
+    Get-ChildItem -path ..\ -inc obj -rec | Remove-Item -rec -force
 }
 
 Task Build -depends Clean {
@@ -77,17 +77,17 @@ Task Package -depends Build {
     New-Item -ItemType directory -Force -Path ..\dist\netstandard2.0
 
     foreach($project in $projects) {
-        Copy-Item "..\src\$project\bin\Release\net35\*.dll" ..\dist\net35
-        Copy-Item "..\src\$project\bin\Release\net35\*.xml" ..\dist\net35
+        Copy-Item "..\src\$project\bin\$projectConfig\net35\*.dll" ..\dist\net35
+        Copy-Item "..\src\$project\bin\$projectConfig\net35\*.xml" ..\dist\net35
 
-        Copy-Item "..\src\$project\bin\Release\netstandard2.0\*.dll" ..\dist\netstandard2.0
-        Copy-Item "..\src\$project\bin\Release\netstandard2.0\*.xml" ..\dist\netstandard2.0
+        Copy-Item "..\src\$project\bin\$projectConfig\netstandard2.0\*.dll" ..\dist\netstandard2.0
+        Copy-Item "..\src\$project\bin\$projectConfig\netstandard2.0\*.xml" ..\dist\netstandard2.0
     }
 
 	Exec { .nuget\nuget pack .\nHapi.v3.nuspec -OutputDirectory ..\dist }
 
     foreach($project in $projects) {
-        Exec { dotnet pack "..\src\$project\$project.csproj" -c Release --no-build --no-restore -o "..\dist" }
+        Exec { dotnet pack "..\src\$project\$project.csproj" -c $projectConfig --no-build --no-restore -o "..\dist" }
     }
 }
 

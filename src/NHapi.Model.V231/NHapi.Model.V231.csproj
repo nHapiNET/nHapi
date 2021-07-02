@@ -4,7 +4,7 @@
     <TargetFrameworks>net35;netstandard2.0</TargetFrameworks>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <PackageId>nhapi.model.v231</PackageId>
-    <PackageVersion>3.0.0</PackageVersion>
+    <PackageVersion>3.0.1</PackageVersion>
     <Authors>Chad Chenoweth;Duane Edwards;Jake Aitchison</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/nHapiNET/nHapi</PackageProjectUrl>
@@ -12,7 +12,7 @@
     <RepositoryType>git</RepositoryType>
     <Description>Contains the data types, segments, and messages that follow the HL7 2.3.1 schema.</Description>
     <PackageTags>HL7;parsing;healthcare;HAPI;xml</PackageTags>
-    <PackageReleaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v3.0.0</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v3.0.1-nhapi.model.v231</PackageReleaseNotes>
     <PackageReadmeFile>docs\README.md</PackageReadmeFile>
     <AssemblyOriginatorKeyFile>..\..\NHapi.snk</AssemblyOriginatorKeyFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -37,7 +37,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NHapi.Base\NHapi.Base.csproj" />
-    <ProjectReference Include="..\NHapi.Model.V24\NHapi.Model.V24.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">
