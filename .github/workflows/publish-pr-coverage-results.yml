@@ -44,38 +44,15 @@ jobs:
           unzip coverage-reports.zip
           rm coverage-reports.zip
 
-      - name: Publish Code Coverage Results
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-          GIT_BRANCH: ${{ github.event.workflow_run.head_branch }}
-          GIT_COMMIT: ${{ github.event.workflow_run.head_sha }}
+      - name: Set Coverage Report Paths
+        id: coverage-paths
         run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter
-          ./cc-test-reporter format-coverage -p /home/runner/work/nHapi/nHapi/ -t cobertura ./Cobertura.xml 
-          ./cc-test-reporter upload-coverage
+          readarray -d '' coveragePathArray < <(find . -name "coverage.cobertura.xml" -print0)
+          coveragePaths=$(printf ",%s" "${coveragePathArray[@]}")
+          echo "::set-output name=COVERAGE_REPORT_PATHS::$coveragePaths"
 
-      # - name: Publish Code Coverage Results
-      #   uses: paambaati/codeclimate-action@v2.7.5
-      #   env:
-      #     GITHUB_SHA: ${{ github.event.workflow_run.head_sha }}
-      #     GITHUB_REF: ${{ github.event.workflow_run.head_branch }}
-      #     GITHUB_HEAD_REF: ${{ github.event.workflow_run.head_branch }}
-      #     CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      #   with:
-      #     coverageLocations: Cobertura.xml:cobertura
-
-      # - name: Publish Code Coverage Results
-      #   uses: codecov/codecov-action@v1
-      #   with:
-      #     token: ${{ secrets.CODECOV_TOKEN }}
-      #     files: "**/Cobertura.xml"
-      #     override_commit: ${{ github.event.workflow_run.head_sha }}
-
-      # - name: Publish Code Coverage Results
-      #   uses: 5monkeys/cobertura-action@master
-      #   with:
-      #     path: "**/Cobertura.xml"
-      #     repo_token: ${{ secrets.GITHUB_TOKEN }}
-      #     pull_request_number: ${{ fromJSON(github.event.workflow_run.pull_requests[0].number) }}
-      #     minimum_coverage: 0
+      - name: Publish Code Coverage Results
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: ${{ steps.coverage-paths.outputs.COVERAGE_REPORT_PATHS }}

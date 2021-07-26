@@ -60,18 +60,9 @@ jobs:
 
     - name: Run tests for all target frameworks
       run: |
-         dotnet test tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj -r TestResults -c Release -f net461 --no-restore --no-build
          dotnet test tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net5.0 --no-restore --no-build
-         dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj -r TestResults -c Release -f net461 --no-restore --no-build
          dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net5.0 --no-restore --no-build
-         dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj -r TestResults -c Release -f net461 --no-restore --no-build
          dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net5.0 --no-restore --no-build
-
-    - name: Merge Coverage Reports
-      if: ${{ success() || failure() }}
-      run: |
-        dotnet tool install -g dotnet-reportgenerator-globaltool
-        reportgenerator "-reports:TestResults/**/coverage.cobertura.xml" "-targetdir:coverage" "-reporttypes:Cobertura"
 
     - name: Upload Code Coverage Report
       if: always()
@@ -79,7 +70,7 @@ jobs:
       with:
         name: coverage-reports
         path: |
-          coverage/Cobertura.xml
+          TestResults/
 
   publish-coverage-results:
     needs: build-and-test-linux
@@ -95,9 +86,15 @@ jobs:
         with:
           name: coverage-reports
 
+      - name: Set Coverage Report Paths
+        id: coverage-paths
+        run: |
+          readarray -d '' coveragePathArray < <(find . -name "coverage.cobertura.xml" -print0)
+          coveragePaths=$(printf ",%s" "${coveragePathArray[@]}")
+          echo "::set-output name=COVERAGE_REPORT_PATHS::$coveragePaths"
+
       - name: Publish Code Coverage Results
-        uses: paambaati/codeclimate-action@v2.7.5
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        uses: codacy/codacy-coverage-reporter-action@v1
         with:
-          coverageLocations: Cobertura.xml:cobertura
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: ${{ steps.coverage-paths.outputs.COVERAGE_REPORT_PATHS }}
