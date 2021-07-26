@@ -96,8 +96,7 @@ jobs:
           name: coverage-reports
 
       - name: Publish Code Coverage Results
-        uses: paambaati/codeclimate-action@v2.7.5
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        uses: codacy/codacy-coverage-reporter-action@v1
         with:
-          coverageLocations: Cobertura.xml:cobertura
+          api-token: ${{ secrets.CODACY_API_TOKEN }}
+          coverage-reports: Cobertura.xml

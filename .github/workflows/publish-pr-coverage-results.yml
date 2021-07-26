@@ -45,15 +45,21 @@ jobs:
           rm coverage-reports.zip
 
       - name: Publish Code Coverage Results
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-          GIT_BRANCH: ${{ github.event.workflow_run.head_branch }}
-          GIT_COMMIT: ${{ github.event.workflow_run.head_sha }}
-        run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter
-          ./cc-test-reporter format-coverage -p /home/runner/work/nHapi/nHapi/ -t cobertura ./Cobertura.xml 
-          ./cc-test-reporter upload-coverage
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          api-token: ${{ secrets.CODACY_API_TOKEN }}
+          coverage-reports: Cobertura.xml
+
+      # - name: Publish Code Coverage Results
+      #   env:
+      #     CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      #     GIT_BRANCH: ${{ github.event.workflow_run.head_branch }}
+      #     GIT_COMMIT: ${{ github.event.workflow_run.head_sha }}
+      #   run: |
+      #     curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+      #     chmod +x ./cc-test-reporter
+      #     ./cc-test-reporter format-coverage -p /home/runner/work/nHapi/nHapi/ -t cobertura ./Cobertura.xml 
+      #     ./cc-test-reporter upload-coverage
 
       # - name: Publish Code Coverage Results
       #   uses: paambaati/codeclimate-action@v2.7.5
