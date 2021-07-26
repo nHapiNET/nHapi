@@ -1,9 +1,11 @@
 ---
-exclude_paths:
-  - ".github/**/*"
-  - "build/**/*"
-  - "CHANGELOG.md"
-  - "README.md"
-  - "omnisharp.json"
-  - "stylecop.json"
-  - "global.json"
+engines:
+  coverage:
+    exclude_paths:
+      - ".github/**/*"
+      - "build/**/*"
+      - "CHANGELOG.md"
+      - "README.md"
+      - "omnisharp.json"
+      - "stylecop.json"
+      - "global.json"
