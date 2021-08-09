@@ -17,12 +17,10 @@ jobs:
     - name: Restore nHapi
       run: |
         dotnet restore nHapi.sln --configfile build\.nuget\NuGet.config
-        dotnet restore Hl7Models.sln --configfile build\.nuget\NuGet.config
 
     - name: Build nHapi
       run: |
         dotnet build nHapi.sln -c Release --no-restore
-        dotnet build Hl7Models.sln -c Release --no-restore
 
     - name: Run tests for all target frameworks
       run: |
@@ -61,12 +59,10 @@ jobs:
     - name: Restore nHapi
       run: |
         dotnet restore nHapi.sln --configfile build/.nuget/NuGet.config
-        dotnet restore Hl7Models.sln --configfile build/.nuget/NuGet.config
 
     - name: Build nHapi
       run: |
         dotnet build nHapi.sln -c Release --no-restore
-        dotnet build Hl7Models.sln -c Release --no-restore
 
     - name: Run tests for all target frameworks
       run: |

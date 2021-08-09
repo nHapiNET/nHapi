@@ -8,6 +8,10 @@
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+
   <ItemGroup>
     <AdditionalFiles Include="$(SolutionDir)stylecop.json" Link="Properties\stylecop.json" />
   </ItemGroup>

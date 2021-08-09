@@ -34,12 +34,12 @@ Task Clean {
 }
 
 Task Build -depends Clean {
-	Write-Host "Building Hl7Models.sln" -ForegroundColor Green
-    Exec { dotnet build "..\Hl7Models.sln" -c $projectConfig -v q }
+	Write-Host "Building nHapi.sln" -ForegroundColor Green
+    Exec { dotnet build "..\nHapi.sln" -c $projectConfig -v q }
 }
 
 Task BuildModels {
-#    Exec { dotnet build "Hl7Models.sln" -c Debug -v q }
+#    Exec { dotnet build "nHapi.sln" -c Debug -v q }
 #    Exec { ModelGenerator\Bin\Debug\netcoreapp3.1\ModelGenerator.exe /BasePath . /Version 2.1 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
 #    Exec { ModelGenerator\Bin\Debug\netcoreapp3.1\ModelGenerator.exe /BasePath . /Version 2.2 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
 #    Exec { ModelGenerator\Bin\Debug\netcoreapp3.1\ModelGenerator.exe /BasePath . /Version 2.3 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
