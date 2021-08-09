@@ -25,6 +25,8 @@ dist/
 .vscode/
 # Visual Studio 2015 cache/options directory
 .vs/
+# Rider
+.idea/
 
 # Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
 !packages/*/build/

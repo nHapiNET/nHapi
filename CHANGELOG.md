@@ -7,13 +7,17 @@ All notable changes to this project will be documented in this file.
 
 ## Previous Releases
 ###
+## [3.0.2] - 2021-08-09
+This change gives nhapi [strong-named assemblies](https://docs.microsoft.com/en-us/dotnet/standard/assembly/strong-named), there are no codes changes.
+### Bug Fixes
+- [#227](https://github.com/nHapiNET/nHapi/issues/227) fixes "A strongly-named assembly is required" runtime errors
+
 ## [nhapi.model.v231 3.0.1] - 2021-07-02
 This release is for the NuGet package `nhapi.model.v231` only, there are no code changes, see below for change.
 
 - Remove unused project reference.
 
 ## [3.0.0] - 2021-06-28
-
 Along with the changes below you can now be more selective about how you install nHapi, please read the [Getting Started](https://github.com/nHapiNET/nHapi/wiki/Getting-Started#nhapi-version-300) page of the wiki for more information.
 
 ### Breaking Changes

@@ -4,7 +4,7 @@
     <TargetFrameworks>net35;netstandard2.0</TargetFrameworks>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <PackageId>nhapi.model.v251</PackageId>
-    <PackageVersion>3.0.0</PackageVersion>
+    <PackageVersion>3.0.2</PackageVersion>
     <Authors>Chad Chenoweth;Duane Edwards;Jake Aitchison</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/nHapiNET/nHapi</PackageProjectUrl>
@@ -12,11 +12,15 @@
     <RepositoryType>git</RepositoryType>
     <Description>Contains the data types, segments, and messages that follow the HL7 2.5.1 schema.</Description>
     <PackageTags>HL7;parsing;healthcare;HAPI;xml</PackageTags>
-    <PackageReleaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v3.0.0</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v3.0.2</PackageReleaseNotes>
     <PackageReadmeFile>docs\README.md</PackageReadmeFile>
     <AssemblyOriginatorKeyFile>..\..\NHapi.snk</AssemblyOriginatorKeyFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
 
   <ItemGroup>
