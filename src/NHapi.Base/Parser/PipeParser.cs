@@ -819,10 +819,9 @@ namespace NHapi.Base.Parser
                 Terser.Set(msh, 2, 0, 1, 1, encCharString);
             }
 
-            var version27 = new Version("2.7");
-            var messageVersion = new Version(msh.Message.Version);
+            var version27 = "2.7";
 
-            if (version27 > messageVersion && encCharString.Length != 4)
+            if (string.CompareOrdinal(version27, msh.Message.Version) > 0 && encCharString.Length != 4)
             {
                 throw new HL7Exception(
                     $"Encoding characters (MSH-2) value '{encCharString}' invalid -- must be 4 characters", ErrorCode.DATA_TYPE_ERROR);

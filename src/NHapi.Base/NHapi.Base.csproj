@@ -4,7 +4,7 @@
     <TargetFrameworks>net35;netstandard2.0</TargetFrameworks>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <PackageId>nhapi.base</PackageId>
-    <PackageVersion>3.0.2</PackageVersion>
+    <PackageVersion>3.0.3</PackageVersion>
     <Authors>Chad Chenoweth;Duane Edwards;Jake Aitchison</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/nHapiNET/nHapi</PackageProjectUrl>
@@ -12,7 +12,7 @@
     <RepositoryType>git</RepositoryType>
     <Description>The core components for parsing/encoding HL7 messages. Contains the base classes and interfaces for datatypes, segments, and messages.</Description>
     <PackageTags>HL7;parsing;healthcare;HAPI;xml</PackageTags>
-    <PackageReleaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v3.0.2</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v3.0.3</PackageReleaseNotes>
     <PackageReadmeFile>docs\README.md</PackageReadmeFile>
     <AssemblyOriginatorKeyFile>..\..\NHapi.snk</AssemblyOriginatorKeyFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>

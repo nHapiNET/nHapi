@@ -7,6 +7,10 @@ All notable changes to this project will be documented in this file.
 
 ## Previous Releases
 ###
+
+## [3.0.3] - 2021-08-09
+This change updates the `PipeParser` Version check when obtaining encoding characters from a message object in order to encode it to HL7; `string.CompareOrdinal` is now used instead of `System.Version` which is more forgiving when a version contains non numerical characters.
+
 ## [3.0.2] - 2021-08-09
 This change gives nhapi [strong-named assemblies](https://docs.microsoft.com/en-us/dotnet/standard/assembly/strong-named), there are no codes changes.
 ### Bug Fixes
