@@ -1485,7 +1485,7 @@ namespace NHapi.Base
                                             stackNameSpace.Push(name);
                                             Stack namespaceStack = new Stack();
                                             namespaceStack.Push(prefixName);
-                                            prefixes.Add(namespaceURI, namespaceStack);
+                                            prefixes[namespaceURI] = namespaceStack;
                                             if (callBackHandler != null)
                                             {
                                                 ((IXmlSaxContentHandler)callBackHandler).startPrefixMapping(prefixName, namespaceTemp);

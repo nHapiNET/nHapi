@@ -921,7 +921,7 @@ namespace NHapi.Base.Parser
                 { theMessage.GetStructureName(), retVal },
             };
 
-            structureDefinitions.Add(messageType, dictionary);
+            structureDefinitions[messageType] = dictionary;
 
             return retVal;
         }

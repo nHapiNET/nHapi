@@ -72,7 +72,7 @@ namespace NHapi.Base.Model
 
                 if (c != null)
                 {
-                    GenericMessages.Add(version, c);
+                    GenericMessages[version] = c;
                 }
             }
 

@@ -8,7 +8,15 @@ All notable changes to this project will be documented in this file.
 ## Previous Releases
 ###
 
-## [3.0.3] - 2021-08-09
+## [3.0.4] - 2021-08-11
+This change is to prevent the following Exception:
+
+> System.ArgumentException - An item with the same key has already been added.
+
+In cases where dictionaries / hashtables are used for lookups such as `Escape.cs` when there multiple threads trying to add to them at the same time.
+
+Instead of using `Add(key, value)` which only allows 1 items with a given key to be added to the dictionary / hashtable, we are using the index accessor to set or update the value in a last one wins scenario, but only when its combined with `ContainsKey` which has indicated that an item with that key shouldn't exist.
+## [3.0.3] - 2021-08-10
 This change updates the `PipeParser` Version check when obtaining encoding characters from a message object in order to encode it to HL7; `string.CompareOrdinal` is now used instead of `System.Version` which is more forgiving when a version contains non numerical characters.
 
 ## [3.0.2] - 2021-08-09

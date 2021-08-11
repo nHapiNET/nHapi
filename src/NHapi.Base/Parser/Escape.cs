@@ -252,7 +252,7 @@ namespace NHapi.Base.Parser
             if (!VariousEncChars.ContainsKey(encChars))
             {
                 // this means we haven't got the sequences for these encoding characters yet - let's make them
-                VariousEncChars.Add(encChars, new EncodingLookups(encChars));
+                VariousEncChars[encChars] = new EncodingLookups(encChars);
             }
 
             return VariousEncChars[encChars];
@@ -323,7 +323,7 @@ namespace NHapi.Base.Parser
             {
                 if (!EscapeSequences.ContainsKey(key))
                 {
-                    EscapeSequences.Add(key, value);
+                    EscapeSequences[key] = value;
                 }
             }
         }
