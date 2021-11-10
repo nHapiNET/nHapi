@@ -29,6 +29,7 @@ namespace NHapi.Base.Parser
 
         private readonly IMessage message;
         private readonly bool handleUnexpectedSegments;
+        private readonly ParserBase parser;
 
         private string direction;
         private bool nextIsSet;
@@ -40,12 +41,18 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary>Creates a new instance of MessageIterator. </summary>
-        public MessageIterator(IMessage start, IStructureDefinition startDefinition, string direction, bool handleUnexpectedSegments)
+        public MessageIterator(
+            IMessage start,
+            IStructureDefinition startDefinition,
+            string direction,
+            bool handleUnexpectedSegments,
+            ParserBase parser)
         {
             this.message = start;
             this.direction = direction;
             this.handleUnexpectedSegments = handleUnexpectedSegments;
             this.currentDefinitionPath.Add(new Position(startDefinition, -1));
+            this.parser = parser;
         }
 
         /// <summary> <p>Returns the next node in the message.  Sometimes the next node is
@@ -117,6 +124,18 @@ namespace NHapi.Base.Parser
 
                 var structureDefinition = currentPosition.StructureDefinition;
 
+                if (parser is PipeParser pipeParser && pipeParser.ParserConfiguration.NonGreedyMode)
+                {
+                    var nonGreedyPosition = CouldBeNonGreedy();
+                    if (nonGreedyPosition != null)
+                    {
+                        while (!Equals(GetCurrentPosition().StructureDefinition, nonGreedyPosition))
+                        {
+                            currentDefinitionPath.Remove(currentDefinitionPath.Last());
+                        }
+                    }
+                }
+
                 if (structureDefinition.IsSegment && structureDefinition.Name.StartsWith(direction, StringComparison.Ordinal) && (structureDefinition.IsRepeating || currentPosition.Repetition == -1))
                 {
                     nextIsSet = true;
@@ -180,6 +199,26 @@ namespace NHapi.Base.Parser
         /// </summary>
         public virtual void Reset()
         {
+        }
+
+        private IStructureDefinition CouldBeNonGreedy()
+        {
+            for (var i = currentDefinitionPath.Count - 1; i >= 1; i--)
+            {
+                var position = currentDefinitionPath[i];
+                var currentPosition = position.StructureDefinition;
+
+                if (currentPosition.Position > 0)
+                {
+                    var parent = currentPosition.Parent;
+                    if (parent.IsRepeating && parent.GetAllPossibleFirstChildren().Contains(direction))
+                    {
+                        return parent;
+                    }
+                }
+            }
+
+            return null;
         }
 
         private Position GetCurrentPosition()

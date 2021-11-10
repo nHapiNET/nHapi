@@ -59,20 +59,25 @@ namespace NHapi.Base.Parser
         /// <summary>
         /// Creates a new PipeParser.
         /// </summary>
-        public PipeParser()
+        public PipeParser(ParserConfiguration parserConfiguration = null)
         {
+            ParserConfiguration = parserConfiguration ?? new ParserConfiguration();
         }
 
         /// <summary>
         /// Creates a new PipeParser.
         /// </summary>
-        public PipeParser(IModelClassFactory factory)
+        public PipeParser(IModelClassFactory factory, ParserConfiguration parserConfiguration = null)
             : base(factory)
         {
+            ParserConfiguration = parserConfiguration ?? new ParserConfiguration();
         }
 
         /// <inheritdoc />
         public override string DefaultEncoding => "VB";
+
+        public ParserConfiguration ParserConfiguration { get; }
+
 
         /// <summary>
         /// Splits the given composite string into an array of components using
@@ -405,7 +410,7 @@ namespace NHapi.Base.Parser
         public override void Parse(IMessage message, string @string)
         {
             var structureDefinition = GetStructureDefinition(message);
-            var messageIterator = new MessageIterator(message, structureDefinition, "MSH", true);
+            var messageIterator = new MessageIterator(message, structureDefinition, "MSH", true, this);
 
             var segments = Split(@string, SegmentDelimiter);
 
