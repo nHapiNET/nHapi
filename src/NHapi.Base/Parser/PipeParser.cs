@@ -59,18 +59,37 @@ namespace NHapi.Base.Parser
         /// <summary>
         /// Creates a new PipeParser.
         /// </summary>
-        public PipeParser(ParserConfiguration parserConfiguration = null)
+        public PipeParser()
         {
-            ParserConfiguration = parserConfiguration ?? new ParserConfiguration();
+            ParserConfiguration = new ParserConfiguration();
+        }
+
+        /// <summary>
+        /// Creates a new PipeParser.
+        /// <param name="parserConfiguration">Contains configuration that will be applied when parsing.</param>
+        /// </summary>
+        public PipeParser(ParserConfiguration parserConfiguration)
+        {
+            ParserConfiguration = parserConfiguration;
         }
 
         /// <summary>
         /// Creates a new PipeParser.
         /// </summary>
-        public PipeParser(IModelClassFactory factory, ParserConfiguration parserConfiguration = null)
+        public PipeParser(IModelClassFactory factory)
             : base(factory)
         {
-            ParserConfiguration = parserConfiguration ?? new ParserConfiguration();
+            ParserConfiguration = new ParserConfiguration();
+        }
+
+        /// <summary>
+        /// Creates a new PipeParser.
+        /// <param name="parserConfiguration">Contains configuration that will be applied when parsing.</param>
+        /// </summary>
+        public PipeParser(IModelClassFactory factory, ParserConfiguration parserConfiguration)
+            : base(factory)
+        {
+            ParserConfiguration = parserConfiguration;
         }
 
         /// <inheritdoc />
