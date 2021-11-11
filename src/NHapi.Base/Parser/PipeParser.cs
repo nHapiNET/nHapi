@@ -405,6 +405,11 @@ namespace NHapi.Base.Parser
         /// <inheritdoc />
         public override void Parse(IMessage message, string @string, ParserConfiguration parserConfiguration)
         {
+            if (parserConfiguration is null)
+            {
+                throw new ArgumentNullException(nameof(parserConfiguration));
+            }
+
             var structureDefinition = GetStructureDefinition(message);
             var messageIterator = new MessageIterator(message, structureDefinition, "MSH", true, parserConfiguration);
 

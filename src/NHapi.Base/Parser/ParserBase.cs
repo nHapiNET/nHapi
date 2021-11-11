@@ -296,6 +296,7 @@ namespace NHapi.Base.Parser
         /// <param name="string">The string to parse.</param>
         /// <param name="parserConfiguration">Contains configuration that will be applied when parsing.</param>
         /// <exception cref="HL7Exception">If there is a problem encoding.</exception>
+        /// <exception cref="ArgumentNullException">If <paramref name="parserConfiguration"/> is null.</exception>
         public abstract void Parse(IMessage message, string @string, ParserConfiguration parserConfiguration);
 
         /// <summary>
