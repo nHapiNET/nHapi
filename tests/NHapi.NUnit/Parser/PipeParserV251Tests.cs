@@ -181,15 +181,14 @@
         [Test]
         public void ParseORDERGroupRepetitionsIn_OML_O33()
         {
-            var twoTestOrderMessage =
-                @"MSH|^~\&|||||20210921154451+1000||OML^O33^OML_O33|20210921154451|P|2.5.1|||NE|AL||UNICODE UTF-8|||LAB-28^IHE" +
-                '\r' +
-                @"SPM|1|||SER^Serum^HL70487|||||||P^Patient^HL70369" + '\r' +
-                @"SAC|||Found_TT1_TT2_SER_098" + '\r' +
-                @"ORC|NW||||||||20210921154451" + '\r' +
-                @"OBR|1|AWOS_ID_Found_TT1_TT2_SER_098_0||TT1^Test Type 1^99000" + '\r' +
-                @"ORC|NW||||||||20210921154451" + '\r' +
-                @"OBR|2|AWOS_ID_Found_TT1_TT2_SER_098_1||TT2^Test Type 2^99000";
+            const string twoTestOrderMessage =
+                "MSH|^~\\&|||||20210921154451+1000||OML^O33^OML_O33|20210921154451|P|2.5.1|||NE|AL||UNICODE UTF-8|||LAB-28^IHE\r"
+                + "SPM|1|||SER^Serum^HL70487|||||||P^Patient^HL70369\r"
+                + "SAC|||Found_TT1_TT2_SER_098\r"
+                + "ORC|NW||||||||20210921154451\r"
+                + "OBR|1|AWOS_ID_Found_TT1_TT2_SER_098_0||TT1^Test Type 1^99000\r"
+                + "ORC|NW||||||||20210921154451\r"
+                + "OBR|2|AWOS_ID_Found_TT1_TT2_SER_098_1||TT2^Test Type 2^99000";
 
             var parser = new PipeParser();
             var oml = parser.Parse(twoTestOrderMessage, new ParserConfiguration { NonGreedyMode = true }) as OML_O33;

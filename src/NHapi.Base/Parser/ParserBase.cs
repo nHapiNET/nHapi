@@ -45,6 +45,7 @@ namespace NHapi.Base.Parser
     public abstract class ParserBase
     {
         private static readonly IHapiLog Log;
+        private static readonly ParserConfiguration DefaultParserConfiguration = new ParserConfiguration();
 
         private IValidationContext validationContext;
         private MessageValidator messageValidator;
@@ -186,7 +187,8 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary>
-        /// Parses a message string and returns the corresponding Message object.
+        /// Parses a message string and returns the corresponding Message object. Uses the default
+        /// <see cref="ParserConfiguration"/>.
         /// </summary>
         /// <param name="message">A string that contains an HL7 message.</param>
         /// <returns>A <see cref="IMessage"/> object parsed from the given string.</returns>
@@ -194,7 +196,7 @@ namespace NHapi.Base.Parser
         /// <exception cref="EncodingNotSupportedException">If the message encoded is not supported by this parser.</exception>
         public virtual IMessage Parse(string message)
         {
-            return Parse(message, parserConfiguration: null);
+            return Parse(message, DefaultParserConfiguration);
         }
 
         /// <summary>
@@ -242,14 +244,14 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary>
-        /// Parse a message to a specific assembly.
+        /// Parse a message to a specific assembly. Uses the default <see cref="ParserConfiguration"/>.
         /// </summary>
         /// <param name="message">A string that contains an HL7 message.</param>
         /// <param name="version">the name of the HL7 version to which the message belongs (eg "2.5").</param>
         /// <returns></returns>
         public virtual IMessage Parse(string message, string version)
         {
-            return Parse(message, version, parserConfiguration: null);
+            return Parse(message, version, DefaultParserConfiguration);
         }
 
         /// <summary>
@@ -276,14 +278,15 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary>
-        /// Parses a particular message and returns the encoded structure.
+        /// Parses a particular message and returns the encoded structure. Uses the default
+        /// <see cref="ParserConfiguration"/>.
         /// </summary>
         /// <param name="message">The message to encode.</param>
         /// <param name="string">The string to parse.</param>
         /// <exception cref="HL7Exception">If there is a problem encoding.</exception>
         public void Parse(IMessage message, string @string)
         {
-            Parse(message, @string, parserConfiguration: null);
+            Parse(message, @string, DefaultParserConfiguration);
         }
 
         /// <summary>

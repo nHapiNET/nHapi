@@ -406,8 +406,7 @@ namespace NHapi.Base.Parser
         public override void Parse(IMessage message, string @string, ParserConfiguration parserConfiguration)
         {
             var structureDefinition = GetStructureDefinition(message);
-            var parserConfig = parserConfiguration ?? new ParserConfiguration();
-            var messageIterator = new MessageIterator(message, structureDefinition, "MSH", true, parserConfig);
+            var messageIterator = new MessageIterator(message, structureDefinition, "MSH", true, parserConfiguration);
 
             var segments = Split(@string, SegmentDelimiter);
 
