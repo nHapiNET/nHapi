@@ -61,42 +61,19 @@ namespace NHapi.Base.Parser
         /// </summary>
         public PipeParser()
         {
-            ParserConfiguration = new ParserConfiguration();
         }
 
         /// <summary>
         /// Creates a new PipeParser.
-        /// <param name="parserConfiguration">Contains configuration that will be applied when parsing.</param>
-        /// </summary>
-        public PipeParser(ParserConfiguration parserConfiguration)
-        {
-            ParserConfiguration = parserConfiguration;
-        }
-
-        /// <summary>
-        /// Creates a new PipeParser.
+        /// <param name="factory">Looks up classes for message model components.</param>
         /// </summary>
         public PipeParser(IModelClassFactory factory)
             : base(factory)
         {
-            ParserConfiguration = new ParserConfiguration();
-        }
-
-        /// <summary>
-        /// Creates a new PipeParser.
-        /// <param name="parserConfiguration">Contains configuration that will be applied when parsing.</param>
-        /// </summary>
-        public PipeParser(IModelClassFactory factory, ParserConfiguration parserConfiguration)
-            : base(factory)
-        {
-            ParserConfiguration = parserConfiguration;
         }
 
         /// <inheritdoc />
         public override string DefaultEncoding => "VB";
-
-        public ParserConfiguration ParserConfiguration { get; }
-
 
         /// <summary>
         /// Splits the given composite string into an array of components using
@@ -426,10 +403,11 @@ namespace NHapi.Base.Parser
         }
 
         /// <inheritdoc />
-        public override void Parse(IMessage message, string @string)
+        public override void Parse(IMessage message, string @string, ParserConfiguration parserConfiguration = default)
         {
             var structureDefinition = GetStructureDefinition(message);
-            var messageIterator = new MessageIterator(message, structureDefinition, "MSH", true, this);
+            var parserConfig = parserConfiguration ?? new ParserConfiguration();
+            var messageIterator = new MessageIterator(message, structureDefinition, "MSH", true, parserConfig);
 
             var segments = Split(@string, SegmentDelimiter);
 
@@ -725,12 +703,12 @@ namespace NHapi.Base.Parser
         }
 
         /// <inheritdoc />
-        protected internal override IMessage DoParse(string message, string version)
+        protected internal override IMessage DoParse(string message, string version, ParserConfiguration parserConfiguration = default)
         {
             // try to instantiate a message object of the right class
             var structure = GetStructure(message);
             var m = InstantiateMessage(structure.Structure, version, structure.ExplicitlyDefined);
-            Parse(m, message);
+            Parse(m, message, parserConfiguration);
 
             return m;
         }
