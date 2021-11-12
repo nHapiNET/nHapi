@@ -207,6 +207,7 @@ namespace NHapi.Base.Parser
         /// <returns>A <see cref="IMessage"/> object parsed from the given string.</returns>
         /// <exception cref="HL7Exception">If the message is not correctly formatted.</exception>
         /// <exception cref="EncodingNotSupportedException">If the message encoded is not supported by this parser.</exception>
+        /// <exception cref="ArgumentNullException">If <paramref name="parserConfiguration"/> is null.</exception>
         public virtual IMessage Parse(string message, ParserConfiguration parserConfiguration)
         {
             var encoding = GetEncoding(message);
@@ -261,6 +262,7 @@ namespace NHapi.Base.Parser
         /// <param name="version">the name of the HL7 version to which the message belongs (eg "2.5").</param>
         /// <param name="parserConfiguration">Contains configuration that will be applied when parsing.</param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException">If <paramref name="parserConfiguration"/> is null.</exception>
         public virtual IMessage Parse(string message, string version, ParserConfiguration parserConfiguration)
         {
             var encoding = GetEncoding(message);
@@ -446,6 +448,7 @@ namespace NHapi.Base.Parser
         /// <returns>A HAPI Message object parsed from the given String.</returns>
         /// <exception cref="HL7Exception">Thrown if the data fields in the message do not permit encoding (e.g. required fields are null).</exception>
         /// <exception cref="EncodingNotSupportedException">Thrown if the requested encoding is not supported by this parser.</exception>
+        /// <exception cref="ArgumentNullException">If <paramref name="parserConfiguration"/> is null.</exception>
         protected internal abstract IMessage DoParse(string message, string version, ParserConfiguration parserConfiguration);
 
         /// <summary>

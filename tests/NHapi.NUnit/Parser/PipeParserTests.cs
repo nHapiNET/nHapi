@@ -172,5 +172,23 @@ namespace NHapi.NUnit.Parser
                 "&#39;Thirty days have September,\rApril\nJune,\nand November.\nWhen short February is done,\\X0A\\all the rest have&nbsp;31.&#39";
             Assert.AreEqual(expectedResult, segmentData);
         }
+
+        /// <summary>
+        /// Check that an <see cref="ArgumentNullException"/> is thrown when a null <see cref="ParserConfiguration"/> is
+        /// provided to <c>Parse</c> method calls.
+        /// </summary>
+        [Test]
+        public void ParseWithNullConfigThrows()
+        {
+            var parser = new PipeParser();
+            IMessage nullMessage = null;
+            const string version = "2.5.1";
+            ParserConfiguration nullConfiguration = null;
+
+            Assert.Throws<ArgumentNullException>(() => parser.Parse(GetMessage(), nullConfiguration));
+            Assert.Throws<ArgumentNullException>(() =>
+                parser.Parse(nullMessage, GetMessage(), nullConfiguration));
+            Assert.Throws<ArgumentNullException>(() => parser.Parse(GetMessage(), version, nullConfiguration));
+        }
     }
 }
