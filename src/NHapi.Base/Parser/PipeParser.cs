@@ -403,7 +403,7 @@ namespace NHapi.Base.Parser
         }
 
         /// <inheritdoc />
-        public override void Parse(IMessage message, string @string, ParserConfiguration parserConfiguration)
+        public override void Parse(IMessage message, string @string, ParserOptions parserConfiguration)
         {
             if (parserConfiguration is null)
             {
@@ -707,7 +707,7 @@ namespace NHapi.Base.Parser
         }
 
         /// <inheritdoc />
-        protected internal override IMessage DoParse(string message, string version, ParserConfiguration parserConfiguration)
+        protected internal override IMessage DoParse(string message, string version, ParserOptions parserConfiguration)
         {
             // try to instantiate a message object of the right class
             var structure = GetStructure(message);

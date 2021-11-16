@@ -174,7 +174,7 @@ namespace NHapi.NUnit.Parser
         }
 
         /// <summary>
-        /// Check that an <see cref="ArgumentNullException"/> is thrown when a null <see cref="ParserConfiguration"/> is
+        /// Check that an <see cref="ArgumentNullException"/> is thrown when a null <see cref="ParserOptions"/> is
         /// provided to <c>Parse</c> method calls.
         /// </summary>
         [Test]
@@ -183,7 +183,7 @@ namespace NHapi.NUnit.Parser
             var parser = new PipeParser();
             IMessage nullMessage = null;
             const string version = "2.5.1";
-            ParserConfiguration nullConfiguration = null;
+            ParserOptions nullConfiguration = null;
 
             Assert.Throws<ArgumentNullException>(() => parser.Parse(GetMessage(), nullConfiguration));
             Assert.Throws<ArgumentNullException>(() =>
@@ -234,7 +234,7 @@ namespace NHapi.NUnit.Parser
             var pp = new PipeParser();
             msg = pp.Parse(
                 pp.Encode(msg),
-                new ParserConfiguration { NonGreedyMode = true }) as Model.V251.Message.OML_O21;
+                new ParserOptions { NonGreedyMode = true }) as Model.V251.Message.OML_O21;
             Assert.NotNull(msg);
 
             for (var i = 0; i < 5; i++)
@@ -249,7 +249,7 @@ namespace NHapi.NUnit.Parser
             // Now turn off greedy mode
             msg = pp.Parse(
                 pp.Encode(msg),
-                new ParserConfiguration { NonGreedyMode = false }) as Model.V251.Message.OML_O21;
+                new ParserOptions { NonGreedyMode = false }) as Model.V251.Message.OML_O21;
             Assert.NotNull(msg);
 
             {
@@ -368,7 +368,7 @@ namespace NHapi.NUnit.Parser
             };
 
             var parser = new PipeParser();
-            var greedyConfig = new ParserConfiguration { NonGreedyMode = true };
+            var greedyConfig = new ParserOptions { NonGreedyMode = true };
 
             foreach (var message in messages)
             {

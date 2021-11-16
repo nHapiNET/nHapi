@@ -29,7 +29,7 @@ namespace NHapi.Base.Parser
 
         private readonly IMessage message;
         private readonly bool handleUnexpectedSegments;
-        private readonly ParserConfiguration parserConfig;
+        private readonly ParserOptions parserConfig;
 
         private string direction;
         private bool nextIsSet;
@@ -46,7 +46,7 @@ namespace NHapi.Base.Parser
             IStructureDefinition startDefinition,
             string direction,
             bool handleUnexpectedSegments,
-            ParserConfiguration parserConfig)
+            ParserOptions parserConfig)
         {
             this.message = start;
             this.direction = direction;

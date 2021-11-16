@@ -191,7 +191,7 @@
                 + "OBR|2|AWOS_ID_Found_TT1_TT2_SER_098_1||TT2^Test Type 2^99000";
 
             var parser = new PipeParser();
-            var oml = parser.Parse(twoTestOrderMessage, new ParserConfiguration { NonGreedyMode = true }) as OML_O33;
+            var oml = parser.Parse(twoTestOrderMessage, new ParserOptions { NonGreedyMode = true }) as OML_O33;
 
             Assert.NotNull(oml);
 

@@ -1,8 +1,8 @@
 ﻿namespace NHapi.Base.Parser
 {
-    public class ParserConfiguration
+    public class ParserOptions
     {
-        public ParserConfiguration()
+        public ParserOptions()
         {
             NonGreedyMode = false;
         }

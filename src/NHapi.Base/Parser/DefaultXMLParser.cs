@@ -151,7 +151,7 @@ namespace NHapi.Base.Parser
         }
 
         /// <inheritdoc />
-        public override void Parse(IMessage message, string @string, ParserConfiguration parserConfiguration)
+        public override void Parse(IMessage message, string @string, ParserOptions parserConfiguration)
         {
             try
             {
