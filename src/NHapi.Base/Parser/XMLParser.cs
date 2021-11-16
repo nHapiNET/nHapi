@@ -475,7 +475,7 @@ namespace NHapi.Base.Parser
         /// XML Document object (using Xerces) from the given String, and calls the abstract
         /// method <see cref="ParseDocument(XmlDocument, string)"/>.
         /// </summary>
-        protected internal override IMessage DoParse(string message, string version, ParserOptions parserConfiguration)
+        protected internal override IMessage DoParse(string message, string version, ParserOptions parserOptions)
         {
             IMessage m = null;
 
@@ -821,7 +821,7 @@ namespace NHapi.Base.Parser
                 return null;
             }
 
-            public override void Parse(IMessage message, string @string, ParserOptions parserConfiguration)
+            public override void Parse(IMessage message, string @string, ParserOptions parserOptions)
             {
             }
 

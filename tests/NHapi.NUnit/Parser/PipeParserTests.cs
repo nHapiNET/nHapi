@@ -231,9 +231,9 @@ namespace NHapi.NUnit.Parser
             }
 
             // Parse and encode
-            var pp = new PipeParser();
-            msg = pp.Parse(
-                pp.Encode(msg),
+            var parser = new PipeParser();
+            msg = parser.Parse(
+                parser.Encode(msg),
                 new ParserOptions { NonGreedyMode = true }) as Model.V251.Message.OML_O21;
             Assert.NotNull(msg);
 
@@ -247,8 +247,8 @@ namespace NHapi.NUnit.Parser
             }
 
             // Now turn off greedy mode
-            msg = pp.Parse(
-                pp.Encode(msg),
+            msg = parser.Parse(
+                parser.Encode(msg),
                 new ParserOptions { NonGreedyMode = false }) as Model.V251.Message.OML_O21;
             Assert.NotNull(msg);
 

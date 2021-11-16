@@ -29,7 +29,7 @@ namespace NHapi.Base.Parser
 
         private readonly IMessage message;
         private readonly bool handleUnexpectedSegments;
-        private readonly ParserOptions parserConfig;
+        private readonly ParserOptions parserOptions;
 
         private string direction;
         private bool nextIsSet;
@@ -46,13 +46,13 @@ namespace NHapi.Base.Parser
             IStructureDefinition startDefinition,
             string direction,
             bool handleUnexpectedSegments,
-            ParserOptions parserConfig)
+            ParserOptions parserOptions)
         {
             this.message = start;
             this.direction = direction;
             this.handleUnexpectedSegments = handleUnexpectedSegments;
             this.currentDefinitionPath.Add(new Position(startDefinition, -1));
-            this.parserConfig = parserConfig;
+            this.parserOptions = parserOptions;
         }
 
         /// <summary> <p>Returns the next node in the message.  Sometimes the next node is
@@ -124,7 +124,7 @@ namespace NHapi.Base.Parser
 
                 var structureDefinition = currentPosition.StructureDefinition;
 
-                if (parserConfig.NonGreedyMode)
+                if (parserOptions.NonGreedyMode)
                 {
                     var nonGreedyPosition = LocateNonGreedyStructure();
                     if (nonGreedyPosition != null)

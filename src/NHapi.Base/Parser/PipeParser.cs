@@ -403,15 +403,15 @@ namespace NHapi.Base.Parser
         }
 
         /// <inheritdoc />
-        public override void Parse(IMessage message, string @string, ParserOptions parserConfiguration)
+        public override void Parse(IMessage message, string @string, ParserOptions parserOptions)
         {
-            if (parserConfiguration is null)
+            if (parserOptions is null)
             {
-                throw new ArgumentNullException(nameof(parserConfiguration));
+                throw new ArgumentNullException(nameof(parserOptions));
             }
 
             var structureDefinition = GetStructureDefinition(message);
-            var messageIterator = new MessageIterator(message, structureDefinition, "MSH", true, parserConfiguration);
+            var messageIterator = new MessageIterator(message, structureDefinition, "MSH", true, parserOptions);
 
             var segments = Split(@string, SegmentDelimiter);
 
@@ -707,12 +707,12 @@ namespace NHapi.Base.Parser
         }
 
         /// <inheritdoc />
-        protected internal override IMessage DoParse(string message, string version, ParserOptions parserConfiguration)
+        protected internal override IMessage DoParse(string message, string version, ParserOptions parserOptions)
         {
             // try to instantiate a message object of the right class
             var structure = GetStructure(message);
             var m = InstantiateMessage(structure.Structure, version, structure.ExplicitlyDefined);
-            Parse(m, message, parserConfiguration);
+            Parse(m, message, parserOptions);
 
             return m;
         }
