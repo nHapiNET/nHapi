@@ -1,6 +1,7 @@
 namespace NHapi.NUnit.Parser
 {
     using System;
+    using System.IO;
 
     using global::NUnit.Framework;
 
@@ -278,94 +279,11 @@ namespace NHapi.NUnit.Parser
         [Test]
         public void MoreGreedyMode()
         {
-            // OML_O21 messages extracted from https://sourceforge.net/p/hl7api/bugs/171/attachment/IHE_LTW_Examples.java
-            var messages = new System.Collections.Generic.List<string>
-            {
-                "MSH|^~\\&|OP|Entero-gastric|OF|Chemistry|200309060820||OML^O21^OML_O21|msgOP123|T|2.5.1|123\r" +
-                "PID|1||12345^5^M10^Memphis_Hosp^PI||EVERYMAN^ADAM^^JR^^^L||19800101|M\r" +
-                "PV1|1|O|Ward|||||||||||||||12345\r" +
-                "ORC|NW|12345678^gastric||666^gastric|||||200309060710|222221^NURSE^NANCY|||||||||||Entero-gastric^^^^^^FI^^^EG02\r" +
-                "TQ1|||||||||A\r" +
-                "OBR||12345678^gastric||82951^Glucose Tolerance Test^C4||||||1234^BLEEDER|P|||||222222^PHYSICIAN^^^^DR|821\r" +
-                "OBX|1|NM|GLUCOSE||75|g|||||F|||200309060735\r" +
-                "SPM|1|123456781^gastric||SER|||||||P||||||200309060735|||||||||1\r" +
-                "SPM|2|123456782^gastric||SER|||||||P||||||200309060755|||||||||1\r" +
-                "SPM|3|123456783^gastric||SER|||||||P||||||200309060815|||||||||1",
-
-                "MSH|^~\\&|OF|Chemistry|OP|Entero-gastric|200309060825||OML^O21^OML_O21|msgOF102|T|2.5.1|123\r" +
-                "PID|1||12345^5^M10^Memphis_Hosp^PI||EVERYMAN^ADAM^^JR^^^L||19800101|M\r" +
-                "PV1|1|O|Ward|||||||||||||||12345\r" +
-                "ORC|SC|12345678^gastric||666^gastric|IP||||200309060824|222221^NURSE^NANCY |||||||||||Entero-gastric^^^^^^FI^^^EG02\r" +
-                "TQ1|||||||||A\r" +
-                "OBR||12345678^gastric|555^chemistry|82951^Glucose Tolerance Test^C4||||||1234^BLEEDER|P|||||222222^PHYSICIAN^^^^DR|821||||||||I\r" +
-                "SPM|1|123456781^gastric||SER|||||||P||||||200309060735|200309060821||Y||||||1\r" +
-                "SPM|2|123456782^gastric||SER|||||||P||||||200309060755|200309060821||Y||||||1\r" +
-                "SPM|3|123456783^gastric||SER|||||||P||||||200309060815|200309060821||N|RB^Broken container|||||1",
-
-                "MSH|^~\\&|OP|Entero-gastric|OF|Chemistry|200309060900||OML^O21^OML_O21|msgOP124|T|2.5.1|123\r" +
-                "PID|1||12345^5^M10^Memphis_Hosp^PI||EVERYMAN^ADAM^^JR^^^L||19800101|M\r" +
-                "PV1|1|O|Ward|||||||||||||||12345\r" +
-                "ORC|XO|12345678^gastric||666^gastric|||||200309060855|222221^NURSE^NANCY|||||||||||Entero-gastric^^^^^^FI^^^EG02\r" +
-                "TQ1|||||||||A\r" +
-                "OBR||12345678^gastric||82951^Glucose Tolerance Test^C4||||||1234^BLEEDER|S|||||222222^PHYSICIAN^^^^DR|821\r" +
-                "OBX|1|NM|GLUCOSE||75|g|||||F|||200309060735\r" +
-                "SPM|1|123456781^gastric||SER|||||||P||||||200309060735|||||||||1\r" +
-                "SPM|2|123456782^gastric||SER|||||||P||||||200309060755|||||||||1\r" +
-                "SPM|3|123456783^gastric||SER|||||||P||||||200309060815|||||||||1\r" +
-                "SPM|4|123456784^gastric||SER|||||||P||||||200309060835|||||||||1\r" +
-                "SPM|5|123456785^gastric||SER|||||||P||||||200309060855|||||||||1",
-
-                "MSH|^~\\&|OF|Chemistry|OP|Entero-gastric|200309060930||OML^O21^OML_O21|msgOF109|T|2.5.1|123\r" +
-                "PID|1||12345^5^M10^Memphis_Hosp^PI||EVERYMAN^ADAM^^JR^^^L||19800101|M\r" +
-                "PV1|1|O|Ward|||||||||||||||12345\r" +
-                "ORC|SC|12345678^gastric||666^gastric|CM||||200309060929|222221^NURSE^NANCY|||||||||||Entero-gastric^^^^^^FI^^^EG02\r" +
-                "TQ1|||||||||A\r" +
-                "OBR||12345678^gastric|555^chemistry|82951^Glucose Tolerance Test^C4||||||1234^BLEEDER|S|||||222222^PHYSICIAN^^^^DR|821|||||200309060929|||F|||||||444444&CHEMISTRY-EXPERT&Jane&&&&&&MEMPHIS HOSPITAL^200309060929\r" +
-                "SPM|1|123456781^gastric ||SER|||||||P||||||200309060735|200309060821||Y||||||1\r" +
-                "SPM|2|123456782^gastric ||SER|||||||P||||||200309060755|200309060821||Y||||||1\r" +
-                "SPM|3|123456783^gastric ||SER|||||||P||||||200309060815|200309060821||N|RB|||||1\r" +
-                "SPM|4|123456784^gastric ||SER|||||||P||||||200309060835|200309060902||Y||||||1\r" +
-                "SPM|5|123456785^gastric ||SER|||||||P||||||200309060855|200309060902||Y||||||1",
-
-                "MSH|^~\\&|HIS|ASE|LIS|Rapela|||OML^O21||T|2.5\r" +
-                "PID|||14^^^^HC-HCE||BARRIONUEVO^RODOLFO SEBASTIÁN\r" +
-                "IN1|1|260^^Planes-HCE|10464^^^^OOSS-HCE|OSDE 210\r" +
-                "ORC|NW|1^HCE\r" +
-                "OBR|1|1^HCE||1041^FAUCES RAPIDO (EIA O LATEX)^Desarrollo^2117^FAUCES RAPIDO (EIA O LATEX)^Cod-HCE|S|201301221046\r" +
-                "ORC|NW|2^HCE\r" +
-                "OBR|2|2^HCE||1050^OSTEOCALCINA SERICA^Desarrollo^2121^OSTEOCALCINA SERICA^Cod-HCE|S|201301221046\r" +
-                "ORC|NW|3^HCE\r" +
-                "OBR|3|3^HCE||10525^HEPATITIS B GENOTIPO^Desarrollo^2126^HEPATITIS B GENOTIPO^Cod-HCE|S|201301221046\r" +
-                "ORC|NW|4^HCE\r" +
-                "OBR|4|4^HCE||10526^HEMOCULTIVO BACTEC - 1 MUESTRA (CULTIVO RAPIDO)^Desarrollo^2127^HEMOCULTIVO BACTEC - 1 MUESTRA (CULTIVO RAPIDO)^Cod-HCE|S|201301221046",
-
-                "MSH|^~\\&|OF|Chemistry|AM|Automation|200309060825||OML^O21^OML_O21|msgOF101|T|2.5|123||||USA||EN\r" +
-                "PID|1||12345^5^M10^Memphis_Hosp^PI||EVERYMAN^ADAM^^JR^^^L||19800101|M\r" +
-                "PV1|1|O|Ward|||||||||||||||12345\r" +
-                "ORC|NW|||666^gastric|||||200309060824|222221^NURSE^NANCY|||||||||||Entero-gastric^^^^^^FI^^^EG02\r" +
-                "TQ1|||||||||A\r" +
-                "OBR||555_1^chemistry||GLUC^GLUCOSE^L||||||1234^BLEEDER|S|||||222222^PHYSICIAN^^^^DR|821\r" +
-                "SPM|1|123456781^gastric ||SER|||||||P||||||200309060735|200309060821||||||||1\r" +
-                "ORC|NW|||666^gastric|||||200309060710|222221^NURSE^NANCY|||||||||||Entero-gastric^^^^^^FI^^^EG02\r" +
-                "TQ1|||||||||A\r" +
-                "OBR||555_2^chemistry||GLUC^GLUCOSE^L||||||1234^BLEEDER|S|||||222222^PHYSICIAN^^^^DR|821\r" +
-                "SPM|1|123456782^gastric||SER|||||||P||||||200309060755|200309060821||||||||1",
-
-                "MSH|^~\\&|HIS|ASE|LIS|Rapela|||OML^O21||T|2.5\r" +
-                "PID|||14^^^^HC-HCE||BARRIONUEVO^RODOLFO SEBASTIÁN\r" +
-                "ORC|NW|||GROUP1^HCE\r" +
-                "TQ1|\r" +
-                "OBR||id1^HCE|81641^RAD|73666^Bilateral Feet|\r" +
-                "SPM|1|123456781^gastric||SER\r" +
-                "ORC|NW|||GROUP1^HCE\r" +
-                "TQ1|\r" +
-                "OBR||id2^HCE|81642^RAD|73642^Bilateral Hand PA|\r" +
-                "SPM|2|123456782^gastric||SER\r" +
-                "ORC|NW|||GROUP1^HCE\r" +
-                "TQ1|\r" +
-                "OBR||id3^HCE|81643^RAD|73916^Bilateral Knees|\r" +
-                "SPM|3|123456783^gastric||SER",
-            };
+            var testDataDir = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "Parser");
+            var messagesAsString = File.ReadAllText(Path.Combine(testDataDir, "OML_O21_messages.txt"));
+            var messages = messagesAsString.Split(
+                new[] { Environment.NewLine + Environment.NewLine },
+                StringSplitOptions.RemoveEmptyEntries);
 
             var parser = new PipeParser();
             var greedyConfig = new ParserOptions { NonGreedyMode = true };
