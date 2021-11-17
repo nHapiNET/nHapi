@@ -252,7 +252,6 @@ namespace NHapi.NUnit.Parser
                 parser.Encode(msg),
                 new ParserOptions { NonGreedyMode = false }) as Model.V251.Message.OML_O21;
             Assert.NotNull(msg);
-
             {
                 var actual = msg.GetORDER(0).ORC.OrderControl.Value;
                 Assert.AreEqual("NW", actual);
@@ -282,7 +281,7 @@ namespace NHapi.NUnit.Parser
             var testDataDir = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "Parser");
             var messagesAsString = File.ReadAllText(Path.Combine(testDataDir, "OML_O21_messages.txt"));
             var messages = messagesAsString.Split(
-                new[] { Environment.NewLine + Environment.NewLine },
+                new[] { "\r\n\r\n" },
                 StringSplitOptions.RemoveEmptyEntries);
 
             var parser = new PipeParser();
