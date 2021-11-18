@@ -279,7 +279,8 @@ namespace NHapi.NUnit.Parser
         public void MoreGreedyMode()
         {
             var testDataDir = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "Parser");
-            var messagesAsString = File.ReadAllText(Path.Combine(testDataDir, "OML_O21_messages.txt"));
+            var messageFilename = "OML_O21_messages.txt";
+            var messagesAsString = File.ReadAllText(Path.Combine(testDataDir, messageFilename));
             var messages = messagesAsString.Split(
                 new[] { "\r\n\r\n" },
                 StringSplitOptions.RemoveEmptyEntries);
@@ -289,18 +290,21 @@ namespace NHapi.NUnit.Parser
 
             foreach (var message in messages)
             {
-                var oml25 = parser.Parse(message, greedyConfig) as Model.V25.Message.OML_O21;
-                var oml251 = parser.Parse(message, greedyConfig) as Model.V251.Message.OML_O21;
+                var parsedMessage = parser.Parse(message, greedyConfig);
 
-                if (oml25 is null)
+                switch (parsedMessage)
                 {
-                    Assert.NotNull(oml251);
-                    Assert.AreEqual(0, oml251.GetORDER(0).OBSERVATION_REQUEST.PRIOR_RESULTRepetitionsUsed);
-                }
-                else
-                {
-                    Assert.NotNull(oml25);
-                    Assert.AreEqual(0, oml25.GetORDER(0).OBSERVATION_REQUEST.PRIOR_RESULTRepetitionsUsed);
+                    case Model.V251.Message.OML_O21 oml251:
+                        Assert.NotNull(oml251);
+                        Assert.AreEqual(0, oml251.GetORDER(0).OBSERVATION_REQUEST.PRIOR_RESULTRepetitionsUsed);
+                        break;
+                    case Model.V25.Message.OML_O21 oml25:
+                        Assert.NotNull(oml25);
+                        Assert.AreEqual(0, oml25.GetORDER(0).OBSERVATION_REQUEST.PRIOR_RESULTRepetitionsUsed);
+                        break;
+                    default:
+                        Assert.Fail($"Could not parse messages from {messageFilename} into v2.5 nor v.2.5.1 OML_O21.");
+                        return;
                 }
             }
         }
