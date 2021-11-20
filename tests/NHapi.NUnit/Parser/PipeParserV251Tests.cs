@@ -174,5 +174,37 @@
             typeof(XPN),
             typeof(XTN),
         };
+
+        /// <summary>
+        /// https://github.com/nHapiNET/nHapi/issues/232.
+        /// </summary>
+        [Test]
+        public void ParseORDERGroupRepetitionsIn_OML_O33()
+        {
+            const string twoTestOrderMessage =
+                "MSH|^~\\&|||||20210921154451+1000||OML^O33^OML_O33|20210921154451|P|2.5.1|||NE|AL||UNICODE UTF-8|||LAB-28^IHE\r"
+                + "SPM|1|||SER^Serum^HL70487|||||||P^Patient^HL70369\r"
+                + "SAC|||Found_TT1_TT2_SER_098\r"
+                + "ORC|NW||||||||20210921154451\r"
+                + "OBR|1|AWOS_ID_Found_TT1_TT2_SER_098_0||TT1^Test Type 1^99000\r"
+                + "ORC|NW||||||||20210921154451\r"
+                + "OBR|2|AWOS_ID_Found_TT1_TT2_SER_098_1||TT2^Test Type 2^99000";
+
+            var parser = new PipeParser();
+            var oml = parser.Parse(twoTestOrderMessage, new ParserOptions { NonGreedyMode = true }) as OML_O33;
+
+            Assert.NotNull(oml);
+
+            var specimen = oml.SPECIMENs.ElementAt(0);
+            Assert.AreEqual(2, specimen.ORDERRepetitionsUsed);
+
+            var firstOrder = specimen.ORDERs.ElementAt(0);
+            var firstObr = firstOrder.OBSERVATION_REQUEST.OBR.UniversalServiceIdentifier;
+            Assert.AreEqual("TT1", firstObr.Identifier.Value);
+
+            var secondOrder = specimen.ORDERs.ElementAt(1);
+            var secondObr = secondOrder.OBSERVATION_REQUEST.OBR.UniversalServiceIdentifier;
+            Assert.AreEqual("TT2", secondObr.Identifier.Value);
+        }
     }
 }

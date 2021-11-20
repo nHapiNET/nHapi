@@ -1,6 +1,7 @@
 namespace NHapi.NUnit.Parser
 {
     using System;
+    using System.IO;
 
     using global::NUnit.Framework;
 
@@ -171,6 +172,141 @@ namespace NHapi.NUnit.Parser
             const string expectedResult =
                 "&#39;Thirty days have September,\rApril\nJune,\nand November.\nWhen short February is done,\\X0A\\all the rest have&nbsp;31.&#39";
             Assert.AreEqual(expectedResult, segmentData);
+        }
+
+        /// <summary>
+        /// Check that an <see cref="ArgumentNullException"/> is thrown when a null <see cref="ParserOptions"/> is
+        /// provided to <c>Parse</c> method calls.
+        /// </summary>
+        [Test]
+        public void ParseWithNullConfigThrows()
+        {
+            var parser = new PipeParser();
+            IMessage nullMessage = null;
+            const string version = "2.5.1";
+            ParserOptions nullConfiguration = null;
+
+            Assert.Throws<ArgumentNullException>(() => parser.Parse(GetMessage(), nullConfiguration));
+            Assert.Throws<ArgumentNullException>(() =>
+                parser.Parse(nullMessage, GetMessage(), nullConfiguration));
+            Assert.Throws<ArgumentNullException>(() => parser.Parse(GetMessage(), version, nullConfiguration));
+        }
+
+        private static void SetMessageHeader(Model.V251.Message.OML_O21 msg, string messageCode, string messageTriggerEvent, string processingId)
+        {
+            var msh = msg.MSH;
+
+            Terser.Set(msh, 1, 0, 1, 1, "|");
+            Terser.Set(msh, 2, 0, 1, 1, "^~\\&");
+            Terser.Set(msh, 7, 0, 1, 1, DateTime.Now.ToString("yyyyMMddHHmmssK"));
+            Terser.Set(msh, 9, 0, 1, 1, messageCode);
+            Terser.Set(msh, 9, 0, 2, 1, messageTriggerEvent);
+            Terser.Set(msh, 10, 0, 1, 1, Guid.NewGuid().ToString());
+            Terser.Set(msh, 11, 0, 1, 1, processingId);
+            Terser.Set(msh, 12, 0, 1, 1, msg.Version);
+        }
+
+        /// <summary>
+        /// This test is ported from HAPI:
+        /// https://github.com/hapifhir/hapi-hl7v2/blob/3333e3aeae60afb7493f6570456e6280c0e16c0b/hapi-test/src/test/java/ca/uhn/hl7v2/parser/NewPipeParserTest.java#L158
+        /// See http://sourceforge.net/p/hl7api/bugs/171/.
+        /// </summary>
+        [Test]
+        public void GreedyMode()
+        {
+            var msg = new Model.V251.Message.OML_O21();
+            SetMessageHeader(msg, "OML", "O21", "T");
+
+            for (var i = 0; i < 5; i++)
+            {
+                var orc = msg.GetORDER(i).ORC;
+                var obr4 = msg.GetORDER(i).OBSERVATION_REQUEST.OBR.UniversalServiceIdentifier;
+
+                orc.OrderControl.Value = "NW";
+                orc.PlacerOrderNumber.EntityIdentifier.Value = "ORCID1";
+                orc.PlacerOrderNumber.NamespaceID.Value = "HCE";
+                orc.PlacerGroupNumber.EntityIdentifier.Value = "grupo";
+
+                obr4.Identifier.Value = "STDIO1";
+                obr4.NameOfCodingSystem.Value = "LOINC";
+            }
+
+            // Parse and encode
+            var parser = new PipeParser();
+            msg = parser.Parse(
+                parser.Encode(msg),
+                new ParserOptions { NonGreedyMode = true }) as Model.V251.Message.OML_O21;
+            Assert.NotNull(msg);
+
+            for (var i = 0; i < 5; i++)
+            {
+                var actual = msg.GetORDER(i).ORC.OrderControl.Value;
+                Assert.AreEqual("NW", actual);
+
+                actual = msg.GetORDER(i).OBSERVATION_REQUEST.OBR.UniversalServiceIdentifier.Identifier.Value;
+                Assert.AreEqual("STDIO1", actual);
+            }
+
+            // Now turn off greedy mode
+            msg = parser.Parse(
+                parser.Encode(msg),
+                new ParserOptions { NonGreedyMode = false }) as Model.V251.Message.OML_O21;
+            Assert.NotNull(msg);
+            {
+                var actual = msg.GetORDER(0).ORC.OrderControl.Value;
+                Assert.AreEqual("NW", actual);
+
+                actual = msg.GetORDER(0).OBSERVATION_REQUEST.OBR.UniversalServiceIdentifier.Identifier.Value;
+                Assert.AreEqual("STDIO1", actual);
+            }
+
+            for (var i = 1; i < 5; i++)
+            {
+                var actual = msg.GetORDER(i).ORC.OrderControl.Value;
+                Assert.IsNull(actual);
+
+                actual = msg.GetORDER(i).OBSERVATION_REQUEST.OBR.UniversalServiceIdentifier.Identifier.Value;
+                Assert.IsNull(actual);
+            }
+        }
+
+        /// <summary>
+        /// This test is ported from HAPI:
+        /// https://github.com/hapifhir/hapi-hl7v2/blob/3333e3aeae60afb7493f6570456e6280c0e16c0b/hapi-test/src/test/java/ca/uhn/hl7v2/parser/NewPipeParserTest.java#L217
+        /// See http://sourceforge.net/p/hl7api/bugs/171/.
+        /// </summary>
+        [Test]
+        public void MoreGreedyMode()
+        {
+            var testDataDir = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "Parser");
+            var messageFilename = "OML_O21_messages.txt";
+            var messagesAsString = File.ReadAllText(Path.Combine(testDataDir, messageFilename));
+            var messages = messagesAsString.Split(
+                new[] { "\r\n\r\n" },
+                StringSplitOptions.RemoveEmptyEntries);
+
+            var parser = new PipeParser();
+            var greedyConfig = new ParserOptions { NonGreedyMode = true };
+
+            foreach (var message in messages)
+            {
+                var parsedMessage = parser.Parse(message, greedyConfig);
+
+                switch (parsedMessage)
+                {
+                    case Model.V251.Message.OML_O21 oml251:
+                        Assert.NotNull(oml251);
+                        Assert.AreEqual(0, oml251.GetORDER(0).OBSERVATION_REQUEST.PRIOR_RESULTRepetitionsUsed);
+                        break;
+                    case Model.V25.Message.OML_O21 oml25:
+                        Assert.NotNull(oml25);
+                        Assert.AreEqual(0, oml25.GetORDER(0).OBSERVATION_REQUEST.PRIOR_RESULTRepetitionsUsed);
+                        break;
+                    default:
+                        Assert.Fail($"Could not parse messages from {messageFilename} into v2.5 nor v.2.5.1 OML_O21.");
+                        return;
+                }
+            }
         }
     }
 }

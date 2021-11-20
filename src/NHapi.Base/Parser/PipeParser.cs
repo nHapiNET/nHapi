@@ -65,6 +65,7 @@ namespace NHapi.Base.Parser
 
         /// <summary>
         /// Creates a new PipeParser.
+        /// <param name="factory">Looks up classes for message model components.</param>
         /// </summary>
         public PipeParser(IModelClassFactory factory)
             : base(factory)
@@ -402,10 +403,15 @@ namespace NHapi.Base.Parser
         }
 
         /// <inheritdoc />
-        public override void Parse(IMessage message, string @string)
+        public override void Parse(IMessage message, string @string, ParserOptions parserOptions)
         {
+            if (parserOptions is null)
+            {
+                throw new ArgumentNullException(nameof(parserOptions));
+            }
+
             var structureDefinition = GetStructureDefinition(message);
-            var messageIterator = new MessageIterator(message, structureDefinition, "MSH", true);
+            var messageIterator = new MessageIterator(message, structureDefinition, "MSH", true, parserOptions);
 
             var segments = Split(@string, SegmentDelimiter);
 
@@ -701,12 +707,12 @@ namespace NHapi.Base.Parser
         }
 
         /// <inheritdoc />
-        protected internal override IMessage DoParse(string message, string version)
+        protected internal override IMessage DoParse(string message, string version, ParserOptions parserOptions)
         {
             // try to instantiate a message object of the right class
             var structure = GetStructure(message);
             var m = InstantiateMessage(structure.Structure, version, structure.ExplicitlyDefined);
-            Parse(m, message);
+            Parse(m, message, parserOptions);
 
             return m;
         }

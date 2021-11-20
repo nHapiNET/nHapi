@@ -257,7 +257,7 @@ namespace NHapi.Base.Parser
             return out_Renamed.ToString();
         }
 
-        public override void Parse(IMessage message, string @string)
+        public override void Parse(IMessage message, string @string, ParserOptions parserOptions)
         {
             var messageIter = new Util.MessageIterator(message, "MSH", true);
             FilterIterator.IPredicate segmentsOnly = new AnonymousClassPredicate(this);
@@ -743,13 +743,13 @@ namespace NHapi.Base.Parser
         /// <throws>  EncodingNotSupportedException if the message encoded. </throws>
         /// <summary>      is not supported by this parser.
         /// </summary>
-        protected internal override IMessage DoParse(string message, string version)
+        protected internal override IMessage DoParse(string message, string version, ParserOptions parserOptions)
         {
             // try to instantiate a message object of the right class
             var structure = GetStructure(message);
             var m = InstantiateMessage(structure.Structure, version, structure.ExplicitlyDefined);
 
-            Parse(m, message);
+            Parse(m, message, parserOptions);
 
             return m;
         }

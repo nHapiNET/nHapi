@@ -29,6 +29,7 @@ namespace NHapi.Base.Parser
 
         private readonly IMessage message;
         private readonly bool handleUnexpectedSegments;
+        private readonly ParserOptions parserOptions;
 
         private string direction;
         private bool nextIsSet;
@@ -40,12 +41,18 @@ namespace NHapi.Base.Parser
         }
 
         /// <summary>Creates a new instance of MessageIterator. </summary>
-        public MessageIterator(IMessage start, IStructureDefinition startDefinition, string direction, bool handleUnexpectedSegments)
+        public MessageIterator(
+            IMessage start,
+            IStructureDefinition startDefinition,
+            string direction,
+            bool handleUnexpectedSegments,
+            ParserOptions parserOptions)
         {
             this.message = start;
             this.direction = direction;
             this.handleUnexpectedSegments = handleUnexpectedSegments;
             this.currentDefinitionPath.Add(new Position(startDefinition, -1));
+            this.parserOptions = parserOptions;
         }
 
         /// <summary> <p>Returns the next node in the message.  Sometimes the next node is
@@ -66,9 +73,9 @@ namespace NHapi.Base.Parser
         /// <li>If at the end of a group: If name of group or any of its "first
         /// descendants" matches direction, then next position means next rep of group.  Otherwise
         /// if direction matches name of next sibling of the group, or any of its first
-        /// descendents, next position means next sibling of the group.  Otherwise, next means a
+        /// descendants, next position means next sibling of the group.  Otherwise, next means a
         /// new segment added to the group (with a name that matches "direction").  </li>
-        /// <li>"First descendents" means first child, or first child of the first child,
+        /// <li>"First descendants" means first child, or first child of the first child,
         /// or first child of the first child of the first child, etc. </li> </ol>
         /// </summary>
         public virtual object Current
@@ -116,6 +123,20 @@ namespace NHapi.Base.Parser
                 var currentPosition = GetCurrentPosition();
 
                 var structureDefinition = currentPosition.StructureDefinition;
+
+                if (parserOptions.NonGreedyMode)
+                {
+                    var nonGreedyPosition = LocateNonGreedyStructure();
+                    if (nonGreedyPosition != null)
+                    {
+                        Log.Info($"Found non greedy parsing choice, moving to {nonGreedyPosition.Name}");
+
+                        while (GetCurrentPosition().StructureDefinition != nonGreedyPosition)
+                        {
+                            currentDefinitionPath.Remove(currentDefinitionPath.Last());
+                        }
+                    }
+                }
 
                 if (structureDefinition.IsSegment && structureDefinition.Name.StartsWith(direction, StringComparison.Ordinal) && (structureDefinition.IsRepeating || currentPosition.Repetition == -1))
                 {
@@ -180,6 +201,26 @@ namespace NHapi.Base.Parser
         /// </summary>
         public virtual void Reset()
         {
+        }
+
+        private IStructureDefinition LocateNonGreedyStructure()
+        {
+            for (var i = currentDefinitionPath.Count - 1; i >= 1; i--)
+            {
+                var position = currentDefinitionPath[i];
+                var currentPosition = position.StructureDefinition;
+
+                if (currentPosition.Position > 0)
+                {
+                    var parent = currentPosition.Parent;
+                    if (parent.IsRepeating && parent.GetAllPossibleFirstChildren().Contains(direction))
+                    {
+                        return parent;
+                    }
+                }
+            }
+
+            return null;
         }
 
         private Position GetCurrentPosition()
