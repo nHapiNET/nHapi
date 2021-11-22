@@ -54,6 +54,30 @@ namespace NHapi.NUnit.Parser
             Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueInstance);
         }
 
+        [Test]
+        public void TestObx5DataTypeIsSetFromObx2_WhenObx2IsEmptyAndDefaultIsSet_DefaultTypeIsUsed()
+        {
+            var expectedObservationValueType = typeof(ST);
+
+            var message = "MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.1|||AL|||ASCII\r"
+                        + "PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r"
+                        + "ORC|||||F\r"
+                        + "OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r"
+                        + "OBX|1||||STValue||||||F\r";
+
+            var parser = new LegacyPipeParser();
+            var options = new ParserOptions { DefaultObx2Type = "ST" };
+
+            var parsed = (ORU_R01)parser.Parse(message, options);
+
+            var actualObservationValueInstance = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.OBSERVATIONRESULTS.Data;
+            var obx2 = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.VALUETYPE;
+
+            Assert.AreEqual("ST", obx2.Value);
+            Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueInstance);
+            Assert.AreEqual("STValue", ((ST)actualObservationValueInstance).Value);
+        }
+
         /// <summary>
         /// Specified in Table 0125.
         /// </summary>

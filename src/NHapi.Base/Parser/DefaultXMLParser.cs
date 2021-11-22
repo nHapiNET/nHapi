@@ -142,23 +142,33 @@ namespace NHapi.Base.Parser
         /// <throws>  EncodingNotSupportedException if the message encoded. </throws>
         /// <summary>     is not supported by this parser.
         /// </summary>
-        public override IMessage ParseDocument(XmlDocument xmlMessage, string version)
+        public override IMessage ParseDocument(XmlDocument xmlMessage, string version, ParserOptions parserOptions)
         {
+            if (parserOptions is null)
+            {
+                throw new ArgumentNullException(nameof(parserOptions));
+            }
+
             var messageName = xmlMessage.DocumentElement.Name;
             var message = InstantiateMessage(messageName, version, true);
-            Parse(message, xmlMessage.DocumentElement);
+            Parse(message, xmlMessage.DocumentElement, parserOptions);
             return message;
         }
 
         /// <inheritdoc />
         public override void Parse(IMessage message, string @string, ParserOptions parserOptions)
         {
+            if (parserOptions is null)
+            {
+                throw new ArgumentNullException(nameof(parserOptions));
+            }
+
             try
             {
                 var xmlDocument = new XmlDocument();
                 xmlDocument.Load(new StringReader(@string));
 
-                Parse(message, xmlDocument.DocumentElement);
+                Parse(message, xmlDocument.DocumentElement, parserOptions);
             }
             catch (XmlException e)
             {
@@ -201,7 +211,7 @@ namespace NHapi.Base.Parser
         /// <summary> Populates the given group object with data from the given group element, ignoring
         /// any unrecognized nodes.
         /// </summary>
-        private void Parse(IGroup groupObject, XmlElement groupElement)
+        private void Parse(IGroup groupObject, XmlElement groupElement, ParserOptions parserOptions)
         {
             var childNames = groupObject.Names;
             var messageName = groupObject.Message.GetStructureName();
@@ -222,14 +232,14 @@ namespace NHapi.Base.Parser
             for (var i = 0; i < childNames.Length; i++)
             {
                 SupportClass.ICollectionSupport.Remove(unparsedElementList, childNames[i]);
-                ParseReps(groupElement, groupObject, messageName, childNames[i], childNames[i]);
+                ParseReps(groupElement, groupObject, messageName, childNames[i], childNames[i], parserOptions);
             }
 
             for (var i = 0; i < unparsedElementList.Count; i++)
             {
                 var segName = (string)unparsedElementList[i];
                 var segIndexName = groupObject.AddNonstandardSegment(segName);
-                ParseReps(groupElement, groupObject, messageName, segName, segIndexName);
+                ParseReps(groupElement, groupObject, messageName, segName, segIndexName, parserOptions);
             }
         }
 
@@ -284,7 +294,8 @@ namespace NHapi.Base.Parser
             IGroup groupObject,
             string messageName,
             string childName,
-            string childIndexName)
+            string childIndexName,
+            ParserOptions parserOptions)
         {
             var reps = GetChildElementsByTagName(groupElement, MakeGroupElementName(messageName, childName));
             Log.Debug("# of elements matching " + MakeGroupElementName(messageName, childName) + ": " + reps.Count);
@@ -293,14 +304,14 @@ namespace NHapi.Base.Parser
             {
                 for (var i = 0; i < reps.Count; i++)
                 {
-                    ParseRep((XmlElement)reps[i], groupObject.GetStructure(childIndexName, i));
+                    ParseRep((XmlElement)reps[i], groupObject.GetStructure(childIndexName, i), parserOptions);
                 }
             }
             else
             {
                 if (reps.Count > 0)
                 {
-                    ParseRep((XmlElement)reps[0], groupObject.GetStructure(childIndexName, 0));
+                    ParseRep((XmlElement)reps[0], groupObject.GetStructure(childIndexName, 0), parserOptions);
                 }
 
                 if (reps.Count > 1)
@@ -308,21 +319,21 @@ namespace NHapi.Base.Parser
                     var newIndexName = groupObject.AddNonstandardSegment(childName);
                     for (var i = 1; i < reps.Count; i++)
                     {
-                        ParseRep((XmlElement)reps[i], groupObject.GetStructure(newIndexName, i - 1));
+                        ParseRep((XmlElement)reps[i], groupObject.GetStructure(newIndexName, i - 1), parserOptions);
                     }
                 }
             }
         }
 
-        private void ParseRep(XmlElement theElem, IStructure theObj)
+        private void ParseRep(XmlElement theElem, IStructure theObj, ParserOptions parserOptions)
         {
             if (theObj is IGroup)
             {
-                Parse((IGroup)theObj, theElem);
+                Parse((IGroup)theObj, theElem, parserOptions);
             }
             else if (theObj is ISegment)
             {
-                Parse((ISegment)theObj, theElem);
+                Parse((ISegment)theObj, theElem, parserOptions);
             }
 
             Log.Debug("Parsed element: " + theElem.Name);

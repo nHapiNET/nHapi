@@ -270,6 +270,8 @@ namespace NHapi.Base.Model
         /// </summary>
         /// <param name="fieldNum">Repeatable field number.</param>
         /// <param name="index">0-based index to be removed.</param>
+        /// <exception cref="HL7Exception">If field has no repetitions.</exception>
+        /// <exception cref="HL7Exception">If field index does not exist.</exception>
         public void RemoveRepetition(int fieldNum, int index)
         {
             if (fieldNum < 1 || fieldNum > items.Count)
@@ -303,6 +305,9 @@ namespace NHapi.Base.Model
         /// </summary>
         /// <param name="fieldNum">Repeatable field number.</param>
         /// <param name="removeItem">Item to be removed.</param>
+        /// <exception cref="HL7Exception">If field number is not valid.</exception>
+        /// <exception cref="HL7Exception">If field has no repetitions.</exception>
+        /// <exception cref="HL7Exception">If field does not contain the repetition to remove.</exception>
         public void RemoveRepetition(int fieldNum, IType removeItem)
         {
             if (fieldNum < 1 || fieldNum > items.Count)

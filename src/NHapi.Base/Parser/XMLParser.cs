@@ -248,7 +248,27 @@ namespace NHapi.Base.Parser
         /// <throws>  EncodingNotSupportedException if the message encoded. </throws>
         /// <summary>      is not supported by this parser.
         /// </summary>
-        public abstract IMessage ParseDocument(XmlDocument xmlMessage, string version);
+        public IMessage ParseDocument(XmlDocument xmlMessage, string version)
+        {
+            return ParseDocument(xmlMessage, version, DefaultParserOptions);
+        }
+
+        /// <summary> <p>Creates and populates a Message object from an XML Document that contains an XML-encoded HL7 message.</p>
+        /// <p>The easiest way to implement this method for a particular message structure is as follows:
+        /// <ol><li>Create an instance of the Message type you are going to handle with your subclass
+        /// of XMLParser</li>
+        /// <li>Go through the given Document and find the Elements that represent the top level of
+        /// each message segment. </li>
+        /// <li>For each of these segments, call <code>parse(Segment segmentObject, Element segmentElement)</code>,
+        /// providing the appropriate Segment from your Message object, and the corresponding Element.</li></ol>
+        /// At the end of this process, your Message object should be populated with data from the XML
+        /// Document.</p>
+        /// </summary>
+        /// <throws>  HL7Exception if the message is not correctly formatted. </throws>
+        /// <throws>  EncodingNotSupportedException if the message encoded. </throws>
+        /// <summary>      is not supported by this parser.
+        /// </summary>
+        public abstract IMessage ParseDocument(XmlDocument xmlMessage, string version, ParserOptions parserOptions);
 
         /// <summary> <p>Creates an XML Document that corresponds to the given Message object. </p>
         /// <p>If you are implementing this method, you should create an XML Document, and insert XML Elements
@@ -265,6 +285,17 @@ namespace NHapi.Base.Parser
         /// </summary>
         public virtual void Parse(ISegment segmentObject, XmlElement segmentElement)
         {
+            Parse(segmentObject, segmentElement, DefaultParserOptions);
+        }
+
+        /// <summary> Populates the given Segment object with data from the given XML Element.</summary>
+        /// <throws>  HL7Exception if the XML Element does not have the correct name and structure. </throws>
+        /// <summary>      for the given Segment, or if there is an error while setting individual field values.
+        /// </summary>
+        public virtual void Parse(ISegment segmentObject, XmlElement segmentElement, ParserOptions parserOptions)
+        {
+            parserOptions = parserOptions ?? DefaultParserOptions;
+
             var done = new SupportClass.HashSetSupport();
 
             // for (int i = 1; i <= segmentObject.NumFields(); i++) {
@@ -298,7 +329,7 @@ namespace NHapi.Base.Parser
             // set data type of OBX-5
             if (segmentObject.GetType().FullName.IndexOf("OBX") >= 0)
             {
-                Varies.FixOBX5(segmentObject, Factory);
+                Varies.FixOBX5(segmentObject, Factory, parserOptions);
             }
         }
 
@@ -485,7 +516,7 @@ namespace NHapi.Base.Parser
                 var doc = new XmlDocument();
                 doc.Load(new StringReader(message));
 
-                m = ParseDocument(doc, version);
+                m = ParseDocument(doc, version, parserOptions);
             }
             catch (XmlException e)
             {
@@ -811,7 +842,7 @@ namespace NHapi.Base.Parser
 
         private class AnonymousClassXMLParser : XMLParser
         {
-            public override IMessage ParseDocument(XmlDocument xmlMessage, string version)
+            public override IMessage ParseDocument(XmlDocument xmlMessage, string version, ParserOptions parserOptions)
             {
                 return null;
             }

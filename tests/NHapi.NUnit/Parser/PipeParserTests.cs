@@ -5,6 +5,7 @@ namespace NHapi.NUnit.Parser
 
     using global::NUnit.Framework;
 
+    using NHapi.Base;
     using NHapi.Base.Model;
     using NHapi.Base.Parser;
     using NHapi.Base.Util;
@@ -307,6 +308,97 @@ namespace NHapi.NUnit.Parser
                         return;
                 }
             }
+        }
+
+        /// <summary>
+        /// The folllwing 4 tests are ported from hapi
+        /// https://github.com/hapifhir/hapi-hl7v2/blob/master/hapi-examples/src/main/java/ca/uhn/hl7v2/examples/ParseInvalidObx2Values.java.
+        /// </summary>
+        [Test]
+        public void Obx5DataTypeIsSetFromObx2_WhenObx2IsEmpty_Hl7ExceptionIsThrown()
+        {
+            var message =
+                "MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.3|||AL|||ASCII\r"
+              + "PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r"
+              + "ORC|||||F\r"
+              + "OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r"
+              + "OBX|1||||STValue||||||F\r";
+
+            var parser = new PipeParser();
+
+            var exception = Assert.Throws<HL7Exception>(() => parser.Parse(message));
+
+            Assert.AreEqual(
+                "OBX-5 is valued, but OBX-2 is not.  A datatype for OBX-5 must be specified using OBX-2.",
+                exception.Message);
+        }
+
+        [Test]
+        public void Obx5DataTypeIsSetFromObx2_WhenObx2IsEmptyAndDefaultOptionIsSet_DefaultTypeIsUsed()
+        {
+            var message =
+                "MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.3|||AL|||ASCII\r"
+              + "PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r"
+              + "ORC|||||F\r"
+              + "OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r"
+              + "OBX|1||||STValue||||||F\r";
+
+            var expectedEncodedMessage =
+                "MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.3|||AL|||ASCII\r"
+              + "PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r"
+              + "ORC|||||F\r"
+              + "OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r"
+              + "OBX|1|ST|||STValue||||||F\r";
+
+            var parser = new PipeParser();
+            var options = new ParserOptions { DefaultObx2Type = "ST" };
+
+            var parsed = parser.Parse(message, options);
+            var encodedMessage = parser.Encode(parsed);
+
+            Assert.AreEqual(expectedEncodedMessage, encodedMessage);
+        }
+
+        [Test]
+        public void Obx5DataTypeIsSetFromObx2_WhenObx2IsAnInvalidType_Hl7ExceptionIsThrown()
+        {
+            var message =
+                "MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.3|||AL|||ASCII\r"
+              + "PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r"
+              + "ORC|||||F\r"
+              + "OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r"
+              + "OBX|1|BAD|||STValue||||||F\r";
+
+            var parser = new PipeParser();
+
+            var exception = Assert.Throws<HL7Exception>(() => parser.Parse(message));
+
+            Assert.AreEqual(
+                "'BAD' in record 1 is invalid for version 2.3: Segment: OBX Field #2",
+                exception.Message);
+        }
+
+        [Test]
+        public void Obx5DataTypeIsSetFromObx2_WhenObx2IsAnInvalidTypeAndInvalidOptionIsSet_ConfiguredInvalidTypeIsUsed()
+        {
+            var expectedObservationValueType = typeof(Model.V23.Datatype.ST);
+
+            var message =
+                "MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.3|||AL|||ASCII\r"
+              + "PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r"
+              + "ORC|||||F\r"
+              + "OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r"
+              + "OBX|1|BAD|||STValue||||||F\r";
+
+            var parser = new PipeParser();
+            var options = new ParserOptions { InvalidObx2Type = "ST" };
+
+            var parsed = (Model.V23.Message.ORU_R01)parser.Parse(message, options);
+
+            var actualObservationValueType = parsed.GetRESPONSE(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
+
+            Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
+            Assert.AreEqual("STValue", ((IPrimitive)actualObservationValueType).Value);
         }
     }
 }
