@@ -259,6 +259,11 @@ namespace NHapi.Base.Parser
 
         public override void Parse(IMessage message, string @string, ParserOptions parserOptions)
         {
+            if (parserOptions is null)
+            {
+                throw new ArgumentNullException(nameof(parserOptions));
+            }
+
             var messageIter = new Util.MessageIterator(message, "MSH", true);
             FilterIterator.IPredicate segmentsOnly = new AnonymousClassPredicate(this);
             var segmentIter = new FilterIterator(messageIter, segmentsOnly);
@@ -299,7 +304,7 @@ namespace NHapi.Base.Parser
 
                     if (dirIter.MoveNext())
                     {
-                        Parse((ISegment)dirIter.Current, segments[i], encodingChars);
+                        Parse((ISegment)dirIter.Current, segments[i], encodingChars, parserOptions);
                     }
                 }
             }
@@ -384,15 +389,29 @@ namespace NHapi.Base.Parser
             return GetStructure(message).Structure;
         }
 
-        /// <summary> Parses a segment string and populates the given Segment object.  Unexpected fields are
+        /// <summary>
+        /// Parses a segment string and populates the given Segment object.  Unexpected fields are
         /// added as Varies' at the end of the segment.
-        ///
         /// </summary>
         /// <throws>  HL7Exception if the given string does not contain the. </throws>
         /// <summary>      given segment or if the string is not encoded properly.
         /// </summary>
         public virtual void Parse(ISegment destination, string segment, EncodingCharacters encodingChars)
         {
+            Parse(destination, segment, encodingChars, DefaultParserOptions);
+        }
+
+        /// <summary>
+        /// Parses a segment string and populates the given Segment object.  Unexpected fields are
+        /// added as Varies' at the end of the segment.
+        /// </summary>
+        /// <throws>  HL7Exception if the given string does not contain the. </throws>
+        /// <summary>      given segment or if the string is not encoded properly.
+        /// </summary>
+        public virtual void Parse(ISegment destination, string segment, EncodingCharacters encodingChars, ParserOptions parserOptions)
+        {
+            parserOptions = parserOptions ?? DefaultParserOptions;
+
             var fieldOffset = 0;
             if (IsDelimDefSegment(destination.GetStructureName()))
             {
@@ -451,7 +470,7 @@ namespace NHapi.Base.Parser
             // set data type of OBX-5
             if (destination.GetType().FullName.IndexOf("OBX") >= 0)
             {
-                Varies.FixOBX5(destination, Factory);
+                Varies.FixOBX5(destination, Factory, parserOptions);
             }
         }
 

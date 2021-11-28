@@ -318,7 +318,26 @@ namespace NHapi.Base.Parser
         /// </exception>
         public virtual void Parse(ISegment destination, string segment, EncodingCharacters encodingChars)
         {
-            Parse(destination, segment, encodingChars, 0);
+            Parse(destination, segment, encodingChars, DefaultParserOptions);
+        }
+
+        /// <summary>
+        /// Parses a segment string and populates the given Segment object.
+        /// <para>
+        /// Unexpected fields are added as Varies' at the end of the segment.
+        /// </para>
+        /// </summary>
+        /// <param name="destination">Segment to parse the segment string into.</param>
+        /// <param name="segment">Encoded segment.</param>
+        /// <param name="encodingChars">Encoding characters to be used.</param>
+        /// <param name="parserOptions">Contains configuration that will be applied when parsing.</param>
+        /// <exception cref="HL7Exception">
+        /// If the given string does not contain the given segment or if the string is not encoded properly.
+        /// </exception>
+        public virtual void Parse(ISegment destination, string segment, EncodingCharacters encodingChars, ParserOptions parserOptions)
+        {
+            parserOptions = parserOptions ?? DefaultParserOptions;
+            Parse(destination, segment, encodingChars, 0, parserOptions);
         }
 
         /// <summary>
@@ -336,6 +355,27 @@ namespace NHapi.Base.Parser
         /// </exception>
         public virtual void Parse(ISegment destination, string segment, EncodingCharacters encodingChars, int repetition)
         {
+            Parse(destination, segment, encodingChars, repetition, DefaultParserOptions);
+        }
+
+        /// <summary>
+        /// Parses a segment string and populates the given Segment object.
+        /// <para>
+        /// Unexpected fields are added as Varies' at the end of the segment.
+        /// </para>
+        /// </summary>
+        /// <param name="destination">Segment to parse the segment string into.</param>
+        /// <param name="segment">Encoded segment.</param>
+        /// <param name="encodingChars">Encoding characters to be used.</param>
+        /// <param name="repetition">The repetition number of this segment within its group.</param>
+        /// <param name="parserOptions">Contains configuration that will be applied when parsing.</param>
+        /// <exception cref="HL7Exception">
+        /// If the given string does not contain the given segment or if the string is not encoded properly.
+        /// </exception>
+        public virtual void Parse(ISegment destination, string segment, EncodingCharacters encodingChars, int repetition, ParserOptions parserOptions)
+        {
+            parserOptions = parserOptions ?? DefaultParserOptions;
+
             var fieldOffset = 0;
             if (IsDelimDefSegment(destination.GetStructureName()))
             {
@@ -398,7 +438,7 @@ namespace NHapi.Base.Parser
             // set data type of OBX-5
             if (destination.GetType().FullName.IndexOf("OBX") >= 0)
             {
-                Varies.FixOBX5(destination, Factory);
+                Varies.FixOBX5(destination, Factory, parserOptions);
             }
         }
 
@@ -480,7 +520,7 @@ namespace NHapi.Base.Parser
                             throw new HL7Exception($"Current segment does not implement ISegment and therefore cannot be parsed.");
                         }
 
-                        Parse(next, segments[i], GetEncodingChars(@string), repetition);
+                        Parse(next, segments[i], GetEncodingChars(@string), repetition, parserOptions);
                     }
                 }
             }

@@ -64,8 +64,8 @@ namespace NHapi.Base.Model
             Log = HapiLogFactory.GetHapiLog(typeof(Varies));
         }
 
-        /// <summary> Creates new Varies.
-        ///
+        /// <summary>
+        /// Creates new Varies.
         /// </summary>
         /// <param name="message">message to which this type belongs.
         /// </param>
@@ -75,8 +75,8 @@ namespace NHapi.Base.Model
             Message = message;
         }
 
-        /// <summary> Creates new Varies.
-        ///
+        /// <summary>
+        /// Creates new Varies.
         /// </summary>
         /// <param name="message">message to which this type belongs.</param>
         /// <param name="description">description of what this Type represents.</param>
@@ -139,15 +139,26 @@ namespace NHapi.Base.Model
             "StyleCop.CSharp.NamingRules",
             "SA1300:Element should begin with upper-case letter",
             Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
-        public static void fixOBX5(ISegment segment, IModelClassFactory factory)
+        public static void fixOBX5(ISegment segment, IModelClassFactory factory, ParserOptions parserOptions)
         {
-            FixOBX5(segment, factory);
+            FixOBX5(segment, factory, parserOptions);
         }
 
-        /// <summary> Sets the data type of field 5 in the given OBX segment to the value of OBX-2.  The argument
+        /// <summary>
+        /// Sets the data type of field 5 in the given OBX segment to the value of OBX-2.  The argument
         /// is a Segment as opposed to a particular OBX because it is meant to work with any version.
+        /// <para>
+        /// Note that if no value is present in OBX-2, or an invalid value is present in
+        /// OBX-2, this method will throw an error.This behaviour can be corrected by using the
+        /// <see cref="ParserOptions.DefaultObx2Type"/> and <see cref="ParserOptions.InvalidObx2Type"/>.
+        /// </para>
         /// </summary>
-        public static void FixOBX5(ISegment segment, IModelClassFactory factory)
+        /// <param name="segment"><see cref="ISegment"/> instance.</param>
+        /// <param name="factory"><see cref="IModelClassFactory"/> to be used.</param>
+        /// <param name="parserOptions"><see cref="ParserOptions"/> to be used.</param>
+        /// <exception cref="HL7Exception">If no value is present in OBX-2.</exception>
+        /// <exception cref="HL7Exception">If an invalid value is present in OBX-2.</exception>
+        public static void FixOBX5(ISegment segment, IModelClassFactory factory, ParserOptions parserOptions)
         {
             try
             {
@@ -157,6 +168,7 @@ namespace NHapi.Base.Model
                 foreach (var repetition in segment.GetField(5))
                 {
                     var v = (Varies)repetition;
+                    SetObx2Fallback(obx2, segment, parserOptions);
 
                     if (obx2.Value == null)
                     {
@@ -174,7 +186,7 @@ namespace NHapi.Base.Model
                     {
                         UseDTInsteadOfDTMForEarlierVersionsOfHL7(segment, obx2);
 
-                        var type = factory.GetTypeClass(obx2.Value, segment.Message.Version);
+                        var type = GetObx5Type(obx2, segment, factory, parserOptions);
 
                         if (type == null)
                         {
@@ -211,6 +223,33 @@ namespace NHapi.Base.Model
                     $"{e.GetType().FullName} trying to set data type of OBX-5",
                     ErrorCode.APPLICATION_INTERNAL_ERROR,
                     e);
+            }
+        }
+
+        private static Type GetObx5Type(IPrimitive obx2, ISegment segment, IModelClassFactory factory, ParserOptions parserOptions)
+        {
+            var type = factory.GetTypeClass(obx2.Value, segment.Message.Version);
+
+            if (type == null)
+            {
+                if (parserOptions.InvalidObx2Type != null)
+                {
+                    type = factory.GetTypeClass(parserOptions.InvalidObx2Type, segment.Message.Version);
+                }
+            }
+
+            return type;
+        }
+
+        private static void SetObx2Fallback(IPrimitive obx2, ISegment segment, ParserOptions parserOptions)
+        {
+            if (obx2.Value == null)
+            {
+                if (!(parserOptions.DefaultObx2Type is null))
+                {
+                    Log.Debug($"setting default {segment.GetStructureName()}-{2} type to {parserOptions.DefaultObx2Type}");
+                    obx2.Value = parserOptions.DefaultObx2Type;
+                }
             }
         }
 

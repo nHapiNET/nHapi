@@ -44,9 +44,9 @@ namespace NHapi.Base.Parser
     /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
     public abstract class ParserBase
     {
-        private static readonly IHapiLog Log;
-        private static readonly ParserOptions DefaultParserOptions = new ParserOptions();
+        protected static readonly ParserOptions DefaultParserOptions = new ParserOptions();
 
+        private static readonly IHapiLog Log;
         private IValidationContext validationContext;
         private MessageValidator messageValidator;
 
@@ -265,6 +265,11 @@ namespace NHapi.Base.Parser
         /// <exception cref="ArgumentNullException">If <paramref name="parserOptions"/> is null.</exception>
         public virtual IMessage Parse(string message, string version, ParserOptions parserOptions)
         {
+            if (parserOptions is null)
+            {
+                throw new ArgumentNullException(nameof(parserOptions));
+            }
+
             var encoding = GetEncoding(message);
             if (!SupportsEncoding(encoding))
             {
