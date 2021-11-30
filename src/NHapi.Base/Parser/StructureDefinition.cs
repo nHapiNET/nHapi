@@ -7,9 +7,21 @@
     /// <inheritdoc />
     public class StructureDefinition : IStructureDefinition
     {
-        private HashSet<string> allChildrenNames;
+        // TODO: Replace locks with Lazy{T} when support for net35 is dropped.
+        // https://github.com/nHapiNET/nHapi/issues/253
+        private readonly object allChildrenNamesLock = new object();
 
-        private HashSet<string> allFirstLeafNames;
+        // TODO: Replace locks with Lazy{T} when support for net35 is dropped.
+        // https://github.com/nHapiNET/nHapi/issues/253
+        private readonly object allPossibleFollowingLeavesLock = new object();
+
+        // TODO: Replace locks with Lazy{T} when support for net35 is dropped.
+        // https://github.com/nHapiNET/nHapi/issues/253
+        private readonly object allPossibleFirstChildrenLock = new object();
+
+        private volatile HashSet<string> allChildrenNames;
+
+        private volatile HashSet<string> allFirstLeafNames;
 
         private IStructureDefinition firstSibling;
 
@@ -17,7 +29,7 @@
 
         private bool? isFinalChildOfParent;
 
-        private HashSet<string> namesOfAllPossibleFollowingLeaves;
+        private volatile HashSet<string> namesOfAllPossibleFollowingLeaves;
 
         private IStructureDefinition nextSibling;
 
@@ -110,24 +122,35 @@
                 return namesOfAllPossibleFollowingLeaves;
             }
 
-            namesOfAllPossibleFollowingLeaves = new HashSet<string>();
-
-            var nextLeaf = NextLeaf;
-            if (nextLeaf != null)
+            // Double-Checked Locking
+            lock (allPossibleFollowingLeavesLock)
             {
-                namesOfAllPossibleFollowingLeaves.Add(nextLeaf.Name);
-                namesOfAllPossibleFollowingLeaves.UnionWith(nextLeaf.GetNamesOfAllPossibleFollowingLeaves());
-            }
-
-            var parent = Parent;
-            while (parent != null)
-            {
-                if (parent.IsRepeating)
+                if (namesOfAllPossibleFollowingLeaves != null)
                 {
-                    namesOfAllPossibleFollowingLeaves.UnionWith(parent.GetAllPossibleFirstChildren());
+                    return namesOfAllPossibleFollowingLeaves;
                 }
 
-                parent = parent.Parent;
+                var newNamesOfAllPossibleFollowingLeaves = new HashSet<string>();
+
+                var nextLeaf = NextLeaf;
+                if (nextLeaf != null)
+                {
+                    newNamesOfAllPossibleFollowingLeaves.Add(nextLeaf.Name);
+                    newNamesOfAllPossibleFollowingLeaves.UnionWith(nextLeaf.GetNamesOfAllPossibleFollowingLeaves());
+                }
+
+                var parent = Parent;
+                while (parent != null)
+                {
+                    if (parent.IsRepeating)
+                    {
+                        newNamesOfAllPossibleFollowingLeaves.UnionWith(parent.GetAllPossibleFirstChildren());
+                    }
+
+                    parent = parent.Parent;
+                }
+
+                namesOfAllPossibleFollowingLeaves = newNamesOfAllPossibleFollowingLeaves;
             }
 
             return namesOfAllPossibleFollowingLeaves;
@@ -140,26 +163,37 @@
                 return allFirstLeafNames;
             }
 
-            allFirstLeafNames = new HashSet<string>();
-
-            var hasChoice = false;
-            foreach (var next in Children)
+            // Double-Checked Locking
+            lock (allPossibleFirstChildrenLock)
             {
-                allFirstLeafNames.UnionWith(next.GetAllPossibleFirstChildren());
-
-                if (next.IsChoiceElement)
+                if (allFirstLeafNames != null)
                 {
-                    hasChoice = true;
-                    continue;
+                    return allFirstLeafNames;
                 }
 
-                if (hasChoice || next.IsRequired)
+                var newAllFirstLeafNames = new HashSet<string>();
+
+                var hasChoice = false;
+                foreach (var next in Children)
                 {
-                    break;
+                    newAllFirstLeafNames.UnionWith(next.GetAllPossibleFirstChildren());
+
+                    if (next.IsChoiceElement)
+                    {
+                        hasChoice = true;
+                        continue;
+                    }
+
+                    if (hasChoice || next.IsRequired)
+                    {
+                        break;
+                    }
                 }
+
+                newAllFirstLeafNames.Add(Name);
+
+                allFirstLeafNames = newAllFirstLeafNames;
             }
-
-            allFirstLeafNames.Add(Name);
 
             return allFirstLeafNames;
         }
@@ -171,11 +205,22 @@
                 return allChildrenNames;
             }
 
-            allChildrenNames = new HashSet<string>();
-            foreach (var next in Children)
+            // Double-Checked Locking
+            lock (allChildrenNamesLock)
             {
-                allChildrenNames.Add(next.Name);
-                allChildrenNames.UnionWith(next.GetAllChildNames());
+                if (allChildrenNames != null)
+                {
+                    return allChildrenNames;
+                }
+
+                var newAllChildrenNames = new HashSet<string>();
+                foreach (var next in Children)
+                {
+                    newAllChildrenNames.Add(next.Name);
+                    newAllChildrenNames.UnionWith(next.GetAllChildNames());
+                }
+
+                allChildrenNames = newAllChildrenNames;
             }
 
             return allChildrenNames;

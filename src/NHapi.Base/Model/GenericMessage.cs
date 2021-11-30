@@ -1,11 +1,16 @@
 namespace NHapi.Base.Model
 {
     using System;
-    using System.Collections.Generic;
+#if !NET35
+    using System.Collections.Concurrent;
+#endif
 
     using NHapi.Base;
     using NHapi.Base.Log;
     using NHapi.Base.Parser;
+#if NET35
+    using NHapi.Base.Util;
+#endif
 
     /// <summary>
     /// A generic HL7 message, meant for parsing message with unrecognized structures
@@ -15,7 +20,11 @@ namespace NHapi.Base.Model
     public abstract class GenericMessage : AbstractMessage
     {
         // TODO: when we only target netstandard2.0 and above consider converting to ConcurrentDictionary
-        private static readonly Dictionary<string, Type> GenericMessages = new Dictionary<string, Type>();
+#if NET35
+        private static readonly SynchronizedCache<string, Type> GenericMessages = new SynchronizedCache<string, Type>();
+#else
+        private static readonly ConcurrentDictionary<string, Type> GenericMessages = new ConcurrentDictionary<string, Type>();
+#endif
 
         /// <summary>
         /// Creates a new instance of GenericMessage.
@@ -40,6 +49,10 @@ namespace NHapi.Base.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage(
             "StyleCop.CSharp.NamingRules",
             "SA1300:Element should begin with upper-case letter",
+            Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Style",
+            "IDE1006:Naming Styles",
             Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
         public static Type getGenericMessageClass(string version)
         {
@@ -72,7 +85,7 @@ namespace NHapi.Base.Model
 
                 if (c != null)
                 {
-                    GenericMessages[version] = c;
+                    GenericMessages.TryAdd(version, c);
                 }
             }
 

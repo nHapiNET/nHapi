@@ -28,7 +28,9 @@ namespace NHapi.Base.Parser
 {
     using System;
     using System.Collections;
-    using System.Collections.Generic;
+#if !NET35
+    using System.Collections.Concurrent;
+#endif
     using System.Linq;
     using System.Text;
 
@@ -48,8 +50,15 @@ namespace NHapi.Base.Parser
 
         private static readonly IHapiLog Log;
 
-        private readonly Dictionary<Type, Dictionary<string, StructureDefinition>> structureDefinitions =
-            new Dictionary<Type, Dictionary<string, StructureDefinition>>();
+        private readonly object structureDefinitionLock = new object();
+
+#if NET35
+        private readonly SynchronizedCache<Type, SynchronizedCache<string, StructureDefinition>> structureDefinitions =
+            new SynchronizedCache<Type, SynchronizedCache<string, StructureDefinition>>();
+#else
+        private readonly ConcurrentDictionary<Type, ConcurrentDictionary<string, StructureDefinition>> structureDefinitions =
+            new ConcurrentDictionary<Type, ConcurrentDictionary<string, StructureDefinition>>();
+#endif
 
         static PipeParser()
         {
@@ -950,24 +959,42 @@ namespace NHapi.Base.Parser
                 }
             }
 
-            Log.Info($"Instantiating msg of class {messageType.FullName}");
-            var constructor = messageType.GetConstructor(new[] { typeof(IModelClassFactory) });
-            var message = (IMessage)constructor.Invoke(new object[] { Factory });
-
-            StructureDefinition previousLeaf = null;
-            retVal = CreateStructureDefinition(message, ref previousLeaf);
-
-            if (structureDefinitions.ContainsKey(messageType))
+            // Double-Checked Locking
+            lock (structureDefinitionLock)
             {
-                return retVal;
+                if (structureDefinitions.TryGetValue(messageType, out var definitions2))
+                {
+                    if (definitions2.TryGetValue(theMessage.GetStructureName(), out retVal))
+                    {
+                        return retVal;
+                    }
+                }
+
+                Log.Info($"Instantiating msg of class {messageType.FullName}");
+                var constructor = messageType.GetConstructor(new[] { typeof(IModelClassFactory) });
+                var message = (IMessage)constructor.Invoke(new object[] { Factory });
+
+                StructureDefinition previousLeaf = null;
+                retVal = CreateStructureDefinition(message, ref previousLeaf);
+
+                if (structureDefinitions.ContainsKey(messageType))
+                {
+                    return retVal;
+                }
+#if NET35
+                var dictionary = new SynchronizedCache<string, StructureDefinition>
+                {
+                    { theMessage.GetStructureName(), retVal },
+                };
+#else
+                var dictionary = new ConcurrentDictionary<string, StructureDefinition>
+                {
+                    [theMessage.GetStructureName()] = retVal,
+                };
+#endif
+
+                structureDefinitions.TryAdd(messageType, dictionary);
             }
-
-            var dictionary = new Dictionary<string, StructureDefinition>
-            {
-                { theMessage.GetStructureName(), retVal },
-            };
-
-            structureDefinitions[messageType] = dictionary;
 
             return retVal;
         }
