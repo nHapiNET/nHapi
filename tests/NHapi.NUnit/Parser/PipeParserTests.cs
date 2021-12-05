@@ -400,5 +400,35 @@ namespace NHapi.NUnit.Parser
             Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
             Assert.AreEqual("STValue", ((IPrimitive)actualObservationValueType).Value);
         }
+
+        /// <summary>
+        /// Test that the critical response fields can be parsed from a valid message.
+        /// </summary>
+        [Test]
+        public void GetCriticalResponseDataFromValidMessage()
+        {
+            var parser = new PipeParser();
+
+            var parsed = parser.GetCriticalResponseData(GetMessage()) as NHapi.Model.V231.Segment.MSH;
+            Assert.NotNull(parsed);
+            Assert.AreEqual("|", parsed.FieldSeparator.Value);
+            Assert.AreEqual(@"^~\&", parsed.EncodingCharacters.Value);
+            Assert.AreEqual("P", parsed.ProcessingID.ProcessingID.Value);
+            Assert.AreEqual("EBzH1711114101206", parsed.MessageControlID.Value);
+        }
+
+        /// <summary>
+        /// Test that a <see cref="HL7Exception"/> is thrown when one of the critical components is missing
+        /// from the message.
+        /// </summary>
+        [Test]
+        public void GetCriticalResponseData_FailToParseInvalidMessage()
+        {
+            var invalidMessage = GetMessage().Replace("P", string.Empty);
+            var parser = new PipeParser();
+
+            var exception = Assert.Throws<HL7Exception>(() => parser.GetCriticalResponseData(invalidMessage));
+            Assert.True(exception.Message.Contains("Can't parse critical fields from MSH segment"));
+        }
     }
 }
