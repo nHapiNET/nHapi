@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 ###
 ## [3.X.X.X] - TBC
 
+## [3.1.0] - TBC
+
+### Enhancements
+- [#251](https://github.com/nHapiNET/nHapi/pull/251) Fix concurrency issues with `PipeParser`, `StructureDefinition`, `GenericMessage` and `Escape`.
+- [#250](https://github.com/nHapiNET/nHapi/pull/250) Add new options `DefaultObx2Type` and `InvalidObx2Type` to `ParserOptions`, ported from nhapi. (fixes [#63](https://github.com/nHapiNET/nHapi/issues/63))
+- [#240](https://github.com/nHapiNET/nHapi/pull/240) Add support for `NonGreedyMode` by introducing `ParserOptions` ported from hapi. (fixes [#65](https://github.com/nHapiNET/nHapi/issues/65) [#232](https://github.com/nHapiNET/nHapi/issues/232))
+
 ## Previous Releases
 ###
 

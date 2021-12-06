@@ -2,7 +2,12 @@
 
   <PropertyGroup>
     <TargetFrameworks>net461;net5.0</TargetFrameworks>
+    <AssemblyOriginatorKeyFile>..\..\NHapi.snk</AssemblyOriginatorKeyFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
 
   <ItemGroup>
