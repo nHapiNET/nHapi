@@ -55,28 +55,33 @@ namespace NHapi.Base.Parser
             this.parserOptions = parserOptions;
         }
 
-        /// <summary> <p>Returns the next node in the message.  Sometimes the next node is
+        /// <summary>
+        /// <para>
+        /// Returns the next node in the message.  Sometimes the next node is
         /// ambiguous.  For example at the end of a repeating group, the next node
         /// may be the first segment in the next repetition of the group, or the
         /// next sibling, or an undeclared segment locally added to the group's end.
-        /// Cases like this are disambiguated using getDirection(), which returns
+        /// Cases like this are disambiguated using <see cref="Direction"/>, which returns
         /// the name of the structure that we are "iterating towards".
         /// Usually we are "iterating towards" a segment of a certain name because we
         /// have a segment string that we would like to parse into that node.
-        /// Here are the rules: </p>
-        /// <ol><li>If at a group, next means first child.</li>
-        /// <li>If at a non-repeating segment, next means next "position"</li>
-        /// <li>If at a repeating segment: if segment name matches
-        /// direction then next means next rep, otherwise next means next "position".</li>
-        /// <li>If at a segment within a group (not at the end of the group), next "position"
-        /// means next sibling</li>
-        /// <li>If at the end of a group: If name of group or any of its "first
+        /// Here are the rules:
+        /// </para>
+        /// <list type="bullet">
+        /// <item><description>If at a group, next means first child.</description></item>
+        /// <item><description>If at a non-repeating segment, next means next "position"</description></item>
+        /// <item><description>If at a repeating segment: if segment name matches
+        /// direction then next means next rep, otherwise next means next "position".</description></item>
+        /// <item><description>If at a segment within a group (not at the end of the group), next "position"
+        /// means next sibling</description></item>
+        /// <item><description>If at the end of a group: If name of group or any of its "first
         /// descendants" matches direction, then next position means next rep of group.  Otherwise
         /// if direction matches name of next sibling of the group, or any of its first
         /// descendants, next position means next sibling of the group.  Otherwise, next means a
-        /// new segment added to the group (with a name that matches "direction").  </li>
-        /// <li>"First descendants" means first child, or first child of the first child,
-        /// or first child of the first child of the first child, etc. </li> </ol>
+        /// new segment added to the group (with a name that matches "direction").</description></item>
+        /// <item><description>"First descendants" means first child, or first child of the first child,
+        /// or first child of the first child of the first child, etc.</description></item>
+        /// </list>
         /// </summary>
         public virtual object Current
         {
@@ -233,26 +238,25 @@ namespace NHapi.Base.Parser
             Log.Debug(
                 $"Creating non standard segment {direction} on group: {GetCurrentPosition().StructureDefinition.Parent.Name}");
 
-            // TODO: make configurable like hapi?
-            // switch (message.getParser().getParserConfiguration().getUnexpectedSegmentBehaviour())
-            // {
-            //     case ADD_INLINE:
-            //     default:
-            //         parentDefinitionPath = new ArrayList<>(myCurrentDefinitionPath.subList(0, myCurrentDefinitionPath.size() - 1));
-            //         parentStructure = (IGroup)navigateToStructure(parentDefinitionPath);
-            //         break;
-            //     case DROP_TO_ROOT:
-            //         parentDefinitionPath = new ArrayList<>(myCurrentDefinitionPath.subList(0, 1));
-            //         parentStructure = myMessage;
-            //         myCurrentDefinitionPath = myCurrentDefinitionPath.subList(0, 2);
-            //         break;
-            //     case THROW_HL7_EXCEPTION:
-            //         throw new Error(new HL7Exception("Found unknown segment: " + myDirection));
-            // }
+            List<Position> parentDefinitionPath;
+            IGroup parentStructure;
 
-            // default hapi behaviour
-            var parentDefinitionPath = new List<Position>(currentDefinitionPath.GetRange(0, currentDefinitionPath.Count - 1));
-            var parentStructure = (IGroup)NavigateToStructure(parentDefinitionPath);
+            switch (parserOptions.UnexpectedSegmentBehaviour)
+            {
+                case UnexpectedSegmentBehaviour.AddInline:
+                    parentDefinitionPath = new List<Position>(currentDefinitionPath.GetRange(0, currentDefinitionPath.Count - 1));
+                    parentStructure = (IGroup)NavigateToStructure(parentDefinitionPath);
+                    break;
+                case UnexpectedSegmentBehaviour.DropToRoot:
+                    parentDefinitionPath = new List<Position>(currentDefinitionPath.GetRange(0, 1));
+                    parentStructure = this.message;
+                    currentDefinitionPath = currentDefinitionPath.GetRange(0, 2);
+                    break;
+                case UnexpectedSegmentBehaviour.ThrowHl7Exception:
+                    throw new HL7Exception($"Found unknown segment: {direction}");
+                default:
+                    throw new HL7Exception($"UnexpectedSegmentBehaviour.{parserOptions.UnexpectedSegmentBehaviour} is not currently handled.");
+            }
 
             // Current position within parent
             var currentPosition = GetCurrentPosition();

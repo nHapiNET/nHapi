@@ -155,9 +155,9 @@ namespace NHapi.SourceGeneration.Generators
         /// <summary>
         /// Returns an alternate segment name to replace the given segment name.
         /// Substitutions made include...
-        /// <ul>
-        /// <li>Replacing Z.. with Z</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><description>Replacing Z.. with Z</description></item>
+        /// </list>
         /// </summary>
         public static string AltSegName(string segmentName)
         {
