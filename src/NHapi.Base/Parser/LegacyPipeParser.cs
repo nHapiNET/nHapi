@@ -477,10 +477,12 @@ namespace NHapi.Base.Parser
         /// <summary> <p>Returns a minimal amount of data from a message string, including only the
         /// data needed to send a response to the remote system.  This includes the
         /// following fields:
-        /// <ul><li>field separator</li>
-        /// <li>encoding characters</li>
-        /// <li>processing ID</li>
-        /// <li>message control ID</li></ul>
+        /// <list type="bullet">
+        /// <item><description>field separator</description></item>
+        /// <item><description>encoding characters</description></item>
+        /// <item><description>processing ID</description></item>
+        /// <item><description>message control ID</description></item>
+        /// </list>
         /// This method is intended for use when there is an error parsing a message,
         /// (so the Message object is unavailable) but an error message must be sent
         /// back to the remote system including some of the information in the inbound

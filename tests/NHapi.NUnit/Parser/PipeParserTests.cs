@@ -40,8 +40,7 @@ namespace NHapi.NUnit.Parser
         public void TestSpecialCharacterEncoding()
         {
             var parser = new PipeParser();
-            var oru = new ORU_R01();
-            oru = (ORU_R01)parser.Parse(GetMessage());
+            var oru = (ORU_R01)parser.Parse(GetMessage());
 
             var data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
             Assert.AreEqual(@"This\.br\is\.br\A Test", data.Value);
@@ -311,7 +310,7 @@ namespace NHapi.NUnit.Parser
         }
 
         /// <summary>
-        /// The folllwing 4 tests are ported from hapi
+        /// The following 4 tests are ported from hapi
         /// https://github.com/hapifhir/hapi-hl7v2/blob/master/hapi-examples/src/main/java/ca/uhn/hl7v2/examples/ParseInvalidObx2Values.java.
         /// </summary>
         [Test]
@@ -330,7 +329,7 @@ namespace NHapi.NUnit.Parser
 
             Assert.AreEqual(
                 "OBX-5 is valued, but OBX-2 is not.  A datatype for OBX-5 must be specified using OBX-2.",
-                exception.Message);
+                exception?.Message);
         }
 
         [Test]
@@ -375,7 +374,7 @@ namespace NHapi.NUnit.Parser
 
             Assert.AreEqual(
                 "'BAD' in record 1 is invalid for version 2.3: Segment: OBX Field #2",
-                exception.Message);
+                exception?.Message);
         }
 
         [Test]
@@ -409,7 +408,7 @@ namespace NHapi.NUnit.Parser
         {
             var parser = new PipeParser();
 
-            var parsed = parser.GetCriticalResponseData(GetMessage()) as NHapi.Model.V231.Segment.MSH;
+            var parsed = parser.GetCriticalResponseData(GetMessage()) as Model.V231.Segment.MSH;
             Assert.NotNull(parsed);
             Assert.AreEqual("|", parsed.FieldSeparator.Value);
             Assert.AreEqual(@"^~\&", parsed.EncodingCharacters.Value);
@@ -428,7 +427,118 @@ namespace NHapi.NUnit.Parser
             var parser = new PipeParser();
 
             var exception = Assert.Throws<HL7Exception>(() => parser.GetCriticalResponseData(invalidMessage));
-            Assert.True(exception.Message.Contains("Can't parse critical fields from MSH segment"));
+            Assert.True(exception?.Message.Contains("Can't parse critical fields from MSH segment"));
+        }
+
+        [Test]
+        public void TestUnexpectedSegmentHintsDefault()
+        {
+            var message =
+                "MSH|^~\\&|DATASERVICES|CORPORATE|||20120711120510.2-0500||ADT^A01^ADT_A01|9c906177-dfca-4bbe-9abd-d8eb43df93a0|D|2.6\r"
+              + "EVN||20120701000000-0500\r"
+              + "PID|1||397979797^^^SN^SN~4242^^^BKDMDM^PI~1000^^^YARDI^PI||Williams^Rory^H^^^^A||19641028000000-0600|M||||||||||31592^^^YARDI^AN\r"
+              + "NK1|1|Pond^Amelia^Q^^^^A|SPO|1234 Main St^^Sussex^WI^53089|^PRS^CP^^^^^^^^^555-1212||N\r"
+              + "NK1|2|Smith^John^^^^^A~^The Doctor^^^^^A|FND|1234 S Water St^^New London^WI^54961||^WPN^PH^^^^^^^^^555-9999|C\r"
+              + "PV1|2|I||R\r"
+              + "GT1|1||Doe^John^A^^^^A||5678 Maple Ave^^Sussex^WI^53089|^PRS^PH^^^^^^^^^555-9999|||||OTH\r"
+              + "IN1|1|CAP1000|YYDN|ACME HealthCare||||GR0000001|||||||HMO|||||||||||||||||||||PCY-0000042\r"
+              + "IN1|2||||||||||||||Medicare|||||||||||||||||||||123-45-6789-A\r"
+              + "IN1|3||||||||||||||Medicaid|||||||||||||||||||||987654321L\r"
+              + "ZFA|6|31592|12345|YARDI|20120201000000-0600";
+
+            var parser = new PipeParser();
+
+            var msg = (NHapi.Model.V26.Message.ADT_A01)parser.Parse(message);
+
+            var zfas = msg.GetINSURANCE(2).GetAll("ZFA");
+
+            Assert.AreEqual(1, zfas.Length);
+        }
+
+        /// <summary>
+        /// the following 3 tests were ported from
+        /// <see href="https://github.com/hapifhir/hapi-hl7v2/blob/3333e3aeae60afb7493f6570456e6280c0e16c0b/hapi-test/src/test/java/ca/uhn/hl7v2/parser/NewPipeParserTest.java#L313">hapi</see>.
+        /// <para>
+        /// The original feature request for hapi is <seealso href="http://sourceforge.net/p/hl7api/feature-requests/64/">here</seealso>.
+        /// </para>
+        /// </summary>
+        [Test]
+        public void TestUnexpectedSegmentHintsInline()
+        {
+            var message =
+                "MSH|^~\\&|DATASERVICES|CORPORATE|||20120711120510.2-0500||ADT^A01^ADT_A01|9c906177-dfca-4bbe-9abd-d8eb43df93a0|D|2.6\r"
+                + "EVN||20120701000000-0500\r"
+                + "PID|1||397979797^^^SN^SN~4242^^^BKDMDM^PI~1000^^^YARDI^PI||Williams^Rory^H^^^^A||19641028000000-0600|M||||||||||31592^^^YARDI^AN\r"
+                + "NK1|1|Pond^Amelia^Q^^^^A|SPO|1234 Main St^^Sussex^WI^53089|^PRS^CP^^^^^^^^^555-1212||N\r"
+                + "NK1|2|Smith^John^^^^^A~^The Doctor^^^^^A|FND|1234 S Water St^^New London^WI^54961||^WPN^PH^^^^^^^^^555-9999|C\r"
+                + "PV1|2|I||R\r"
+                + "GT1|1||Doe^John^A^^^^A||5678 Maple Ave^^Sussex^WI^53089|^PRS^PH^^^^^^^^^555-9999|||||OTH\r"
+                + "IN1|1|CAP1000|YYDN|ACME HealthCare||||GR0000001|||||||HMO|||||||||||||||||||||PCY-0000042\r"
+                + "IN1|2||||||||||||||Medicare|||||||||||||||||||||123-45-6789-A\r"
+                + "IN1|3||||||||||||||Medicaid|||||||||||||||||||||987654321L\r"
+                + "ZFA|6|31592|12345|YARDI|20120201000000-0600";
+
+            var parser = new PipeParser();
+            var options = new ParserOptions { UnexpectedSegmentBehaviour = UnexpectedSegmentBehaviour.AddInline };
+
+            var msg = (NHapi.Model.V26.Message.ADT_A01)parser.Parse(message, options);
+
+            var zfas = msg.GetINSURANCE(2).GetAll("ZFA");
+
+            Assert.AreEqual(1, zfas.Length);
+        }
+
+        [Test]
+        public void TestUnexpectedSegmentHintsDropToRoot()
+        {
+            var message =
+                "MSH|^~\\&|DATASERVICES|CORPORATE|||20120711120510.2-0500||ADT^A01^ADT_A01|9c906177-dfca-4bbe-9abd-d8eb43df93a0|D|2.6\r"
+                + "ZZA|1\r"
+                + "EVN||20120701000000-0500\r"
+                + "PID|1||397979797^^^SN^SN~4242^^^BKDMDM^PI~1000^^^YARDI^PI||Williams^Rory^H^^^^A||19641028000000-0600|M||||||||||31592^^^YARDI^AN\r"
+                + "NK1|1|Pond^Amelia^Q^^^^A|SPO|1234 Main St^^Sussex^WI^53089|^PRS^CP^^^^^^^^^555-1212||N\r"
+                + "NK1|2|Smith^John^^^^^A~^The Doctor^^^^^A|FND|1234 S Water St^^New London^WI^54961||^WPN^PH^^^^^^^^^555-9999|C\r"
+                + "PV1|2|I||R\r"
+                + "GT1|1||Doe^John^A^^^^A||5678 Maple Ave^^Sussex^WI^53089|^PRS^PH^^^^^^^^^555-9999|||||OTH\r"
+                + "IN1|1|CAP1000|YYDN|ACME HealthCare||||GR0000001|||||||HMO|||||||||||||||||||||PCY-0000042\r"
+                + "IN1|2||||||||||||||Medicare|||||||||||||||||||||123-45-6789-A\r"
+                + "IN1|3||||||||||||||Medicaid|||||||||||||||||||||987654321L\r"
+                + "ZFA|6|31592|12345|YARDI|20120201000000-0600";
+
+            var parser = new PipeParser();
+            var options = new ParserOptions { UnexpectedSegmentBehaviour = UnexpectedSegmentBehaviour.DropToRoot };
+
+            var msg = (NHapi.Model.V26.Message.ADT_A01)parser.Parse(message, options);
+
+            var zzas = msg.GetAll("ZZA");
+            var zfas = msg.GetAll("ZFA");
+
+            Assert.AreEqual(1, zfas.Length);
+            Assert.AreEqual(1, zzas.Length);
+        }
+
+        [Test]
+        public void TestUnexpectedSegmentHintsThrowHl7Exception()
+        {
+            var message =
+                "MSH|^~\\&|DATASERVICES|CORPORATE|||20120711120510.2-0500||ADT^A01^ADT_A01|9c906177-dfca-4bbe-9abd-d8eb43df93a0|D|2.6\r"
+                + "EVN||20120701000000-0500\r"
+                + "PID|1||397979797^^^SN^SN~4242^^^BKDMDM^PI~1000^^^YARDI^PI||Williams^Rory^H^^^^A||19641028000000-0600|M||||||||||31592^^^YARDI^AN\r"
+                + "NK1|1|Pond^Amelia^Q^^^^A|SPO|1234 Main St^^Sussex^WI^53089|^PRS^CP^^^^^^^^^555-1212||N\r"
+                + "NK1|2|Smith^John^^^^^A~^The Doctor^^^^^A|FND|1234 S Water St^^New London^WI^54961||^WPN^PH^^^^^^^^^555-9999|C\r"
+                + "PV1|2|I||R\r"
+                + "GT1|1||Doe^John^A^^^^A||5678 Maple Ave^^Sussex^WI^53089|^PRS^PH^^^^^^^^^555-9999|||||OTH\r"
+                + "IN1|1|CAP1000|YYDN|ACME HealthCare||||GR0000001|||||||HMO|||||||||||||||||||||PCY-0000042\r"
+                + "IN1|2||||||||||||||Medicare|||||||||||||||||||||123-45-6789-A\r"
+                + "IN1|3||||||||||||||Medicaid|||||||||||||||||||||987654321L\r"
+                + "ZFA|6|31592|12345|YARDI|20120201000000-0600";
+
+            var parser = new PipeParser();
+            var options = new ParserOptions { UnexpectedSegmentBehaviour = UnexpectedSegmentBehaviour.ThrowHl7Exception };
+
+            var exception = Assert.Throws<HL7Exception>(() => parser.Parse(message, options));
+
+            Assert.AreEqual("Found unknown segment: ZFA", exception?.Message);
         }
     }
 }

@@ -6,6 +6,7 @@
         {
             DefaultObx2Type = null;
             InvalidObx2Type = null;
+            UnexpectedSegmentBehaviour = UnexpectedSegmentBehaviour.AddInline;
             NonGreedyMode = false;
         }
 
@@ -48,6 +49,12 @@
         /// </para>
         /// </example>
         public string InvalidObx2Type { get; set; }
+
+        /// <summary>
+        /// Gets or Sets the behaviour to use when parsing a message and a nonstandard segment is found.
+        /// </summary>
+        /// <remarks>The default value is <see cref="Parser.UnexpectedSegmentBehaviour.AddInline"/>.</remarks>
+        public UnexpectedSegmentBehaviour UnexpectedSegmentBehaviour { get; set; }
 
         /// <summary>
         /// If set to <c>true</c> (default is <c>false</c>), pipe parser will be put in non-greedy mode. This setting

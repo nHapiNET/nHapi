@@ -380,10 +380,10 @@ namespace NHapi.Base.Parser
         /// data needed to send a response to the remote system.
         /// <para>This includes the following fields:</para>
         /// <list type="bullet">
-        ///   <listHeader>field separator</listHeader>
-        ///   <item>encoding characters</item>
-        ///   <item>processing ID</item>
-        ///   <item>message control ID</item>
+        /// <item><description>field separator</description></item>
+        /// <item><description>encoding characters</description></item>
+        /// <item><description>processing ID</description></item>
+        /// <item><description>message control ID</description></item>
         /// </list>
         /// This method is intended for use when there is an error parsing a message,
         /// (so the Message object is unavailable) but an error message must be sent
