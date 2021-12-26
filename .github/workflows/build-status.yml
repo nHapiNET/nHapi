@@ -15,7 +15,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.301
+        dotnet-version: 6.0.101
 
     - name: Restore nHapi
       run: |
@@ -28,11 +28,11 @@ jobs:
     - name: Run tests for all target frameworks
       run: |
          dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj -r TestResults -c Release -f net461 --no-restore --no-build
-         dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj -r TestResults -c Release -f net5.0--no-restore --no-build
+         dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj -r TestResults -c Release -f net6.0--no-restore --no-build
          dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj -r TestResults -c Release -f net461 --no-restore --no-build
-         dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj -r TestResults -c Release -f net5.0 --no-restore --no-build
+         dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj -r TestResults -c Release -f net6.0 --no-restore --no-build
          dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj -r TestResults -c Release -f net461 --no-restore --no-build
-         dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj -r TestResults -c Release -f net5.0  --no-restore --no-build
+         dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj -r TestResults -c Release -f net6.0  --no-restore --no-build
 
   build-and-test-linux:
     name: Build And Test Linux
@@ -44,7 +44,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.301
+        dotnet-version: 6.0.101
 
     - name: Restore nHapi
       run: |
@@ -56,9 +56,9 @@ jobs:
 
     - name: Run tests for all target frameworks
       run: |
-         dotnet test tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net5.0 --no-restore --no-build
-         dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net5.0 --no-restore --no-build
-         dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net5.0 --no-restore --no-build
+         dotnet test tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net6.0 --no-restore --no-build
+         dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net6.0 --no-restore --no-build
+         dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net6.0 --no-restore --no-build
 
     - name: Upload Code Coverage Report
       if: always()
