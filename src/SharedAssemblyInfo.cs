@@ -23,5 +23,6 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("3.0.3.0")]
-[assembly: AssemblyFileVersion("3.0.3.0")]
+// now provided by the csproj version prop so each assembly can be independent
+// [assembly: AssemblyVersion("3.0.3.0")]
+// [assembly: AssemblyFileVersion("3.0.3.0")]

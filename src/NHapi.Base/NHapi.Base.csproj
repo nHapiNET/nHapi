@@ -4,39 +4,21 @@
     <TargetFrameworks>net35;netstandard2.0</TargetFrameworks>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <PackageId>nhapi.base</PackageId>
-    <PackageVersion>3.0.4</PackageVersion>
-    <Authors>Chad Chenoweth;Duane Edwards;Jake Aitchison</Authors>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/nHapiNET/nHapi</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/nHapiNET/nHapi.git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <Description>The core components for parsing/encoding HL7 messages. Contains the base classes and interfaces for datatypes, segments, and messages.</Description>
-    <PackageTags>HL7;parsing;healthcare;HAPI;xml</PackageTags>
-    <PackageReleaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v3.0.4</PackageReleaseNotes>
-    <PackageReadmeFile>docs\README.md</PackageReadmeFile>
-    <AssemblyOriginatorKeyFile>..\..\NHapi.snk</AssemblyOriginatorKeyFile>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Version>3.0.4</Version>
+    <PackageDescription>The core components for parsing/encoding HL7 messages. Contains the base classes and interfaces for datatypes, segments, and messages.</PackageDescription>
+    <Description>NHapi Common Library</Description>
     <NoWarn>1591</NoWarn>
+    <IncludeCommonPackageInfo>true</IncludeCommonPackageInfo>
+    <IncludeCommonAssemblyAttributes>true</IncludeCommonAssemblyAttributes>
   </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
+  
+  <ItemGroup>
+    <InternalsVisibleTo Include="$(AssemblyName).NUnit" />
+    <InternalsVisibleTo Include="NHapi.SourceGeneration" />
+  </ItemGroup>
 
   <ItemGroup>
     <AdditionalFiles Include="$(SolutionDir)stylecop.json" Link="Properties\stylecop.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\NHapi.snk" Link="NHapi.snk" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\README.md" Pack="true" PackagePath="\docs\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs" Link="Properties\SharedAssemblyInfo.cs" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">

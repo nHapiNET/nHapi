@@ -1,0 +1,33 @@
+<Project>
+  <!-- Common Package Attributes (nuspec) -->
+  <PropertyGroup Condition=" '$(IsPackable)' == 'true' And '$(IncludeCommonPackageInfo)' == 'true' ">
+    <Authors>Chad Chenoweth;Duane Edwards;Jake Aitchison</Authors>
+    <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/nHapiNET/nHapi</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/nHapiNET/nHapi.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>HL7;parsing;healthcare;HAPI;xml</PackageTags>
+    <PackageReleaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v$(Version)</PackageReleaseNotes>
+    <PackageReadmeFile>docs\README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <!-- Common Packed Files -->
+  <ItemGroup Condition=" '$(IsPackable)' == 'true' And '$(IncludeCommonPackageInfo)' == 'true' ">
+    <None Include="..\..\README.md" Pack="true" PackagePath="\docs\" />
+  </ItemGroup>
+
+  <!-- Common Assembly Attributes -->
+  <PropertyGroup Condition=" '$(GenerateAssemblyInfo)' == 'true' And '$(IncludeCommonAssemblyAttributes)' == 'true' ">
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(IsPackable)' == 'true' And '$(IncludeCommonPackageInfo)' == 'true' And '$(Configuration)' == 'Release' ">
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+  </PropertyGroup>
+
+  <!-- Build Time Tools (Includes commit sha in AssemblyInfo etc)-->
+  <ItemGroup Condition=" '$(IsPackable)' == 'true' And '$(IncludeCommonPackageInfo)' == 'true' And '$(Configuration)' == 'Release' ">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" IsImplicitlyDefined="true" />
+  </ItemGroup>
+</Project>
