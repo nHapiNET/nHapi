@@ -20,6 +20,7 @@ properties {
         "NHapi.Model.V271",
         "NHapi.Model.V281"
     )
+    $apiKey = "YOUR_API_KEY"
 }
 
 Task Default -depends Build
@@ -94,5 +95,11 @@ Task Package -depends Build {
 }
 
 Task Deploy -depends Package {
-	Exec { .nuget\nuget push *.nupkg -Source https://api.nuget.org/v3/index.json }
+
+    foreach($project in $projects) {
+        Exec { dotnet nuget push "..\dist\$project.*.nupkg" --api-key $apiKey }
+    }
+
+    Exec { dotnet nuget push "..\dist\nhapi.3.1.0.nupkg" --api-key $apiKey }
+	# Exec { .nuget\nuget push *.nupkg -Source https://api.nuget.org/v3/index.json }
 }
