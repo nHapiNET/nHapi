@@ -540,5 +540,47 @@ namespace NHapi.NUnit.Parser
 
             Assert.AreEqual("Found unknown segment: ZFA", exception?.Message);
         }
+
+        /// <summary>
+        /// Tests that the acknowledgement ID can be parsed from valid ACK and NAK messages.
+        /// </summary>
+        [Test]
+        public void TestGetAckId()
+        {
+            const string ackMsg =
+                "MSH|^~\\&|Main_HIS|XYZ_HOSPITAL|iFW|ABC_Lab|20160915003015||ACK|9B38584D|P|2.6.1|\r" +
+                "MSA|AA|9B38584D|Everything was okay dokay!|";
+            const string nakMsg =
+                "MSH|^~\\&|^^|DOE^^|DCC^^|DOE^^|20050829141336||ACK^|1125342816253.100000055|P|2.3.1|\r" +
+                "MSA|AE|00000001|Patient id was not found, must be of type 'MR'|||^^HL70357|\r" +
+                "ERR|PID^1^3^^^HL70357|";
+            const string messageRejection =
+                "MSH|^~\\&|DCS|MYIIS|MYIIS||200906040000-0500||ACK^V04^ACK|12343467|P|2.5.1|||\r" +
+                "MSA|AR|9299381\r" +
+                "ERR||MSH^1^12|203^unsupported version id^^HL70357|E||||Unsupported HL7 Version ID-Message rejected\r";
+
+            var parser = new PipeParser();
+
+            Assert.AreEqual("9B38584D", parser.GetAckID(ackMsg));
+            Assert.AreEqual("00000001", parser.GetAckID(nakMsg));
+            Assert.AreEqual("9299381", parser.GetAckID(messageRejection));
+        }
+
+        /// <summary>
+        /// Tests that null is returned when attempting to parse the acknowledgement ID from invalid messages.
+        /// </summary>
+        [Test]
+        public void TestGetAckIdForInvalidMessages()
+        {
+            const string missingMSASegment =
+                "MSH|^~\\&|Main_HIS|XYZ_HOSPITAL|iFW|ABC_Lab|20160915003015||ACK|9B38584D|P|2.6.1|\r" +
+                "ZSA|AA|9B38584D|Everything was okay dokay!|";
+            const string msaOnly = "MSA|AA|1|";
+
+            var parser = new PipeParser();
+
+            Assert.AreEqual(null, parser.GetAckID(missingMSASegment));
+            Assert.AreEqual(null, parser.GetAckID(msaOnly));
+        }
     }
 }
