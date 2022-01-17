@@ -26,14 +26,7 @@ properties {
 Task Default -depends Build
 
 Task Clean {
-    $distPath = "..\dist\"
-
-    If (!(test-path $distPath))
-    {
-        md $distPath
-    }
-
-	Remove-Item ..\dist\*.nupkg
+    Remove-Item ..\dist\*.nupkg -ErrorAction Ignore
     Remove-Item ..\dist\net35\*.* -ErrorAction Ignore
     Remove-Item ..\dist\netstandard2.0\*.* -ErrorAction Ignore
 
