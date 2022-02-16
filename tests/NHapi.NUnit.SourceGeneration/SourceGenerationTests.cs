@@ -1,12 +1,26 @@
 ﻿namespace NHapi.NUnit.SourceGeneration
 {
+    using System.IO;
+
     using global::NUnit.Framework;
+
+    using Microsoft.Extensions.Configuration;
 
     using ModelGenerator;
 
     [TestFixture]
     public class SourceGenerationTests
     {
+        public SourceGenerationTests()
+        {
+            this.Configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile(@"appsettings.test.json", false, false)
+                .Build();
+        }
+
+        private IConfiguration Configuration { get; }
+
         [Test]
         [Explicit]
         public void Test_Generate_Versions()
@@ -28,14 +42,14 @@
                 "2.8.1",
             };
 
+            var builder = new ModelBuilder();
+            builder.BasePath = Path.Combine(Directory.GetCurrentDirectory(), "out");
+            builder.ConnectionString = this.Configuration.GetConnectionString("Hl7Database");
+            builder.MessageTypeToBuild = ModelBuilder.MessageType.All;
+
             foreach (var versionToGenerate in versionsToGenerate)
             {
                 // TODO: Should make these paths and connections strings configurable
-                var builder = new ModelBuilder();
-                builder.BasePath = @"D:\Checkouts\duane\nHapi_monsterclean\NHapi20";
-                builder.ConnectionString = @"Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=Z:\projects\hl7\hl7db.mdb;";
-                builder.ConnectionString = @"Provider=SQLOLEDB;Data Source=lannister;Initial Catalog=HL7AllVersions;User Id=sa;Password=sa;";
-                builder.MessageTypeToBuild = ModelBuilder.MessageType.All;
                 builder.Version = versionToGenerate;
 
                 builder.Execute();

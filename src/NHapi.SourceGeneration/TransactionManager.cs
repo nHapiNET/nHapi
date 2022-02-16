@@ -4,7 +4,7 @@ namespace NHapi.SourceGeneration
     using System.Collections;
     using System.Data;
     using System.Data.Common;
-    using System.Data.Odbc;
+    using System.Data.OleDb;
 
     public class TransactionManager
     {
@@ -12,7 +12,7 @@ namespace NHapi.SourceGeneration
 
         public class ConnectionHashTable : Hashtable
         {
-            public DbCommand CreateStatement(OdbcConnection connection)
+            public DbCommand CreateStatement(OleDbConnection connection)
             {
                 DbCommand command = connection.CreateCommand();
                 DbTransaction transaction;
@@ -36,7 +36,7 @@ namespace NHapi.SourceGeneration
                 return command;
             }
 
-            public void Commit(OdbcConnection connection)
+            public void Commit(OleDbConnection connection)
             {
                 if (this[connection] != null && !((ConnectionProperties)this[connection]).AutoCommit)
                 {
@@ -54,7 +54,7 @@ namespace NHapi.SourceGeneration
                 }
             }
 
-            public void RollBack(OdbcConnection connection)
+            public void RollBack(OleDbConnection connection)
             {
                 if (this[connection] != null && !((ConnectionProperties)this[connection]).AutoCommit)
                 {
@@ -72,7 +72,7 @@ namespace NHapi.SourceGeneration
                 }
             }
 
-            public void SetAutoCommit(OdbcConnection connection, bool boolean)
+            public void SetAutoCommit(OleDbConnection connection, bool boolean)
             {
                 if (this[connection] != null)
                 {
@@ -115,7 +115,7 @@ namespace NHapi.SourceGeneration
                 }
             }
 
-            public DbCommand PrepareStatement(OdbcConnection connection, string sql)
+            public DbCommand PrepareStatement(OleDbConnection connection, string sql)
             {
                 var command = CreateStatement(connection);
                 command.CommandText = sql;
@@ -123,7 +123,7 @@ namespace NHapi.SourceGeneration
                 return command;
             }
 
-            public DbCommand PrepareCall(OdbcConnection connection, string sql)
+            public DbCommand PrepareCall(OleDbConnection connection, string sql)
             {
                 var command = CreateStatement(connection);
                 command.CommandText = sql;
@@ -131,7 +131,7 @@ namespace NHapi.SourceGeneration
                 return command;
             }
 
-            public void SetTransactionIsolation(OdbcConnection connection, int level)
+            public void SetTransactionIsolation(OleDbConnection connection, int level)
             {
                 ConnectionProperties properties;
                 if (level == (int)IsolationLevel.ReadCommitted)
@@ -165,7 +165,7 @@ namespace NHapi.SourceGeneration
                 }
             }
 
-            public int GetTransactionIsolation(OdbcConnection connection)
+            public int GetTransactionIsolation(OleDbConnection connection)
             {
                 if (this[connection] != null)
                 {
@@ -185,7 +185,7 @@ namespace NHapi.SourceGeneration
                 }
             }
 
-            public bool GetAutoCommit(OdbcConnection connection)
+            public bool GetAutoCommit(OleDbConnection connection)
             {
                 if (this[connection] != null)
                 {
@@ -289,7 +289,7 @@ namespace NHapi.SourceGeneration
             /// This method Closes the connection, and if the property of auto commit is true make the commit operation.
             /// </summary>
             /// <param name="connection"> The command to be closed.</param>
-            public void Close(OdbcConnection connection)
+            public void Close(OleDbConnection connection)
             {
                 if ((this[connection] != null) && !((ConnectionProperties)this[connection]).AutoCommit)
                 {
