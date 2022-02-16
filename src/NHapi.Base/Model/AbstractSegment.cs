@@ -167,13 +167,6 @@ namespace NHapi.Base.Model
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
-            if (rep > items[number - 1].MaxRepetitions)
-            {
-                throw new HL7Exception(
-                    $"Can't get repetition {rep} from field {number} - maximum repetitions is only {items[number - 1].MaxRepetitions} reps.",
-                    ErrorCode.APPLICATION_INTERNAL_ERROR);
-            }
-
             // add a rep if necessary ...
             if (rep == currentReps)
             {

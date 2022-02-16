@@ -2,9 +2,11 @@ namespace NHapi.NUnit.Parser
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using global::NUnit.Framework;
 
+    using NHapi.Base.Model;
     using NHapi.Base.Parser;
     using NHapi.Model.V25.Datatype;
     using NHapi.Model.V25.Message;
@@ -89,6 +91,34 @@ namespace NHapi.NUnit.Parser
             var actualObservationValueType = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
 
             Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
+        }
+
+        /// <summary>
+        /// https://github.com/nHapiNET/nHapi/issues/276.
+        /// </summary>
+        [Test]
+        public void TestParsingQPD3_WhenQPD3HasMultipleRepetitions_NoExceptionIsThrown()
+        {
+            var message =
+                "MSH|^~\\&|PatientManager|IHE|ICS|FORTH|20220215130712||QBP^Q22^QBP_Q21|5b2e49550924456db9e0844e35348144|P|2.5||||||UNICODE UTF-8\r"
+              + "QPD|IHE PDQ Query|20220215130712|@PID.5.2^fname~@PID.7.1^20220202~@PID.8^M|||||^^^IHEFACILITY&1.3.6.1.4.1.21367.3000.1.6&ISO~^^^IHEBLUE&1.3.6.1.4.1.21367.13.20.3000&ISO\r"
+              + "RCP|I";
+
+            var parser = new PipeParser();
+            var parsed = (QBP_Q21)parser.Parse(message);
+
+            var qpd3Fields = parsed.QPD.GetField(3).Cast<Varies>().ToList();
+
+            Assert.AreEqual(3, qpd3Fields.Count);
+
+            Assert.AreEqual("@PID.5.2", ((GenericPrimitive)((Varies)((GenericComposite)qpd3Fields[0].Data)[0]).Data).Value);
+            Assert.AreEqual("fname", ((GenericPrimitive)((Varies)((GenericComposite)qpd3Fields[0].Data)[1]).Data).Value);
+
+            Assert.AreEqual("@PID.7.1", ((GenericPrimitive)((Varies)((GenericComposite)qpd3Fields[1].Data)[0]).Data).Value);
+            Assert.AreEqual("20220202", ((GenericPrimitive)((Varies)((GenericComposite)qpd3Fields[1].Data)[1]).Data).Value);
+
+            Assert.AreEqual("@PID.8", ((GenericPrimitive)((Varies)((GenericComposite)qpd3Fields[2].Data)[0]).Data).Value);
+            Assert.AreEqual("M", ((GenericPrimitive)((Varies)((GenericComposite)qpd3Fields[2].Data)[1]).Data).Value);
         }
 
         [Test]
