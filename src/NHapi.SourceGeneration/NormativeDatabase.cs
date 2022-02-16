@@ -29,7 +29,7 @@ namespace NHapi.SourceGeneration
     using System;
     using System.Data;
     using System.Data.Common;
-    using System.Data.Odbc;
+    using System.Data.OleDb;
     using System.Diagnostics;
 
     using NHapi.Base.Log;
@@ -68,7 +68,7 @@ namespace NHapi.SourceGeneration
         private string connectionString;
 
         /// <summary> Returns the singleton instance of NormativeDatabase.  </summary>
-        private OdbcConnection odbcConnection;
+        private OleDbConnection odbcConnection;
 
         static NormativeDatabase()
         {
@@ -81,7 +81,7 @@ namespace NHapi.SourceGeneration
         private NormativeDatabase()
         {
             connectionString = ConfigurationSettings.ConnectionString;
-            odbcConnection = new OdbcConnection(connectionString);
+            odbcConnection = new OleDbConnection(connectionString);
             odbcConnection.Open();
         }
 
@@ -105,7 +105,7 @@ namespace NHapi.SourceGeneration
         /// <summary> Provides a Connection to the normative database.
         /// A new connection may be created if none are available.
         /// </summary>
-        public virtual OdbcConnection Connection
+        public virtual OleDbConnection Connection
         {
             get
             {
@@ -166,7 +166,7 @@ namespace NHapi.SourceGeneration
         /// given connection is not in fact a connection to the normative database, it is
         /// discarded.
         /// </summary>
-        public virtual void ReturnConnection(OdbcConnection conn)
+        public virtual void ReturnConnection(OleDbConnection conn)
         {
             // check if this is a normative DB connection
             this.odbcConnection.Close();
@@ -184,7 +184,7 @@ namespace NHapi.SourceGeneration
             }
             catch (Exception)
             {
-                odbcConnection = new OdbcConnection(connectionString);
+                odbcConnection = new OleDbConnection(connectionString);
                 odbcConnection.Open();
             }
         }

@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFrameworks>net461;net6.0</TargetFrameworks>
-    <AssemblyOriginatorKeyFile>..\..\NHapi.snk</AssemblyOriginatorKeyFile>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <AssemblyOriginatorKeyFile>..\..\NHapi.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
 

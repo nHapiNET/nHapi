@@ -4,18 +4,18 @@ namespace NHapi.SourceGeneration
     using System.Collections;
     using System.Data;
     using System.Data.Common;
-    using System.Data.Odbc;
+    using System.Data.OleDb;
 
     /// <summary>
     /// Manager for the connection with the database.
     /// </summary>
-    public class OdbcDBSchema
+    public class OleDbSchema
     {
         /// <summary>
         /// Constructs a new member with the provided connection.
         /// </summary>
         /// <param name="connection">The connection to assign to the new member.</param>
-        public OdbcDBSchema(OdbcConnection connection)
+        public OleDbSchema(OleDbConnection connection)
         {
             this.Connection = connection;
         }
@@ -29,7 +29,7 @@ namespace NHapi.SourceGeneration
             {
                 var result = string.Empty;
                 OpenConnection();
-                result = Connection.Driver;
+                result = Connection.Provider;
                 CloseConnection();
                 return result;
             }
@@ -110,7 +110,7 @@ namespace NHapi.SourceGeneration
             get
             {
                 var len = GetMaxInfo("Binary_Literal", "Maxlen");
-                if (len.Equals(string.Empty))
+                if (len.Length > 0)
                 {
                     return 0;
                 }
@@ -129,7 +129,7 @@ namespace NHapi.SourceGeneration
             get
             {
                 var len = GetMaxInfo("Catalog_Name", "Maxlen");
-                if (len.Equals(string.Empty))
+                if (len.Length > 0)
                 {
                     return 0;
                 }
@@ -148,7 +148,7 @@ namespace NHapi.SourceGeneration
             get
             {
                 var len = GetMaxInfo("Char_Literal", "Maxlen");
-                if (len.Equals(string.Empty))
+                if (len.Length > 0)
                 {
                     return 0;
                 }
@@ -167,7 +167,7 @@ namespace NHapi.SourceGeneration
             get
             {
                 var len = GetMaxInfo("Column_Name", "Maxlen");
-                if (len.Equals(string.Empty))
+                if (len.Length > 0)
                 {
                     return 0;
                 }
@@ -186,7 +186,7 @@ namespace NHapi.SourceGeneration
             get
             {
                 var len = GetMaxInfo("Cursor_Name", "Maxlen");
-                if (len.Equals(string.Empty))
+                if (len.Length > 0)
                 {
                     return 0;
                 }
@@ -205,7 +205,7 @@ namespace NHapi.SourceGeneration
             get
             {
                 var len = GetMaxInfo("Procedure_Name", "Maxlen");
-                if (len.Equals(string.Empty))
+                if (len.Length > 0)
                 {
                     return 0;
                 }
@@ -224,7 +224,7 @@ namespace NHapi.SourceGeneration
             get
             {
                 var len = GetMaxInfo("Schema_Name", "Maxlen");
-                if (len.Equals(string.Empty))
+                if (len.Length > 0)
                 {
                     return 0;
                 }
@@ -243,7 +243,7 @@ namespace NHapi.SourceGeneration
             get
             {
                 var len = GetMaxInfo("Table_Name", "Maxlen");
-                if (len.Equals(string.Empty))
+                if (len.Length > 0)
                 {
                     return 0;
                 }
@@ -262,7 +262,7 @@ namespace NHapi.SourceGeneration
             get
             {
                 var len = GetMaxInfo("User_Name", "Maxlen");
-                if (len.Equals(string.Empty))
+                if (len.Length > 0)
                 {
                     return 0;
                 }
@@ -312,7 +312,7 @@ namespace NHapi.SourceGeneration
                 SchemaData.Columns.Add("TABLE_TYPE");
                 for (var index = 0; index < tableTypes.Count; index++)
                 {
-                    SchemaData.Rows.Add(new object[] { tableTypes[index] });
+                    SchemaData.Rows.Add(new[] { tableTypes[index] });
                 }
 
                 CloseConnection();
@@ -320,17 +320,17 @@ namespace NHapi.SourceGeneration
             }
         }
 
-        private OdbcConnection Connection { get; }
+        private OleDbConnection Connection { get; }
 
         private ConnectionState ConnectionState { get; set; }
 
-        private DataTable SchemaData { get; set; } = null;
+        private DataTable SchemaData { get; set; }
 
         /// <summary>
         /// Gets the OleDBConnection for the current member.
         /// </summary>
         /// <returns></returns>
-        public OdbcConnection GetConnection()
+        public OleDbConnection GetConnection()
         {
             return Connection;
         }
@@ -388,17 +388,15 @@ namespace NHapi.SourceGeneration
             SchemaData = Connection.GetSchema(
                 "Tables",
                 new[] { catalog, schemaPattern, tableNamePattern, types[0] });
-            if (types != null)
+
+            for (var i = 1; i < types.Length; i++)
             {
-                for (var i = 1; i < types.Length; i++)
+                var tempTable = Connection.GetSchema(
+                    "Tables",
+                    new[] { catalog, schemaPattern, tableNamePattern, types[i] });
+                for (var j = 0; j < tempTable.Rows.Count; j++)
                 {
-                    var temp_Table = Connection.GetSchema(
-                        "Tables",
-                        new[] { catalog, schemaPattern, tableNamePattern, types[i] });
-                    for (var j = 0; j < temp_Table.Rows.Count; j++)
-                    {
-                        SchemaData.ImportRow(temp_Table.Rows[j]);
-                    }
+                    SchemaData.ImportRow(tempTable.Rows[j]);
                 }
             }
 
