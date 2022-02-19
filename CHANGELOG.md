@@ -7,6 +7,10 @@ All notable changes to this project will be documented in this file.
 
 ## Previous Releases
 ###
+## [3.1.1] - 2022-02-19
+### Enhancements
+- [#277](https://github.com/nHapiNET/nHapi/pull/277) Remove MaxRepetition check, keeps nhapi in line with hapi behaviour, nhapi becomes more forgiving in regards to repetitions. (fixes [#276](https://github.com/nHapiNET/nHapi/issues/276))
+
 ## [3.1.0] - 2022-01-01
 ### Enhancements
 - [#254](https://github.com/nHapiNET/nHapi/pull/254) Add `UnexpectedSegmentBehaviour` Options, ported from hapi
