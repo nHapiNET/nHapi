@@ -9,3 +9,6 @@ engines:
       - "omnisharp.json"
       - "stylecop.json"
       - "global.json"
+
+exclude_paths:
+  - "build/packages/**/*"

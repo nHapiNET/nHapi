@@ -23,10 +23,11 @@ If applicable, add screenshots to help explain your problem.
 If applicable, add a sample hl7 message to help highlight your problem.
 
 **Environmental Details (please complete the following information):**
- - OS: [e.g. Windows Server 2019, Ubuntu 18.04]
- - Target Framework [e.g. net461, netstandard2.0, netcoreapp3.1, net5.0] 
- - Version [e.g. 2.5.0.6]
- - HL7 Version [e.g. 2.4]
+
+- OS: [e.g. Windows Server 2019, Ubuntu 18.04]
+- Target Framework [e.g. net461, netstandard2.0, netcoreapp3.1, net5.0]
+- Version [e.g. 2.5.0.6]
+- HL7 Version [e.g. 2.4]
 
 **Additional context**
 Add any other context about the problem here.

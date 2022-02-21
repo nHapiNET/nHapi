@@ -1,15 +1,16 @@
+# nHapi
+
 [![Build Status](https://github.com/nHapiNET/nHapi/workflows/Build%20Status/badge.svg)](https://github.com/nHapiNET/nHapi/actions?query=workflow%3A%22Build+Status%22+branch%3Amaster)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/f2aae2999d2e43a1a759b9ffbe5a85ee)](https://www.codacy.com/gh/nHapiNET/nHapi/dashboard?utm_source=github.com&utm_medium=referral&utm_content=nHapiNET/nHapi&utm_campaign=Badge_Coverage)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/f2aae2999d2e43a1a759b9ffbe5a85ee)](https://www.codacy.com/gh/nHapiNET/nHapi/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nHapiNET/nHapi&amp;utm_campaign=Badge_Grade)
 
-# nHapi
 NHapi is a .NET port of the original Java project [HAPI](https://github.com/hapifhir/hapi-hl7v2).
 
 NHapi allows Microsoft .NET developers to easily use an HL7 2.x object model. This object model allows for parsing and encoding HL7 2.x data to/from Pipe Delimited or XML formats. A very handy program for use in the health care industry.
 
 This project is **NOT** affiliated with the HL7 organization. This software just conforms to the HL7 2.x specifications.
 
-**Key Benefits**
+## Key Benefits
 
 - Easy object model  
 - Microsoft .NET 3.5 and netstandard2.0 library that conforms to HL7 2.1, 2.2, 2.3, 2.3.1, 2.4, 2.5, 2.5.1, 2.6, 2.7, 2.7.1, 2.8 and 2.8.1 specifications  
@@ -27,6 +28,7 @@ NHapi currently targets .NET Framework 3.5 and netstandard2.0 which aims to prov
 The easiest way to get started using nHapi is to use the [NuGet package 'nHapi'](https://www.nuget.org/packages/nHapi/):
 
 ### Package Manager Console
+
 Using the package manager console within visual studio, simply run the following command:
 
 ```shell
@@ -34,14 +36,19 @@ PM > Install-Package nhapi
 ```
 
 ### .NET CLI
+
 From your console of choice assuming you have dotnet core installed.
+
 ```shell
 > dotnet add package nhapi
 ```
+
 For more options please read the [Getting Started](https://github.com/nHapiNET/nHapi/wiki/Getting-Started) page of the wiki.
 
 ## Change Log
+
 ### nHapi 3.0.0 Announcement
+
 nHapi 3.0.0 has been officially released, the main change for this release is support for netstandard2.0, but it also has other enhancements and bug fixes.
 Please read the change log below for full details of and how they might affect you prior to upgrading.
 

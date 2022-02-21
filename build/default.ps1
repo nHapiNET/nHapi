@@ -35,7 +35,7 @@ Task Clean {
 }
 
 Task Build -depends Clean {
-	Write-Host "Building nHapi.sln" -ForegroundColor Green
+	Write-Output "Building nHapi.sln" -ForegroundColor Green
     Exec { dotnet build "..\nHapi.sln" -c $projectConfig -v q }
 }
 
