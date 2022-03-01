@@ -119,11 +119,13 @@ namespace NHapi.SourceGeneration.Generators
                 // make base directory
                 if (!(baseDirectory.EndsWith("\\") || baseDirectory.EndsWith("/")))
                 {
-                    baseDirectory = baseDirectory + "/";
+                    baseDirectory += Path.DirectorySeparatorChar;
                 }
 
                 var targetDir =
-                    SourceGenerator.MakeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Message");
+                    SourceGenerator.MakeDirectory(
+                        Path.Combine(baseDirectory, PackageManager.GetVersionPackagePath(version), "Message"));
+
                 Console.Out.WriteLine("Writing " + message + " to " + targetDir.FullName);
                 using (var out_Renamed = new StreamWriter(targetDir.FullName + "/" + message + ".cs"))
                 {

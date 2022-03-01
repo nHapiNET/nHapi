@@ -88,17 +88,20 @@ namespace NHapi.SourceGeneration.Generators
             // make base directory
             if (!(baseDirectory.EndsWith("\\") || baseDirectory.EndsWith("/")))
             {
-                baseDirectory = baseDirectory + "/";
+                baseDirectory += Path.DirectorySeparatorChar;
             }
 
             var targetDir =
-                SourceGenerator.MakeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Group");
+                SourceGenerator.MakeDirectory(
+                    Path.Combine(baseDirectory, PackageManager.GetVersionPackagePath(version), "Group"));
 
             // some group names are troublesome and have "/" which will cause problems when writing files
             groupName = groupName.Replace("/", "_");
             var group = GetGroupDef(structures, groupName, baseDirectory, version, message);
 
-            using (var out_Renamed = new StreamWriter(targetDir.FullName + @"\" + group.Name + ".cs"))
+            var targetFile = Path.Combine(targetDir.FullName, $"{@group.Name}.cs");
+
+            using (var out_Renamed = new StreamWriter(targetFile))
             {
                 out_Renamed.Write(MakePreamble(group, version));
                 out_Renamed.Write(MakeConstructor(group, version));

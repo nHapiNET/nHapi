@@ -1,7 +1,6 @@
 namespace NHapi.Base
 {
     using System.Collections;
-    using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.IO;
     using System.Linq;
