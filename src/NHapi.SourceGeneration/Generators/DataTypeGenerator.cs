@@ -44,14 +44,9 @@ namespace NHapi.SourceGeneration.Generators
     /// </author>
     /// <author>  Eric Poiseau.
     /// </author>
-    public class DataTypeGenerator : object
+    public static class DataTypeGenerator
     {
-        private static readonly IHapiLog Log;
-
-        static DataTypeGenerator()
-        {
-            Log = HapiLogFactory.GetHapiLog(typeof(DataTypeGenerator));
-        }
+        private static readonly IHapiLog Log = HapiLogFactory.GetHapiLog(typeof(DataTypeGenerator));
 
         // test
         [STAThread]
@@ -80,12 +75,12 @@ namespace NHapi.SourceGeneration.Generators
             // make base directory
             if (!(baseDirectory.EndsWith("\\") || baseDirectory.EndsWith("/")))
             {
-                baseDirectory = baseDirectory + "/";
+                baseDirectory += Path.DirectorySeparatorChar;
             }
 
             var targetDir =
-                SourceGenerator.MakeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Datatype");
-            SourceGenerator.MakeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Datatype");
+                SourceGenerator.MakeDirectory(
+                    Path.Combine(baseDirectory, PackageManager.GetVersionPackagePath(version), "Datatype"));
 
             // get list of data types
             var types = new ArrayList();
@@ -147,7 +142,7 @@ namespace NHapi.SourceGeneration.Generators
         /// <param name="version">the HL7 version of the intended data type.</param>
         public static void Make(FileInfo targetDirectory, string dataType, string version)
         {
-            Console.WriteLine(" Writing " + targetDirectory.FullName + dataType);
+            Console.Out.WriteLine(" Writing " + Path.Combine(targetDirectory.FullName, dataType));
 
             // make sure that targetDirectory is a directory ...
             if (!Directory.Exists(targetDirectory.FullName))
@@ -267,12 +262,7 @@ namespace NHapi.SourceGeneration.Generators
             // write to file ...
             if (source != null)
             {
-                var targetFile = targetDirectory + "/" + dataType + ".cs";
-                using (var writer = new StreamWriter(targetFile))
-                {
-                    writer.Write(source);
-                    writer.Write("}"); // End namespace
-                }
+                var targetFile = Path.Combine(targetDirectory.ToString(), $"{dataType}.cs");
             }
             else
             {

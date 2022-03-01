@@ -3,7 +3,7 @@ namespace NHapi.Base
     using System;
     using System.Collections.Generic;
     using System.Configuration;
-    using System.Text;
+    using System.IO;
 
     using NHapi.Base.Model.Configuration;
 
@@ -33,19 +33,7 @@ namespace NHapi.Base
         /// </summary>
         public static string GetVersionPackagePath(string ver)
         {
-            var path = new StringBuilder("NHapi.Model.V");
-            var versionChars = new char[ver.Length];
-            SupportClass.GetCharsFromString(ver, 0, ver.Length, versionChars, 0);
-            for (var i = 0; i < versionChars.Length; i++)
-            {
-                if (versionChars[i] != '.')
-                {
-                    path.Append(versionChars[i]);
-                }
-            }
-
-            path.Append("/");
-            return path.ToString();
+            return @$"NHapi.Model.V{ver.Replace(".", string.Empty)}{Path.DirectorySeparatorChar}";
         }
 
         /// <summary> Returns the package name for model elements of the given version - e.g.
@@ -56,8 +44,7 @@ namespace NHapi.Base
         public static string GetVersionPackageName(string ver)
         {
             var path = GetVersionPackagePath(ver);
-            var packg = path.Replace('/', '.');
-            packg = packg.Replace('\\', '.');
+            var packg = path.Replace(Path.DirectorySeparatorChar, '.');
             return packg;
         }
 

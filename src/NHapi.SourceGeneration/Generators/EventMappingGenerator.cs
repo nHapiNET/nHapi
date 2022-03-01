@@ -1,4 +1,4 @@
-﻿namespace NHapi.SourceGeneration.Generators
+namespace NHapi.SourceGeneration.Generators
 {
     using System.Data.Common;
     using System.Data.Odbc;
@@ -13,11 +13,12 @@
             // make base directory
             if (!(baseDirectory.EndsWith("\\") || baseDirectory.EndsWith("/")))
             {
-                baseDirectory = baseDirectory + "/";
+                baseDirectory += Path.DirectorySeparatorChar;
             }
 
             var targetDir =
-                SourceGenerator.MakeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "EventMapping");
+                SourceGenerator.MakeDirectory(
+                    Path.Combine(baseDirectory, PackageManager.GetVersionPackagePath(version), "EventMapping"));
 
             // get list of data types
             var conn = NormativeDatabase.Instance.Connection;
@@ -29,7 +30,9 @@
             temp_OleDbCommand.CommandText = sql;
             var rs = temp_OleDbCommand.ExecuteReader();
 
-            using (var sw = new StreamWriter(targetDir.FullName + @"\EventMap.properties", false))
+            var targetFile = Path.Combine(targetDir.FullName, "EventMap.properties");
+
+            using (var sw = new StreamWriter(targetFile, false))
             {
                 sw.WriteLine("#event -> structure map for " + version);
                 while (rs.Read())

@@ -9,7 +9,7 @@ namespace NHapi.SourceGeneration.Generators
     {
         public static void BuildBaseDataTypes(string baseDirectory, string version)
         {
-            var targetDir = baseDirectory + @"\" + PackageManager.GetVersionPackagePath(version) + "Datatype";
+            var targetDir = Path.Combine(baseDirectory, PackageManager.GetVersionPackagePath(version), "Datatype");
 
             BuildFile("DT", targetDir, version);
             BuildFile("ST", targetDir, version);
@@ -20,13 +20,7 @@ namespace NHapi.SourceGeneration.Generators
 
         private static void BuildFile(string dataType, string targetDir, string version)
         {
-            var fileName = targetDir + @"\" + dataType + ".cs";
-            using (var fs = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite))
-            {
-                var source = GetClassSource(dataType, version);
-                var data = ASCIIEncoding.ASCII.GetBytes(source);
-                fs.Write(data, 0, data.Length);
-            }
+            var fileName = Path.Combine(targetDir, $"{dataType}.cs");
         }
 
         private static string GetClassSource(string dataType, string version)

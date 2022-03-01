@@ -98,11 +98,12 @@ namespace NHapi.SourceGeneration.Generators
             // make base directory
             if (!(baseDirectory.EndsWith("\\") || baseDirectory.EndsWith("/")))
             {
-                baseDirectory = baseDirectory + "/";
+                baseDirectory += Path.DirectorySeparatorChar;
             }
 
             var targetDir =
-                SourceGenerator.MakeDirectory(baseDirectory + PackageManager.GetVersionPackagePath(version) + "Segment");
+                SourceGenerator.MakeDirectory(
+                    Path.Combine(baseDirectory, PackageManager.GetVersionPackagePath(version), "Segment"));
 
             // get list of data types
             var conn = NormativeDatabase.Instance.Connection;
@@ -138,7 +139,10 @@ namespace NHapi.SourceGeneration.Generators
                 {
                     var seg = (string)segments[i];
                     var source = MakeSegment(seg, version);
-                    using (var w = new StreamWriter(targetDir.ToString() + @"\" + GetSpecialFilename(seg) + ".cs"))
+
+                    var targetFile = Path.Combine(targetDir.ToString(), $"{GetSpecialFilename(seg)}.cs");
+
+                    using (var w = new StreamWriter(targetFile))
                     {
                         w.Write(source);
                         w.Write("}");
