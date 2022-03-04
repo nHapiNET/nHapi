@@ -3,6 +3,7 @@ namespace NHapi.SourceGeneration.Generators
     using System.Data.Common;
     using System.Data.Odbc;
     using System.IO;
+    using System.Text;
 
     using NHapi.Base;
 
@@ -32,17 +33,25 @@ namespace NHapi.SourceGeneration.Generators
 
             var targetFile = Path.Combine(targetDir.FullName, "EventMap.properties");
 
-            using (var sw = new StreamWriter(targetFile, false))
+            var stringBuilder = new StringBuilder();
+
+            stringBuilder.AppendLine($"#event -> structure map for {version}");
+            if (version == "2.1" || version == "2.2")
             {
-                sw.WriteLine("#event -> structure map for " + version);
+                stringBuilder.AppendLine("#note: no mappings are defined for 2.1 and 2.2");
+            }
+            else
+            {
                 while (rs.Read())
                 {
-                    var messageType = string.Format("{0}_{1}", rs["message_typ_snd"], rs["event_code"]);
+                    var messageType = $"{rs["message_typ_snd"]}_{rs["event_code"]}";
                     var structure = (string)rs["message_structure_snd"];
 
-                    sw.WriteLine(string.Format("{0} {1}", messageType, structure));
+                    stringBuilder.AppendLine($"{messageType} {structure}");
                 }
             }
+
+            FileAbstraction.WriteAllBytes(targetFile, Encoding.UTF8.GetBytes(stringBuilder.ToString()));
         }
     }
 }

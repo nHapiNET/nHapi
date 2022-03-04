@@ -1,0 +1,6 @@
+﻿{
+  C:\\DEV\\nHapi\\tests\\NHapi.NUnit.SourceGeneration\\bin\\Debug\\net6.0\\basepath\\NHapi.Model.V22\\EventMapping\\EventMap.properties:
+#event -> structure map for 2.2
+#note: no mappings are defined for 2.1 and 2.2
+
+}

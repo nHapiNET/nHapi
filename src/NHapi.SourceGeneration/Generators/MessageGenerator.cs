@@ -28,6 +28,7 @@ namespace NHapi.SourceGeneration.Generators
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Data.Common;
     using System.Data.Odbc;
     using System.IO;
@@ -76,8 +77,9 @@ namespace NHapi.SourceGeneration.Generators
                 temp_OleDbCommand = stmt;
                 temp_OleDbCommand.CommandText = sql;
                 var rs = temp_OleDbCommand.ExecuteReader();
-                var messages = new ArrayList();
-                var chapters = new ArrayList();
+
+                var messages = new List<string>();
+                var chapters = new List<string>();
                 while (rs.Read())
                 {
                     messages.Add(Convert.ToString(rs[1 - 1]));
@@ -94,8 +96,8 @@ namespace NHapi.SourceGeneration.Generators
 
                 for (var i = 0; i < messages.Count; i++)
                 {
-                    var message = (string)messages[i];
-                    var chapter = (string)chapters[i];
+                    var message = messages[i];
+                    var chapter = chapters[i];
                     Make(message, baseDirectory, chapter, version);
                 }
             }
@@ -126,21 +128,23 @@ namespace NHapi.SourceGeneration.Generators
                     SourceGenerator.MakeDirectory(
                         Path.Combine(baseDirectory, PackageManager.GetVersionPackagePath(version), "Message"));
 
-                Console.Out.WriteLine("Writing " + message + " to " + targetDir.FullName);
-                using (var out_Renamed = new StreamWriter(targetDir.FullName + "/" + message + ".cs"))
-                {
-                    out_Renamed.Write(MakePreamble(contents, message, chapter, version));
-                    out_Renamed.Write(MakeConstructor(contents, message, version));
-                    for (var i = 0; i < contents.Length; i++)
-                    {
-                        var groupAccessor = GroupGenerator.MakeAccessor(@group, i);
-                        out_Renamed.Write(groupAccessor);
-                    }
+                var targetFile = Path.Combine(targetDir.FullName, $"{message}.cs");
 
-                    // add implementation of model.control interface, if any
-                    out_Renamed.Write("}\r\n"); // End class
-                    out_Renamed.Write("}\r\n"); // End namespace
+                var stringBuilder = new StringBuilder();
+
+                stringBuilder.Append(MakePreamble(contents, message, chapter, version));
+                stringBuilder.Append(MakeConstructor(contents, message, version));
+                for (var i = 0; i < contents.Length; i++)
+                {
+                    var groupAccessor = GroupGenerator.MakeAccessor(@group, i);
+                    stringBuilder.Append(groupAccessor);
                 }
+
+                // add implementation of model.control interface, if any
+                stringBuilder.Append("}\r\n"); // End class
+                stringBuilder.Append("}\r\n"); // End namespace
+
+                FileAbstraction.WriteAllBytes(targetFile, Encoding.UTF8.GetBytes(stringBuilder.ToString()));
             }
             catch (Exception e)
             {

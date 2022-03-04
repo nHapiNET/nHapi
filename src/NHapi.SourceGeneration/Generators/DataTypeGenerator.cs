@@ -29,6 +29,7 @@ namespace NHapi.SourceGeneration.Generators
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Data.Common;
     using System.IO;
     using System.Linq;
@@ -83,7 +84,7 @@ namespace NHapi.SourceGeneration.Generators
                     Path.Combine(baseDirectory, PackageManager.GetVersionPackagePath(version), "Datatype"));
 
             // get list of data types
-            var types = new ArrayList();
+            var types = new List<string>();
             var conn = NormativeDatabase.Instance.Connection;
             var stmt = TransactionManager.Manager.CreateStatement(conn);
 
@@ -125,7 +126,7 @@ namespace NHapi.SourceGeneration.Generators
                 Log.Warn("No version " + version + " data types found in database " + conn.Database);
             }
 
-            foreach (var type in types.Cast<string>())
+            foreach (var type in types)
             {
                 if (!type.Equals("*"))
                 {
@@ -263,6 +264,8 @@ namespace NHapi.SourceGeneration.Generators
             if (source != null)
             {
                 var targetFile = Path.Combine(targetDirectory.ToString(), $"{dataType}.cs");
+
+                FileAbstraction.WriteAllBytes(targetFile, Encoding.UTF8.GetBytes($"{source}}}"));
             }
             else
             {
