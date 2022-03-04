@@ -101,21 +101,21 @@ namespace NHapi.SourceGeneration.Generators
 
             var targetFile = Path.Combine(targetDir.FullName, $"{@group.Name}.cs");
 
-            using (var out_Renamed = new StreamWriter(targetFile))
+            var stringBuilder = new StringBuilder();
+
+            stringBuilder.Append(MakePreamble(group, version));
+            stringBuilder.Append(MakeConstructor(group, version));
+
+            var shallow = group.Structures;
+            for (var i = 0; i < shallow.Length; i++)
             {
-                out_Renamed.Write(MakePreamble(group, version));
-                out_Renamed.Write(MakeConstructor(group, version));
-
-                var shallow = group.Structures;
-                for (var i = 0; i < shallow.Length; i++)
-                {
-                    out_Renamed.Write(MakeAccessor(group, i));
-                }
-
-                out_Renamed.Write("}\r\n"); // Closing class
-                out_Renamed.Write("}\r\n"); // Closing namespace
+                stringBuilder.Append(MakeAccessor(group, i));
             }
 
+            stringBuilder.Append("}\r\n"); // Closing class
+            stringBuilder.Append("}\r\n"); // Closing namespace
+
+            FileAbstraction.WriteAllBytes(targetFile, Encoding.UTF8.GetBytes(stringBuilder.ToString()));
             return group;
         }
 

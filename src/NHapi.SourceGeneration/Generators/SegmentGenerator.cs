@@ -115,7 +115,7 @@ namespace NHapi.SourceGeneration.Generators
             temp_OleDbCommand.CommandText = sql;
             var rs = temp_OleDbCommand.ExecuteReader();
 
-            var segments = new ArrayList();
+            var segments = new List<string>();
             while (rs.Read())
             {
                 var segName = Convert.ToString(rs[1 - 1]);
@@ -137,16 +137,12 @@ namespace NHapi.SourceGeneration.Generators
             {
                 try
                 {
-                    var seg = (string)segments[i];
-                    var source = MakeSegment(seg, version);
+                    var segment = segments[i];
+                    var source = MakeSegment(segment, version);
 
-                    var targetFile = Path.Combine(targetDir.ToString(), $"{GetSpecialFilename(seg)}.cs");
+                    var targetFile = Path.Combine(targetDir.ToString(), $"{GetSpecialFilename(segment)}.cs");
 
-                    using (var w = new StreamWriter(targetFile))
-                    {
-                        w.Write(source);
-                        w.Write("}");
-                    }
+                    FileAbstraction.WriteAllBytes(targetFile, Encoding.UTF8.GetBytes($"{source}}}"));
                 }
                 catch (Exception e)
                 {

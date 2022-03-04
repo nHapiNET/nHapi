@@ -27,4 +27,8 @@
     <ProjectReference Include="..\NHapi.Base\NHapi.Base.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="NHapi.NUnit.SourceGeneration" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,211 @@
+﻿{
+  basepath\\NHapi.Model.V21\\Datatype\\DT.cs:
+using System;
+
+using NHapi.Base.Model;
+namespace NHapi.Model.V21.Datatype
+{
+/// <summary>/// Summary description for DT.
+/// </summary>
+public class DT: NHapi.Base.Model.Primitive.DT
+{
+/// <summary>Return the version
+/// <returns>2.1</returns>
+///</summary>
+
+            virtual public System.String Version
+            {
+			    get
+			    {
+				    return "2.1";
+			    }
+		    }
+            
+
+
+                ///<summary>Construct the type
+                ///<param name="theMessage">message to which this Type belongs</param>
+                ///</summary>
+                public DT(IMessage theMessage):base(theMessage)
+                {}
+                
+
+
+                ///<summary>Construct the type
+                ///<param name="message">message to which this Type belongs</param>
+                ///<param name="description">The description of this type</param>
+                ///</summary>
+		        public DT(IMessage message, string description) : base(message,description)
+    	        {}
+                }
+}
+,
+  basepath\\NHapi.Model.V21\\Datatype\\ID.cs:
+using System;
+
+using NHapi.Base.Model;
+namespace NHapi.Model.V21.Datatype
+{
+/// <summary>/// Summary description for ID.
+/// </summary>
+public class ID: NHapi.Base.Model.Primitive.ID
+{
+/// <summary>Return the version
+/// <returns>2.1</returns>
+///</summary>
+
+            virtual public System.String Version
+            {
+			    get
+			    {
+				    return "2.1";
+			    }
+		    }
+            
+
+
+                ///<summary>Construct the type
+                ///<param name="theMessage">message to which this Type belongs</param>
+                ///<param name="theTable">The table which this type belongs</param>
+                ///</summary>
+                public ID(IMessage theMessage,int theTable):base(theMessage, theTable)
+                {}
+                
+
+
+                ///<summary>Construct the type
+                ///<param name="message">message to which this Type belongs</param>
+                ///<param name="theTable">The table which this type belongs</param>
+                ///<param name="description">The description of this type</param>
+                ///</summary>
+		        public ID(IMessage message, int theTable, string description) : base(message,theTable, description)
+    	        {}
+                }
+}
+,
+  basepath\\NHapi.Model.V21\\Datatype\\IS.cs:
+using System;
+
+using NHapi.Base.Model;
+namespace NHapi.Model.V21.Datatype
+{
+/// <summary>/// Summary description for IS.
+/// </summary>
+public class IS: NHapi.Base.Model.Primitive.IS
+{
+/// <summary>Return the version
+/// <returns>2.1</returns>
+///</summary>
+
+            virtual public System.String Version
+            {
+			    get
+			    {
+				    return "2.1";
+			    }
+		    }
+            
+
+
+                ///<summary>Construct the type
+                ///<param name="theMessage">message to which this Type belongs</param>
+                ///<param name="theTable">The table which this type belongs</param>
+                ///</summary>
+                public IS(IMessage theMessage,int theTable):base(theMessage, theTable)
+                {}
+                
+
+
+                ///<summary>Construct the type
+                ///<param name="message">message to which this Type belongs</param>
+                ///<param name="theTable">The table which this type belongs</param>
+                ///<param name="description">The description of this type</param>
+                ///</summary>
+		        public IS(IMessage message, int theTable, string description) : base(message,theTable, description)
+    	        {}
+                }
+}
+,
+  basepath\\NHapi.Model.V21\\Datatype\\ST.cs:
+using System;
+
+using NHapi.Base.Model;
+namespace NHapi.Model.V21.Datatype
+{
+/// <summary>/// Summary description for ST.
+/// </summary>
+public class ST: AbstractPrimitive
+{
+/// <summary>Return the version
+/// <returns>2.1</returns>
+///</summary>
+
+            virtual public System.String Version
+            {
+			    get
+			    {
+				    return "2.1";
+			    }
+		    }
+            
+
+
+                ///<summary>Construct the type
+                ///<param name="theMessage">message to which this Type belongs</param>
+                ///</summary>
+                public ST(IMessage theMessage):base(theMessage)
+                {}
+                
+
+
+                ///<summary>Construct the type
+                ///<param name="message">message to which this Type belongs</param>
+                ///<param name="description">The description of this type</param>
+                ///</summary>
+		        public ST(IMessage message, string description) : base(message,description)
+    	        {}
+                }
+}
+,
+  basepath\\NHapi.Model.V21\\Datatype\\TM.cs:
+using System;
+
+using NHapi.Base.Model;
+namespace NHapi.Model.V21.Datatype
+{
+/// <summary>/// Summary description for TM.
+/// </summary>
+public class TM: NHapi.Base.Model.Primitive.TM
+{
+/// <summary>Return the version
+/// <returns>2.1</returns>
+///</summary>
+
+            virtual public System.String Version
+            {
+			    get
+			    {
+				    return "2.1";
+			    }
+		    }
+            
+
+
+                ///<summary>Construct the type
+                ///<param name="theMessage">message to which this Type belongs</param>
+                ///</summary>
+                public TM(IMessage theMessage):base(theMessage)
+                {}
+                
+
+
+                ///<summary>Construct the type
+                ///<param name="message">message to which this Type belongs</param>
+                ///<param name="description">The description of this type</param>
+                ///</summary>
+		        public TM(IMessage message, string description) : base(message,description)
+    	        {}
+                }
+}
+
+}

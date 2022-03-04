@@ -21,6 +21,10 @@ namespace NHapi.SourceGeneration.Generators
         private static void BuildFile(string dataType, string targetDir, string version)
         {
             var fileName = Path.Combine(targetDir, $"{dataType}.cs");
+
+            FileAbstraction.WriteAllBytes(
+                fileName,
+                Encoding.UTF8.GetBytes(GetClassSource(dataType, version)));
         }
 
         private static string GetClassSource(string dataType, string version)
