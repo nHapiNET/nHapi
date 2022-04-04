@@ -1,61 +1,30 @@
 name: Receive Pull Request
 
 on: [pull_request]
-
+env:
+  DOTNET_VERSION: '6.0.x'
 jobs:
-  build-and-test-windows:
-    name: Build And Test
-    runs-on: windows-2019
-
+  build-and-test:
+    name: Build And Test ${{matrix.os}}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
     - uses: actions/checkout@v2
 
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.101
-    - name: Restore nHapi
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Restore nHapi (Windows)
+      if: matrix.os == 'windows-latest'
       run: |
         dotnet restore nHapi.sln --configfile build\.nuget\NuGet.config
 
-    - name: Build nHapi
-      run: |
-        dotnet build nHapi.sln -c Release --no-restore
-
-    - name: Run tests for all target frameworks
-      run: |
-        dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f net461 --no-restore --no-build
-        dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f net6.0 --no-restore --no-build
-        dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f net6.0 --no-restore --no-build
-        dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f net461 --no-restore --no-build
-        dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f net6.0 --no-restore --no-build
-
-    - name: Convert trx to junit
-      if: ${{ success() || failure() }}
-      run: |
-        dotnet tool install -g trx2junit
-        trx2junit TestResults/*.trx
-
-    - name: Upload Unit Test Results
-      if: always()
-      uses: actions/upload-artifact@v2
-      with:
-        name: unit-test-results
-        path: TestResults\TestResults*.xml
-
-  build-and-test-linux:
-    name: Build And Test Linux
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 6.0.101
-
-    - name: Restore nHapi
+    - name: Restore nHapi (Non-Windows)
+      if: matrix.os != 'windows-latest'
       run: |
         dotnet restore nHapi.sln --configfile build/.nuget/NuGet.config
 
@@ -63,14 +32,37 @@ jobs:
       run: |
         dotnet build nHapi.sln -c Release --no-restore
 
-    - name: Run tests for all target frameworks
+    - name: Run tests for all target frameworks (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |
+         dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f net461 --no-restore --no-build
+         dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f net6.0 --no-restore --no-build
+         dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f net6.0 --no-restore --no-build
+         dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f net461 --no-restore --no-build
+         dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" -r TestResults -c Release -f net6.0  --no-restore --no-build
+
+    - name: Run tests for all target frameworks (Non-Windows)
+      if: matrix.os != 'windows-latest'
       run: |
          dotnet test tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net6.0 --no-restore --no-build
          dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net6.0 --no-restore --no-build
          dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net6.0 --no-restore --no-build
 
+    - name: Convert trx to junit
+      if: (success() || failure()) && matrix.os == 'windows-latest'
+      run: |
+        dotnet tool install -g trx2junit
+        trx2junit TestResults/*.trx
+
+    - name: Upload Unit Test Results
+      if: always() && matrix.os == 'windows-latest'
+      uses: actions/upload-artifact@v2
+      with:
+        name: unit-test-results
+        path: TestResults\TestResults*.xml
+
     - name: Upload Code Coverage Report
-      if: always()
+      if: always() && matrix.os == 'ubuntu-latest'
       uses: actions/upload-artifact@v2
       with:
         name: coverage-reports
