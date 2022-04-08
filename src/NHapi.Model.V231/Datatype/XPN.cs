@@ -9,14 +9,14 @@ namespace NHapi.Model.V231.Datatype
 
 ///<summary>
 /// <p>The HL7 XPN (extended person name) data type.  Consists of the following components: </p><ol>
-/// <li>family+last name (FN)</li>
-/// <li>given name (ST)</li>
-/// <li>middle initial or name (ST)</li>
-/// <li>suffix (e.g., JR or III) (ST)</li>
-/// <li>prefix (e.g., DR) (ST)</li>
-/// <li>degree (e.g., MD) (IS)</li>
-/// <li>name type code (ID)</li>
-/// <li>Name Representation code (ID)</li>
+/// <li>PID-5.1 :family+last name (FN)</li>
+/// <li>PID-5.2 :given name (ST)</li>
+/// <li>PID-5.3 :middle initial or name (ST)</li>
+/// <li>PID-5.4 :suffix (e.g., JR or III) (ST)</li>
+/// <li>PID-5.5 :prefix (e.g., DR) (ST)</li>
+/// <li>PID-5.6 :degree (e.g., MD) (IS)</li>
+/// <li>PID-5.7 :name type code (ID)</li>
+/// <li>PID-5.8 :Name Representation code (ID)</li>
 /// </ol>
 ///</summary>
 [Serializable]
