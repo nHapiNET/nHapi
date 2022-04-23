@@ -26,10 +26,10 @@ namespace NHapi.Base.Util
     {
         private static readonly IHapiLog Log;
 
+        private readonly bool handleUnexpectedSegments;
         private IStructure currentStructure;
         private string direction;
         private Position nextRenamedField;
-        private readonly bool handleUnexpectedSegments;
 
         static MessageIterator()
         {
