@@ -209,9 +209,9 @@ namespace NHapi.Base.Parser
             return new EncodingCharacters(this);
         }
 
-        public override bool Equals(object o)
+        public override bool Equals(object obj)
         {
-            if (o is EncodingCharacters other)
+            if (obj is EncodingCharacters other)
             {
                 return FieldSeparator == other.FieldSeparator &&
                        ComponentSeparator == other.ComponentSeparator &&
