@@ -47,8 +47,8 @@ namespace NHapi.Base.Util
     /// </summary>
     public class FilterIterator : IEnumerator
     {
-        private IPredicate predicate;
-        private IEnumerator iter;
+        private readonly IPredicate predicate;
+        private readonly IEnumerator iter;
         private object nextObject;
         private bool nextObjectSet = false;
 

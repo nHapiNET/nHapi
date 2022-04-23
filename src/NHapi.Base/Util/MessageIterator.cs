@@ -29,7 +29,7 @@ namespace NHapi.Base.Util
         private IStructure currentStructure;
         private string direction;
         private Position nextRenamedField;
-        private bool handleUnexpectedSegments;
+        private readonly bool handleUnexpectedSegments;
 
         static MessageIterator()
         {

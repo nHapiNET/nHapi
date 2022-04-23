@@ -31,8 +31,8 @@ namespace NHapi.Base.Model
     /// <author>Bryan Tripp.</author>
     public class ExtraComponents
     {
-        private ArrayList comps;
-        private IMessage message;
+        private readonly ArrayList comps;
+        private readonly IMessage message;
 
         /// <summary>
         /// Creates a new instance of ExtraComponents.

@@ -11,7 +11,7 @@ namespace NHapi.Base.Model
     /// <author>Bryan Tripp.</author>
     public class GenericComposite : AbstractType, IComposite
     {
-        private ArrayList components;
+        private readonly ArrayList components;
 
         /// <summary>
         /// Creates a new instance of GenericComposite.
