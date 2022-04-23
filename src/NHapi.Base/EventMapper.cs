@@ -10,7 +10,7 @@ namespace NHapi.Base
     {
         private static readonly EventMapper InstanceValue = new EventMapper();
 
-        private Hashtable map = new Hashtable();
+        private readonly Hashtable map = new Hashtable();
 
         static EventMapper()
         {

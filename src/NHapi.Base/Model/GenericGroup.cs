@@ -11,7 +11,7 @@ namespace NHapi.Base.Model
     /// <author>Bryan Tripp.</author>
     public class GenericGroup : AbstractGroup
     {
-        private string name;
+        private readonly string name;
 
         /// <summary>Creates a new instance of GenericGroup. </summary>
         public GenericGroup(IGroup parent, string name, IModelClassFactory factory)

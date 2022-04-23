@@ -50,7 +50,7 @@ namespace NHapi.Base.Parser
     {
         private static readonly IHapiLog Log;
 
-        private XmlDocument parser;
+        private readonly XmlDocument parser;
 
         /// <summary>
         /// The nodes whose names match these strings will be kept as original,

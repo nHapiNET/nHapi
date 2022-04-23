@@ -20,7 +20,7 @@ namespace NHapi.Base.Log
     /// </version>
     public class HapiLogImpl : IHapiLog
     {
-        private ILog innerLog;
+        private readonly ILog innerLog;
 
         internal HapiLogImpl(ILog log)
         {

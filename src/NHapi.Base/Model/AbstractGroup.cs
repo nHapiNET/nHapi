@@ -45,7 +45,7 @@ namespace NHapi.Base.Model
         private static readonly IHapiLog Log;
 
         private List<AbstractGroupItem> items;
-        private IModelClassFactory myFactory;
+        private readonly IModelClassFactory myFactory;
 
         static AbstractGroup()
         {

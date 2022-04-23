@@ -5,7 +5,7 @@ namespace NHapi.Base.Model
 
     internal class AbstractSegmentItem
     {
-        private List<object> args = new List<object>();
+        private readonly List<object> args = new List<object>();
         private int maxReps = -1;
 
         /// <summary>

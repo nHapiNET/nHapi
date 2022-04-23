@@ -42,8 +42,8 @@ namespace NHapi.Base.Validation
     {
         private static readonly IHapiLog OurLog;
 
-        private IValidationContext myContext;
-        private bool failOnError;
+        private readonly IValidationContext myContext;
+        private readonly bool failOnError;
 
         static MessageValidator()
         {
