@@ -164,7 +164,7 @@ namespace NHapi.Base.Util
         public virtual bool DrillUp()
         {
             // pop the top group and resume search there
-            if (!(ancestors.Count == 0))
+            if (ancestors.Count != 0)
             {
                 var gc = (GroupContext)SupportClass.StackSupport.Pop(ancestors);
                 CurrentGroup = gc.Group;
@@ -375,12 +375,12 @@ namespace NHapi.Base.Util
             }
 
             Reset();
-            while (!(pathStack.Count == 0))
+            while (pathStack.Count != 0)
             {
                 var parent = (IGroup)SupportClass.StackSupport.Pop(pathStack);
                 var index = (MessageIterator.Index)SupportClass.StackSupport.Pop(indexStack);
                 var child = Search(parent.Names, index.Name);
-                if (!(pathStack.Count == 0))
+                if (pathStack.Count != 0)
                 {
                     DrillDown(child, 0);
                 }
