@@ -662,14 +662,14 @@ namespace NHapi.Base.Util
             /// <summary>
             /// Override equals operator.
             /// </summary>
-            /// <param name="o">Object o.</param>
+            /// <param name="obj">Object obj.</param>
             /// <returns>true if objects are equal.</returns>
-            public override bool Equals(object o)
+            public override bool Equals(object obj)
             {
                 var equals = false;
-                if (o != null && o is Position)
+                if (obj != null && obj is Position)
                 {
-                    var p = (Position)o;
+                    var p = (Position)obj;
                     if (p.Parent.Equals(Parent) && p.Index.Equals(Index))
                     {
                         equals = true;

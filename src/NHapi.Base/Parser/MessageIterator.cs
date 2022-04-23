@@ -422,14 +422,14 @@ namespace NHapi.Base.Parser
             /// <summary>
             /// Override equals.
             /// </summary>
-            /// <param name="o"></param>
+            /// <param name="obj"></param>
             /// <returns></returns>
-            public override bool Equals(object o)
+            public override bool Equals(object obj)
             {
                 var equals = false;
-                if (o != null && o is Index)
+                if (obj != null && obj is Index)
                 {
-                    var i = (Index)o;
+                    var i = (Index)obj;
                     if (i.Rep == Rep && i.Name.Equals(Name))
                     {
                         equals = true;
