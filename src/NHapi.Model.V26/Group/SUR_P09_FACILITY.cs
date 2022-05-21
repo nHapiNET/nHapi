@@ -18,7 +18,6 @@ namespace NHapi.Model.V26.Group
 ///<li>1: SUR_P09_PRODUCT (a Group object) repeating</li>
 ///<li>2: PSH (Product Summary Header) </li>
 ///<li>3: SUR_P09_FACILITY_DETAIL (a Group object) repeating</li>
-///<li>4: ED (Encapsulated Data (wrong segment)) </li>
 ///</ol>
 ///</summary>
 [Serializable]
@@ -33,7 +32,6 @@ public class SUR_P09_FACILITY : AbstractGroup {
 	      this.add(typeof(SUR_P09_PRODUCT), true, true);
 	      this.add(typeof(PSH), true, false);
 	      this.add(typeof(SUR_P09_FACILITY_DETAIL), true, true);
-	      this.add(typeof(ED), true, false);
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating SUR_P09_FACILITY - this is probably a bug in the source code generator.", e);
 	   }
@@ -49,7 +47,7 @@ get{
 	      ret = (FAC)this.GetStructure("FAC");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
-	      throw new System.Exception("An unexpected error ocurred",e);
+	      throw new System.Exception("An unexpected error occurred",e);
 	   }
 	   return ret;
 	}
@@ -64,7 +62,7 @@ get{
 	      ret = (SUR_P09_PRODUCT)this.GetStructure("PRODUCT");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
-	      throw new System.Exception("An unexpected error ocurred",e);
+	      throw new System.Exception("An unexpected error occurred",e);
 	   }
 	   return ret;
 	}
@@ -144,7 +142,7 @@ get{
 	      ret = (PSH)this.GetStructure("PSH");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
-	      throw new System.Exception("An unexpected error ocurred",e);
+	      throw new System.Exception("An unexpected error occurred",e);
 	   }
 	   return ret;
 	}
@@ -159,7 +157,7 @@ get{
 	      ret = (SUR_P09_FACILITY_DETAIL)this.GetStructure("FACILITY_DETAIL");
 	   } catch(HL7Exception e) {
 	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
-	      throw new System.Exception("An unexpected error ocurred",e);
+	      throw new System.Exception("An unexpected error occurred",e);
 	   }
 	   return ret;
 	}
@@ -227,22 +225,6 @@ get{
 	public void RemoveFACILITY_DETAILAt(int index)
 	{
 		this.RemoveRepetition("FACILITY_DETAIL", index);
-	}
-
-	///<summary>
-	/// Returns ED (Encapsulated Data (wrong segment)) - creates it if necessary
-	///</summary>
-	public ED ED { 
-get{
-	   ED ret = null;
-	   try {
-	      ret = (ED)this.GetStructure("ED");
-	   } catch(HL7Exception e) {
-	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
-	      throw new System.Exception("An unexpected error ocurred",e);
-	   }
-	   return ret;
-	}
 	}
 
 }

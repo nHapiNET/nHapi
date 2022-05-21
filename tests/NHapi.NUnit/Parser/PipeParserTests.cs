@@ -18,10 +18,10 @@ namespace NHapi.NUnit.Parser
         public string GetMessage()
         {
             return "MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.3.1|||AL|||ASCII\r"
-                + "PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r"
-                + "ORC|||||F\r"
-                + "OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r"
-                + "OBX|1|FT|||This\\.br\\is\\.br\\A Test~MoreText~SomeMoreText||||||F";
+                 + "PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r"
+                 + "ORC|||||F\r"
+                 + "OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r"
+                 + "OBX|1|FT|||This\\.br\\is\\.br\\A Test~MoreText~SomeMoreText||||||F";
         }
 
         [Test]
@@ -151,8 +151,9 @@ namespace NHapi.NUnit.Parser
         public void UnEscapesData()
         {
             // Arrange
-            const string content = "MSH|^~\\&|TestSys|432^testsys practice|TEST||201402171537||MDM^T02|121906|P|2.3.1||||||||\r"
-                                + "OBX|1|TX|PROBLEM FOCUSED^PROBLEM FOCUSED^test|1|\\T\\#39;Thirty days have September,\\X0D\\April\\X0A\\June,\\X0A\\and November.\\X0A\\When short February is done,\\E\\X0A\\E\\all the rest have\\T\\nbsp;31.\\T\\#39";
+            const string content =
+                "MSH|^~\\&|TestSys|432^testsys practice|TEST||201402171537||MDM^T02|121906|P|2.3.1||||||||\r"
+              + "OBX|1|TX|PROBLEM FOCUSED^PROBLEM FOCUSED^test|1|\\T\\#39;Thirty days have September,\\X0D\\April\\X0A\\June,\\X0A\\and November.\\X0A\\When short February is done,\\E\\X0A\\E\\all the rest have\\T\\nbsp;31.\\T\\#39";
 
             var parser = new PipeParser();
             var msg = parser.Parse(content);
@@ -394,7 +395,9 @@ namespace NHapi.NUnit.Parser
 
             var parsed = (Model.V23.Message.ORU_R01)parser.Parse(message, options);
 
-            var actualObservationValueType = parsed.GetRESPONSE(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
+            var actualObservationValueType =
+                parsed.GetRESPONSE(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX
+                    .GetObservationValue(0).Data;
 
             Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
             Assert.AreEqual("STValue", ((IPrimitive)actualObservationValueType).Value);
@@ -467,16 +470,16 @@ namespace NHapi.NUnit.Parser
         {
             var message =
                 "MSH|^~\\&|DATASERVICES|CORPORATE|||20120711120510.2-0500||ADT^A01^ADT_A01|9c906177-dfca-4bbe-9abd-d8eb43df93a0|D|2.6\r"
-                + "EVN||20120701000000-0500\r"
-                + "PID|1||397979797^^^SN^SN~4242^^^BKDMDM^PI~1000^^^YARDI^PI||Williams^Rory^H^^^^A||19641028000000-0600|M||||||||||31592^^^YARDI^AN\r"
-                + "NK1|1|Pond^Amelia^Q^^^^A|SPO|1234 Main St^^Sussex^WI^53089|^PRS^CP^^^^^^^^^555-1212||N\r"
-                + "NK1|2|Smith^John^^^^^A~^The Doctor^^^^^A|FND|1234 S Water St^^New London^WI^54961||^WPN^PH^^^^^^^^^555-9999|C\r"
-                + "PV1|2|I||R\r"
-                + "GT1|1||Doe^John^A^^^^A||5678 Maple Ave^^Sussex^WI^53089|^PRS^PH^^^^^^^^^555-9999|||||OTH\r"
-                + "IN1|1|CAP1000|YYDN|ACME HealthCare||||GR0000001|||||||HMO|||||||||||||||||||||PCY-0000042\r"
-                + "IN1|2||||||||||||||Medicare|||||||||||||||||||||123-45-6789-A\r"
-                + "IN1|3||||||||||||||Medicaid|||||||||||||||||||||987654321L\r"
-                + "ZFA|6|31592|12345|YARDI|20120201000000-0600";
+              + "EVN||20120701000000-0500\r"
+              + "PID|1||397979797^^^SN^SN~4242^^^BKDMDM^PI~1000^^^YARDI^PI||Williams^Rory^H^^^^A||19641028000000-0600|M||||||||||31592^^^YARDI^AN\r"
+              + "NK1|1|Pond^Amelia^Q^^^^A|SPO|1234 Main St^^Sussex^WI^53089|^PRS^CP^^^^^^^^^555-1212||N\r"
+              + "NK1|2|Smith^John^^^^^A~^The Doctor^^^^^A|FND|1234 S Water St^^New London^WI^54961||^WPN^PH^^^^^^^^^555-9999|C\r"
+              + "PV1|2|I||R\r"
+              + "GT1|1||Doe^John^A^^^^A||5678 Maple Ave^^Sussex^WI^53089|^PRS^PH^^^^^^^^^555-9999|||||OTH\r"
+              + "IN1|1|CAP1000|YYDN|ACME HealthCare||||GR0000001|||||||HMO|||||||||||||||||||||PCY-0000042\r"
+              + "IN1|2||||||||||||||Medicare|||||||||||||||||||||123-45-6789-A\r"
+              + "IN1|3||||||||||||||Medicaid|||||||||||||||||||||987654321L\r"
+              + "ZFA|6|31592|12345|YARDI|20120201000000-0600";
 
             var parser = new PipeParser();
             var options = new ParserOptions { UnexpectedSegmentBehaviour = UnexpectedSegmentBehaviour.AddInline };
@@ -493,17 +496,17 @@ namespace NHapi.NUnit.Parser
         {
             var message =
                 "MSH|^~\\&|DATASERVICES|CORPORATE|||20120711120510.2-0500||ADT^A01^ADT_A01|9c906177-dfca-4bbe-9abd-d8eb43df93a0|D|2.6\r"
-                + "ZZA|1\r"
-                + "EVN||20120701000000-0500\r"
-                + "PID|1||397979797^^^SN^SN~4242^^^BKDMDM^PI~1000^^^YARDI^PI||Williams^Rory^H^^^^A||19641028000000-0600|M||||||||||31592^^^YARDI^AN\r"
-                + "NK1|1|Pond^Amelia^Q^^^^A|SPO|1234 Main St^^Sussex^WI^53089|^PRS^CP^^^^^^^^^555-1212||N\r"
-                + "NK1|2|Smith^John^^^^^A~^The Doctor^^^^^A|FND|1234 S Water St^^New London^WI^54961||^WPN^PH^^^^^^^^^555-9999|C\r"
-                + "PV1|2|I||R\r"
-                + "GT1|1||Doe^John^A^^^^A||5678 Maple Ave^^Sussex^WI^53089|^PRS^PH^^^^^^^^^555-9999|||||OTH\r"
-                + "IN1|1|CAP1000|YYDN|ACME HealthCare||||GR0000001|||||||HMO|||||||||||||||||||||PCY-0000042\r"
-                + "IN1|2||||||||||||||Medicare|||||||||||||||||||||123-45-6789-A\r"
-                + "IN1|3||||||||||||||Medicaid|||||||||||||||||||||987654321L\r"
-                + "ZFA|6|31592|12345|YARDI|20120201000000-0600";
+              + "ZZA|1\r"
+              + "EVN||20120701000000-0500\r"
+              + "PID|1||397979797^^^SN^SN~4242^^^BKDMDM^PI~1000^^^YARDI^PI||Williams^Rory^H^^^^A||19641028000000-0600|M||||||||||31592^^^YARDI^AN\r"
+              + "NK1|1|Pond^Amelia^Q^^^^A|SPO|1234 Main St^^Sussex^WI^53089|^PRS^CP^^^^^^^^^555-1212||N\r"
+              + "NK1|2|Smith^John^^^^^A~^The Doctor^^^^^A|FND|1234 S Water St^^New London^WI^54961||^WPN^PH^^^^^^^^^555-9999|C\r"
+              + "PV1|2|I||R\r"
+              + "GT1|1||Doe^John^A^^^^A||5678 Maple Ave^^Sussex^WI^53089|^PRS^PH^^^^^^^^^555-9999|||||OTH\r"
+              + "IN1|1|CAP1000|YYDN|ACME HealthCare||||GR0000001|||||||HMO|||||||||||||||||||||PCY-0000042\r"
+              + "IN1|2||||||||||||||Medicare|||||||||||||||||||||123-45-6789-A\r"
+              + "IN1|3||||||||||||||Medicaid|||||||||||||||||||||987654321L\r"
+              + "ZFA|6|31592|12345|YARDI|20120201000000-0600";
 
             var parser = new PipeParser();
             var options = new ParserOptions { UnexpectedSegmentBehaviour = UnexpectedSegmentBehaviour.DropToRoot };
@@ -522,19 +525,20 @@ namespace NHapi.NUnit.Parser
         {
             var message =
                 "MSH|^~\\&|DATASERVICES|CORPORATE|||20120711120510.2-0500||ADT^A01^ADT_A01|9c906177-dfca-4bbe-9abd-d8eb43df93a0|D|2.6\r"
-                + "EVN||20120701000000-0500\r"
-                + "PID|1||397979797^^^SN^SN~4242^^^BKDMDM^PI~1000^^^YARDI^PI||Williams^Rory^H^^^^A||19641028000000-0600|M||||||||||31592^^^YARDI^AN\r"
-                + "NK1|1|Pond^Amelia^Q^^^^A|SPO|1234 Main St^^Sussex^WI^53089|^PRS^CP^^^^^^^^^555-1212||N\r"
-                + "NK1|2|Smith^John^^^^^A~^The Doctor^^^^^A|FND|1234 S Water St^^New London^WI^54961||^WPN^PH^^^^^^^^^555-9999|C\r"
-                + "PV1|2|I||R\r"
-                + "GT1|1||Doe^John^A^^^^A||5678 Maple Ave^^Sussex^WI^53089|^PRS^PH^^^^^^^^^555-9999|||||OTH\r"
-                + "IN1|1|CAP1000|YYDN|ACME HealthCare||||GR0000001|||||||HMO|||||||||||||||||||||PCY-0000042\r"
-                + "IN1|2||||||||||||||Medicare|||||||||||||||||||||123-45-6789-A\r"
-                + "IN1|3||||||||||||||Medicaid|||||||||||||||||||||987654321L\r"
-                + "ZFA|6|31592|12345|YARDI|20120201000000-0600";
+              + "EVN||20120701000000-0500\r"
+              + "PID|1||397979797^^^SN^SN~4242^^^BKDMDM^PI~1000^^^YARDI^PI||Williams^Rory^H^^^^A||19641028000000-0600|M||||||||||31592^^^YARDI^AN\r"
+              + "NK1|1|Pond^Amelia^Q^^^^A|SPO|1234 Main St^^Sussex^WI^53089|^PRS^CP^^^^^^^^^555-1212||N\r"
+              + "NK1|2|Smith^John^^^^^A~^The Doctor^^^^^A|FND|1234 S Water St^^New London^WI^54961||^WPN^PH^^^^^^^^^555-9999|C\r"
+              + "PV1|2|I||R\r"
+              + "GT1|1||Doe^John^A^^^^A||5678 Maple Ave^^Sussex^WI^53089|^PRS^PH^^^^^^^^^555-9999|||||OTH\r"
+              + "IN1|1|CAP1000|YYDN|ACME HealthCare||||GR0000001|||||||HMO|||||||||||||||||||||PCY-0000042\r"
+              + "IN1|2||||||||||||||Medicare|||||||||||||||||||||123-45-6789-A\r"
+              + "IN1|3||||||||||||||Medicaid|||||||||||||||||||||987654321L\r"
+              + "ZFA|6|31592|12345|YARDI|20120201000000-0600";
 
             var parser = new PipeParser();
-            var options = new ParserOptions { UnexpectedSegmentBehaviour = UnexpectedSegmentBehaviour.ThrowHl7Exception };
+            var options =
+                new ParserOptions { UnexpectedSegmentBehaviour = UnexpectedSegmentBehaviour.ThrowHl7Exception };
 
             var exception = Assert.Throws<HL7Exception>(() => parser.Parse(message, options));
 
@@ -548,16 +552,16 @@ namespace NHapi.NUnit.Parser
         public void TestGetAckId()
         {
             const string ackMsg =
-                "MSH|^~\\&|Main_HIS|XYZ_HOSPITAL|iFW|ABC_Lab|20160915003015||ACK|9B38584D|P|2.6.1|\r" +
-                "MSA|AA|9B38584D|Everything was okay dokay!|";
+                "MSH|^~\\&|Main_HIS|XYZ_HOSPITAL|iFW|ABC_Lab|20160915003015||ACK|9B38584D|P|2.6.1|\r"
+              + "MSA|AA|9B38584D|Everything was okay dokay!|";
             const string nakMsg =
-                "MSH|^~\\&|^^|DOE^^|DCC^^|DOE^^|20050829141336||ACK^|1125342816253.100000055|P|2.3.1|\r" +
-                "MSA|AE|00000001|Patient id was not found, must be of type 'MR'|||^^HL70357|\r" +
-                "ERR|PID^1^3^^^HL70357|";
+                "MSH|^~\\&|^^|DOE^^|DCC^^|DOE^^|20050829141336||ACK^|1125342816253.100000055|P|2.3.1|\r"
+              + "MSA|AE|00000001|Patient id was not found, must be of type 'MR'|||^^HL70357|\r"
+              + "ERR|PID^1^3^^^HL70357|";
             const string messageRejection =
-                "MSH|^~\\&|DCS|MYIIS|MYIIS||200906040000-0500||ACK^V04^ACK|12343467|P|2.5.1|||\r" +
-                "MSA|AR|9299381\r" +
-                "ERR||MSH^1^12|203^unsupported version id^^HL70357|E||||Unsupported HL7 Version ID-Message rejected\r";
+                "MSH|^~\\&|DCS|MYIIS|MYIIS||200906040000-0500||ACK^V04^ACK|12343467|P|2.5.1|||\r"
+              + "MSA|AR|9299381\r"
+              + "ERR||MSH^1^12|203^unsupported version id^^HL70357|E||||Unsupported HL7 Version ID-Message rejected\r";
 
             var parser = new PipeParser();
 
@@ -573,14 +577,46 @@ namespace NHapi.NUnit.Parser
         public void TestGetAckIdForInvalidMessages()
         {
             const string missingMSASegment =
-                "MSH|^~\\&|Main_HIS|XYZ_HOSPITAL|iFW|ABC_Lab|20160915003015||ACK|9B38584D|P|2.6.1|\r" +
-                "ZSA|AA|9B38584D|Everything was okay dokay!|";
+                "MSH|^~\\&|Main_HIS|XYZ_HOSPITAL|iFW|ABC_Lab|20160915003015||ACK|9B38584D|P|2.6.1|\r"
+              + "ZSA|AA|9B38584D|Everything was okay dokay!|";
             const string msaOnly = "MSA|AA|1|";
 
             var parser = new PipeParser();
 
             Assert.AreEqual(null, parser.GetAckID(missingMSASegment));
             Assert.AreEqual(null, parser.GetAckID(msaOnly));
+        }
+
+        [Test]
+        [Explicit]
+        [TestCase("2.2")]
+        [TestCase("2.3")]
+        [TestCase("2.3.1")]
+        [TestCase("2.4")]
+        [TestCase("2.5")]
+        [TestCase("2.5.1")]
+        [TestCase("2.6")]
+        [TestCase("2.7")]
+        [TestCase("2.7.1")]
+        [TestCase("2.8")]
+        [TestCase("2.8.1")]
+        public void TestParseORL_O34(string version)
+        {
+            var message =
+                $"MSH|^~\\&|LIS|LAB|HIS|HOSP_SYS|20110329142202||ORL^O34^ORL_O34|90|P|{version}\r"
+               + "MSA|AA|12201\r"
+               + "PID|1||32XX77^^^^HIS_PAC||SAMPLE^PATIENT^^^^^L||19981126|M\r"
+               + "SPM|25081299|36201^0310170||K^kri-EDTA|||||||||||||20110329142201.267+0200|||||||||1\r"
+               + "ORC|OK|36201|02000110170|40201|||||20110329142201.312+0200||||||||||||44129-A^^^^^^ORG^^^Redna ambulanta\r"
+               + "TQ1|||||||||R\r"
+               + "OBR||36201|02000110170|020001^K-Hemogram^KC_PEK_LIS_PRE||||||||||||12345^TEST^DOCTOR||||||||O\r"
+               + "SPM|25081299|36201^0310170||K^kri-EDTA|||||||||||||20110329142201.267+0200|||||||||1\r";
+
+            Console.WriteLine($"Testing ORL^O34 parse for version {version}");
+
+            var parser = new PipeParser();
+
+            Assert.DoesNotThrow(() => parser.Parse(message));
         }
     }
 }

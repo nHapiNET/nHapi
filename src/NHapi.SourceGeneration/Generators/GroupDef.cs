@@ -49,6 +49,8 @@ namespace NHapi.SourceGeneration.Generators
             Description = description;
         }
 
+        public string GroupName { get; set; }
+
         /// <summary>
         /// Returns the Java class name of this Group. This is derived from the
         /// message structure and the group elements. This should only be called
@@ -154,8 +156,6 @@ namespace NHapi.SourceGeneration.Generators
         private Hashtable ExistingNames { get; } = new Hashtable();
 
         private string MessageName { get; }
-
-        private string GroupName { get; }
 
         /// <summary> Adds an element (segment or group) to this group.  </summary>
         public virtual void AddStructure(IStructureDef s)
