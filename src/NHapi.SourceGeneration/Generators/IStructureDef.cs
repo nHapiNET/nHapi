@@ -33,16 +33,31 @@ namespace NHapi.SourceGeneration.Generators
     /// </author>
     public interface IStructureDef
     {
-        /// <summary> Returns the name of the structure.</summary>
+        /// <summary>
+        /// Returns the name of the structure.
+        /// </summary>
         string Name { get; }
 
-        /// <summary> Returns a text description of the structure.</summary>
+        /// <summary>
+        /// Gets the group name without message name pre-pended.
+        /// This is only different for group definitions, where the qualification
+        /// is the message type (i.e. this will return PROCEDURE instead of ADT_A01_PROCEDURE).
+        /// </summary>
+        string UnqualifiedName { get; }
+
+        /// <summary>
+        /// Returns a text description of the structure.
+        /// </summary>
         string Description { get; }
 
-        /// <summary> Returns true if this structure is required in the Group.  </summary>
+        /// <summary>
+        /// Returns true if this structure is required in the Group.
+        /// </summary>
         bool Required { get; }
 
-        /// <summary> Returns true if this structure can repeat in the Group.  </summary>
+        /// <summary>
+        /// Returns true if this structure can repeat in the Group.
+        /// </summary>
         bool Repeating { get; }
 
         /// <summary> Returns a list of the names of the segments that are children of this Structure.

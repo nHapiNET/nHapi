@@ -47,9 +47,15 @@ namespace NHapi.SourceGeneration.Generators
             Description = description;
         }
 
-        /// <returns> name of segment.
+        /// <returns>
+        /// name of segment.
         /// </returns>
         public virtual string Name => (name?.Equals("?") == true) ? "GenericSegment" : name;
+
+        /// <summary>
+        /// Gets the group name without message name pre-pended.
+        /// </summary>
+        public virtual string UnqualifiedName => Name;
 
         /// <returns> name of group, if this is not really a segment but a group start indicator.
         /// </returns>

@@ -30,6 +30,7 @@ namespace NHapi.SourceGeneration.Generators
 {
     using System;
     using System.IO;
+    using System.Linq;
     using System.Text;
 
     using NHapi.Base;
@@ -136,7 +137,7 @@ namespace NHapi.SourceGeneration.Generators
             string version,
             string message)
         {
-            GroupDef ret = null;
+            GroupDef ret;
             var required = true;
             var repeating = false;
             var rep_opt = false;
@@ -144,7 +145,6 @@ namespace NHapi.SourceGeneration.Generators
             var len = structures.Length;
             var shortList = new IStructureDef[len]; // place to put final list of groups/segments w/o opt & rep markers
             var currShortListPos = 0;
-            var currLongListPos = 0;
 
             try
             {
@@ -195,7 +195,7 @@ namespace NHapi.SourceGeneration.Generators
                     skip++;
                 }
 
-                currLongListPos = skip;
+                var currLongListPos = skip;
                 while (currLongListPos < len - skip)
                 {
                     var currSegName = structures[currLongListPos].Name;
@@ -203,6 +203,17 @@ namespace NHapi.SourceGeneration.Generators
                     {
                         // this is the opening of a new group ...
                         var name = ((SegmentDef)structures[currLongListPos]).GroupName;
+
+                        // Fix mistakes in DB (ported from hapi)
+                        // Fix github issue https://github.com/nHapiNET/nHapi/issues/298
+                        if (name is not null)
+                        {
+                            if (groupName == "OBSERVATION_REQUEST" && message == "ORL_O34" && name == "SPECIMEN" && version == "2.5.1")
+                            {
+                                name = "OBSERVATION_REQUEST_SPECIMEN";
+                            }
+                        }
+
                         var endOfNewGroup = FindGroupEnd(structures, currLongListPos);
                         var newGroupStructures = new IStructureDef[endOfNewGroup - currLongListPos + 1];
                         Array.Copy(structures, currLongListPos, newGroupStructures, 0, newGroupStructures.Length);
@@ -237,9 +248,22 @@ namespace NHapi.SourceGeneration.Generators
 
             var finalList = new IStructureDef[currShortListPos]; // note: incremented after last assignment
             Array.Copy(shortList, 0, finalList, 0, currShortListPos);
-            for (var i = 0; i < finalList.Length; i++)
+            foreach (var structureDef in finalList)
             {
-                ret.AddStructure(finalList[i]);
+                // Fix mistakes in the DB (ported from hapi)
+                if (structureDef.UnqualifiedName == "ED")
+                {
+                    continue;
+                }
+
+                // Fix github issue https://github.com/nHapiNET/nHapi/issues/298
+                if (ret.UnqualifiedName == "OBSERVATION_REQUEST" && message == "ORL_O34" && structureDef.UnqualifiedName == "SPECIMEN" && version == "2.5.1")
+                {
+                    ((GroupDef)structureDef).GroupName = "OBSERVATION_REQUEST_SPECIMEN";
+                    Log.Info($"Forcing name to {((GroupDef)structureDef).GroupName}");
+                }
+
+                ret.AddStructure(structureDef);
             }
 
             return ret;
@@ -257,14 +281,14 @@ namespace NHapi.SourceGeneration.Generators
             preamble.Append("using System;\r\n");
             preamble.Append("using System.Collections.Generic;\r\n");
             preamble.Append("using ");
-            preamble.Append((string)PackageManager.GetVersionPackageName(version));
+            preamble.Append(PackageManager.GetVersionPackageName(version));
             preamble.Append("Segment;\r\n");
             preamble.Append("using ");
-            preamble.Append((string)PackageManager.GetVersionPackageName(version));
+            preamble.Append(PackageManager.GetVersionPackageName(version));
             preamble.Append("Datatype;\r\n");
             preamble.Append("using NHapi.Base.Model;\r\n\r\n");
             preamble.Append("namespace ");
-            preamble.Append((string)PackageManager.GetVersionPackageName(version));
+            preamble.Append(PackageManager.GetVersionPackageName(version));
             preamble.Append("Group\n");
             preamble.Append("{\r\n");
             preamble.Append("///<summary>\r\n");
@@ -560,7 +584,7 @@ namespace NHapi.SourceGeneration.Generators
         public static int FindGroupEnd(IStructureDef[] structures, int groupStart)
         {
             // {} is rep; [] is optionality
-            string endMarker = null;
+            string endMarker;
             try
             {
                 var startMarker = structures[groupStart].Name;
@@ -625,40 +649,27 @@ namespace NHapi.SourceGeneration.Generators
             return groupStart + offset;
         }
 
+        private static bool StructuresContainsSegmentWithGroupName(IStructureDef[] structureDefs, string structureName)
+        {
+            return structureDefs.Any(structureDef => ((SegmentDef)structureDef).GroupName == structureName);
+        }
+
         /// <summary> Returns true if opening is "[{" and closing is "}]".</summary>
         private static bool RepoptMarkers(string opening, string closing)
         {
-            var ret = false;
-            if (opening.Equals("[{") && closing.Equals("}]"))
-            {
-                ret = true;
-            }
-
-            return ret;
+            return opening.Equals("[{") && closing.Equals("}]");
         }
 
         /// <summary> Returns true if opening is "[" and closing is "]".</summary>
         private static bool OptMarkers(string opening, string closing)
         {
-            var ret = false;
-            if (opening.Equals("[") && closing.Equals("]"))
-            {
-                ret = true;
-            }
-
-            return ret;
+            return opening.Equals("[") && closing.Equals("]");
         }
 
         /// <summary> Returns true if opening is "{" and closing is "}".</summary>
         private static bool RepMarkers(string opening, string closing)
         {
-            var ret = false;
-            if (opening.Equals("{") && closing.Equals("}"))
-            {
-                ret = true;
-            }
-
-            return ret;
+            return opening.Equals("{") && closing.Equals("}");
         }
     }
 }
