@@ -39,7 +39,7 @@ jobs:
       - run: unzip unit-test-results.zip
 
       - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1.7
+        uses: EnricoMi/publish-unit-test-result-action@v1.37
         with:
           check_name: Unit Test Results
           github_token: ${{ secrets.GITHUB_TOKEN }}
