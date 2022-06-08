@@ -3,6 +3,7 @@
 [![Build Status](https://github.com/nHapiNET/nHapi/workflows/Build%20Status/badge.svg)](https://github.com/nHapiNET/nHapi/actions?query=workflow%3A%22Build+Status%22+branch%3Amaster)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/f2aae2999d2e43a1a759b9ffbe5a85ee)](https://www.codacy.com/gh/nHapiNET/nHapi/dashboard?utm_source=github.com&utm_medium=referral&utm_content=nHapiNET/nHapi&utm_campaign=Badge_Coverage)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/f2aae2999d2e43a1a759b9ffbe5a85ee)](https://www.codacy.com/gh/nHapiNET/nHapi/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nHapiNET/nHapi&amp;utm_campaign=Badge_Grade)
+[![Nuget Badge](https://img.shields.io/nuget/v/nhapi)](https://www.nuget.org/packages/nhapi/)
 
 NHapi is a .NET port of the original Java project [HAPI](https://github.com/hapifhir/hapi-hl7v2).
 
