@@ -61,6 +61,9 @@ namespace NHapi.Base.Parser
 
         private static readonly Regex NameSpaceRegex = new Regex(@$"xmlns(.*)=""{NameSpace}""", RegexOptions.Compiled);
 
+        /// <summary> includeLongNameInEncodedXML.</summary>
+        public bool includeLongNameInEncodedXML = false;
+
         protected XMLParser()
         {
         }
@@ -369,6 +372,11 @@ namespace NHapi.Base.Parser
                     if (!componentHasValue)
                     {
                         continue;
+                    }
+
+                    if (includeLongNameInEncodedXML && reps[j] is AbstractType rep)
+                    {
+                        newNode.SetAttribute("LongName", rep.Description);
                     }
 
                     try
@@ -731,17 +739,17 @@ namespace NHapi.Base.Parser
             var hasData = false;
 
             // TODO: consider using a switch statement
-            if (datatypeObject is Varies)
+            if (datatypeObject is Varies varies)
             {
-                hasData = EncodeVaries((Varies)datatypeObject, datatypeElement, parserOptions);
+                hasData = EncodeVaries(varies, datatypeElement, parserOptions);
             }
-            else if (datatypeObject is IPrimitive)
+            else if (datatypeObject is IPrimitive primitive)
             {
-                hasData = EncodePrimitive((IPrimitive)datatypeObject, datatypeElement);
+                hasData = EncodePrimitive(primitive, datatypeElement);
             }
-            else if (datatypeObject is IComposite)
+            else if (datatypeObject is IComposite composite)
             {
-                hasData = EncodeComposite((IComposite)datatypeObject, datatypeElement, parserOptions);
+                hasData = EncodeComposite(composite, datatypeElement, parserOptions);
             }
 
             return hasData;
@@ -859,20 +867,28 @@ namespace NHapi.Base.Parser
             {
                 var name = MakeElementName(datatypeObject, i + 1);
                 var newNode = datatypeElement.OwnerDocument.CreateElement(name, NameSpace);
-                var componentHasValue = Encode(components[i], newNode, parserOptions);
-                if (componentHasValue)
-                {
-                    try
-                    {
-                        datatypeElement.AppendChild(newNode);
-                    }
-                    catch (Exception e)
-                    {
-                        throw new DataTypeException("DOMException encoding Composite: ", e);
-                    }
 
-                    hasValue = true;
+                var componentHasValue = Encode(components[i], newNode, parserOptions);
+                if (!componentHasValue)
+                {
+                    continue;
                 }
+
+                if (includeLongNameInEncodedXML && components[i] is AbstractType component)
+                {
+                    newNode.SetAttribute("LongName", component.Description);
+                }
+
+                try
+                {
+                    datatypeElement.AppendChild(newNode);
+                }
+                catch (Exception e)
+                {
+                    throw new DataTypeException("DOMException encoding Composite: ", e);
+                }
+
+                hasValue = true;
             }
 
             return hasValue;
