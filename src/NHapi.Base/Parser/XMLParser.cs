@@ -62,7 +62,7 @@ namespace NHapi.Base.Parser
         private static readonly Regex NameSpaceRegex = new Regex(@$"xmlns(.*)=""{NameSpace}""", RegexOptions.Compiled);
 
         /// <summary> _includeLongNameInEncodedXML.</summary>
-        private bool _includeLongNameInEncodedXML = false;
+        private bool _includeLongNameInEncodedXML;
 
         protected XMLParser()
         {
