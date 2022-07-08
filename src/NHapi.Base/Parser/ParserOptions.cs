@@ -12,6 +12,7 @@
             InvalidObx2Type = null;
             UnexpectedSegmentBehaviour = UnexpectedSegmentBehaviour.AddInline;
             NonGreedyMode = false;
+            IncludeLongNameInEncodedXml = false;
             DisableWhitespaceTrimmingOnAllXmlNodes = false;
             XmlNodeNamesToDisableWhitespaceTrimming = new HashSet<string>(StringComparer.Ordinal);
             PrettyPrintEncodedXml = true;
@@ -128,6 +129,9 @@
         /// </para>
         /// </example>
         public bool NonGreedyMode { get; set; }
+
+        /// <summary> _includeLongNameInEncodedXML.</summary>
+        public bool IncludeLongNameInEncodedXml { get; set; }
 
         /// <summary>
         /// <para>

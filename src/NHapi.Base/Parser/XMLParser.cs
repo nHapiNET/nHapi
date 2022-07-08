@@ -61,9 +61,6 @@ namespace NHapi.Base.Parser
 
         private static readonly Regex NameSpaceRegex = new Regex(@$"xmlns(.*)=""{NameSpace}""", RegexOptions.Compiled);
 
-        /// <summary> _includeLongNameInEncodedXML.</summary>
-        private bool _includeLongNameInEncodedXML;
-
         protected XMLParser()
         {
         }
@@ -71,12 +68,6 @@ namespace NHapi.Base.Parser
         protected XMLParser(IModelClassFactory factory)
             : base(factory)
         {
-        }
-
-        public bool IncludeLongNameInEncodedXML
-        {
-            get { return _includeLongNameInEncodedXML; }
-            set { _includeLongNameInEncodedXML = value; }
         }
 
         /// <summary>
@@ -380,7 +371,7 @@ namespace NHapi.Base.Parser
                         continue;
                     }
 
-                    if (_includeLongNameInEncodedXML && reps[j] is AbstractType rep)
+                    if (parserOptions.IncludeLongNameInEncodedXml && reps[j] is AbstractType rep)
                     {
                         newNode.SetAttribute("LongName", rep.Description);
                     }
@@ -880,7 +871,7 @@ namespace NHapi.Base.Parser
                     continue;
                 }
 
-                if (_includeLongNameInEncodedXML && components[i] is AbstractType component)
+                if (parserOptions.IncludeLongNameInEncodedXml && components[i] is AbstractType component)
                 {
                     newNode.SetAttribute("LongName", component.Description);
                 }
