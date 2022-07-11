@@ -130,7 +130,18 @@
         /// </example>
         public bool NonGreedyMode { get; set; }
 
-        /// <summary> _includeLongNameInEncodedXML.</summary>
+        /// <summary>
+        /// Gets or Sets flag which allows the Description attribute [LongName] to be added in encoded xml with counter position.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// <![CDATA[
+        /// <MSH.1 LongName="Field Separator">1</MSH.1>
+        /// <MSH.2 LongName="Encoding Characters">2</MSH.2>
+        /// ]]>
+        /// </code>
+        /// </example>
+        /// <remarks>The default value is <see langword="false"/>.</remarks>
         public bool IncludeLongNameInEncodedXml { get; set; }
 
         /// <summary>
