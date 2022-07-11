@@ -48,18 +48,12 @@ jobs:
          dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net6.0 --no-restore --no-build
          dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj --collect:"XPlat Code Coverage" -r TestResults -c Release -f net6.0 --no-restore --no-build
 
-    - name: Convert trx to junit
-      if: (success() || failure()) && matrix.os == 'windows-latest'
-      run: |
-        dotnet tool install -g trx2junit
-        trx2junit TestResults/*.trx
-
     - name: Upload Unit Test Results
       if: always() && matrix.os == 'windows-latest'
       uses: actions/upload-artifact@v3
       with:
         name: unit-test-results
-        path: TestResults\TestResults*.xml
+        path: TestResults\*.trx
 
     - name: Upload Code Coverage Report
       if: always() && matrix.os == 'ubuntu-latest'

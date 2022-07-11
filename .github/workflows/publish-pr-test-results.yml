@@ -39,11 +39,11 @@ jobs:
       - run: unzip unit-test-results.zip
 
       - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1.39
+        uses: EnricoMi/publish-unit-test-result-action@v2
         with:
           check_name: Unit Test Results
           github_token: ${{ secrets.GITHUB_TOKEN }}
           commit: ${{ github.event.workflow_run.head_sha }}
-          files: "**/*.xml"
+          trx_files: "**/*.trx"
           report_individual_runs: true
           check_run_annotations: all tests, skipped tests
