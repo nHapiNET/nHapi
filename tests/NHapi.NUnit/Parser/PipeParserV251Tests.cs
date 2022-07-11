@@ -281,5 +281,46 @@
             var thirdObr = thirdOrder.OBSERVATION_REQUEST.OBR.UniversalServiceIdentifier;
             Assert.AreEqual("1165-0", thirdObr.Identifier.Value);
         }
+
+        [Test]
+        public void Parses_OMGO19()
+        {
+            var message =
+                @"MSH|^~\&||^1.3.6.1.4.1.21367.2016.10.1.21^ISO||^1.3.6.1.4.1.21367.2016.10.1.32^ISO|20160930153834+0000||OMG^O19^OMG_O19|17882|P|2.5.1|||NE|NE|||||360X|
+PID|1||T7190334^^^&1.3.6.1.4.1.21367.2016.10.1.21.5&ISO^MRN||Packton^Peter^^^L||19580817|M|
+ORC|NW|889342^^1.3.6.1.4.1.21367.2016.10.1.21.15^ISO||||||||||34225PC^Allen^Anthony^M^III^MD^^^&1.3.6.1.4.1.21367.2016.10.1.21.10&ISO^L^^DN|
+TQ1||||||||20161018235959+0000|
+OBR||889342^^1.3.6.1.4.1.21367.2016.10.1.21.15^ISO||57133-1^^LN||||||||||||34225PC^Allen^Anthony^M^III^MD^^^&1.3.6.1.4.1.21367.2016.10.1.21.10&ISO^L^^DN|||||||||||||||^Rule out headache^|";
+            var parser = new PipeParser();
+            var omg = parser.Parse(message) as OMG_O19;
+            Assert.IsNotNull(omg);
+            Assert.AreEqual(1, omg.ORDERRepetitionsUsed);
+        }
+
+        [Test]
+        public void Parses_OSU_O51()
+        {
+            var message =
+                @"MSH|^~\&||^1.3.6.1.4.1.21367.2016.10.1.21^ISO||^1.3.6.1.4.1.21367.2016.10.1.32^ISO|20161007092857+0000||OSU^O51^OSU_O51|23882|P|2.5.1|||NE|NE|||||360X|
+PID|1||T7190334^^^&1.3.6.1.4.1.21367.2016.10.1.21.5&ISO^MRN||Packton^Peter^^^L||19580817|M|
+ORC|CA|889342^^1.3.6.1.4.1.21367.2016.10.1.21.15^ISO||||||||||34225PC^Allen^Anthony^M^III^MD^^^&1.3.6.1.4.1.21367.2016.10.1.21.10&ISO^L^^DN||||^Headache disappeared|";
+            var parser = new PipeParser();
+            var osu = parser.Parse(message) as OSU_O51;
+            Assert.IsNotNull(osu);
+            Assert.IsNotNull(osu.ORC);
+        }
+
+        [Test]
+        public void Parses_OParses_SIU_S26_V251()
+        {
+            var message = @"MSH|^~\&||^1.3.63.998.999.3^ISO||^1.3.63.5444.345.2.1^ISO|20161010172813+0000||SIU^S26^SIU_S26|25882|P|2.5.1|||NE|NE|||||360X|
+SCH||18467^^1.3.6.1.4.1.21367.2016.10.1.32.14^ISO||||57133-1^^LN||||||||||^Name^Registrar||||^Name^Enterer||||||889342^^1.3.6.1.4.1.21367.2016.10.1.21.15^ISO|
+TQ1|||||||20161009140000+0000|20161009143000+0000|
+PID|1||T7190334^^^&1.3.6.1.4.1.21367.2016.10.1.21.5&ISO^MRN~L53HG67^^^&1.3.6.1.4.1.21367.2016.10.1.32.11&ISO^MRN||Packton^Peter^^^L||19580817|M|
+RGS|1|D|";
+            var parser = new PipeParser();
+            var siu = parser.Parse(message) as SIU_S26;
+            Assert.IsNotNull(siu);
+        }
     }
 }
