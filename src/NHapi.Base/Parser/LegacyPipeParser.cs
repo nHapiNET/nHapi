@@ -265,7 +265,7 @@ namespace NHapi.Base.Parser
             }
 
             var messageIter = new Util.MessageIterator(message, "MSH", true);
-            FilterIterator.IPredicate segmentsOnly = new AnonymousClassPredicate(this);
+            FilterIterator.IPredicate segmentsOnly = new IsSegmentPredicate(this);
             var segmentIter = new FilterIterator(messageIter, segmentsOnly);
 
             var segments = Split(@string, SegDelim);
@@ -299,7 +299,7 @@ namespace NHapi.Base.Parser
                     Log.Debug("Parsing segment " + name);
 
                     messageIter.Direction = name;
-                    FilterIterator.IPredicate byDirection = new AnonymousClassPredicate1(name, this);
+                    FilterIterator.IPredicate byDirection = new ByDirectionPredicate(name, this);
                     var dirIter = new FilterIterator(segmentIter, byDirection);
 
                     if (dirIter.MoveNext())
@@ -939,46 +939,46 @@ namespace NHapi.Base.Parser
             public bool ExplicitlyDefined { get; }
         }
 
-        private class AnonymousClassPredicate : FilterIterator.IPredicate
+        private sealed class IsSegmentPredicate : FilterIterator.IPredicate
         {
-            public AnonymousClassPredicate(LegacyPipeParser enclosingInstance)
+            public IsSegmentPredicate(LegacyPipeParser enclosingInstance)
             {
-                Enclosing_Instance = enclosingInstance;
+                EnclosingInstance = enclosingInstance;
             }
 
-            public LegacyPipeParser Enclosing_Instance { get; }
+            public LegacyPipeParser EnclosingInstance { get; }
 
-            public virtual bool evaluate(object obj)
+            public bool evaluate(object obj)
             {
                 return Evaluate(obj);
             }
 
-            public virtual bool Evaluate(object obj)
+            public bool Evaluate(object obj)
             {
-                return typeof(ISegment).IsAssignableFrom(obj.GetType());
+                return obj is ISegment;
             }
         }
 
-        private class AnonymousClassPredicate1 : FilterIterator.IPredicate
+        private sealed class ByDirectionPredicate : FilterIterator.IPredicate
         {
-            public AnonymousClassPredicate1(string name, LegacyPipeParser enclosingInstance)
+            public ByDirectionPredicate(string name, LegacyPipeParser enclosingInstance)
             {
                 Name = name;
-                Enclosing_Instance = enclosingInstance;
+                EnclosingInstance = enclosingInstance;
             }
 
-            public LegacyPipeParser Enclosing_Instance { get; }
+            public LegacyPipeParser EnclosingInstance { get; }
 
             private string Name { get; }
 
             /// <inheritdoc />
-            public virtual bool evaluate(object obj)
+            public bool evaluate(object obj)
             {
                 return Evaluate(obj);
             }
 
             /// <inheritdoc />
-            public virtual bool Evaluate(object obj)
+            public bool Evaluate(object obj)
             {
                 var structureName = ((IStructure)obj).GetStructureName();
                 Log.Debug($"LegacyPipeParser iterating message in direction {Name} at {structureName}");

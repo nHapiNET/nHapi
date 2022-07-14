@@ -28,6 +28,7 @@ namespace NHapi.Base.Util
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
 
     using NHapi.Base.Model;
 
@@ -48,7 +49,7 @@ namespace NHapi.Base.Util
     /// </author>
     public class MessageNavigator
     {
-        private ArrayList ancestors;
+        private Stack<GroupContext> ancestors;
         private int currentChild; // -1 means current structure is current group (special case used for root)
         private string[] childNames;
 
@@ -112,16 +113,14 @@ namespace NHapi.Base.Util
             if (childNumber != -1)
             {
                 var s = CurrentGroup.GetStructure(childNames[childNumber], rep);
-                if (!(s is IGroup))
+                if (s is not IGroup group)
                 {
                     throw new HL7Exception("Can't drill into segment", ErrorCode.APPLICATION_INTERNAL_ERROR);
                 }
 
-                var group = (IGroup)s;
-
                 // stack the current group and location
                 var gc = new GroupContext(this, CurrentGroup, currentChild);
-                ancestors.Add(gc);
+                ancestors.Push(gc);
 
                 CurrentGroup = group;
             }
@@ -166,7 +165,7 @@ namespace NHapi.Base.Util
             // pop the top group and resume search there
             if (ancestors.Count != 0)
             {
-                var gc = (GroupContext)SupportClass.StackSupport.Pop(ancestors);
+                var gc = ancestors.Pop();
                 CurrentGroup = gc.Group;
                 currentChild = gc.Child;
                 childNames = CurrentGroup.Names;
@@ -226,22 +225,23 @@ namespace NHapi.Base.Util
             "StyleCop.CSharp.NamingRules",
             "SA1300:Element should begin with upper-case letter",
             Justification = "As this is a public member, we will duplicate the method and mark this one as obsolete.")]
-        public virtual void toChild(int child)
+        public virtual string toChild(int child)
         {
-            ToChild(child);
+            return ToChild(child);
         }
 
         /// <summary> Moves to the sibling of the current location at the specified index.</summary>
-        public virtual void ToChild(int child)
+        public virtual string ToChild(int child)
         {
             if (child >= 0 && child < childNames.Length)
             {
                 currentChild = child;
+                return this.childNames[child];
             }
             else
             {
                 throw new HL7Exception(
-                    "Can't advance to child " + child + " -- only " + childNames.Length + " children",
+                    $"Can't advance to child {child} -- only {childNames.Length} children",
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
         }
@@ -259,7 +259,7 @@ namespace NHapi.Base.Util
         /// <summary>Resets the location to the beginning of the tree (the root). </summary>
         public virtual void Reset()
         {
-            ancestors = new ArrayList();
+            ancestors = new Stack<GroupContext>();
             CurrentGroup = Root;
             currentChild = -1;
             childNames = CurrentGroup.Names;
@@ -280,18 +280,13 @@ namespace NHapi.Base.Util
         /// </summary>
         public virtual IStructure GetCurrentStructure(int rep)
         {
-            IStructure ret = null;
-            if (currentChild != -1)
+            if (currentChild == -1)
             {
-                var childName = childNames[currentChild];
-                ret = CurrentGroup.GetStructure(childName, rep);
-            }
-            else
-            {
-                ret = CurrentGroup;
+                return CurrentGroup;
             }
 
-            return ret;
+            var childName = childNames[currentChild];
+            return this.CurrentGroup.GetStructure(childName, rep);
         }
 
         [Obsolete("This method has been replaced by 'Iterate'.")]
@@ -315,36 +310,30 @@ namespace NHapi.Base.Util
         /// <param name="loop">if true, loops back to beginning when end of msg reached; if false,
         /// throws HL7Exception if end of msg reached.
         /// </param>
-        public virtual void Iterate(bool segmentsOnly, bool loop)
+        public virtual string Iterate(bool segmentsOnly, bool loop)
         {
-            IStructure start = null;
-
-            if (currentChild == -1)
-            {
-                start = CurrentGroup;
-            }
-            else
-            {
-                start = CurrentGroup.GetStructure(childNames[currentChild]);
-            }
+            var start = currentChild == -1
+                ? CurrentGroup
+                : CurrentGroup.GetStructure(childNames[currentChild]);
 
             // using a non-existent direction and not allowing segment creation means that only
             // the first rep of anything is traversed.
             IEnumerator it = new MessageIterator(start, "doesn't exist", false);
             if (segmentsOnly)
             {
-                FilterIterator.IPredicate predicate = new AnonymousClassPredicate(this);
+                FilterIterator.IPredicate predicate = new IsSegmentPredicate(this);
                 it = new FilterIterator(it, predicate);
             }
 
             if (it.MoveNext())
             {
                 var next = (IStructure)it.Current;
-                DrillHere(next);
+                return DrillHere(next);
             }
             else if (loop)
             {
                 Reset();
+                return string.Empty;
             }
             else
             {
@@ -355,19 +344,19 @@ namespace NHapi.Base.Util
         }
 
         /// <summary> Navigates to a specific location in the message.</summary>
-        private void DrillHere(IStructure destination)
+        private string DrillHere(IStructure destination)
         {
             var pathElem = destination;
-            var pathStack = new ArrayList();
-            var indexStack = new ArrayList();
+            var pathStack = new Stack<IStructure>();
+            var indexStack = new Stack<MessageIterator.Index>();
             do
             {
                 var index = MessageIterator.GetIndex(pathElem.ParentStructure, pathElem);
-                indexStack.Add(index);
+                indexStack.Push(index);
                 pathElem = pathElem.ParentStructure;
-                pathStack.Add(pathElem);
+                pathStack.Push(pathElem);
             }
-            while (!Root.Equals(pathElem) && !typeof(IMessage).IsAssignableFrom(pathElem.GetType()));
+            while (!Root.Equals(pathElem) && pathElem is not IMessage);
 
             if (!Root.Equals(pathElem))
             {
@@ -375,10 +364,11 @@ namespace NHapi.Base.Util
             }
 
             Reset();
+            string result = null;
             while (pathStack.Count != 0)
             {
-                var parent = (IGroup)SupportClass.StackSupport.Pop(pathStack);
-                var index = (MessageIterator.Index)SupportClass.StackSupport.Pop(indexStack);
+                var parent = (IGroup)pathStack.Pop();
+                var index = indexStack.Pop();
                 var child = Search(parent.Names, index.Name);
                 if (pathStack.Count != 0)
                 {
@@ -386,15 +376,17 @@ namespace NHapi.Base.Util
                 }
                 else
                 {
-                    ToChild(child);
+                    result = ToChild(child);
                 }
             }
+
+            return result;
         }
 
         /// <summary>Like Arrays.binarySearch, only probably slower and doesn't require
         /// a sorted list.  Also just returns -1 if item isn't found.
         /// </summary>
-        private int Search(object[] list, object item)
+        private int Search(string[] list, object item)
         {
             var found = -1;
             for (var i = 0; i < list.Length && found == -1; i++)
@@ -408,59 +400,43 @@ namespace NHapi.Base.Util
             return found;
         }
 
-        /// <summary> Drills down recursively until a segment is reached.</summary>
-        private void FindLeaf()
-        {
-            if (currentChild == -1)
-            {
-                currentChild = 0;
-            }
-
-            var c = CurrentGroup.GetClass(childNames[currentChild]);
-            if (typeof(IGroup).IsAssignableFrom(c))
-            {
-                DrillDown(currentChild, 0);
-                FindLeaf();
-            }
-        }
-
         /// <summary> A structure to hold current location information at
         /// one level of the message tree.  A stack of these
         /// identifies the current location completely.
         /// </summary>
         private class GroupContext
         {
-            public GroupContext(MessageNavigator enclosingInstance, IGroup g, int c)
+            public GroupContext(MessageNavigator enclosingInstance, IGroup group, int child)
             {
                 EnclosingInstance = enclosingInstance;
-                Group = g;
-                Child = c;
+                Group = group;
+                Child = child;
             }
 
             public MessageNavigator EnclosingInstance { get; }
 
-            public IGroup Group { get; set; }
+            public IGroup Group { get; }
 
-            public int Child { get; set; }
+            public int Child { get; }
         }
 
-        private class AnonymousClassPredicate : FilterIterator.IPredicate
+        private sealed class IsSegmentPredicate : FilterIterator.IPredicate
         {
-            public AnonymousClassPredicate(MessageNavigator enclosingInstance)
+            public IsSegmentPredicate(MessageNavigator enclosingInstance)
             {
                 EnclosingInstance = enclosingInstance;
             }
 
             public MessageNavigator EnclosingInstance { get; }
 
-            public virtual bool evaluate(object obj)
+            public bool evaluate(object obj)
             {
                 return Evaluate(obj);
             }
 
-            public virtual bool Evaluate(object obj)
+            public bool Evaluate(object obj)
             {
-                return typeof(ISegment).IsAssignableFrom(obj.GetType());
+                return obj is ISegment;
             }
         }
     }

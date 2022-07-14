@@ -3,6 +3,7 @@
 
 # Declare files that will always have CRLF line endings on checkout.
 *.txt text eol=crlf
+*.hl7 text eol=crlf
 
 # Denote all files that are truly binary and should not be modified.
 *.png binary
@@ -10,3 +11,4 @@
 
 # Treat these files as text so we don;t get inconsistency with line endings between OS
 tests/NHapi.NUnit/TestData/BadInputs/**/*   -text
+tests/NHapi.NUnit/TestData/Util/**/*   -text
