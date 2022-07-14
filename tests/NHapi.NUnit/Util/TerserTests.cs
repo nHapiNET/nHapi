@@ -224,6 +224,31 @@
             Assert.AreEqual(expected, terser.Get("/QUERY_RESPONSE(0)/.PID-3-1"));
         }
 
+        /// <summary>
+        /// https://github.com/nHapiNET/nHapi/issues/319
+        /// </summary>
+        [Test]
+        public void Get_OMD_O03_ValidTerserPathSpecifaction_ReturnsExpectedResult()
+        {
+            var parser = new PipeParser();
+
+            var omdText = "MSH|^~\\&|EDITE|TEST|TEST|TEST|20210519141200||OMD^O03^OMD_O03|202105191412001|P|2.5|||||FRA|8859/1\r" +
+                          "PID|1|465 306 5961||407623|Wood^Patrick^^^MR||19700101|1|||High Street^^Oxford^^Ox1 4DP~George St ^^Oxford^^Ox1 5AP|||||||\r" +
+                          "ORC|NW|1254481^EDITEUR|||||^^^20210519143000||20210519143000|611014333^PRESCRIPTEUR^TEST1^^^^^^EDITEUR^^^^ADELI~10002129790^PRESCRIPTEUR^TEST1 ^^^^^^EDITEUR ^^^^RPPS~1027^PRESCRIPTEUR^TEST1^^^^^^EDITEUR^^^^EI||||||||||||||||||||\r" +
+                          "TQ1|1||||||20210519143000|\r" +
+                          "ODS|R||SANSSEL^Sans sel^EDITEUR|";
+
+            var parsed = parser.Parse(omdText);
+
+            var terser = new Terser(parsed);
+
+            var tq17 = terser.Get("/.ORDER_DIET(0)/TIMING_DIET/TQ1-7");
+            var ods1 = terser.Get("/.ORDER_DIET(0)/DIET/ODS(0)-1");
+
+            Assert.AreEqual("20210519143000", tq17);
+            Assert.AreEqual("R", ods1);
+        }
+
         #region Static Methods
 
         [Test]

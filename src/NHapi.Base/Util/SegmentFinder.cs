@@ -36,6 +36,24 @@ namespace NHapi.Base.Util
     /// </author>
     public class SegmentFinder : MessageNavigator
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1310:Field names should not contain underscore",
+            Justification = "Because these are constants and not just fields there is a rule clash.")]
+        private const string VALID_PATTERN = "[\\w\\*\\?]*";
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1310:Field names should not contain underscore",
+            Justification = "Because these are constants and not just fields there is a rule clash.")]
+        private const string LITERAL_UNBOUNDED = "\\*";
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1310:Field names should not contain underscore",
+            Justification = "Because these are constants and not just fields there is a rule clash.")]
+        private const string LITERAL_OPTIONAL = "\\?";
+
         /// <summary> Creates a new instance of SegmentFinder.</summary>
         /// <param name="root">the scope of searches -- may be a whole message or only a branch.
         /// </param>
@@ -67,12 +85,12 @@ namespace NHapi.Base.Util
         /// <param name="rep">the repetition of the segment to return.</param>
         public virtual ISegment FindSegment(string namePattern, int rep)
         {
-            IStructure s = null;
+            IStructure s;
             do
             {
                 s = FindStructure(namePattern, rep);
             }
-            while (!typeof(ISegment).IsAssignableFrom(s.GetType()));
+            while (s is not ISegment);
 
             return (ISegment)s;
         }
@@ -90,12 +108,12 @@ namespace NHapi.Base.Util
         /// <summary> As findSegment(), but will only return a group.</summary>
         public virtual IGroup FindGroup(string namePattern, int rep)
         {
-            IStructure s = null;
+            IStructure s;
             do
             {
                 s = FindStructure(namePattern, rep);
             }
-            while (!typeof(IGroup).IsAssignableFrom(s.GetType()));
+            while (s is not IGroup);
 
             return (IGroup)s;
         }
@@ -126,12 +144,12 @@ namespace NHapi.Base.Util
         public virtual ISegment GetSegment(string namePattern, int rep)
         {
             var s = GetStructure(namePattern, rep);
-            if (!typeof(ISegment).IsAssignableFrom(s.GetType()))
+            if (s is not ISegment segment)
             {
-                throw new HL7Exception(s.GetStructureName() + " is not a segment", ErrorCode.APPLICATION_INTERNAL_ERROR);
+                throw new HL7Exception($"{s.GetStructureName()} is not a segment", ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
-            return (ISegment)s;
+            return segment;
         }
 
         [Obsolete("This method has been replaced by 'GetGroup'.")]
@@ -148,12 +166,12 @@ namespace NHapi.Base.Util
         public virtual IGroup GetGroup(string namePattern, int rep)
         {
             var s = GetStructure(namePattern, rep);
-            if (!typeof(IGroup).IsAssignableFrom(s.GetType()))
+            if (s is not IGroup group)
             {
-                throw new HL7Exception(s.GetStructureName() + " is not a group", ErrorCode.APPLICATION_INTERNAL_ERROR);
+                throw new HL7Exception($"{s.GetStructureName()} is not a group", ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
-            return (IGroup)s;
+            return group;
         }
 
         /// <summary> Returns the first matching structure AFTER the current position.</summary>
@@ -163,9 +181,9 @@ namespace NHapi.Base.Util
 
             while (s == null)
             {
-                Iterate(false, false);
+                var currentNameInParent = Iterate(false, false);
                 var currentName = GetCurrentStructure(0).GetStructureName();
-                if (Matches(namePattern, currentName))
+                if (Matches(namePattern, currentName) || Matches(namePattern, currentNameInParent))
                 {
                     s = GetCurrentStructure(rep);
                 }
@@ -195,7 +213,7 @@ namespace NHapi.Base.Util
 
             if (s == null)
             {
-                throw new HL7Exception("Can't find " + namePattern + " as a direct child", ErrorCode.APPLICATION_INTERNAL_ERROR);
+                throw new HL7Exception($"Can't find {namePattern} as a direct child", ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
             return s;
@@ -210,15 +228,15 @@ namespace NHapi.Base.Util
                 return true;
             }
 
-            if (!Regex.IsMatch(pattern, "[\\w\\*\\?]*"))
+            if (!Regex.IsMatch(pattern, VALID_PATTERN))
             {
-                throw new ArgumentException("The pattern " + pattern + " is not valid.  Only [\\w\\*\\?]* allowed.");
+                throw new ArgumentException($"The pattern {pattern} is not valid.  Only [\\w\\*\\?]* allowed.");
             }
 
-            pattern = Regex.Replace(pattern, "\\*", ".*");
-            pattern = Regex.Replace(pattern, "\\?", ".");
+            pattern = Regex.Replace(pattern, LITERAL_UNBOUNDED, ".*");
+            pattern = Regex.Replace(pattern, LITERAL_OPTIONAL, ".");
 
-            return Regex.IsMatch(candidate, pattern);
+            return Regex.IsMatch(candidate, $"^{pattern}$");
         }
     }
 }
