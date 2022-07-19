@@ -46,7 +46,7 @@ namespace NHapi.Base.Parser
 
         /// <summary>Test harness. </summary>
         [STAThread]
-        public new static void Main(string[] args)
+        public static new void Main(string[] args)
         {
             if (args.Length != 1)
             {
