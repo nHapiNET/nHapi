@@ -374,6 +374,37 @@
             Console.WriteLine(decodedMessage.ToString());
         }
 
+                [Test]
+        public void IncludeLongNameInEncodedXML_EncodingOptions()
+        {
+            var message = @"MSH|^~\&|KISsystem|ZTM|NIDAklinikserver|HL7Proxy|201902271130||ADT^A01|68371142|P|2.3
+                EVN|A01|201902271130|201902271130";
+
+            var expectedEncodedMessage = @"<ADT_A01 xmlns=""urn:hl7-org:v2xml""><MSH><MSH.1 LongName=""Field Separator"">|</MSH.1><MSH.2 LongName=""Encoding Characters"">^~\&amp;</MSH.2><MSH.3 LongName=""Sending Application""><HD.1 LongName=""Namespace ID"">KISsystem</HD.1></MSH.3><MSH.4 LongName=""Sending Facility""><HD.1 LongName=""Namespace ID"">ZTM</HD.1></MSH.4><MSH.5 LongName=""Receiving Application""><HD.1 LongName=""Namespace ID"">NIDAklinikserver</HD.1></MSH.5><MSH.6 LongName=""Receiving Facility""><HD.1 LongName=""Namespace ID"">HL7Proxy</HD.1></MSH.6><MSH.7 LongName=""Date / Time of Message""><TS.1 LongName=""Time of an event"">201902271130</TS.1></MSH.7><MSH.9 LongName=""Message Type""><CM_MSG.1 LongName=""Message type"">ADT</CM_MSG.1><CM_MSG.2 LongName=""Trigger event"">A01</CM_MSG.2></MSH.9><MSH.10 LongName=""Message Control ID"">68371142</MSH.10><MSH.11 LongName=""Processing ID""><PT.1 LongName=""Processing ID"">P</PT.1></MSH.11><MSH.12 LongName=""Version ID"">2.3</MSH.12></MSH><EVN><EVN.1 LongName=""Event Type Code"">A01</EVN.1><EVN.2 LongName=""Recorded Date/Time""><TS.1 LongName=""Time of an event"">201902271130</TS.1></EVN.2><EVN.3 LongName=""Date/Time Planned Event""><TS.1 LongName=""Time of an event"">201902271130</TS.1></EVN.3></EVN></ADT_A01>";
+
+            var parser = new PipeParser();
+            var options = new ParserOptions { IncludeLongNameInEncodedXml = true };
+
+            var parsed = parser.Parse(message, options);
+            var encodedMessage = parser.Encode(parsed, options);
+
+            Assert.AreEqual(expectedEncodedMessage, encodedMessage);
+        }
+
+        [Test]
+        public void IncludeLongNameInEncodedXML_ParserOptions()
+        {
+            var message = @"MSH|^~\&|KISsystem|ZTM|NIDAklinikserver|HL7Proxy|201902271130||ADT^A01|68371142|P|2.3
+                EVN|A01|201902271130|201902271130";
+
+            var parser = new PipeParser();
+            var options = new ParserOptions { IncludeLongNameInEncodedXml = true };
+
+            var parsed = parser.Parse(message, options);
+
+            Assert.AreEqual("201902271130", ((NHapi.Model.V23.Message.ADT_A01)parsed).EVN.DateTimePlannedEvent.TimeOfAnEvent.Value);
+        }
+
         private static void SetMessageHeader(IMessage msg, string messageCode, string messageTriggerEvent, string processingId)
         {
             var msh = (ISegment)msg.GetStructure("MSH");
