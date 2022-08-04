@@ -394,15 +394,19 @@
         [Test]
         public void IncludeLongNameInEncodedXML_ParserOptions()
         {
-            var message = @"MSH|^~\&|KISsystem|ZTM|NIDAklinikserver|HL7Proxy|201902271130||ADT^A01|68371142|P|2.3
-                EVN|A01|201902271130|201902271130";
+            var message =
+                "MSH|^~\\&|MILL|EMRY|MQ|EMRY|20150619155451||ADT^A08|Q2043855220T2330403781X928163|P|2.3||||||8859/1\r"
+              + "EVN|A08|20150619155451\r"
+              + "PID|1|935307^^^EUH MRN^MRN^EH01|25106376^^^TEC MRN~1781893^^^CLH MRN~935307^^^EUH MRN~5938067^^^EMPI|1167766^^^CPI NBR^^EXTERNAL~90509411^^^HNASYSID~10341880^^^HNASYSID~50627780^^^HNASYSID~5938067^^^MSG_CERNPHR|Patient^Test^Test^^^^Cur_Name||19400101|F||WHI|123 ENDOFTHE RD^UNIT 123^ATLANTA^GA^40000^USA^HOME^^||5555555555^HOME~6666666666^YAHOO@YAHOO.COM^EMAIL|6666666666^BUS|ENG|M|OTH|12345665161^^^EUH FIN^FIN NBR^EH01|123454103|GA123450071||Non-Hispanic|||0|\"\"|\"\"|\"\"||N";
 
             var parser = new PipeParser();
             var options = new ParserOptions { IncludeLongNameInEncodedXml = true };
 
             var parsed = parser.Parse(message, options);
+            var adtA01 = parsed as ADT_A01; // a08 is mapped to a01
+            Assert.IsNotNull(adtA01);
 
-            Assert.AreEqual("201902271130", ((NHapi.Model.V23.Message.ADT_A01)parsed).EVN.DateTimePlannedEvent.TimeOfAnEvent.Value);
+            Assert.AreEqual("19400101", adtA01.PID.DateOfBirth.TimeOfAnEvent.Value);
         }
 
         private static void SetMessageHeader(IMessage msg, string messageCode, string messageTriggerEvent, string processingId)
