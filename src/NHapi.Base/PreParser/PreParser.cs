@@ -64,11 +64,11 @@ namespace NHapi.Base.PreParser
             IDictionary<string, string> results;
             if (EncodingDetector.IsEr7Encoded(message))
             {
-                result = Er7.ParseMessage(message, datumPaths, out results);
+                result = Er7.TryParseMessage(message, datumPaths, out results);
             }
             else if (EncodingDetector.IsXmlEncoded(message))
             {
-                result = Xml.ParseMessage(message, datumPaths, out results);
+                result = Xml.TryParseMessage(message, datumPaths, out results);
             }
             else
             {

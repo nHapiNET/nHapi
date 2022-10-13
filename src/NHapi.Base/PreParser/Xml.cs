@@ -44,7 +44,7 @@ namespace NHapi.Base.PreParser
         /// for the location where the data is found (i.e. in the <c>ZYX[a]-b[c]-d-e</c> style), and the value
         /// being that of the corresponding text.
         /// </para>
-        /// <para>So, after calling <see cref="ParseMessage"/> successfully, if you wanted to retrieve the
+        /// <para>So, after calling <see cref="TryParseMessage"/> successfully, if you wanted to retrieve the
         /// message data from <paramref name="results"/> you might call something like:
         /// <code>
         /// var key = new DatumPath().Add("MSH").Add(1).ToString();
@@ -114,7 +114,7 @@ namespace NHapi.Base.PreParser
         /// (that is, impossible in any HL7 message: independent of any message / segment definitions).
         /// </para>
         /// </returns>
-        public static bool ParseMessage(string message, IEnumerable<DatumPath> messageMasks, out IDictionary<string, string> results)
+        public static bool TryParseMessage(string message, IEnumerable<DatumPath> messageMasks, out IDictionary<string, string> results)
         {
             results = new Dictionary<string, string>();
             messageMasks ??= new List<DatumPath> { new () };
@@ -128,8 +128,7 @@ namespace NHapi.Base.PreParser
                     var result = SearchForDatum(document, datumPath);
                     if (result is not null)
                     {
-                        var key = datumPath.Size == 0 ? "null DatumPath" : datumPath.ToString();
-                        results.Add(key, result);
+                        results.Add(datumPath.ToString(), result);
                     }
                 }
             }

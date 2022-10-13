@@ -20,13 +20,13 @@
         [TestCase("MSH|^")]
         [TestCase("MSH|^~")]
         [TestCase("MSH|^~\\")]
-        public void ParseMessage_MessageNotLongEnough_ReturnsFalse(string input)
+        public void TryParseMessage_MessageNotLongEnough_ReturnsFalse(string input)
         {
             // Arrange
             var pathSpecs = Array.Empty<DatumPath>();
 
             // Act
-            var result = Er7.ParseMessage(input, pathSpecs, out _);
+            var result = Er7.TryParseMessage(input, pathSpecs, out _);
 
             // Assert
             Assert.False(result);
@@ -35,13 +35,13 @@
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
-        public void ParseMessage_MessageIsNullEmptyOrWhiteSpace_ReturnsFalse(string input)
+        public void TryParseMessage_MessageIsNullEmptyOrWhiteSpace_ReturnsFalse(string input)
         {
             // Arrange
             var pathSpecs = Array.Empty<DatumPath>();
 
             // Act
-            var result = Er7.ParseMessage(input, pathSpecs, out _);
+            var result = Er7.TryParseMessage(input, pathSpecs, out _);
 
             // Assert
             Assert.False(result);
@@ -49,13 +49,13 @@
 
         [TestCase("MSH|^~\\&|\rG")]
         [TestCase("MSH|^~\\&|\rGR")]
-        public void ParseMessage_MessageSegmentIsTooShort_ArgumentOutOfRangeExceptionIsIgnored(string input)
+        public void TryParseMessage_MessageSegmentIsTooShort_ArgumentOutOfRangeExceptionIsIgnored(string input)
         {
             // Arrange
             var pathSpecs = Array.Empty<DatumPath>();
 
             // Act
-            var result = Er7.ParseMessage(input, pathSpecs, out _);
+            var result = Er7.TryParseMessage(input, pathSpecs, out _);
 
             // Assert
             Assert.True(result);
@@ -69,13 +69,13 @@
         [TestCase("PID-5-1-1", "Smith")]
         [TestCase("MSH-9-2", "A01")]
         [TestCase("PID-5-1-2", "Booth")]
-        public void ParseMessage_ValidADT_A01Er7_ReturnsExpectedResult(string pathSpec, string expectedValue)
+        public void TryParseMessage_ValidADT_A01Er7_ReturnsExpectedResult(string pathSpec, string expectedValue)
         {
             // Arrange
             var pathSpecs = new List<DatumPath> { pathSpec.FromPathSpec() };
 
             // Act
-            var parsed = Er7.ParseMessage(MESSAGE, pathSpecs, out var results);
+            var parsed = Er7.TryParseMessage(MESSAGE, pathSpecs, out var results);
             var actualResults = results.Select(r => r.Value).ToArray();
 
             // Assert

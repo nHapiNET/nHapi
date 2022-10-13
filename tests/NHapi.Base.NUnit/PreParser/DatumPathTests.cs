@@ -298,14 +298,6 @@
             Assert.AreEqual(!expected, inputA != inputB);
         }
 
-        [Test]
-        public void ToString_SizeIsEqualTo0_ThrowsArgumentOutOfRangeException()
-        {
-            // Arrange
-            // Act / Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => new DatumPath().ToString());
-        }
-
         [TestCaseSource(nameof(toStringTestCases))]
         public void ToString_ValidInput_ReturnsExpectedValue(DatumPath input, string expected)
         {
@@ -409,6 +401,7 @@
             new object[] { new DatumPath().Add("ZXY").Add(1).Add(5), "ZXY[1]-5[0]-1-1", },
             new object[] { new DatumPath().Add("ZXY").Add(1).Add(2).Add(3).Add(4), "ZXY[1]-2[3]-4-1", },
             new object[] { new DatumPath().Add("ZXY").Add(4).Add(3).Add(2).Add(1), "ZXY[4]-3[2]-1-1", },
+            new object[] { new DatumPath(), "???[?]-?[?]-?-?", },
         };
 #pragma warning restore SA1201
     }

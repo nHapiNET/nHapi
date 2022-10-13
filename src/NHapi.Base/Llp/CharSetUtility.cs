@@ -101,12 +101,12 @@ namespace NHapi.Base.Llp
         {
             private static readonly IList<Bom> KnownBoms = new List<Bom>
             {
-                new Bom(new byte[] { }, Encoding.ASCII),
                 new Bom(new byte[] { 0xEF, 0xBB, 0xBF }, Encoding.UTF8),
                 new Bom(new byte[] { 0xFF, 0xFE }, Encoding.Unicode),                           // UTF-16LE
                 new Bom(new byte[] { 0xFE, 0xFF, 0xBF }, Encoding.BigEndianUnicode),            // UTF-16BE
                 new Bom(new byte[] { 0xFF, 0xFE, 0x00, 0x00 }, Encoding.UTF32),                 // UTF-32LE
                 new Bom(new byte[] { 0x00, 0x00, 0xFE, 0xFF }, new UTF32Encoding(true, true)),  // UTF-32BE
+                new Bom(new byte[] { }, Encoding.ASCII),
             };
 
             public Bom(byte[] bomBytes, Encoding encoding)
