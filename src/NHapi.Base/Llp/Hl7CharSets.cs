@@ -35,7 +35,7 @@ namespace NHapi.Base.Llp
     /// <summary>
     /// HL7 Charsets from Table 0211 mapped to dotnet <see cref="Encoding"/>.
     /// </summary>
-    internal class Hl7CharSets
+    internal static class Hl7CharSets
     {
         private static readonly Dictionary<string, string> EncodingMap = new ()
         {

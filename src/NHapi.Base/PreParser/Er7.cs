@@ -59,7 +59,7 @@ namespace NHapi.Base.PreParser
         /// (that is, impossible in any HL7 message: independent of any message / segment definitions).
         /// </para>
         /// </returns>
-        public static bool ParseMessage(string message, IList<DatumPath> messageMask, out IDictionary<string, string> results)
+        public static bool TryParseMessage(string message, IList<DatumPath> messageMask, out IDictionary<string, string> results)
         {
             messageMask ??= new List<DatumPath> { new () };
             results = new Dictionary<string, string>();
@@ -141,9 +141,11 @@ namespace NHapi.Base.PreParser
             }
             catch (IndexOutOfRangeException)
             {
+                // do nothing
             }
             catch (ArgumentNullException)
             {
+                // do nothing
             }
 
             return result;
@@ -222,9 +224,11 @@ namespace NHapi.Base.PreParser
             }
             catch (ArgumentOutOfRangeException)
             {
+                // do nothing
             }
             catch (ArgumentNullException)
             {
+                // do nothing
             }
         }
 

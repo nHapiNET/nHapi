@@ -64,7 +64,7 @@ namespace NHapi.Base.PreParser
     /// Default values provided by <see cref="ReSize" /> and by <see cref="ToString" /> do this.
     /// </para>
     /// </summary>
-    public class DatumPath : ICloneable
+    public class DatumPath : IEquatable<DatumPath>, ICloneable
     {
         private const int MAXSIZE = 6;
 
@@ -375,8 +375,7 @@ namespace NHapi.Base.PreParser
         /// <para>
         /// If <see cref="ToString"/> is called when this has a size in [1, 6) (=> missing numeric
         /// elements), then we act as though the elements in [size(), 6) are 0 or 1 as
-        /// appropriate for each element.  We don't provide a default for the element 0
-        /// (the String element): will throw an <see cref="ArgumentOutOfRangeException" /> if <c>(size() == 1)</c>.
+        /// appropriate for each element.  We don't provide a default for the element 0.
         /// </para>
         /// <example>
         /// <code>
@@ -386,40 +385,32 @@ namespace NHapi.Base.PreParser
         /// </example>
         /// </remarks>
         /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// If <see cref="Size"/> is less than or equal to 1.
-        /// </exception>
         public override string ToString()
         {
+            if (this.path.Count < 1)
+            {
+                return "???[?]-?[?]-?-?";
+            }
+
             var builder = new StringBuilder();
 
-            if (this.path.Count >= 1)
-            {
-                var extendedCopy = (DatumPath)this.Clone();
-                extendedCopy.ReSize(MAXSIZE);
+            var extendedCopy = (DatumPath)this.Clone();
+            extendedCopy.ReSize(MAXSIZE);
 
-                for (var i = 0; i < extendedCopy.Size; ++i)
-                {
-                    switch (i)
-                    {
-                        case 0:
-                            builder.Append(extendedCopy.Get(i));
-                            break;
-                        case 1:
-                        case 3:
-                            builder.Append("[").Append(extendedCopy.Get(i)).Append("]");
-                            break;
-                        case 2:
-                        case 4:
-                        case 5:
-                            builder.Append("-").Append(extendedCopy.Get(i));
-                            break;
-                    }
-                }
-            }
-            else
+            for (var i = 0; i < extendedCopy.Size; ++i)
             {
-                throw new ArgumentOutOfRangeException(nameof(this.path.Count));
+                if (i == 0)
+                {
+                    builder.Append(extendedCopy.Get(i));
+                }
+                else if (i is 1 or 3)
+                {
+                    builder.Append("[").Append(extendedCopy.Get(i)).Append("]");
+                }
+                else if (i is 2 or 4 or 5)
+                {
+                    builder.Append("-").Append(extendedCopy.Get(i));
+                }
             }
 
             return builder.ToString();
@@ -447,7 +438,7 @@ namespace NHapi.Base.PreParser
             return path != null ? path.GetHashCode() : 0;
         }
 
-        protected bool Equals(DatumPath other)
+        public bool Equals(DatumPath other)
         {
             return Equals((object)other);
         }
