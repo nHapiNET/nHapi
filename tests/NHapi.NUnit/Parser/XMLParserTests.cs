@@ -230,6 +230,27 @@
         }
 
         [Test]
+        public void Parse_MessageContainsLongNameAttributes_ParsedAsExpected()
+        {
+            // Arrange
+            var message = "<ADT_A01 xmlns=\"urn:hl7-org:v2xml\"><MSH><MSH.1 LongName=\"Field Separator\">|</MSH.1><MSH.2 LongName=\"Encoding Characters\">^~\\&amp;</MSH.2><MSH.3 LongName=\"Sending Application\"><HD.1 LongName=\"Namespace ID\">MILL</HD.1></MSH.3><MSH.4 LongName=\"Sending Facility\"><HD.1 LongName=\"Namespace ID\">EMRY</HD.1></MSH.4><MSH.5 LongName=\"Receiving Application\"><HD.1 LongName=\"Namespace ID\">MQ</HD.1></MSH.5><MSH.6 LongName=\"Receiving Facility\"><HD.1 LongName=\"Namespace ID\">EMRY</HD.1></MSH.6><MSH.7 LongName=\"Date / Time of Message\"><TS.1 LongName=\"Time of an event\">20150619155451</TS.1></MSH.7><MSH.9 LongName=\"Message Type\"><CM_MSG.1 LongName=\"Message type\">ADT</CM_MSG.1><CM_MSG.2 LongName=\"Trigger event\">A08</CM_MSG.2></MSH.9><MSH.10 LongName=\"Message Control ID\">Q2043855220T2330403781X928163</MSH.10><MSH.11 LongName=\"Processing ID\"><PT.1 LongName=\"Processing ID\">P</PT.1></MSH.11><MSH.12 LongName=\"Version ID\">2.3</MSH.12><MSH.18 LongName=\"Character Set\">8859/1</MSH.18></MSH><EVN><EVN.1 LongName=\"Event Type Code\">A08</EVN.1><EVN.2 LongName=\"Recorded Date/Time\"><TS.1 LongName=\"Time of an event\">20150619155451</TS.1></EVN.2></EVN><PID><PID.1 LongName=\"Set ID - Patient ID\">1</PID.1><PID.2 LongName=\"Patient ID (External ID)\"><CX.1 LongName=\"ID\">935307</CX.1><CX.4 LongName=\"Assigning authority\"><HD.1 LongName=\"Namespace ID\">EUH MRN</HD.1></CX.4><CX.5 LongName=\"Identifier type code\">MRN</CX.5><CX.6 LongName=\"Assigning facility\"><HD.1 LongName=\"Namespace ID\">EH01</HD.1></CX.6></PID.2><PID.3 LongName=\"Patient ID (Internal ID)\"><CX.1 LongName=\"ID\">25106376</CX.1><CX.4 LongName=\"Assigning authority\"><HD.1 LongName=\"Namespace ID\">TEC MRN</HD.1></CX.4></PID.3><PID.3 LongName=\"Patient ID (Internal ID)\"><CX.1 LongName=\"ID\">1781893</CX.1><CX.4 LongName=\"Assigning authority\"><HD.1 LongName=\"Namespace ID\">CLH MRN</HD.1></CX.4></PID.3><PID.3 LongName=\"Patient ID (Internal ID)\"><CX.1 LongName=\"ID\">935307</CX.1><CX.4 LongName=\"Assigning authority\"><HD.1 LongName=\"Namespace ID\">EUH MRN</HD.1></CX.4></PID.3><PID.3 LongName=\"Patient ID (Internal ID)\"><CX.1 LongName=\"ID\">5938067</CX.1><CX.4 LongName=\"Assigning authority\"><HD.1 LongName=\"Namespace ID\">EMPI</HD.1></CX.4></PID.3><PID.4 LongName=\"Alternate Patient ID\"><CX.1 LongName=\"ID\">1167766</CX.1><CX.4 LongName=\"Assigning authority\"><HD.1 LongName=\"Namespace ID\">CPI NBR</HD.1></CX.4><CX.6 LongName=\"Assigning facility\"><HD.1 LongName=\"Namespace ID\">EXTERNAL</HD.1></CX.6></PID.4><PID.4 LongName=\"Alternate Patient ID\"><CX.1 LongName=\"ID\">90509411</CX.1><CX.4 LongName=\"Assigning authority\"><HD.1 LongName=\"Namespace ID\">HNASYSID</HD.1></CX.4></PID.4><PID.4 LongName=\"Alternate Patient ID\"><CX.1 LongName=\"ID\">10341880</CX.1><CX.4 LongName=\"Assigning authority\"><HD.1 LongName=\"Namespace ID\">HNASYSID</HD.1></CX.4></PID.4><PID.4 LongName=\"Alternate Patient ID\"><CX.1 LongName=\"ID\">50627780</CX.1><CX.4 LongName=\"Assigning authority\"><HD.1 LongName=\"Namespace ID\">HNASYSID</HD.1></CX.4></PID.4><PID.4 LongName=\"Alternate Patient ID\"><CX.1 LongName=\"ID\">5938067</CX.1><CX.4 LongName=\"Assigning authority\"><HD.1 LongName=\"Namespace ID\">MSG_CERNPHR</HD.1></CX.4></PID.4><PID.5 LongName=\"Patient Name\"><XPN.1 LongName=\"Family name\">Patient</XPN.1><XPN.2 LongName=\"Given name\">Test</XPN.2><XPN.3 LongName=\"Middle initial or name\">Test</XPN.3><XPN.7 LongName=\"Name type code\">Cur_Name</XPN.7></PID.5><PID.7 LongName=\"Date of Birth\"><TS.1 LongName=\"Time of an event\">19400101</TS.1></PID.7><PID.8 LongName=\"Sex\">F</PID.8><PID.10 LongName=\"Race\">WHI</PID.10><PID.11 LongName=\"Patient Address\"><XAD.1 LongName=\"Street address\">123 ENDOFTHE RD</XAD.1><XAD.2 LongName=\"Other designation\">UNIT 123</XAD.2><XAD.3 LongName=\"City\">ATLANTA</XAD.3><XAD.4 LongName=\"State or province\">GA</XAD.4><XAD.5 LongName=\"Zip or postal code\">40000</XAD.5><XAD.6 LongName=\"Country\">USA</XAD.6><XAD.7 LongName=\"Address type\">HOME</XAD.7></PID.11><PID.13 LongName=\"Phone Number - Home\"><XTN.1 LongName=\"[(999)] 999-9999 [X99999][C any text]\">5555555555</XTN.1><XTN.2 LongName=\"Telecommunication use code\">HOME</XTN.2></PID.13><PID.13 LongName=\"Phone Number - Home\"><XTN.1 LongName=\"[(999)] 999-9999 [X99999][C any text]\">6666666666</XTN.1><XTN.2 LongName=\"Telecommunication use code\">YAHOO@YAHOO.COM</XTN.2><XTN.3 LongName=\"Telecommunication equipment type (ID)\">EMAIL</XTN.3></PID.13><PID.14 LongName=\"Phone Number - Business\"><XTN.1 LongName=\"[(999)] 999-9999 [X99999][C any text]\">6666666666</XTN.1><XTN.2 LongName=\"Telecommunication use code\">BUS</XTN.2></PID.14><PID.15 LongName=\"Primary Language\"><CE.1 LongName=\"Identifier\">ENG</CE.1></PID.15><PID.16 LongName=\"Marital Status\">M</PID.16><PID.17 LongName=\"Religion\">OTH</PID.17><PID.18 LongName=\"Patient Account Number\"><CX.1 LongName=\"ID\">12345665161</CX.1><CX.4 LongName=\"Assigning authority\"><HD.1 LongName=\"Namespace ID\">EUH FIN</HD.1></CX.4><CX.5 LongName=\"Identifier type code\">FIN NBR</CX.5><CX.6 LongName=\"Assigning facility\"><HD.1 LongName=\"Namespace ID\">EH01</HD.1></CX.6></PID.18><PID.19 LongName=\"SSN Number - Patient\">123454103</PID.19><PID.20 LongName=\"Driver's License Number\"><DLN.1 LongName=\"Driver's License Number\">GA123450071</DLN.1></PID.20><PID.22 LongName=\"Ethnic Group\">Non-Hispanic</PID.22><PID.25 LongName=\"Birth Order\">0</PID.25><PID.26 LongName=\"Citizenship\">\"\"</PID.26><PID.27 LongName=\"Veterans Military Status\"><CE.1 LongName=\"Identifier\">\"\"</CE.1></PID.27><PID.28 LongName=\"Nationality Code\"><CE.1 LongName=\"Identifier\">\"\"</CE.1></PID.28><PID.30 LongName=\"Patient Death Indicator\">N</PID.30></PID></ADT_A01>";
+            var expectedMessageControlId = "Q2043855220T2330403781X928163";
+            var expectedDob = "19400101";
+
+            var parser = new DefaultXMLParser();
+
+            // Act
+            var parsed = parser.Parse(message);
+
+            var adtA01 = parsed as ADT_A01; // a08 is mapped to a01
+
+            // Assert
+            Assert.IsNotNull(adtA01);
+            Assert.AreEqual(expectedMessageControlId, adtA01.MSH.MessageControlID.Value);
+            Assert.AreEqual(expectedDob, adtA01.PID.DateOfBirth.TimeOfAnEvent.Value);
+        }
+
+        [Test]
         public void Encode_OmdO03_CorrectlyHandlesEscaping()
         {
             // Arrange
@@ -345,6 +366,7 @@
             // Arrange
             var xmlParser = new DefaultXMLParser();
             var type = GenericMessage.GetGenericMessageClass(version);
+            var expectedElementName = $"GenericMessageV{version.Replace(".", string.Empty)}";
 
             var constructor = type.GetConstructor(new[] { typeof(IModelClassFactory) });
             var message = (IMessage)constructor?.Invoke(new object[] { new DefaultModelClassFactory() });
@@ -354,7 +376,7 @@
 
             // Assert
             Assert.IsNotNull(document);
-            Assert.AreEqual($"GenericMessageV{version.Replace(".", string.Empty)}", document.DocumentElement?.LocalName);
+            Assert.AreEqual(expectedElementName, document.DocumentElement?.LocalName);
             Assert.IsNotNull(xmlParser.Encode(message));
         }
 
@@ -374,38 +396,26 @@
             Console.WriteLine(decodedMessage.ToString());
         }
 
-                [Test]
-        public void IncludeLongNameInEncodedXML_EncodingOptions()
-        {
-            var message = @"MSH|^~\&|KISsystem|ZTM|NIDAklinikserver|HL7Proxy|201902271130||ADT^A01|68371142|P|2.3
-                EVN|A01|201902271130|201902271130";
-
-            var expectedEncodedMessage = @"<ADT_A01 xmlns=""urn:hl7-org:v2xml""><MSH><MSH.1 LongName=""Field Separator"">|</MSH.1><MSH.2 LongName=""Encoding Characters"">^~\&amp;</MSH.2><MSH.3 LongName=""Sending Application""><HD.1 LongName=""Namespace ID"">KISsystem</HD.1></MSH.3><MSH.4 LongName=""Sending Facility""><HD.1 LongName=""Namespace ID"">ZTM</HD.1></MSH.4><MSH.5 LongName=""Receiving Application""><HD.1 LongName=""Namespace ID"">NIDAklinikserver</HD.1></MSH.5><MSH.6 LongName=""Receiving Facility""><HD.1 LongName=""Namespace ID"">HL7Proxy</HD.1></MSH.6><MSH.7 LongName=""Date / Time of Message""><TS.1 LongName=""Time of an event"">201902271130</TS.1></MSH.7><MSH.9 LongName=""Message Type""><CM_MSG.1 LongName=""Message type"">ADT</CM_MSG.1><CM_MSG.2 LongName=""Trigger event"">A01</CM_MSG.2></MSH.9><MSH.10 LongName=""Message Control ID"">68371142</MSH.10><MSH.11 LongName=""Processing ID""><PT.1 LongName=""Processing ID"">P</PT.1></MSH.11><MSH.12 LongName=""Version ID"">2.3</MSH.12></MSH><EVN><EVN.1 LongName=""Event Type Code"">A01</EVN.1><EVN.2 LongName=""Recorded Date/Time""><TS.1 LongName=""Time of an event"">201902271130</TS.1></EVN.2><EVN.3 LongName=""Date/Time Planned Event""><TS.1 LongName=""Time of an event"">201902271130</TS.1></EVN.3></EVN></ADT_A01>";
-
-            var parser = new PipeParser();
-            var options = new ParserOptions { IncludeLongNameInEncodedXml = true };
-
-            var parsed = parser.Parse(message, options);
-            var encodedMessage = parser.Encode(parsed, options);
-
-            Assert.AreEqual(expectedEncodedMessage, encodedMessage);
-        }
-
         [Test]
-        public void IncludeLongNameInEncodedXML_ParserOptions()
+        public void Encode_WithParserOption_IncludeLongNameInEncodedXMLIsTrue_ResultContainsLongNameAttribute()
         {
-            var message =
-                "MSH|^~\\&|MILL|EMRY|MQ|EMRY|20150619155451||ADT^A08|Q2043855220T2330403781X928163|P|2.3||||||8859/1\r"
-              + "EVN|A08|20150619155451\r"
-              + "PID|1|935307^^^EUH MRN^MRN^EH01|25106376^^^TEC MRN~1781893^^^CLH MRN~935307^^^EUH MRN~5938067^^^EMPI|1167766^^^CPI NBR^^EXTERNAL~90509411^^^HNASYSID~10341880^^^HNASYSID~50627780^^^HNASYSID~5938067^^^MSG_CERNPHR|Patient^Test^Test^^^^Cur_Name||19400101|F||WHI|123 ENDOFTHE RD^UNIT 123^ATLANTA^GA^40000^USA^HOME^^||5555555555^HOME~6666666666^YAHOO@YAHOO.COM^EMAIL|6666666666^BUS|ENG|M|OTH|12345665161^^^EUH FIN^FIN NBR^EH01|123454103|GA123450071||Non-Hispanic|||0|\"\"|\"\"|\"\"||N";
+            // Arrange
+            var message = "MSH|^~\\&|KISsystem|ZTM|NIDAklinikserver|HL7Proxy|201902271130||ADT^A01|68371142|P|2.3\r"
+                + "EVN|A01|201902271130|201902271130";
+
+            var expectedEncodedMessage = @"<?xml version=""1.0"" encoding=""utf-8""?><ADT_A01 xmlns=""urn:hl7-org:v2xml""><MSH><MSH.1 LongName=""Field Separator"">|</MSH.1><MSH.2 LongName=""Encoding Characters"">^~\&amp;</MSH.2><MSH.3 LongName=""Sending Application""><HD.1 LongName=""Namespace ID"">KISsystem</HD.1></MSH.3><MSH.4 LongName=""Sending Facility""><HD.1 LongName=""Namespace ID"">ZTM</HD.1></MSH.4><MSH.5 LongName=""Receiving Application""><HD.1 LongName=""Namespace ID"">NIDAklinikserver</HD.1></MSH.5><MSH.6 LongName=""Receiving Facility""><HD.1 LongName=""Namespace ID"">HL7Proxy</HD.1></MSH.6><MSH.7 LongName=""Date / Time of Message""><TS.1 LongName=""Time of an event"">201902271130</TS.1></MSH.7><MSH.9 LongName=""Message Type""><CM_MSG.1 LongName=""Message type"">ADT</CM_MSG.1><CM_MSG.2 LongName=""Trigger event"">A01</CM_MSG.2></MSH.9><MSH.10 LongName=""Message Control ID"">68371142</MSH.10><MSH.11 LongName=""Processing ID""><PT.1 LongName=""Processing ID"">P</PT.1></MSH.11><MSH.12 LongName=""Version ID"">2.3</MSH.12></MSH><EVN><EVN.1 LongName=""Event Type Code"">A01</EVN.1><EVN.2 LongName=""Recorded Date/Time""><TS.1 LongName=""Time of an event"">201902271130</TS.1></EVN.2><EVN.3 LongName=""Date/Time Planned Event""><TS.1 LongName=""Time of an event"">201902271130</TS.1></EVN.3></EVN></ADT_A01>";
 
             var parser = new PipeParser();
-            var options = new ParserOptions { IncludeLongNameInEncodedXml = true };
+            var xmlParser = new DefaultXMLParser();
+            var options = new ParserOptions { IncludeLongNameInEncodedXml = true, PrettyPrintEncodedXml = false };
 
-            var parsed = parser.Parse(message, options);
-            var adtA01 = parsed as ADT_A01; // a08 is mapped to a01
-            
-            Assert.IsNotNull(adtA01);            
+            var parsed = parser.Parse(message);
+
+            // Act
+            var encodedMessage = xmlParser.Encode(parsed, options);
+
+            // Assert
+            Assert.AreEqual(expectedEncodedMessage, encodedMessage);
         }
 
         private static void SetMessageHeader(IMessage msg, string messageCode, string messageTriggerEvent, string processingId)
