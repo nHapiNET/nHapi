@@ -151,7 +151,7 @@ namespace NHapi.Base.PreParser
 
             var nameSpace = message.Root?.Name.Namespace;
             var search =
-                message.Root?.Elements(nameSpace + segment)
+                message.Root?.Descendants(nameSpace + segment)
                     .ElementAt((int)datumPath.Get(1));
 
             if (search?.HasElements == true)

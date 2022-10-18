@@ -58,6 +58,24 @@
             Assert.Contains(expectedValue, actualResults);
         }
 
+        [TestCase("PID-1", "grouped")]
+        [TestCase("PID(1)-1", "not grouped")]
+        public void TryParseMessage_MessageContainsSegmentGroupElements_ReturnsExpectedResult(string pathSpec, string expectedValue)
+        {
+            // Arrange
+            const string message = "<?xml version=\"1.0\" standalone=\"no\"?><root><root.group><PID>grouped</PID></root.group><PID>not grouped</PID></root>";
+
+            var pathSpecs = new List<DatumPath> { pathSpec.FromPathSpec() };
+
+            // Act
+            var parsed = Xml.TryParseMessage(message, pathSpecs, out var results);
+            var actualResults = results.Select(r => r.Value).ToArray();
+
+            // Assert
+            Assert.True(parsed);
+            Assert.Contains(expectedValue, actualResults);
+        }
+
         [TestCase("MSH-9", "QBP")]
         [TestCase("MSH-9-2", "Q22")]
         [TestCase("QPD-8-4-2", "TTH")]

@@ -43,16 +43,53 @@ namespace NHapi.Base.Llp
             return messageBytes.Skip(bom.BomBytes.Length).ToArray();
         }
 
-        internal static Encoding CheckCharset(byte[] message, Encoding defaultEncoding = null)
+        /// <summary>
+        /// Attempt to determine the HL7 character set (<see cref="Encoding"/>) of the HL7 message.
+        /// </summary>
+        /// <param name="message">HL7 message as bytes.</param>
+        /// <returns>The detected Hl7 character set, if none detected defaults to ASCII (us-ascii).</returns>
+        public static Encoding CheckCharset(byte[] message)
         {
-            var messageFromBytes = Bom.SkipBom(message);
-
-            return CheckCharset(messageFromBytes, defaultEncoding);
+            return CheckCharset(message, Encoding.ASCII);
         }
 
-        internal static Encoding CheckCharset(string message, Encoding defaultEncoding = null)
+        /// <summary>
+        /// Attempt to determine the HL7 character set (<see cref="Encoding"/>) of the HL7 message.
+        /// </summary>
+        /// <param name="message">HL7 message as <see cref="T:byte[]"/>.</param>
+        /// <param name="encoding">HL7 Character to be used should one not be detected.</param>
+        /// <returns>The detected Hl7 character set, if none detected defaults to the one provided by the
+        /// <paramref name="encoding"/> parameter.
+        /// </returns>
+        public static Encoding CheckCharset(byte[] message, Encoding encoding)
         {
-            var encoding = defaultEncoding ?? Encoding.ASCII;
+            encoding ??= Encoding.ASCII;
+            var messageFromBytes = Bom.SkipBom(message);
+
+            return CheckCharset(messageFromBytes, encoding);
+        }
+
+        /// <summary>
+        /// Attempt to determine the HL7 character set (<see cref="Encoding"/>) of the HL7 message.
+        /// </summary>
+        /// <param name="message">HL7 message as a <see cref="string"/>.</param>
+        /// <returns>The detected Hl7 character set, if none detected defaults to ASCII (us-ascii).</returns>
+        public static Encoding CheckCharset(string message)
+        {
+            return CheckCharset(message, Encoding.ASCII);
+        }
+
+        /// <summary>
+        /// Attempt to determine the HL7 character set (<see cref="Encoding"/>) of the HL7 message.
+        /// </summary>
+        /// <param name="message">HL7 message as a <see cref="string"/>.</param>
+        /// <param name="encoding">HL7 Character to be used should one not be detected.</param>
+        /// <returns>The detected Hl7 character set, if none detected defaults to the one provided by the
+        /// <paramref name="encoding"/> parameter.
+        /// </returns>
+        public static Encoding CheckCharset(string message, Encoding encoding)
+        {
+            encoding ??= Encoding.ASCII;
 
             try
             {
@@ -101,13 +138,14 @@ namespace NHapi.Base.Llp
         {
             private static readonly IList<Bom> KnownBoms = new List<Bom>
             {
-                new Bom(new byte[] { 0xEF, 0xBB, 0xBF }, Encoding.UTF8),
-                new Bom(new byte[] { 0xFF, 0xFE }, Encoding.Unicode),                           // UTF-16LE
-                new Bom(new byte[] { 0xFE, 0xFF, 0xBF }, Encoding.BigEndianUnicode),            // UTF-16BE
                 new Bom(new byte[] { 0xFF, 0xFE, 0x00, 0x00 }, Encoding.UTF32),                 // UTF-32LE
                 new Bom(new byte[] { 0x00, 0x00, 0xFE, 0xFF }, new UTF32Encoding(true, true)),  // UTF-32BE
-                new Bom(new byte[] { }, Encoding.ASCII),
+                new Bom(new byte[] { 0xEF, 0xBB, 0xBF }, Encoding.UTF8),                        // Unicode (UTF-8)
+                new Bom(new byte[] { 0xFE, 0xFF, 0xBF }, Encoding.BigEndianUnicode),            // UTF-16BE
+                new Bom(new byte[] { 0xFF, 0xFE }, Encoding.Unicode),                           // UTF-16LE
             };
+
+            private static readonly Bom DefaultBom = new Bom(new byte[] { }, Encoding.ASCII);   // ASCII (us-ascii)
 
             public Bom(byte[] bomBytes, Encoding encoding)
             {
@@ -122,9 +160,8 @@ namespace NHapi.Base.Llp
             public static string SkipBom(byte[] messageBytes)
             {
                 var bom = GetBom(messageBytes);
-                var encoding = bom.Encoding;
                 var messageBytesWithoutBom = messageBytes.Skip(bom.BomBytes.Length).ToArray();
-                return encoding.GetString(messageBytesWithoutBom);
+                return bom.Encoding.GetString(messageBytesWithoutBom);
             }
 
             public static Bom GetBom(byte[] messageBytes)
@@ -143,7 +180,7 @@ namespace NHapi.Base.Llp
                     }
                 }
 
-                return KnownBoms[0];
+                return DefaultBom;
             }
         }
     }
