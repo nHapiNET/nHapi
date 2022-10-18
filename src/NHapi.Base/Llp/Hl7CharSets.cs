@@ -39,29 +39,29 @@ namespace NHapi.Base.Llp
     {
         private static readonly Dictionary<string, string> EncodingMap = new ()
         {
-            { "ASCII", Encoding.ASCII.BodyName },           // ASCII
-            { "8859/1", "iso-8859-1" },                     // Western European (ISO)
-            { "8859/2", "iso-8859-2" },                     // Central European (ISO)
-            { "8859/3", "iso-8859-3" },                     // Latin 3 (ISO)
-            { "8859/4", "iso-8859-4" },                     // Baltic (ISO)
-            { "8859/5", "iso-8859-5" },                     // Cyrillic (ISO)
-            { "8859/6", "iso-8859-6" },                     // Arabic (ISO)
-            { "8859/7", "iso-8859-7" },                     // Greek (ISO)
-            { "8859/8", "iso-8859-8" },                     // Hebrew (ISO-Visual)
-            { "8859/9", "iso-8859-9" },                     // Turkish (ISO)
-            { "8859/15", "iso-8859-15" },                   // Latin 9 (ISO)
+            { "ASCII", Encoding.ASCII.BodyName },               // ASCII (us-ascii)
+            { "8859/1", "iso-8859-1" },                         // Western European (ISO)
+            { "8859/2", "iso-8859-2" },                         // Central European (ISO)
+            { "8859/3", "iso-8859-3" },                         // Latin 3 (ISO)
+            { "8859/4", "iso-8859-4" },                         // Baltic (ISO)
+            { "8859/5", "iso-8859-5" },                         // Cyrillic (ISO)
+            { "8859/6", "iso-8859-6" },                         // Arabic (ISO)
+            { "8859/7", "iso-8859-7" },                         // Greek (ISO)
+            { "8859/8", "iso-8859-8" },                         // Hebrew (ISO-Visual)
+            { "8859/9", "iso-8859-9" },                         // Turkish (ISO)
+            { "8859/15", "iso-8859-15" },                       // Latin 9 (ISO)
             { "ISO IR6", "ISO IR6" },
             { "ISO IR14", "ISO IR14" },
             { "ISO IR87", "ISO IR87" },
             { "ISO IR159", "ISO IR159" },
-            { "GB 18030-2000", "gb18030" },                 // Chinese Simplified (GB18030)
-            { "KS X 1001", "euc-kr" },                      // Korean (EUC)
+            { "GB 18030-2000", "gb18030" },                     // Chinese Simplified (GB18030)
+            { "KS X 1001", "euc-kr" },                          // Korean (EUC)
             { "CNS 11643-1992", "CNS 11643-1992" },
-            { "BIG-5", "big5" },                            // Chinese Traditional (Big5)
-            { "UNICODE", Encoding.UTF8.BodyName },
-            { "UNICODE UTF-8", Encoding.UTF8.BodyName },    // Unicode (UTF-8)
-            { "UNICODE UTF-16", "utf-16" },                 // Unicode
-            { "UNICODE UTF-32", Encoding.UTF32.BodyName },  // Unicode (UTF-32)
+            { "BIG-5", "big5" },                                // Chinese Traditional (Big5)
+            { "UNICODE", Encoding.UTF8.BodyName },              // Unicode (UTF-8)
+            { "UNICODE UTF-8", Encoding.UTF8.BodyName },        // Unicode (UTF-8)
+            { "UNICODE UTF-16", Encoding.Unicode.BodyName },    // Unicode (UTF-16LE)
+            { "UNICODE UTF-32", Encoding.UTF32.BodyName },      // Unicode (UTF-32LE)
         };
 
         /// <summary>
