@@ -13,7 +13,7 @@ namespace NHapi.NUnit
     [TestFixture]
     public class ValidationTests
     {
-        public const string MessageSINegativeNumber =
+        private const string MessageSINegativeNumber =
             @"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII
 PID|1||1711114||Appt^Test||19720501||||||||||||001020006
 ORC|||||F
@@ -42,35 +42,35 @@ OBX|1|SI|||-1||||||F";
                 $"Strict validation should throw a {nameof(DataTypeException)} when parsing a SI field with a negative value");
         }
 
-        public const string MessageNMAlpha =
+        private const string MessageNMAlpha =
             @"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII
 PID|1||1711114||Appt^Test||19720501||||||||||||001020006
 ORC|||||F
 OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
 OBX|1|NM|||Hello||||||F";
 
-        public const string MessageNMChar =
+        private const string MessageNMChar =
             @"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII
 PID|1||1711114||Appt^Test||19720501||||||||||||001020006
 ORC|||||F
 OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
 OBX|1|NM|||!@#$||||||F";
 
-        public const string MessageNMNumber =
+        private const string MessageNMNumber =
             @"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII
 PID|1||1711114||Appt^Test||19720501||||||||||||001020006
 ORC|||||F
 OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
 OBX|1|NM|||10||||||F";
 
-        public const string MessageNMNegativeNumber =
+        private const string MessageNMNegativeNumber =
             @"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII
 PID|1||1711114||Appt^Test||19720501||||||||||||001020006
 ORC|||||F
 OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
 OBX|1|NM|||-1||||||F";
 
-        public const string MessageNMDecimal =
+        private const string MessageNMDecimal =
             @"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII
 PID|1||1711114||Appt^Test||19720501||||||||||||001020006
 ORC|||||F

@@ -50,112 +50,112 @@ namespace NHapi.Base
         /// </summary>
         /// <remarks>Deprecated use <see cref="AcknowledgmentCode.AA"/> instead.</remarks>
         [Obsolete("Deprecated use 'AcknowledgementCode.AA' instead.")]
-        public const int ACK_AA = 1;
+        public static readonly int ACK_AA = 1;
 
         /// <summary>
         /// Acknowledgment Application Error.
         /// </summary>
         /// <remarks>Deprecated use <see cref="AcknowledgmentCode.AE"/> instead.</remarks>
         [Obsolete("Deprecated use 'AcknowledgementCode.AE' instead.")]
-        public const int ACK_AE = 2;
+        public static readonly int ACK_AE = 2;
 
         /// <summary>
         /// Acknowledgment Application Reject.
         /// </summary>
         /// <remarks>Deprecated use <see cref="AcknowledgmentCode.AR"/> instead.</remarks>
         [Obsolete("Deprecated use 'AcknowledgmentCode.AR' instead.")]
-        public const int ACK_AR = 3;
+        public static readonly int ACK_AR = 3;
 
         /// <summary>
         /// Message accepted.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.MESSAGE_ACCEPTED"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.MESSAGE_ACCEPTED' instead.")]
-        public const int MESSAGE_ACCEPTED = 0;
+        public static readonly int MESSAGE_ACCEPTED = 0;
 
         /// <summary>
         /// Segment sequence error.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.SEGMENT_SEQUENCE_ERROR"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.SEGMENT_SEQUENCE_ERROR' instead.")]
-        public const int SEGMENT_SEQUENCE_ERROR = 100;
+        public static readonly int SEGMENT_SEQUENCE_ERROR = 100;
 
         /// <summary>
         /// Required field missing.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.REQUIRED_FIELD_MISSING"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.REQUIRED_FIELD_MISSING' instead.")]
-        public const int REQUIRED_FIELD_MISSING = 101;
+        public static readonly int REQUIRED_FIELD_MISSING = 101;
 
         /// <summary>
         /// Date type error.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.DATA_TYPE_ERROR"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.DATA_TYPE_ERROR' instead.")]
-        public const int DATA_TYPE_ERROR = 102;
+        public static readonly int DATA_TYPE_ERROR = 102;
 
         /// <summary>
         /// Table value not found.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.TABLE_VALUE_NOT_FOUND"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.TABLE_VALUE_NOT_FOUND' instead.")]
-        public const int TABLE_VALUE_NOT_FOUND = 103;
+        public static readonly int TABLE_VALUE_NOT_FOUND = 103;
 
         /// <summary>
         /// Unsupported message type.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.UNSUPPORTED_MESSAGE_TYPE"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.UNSUPPORTED_MESSAGE_TYPE' instead.")]
-        public const int UNSUPPORTED_MESSAGE_TYPE = 200;
+        public static readonly int UNSUPPORTED_MESSAGE_TYPE = 200;
 
         /// <summary>
         /// Unsupported event code.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.UNSUPPORTED_EVENT_CODE"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.UNSUPPORTED_EVENT_CODE' instead.")]
-        public const int UNSUPPORTED_EVENT_CODE = 201;
+        public static readonly int UNSUPPORTED_EVENT_CODE = 201;
 
         /// <summary>
         /// Unsupported processing id.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.UNSUPPORTED_PROCESSING_ID"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.UNSUPPORTED_PROCESSING_ID' instead.")]
-        public const int UNSUPPORTED_PROCESSING_ID = 202;
+        public static readonly int UNSUPPORTED_PROCESSING_ID = 202;
 
         /// <summary>
         /// Unsupported version id.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.UNSUPPORTED_VERSION_ID"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.UNSUPPORTED_VERSION_ID' instead.")]
-        public const int UNSUPPORTED_VERSION_ID = 203;
+        public static readonly int UNSUPPORTED_VERSION_ID = 203;
 
         /// <summary>
         /// Unknown key id.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.MESSAGE_ACCEPTED"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.UNKNOWN_KEY_IDENTIFIER' instead.")]
-        public const int UNKNOWN_KEY_IDENTIFIER = 204;
+        public static readonly int UNKNOWN_KEY_IDENTIFIER = 204;
 
         /// <summary>
         /// Duplicate key id.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.DUPLICATE_KEY_IDENTIFIER"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.DUPLICATE_KEY_IDENTIFIER' instead.")]
-        public const int DUPLICATE_KEY_IDENTIFIER = 205;
+        public static readonly int DUPLICATE_KEY_IDENTIFIER = 205;
 
         /// <summary>
         /// Application record locked.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.APPLICATION_RECORD_LOCKED"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.APPLICATION_RECORD_LOCKED' instead.")]
-        public const int APPLICATION_RECORD_LOCKED = 206;
+        public static readonly int APPLICATION_RECORD_LOCKED = 206;
 
         /// <summary>
         /// Application error.
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.APPLICATION_INTERNAL_ERROR"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.APPLICATION_INTERNAL_ERROR' instead.")]
-        public const int APPLICATION_INTERNAL_ERROR = 207;
+        public static readonly int APPLICATION_INTERNAL_ERROR = 207;
 
         /// <summary> Creates an <see cref="HL7Exception" />.
         /// <param name="message">The error message</param>
