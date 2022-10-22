@@ -46,7 +46,7 @@ namespace NHapi.Base.Parser
     /// <author>Bryan Tripp (bryan_tripp@sourceforge.net).</author>
     public class PipeParser : ParserBase
     {
-        public const string SegmentDelimiter = "\r"; // see section 2.8 of spec
+        public static readonly string SegmentDelimiter = "\r"; // see section 2.8 of spec
 
         private static readonly IHapiLog Log;
 
