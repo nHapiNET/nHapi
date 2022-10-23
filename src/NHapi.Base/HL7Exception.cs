@@ -71,7 +71,7 @@ namespace NHapi.Base
         /// </summary>
         /// <remarks>Deprecated use <see cref="ErrorCode.MESSAGE_ACCEPTED"/> instead.</remarks>
         [Obsolete("Deprecated use 'ErrorCode.MESSAGE_ACCEPTED' instead.")]
-        public static readonly int MESSAGE_ACCEPTED = 0;
+        public static readonly int MESSAGE_ACCEPTED; // Default initialised to 0.
 
         /// <summary>
         /// Segment sequence error.
