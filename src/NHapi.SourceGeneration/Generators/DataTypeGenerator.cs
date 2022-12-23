@@ -333,7 +333,7 @@ namespace NHapi.SourceGeneration.Generators
             source.Append("\t///</summary>\r\n");
             source.Append("\tpublic string getVersion() {\r\n");
             source.Append("\t    return \"");
-            if (version.IndexOf("UCH") > -1)
+            if (version.IndexOf("UCH", StringComparison.Ordinal) > -1)
             {
                 source.Append("2.3");
             }

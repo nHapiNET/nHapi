@@ -1,8 +1,7 @@
 name: Receive Pull Request
 
 on: [pull_request]
-env:
-  DOTNET_VERSION: '6.0.x'
+
 jobs:
   build-and-test:
     name: Build And Test ${{matrix.os}}
@@ -16,7 +15,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+        global-json-file: global.json
 
     - name: Restore nHapi (Windows)
       if: matrix.os == 'windows-latest'

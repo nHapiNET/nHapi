@@ -106,7 +106,7 @@
 
             Assert.IsNotNull(orfR04);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new DefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
@@ -154,7 +154,7 @@
 
             Assert.IsNotNull(orfR04);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new DefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
@@ -194,9 +194,12 @@
 
             Assert.IsNotNull(orfR04);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new DefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
+
+            Assert.IsNotNull(recoveredMessage);
+            Assert.IsFalse(string.Empty.Equals(recoveredMessage));
         }
 
         [Test]
@@ -219,7 +222,7 @@
 
             Assert.IsNotNull(orfR04);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new DefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 

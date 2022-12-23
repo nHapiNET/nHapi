@@ -50,12 +50,7 @@ namespace NHapi.Base.Parser
     {
         private const string SegDelim = "\r"; // see section 2.8 of spec
 
-        private static readonly IHapiLog Log;
-
-        static LegacyPipeParser()
-        {
-            Log = HapiLogFactory.GetHapiLog(typeof(LegacyPipeParser));
-        }
+        private static readonly IHapiLog Log = HapiLogFactory.GetHapiLog(typeof(LegacyPipeParser));
 
         /// <summary>Creates a new LegacyPipeParser. </summary>
         public LegacyPipeParser()
@@ -257,12 +252,11 @@ namespace NHapi.Base.Parser
             return out_Renamed.ToString();
         }
 
+        // TODO: should this be public?
+        // https://github.com/nHapiNET/nHapi/issues/399
         public override void Parse(IMessage message, string @string, ParserOptions parserOptions)
         {
-            if (parserOptions is null)
-            {
-                throw new ArgumentNullException(nameof(parserOptions));
-            }
+            parserOptions ??= DefaultParserOptions;
 
             var messageIter = new Util.MessageIterator(message, "MSH", true);
             FilterIterator.IPredicate segmentsOnly = new IsSegmentPredicate(this);
@@ -361,7 +355,7 @@ namespace NHapi.Base.Parser
             var nextFieldDelimLoc = 0;
             for (var i = 0; i < 11; i++)
             {
-                nextFieldDelimLoc = message.IndexOf((char)fourthChar, nextFieldDelimLoc + 1);
+                nextFieldDelimLoc = message.IndexOf(fourthChar, nextFieldDelimLoc + 1);
                 if (nextFieldDelimLoc < 0)
                 {
                     return null;
@@ -378,8 +372,7 @@ namespace NHapi.Base.Parser
 
         /// <deprecated> this method should not be public.
         /// </deprecated>
-        /// <param name="message">
-        /// </param>
+        /// <param name="message"></param>
         /// <returns>
         /// </returns>
         /// <throws>  HL7Exception. </throws>
@@ -389,28 +382,32 @@ namespace NHapi.Base.Parser
             return GetStructure(message).Structure;
         }
 
+        // TODO: should this be public?
+        // https://github.com/nHapiNET/nHapi/issues/399
         /// <summary>
         /// Parses a segment string and populates the given Segment object.  Unexpected fields are
         /// added as Varies' at the end of the segment.
         /// </summary>
-        /// <throws>  HL7Exception if the given string does not contain the. </throws>
-        /// <summary>      given segment or if the string is not encoded properly.
-        /// </summary>
+        /// <exception cref="HL7Exception">
+        /// If the given string does not contain the given segment or if the string is not encoded properly.
+        /// </exception>
         public virtual void Parse(ISegment destination, string segment, EncodingCharacters encodingChars)
         {
             Parse(destination, segment, encodingChars, DefaultParserOptions);
         }
 
+        // TODO: should this be public?
+        // https://github.com/nHapiNET/nHapi/issues/399
         /// <summary>
         /// Parses a segment string and populates the given Segment object.  Unexpected fields are
         /// added as Varies' at the end of the segment.
         /// </summary>
-        /// <throws>  HL7Exception if the given string does not contain the. </throws>
-        /// <summary>      given segment or if the string is not encoded properly.
-        /// </summary>
+        /// <exception cref="HL7Exception">
+        /// If the given string does not contain the given segment or if the string is not encoded properly.
+        /// </exception>
         public virtual void Parse(ISegment destination, string segment, EncodingCharacters encodingChars, ParserOptions parserOptions)
         {
-            parserOptions = parserOptions ?? DefaultParserOptions;
+            parserOptions ??= DefaultParserOptions;
 
             var fieldOffset = 0;
             if (IsDelimDefSegment(destination.GetStructureName()))
@@ -468,7 +465,7 @@ namespace NHapi.Base.Parser
             }
 
             // set data type of OBX-5
-            if (destination.GetType().FullName.IndexOf("OBX") >= 0)
+            if (destination.GetType().FullName.IndexOf("OBX", StringComparison.Ordinal) >= 0)
             {
                 Varies.FixOBX5(destination, Factory, parserOptions);
             }
@@ -493,7 +490,7 @@ namespace NHapi.Base.Parser
         public override ISegment GetCriticalResponseData(string message)
         {
             // try to get MSH segment
-            var locStartMSH = message.IndexOf("MSH");
+            var locStartMSH = message.IndexOf("MSH", StringComparison.Ordinal);
             if (locStartMSH < 0)
             {
                 throw new HL7Exception("Couldn't find MSH segment in message: " + message, ErrorCode.SEGMENT_SEQUENCE_ERROR);
@@ -561,14 +558,14 @@ namespace NHapi.Base.Parser
         public override string GetAckID(string message)
         {
             string ackID = null;
-            var startMSA = message.IndexOf("\rMSA");
+            var startMSA = message.IndexOf("\rMSA", StringComparison.Ordinal);
             if (startMSA >= 0)
             {
                 var startFieldOne = startMSA + 5;
                 var fieldDelim = message[startFieldOne - 1];
-                var start = message.IndexOf((char)fieldDelim, startFieldOne) + 1;
-                var end = message.IndexOf((char)fieldDelim, start);
-                var segEnd = message.IndexOf(Convert.ToString(SegDelim), start);
+                var start = message.IndexOf(fieldDelim, startFieldOne) + 1;
+                var end = message.IndexOf(fieldDelim, start);
+                var segEnd = message.IndexOf(Convert.ToString(SegDelim), start, StringComparison.Ordinal);
                 if (segEnd > start && segEnd < end)
                 {
                     end = segEnd;
@@ -597,20 +594,16 @@ namespace NHapi.Base.Parser
             return ackID;
         }
 
-        /// <summary> Returns the version ID (MSH-12) from the given message, without fully parsing the message.
-        /// The version is needed prior to parsing in order to determine the message class
-        /// into which the text of the message should be parsed.
-        /// </summary>
-        /// <throws>  HL7Exception if the version field can not be found. </throws>
-        public override string GetVersion(string message)
+        /// <inheritdoc />
+        public override string GetVersion(string message, ParserOptions parserOptions)
         {
-            var startMSH = message.IndexOf("MSH");
+            var startMSH = message.IndexOf("MSH", StringComparison.Ordinal);
             if (startMSH < 0)
             {
                 throw new HL7Exception("No MSH header segment found.", ErrorCode.REQUIRED_FIELD_MISSING);
             }
 
-            var endMSH = message.IndexOf(SegDelim, startMSH);
+            var endMSH = message.IndexOf(SegDelim, startMSH, StringComparison.Ordinal);
             if (endMSH < 0)
             {
                 endMSH = message.Length;
@@ -672,14 +665,14 @@ namespace NHapi.Base.Parser
         /// <throws>  EncodingNotSupportedException if the requested encoding is not. </throws>
         /// <summary>      supported by this parser.
         /// </summary>
-        protected internal override string DoEncode(IMessage source, string encoding)
+        protected internal override string DoEncode(IMessage source, string encoding, ParserOptions parserOptions)
         {
             if (!SupportsEncoding(encoding))
             {
                 throw new EncodingNotSupportedException("This parser does not support the " + encoding + " encoding");
             }
 
-            return Encode(source);
+            return Encode(source, parserOptions);
         }
 
         /// <summary> Formats a Message object into an HL7 message string using this parser's
@@ -688,7 +681,7 @@ namespace NHapi.Base.Parser
         /// <throws>  HL7Exception if the data fields in the message do not permit encoding. </throws>
         /// <summary>      (e.g. required fields are null).
         /// </summary>
-        protected internal override string DoEncode(IMessage source)
+        protected internal override string DoEncode(IMessage source, ParserOptions parserOptions)
         {
             // get encoding characters ...
             var msh = (ISegment)source.GetStructure("MSH");
@@ -729,7 +722,7 @@ namespace NHapi.Base.Parser
             {
                 // Create the MsgType and Trigger Event if not there
                 var messageTypeFullname = source.GetStructureName();
-                var i = messageTypeFullname.IndexOf("_");
+                var i = messageTypeFullname.IndexOf("_", StringComparison.Ordinal);
                 if (i > 0)
                 {
                     var type = messageTypeFullname.Substring(0, i);
@@ -753,7 +746,7 @@ namespace NHapi.Base.Parser
             var en = new EncodingCharacters(fieldSep, encCharString);
 
             // pass down to group encoding method which will operate recursively on children ...
-            return Encode((IGroup)source, en);
+            return Encode(source, en);
         }
 
         /// <summary> Parses a message string and returns the corresponding Message
@@ -785,7 +778,7 @@ namespace NHapi.Base.Parser
 
         private static string EncodePrimitive(IPrimitive p, EncodingCharacters encodingChars)
         {
-            var val = ((IPrimitive)p).Value;
+            var val = p.Value;
             if (val == null)
             {
                 val = string.Empty;
@@ -834,11 +827,7 @@ namespace NHapi.Base.Parser
         /// </param>
         private static bool IsDelimDefSegment(string theSegmentName)
         {
-            var is_Renamed = false;
-            if (theSegmentName.Equals("MSH") || theSegmentName.Equals("FHS") || theSegmentName.Equals("BHS"))
-            {
-                is_Renamed = true;
-            }
+            bool is_Renamed = theSegmentName.Equals("MSH") || theSegmentName.Equals("FHS") || theSegmentName.Equals("BHS");
 
             return is_Renamed;
         }
@@ -880,7 +869,7 @@ namespace NHapi.Base.Parser
             try
             {
                 var fields = Split(
-                    message.Substring(0, Math.Max(message.IndexOf(SegDelim), message.Length) - 0),
+                    message.Substring(0, Math.Max(message.IndexOf(SegDelim, StringComparison.Ordinal), message.Length) - 0),
                     Convert.ToString(ec.FieldSeparator));
                 wholeFieldNine = fields[8];
 

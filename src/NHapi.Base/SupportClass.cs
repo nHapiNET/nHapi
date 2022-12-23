@@ -1460,13 +1460,13 @@ namespace NHapi.Base
                                 for (int i = 0; i < reader.AttributeCount; i++)
                                 {
                                     reader.MoveToAttribute(i);
-                                    string prefixName = (reader.Name.IndexOf(":") > 0)
-                                        ? reader.Name.Substring(reader.Name.IndexOf(":") + 1, reader.Name.Length - reader.Name.IndexOf(":") - 1)
+                                    string prefixName = (reader.Name.IndexOf(":", StringComparison.Ordinal) > 0)
+                                        ? reader.Name.Substring(reader.Name.IndexOf(":", StringComparison.Ordinal) + 1, reader.Name.Length - reader.Name.IndexOf(":") - 1)
                                         : string.Empty;
-                                    string prefix = (reader.Name.IndexOf(":") > 0)
-                                        ? reader.Name.Substring(0, reader.Name.IndexOf(":"))
+                                    string prefix = (reader.Name.IndexOf(":", StringComparison.Ordinal) > 0)
+                                        ? reader.Name.Substring(0, reader.Name.IndexOf(":", StringComparison.Ordinal))
                                         : reader.Name;
-                                    bool IsXmlns = prefix.ToLower().Equals("xmlns");
+                                    bool IsXmlns = prefix.ToLower().Equals("xmlns", StringComparison.Ordinal);
                                     if (namespaceAllowed)
                                     {
                                         if (!IsXmlns)

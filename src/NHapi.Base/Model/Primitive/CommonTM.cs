@@ -151,15 +151,11 @@ namespace NHapi.Base.Model.Primitive
                 {
                     // check to see if any of the following characters exist: "." or "+/-"
                     // this will help us determine the acceptable lengths
-                    var d = value.IndexOf(".");
-                    var sp = value.IndexOf("+");
-                    var sm = value.IndexOf("-");
+                    var d = value.IndexOf(".", StringComparison.Ordinal);
+                    var sp = value.IndexOf("+", StringComparison.Ordinal);
+                    var sm = value.IndexOf("-", StringComparison.Ordinal);
                     var indexOfSign = -1;
-                    var offsetExists = false;
-                    if ((sp != -1) || (sm != -1))
-                    {
-                        offsetExists = true;
-                    }
+                    var offsetExists = (sp != -1) || (sm != -1);
 
                     if (sp != -1)
                     {
@@ -189,7 +185,7 @@ namespace NHapi.Base.Model.Primitive
                         {
                             // The length of the GMT offset must be 5 characters (including the sign)
                             var msg = "The length of the TM datatype value does not conform to an allowable" +
-                                             " format. Format should conform to HH[MM[SS[.S[S[S[S]]]]]][+/-ZZZZ]";
+                                      " format. Format should conform to HH[MM[SS[.S[S[S[S]]]]]][+/-ZZZZ]";
                             var e = new DataTypeException(msg);
                             throw e;
                         }
@@ -201,7 +197,7 @@ namespace NHapi.Base.Model.Primitive
                             if ((timeVal.Length < 8) || (timeVal.Length > 11))
                             {
                                 var msg = "The length of the TM datatype value does not conform to an allowable" +
-                                                 " format. Format should conform to HH[MM[SS[.S[S[S[S]]]]]][+/-ZZZZ]";
+                                          " format. Format should conform to HH[MM[SS[.S[S[S[S]]]]]][+/-ZZZZ]";
                                 var e = new DataTypeException(msg);
                                 throw e;
                             }
@@ -214,7 +210,7 @@ namespace NHapi.Base.Model.Primitive
                             if ((timeVal.Length != 2) && (timeVal.Length != 4) && (timeVal.Length != 6))
                             {
                                 var msg = "The length of the TM datatype value does not conform to an allowable" +
-                                                 " format. Format should conform to HH[MM[SS[.S[S[S[S]]]]]][+/-ZZZZ]";
+                                          " format. Format should conform to HH[MM[SS[.S[S[S[S]]]]]][+/-ZZZZ]";
                                 var e = new DataTypeException(msg);
                                 throw e;
                             }

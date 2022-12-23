@@ -176,16 +176,35 @@
         {
             var adt = new ADT_A01();
 
+            SetMessageHeader(adt, "ADT", "A01", "T");
+
             var sut = new PipeParser();
             var xmlParser = new DefaultXMLParser();
 
             var msg = sut.Encode(adt);
-            sut.Parse(msg);
+            adt = (ADT_A01)sut.Parse(msg);
 
             msg = xmlParser.Encode(adt);
             xmlParser.Parse(msg);
         }
 
         #endregion
+
+        private static void SetMessageHeader(IMessage msg, string messageCode, string messageTriggerEvent, string processingId)
+        {
+            var msh = (ISegment)msg.GetStructure("MSH");
+
+            var version27 = new Version("2.7");
+            var messageVersion = new Version(msg.Version);
+
+            Terser.Set(msh, 1, 0, 1, 1, "|");
+            Terser.Set(msh, 2, 0, 1, 1, version27 > messageVersion ? "^~\\&" : "^~\\&#");
+            Terser.Set(msh, 7, 0, 1, 1, DateTime.Now.ToString("yyyyMMddHHmmssK"));
+            Terser.Set(msh, 9, 0, 1, 1, messageCode);
+            Terser.Set(msh, 9, 0, 2, 1, messageTriggerEvent);
+            Terser.Set(msh, 10, 0, 1, 1, Guid.NewGuid().ToString());
+            Terser.Set(msh, 11, 0, 1, 1, processingId);
+            Terser.Set(msh, 12, 0, 1, 1, msg.Version);
+        }
     }
 }

@@ -22,14 +22,9 @@ namespace NHapi.Base.Parser
     public class DefaultModelClassFactory : IModelClassFactory
     {
         private static readonly object LockObject = new object();
-        private static readonly IHapiLog Log;
+        private static readonly IHapiLog Log = HapiLogFactory.GetHapiLog(typeof(DefaultModelClassFactory));
         private static Hashtable packages = null;
         private static bool isLoadingPackages = false;
-
-        static DefaultModelClassFactory()
-        {
-            Log = HapiLogFactory.GetHapiLog(typeof(DefaultModelClassFactory));
-        }
 
         /// <summary>
         /// <para>Lists all the packages (user-definable) where classes for standard and custom

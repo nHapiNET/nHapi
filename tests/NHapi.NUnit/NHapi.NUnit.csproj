@@ -5,27 +5,24 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="TestData\Parser\OML_O21_messages.txt" />
-    <None Remove="TestData\Parser\uuencoded_escaped.txt" />
-    <None Remove="TestData\Parser\uuencoded_unescaped.txt" />
-  </ItemGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <AssemblyOriginatorKeyFile>..\..\NHapi.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
 
   <ItemGroup>
     <AdditionalFiles Include="$(SolutionDir)stylecop.json" Link="Properties\stylecop.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="TestData\Parser\OML_O21_messages.txt">
+    <None Remove="TestData\Parser\*;TestData\Util\*" />
+    <None Update="TestData\BadInputs\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Parser\uuencoded_escaped.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Parser\uuencoded_unescaped.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\Util\segmentfinder_a24.hl7">
+    </None>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Include="TestData\Parser\*;TestData\Util\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -63,16 +60,11 @@
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <PackageReference Include="SimpleSpeedTester" Version="1.1.0" />
+    <PackageReference Include="StrongNamer" Version="0.2.5" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net461" Version="1.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="TestData\BadInputs\**\*">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <!-- the block below is ensures that the config file is read when running the unit tests with dotnet test and netcoreapp3.1 target framework-->

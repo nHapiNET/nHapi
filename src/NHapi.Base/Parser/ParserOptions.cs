@@ -1,14 +1,35 @@
 ﻿namespace NHapi.Base.Parser
 {
+    using System;
+    using System.Collections.Generic;
+
     public class ParserOptions
     {
         public ParserOptions()
         {
+            AllowUnknownVersions = false;
             DefaultObx2Type = null;
             InvalidObx2Type = null;
             UnexpectedSegmentBehaviour = UnexpectedSegmentBehaviour.AddInline;
             NonGreedyMode = false;
+            DisableWhitespaceTrimmingOnAllXmlNodes = false;
+            XmlNodeNamesToDisableWhitespaceTrimming = new HashSet<string>(StringComparer.Ordinal);
+            PrettyPrintEncodedXml = true;
         }
+
+        /// <summary>
+        /// <para>
+        /// If set to <see langword="true"/>, the parser will allow messages to parse, even if they
+        /// contain a version which is not known to the parser.
+        /// </para>
+        /// <para>
+        /// When operating in this mode, if a message arrives which an unknown version string, the
+        /// parser will attempt to parse it using a <see cref="NHapi.Base.Model.GenericMessage"/> class
+        /// instead of a specific nhapi structure class.
+        /// </para>
+        /// </summary>
+        /// <remarks>The default value is <see langword="false"/>.</remarks>
+        public bool AllowUnknownVersions { get; set; }
 
         /// <summary>
         /// If this property is set, the value provides a default datatype ("ST",
@@ -57,11 +78,12 @@
         public UnexpectedSegmentBehaviour UnexpectedSegmentBehaviour { get; set; }
 
         /// <summary>
-        /// If set to <c>true</c> (default is <c>false</c>), pipe parser will be put in non-greedy mode. This setting
+        /// If set to <see langword="true"/>, pipe parser will be put in non-greedy mode. This setting
         /// applies only to <see cref="PipeParser"/> and will have no effect on <see cref="XMLParser"/>.
         /// </summary>
         ///
         /// <remarks>
+        /// <para>The default value is <see langword="false"/>.</para>
         /// <para>
         ///     In non-greedy mode, if the message structure being parsed has an ambiguous choice of where to put a segment
         ///     because there is a segment matching the current segment name in both a later position in the message, and
@@ -106,5 +128,39 @@
         /// </para>
         /// </example>
         public bool NonGreedyMode { get; set; }
+
+        /// <summary>
+        /// <para>
+        /// If set to <see langword="true"/>, the <see cref="XMLParser"/> is configured to treat all whitespace
+        /// text nodes as literal, meaning that line breaks, tabs, multiple spaces, etc. will be preserved.
+        /// </para>
+        /// <para>
+        /// If set to <see langword="false"/>, any values passed to <see cref="XmlNodeNamesToDisableWhitespaceTrimming"/>
+        /// will be superseded since all whitespace will treated as literal.
+        /// </para>
+        /// </summary>
+        /// <remarks>The default value is <see langword="false"/>.</remarks>
+        public bool DisableWhitespaceTrimmingOnAllXmlNodes { get; set; }
+
+        /// <summary>
+        /// <para>
+        /// Configures the <see cref="XMLParser"/> to treat all whitespace within the given <see cref="HashSet{String}"/>
+        /// as literal, meaning that line breaks, tabs, multiple spaces, etc. will be preserved.
+        /// </para>
+        /// </summary>
+        /// <remarks>The default value is an Empty <see cref="HashSet{String}"/>.</remarks>
+        public HashSet<string> XmlNodeNamesToDisableWhitespaceTrimming { get; set; }
+
+        /// <summary>
+        /// <para>
+        /// If set to <see langword="true"/>, the <see cref="XMLParser"/> will attempt to pretty-print the XML
+        /// they generate.
+        /// </para>
+        /// <para>
+        /// This means the messages will look nicer to humans, but may take up slightly more space/bandwidth.
+        /// </para>
+        /// </summary>
+        /// <remarks>The default value is <see langword="true"/>.</remarks>
+        public bool PrettyPrintEncodedXml { get; set; }
     }
 }

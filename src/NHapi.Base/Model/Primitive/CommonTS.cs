@@ -206,8 +206,8 @@ namespace NHapi.Base.Model.Primitive
                         string dateVal = null;
                         string timeVal = null;
                         string timeValLessOffset = null;
-                        var sp = value.IndexOf("+");
-                        var sm = value.IndexOf("-");
+                        var sp = value.IndexOf("+", StringComparison.Ordinal);
+                        var sm = value.IndexOf("-", StringComparison.Ordinal);
                         var indexOfSign = -1;
                         var offsetExists = false;
                         var timeValIsOffsetOnly = false;
@@ -310,7 +310,7 @@ namespace NHapi.Base.Model.Primitive
                             tm = new CommonTM();
 
                             // first extract the + sign from the offset value string if it exists
-                            if (timeVal.IndexOf("+") == 0)
+                            if (timeVal.IndexOf("+", StringComparison.Ordinal) == 0)
                             {
                                 timeVal = timeVal.Substring(1);
                             } // end if

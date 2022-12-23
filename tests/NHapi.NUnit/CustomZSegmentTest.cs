@@ -4,7 +4,6 @@ namespace NHapi.NUnit
 
     using global::NUnit.Framework;
 
-    using NHapi.Base.Model;
     using NHapi.Base.Parser;
     using NHapi.Model.V22_ZSegments;
     using NHapi.Model.V22_ZSegments.Message;
@@ -52,9 +51,9 @@ ZIN|0164652011399|0164652011399|101|101|45789^Broken bone"
 
             Assert.IsNotNull(m);
 
-            Console.WriteLine("Type: " + m.GetType());
+            Console.WriteLine($"Type: {m.GetType()}");
 
-            var adtA08 = m as ADT_A08;
+            var adtA08 = (ADT_A08)m;
 
             // verify some Z segment data
             Assert.AreEqual("45789", adtA08.ZIN.AccidentData.Id.Value);

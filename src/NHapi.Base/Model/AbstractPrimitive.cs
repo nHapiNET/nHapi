@@ -56,10 +56,10 @@ namespace NHapi.Base.Model
         {
         }
 
-        /// <summary> Sets the value of this Primitive, first performing validation as specified
-        /// by. <code>getMessage().getValidationContext()</code>.  No validation is performed
-        /// if getMessage() returns null.
-        ///
+        /// <summary>
+        /// Sets the value of this Primitive, first performing validation as specified
+        /// by. <see cref="AbstractMessage.ValidationContext">Message.ValidationContext</see>
+        /// No validation is performed if <see cref="AbstractType.Message"/> returns null.
         /// </summary>
         public virtual string Value
         {
