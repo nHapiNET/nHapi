@@ -2,8 +2,6 @@
 {
     using global::NUnit.Framework;
 
-    using NHapi.Model.V23.Datatype;
-    using NHapi.Model.V23.Group;
     using NHapi.Model.V23.Message;
 
     [TestFixture]

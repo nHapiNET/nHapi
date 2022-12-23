@@ -73,7 +73,7 @@ namespace NHapi.NUnit.Parser
 
             Assert.IsNotNull(orfR04);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
@@ -86,7 +86,7 @@ namespace NHapi.NUnit.Parser
         {
             var message = GetQRYR02XML();
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
             var m = xmlParser.Parse(message);
 
             var qryR02 = m as QRY_R02;
@@ -121,7 +121,7 @@ namespace NHapi.NUnit.Parser
 
             Assert.IsNotNull(orfR04);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
@@ -161,9 +161,12 @@ namespace NHapi.NUnit.Parser
 
             Assert.IsNotNull(orfR04);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
+
+            Assert.IsNotNull(recoveredMessage);
+            Assert.IsFalse(string.Empty.Equals(recoveredMessage));
         }
 
         [Test]
@@ -186,7 +189,7 @@ namespace NHapi.NUnit.Parser
 
             Assert.IsNotNull(orfR04);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 

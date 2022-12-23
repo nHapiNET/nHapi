@@ -234,10 +234,6 @@ namespace NHapi.Base.PreParser
 
         private class Er7SegmentHandler
         {
-            internal int SegmentRepetitionIndex;
-            internal string SegmentId;
-            internal IList<DatumPath> MessageMasks;
-
             private readonly EncodingCharacters encodingCharacters;
             private readonly IDictionary<string, string> props;
 
@@ -248,6 +244,12 @@ namespace NHapi.Base.PreParser
             }
 
             public int SpecDepth => 4;
+
+            internal int SegmentRepetitionIndex { get; set; }
+
+            internal string SegmentId { get; set; }
+
+            internal IList<DatumPath> MessageMasks { get; set; }
 
             public char Delimiter(int level) => level switch
             {

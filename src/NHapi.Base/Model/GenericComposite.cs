@@ -1,6 +1,7 @@
 namespace NHapi.Base.Model
 {
     using System.Collections;
+    using System.Collections.Generic;
 
     /// <summary>
     /// An unspecified Composite datatype that has an undefined number of components, each
@@ -11,7 +12,7 @@ namespace NHapi.Base.Model
     /// <author>Bryan Tripp.</author>
     public class GenericComposite : AbstractType, IComposite
     {
-        private readonly ArrayList components;
+        private readonly List<IType> components;
 
         /// <summary>
         /// Creates a new instance of GenericComposite.
@@ -30,25 +31,13 @@ namespace NHapi.Base.Model
         public GenericComposite(IMessage theMessage, string description)
             : base(theMessage, description)
         {
-            components = new ArrayList(20);
+            components = new List<IType>(20);
         }
 
         /// <summary>
         /// Returns an array containing the components of this field.
         /// </summary>
-        public virtual IType[] Components
-        {
-            get
-            {
-                var ret = new IType[components.Count];
-                for (var i = 0; i < ret.Length; i++)
-                {
-                    ret[i] = (IType)components[i];
-                }
-
-                return ret;
-            }
-        }
+        public virtual IType[] Components => components.ToArray();
 
         /// <summary>
         /// Returns the name of the type (used in XML encoding and profile checking).
@@ -68,7 +57,7 @@ namespace NHapi.Base.Model
                     components.Add(new Varies(Message));
                 }
 
-                return (IType)components[index];
+                return components[index];
             }
         }
     }

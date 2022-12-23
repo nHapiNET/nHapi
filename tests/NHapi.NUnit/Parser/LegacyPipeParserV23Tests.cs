@@ -106,7 +106,7 @@
 
             Assert.IsNotNull(orfR04);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
@@ -119,7 +119,7 @@
         {
             var message = GetQRYR02XML();
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
             var m = xmlParser.Parse(message);
 
             var qryR02 = m as QRY_R02;
@@ -154,12 +154,12 @@
 
             Assert.IsNotNull(orfR04);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
             Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(recoveredMessage.IndexOf("ORC") > -1, "Returned message added ORC segment.");
+            Assert.IsFalse(recoveredMessage.IndexOf("ORC", StringComparison.Ordinal) > -1, "Returned message added ORC segment.");
         }
 
         [Test]
@@ -194,9 +194,12 @@
 
             Assert.IsNotNull(orfR04);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
+
+            Assert.IsNotNull(recoveredMessage);
+            Assert.IsFalse(string.Empty.Equals(recoveredMessage));
         }
 
         [Test]
@@ -219,12 +222,12 @@
 
             Assert.IsNotNull(orfR04);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
             Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(recoveredMessage.IndexOf("NTE") > -1, "Returned message added ORC segment.");
+            Assert.IsFalse(recoveredMessage.IndexOf("NTE", StringComparison.Ordinal) > -1, "Returned message added ORC segment.");
         }
 
         private static string GetQRYR02XML()

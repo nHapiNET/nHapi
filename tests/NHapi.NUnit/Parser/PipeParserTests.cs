@@ -175,24 +175,6 @@ namespace NHapi.NUnit.Parser
             Assert.AreEqual(expectedResult, segmentData);
         }
 
-        /// <summary>
-        /// Check that an <see cref="ArgumentNullException"/> is thrown when a null <see cref="ParserOptions"/> is
-        /// provided to <c>Parse</c> method calls.
-        /// </summary>
-        [Test]
-        public void ParseWithNullConfigThrows()
-        {
-            var parser = new PipeParser();
-            IMessage nullMessage = null;
-            const string version = "2.5.1";
-            ParserOptions nullConfiguration = null;
-
-            Assert.Throws<ArgumentNullException>(() => parser.Parse(GetMessage(), nullConfiguration));
-            Assert.Throws<ArgumentNullException>(() =>
-                parser.Parse(nullMessage, GetMessage(), nullConfiguration));
-            Assert.Throws<ArgumentNullException>(() => parser.Parse(GetMessage(), version, nullConfiguration));
-        }
-
         private static void SetMessageHeader(Model.V251.Message.OML_O21 msg, string messageCode, string messageTriggerEvent, string processingId)
         {
             var msh = msg.MSH;

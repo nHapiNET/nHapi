@@ -73,7 +73,7 @@ namespace NHapi.NUnit.Parser
 
             var ormo01 = m as ORM_O01;
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(ormo01);
 
@@ -100,7 +100,7 @@ namespace NHapi.NUnit.Parser
 
             var msg = m as ORR_O02;
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(msg);
 
@@ -145,7 +145,7 @@ namespace NHapi.NUnit.Parser
 
             var msg = m as ORU_R01;
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(msg);
 
@@ -199,7 +199,7 @@ namespace NHapi.NUnit.Parser
 
             Assert.IsNotNull(orfR04);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
@@ -231,7 +231,7 @@ namespace NHapi.NUnit.Parser
 
             Assert.IsNotNull(msgObj);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(msgObj);
 
@@ -264,7 +264,7 @@ namespace NHapi.NUnit.Parser
 
             Assert.IsNotNull(msgObj);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(msgObj);
 
@@ -277,7 +277,7 @@ namespace NHapi.NUnit.Parser
         {
             var message = GetQRYR02XML();
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
             var m = xmlParser.Parse(message);
 
             var qryR02 = m as QRY_R02;
@@ -312,12 +312,12 @@ namespace NHapi.NUnit.Parser
 
             Assert.IsNotNull(orfR04);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
             Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(recoveredMessage.IndexOf("ORC") > -1, "Returned Message added ORC segment.");
+            Assert.IsFalse(recoveredMessage.IndexOf("ORC", StringComparison.Ordinal) > -1, "Returned Message added ORC segment.");
         }
 
         [Test]
@@ -340,12 +340,12 @@ namespace NHapi.NUnit.Parser
 
             Assert.IsNotNull(orfR04);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
             Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(recoveredMessage.IndexOf("NTE") > -1, "Returned Message added ORC segment.");
+            Assert.IsFalse(recoveredMessage.IndexOf("NTE", StringComparison.Ordinal) > -1, "Returned Message added ORC segment.");
         }
 
         [Test]
@@ -436,12 +436,12 @@ namespace NHapi.NUnit.Parser
 
             Assert.IsNotNull(orfR04);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
             Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(recoveredMessage.IndexOf("NTE") > -1, "Returned Message added ORC segment.");
+            Assert.IsFalse(recoveredMessage.IndexOf("NTE", StringComparison.Ordinal) > -1, "Returned Message added ORC segment.");
         }
 
         public void TestDHPatient1111111()
@@ -455,12 +455,12 @@ namespace NHapi.NUnit.Parser
             Assert.IsNotNull(orfR04);
             object range = orfR04.GetQUERY_RESPONSE().GetORDER().GetOBSERVATION().OBX.GetObservationValue(1);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
             Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(recoveredMessage.IndexOf("NTE") > -1, "Returned Message added ORC segment.");
+            Assert.IsFalse(recoveredMessage.IndexOf("NTE", StringComparison.Ordinal) > -1, "Returned Message added ORC segment.");
         }
 
         private static string GetQRYR02XML()
@@ -566,9 +566,12 @@ namespace NHapi.NUnit.Parser
 
             Assert.IsNotNull(orfR04);
 
-            XMLParser xmlParser = new DefaultXMLParser();
+            var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
+
+            Assert.IsNotNull(recoveredMessage);
+            Assert.IsFalse(string.Empty.Equals(recoveredMessage));
         }
 
         private static string GetDHPatient1111111()

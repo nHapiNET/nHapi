@@ -148,9 +148,8 @@ namespace NHapi.Base.Parser
         /// <exception cref="EncodingNotSupportedException">Thrown if the requested encoding is not supported by this parser.</exception>
         public static string Encode(IType source, EncodingCharacters encodingChars)
         {
-            if (source is Varies)
+            if (source is Varies varies)
             {
-                var varies = (Varies)source;
                 if (varies.Data != null)
                 {
                     source = varies.Data;
@@ -313,6 +312,8 @@ namespace NHapi.Base.Parser
             return GetStructure(message).Structure;
         }
 
+        // TODO: should this be public?
+        // https://github.com/nHapiNET/nHapi/issues/399
         /// <summary>
         /// Parses a segment string and populates the given Segment object.
         /// <para>
@@ -330,6 +331,8 @@ namespace NHapi.Base.Parser
             Parse(destination, segment, encodingChars, DefaultParserOptions);
         }
 
+        // TODO: should this be public?
+        // https://github.com/nHapiNET/nHapi/issues/399
         /// <summary>
         /// Parses a segment string and populates the given Segment object.
         /// <para>
@@ -345,10 +348,12 @@ namespace NHapi.Base.Parser
         /// </exception>
         public virtual void Parse(ISegment destination, string segment, EncodingCharacters encodingChars, ParserOptions parserOptions)
         {
-            parserOptions = parserOptions ?? DefaultParserOptions;
+            parserOptions ??= DefaultParserOptions;
             Parse(destination, segment, encodingChars, 0, parserOptions);
         }
 
+        // TODO: should this be public?
+        // https://github.com/nHapiNET/nHapi/issues/399
         /// <summary>
         /// Parses a segment string and populates the given Segment object.
         /// <para>
@@ -367,6 +372,8 @@ namespace NHapi.Base.Parser
             Parse(destination, segment, encodingChars, repetition, DefaultParserOptions);
         }
 
+        // TODO: should this be public?
+        // https://github.com/nHapiNET/nHapi/issues/399
         /// <summary>
         /// Parses a segment string and populates the given Segment object.
         /// <para>
@@ -383,7 +390,7 @@ namespace NHapi.Base.Parser
         /// </exception>
         public virtual void Parse(ISegment destination, string segment, EncodingCharacters encodingChars, int repetition, ParserOptions parserOptions)
         {
-            parserOptions = parserOptions ?? DefaultParserOptions;
+            parserOptions ??= DefaultParserOptions;
 
             var fieldOffset = 0;
             if (IsDelimDefSegment(destination.GetStructureName()))
@@ -445,15 +452,19 @@ namespace NHapi.Base.Parser
             }
 
             // set data type of OBX-5
-            if (destination.GetType().FullName.IndexOf("OBX") >= 0)
+            if (destination.GetType().FullName!.IndexOf("OBX", StringComparison.Ordinal) >= 0)
             {
                 Varies.FixOBX5(destination, Factory, parserOptions);
             }
         }
 
+        // TODO: should this be public?
+        // https://github.com/nHapiNET/nHapi/issues/399
         /// <inheritdoc />
         public override void Parse(IMessage message, string @string, ParserOptions parserOptions)
         {
+            parserOptions ??= DefaultParserOptions;
+
             if (parserOptions is null)
             {
                 throw new ArgumentNullException(nameof(parserOptions));
@@ -539,7 +550,7 @@ namespace NHapi.Base.Parser
         public override ISegment GetCriticalResponseData(string message)
         {
             // try to get MSH segment
-            var mshStart = message.IndexOf("MSH");
+            var mshStart = message.IndexOf("MSH", StringComparison.Ordinal);
             if (mshStart < 0)
             {
                 throw new HL7Exception("Couldn't find MSH segment in message: " + message, ErrorCode.SEGMENT_SEQUENCE_ERROR);
@@ -600,7 +611,7 @@ namespace NHapi.Base.Parser
         public override string GetAckID(string message)
         {
             string ackID = null;
-            var msaStart = message.IndexOf("\rMSA");
+            var msaStart = message.IndexOf("\rMSA", StringComparison.Ordinal);
 
             if (msaStart >= 0)
             {
@@ -608,7 +619,7 @@ namespace NHapi.Base.Parser
                 var fieldDelimiter = message[startFieldOne - 1];
                 var start = message.IndexOf(fieldDelimiter, startFieldOne) + 1;
                 var end = message.IndexOf(fieldDelimiter, start);
-                var segEnd = message.IndexOf(SegmentDelimiter, start);
+                var segEnd = message.IndexOf(SegmentDelimiter, start, StringComparison.Ordinal);
 
                 if (segEnd > start && segEnd < end)
                 {
@@ -639,10 +650,10 @@ namespace NHapi.Base.Parser
         }
 
         /// <inheritdoc />
-        public override string GetVersion(string message)
+        public override string GetVersion(string message, ParserOptions parserOptions)
         {
-            var startMsh = message.IndexOf("MSH");
-            var endMsh = message.IndexOf(SegmentDelimiter, startMsh);
+            var startMsh = message.IndexOf("MSH", StringComparison.Ordinal);
+            var endMsh = message.IndexOf(SegmentDelimiter, startMsh, StringComparison.Ordinal);
 
             if (endMsh < 0)
             {
@@ -670,7 +681,7 @@ namespace NHapi.Base.Parser
             else
             {
                 throw new HL7Exception(
-                    $"Can't find encoding characters - MSH has only {fields.Length} fields",
+                    $"Can't find encoding characters - MSH has only {fields.Length} fields - MSH-2 is {fields[1]}",
                     ErrorCode.REQUIRED_FIELD_MISSING);
             }
 
@@ -689,22 +700,28 @@ namespace NHapi.Base.Parser
                     ErrorCode.REQUIRED_FIELD_MISSING);
             }
 
+            if (parserOptions.AllowUnknownVersions)
+            {
+                // TODO: Version.HighestAvailableVersionOrDefault.Version
+                // https://github.com/nHapiNET/nHapi/issues/400
+            }
+
             return comp[0];
         }
 
         /// <inheritdoc />
-        protected internal override string DoEncode(IMessage source, string encoding)
+        protected internal override string DoEncode(IMessage source, string encoding, ParserOptions parserOptions)
         {
             if (!SupportsEncoding(encoding))
             {
                 throw new EncodingNotSupportedException("This parser does not support the " + encoding + " encoding");
             }
 
-            return Encode(source);
+            return Encode(source, parserOptions);
         }
 
         /// <inheritdoc />
-        protected internal override string DoEncode(IMessage source)
+        protected internal override string DoEncode(IMessage source, ParserOptions parserOptions)
         {
             // get encoding characters ...
             var msh = (ISegment)source.GetStructure("MSH");
@@ -736,7 +753,7 @@ namespace NHapi.Base.Parser
             {
                 // Create the MsgType and Trigger Event if not there
                 var messageTypeFullname = source.GetStructureName();
-                var i = messageTypeFullname.IndexOf("_");
+                var i = messageTypeFullname.IndexOf("_", StringComparison.Ordinal);
                 if (i > 0)
                 {
                     var type = messageTypeFullname.Substring(0, i);
@@ -874,9 +891,10 @@ namespace NHapi.Base.Parser
                 Terser.Set(msh, 2, 0, 1, 1, encCharString);
             }
 
-            var version27 = "2.7";
+            var version27 = new Version("2.7");
+            var messageVersion = new Version(msh.Message.Version);
 
-            if (string.CompareOrdinal(version27, msh.Message.Version) > 0 && encCharString.Length != 4)
+            if (version27 > messageVersion && encCharString.Length != 4)
             {
                 throw new HL7Exception(
                     $"Encoding characters (MSH-2) value '{encCharString}' invalid -- must be 4 characters", ErrorCode.DATA_TYPE_ERROR);
@@ -904,7 +922,7 @@ namespace NHapi.Base.Parser
             try
             {
                 var fields = Split(
-                    message.Substring(0, Math.Max(message.IndexOf(SegmentDelimiter), message.Length) - 0),
+                    message.Substring(0, Math.Max(message.IndexOf(SegmentDelimiter, StringComparison.Ordinal), message.Length) - 0),
                     Convert.ToString(encodingCharacters.FieldSeparator));
                 wholeFieldNine = fields[8];
 
@@ -972,7 +990,7 @@ namespace NHapi.Base.Parser
 
                 Log.Info($"Instantiating msg of class {messageType.FullName}");
                 var constructor = messageType.GetConstructor(new[] { typeof(IModelClassFactory) });
-                var message = (IMessage)constructor.Invoke(new object[] { Factory });
+                var message = (IMessage)constructor!.Invoke(new object[] { Factory });
 
                 StructureDefinition previousLeaf = null;
                 retVal = CreateStructureDefinition(message, ref previousLeaf);

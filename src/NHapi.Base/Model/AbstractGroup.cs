@@ -42,15 +42,10 @@ namespace NHapi.Base.Model
     /// </author>
     public abstract class AbstractGroup : IGroup
     {
-        private static readonly IHapiLog Log;
+        private static readonly IHapiLog Log = HapiLogFactory.GetHapiLog(typeof(AbstractGroup));
 
         private readonly IModelClassFactory myFactory;
         private List<AbstractGroupItem> items;
-
-        static AbstractGroup()
-        {
-            Log = HapiLogFactory.GetHapiLog(typeof(AbstractGroup));
-        }
 
         /// <summary> This constructor should be used by implementing classes that do not
         /// also implement Message.
@@ -527,7 +522,7 @@ namespace NHapi.Base.Model
                         var argClasses = new[] { typeof(IGroup), typeof(IModelClassFactory) };
                         var argObjects = new object[] { this, myFactory };
                         var con = c.GetConstructor(argClasses);
-                        o = con.Invoke(argObjects);
+                        o = con!.Invoke(argObjects);
                     }
                     catch (MethodAccessException)
                     {

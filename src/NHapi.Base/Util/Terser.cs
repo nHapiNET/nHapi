@@ -148,10 +148,10 @@ namespace NHapi.Base.Util
         }
 
         /// <summary> Sets the string value of the Primitive at the given location.</summary>
-        public static void Set(ISegment segment, int field, int rep, int component, int subcomponent, string value_Renamed)
+        public static void Set(ISegment segment, int field, int rep, int component, int subcomponent, string value)
         {
             var prim = GetPrimitive(segment, field, rep, component, subcomponent);
-            prim.Value = value_Renamed;
+            prim.Value = value;
         }
 
         [Obsolete("This method has been replaced by 'GetPrimitive'.")]
@@ -372,7 +372,7 @@ namespace NHapi.Base.Util
         {
             ISegment segment = null;
 
-            if (segSpec.Substring(0, 1 - 0).Equals("/"))
+            if (segSpec.StartsWith("/", StringComparison.Ordinal))
             {
                 Finder.Reset();
             }
@@ -522,7 +522,7 @@ namespace NHapi.Base.Util
         /// <summary>Gets path information from a path spec. </summary>
         private PathSpec ParsePathSpec(string spec)
         {
-            var ps = new PathSpec(this);
+            var ps = new PathSpec();
 
             if (spec.StartsWith(".", StringComparison.Ordinal))
             {
@@ -564,13 +564,6 @@ namespace NHapi.Base.Util
         /// <summary>Struct for information about a step in a segment path. </summary>
         private class PathSpec
         {
-            public PathSpec(Terser enclosingInstance)
-            {
-                EnclosingInstance = enclosingInstance;
-            }
-
-            public Terser EnclosingInstance { get; }
-
             public string Pattern { get; set; }
 
             public bool IsGroup { get; set; }
