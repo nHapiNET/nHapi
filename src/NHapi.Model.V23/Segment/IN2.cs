@@ -123,8 +123,8 @@ public class IN2 : AbstractSegment  {
        this.add(typeof(XPN), false, 0, 48, new System.Object[]{message}, "Special Coverage Approval Name");
        this.add(typeof(ST), false, 1, 30, new System.Object[]{message}, "Special Coverage Approval Title");
        this.add(typeof(IS), false, 0, 8, new System.Object[]{message}, "Non-Covered Insurance Code");
-       this.add(typeof(CX), false, 1, 59, new System.Object[]{message}, "Payor ID");
-       this.add(typeof(CX), false, 1, 59, new System.Object[]{message}, "Payor Subscriber ID");
+       this.add(typeof(CX), false, 0, 59, new System.Object[]{message}, "Payor ID");
+       this.add(typeof(CX), false, 0, 59, new System.Object[]{message}, "Payor Subscriber ID");
        this.add(typeof(IS), false, 1, 1, new System.Object[]{message, 144}, "Eligibility Source");
        this.add(typeof(CM_RMC), false, 0, 25, new System.Object[]{message}, "Room Coverage Type/Amount");
        this.add(typeof(CM_PTA), false, 0, 25, new System.Object[]{message}, "Policy Type/Amount");
@@ -1240,6 +1240,7 @@ public class IN2 : AbstractSegment  {
         ///<summary>
         /// Returns Payor ID(IN2-25).
         ///</summary>
+        [Obsolete("Use 'GetPayorID(int rep)' instead.")]
         public CX PayorID
 	{
 		get{
@@ -1259,10 +1260,68 @@ public class IN2 : AbstractSegment  {
 			return ret;
 	}
   }
+	///<summary>
+	/// Returns a single repetition of Payor ID(IN2-25).
+	/// throws HL7Exception if the repetition number is invalid.
+	/// <param name="rep">The repetition number (this is a repeating field)</param>
+	///</summary>
+	public CX GetPayorID(int rep)
+	{
+			CX ret = null;
+			try
+			{
+			IType t = this.GetField(25, rep);
+				ret = (CX)t;
+		} catch (System.Exception ex) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+				throw new System.Exception("An unexpected error occurred", ex);
+    }
+			return ret;
+  }
 
+  ///<summary>
+  /// Returns all repetitions of Payor ID (IN2-25).
+   ///</summary>
+  public CX[] GetPayorID() {
+     CX[] ret = null;
+    try {
+        IType[] t = this.GetField(25);  
+        ret = new CX[t.Length];
+        for (int i = 0; i < ret.Length; i++) {
+            ret[i] = (CX)t[i];
+        }
+    } catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error occurred", he);
+    } catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error occurred", cce);
+  }
+ return ret;
+}
+
+  ///<summary>
+  /// Returns the total repetitions of Payor ID (IN2-25).
+   ///</summary>
+  public int PayorIDRepetitionsUsed
+{
+get{
+    try {
+	return GetTotalFieldRepetitionsUsed(25);
+    }
+catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error occurred", he);
+} catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error occurred", cce);
+}
+}
+}
 	///<summary>
 	/// Returns Payor Subscriber ID(IN2-26).
 	///</summary>
+	[Obsolete("Use 'GetPayorSubscriberID(int rep)' instead.")]
 	public CX PayorSubscriberID
 	{
 		get{
@@ -1282,7 +1341,64 @@ public class IN2 : AbstractSegment  {
 			return ret;
 	}
   }
+	///<summary>
+	/// Returns a single repetition of Payor Subscriber ID(IN2-26).
+	/// throws HL7Exception if the repetition number is invalid.
+	/// <param name="rep">The repetition number (this is a repeating field)</param>
+	///</summary>
+	public CX GetPayorSubscriberID(int rep)
+	{
+			CX ret = null;
+			try
+			{
+			IType t = this.GetField(26, rep);
+				ret = (CX)t;
+		} catch (System.Exception ex) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+				throw new System.Exception("An unexpected error occurred", ex);
+    }
+			return ret;
+  }
 
+  ///<summary>
+  /// Returns all repetitions of Payor Subscriber ID (IN2-26).
+   ///</summary>
+  public CX[] GetPayorSubscriberID() {
+     CX[] ret = null;
+    try {
+        IType[] t = this.GetField(26);  
+        ret = new CX[t.Length];
+        for (int i = 0; i < ret.Length; i++) {
+            ret[i] = (CX)t[i];
+        }
+    } catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error occurred", he);
+    } catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error occurred", cce);
+  }
+ return ret;
+}
+
+  ///<summary>
+  /// Returns the total repetitions of Payor Subscriber ID (IN2-26).
+   ///</summary>
+  public int PayorSubscriberIDRepetitionsUsed
+{
+get{
+    try {
+	return GetTotalFieldRepetitionsUsed(26);
+    }
+catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error occurred", he);
+} catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error occurred", cce);
+}
+}
+}
 	///<summary>
 	/// Returns Eligibility Source(IN2-27).
 	///</summary>

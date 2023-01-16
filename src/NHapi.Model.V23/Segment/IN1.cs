@@ -77,7 +77,7 @@ public class IN1 : AbstractSegment  {
 	IMessage message = Message;
     try {
        this.add(typeof(SI), true, 1, 4, new System.Object[]{message}, "Set ID - Insurance");
-       this.add(typeof(CE), false, 1, 8, new System.Object[]{message}, "Insurance Plan ID");
+       this.add(typeof(CE), true, 1, 8, new System.Object[]{message}, "Insurance Plan ID");
        this.add(typeof(CX), true, 0, 59, new System.Object[]{message}, "Insurance Company ID");
        this.add(typeof(XON), false, 0, 130, new System.Object[]{message}, "Insurance Company Name");
        this.add(typeof(XAD), false, 0, 106, new System.Object[]{message}, "Insurance Company Address");
