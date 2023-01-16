@@ -53,15 +53,15 @@ public class OBX : AbstractSegment  {
        this.add(typeof(Varies), false, 0, 65536, new System.Object[]{message}, "Observation Value");
        this.add(typeof(CE), false, 1, 250, new System.Object[]{message}, "Units");
        this.add(typeof(ST), false, 1, 60, new System.Object[]{message}, "References Range");
-       this.add(typeof(IS), false, 1, 5, new System.Object[]{message, 78}, "Abnormal Flags");
-       this.add(typeof(NM), false, 5, 5, new System.Object[]{message}, "Probability");
-       this.add(typeof(ID), false, 1, 2, new System.Object[]{message, 80}, "Nature of Abnormal Test");
+       this.add(typeof(IS), false, 5, 5, new System.Object[]{message, 78}, "Abnormal Flags");
+       this.add(typeof(NM), false, 1, 5, new System.Object[]{message}, "Probability");
+       this.add(typeof(ID), false, 0, 2, new System.Object[]{message, 80}, "Nature of Abnormal Test");
        this.add(typeof(ID), true, 1, 1, new System.Object[]{message, 85}, "Observation Result Status");
        this.add(typeof(TS), false, 1, 26, new System.Object[]{message}, "Date Last Observation Normal Value");
        this.add(typeof(ST), false, 1, 20, new System.Object[]{message}, "User Defined Access Checks");
        this.add(typeof(TS), false, 1, 26, new System.Object[]{message}, "Date/Time of the Observation");
        this.add(typeof(CE), false, 1, 250, new System.Object[]{message}, "Producer's ID");
-       this.add(typeof(XCN), false, 1, 250, new System.Object[]{message}, "Responsible Observer");
+       this.add(typeof(XCN), false, 0, 250, new System.Object[]{message}, "Responsible Observer");
        this.add(typeof(CE), false, 0, 250, new System.Object[]{message}, "Observation Method");
        this.add(typeof(EI), false, 0, 22, new System.Object[]{message}, "Equipment Instance Identifier");
        this.add(typeof(TS), false, 1, 26, new System.Object[]{message}, "Date/Time of the Analysis");
@@ -269,6 +269,7 @@ catch (HL7Exception he) {
 	///<summary>
 	/// Returns Abnormal Flags(OBX-8).
 	///</summary>
+	[Obsolete("Use 'GetAbnormalFlags(int rep)' instead.")]
 	public IS AbnormalFlags
 	{
 		get{
@@ -289,11 +290,71 @@ catch (HL7Exception he) {
 	}
   }
 
+    ///<summary>
+    /// Returns a single repetition of Abnormal Flags(OBX-8).
+    /// throws HL7Exception if the repetition number is invalid.
+    /// <param name="rep">The repetition number (this is a repeating field)</param>
+    ///</summary>
+    public IS GetAbnormalFlags(int rep)
+    {
+        IS ret = null;
+        try
+        {
+            IType t = this.GetField(8, rep);
+            ret = (IS)t;
+        } catch (System.Exception ex) {
+            HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+            throw new System.Exception("An unexpected error occurred", ex);
+        }
+        return ret;
+    }
+    
+    ///<summary>
+    /// Returns all repetitions of Abnormal Flags (OBX-8).
+    ///</summary>
+    public IS[] GetAbnormalFlags() {
+        IS[] ret = null;
+        try {
+            IType[] t = this.GetField(8);  
+            ret = new IS[t.Length];
+            for (int i = 0; i < ret.Length; i++) {
+                ret[i] = (IS)t[i];
+            }
+        } catch (HL7Exception he) {
+            HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+            throw new System.Exception("An unexpected error occurred", he);
+        } catch (System.Exception cce) {
+            HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+            throw new System.Exception("An unexpected error occurred", cce);
+        }
+        return ret;
+    }
+
+    ///<summary>
+    /// Returns the total repetitions of Abnormal Flags (OBX-8).
+    ///</summary>
+    public int AbnormalFlagsRepetitionsUsed
+    {
+        get{
+            try {
+                return GetTotalFieldRepetitionsUsed(8);
+            }
+            catch (HL7Exception he) {
+                HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+                throw new System.Exception("An unexpected error occurred", he);
+            } catch (System.Exception cce) {
+                HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+                throw new System.Exception("An unexpected error occurred", cce);
+            }
+        }
+    }
+
 	///<summary>
 	/// Returns a single repetition of Probability(OBX-9).
 	/// throws HL7Exception if the repetition number is invalid.
 	/// <param name="rep">The repetition number (this is a repeating field)</param>
 	///</summary>
+	[Obsolete("Use 'Probability' instead.")]
 	public NM GetProbability(int rep)
 	{
 			NM ret = null;
@@ -311,6 +372,7 @@ catch (HL7Exception he) {
   ///<summary>
   /// Returns all repetitions of Probability (OBX-9).
    ///</summary>
+  [Obsolete("Use 'Probability' instead.")]
   public NM[] GetProbability() {
      NM[] ret = null;
     try {
@@ -332,6 +394,7 @@ catch (HL7Exception he) {
   ///<summary>
   /// Returns the total repetitions of Probability (OBX-9).
    ///</summary>
+  [Obsolete("'Probability' should only have 1 repetition.")]
   public int ProbabilityRepetitionsUsed
 {
 get{
@@ -347,9 +410,92 @@ catch (HL7Exception he) {
 }
 }
 }
+    
+    ///<summary>
+    /// Returns Probability(OBX-9).
+    ///</summary>
+    public NM Probability
+    {
+        get{
+            NM ret = null;
+            try
+            {
+                IType t = this.GetField(9, 0);
+                ret = (NM)t;
+            }
+            catch (HL7Exception he) {
+                HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+                throw new System.Exception("An unexpected error occurred", he);
+            } catch (System.Exception ex) {
+                HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+                throw new System.Exception("An unexpected error occurred", ex);
+            }
+            return ret;
+        }
+    }
+    
+	///<summary>
+	/// Returns a single repetition of Nature of Abnormal Test(OBX-10).
+	/// throws HL7Exception if the repetition number is invalid.
+	/// <param name="rep">The repetition number (this is a repeating field)</param>
+	///</summary>
+	public ID GetNatureOfAbnormalTest(int rep)
+	{
+			ID ret = null;
+			try
+			{
+			IType t = this.GetField(10, rep);
+				ret = (ID)t;
+		} catch (System.Exception ex) {
+			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+				throw new System.Exception("An unexpected error occurred", ex);
+    }
+			return ret;
+  }
+
+  ///<summary>
+  /// Returns all repetitions of Nature of Abnormal Test (OBX-10).
+   ///</summary>
+  public ID[] GetNatureOfAbnormalTest() {
+     ID[] ret = null;
+    try {
+        IType[] t = this.GetField(10);  
+        ret = new ID[t.Length];
+        for (int i = 0; i < ret.Length; i++) {
+            ret[i] = (ID)t[i];
+        }
+    } catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error occurred", he);
+    } catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error occurred", cce);
+  }
+ return ret;
+}
+
+  ///<summary>
+  /// Returns the total repetitions of Nature of Abnormal Test (OBX-10).
+   ///</summary>
+  public int NatureOfAbnormalTestRepetitionsUsed
+{
+get{
+    try {
+	return GetTotalFieldRepetitionsUsed(10);
+    }
+catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error occurred", he);
+} catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error occurred", cce);
+}
+}
+}
 	///<summary>
 	/// Returns Nature of Abnormal Test(OBX-10).
 	///</summary>
+	[Obsolete("Use 'GetNatureOfAbnormalTest(int rep)' instead.")]
 	public ID NatureOfAbnormalTest
 	{
 		get{
@@ -485,28 +631,88 @@ catch (HL7Exception he) {
 	}
   }
 
+    ///<summary>
+    /// Returns Responsible Observer(OBX-16).
+    ///</summary>
+    [Obsolete("Use 'GetResponsibleObserver(int rep)' instead.")]
+    public XCN ResponsibleObserver
+    {
+        get{
+            XCN ret = null;
+            try
+            {
+                IType t = this.GetField(16, 0);
+                ret = (XCN)t;
+            }
+            catch (HL7Exception he) {
+                HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+                throw new System.Exception("An unexpected error ocurred", he);
+            } catch (System.Exception ex) {
+                HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
+                throw new System.Exception("An unexpected error ocurred", ex);
+            }
+            return ret;
+        }
+    }
+    
 	///<summary>
-	/// Returns Responsible Observer(OBX-16).
+	/// Returns a single repetition of Responsible Observer(OBX-16).
+	/// throws HL7Exception if the repetition number is invalid.
+	/// <param name="rep">The repetition number (this is a repeating field)</param>
 	///</summary>
-	public XCN ResponsibleObserver
+	public XCN GetResponsibleObserver(int rep)
 	{
-		get{
 			XCN ret = null;
 			try
 			{
-			IType t = this.GetField(16, 0);
+			IType t = this.GetField(16, rep);
 				ret = (XCN)t;
-			}
-			 catch (HL7Exception he) {
-			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
-				throw new System.Exception("An unexpected error ocurred", he);
 		} catch (System.Exception ex) {
 			HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", ex);
-				throw new System.Exception("An unexpected error ocurred", ex);
+				throw new System.Exception("An unexpected error occurred", ex);
     }
 			return ret;
-	}
   }
+
+  ///<summary>
+  /// Returns all repetitions of Responsible Observer (OBX-16).
+   ///</summary>
+  public XCN[] GetResponsibleObserver() {
+     XCN[] ret = null;
+    try {
+        IType[] t = this.GetField(16);  
+        ret = new XCN[t.Length];
+        for (int i = 0; i < ret.Length; i++) {
+            ret[i] = (XCN)t[i];
+        }
+    } catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error occurred", he);
+    } catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error occurred", cce);
+  }
+ return ret;
+}
+
+  ///<summary>
+  /// Returns the total repetitions of Responsible Observer (OBX-16).
+   ///</summary>
+  public int ResponsibleObserverRepetitionsUsed
+{
+get{
+    try {
+	return GetTotalFieldRepetitionsUsed(16);
+    }
+catch (HL7Exception he) {
+        HapiLogFactory.GetHapiLog(this.GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", he);
+        throw new System.Exception("An unexpected error occurred", he);
+} catch (System.Exception cce) {
+        HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected problem obtaining field value.  This is a bug.", cce);
+        throw new System.Exception("An unexpected error occurred", cce);
+}
+}
+}
 
 	///<summary>
 	/// Returns a single repetition of Observation Method(OBX-17).
