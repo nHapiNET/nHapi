@@ -137,10 +137,9 @@ namespace NHapi.SourceGeneration.Generators
             string version,
             string message)
         {
-            GroupDef ret;
             var required = true;
             var repeating = false;
-            var rep_opt = false;
+            var repOpt = false;
 
             var len = structures.Length;
             var shortList = new IStructureDef[len]; // place to put final list of groups/segments w/o opt & rep markers
@@ -162,7 +161,7 @@ namespace NHapi.SourceGeneration.Generators
 
                 if (RepoptMarkers(structures[0].Name, structures[len - 1].Name) && (FindGroupEnd(structures, 0) == len - 1))
                 {
-                    rep_opt = true;
+                    repOpt = true;
                 }
 
                 if (repeating || !required)
@@ -190,7 +189,7 @@ namespace NHapi.SourceGeneration.Generators
                     skip++;
                 }
 
-                if (rep_opt)
+                if (repOpt)
                 {
                     skip++;
                 }
@@ -237,14 +236,9 @@ namespace NHapi.SourceGeneration.Generators
                     ErrorCode.APPLICATION_INTERNAL_ERROR);
             }
 
-            if (rep_opt)
-            {
-                ret = new GroupDef(message, groupName, false, true, "a Group object");
-            }
-            else
-            {
-                ret = new GroupDef(message, groupName, required, repeating, "a Group object");
-            }
+            var ret = repOpt
+                ? new GroupDef(message, groupName, false, true, "a Group object")
+                : new GroupDef(message, groupName, required, repeating, "a Group object");
 
             var finalList = new IStructureDef[currShortListPos]; // note: incremented after last assignment
             Array.Copy(shortList, 0, finalList, 0, currShortListPos);
@@ -412,9 +406,9 @@ namespace NHapi.SourceGeneration.Generators
             var indexName = group.GetIndexName(name);
             var getterName = indexName;
 
-            if (def is GroupDef)
+            if (def is GroupDef groupDef)
             {
-                var unqualifiedName = ((GroupDef)def).UnqualifiedName;
+                var unqualifiedName = groupDef.UnqualifiedName;
                 getterName = group.GetIndexName(unqualifiedName);
             }
 

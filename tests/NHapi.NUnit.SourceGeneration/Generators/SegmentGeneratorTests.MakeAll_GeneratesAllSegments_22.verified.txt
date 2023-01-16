@@ -1,5 +1,5 @@
 ﻿{
-  basepath\\NHapi.Model.V22\\Segment\\ACC.cs:
+  basepath\NHapi.Model.V22\Segment\ACC.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -111,7 +111,7 @@ public class ACC : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\ADD.cs:
+  basepath\NHapi.Model.V22\Segment\ADD.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -173,7 +173,7 @@ public class ADD : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\AL1.cs:
+  basepath\NHapi.Model.V22\Segment\AL1.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -360,7 +360,7 @@ public class AL1 : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\BHS.cs:
+  basepath\NHapi.Model.V22\Segment\BHS.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -697,7 +697,7 @@ public class BHS : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\BLG.cs:
+  basepath\NHapi.Model.V22\Segment\BLG.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -809,7 +809,7 @@ public class BLG : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\BTS.cs:
+  basepath\NHapi.Model.V22\Segment\BTS.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -956,7 +956,7 @@ catch (HL7Exception he) {
 }
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\DG1.cs:
+  basepath\NHapi.Model.V22\Segment\DG1.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -1393,7 +1393,7 @@ public class DG1 : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\DSC.cs:
+  basepath\NHapi.Model.V22\Segment\DSC.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -1455,7 +1455,7 @@ public class DSC : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\DSP.cs:
+  basepath\NHapi.Model.V22\Segment\DSP.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -1617,7 +1617,7 @@ public class DSP : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\ERR.cs:
+  basepath\NHapi.Model.V22\Segment\ERR.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -1714,7 +1714,7 @@ catch (HL7Exception he) {
 }
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\EVN.cs:
+  basepath\NHapi.Model.V22\Segment\EVN.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -1876,7 +1876,7 @@ public class EVN : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\FHS.cs:
+  basepath\NHapi.Model.V22\Segment\FHS.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -2213,7 +2213,7 @@ public class FHS : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\FT1.cs:
+  basepath\NHapi.Model.V22\Segment\FT1.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -2860,7 +2860,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\FTS.cs:
+  basepath\NHapi.Model.V22\Segment\FTS.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -2947,7 +2947,7 @@ public class FTS : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\GT1.cs:
+  basepath\NHapi.Model.V22\Segment\GT1.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -3614,7 +3614,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\IN1.cs:
+  basepath\NHapi.Model.V22\Segment\IN1.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -4836,7 +4836,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\IN2.cs:
+  basepath\NHapi.Model.V22\Segment\IN2.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -5728,7 +5728,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\IN3.cs:
+  basepath\NHapi.Model.V22\Segment\IN3.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -6495,7 +6495,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\MFA.cs:
+  basepath\NHapi.Model.V22\Segment\MFA.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -6692,7 +6692,7 @@ catch (HL7Exception he) {
 }
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\MFE.cs:
+  basepath\NHapi.Model.V22\Segment\MFE.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -6864,7 +6864,7 @@ catch (HL7Exception he) {
 }
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\MFI.cs:
+  basepath\NHapi.Model.V22\Segment\MFI.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -7051,7 +7051,7 @@ public class MFI : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\MRG.cs:
+  basepath\NHapi.Model.V22\Segment\MRG.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -7188,7 +7188,7 @@ public class MRG : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\MSA.cs:
+  basepath\NHapi.Model.V22\Segment\MSA.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -7375,7 +7375,7 @@ public class MSA : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\MSH.cs:
+  basepath\NHapi.Model.V22\Segment\MSH.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -7837,7 +7837,7 @@ public class MSH : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\NCK.cs:
+  basepath\NHapi.Model.V22\Segment\NCK.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -7899,7 +7899,7 @@ public class NCK : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\NK1.cs:
+  basepath\NHapi.Model.V22\Segment\NK1.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -8296,7 +8296,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\NPU.cs:
+  basepath\NHapi.Model.V22\Segment\NPU.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -8383,7 +8383,7 @@ public class NPU : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\NSC.cs:
+  basepath\NHapi.Model.V22\Segment\NSC.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -8645,7 +8645,7 @@ public class NSC : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\NST.cs:
+  basepath\NHapi.Model.V22\Segment\NST.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -9057,7 +9057,7 @@ public class NST : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\NTE.cs:
+  basepath\NHapi.Model.V22\Segment\NTE.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -9204,7 +9204,7 @@ catch (HL7Exception he) {
 }
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\OBR.cs:
+  basepath\NHapi.Model.V22\Segment\OBR.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -10421,7 +10421,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\OBX.cs:
+  basepath\NHapi.Model.V22\Segment\OBX.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -10893,7 +10893,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\ODS.cs:
+  basepath\NHapi.Model.V22\Segment\ODS.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -11135,7 +11135,7 @@ catch (HL7Exception he) {
 }
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\ODT.cs:
+  basepath\NHapi.Model.V22\Segment\ODT.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -11317,7 +11317,7 @@ catch (HL7Exception he) {
 }
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\OM1.cs:
+  basepath\NHapi.Model.V22\Segment\OM1.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -12894,7 +12894,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\OM2.cs:
+  basepath\NHapi.Model.V22\Segment\OM2.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -13311,7 +13311,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\OM3.cs:
+  basepath\NHapi.Model.V22\Segment\OM3.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -13618,7 +13618,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\OM4.cs:
+  basepath\NHapi.Model.V22\Segment\OM4.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -14065,7 +14065,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\OM5.cs:
+  basepath\NHapi.Model.V22\Segment\OM5.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -14237,7 +14237,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\OM6.cs:
+  basepath\NHapi.Model.V22\Segment\OM6.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -14349,7 +14349,7 @@ public class OM6 : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\ORC.cs:
+  basepath\NHapi.Model.V22\Segment\ORC.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -14931,7 +14931,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\PID.cs:
+  basepath\NHapi.Model.V22\Segment\PID.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -15853,7 +15853,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\PR1.cs:
+  basepath\NHapi.Model.V22\Segment\PR1.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -16380,7 +16380,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\PRA.cs:
+  basepath\NHapi.Model.V22\Segment\PRA.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -16767,7 +16767,7 @@ catch (HL7Exception he) {
 }
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\PV1.cs:
+  basepath\NHapi.Model.V22\Segment\PV1.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -18299,7 +18299,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\PV2.cs:
+  basepath\NHapi.Model.V22\Segment\PV2.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -18596,7 +18596,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\QRD.cs:
+  basepath\NHapi.Model.V22\Segment\QRD.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -19073,7 +19073,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\QRF.cs:
+  basepath\NHapi.Model.V22\Segment\QRF.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -19520,7 +19520,7 @@ catch (HL7Exception he) {
 }
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\RQ1.cs:
+  basepath\NHapi.Model.V22\Segment\RQ1.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -19732,7 +19732,7 @@ public class RQ1 : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\RQD.cs:
+  basepath\NHapi.Model.V22\Segment\RQD.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -20019,7 +20019,7 @@ public class RQD : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\RXA.cs:
+  basepath\NHapi.Model.V22\Segment\RXA.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -20356,7 +20356,7 @@ public class RXA : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\RXC.cs:
+  basepath\NHapi.Model.V22\Segment\RXC.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -20493,7 +20493,7 @@ public class RXC : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\RXD.cs:
+  basepath\NHapi.Model.V22\Segment\RXD.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -20940,7 +20940,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\RXE.cs:
+  basepath\NHapi.Model.V22\Segment\RXE.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -21647,7 +21647,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\RXG.cs:
+  basepath\NHapi.Model.V22\Segment\RXG.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -22154,7 +22154,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\RXO.cs:
+  basepath\NHapi.Model.V22\Segment\RXO.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -22686,7 +22686,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\RXR.cs:
+  basepath\NHapi.Model.V22\Segment\RXR.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -22823,7 +22823,7 @@ public class RXR : AbstractSegment  {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\STF.cs:
+  basepath\NHapi.Model.V22\Segment\STF.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -23610,7 +23610,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\UB1.cs:
+  basepath\NHapi.Model.V22\Segment\UB1.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -24327,7 +24327,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\UB2.cs:
+  basepath\NHapi.Model.V22\Segment\UB2.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -25114,7 +25114,7 @@ catch (HL7Exception he) {
 }
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\URD.cs:
+  basepath\NHapi.Model.V22\Segment\URD.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -25466,7 +25466,7 @@ catch (HL7Exception he) {
 
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\URS.cs:
+  basepath\NHapi.Model.V22\Segment\URS.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;
@@ -25913,7 +25913,7 @@ catch (HL7Exception he) {
 }
 
 }},
-  basepath\\NHapi.Model.V22\\Segment\\Zxx.cs:
+  basepath\NHapi.Model.V22\Segment\Zxx.cs:
 using System;
 using NHapi.Base;
 using NHapi.Base.Parser;

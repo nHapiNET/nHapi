@@ -1,5 +1,5 @@
 ﻿{
-  basepath\\NHapi.Model.V21\\Datatype\\CE.cs:
+  basepath\NHapi.Model.V21\Datatype\CE.cs:
 using System;
 using NHapi.Base.Model;
 using NHapi.Base.Log;
@@ -173,7 +173,7 @@ get{
 
 }
 }},
-  basepath\\NHapi.Model.V21\\Datatype\\FT.cs:
+  basepath\NHapi.Model.V21\Datatype\FT.cs:
 using System;
 using NHapi.Base.Model;
 using NHapi.Base;
@@ -209,7 +209,7 @@ public class FT : AbstractPrimitive  {
 }
 }
 },
-  basepath\\NHapi.Model.V21\\Datatype\\NM.cs:
+  basepath\NHapi.Model.V21\Datatype\NM.cs:
 using System;
 using NHapi.Base.Model;
 using NHapi.Base;
@@ -245,7 +245,7 @@ public class NM : AbstractPrimitive  {
 }
 }
 },
-  basepath\\NHapi.Model.V21\\Datatype\\SI.cs:
+  basepath\NHapi.Model.V21\Datatype\SI.cs:
 using System;
 using NHapi.Base.Model;
 using NHapi.Base;
@@ -281,7 +281,7 @@ public class SI : AbstractPrimitive  {
 }
 }
 },
-  basepath\\NHapi.Model.V21\\Datatype\\ST.cs:
+  basepath\NHapi.Model.V21\Datatype\ST.cs:
 using System;
 using NHapi.Base.Model;
 using NHapi.Base;
@@ -317,7 +317,7 @@ public class ST : AbstractPrimitive  {
 }
 }
 },
-  basepath\\NHapi.Model.V21\\Datatype\\TN.cs:
+  basepath\NHapi.Model.V21\Datatype\TN.cs:
 using System;
 using NHapi.Base.Model;
 using NHapi.Base;
@@ -353,7 +353,7 @@ public class TN : AbstractPrimitive  {
 }
 }
 },
-  basepath\\NHapi.Model.V21\\Datatype\\TX.cs:
+  basepath\NHapi.Model.V21\Datatype\TX.cs:
 using System;
 using NHapi.Base.Model;
 using NHapi.Base;

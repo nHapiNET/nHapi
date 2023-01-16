@@ -1,5 +1,5 @@
 ﻿{
-  basepath\\NHapi.Model.V24\\Datatype\\DT.cs:
+  basepath\NHapi.Model.V24\Datatype\DT.cs:
 using System;
 
 using NHapi.Base.Model;
@@ -40,7 +40,7 @@ public class DT: NHapi.Base.Model.Primitive.DT
                 }
 }
 ,
-  basepath\\NHapi.Model.V24\\Datatype\\ID.cs:
+  basepath\NHapi.Model.V24\Datatype\ID.cs:
 using System;
 
 using NHapi.Base.Model;
@@ -83,7 +83,7 @@ public class ID: NHapi.Base.Model.Primitive.ID
                 }
 }
 ,
-  basepath\\NHapi.Model.V24\\Datatype\\IS.cs:
+  basepath\NHapi.Model.V24\Datatype\IS.cs:
 using System;
 
 using NHapi.Base.Model;
@@ -126,7 +126,7 @@ public class IS: NHapi.Base.Model.Primitive.IS
                 }
 }
 ,
-  basepath\\NHapi.Model.V24\\Datatype\\ST.cs:
+  basepath\NHapi.Model.V24\Datatype\ST.cs:
 using System;
 
 using NHapi.Base.Model;
@@ -167,7 +167,7 @@ public class ST: AbstractPrimitive
                 }
 }
 ,
-  basepath\\NHapi.Model.V24\\Datatype\\TM.cs:
+  basepath\NHapi.Model.V24\Datatype\TM.cs:
 using System;
 
 using NHapi.Base.Model;
