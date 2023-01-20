@@ -6,7 +6,7 @@
     <PackageProjectUrl>https://github.com/nHapiNET/nHapi</PackageProjectUrl>
     <RepositoryUrl>https://github.com/nHapiNET/nHapi.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>HL7;parsing;healthcare;HAPI;xml</PackageTags>
+    <PackageTags>HL7;ER7;XML;parsing;healthcare;HAPI</PackageTags>
     <PackageReleaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v$(Version)</PackageReleaseNotes>
     <PackageReadmeFile>docs\README.md</PackageReadmeFile>
   </PropertyGroup>
@@ -24,6 +24,8 @@
 
   <PropertyGroup Condition=" '$(IsPackable)' == 'true' And '$(IncludeCommonPackageInfo)' == 'true' And '$(Configuration)' == 'Release' ">
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <!-- Build Time Tools (Includes commit sha in AssemblyInfo etc)-->

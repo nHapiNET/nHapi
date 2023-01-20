@@ -131,7 +131,7 @@
         public bool NonGreedyMode { get; set; }
 
         /// <summary>
-        /// Gets or Sets flag which allows the Description attribute [LongName] to be added in encoded xml with counter position.
+        /// Gets or Sets flag which allows the Description attribute 'LongName' to be added in encoded xml with counter position.
         /// </summary>
         /// <example>
         /// <code>

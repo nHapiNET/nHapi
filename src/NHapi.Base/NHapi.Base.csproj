@@ -4,7 +4,7 @@
     <TargetFrameworks>net35;netstandard2.0</TargetFrameworks>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <PackageId>nhapi.base</PackageId>
-    <Version>3.1.1</Version>
+    <Version>3.2.0</Version>
     <PackageDescription>The core components for parsing/encoding HL7 messages. Contains the base classes and interfaces for datatypes, segments, and messages.</PackageDescription>
     <Description>NHapi Common Library</Description>
     <NoWarn>1591</NoWarn>

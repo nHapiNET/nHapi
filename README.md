@@ -48,12 +48,9 @@ For more options please read the [Getting Started](https://github.com/nHapiNET/n
 
 ## Change Log
 
-### nHapi 3.0.0 Announcement
+### nHapi 3.2.0 Announcement
 
-nHapi 3.0.0 has been officially released, the main change for this release is support for netstandard2.0, but it also has other enhancements and bug fixes.
-Please read the change log below for full details of and how they might affect you prior to upgrading.
-
-[Full Change Log](https://github.com/nHapiNET/nHapi/blob/master/CHANGELOG.md).
+nHapi 3.2.0 has been released - see [Full Change Log](https://github.com/nHapiNET/nHapi/blob/master/CHANGELOG.md) for details.
 
 ## Related Projects
 

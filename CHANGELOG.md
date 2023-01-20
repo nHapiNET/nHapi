@@ -4,7 +4,38 @@ All notable changes to this project will be documented in this file.
 
 ## Upcoming Release
 
-## [3.X.X.X] - TBC
+## [3.X.X] - TBC
+
+## [3.2.0] - 2023-01-20
+
+Various new `ParserOptions` have been added, see the [wiki](https://github.com/nHapiNET/nHapi/wiki/Parser-Options) for more information.
+
+### Things of note
+
+As part of [#398](https://github.com/nHapiNET/nHapi/pull/398) the imperfect behaviour of `XmlParser` and `DefaultXmlParser` have been updated and brought inline with `hapi` fixing many quirks and defects. If you are dependant on this old behaviour you can use `LegacyXmlParser` and `LegacyDefaultXmlParser` instead, these will be available until the next major version of `nHapi`.
+
+The [nHapi](https://www.nuget.org/packages/nhapi) convenience nuget package is now a meta package meaning it does not directly contain any Dlls. This metapackage just describes its dependencies, which happen to be all of the individual nHapi nuget packages. If you want to understand a little bit more about metapackages [read this](https://andrewlock.net/what-is-the-microsoft-aspnetcore-metapackage/).
+
+There is no difference in behaviour when using this metapackage vs the previous nHapi nuget package.
+
+### Bug Fixes
+
+- [#318](https://github.com/nHapiNET/nHapi/pull/318) Port `ORL_O34` fix for cyclic reference, fixes for `V2.5.1`, `2.5`, `2.6`. By @milkshakeuk (fixes [#298](https://github.com/nHapiNET/nHapi/issues/298))
+- [#340](https://github.com/nHapiNET/nHapi/pull/340) Fix `Terser` Regex bug. By @milkshakeuk (fixes [#319](https://github.com/nHapiNET/nHapi/issues/319))
+- [#402](https://github.com/nHapiNET/nHapi/pull/402) Fix `OBX` repeat counts for V24. By @milkshakeuk (fixes [#341](https://github.com/nHapiNET/nHapi/issues/341))
+
+### Enhancements
+
+- [#283](https://github.com/nHapiNET/nHapi/pull/283) Enable refactor of Source Generation code. By @milkshakeuk
+- [#291](https://github.com/nHapiNET/nHapi/pull/291) Fix some static analysis issues. By @PhantomGrazzler
+- [#308](https://github.com/nHapiNET/nHapi/pull/308) Include the optional `LongName` attribute in the XML encoded output. By @laxmi-lal-menaria (resolves [#301](https://github.com/nHapiNET/nHapi/issues/301))
+- [#360](https://github.com/nHapiNET/nHapi/pull/360) Add Support for `CharSetUtil` and `PreParser`. By @milkshakeuk (resolves [#312](https://github.com/nHapiNET/nHapi/issues/312))
+- [#362](https://github.com/nHapiNET/nHapi/pull/362) Fixed some static analysis warnings related to public constants. By @PhantomGrazzler
+- [#398](https://github.com/nHapiNET/nHapi/pull/398) Bring XmlParsing in line with `hapi`. By @milkshakeuk (unblocks [#308](https://github.com/nHapiNET/nHapi/pull/308))
+
+### Other
+
+- [#288](https://github.com/nHapiNET/nHapi/pull/288) Update Github Actions to use OS matrix. By @milkshakeuk
 
 ## Previous Releases
 
@@ -12,21 +43,21 @@ All notable changes to this project will be documented in this file.
 
 ### Enhancements
 
-- [#277](https://github.com/nHapiNET/nHapi/pull/277) Remove MaxRepetition check, keeps nhapi in line with hapi behaviour, nhapi becomes more forgiving in regards to repetitions. (fixes [#276](https://github.com/nHapiNET/nHapi/issues/276))
+- [#277](https://github.com/nHapiNET/nHapi/pull/277) Remove MaxRepetition check, keeps nhapi in line with hapi behaviour, nhapi becomes more forgiving in regards to repetitions. By @milkshakeuk (fixes [#276](https://github.com/nHapiNET/nHapi/issues/276))
 
 ## [3.1.0] - 2022-01-01
 
 ### Enhancements
 
-- [#254](https://github.com/nHapiNET/nHapi/pull/254) Add `UnexpectedSegmentBehaviour` Options, ported from hapi
-- [#251](https://github.com/nHapiNET/nHapi/pull/251) Fix concurrency issues with `PipeParser`, `StructureDefinition`, `GenericMessage` and `Escape`.
-- [#250](https://github.com/nHapiNET/nHapi/pull/250) Add new options `DefaultObx2Type` and `InvalidObx2Type` to `ParserOptions`, ported from nhapi. (fixes [#63](https://github.com/nHapiNET/nHapi/issues/63))
-- [#240](https://github.com/nHapiNET/nHapi/pull/240) Add support for `NonGreedyMode` by introducing `ParserOptions` ported from hapi. by @PhantomGrazzler (fixes [#65](https://github.com/nHapiNET/nHapi/issues/65) [#232](https://github.com/nHapiNET/nHapi/issues/232))
+- [#254](https://github.com/nHapiNET/nHapi/pull/254) Add `UnexpectedSegmentBehaviour` Options, ported from hapi. By @milkshakeuk
+- [#251](https://github.com/nHapiNET/nHapi/pull/251) Fix concurrency issues with `PipeParser`, `StructureDefinition`, `GenericMessage` and `Escape`. By @milkshakeuk
+- [#250](https://github.com/nHapiNET/nHapi/pull/250) Add new options `DefaultObx2Type` and `InvalidObx2Type` to `ParserOptions`, ported from nhapi. By @milkshakeuk (fixes [#63](https://github.com/nHapiNET/nHapi/issues/63))
+- [#240](https://github.com/nHapiNET/nHapi/pull/240) Add support for `NonGreedyMode` by introducing `ParserOptions` ported from hapi. By @PhantomGrazzler (fixes [#65](https://github.com/nHapiNET/nHapi/issues/65) [#232](https://github.com/nHapiNET/nHapi/issues/232))
 
 ### Other
 
-- [#256](https://github.com/nHapiNET/nHapi/pull/256) Simplify cspoj through use of props and targets files.
-- Update tools and build to net6.0
+- [#256](https://github.com/nHapiNET/nHapi/pull/256) Simplify cspoj through use of props and targets files. By @milkshakeuk
+- Update tools and build to net6.0. By @milkshakeuk
 
 ## [3.0.4] - 2021-08-11
 
@@ -38,9 +69,13 @@ In cases where dictionaries / hashtables are used for lookups such as `Escape.cs
 
 Instead of using `Add(key, value)` which only allows 1 items with a given key to be added to the dictionary / hashtable, we are using the index accessor to set or update the value in a last one wins scenario, but only when its combined with `ContainsKey` which has indicated that an item with that key shouldn't exist.
 
+By @milkshakeuk
+
 ## [3.0.3] - 2021-08-10
 
 This change updates the `PipeParser` Version check when obtaining encoding characters from a message object in order to encode it to HL7; `string.CompareOrdinal` is now used instead of `System.Version` which is more forgiving when a version contains non numerical characters.
+
+By @milkshakeuk
 
 ## [3.0.2] - 2021-08-09
 
@@ -49,6 +84,8 @@ This change gives nhapi [strong-named assemblies](https://docs.microsoft.com/en-
 ### Bug Fixes
 
 - [#227](https://github.com/nHapiNET/nHapi/issues/227) fixes "A strongly-named assembly is required" runtime errors
+
+By @milkshakeuk
 
 ## [nhapi.model.v231 3.0.1] - 2021-07-02
 
