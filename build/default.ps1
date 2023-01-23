@@ -82,15 +82,21 @@ Task Package -depends Build {
         Exec { dotnet pack "..\src\$project\$project.csproj" -c $projectConfig --no-build --no-restore -o "..\dist" }
     }
 
-    Exec { .nuget\nuget pack .\nHapi.v3.nuspec -OutputDirectory ..\dist }
+    $commit = (git rev-parse --verify HEAD)
+    $nuspec = ".\nHapi.v3.nuspec"
+
+    (Get-Content $nuspec).Replace('commit=""', 'commit="' + $commit + '"') | Set-Content $nuspec
+
+    Exec { .nuget\nuget pack $nuspec -OutputDirectory ..\dist }
+
+    (Get-Content $nuspec).Replace('commit="' + $commit + '"', 'commit=""') | Set-Content $nuspec
 }
 
 Task Deploy -depends Package {
 
     foreach($project in $projects) {
-        Exec { dotnet nuget push "..\dist\$project.*.nupkg" --api-key $apiKey }
+        Exec { dotnet nuget push "..\dist\$project.*.nupkg" -k $apiKey -sk $apiKey -s "https://api.nuget.org/v3/index.json" }
     }
 
-    Exec { dotnet nuget push "..\dist\nhapi.3.2.0.nupkg" --api-key $apiKey }
-	# Exec { .nuget\nuget push *.nupkg -Source https://api.nuget.org/v3/index.json }
+    Exec { dotnet nuget push "..\dist\nhapi.3.*.nupkg" -k $apiKey -sk $apiKey -s "https://api.nuget.org/v3/index.json" }
 }

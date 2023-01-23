@@ -32,6 +32,7 @@ There is no difference in behaviour when using this metapackage vs the previous 
 - [#360](https://github.com/nHapiNET/nHapi/pull/360) Add Support for `CharSetUtil` and `PreParser`. By @milkshakeuk (resolves [#312](https://github.com/nHapiNET/nHapi/issues/312))
 - [#362](https://github.com/nHapiNET/nHapi/pull/362) Fixed some static analysis warnings related to public constants. By @PhantomGrazzler
 - [#398](https://github.com/nHapiNET/nHapi/pull/398) Bring XmlParsing in line with `hapi`. By @milkshakeuk (unblocks [#308](https://github.com/nHapiNET/nHapi/pull/308))
+- [#278](https://github.com/nHapiNET/nHapi/issues/278) Better Source Link Support. By @milkshakeuk
 
 ### Other
 

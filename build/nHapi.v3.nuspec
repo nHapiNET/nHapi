@@ -6,7 +6,6 @@
         <authors>Chad Chenoweth,Duane Edwards,Jake Aitchison</authors>
         <license type="expression">MPL-2.0</license>
         <projectUrl>https://github.com/nHapiNET/nHapi</projectUrl>
-        <repository type="git" url="https://github.com/nHapiNET/nHapi.git" />
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>NHapi is a port of the original project HAPI.
 
@@ -17,6 +16,7 @@ This project is NOT affiliated with the HL7 organization. This software just con
 This nuget package is just a metapackage for conveniance.</description>
         <releaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v3.2.0</releaseNotes>
         <tags>HL7 ER7 XML parsing healthcare HAPI</tags>
+        <repository type="git" url="https://github.com/nHapiNET/nHapi.git" commit=""/>
         <readme>docs\README.md</readme>
         <dependencies>
             <dependency id="nhapi.base" version="3.2.0" />
