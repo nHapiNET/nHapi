@@ -6,6 +6,18 @@ All notable changes to this project will be documented in this file.
 
 ## [3.X.X] - TBC
 
+## Previous Releases
+
+## [3.2.1] - 2023-01-24
+
+This release is purely superficial, it does not fix or add anything.
+
+- Add appropriate [target framework](https://learn.microsoft.com/en-us/nuget/reference/target-frameworks) metadata to the metapackage nuspec - already exists in the individual nuget packages.
+
+See [3.2.0](#320---2023-01-20) release for latest changes.
+
+By @milkshakeuk
+
 ## [3.2.0] - 2023-01-20
 
 Various new `ParserOptions` have been added, see the [wiki](https://github.com/nHapiNET/nHapi/wiki/Parser-Options) for more information.
@@ -37,8 +49,6 @@ There is no difference in behaviour when using this metapackage vs the previous 
 ### Other
 
 - [#288](https://github.com/nHapiNET/nHapi/pull/288) Update Github Actions to use OS matrix. By @milkshakeuk
-
-## Previous Releases
 
 ## [3.1.1] - 2022-02-19
 
