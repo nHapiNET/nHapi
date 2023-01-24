@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 
 ## Previous Releases
 
-## [3.2.1] - 2023-01-24
+## [3.2.2] - 2023-01-24
 
 This release is purely superficial, it does not fix or add anything.
 

@@ -87,6 +87,11 @@ Task Package -depends Build {
 
     (Get-Content $nuspec).Replace('commit=""', 'commit="' + $commit + '"') | Set-Content $nuspec
 
+    New-Item -ItemType directory -Force -Path ..\dist\net35
+    New-Item -ItemType directory -Force -Path ..\dist\netstandard2.0
+    New-Item -ItemType file -Path ..\dist\net35 -Name _._
+    New-Item -ItemType file -Path ..\dist\netstandard2.0 -Name _._
+
     Exec { .nuget\nuget pack $nuspec -OutputDirectory ..\dist }
 
     (Get-Content $nuspec).Replace('commit="' + $commit + '"', 'commit=""') | Set-Content $nuspec

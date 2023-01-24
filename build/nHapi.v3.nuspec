@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
     <metadata>
         <id>nhapi</id>
-        <version>3.2.1</version>
+        <version>3.2.2</version>
         <authors>Chad Chenoweth,Duane Edwards,Jake Aitchison</authors>
         <license type="expression">MPL-2.0</license>
         <projectUrl>https://github.com/nHapiNET/nHapi</projectUrl>
@@ -14,7 +14,7 @@ NHapi allows Microsoft .NET developers to easily use an HL7 2.x object model. Th
 This project is NOT affiliated with the HL7 organization. This software just conforms to the HL7 2.x specifications.
 
 This nuget package is just a metapackage for conveniance.</description>
-        <releaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v3.2.1</releaseNotes>
+        <releaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v3.2.2</releaseNotes>
         <tags>HL7 ER7 XML parsing healthcare HAPI</tags>
         <repository type="git" url="https://github.com/nHapiNET/nHapi.git" commit=""/>
         <readme>docs\README.md</readme>
@@ -52,6 +52,8 @@ This nuget package is just a metapackage for conveniance.</description>
         </dependencies>
     </metadata>
     <files>
+        <file src="..\dist\netstandard2.0\_._" target="lib\netstandard2.0\" />
+        <file src="..\dist\net35\_._" target="lib\net35\" />
         <file src="..\README.md" target="docs\" />
     </files>
 </package>
