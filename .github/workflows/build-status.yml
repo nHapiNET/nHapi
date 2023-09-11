@@ -12,7 +12,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v3
@@ -64,7 +64,7 @@ jobs:
     # the build-and-test job might be skipped, we don't need to run this job then
     if: always()
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: 'Download artifact'
         uses: actions/download-artifact@v3
