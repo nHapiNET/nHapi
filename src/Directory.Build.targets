@@ -30,6 +30,6 @@
 
   <!-- Build Time Tools (Includes commit sha in AssemblyInfo etc)-->
   <ItemGroup Condition=" '$(IsPackable)' == 'true' And '$(IncludeCommonPackageInfo)' == 'true' And '$(Configuration)' == 'Release' ">
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" IsImplicitlyDefined="true" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" IsImplicitlyDefined="true" />
   </ItemGroup>
 </Project>
