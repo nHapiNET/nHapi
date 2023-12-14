@@ -1,7 +1,6 @@
 namespace NHapi.SourceGeneration.Generators
 {
     using System.Data.Common;
-    using System.Data.Odbc;
     using System.IO;
     using System.Text;
 

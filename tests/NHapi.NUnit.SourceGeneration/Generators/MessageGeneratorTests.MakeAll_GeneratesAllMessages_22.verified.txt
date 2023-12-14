@@ -1,5 +1,5 @@
 ﻿{
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ADR_A19_INSURANCE.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ADR_A19_INSURANCE.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -88,7 +88,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ADR_A19_QUERY_RESPONSE.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ADR_A19_QUERY_RESPONSE.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -816,7 +816,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ADT_A01_INSURANCE.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ADT_A01_INSURANCE.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -905,7 +905,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ADT_A04_INSURANCE.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ADT_A04_INSURANCE.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -994,7 +994,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ADT_A05_INSURANCE.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ADT_A05_INSURANCE.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -1083,7 +1083,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ADT_A06_INSURANCE.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ADT_A06_INSURANCE.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -1172,7 +1172,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ADT_A07_INSURANCE.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ADT_A07_INSURANCE.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -1261,7 +1261,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ADT_A08_INSURANCE.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ADT_A08_INSURANCE.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -1350,7 +1350,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ADT_A13_INSURANCE.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ADT_A13_INSURANCE.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -1439,7 +1439,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ADT_A14_INSURANCE.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ADT_A14_INSURANCE.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -1528,7 +1528,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ADT_A28_INSURANCE.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ADT_A28_INSURANCE.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -1617,7 +1617,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ADT_A31_INSURANCE.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ADT_A31_INSURANCE.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -1706,7 +1706,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\BAR_P01_INSURANCE.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\BAR_P01_INSURANCE.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -1795,7 +1795,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\BAR_P01_VISIT.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\BAR_P01_VISIT.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -2487,7 +2487,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\BAR_P02_PATIENT.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\BAR_P02_PATIENT.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -2558,7 +2558,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\MFN_M01_MF.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\MFN_M01_MF.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -2629,7 +2629,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\MFN_M02_MF_STAFF.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\MFN_M02_MF_STAFF.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -2700,7 +2700,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\MFN_M03_MF_TEST.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\MFN_M03_MF_TEST.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -2771,7 +2771,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\MFR_M01_MF.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\MFR_M01_MF.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -2842,7 +2842,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\MFR_M02_MF_STAFF.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\MFR_M02_MF_STAFF.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -2913,7 +2913,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\MFR_M03_MF_TEST.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\MFR_M03_MF_TEST.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -2984,7 +2984,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\NMD_N01_APP_STATS.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\NMD_N01_APP_STATS.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -3118,7 +3118,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\NMD_N01_APP_STATUS.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\NMD_N01_APP_STATUS.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -3252,7 +3252,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\NMD_N01_CLOCK_AND_STATS_WITH_NOTES.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\NMD_N01_CLOCK_AND_STATS_WITH_NOTES.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -3341,7 +3341,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\NMD_N01_CLOCK.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\NMD_N01_CLOCK.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -3475,7 +3475,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\NMQ_N02_CLOCK_AND_STATISTICS.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\NMQ_N02_CLOCK_AND_STATISTICS.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -3564,7 +3564,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\NMQ_N02_QRY_WITH_DETAIL.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\NMQ_N02_QRY_WITH_DETAIL.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -3635,7 +3635,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\NMR_N02_CLOCK_AND_STATS_WITH_NOTES_ALT.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\NMR_N02_CLOCK_AND_STATS_WITH_NOTES_ALT.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -3967,7 +3967,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ORF_R04_OBSERVATION.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ORF_R04_OBSERVATION.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -4101,7 +4101,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ORF_R04_ORDER.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ORF_R04_ORDER.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -4334,7 +4334,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ORF_R04_QUERY_RESPONSE.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ORF_R04_QUERY_RESPONSE.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -4504,7 +4504,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ORM_O01_ORDER_DETAIL.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ORM_O01_ORDER_DETAIL.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -4890,7 +4890,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ORM_O01_ORDER.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ORM_O01_ORDER.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -4979,7 +4979,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ORM_O01_PATIENT.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ORM_O01_PATIENT.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -5131,7 +5131,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ORR_O02_ORDER_DETAIL.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ORR_O02_ORDER_DETAIL.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -5274,7 +5274,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ORR_O02_ORDER.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ORR_O02_ORDER.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -5426,7 +5426,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ORR_O02_PATIENT.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ORR_O02_PATIENT.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -5641,7 +5641,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ORU_R01_OBSERVATION.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ORU_R01_OBSERVATION.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -5775,7 +5775,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ORU_R01_ORDER_OBSERVATION.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ORU_R01_ORDER_OBSERVATION.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -6008,7 +6008,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ORU_R01_PATIENT_RESULT.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ORU_R01_PATIENT_RESULT.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -6142,7 +6142,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ORU_R01_PATIENT.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ORU_R01_PATIENT.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -6294,7 +6294,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ORU_R03_OBSERVATION.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ORU_R03_OBSERVATION.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -6428,7 +6428,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ORU_R03_ORDER_OBSERVATION.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ORU_R03_ORDER_OBSERVATION.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -6661,7 +6661,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ORU_R03_PATIENT_RESULT.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ORU_R03_PATIENT_RESULT.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -6795,7 +6795,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Group\ORU_R03_PATIENT.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Group\ORU_R03_PATIENT.cs:
 using NHapi.Base.Parser;
 using NHapi.Base;
 using NHapi.Base.Log;
@@ -6947,7 +6947,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADR_A19.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADR_A19.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -7175,7 +7175,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A01.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A01.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -7943,7 +7943,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A02.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A02.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -8171,7 +8171,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A03.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A03.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -8399,7 +8399,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A04.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A04.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -9167,7 +9167,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A05.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A05.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -9935,7 +9935,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A06.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A06.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -10721,7 +10721,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A07.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A07.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -11507,7 +11507,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A08.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A08.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -12275,7 +12275,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A09.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A09.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -12584,7 +12584,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A10.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A10.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -12893,7 +12893,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A11.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A11.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -13202,7 +13202,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A12.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A12.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -13511,7 +13511,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A13.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A13.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -14279,7 +14279,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A14.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A14.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -15047,7 +15047,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A15.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A15.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -15356,7 +15356,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A16.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A16.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -15665,7 +15665,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A17.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A17.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -16028,7 +16028,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A18.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A18.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -16175,7 +16175,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A20.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A20.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -16286,7 +16286,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A21.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A21.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -16514,7 +16514,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A22.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A22.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -16742,7 +16742,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A23.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A23.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -16970,7 +16970,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A24.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A24.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -17135,7 +17135,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A25.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A25.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -17363,7 +17363,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A26.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A26.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -17591,7 +17591,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A27.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A27.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -17819,7 +17819,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A28.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A28.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -18587,7 +18587,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A29.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A29.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -18815,7 +18815,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A30.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A30.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -18944,7 +18944,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A31.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A31.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -19712,7 +19712,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A32.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A32.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -19940,7 +19940,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A33.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A33.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -20168,7 +20168,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A34.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A34.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -20297,7 +20297,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A35.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A35.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -20426,7 +20426,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A36.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A36.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -20555,7 +20555,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ADT_A37.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ADT_A37.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -20720,7 +20720,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\BAR_P01.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\BAR_P01.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -20912,7 +20912,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\BAR_P02.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\BAR_P02.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -21086,7 +21086,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\DFT_P03.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\DFT_P03.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -21395,7 +21395,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\DSR_P04.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\DSR_P04.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -21641,7 +21641,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\DSR_Q01.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\DSR_Q01.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -21887,7 +21887,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\DSR_Q03.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\DSR_Q03.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -22115,7 +22115,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\DSR_R03.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\DSR_R03.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -22343,7 +22343,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\MFD_M01.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\MFD_M01.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -22517,7 +22517,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\MFD_M02.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\MFD_M02.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -22691,7 +22691,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\MFD_M03.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\MFD_M03.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -22865,7 +22865,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\MFK_M01.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\MFK_M01.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -23075,7 +23075,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\MFK_M02.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\MFK_M02.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -23285,7 +23285,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\MFK_M03.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\MFK_M03.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -23495,7 +23495,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\MFN_M01.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\MFN_M01.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -23669,7 +23669,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\MFN_M02.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\MFN_M02.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -23843,7 +23843,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\MFN_M03.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\MFN_M03.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -24017,7 +24017,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\MFQ_M01.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\MFQ_M01.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -24146,7 +24146,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\MFQ_M02.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\MFQ_M02.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -24275,7 +24275,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\MFQ_M03.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\MFQ_M03.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -24404,7 +24404,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\MFR_M01.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\MFR_M01.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -24668,7 +24668,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\MFR_M02.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\MFR_M02.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -24932,7 +24932,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\MFR_M03.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\MFR_M03.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -25196,7 +25196,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\NMD_N01.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\NMD_N01.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -25352,7 +25352,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\NMQ_N02.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\NMQ_N02.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -25526,7 +25526,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\NMR_N02.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\NMR_N02.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -25736,7 +25736,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ORF_R04.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ORF_R04.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -26009,7 +26009,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ORM_O01.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ORM_O01.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -26264,7 +26264,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ORR_O02.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ORR_O02.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -26456,7 +26456,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ORU_R01.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ORU_R01.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -26630,7 +26630,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\ORU_R03.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\ORU_R03.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -26804,7 +26804,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\QRY_A19.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\QRY_A19.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -26915,7 +26915,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\QRY_P04.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\QRY_P04.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -27044,7 +27044,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\QRY_Q01.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\QRY_Q01.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -27173,7 +27173,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\QRY_Q02.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\QRY_Q02.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -27302,7 +27302,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\QRY_R02.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\QRY_R02.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
@@ -27431,7 +27431,7 @@ get{
 }
 }
 ,
-  C:\DEV\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net6.0\basepath\NHapi.Model.V22\Message\UDM_Q05.cs:
+  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V22\Message\UDM_Q05.cs:
 using System;
 using System.Collections.Generic;
 using NHapi.Base.Log;
