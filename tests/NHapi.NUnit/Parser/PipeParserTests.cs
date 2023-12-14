@@ -15,7 +15,7 @@ namespace NHapi.NUnit.Parser
     [TestFixture]
     public class PipeParserTests
     {
-        public string GetMessage()
+        private string GetMessage()
         {
             return "MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.3.1|||AL|||ASCII\r"
                  + "PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r"
@@ -32,7 +32,7 @@ namespace NHapi.NUnit.Parser
 
             foreach (var obs in oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION().OBX.GetObservationValue())
             {
-                Assert.IsTrue(obs.Data is FT);
+                Assert.That(obs.Data, Is.InstanceOf<FT>());
             }
         }
 
@@ -43,7 +43,7 @@ namespace NHapi.NUnit.Parser
             var oru = (ORU_R01)parser.Parse(GetMessage());
 
             var data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
-            Assert.AreEqual(@"This\.br\is\.br\A Test", data.Value);
+            Assert.That(data.Value, Is.EqualTo(@"This\.br\is\.br\A Test"));
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace NHapi.NUnit.Parser
             Console.WriteLine(msg.GetStructureName());
             oru = (ORU_R01)msg;
             var data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
-            Assert.AreEqual(@"This\.br\is\.br\A Test", data.Value);
+            Assert.That(data.Value, Is.EqualTo(@"This\.br\is\.br\A Test"));
         }
 
         [Test]
@@ -93,7 +93,7 @@ namespace NHapi.NUnit.Parser
             var msg = parser.Parse(encodedData);
             oru = (ORU_R01)msg;
             var data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
-            Assert.AreEqual(@"This\.br\is\.br\A Test~", data.Value);
+            Assert.That(data.Value, Is.EqualTo(@"This\.br\is\.br\A Test~"));
         }
 
         [Test]
@@ -118,7 +118,7 @@ namespace NHapi.NUnit.Parser
             var msg = parser.Parse(encodedData);
             oru = (ORU_R01)msg;
             var data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
-            Assert.AreEqual(@"Th&is\.br\is\.br\A T|e\H\st\", data.Value);
+            Assert.That(data.Value, Is.EqualTo(@"Th&is\.br\is\.br\A T|e\H\st\"));
         }
 
         [Test]
@@ -144,7 +144,7 @@ namespace NHapi.NUnit.Parser
             var fields = segs[2].Split('|');
             var data = fields[5];
 
-            Assert.AreEqual(@"Th\T\is\.br\is\.br\A T\F\est\E\", data);
+            Assert.That(data, Is.EqualTo(@"Th\T\is\.br\is\.br\A T\F\est\E\"));
         }
 
         [Test]
@@ -172,7 +172,7 @@ namespace NHapi.NUnit.Parser
             // \t\ should be un-escaped to &
             const string expectedResult =
                 "&#39;Thirty days have September,\rApril\nJune,\nand November.\nWhen short February is done,\\X0A\\all the rest have&nbsp;31.&#39";
-            Assert.AreEqual(expectedResult, segmentData);
+            Assert.That(segmentData, Is.EqualTo(expectedResult));
         }
 
         private static void SetMessageHeader(Model.V251.Message.OML_O21 msg, string messageCode, string messageTriggerEvent, string processingId)
@@ -219,37 +219,37 @@ namespace NHapi.NUnit.Parser
             msg = parser.Parse(
                 parser.Encode(msg),
                 new ParserOptions { NonGreedyMode = true }) as Model.V251.Message.OML_O21;
-            Assert.NotNull(msg);
+            Assert.That(msg, Is.Not.Null);
 
             for (var i = 0; i < 5; i++)
             {
                 var actual = msg.GetORDER(i).ORC.OrderControl.Value;
-                Assert.AreEqual("NW", actual);
+                Assert.That(actual, Is.EqualTo("NW"));
 
                 actual = msg.GetORDER(i).OBSERVATION_REQUEST.OBR.UniversalServiceIdentifier.Identifier.Value;
-                Assert.AreEqual("STDIO1", actual);
+                Assert.That(actual, Is.EqualTo("STDIO1"));
             }
 
             // Now turn off greedy mode
             msg = parser.Parse(
                 parser.Encode(msg),
                 new ParserOptions { NonGreedyMode = false }) as Model.V251.Message.OML_O21;
-            Assert.NotNull(msg);
+            Assert.That(msg, Is.Not.Null);
             {
                 var actual = msg.GetORDER(0).ORC.OrderControl.Value;
-                Assert.AreEqual("NW", actual);
+                Assert.That(actual, Is.EqualTo("NW"));
 
                 actual = msg.GetORDER(0).OBSERVATION_REQUEST.OBR.UniversalServiceIdentifier.Identifier.Value;
-                Assert.AreEqual("STDIO1", actual);
+                Assert.That(actual, Is.EqualTo("STDIO1"));
             }
 
             for (var i = 1; i < 5; i++)
             {
                 var actual = msg.GetORDER(i).ORC.OrderControl.Value;
-                Assert.IsNull(actual);
+                Assert.That(actual, Is.Null);
 
                 actual = msg.GetORDER(i).OBSERVATION_REQUEST.OBR.UniversalServiceIdentifier.Identifier.Value;
-                Assert.IsNull(actual);
+                Assert.That(actual, Is.Null);
             }
         }
 
@@ -278,12 +278,12 @@ namespace NHapi.NUnit.Parser
                 switch (parsedMessage)
                 {
                     case Model.V251.Message.OML_O21 oml251:
-                        Assert.NotNull(oml251);
-                        Assert.AreEqual(0, oml251.GetORDER(0).OBSERVATION_REQUEST.PRIOR_RESULTRepetitionsUsed);
+                        Assert.That(oml251, Is.Not.Null);
+                        Assert.That(oml251.GetORDER(0).OBSERVATION_REQUEST.PRIOR_RESULTRepetitionsUsed, Is.EqualTo(0));
                         break;
                     case Model.V25.Message.OML_O21 oml25:
-                        Assert.NotNull(oml25);
-                        Assert.AreEqual(0, oml25.GetORDER(0).OBSERVATION_REQUEST.PRIOR_RESULTRepetitionsUsed);
+                        Assert.That(oml25, Is.Not.Null);
+                        Assert.That(oml25.GetORDER(0).OBSERVATION_REQUEST.PRIOR_RESULTRepetitionsUsed, Is.EqualTo(0));
                         break;
                     default:
                         Assert.Fail($"Could not parse messages from {messageFilename} into v2.5 nor v.2.5.1 OML_O21.");
@@ -306,13 +306,15 @@ namespace NHapi.NUnit.Parser
               + "OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r"
               + "OBX|1||||STValue||||||F\r";
 
+            var expectedExceptionMessage =
+                "OBX-5 is valued, but OBX-2 is not.  A datatype for OBX-5 must be specified using OBX-2.";
+
             var parser = new PipeParser();
 
-            var exception = Assert.Throws<HL7Exception>(() => parser.Parse(message));
-
-            Assert.AreEqual(
-                "OBX-5 is valued, but OBX-2 is not.  A datatype for OBX-5 must be specified using OBX-2.",
-                exception?.Message);
+            Assert.That(
+                () => parser.Parse(message),
+                Throws.TypeOf<HL7Exception>()
+                    .With.Message.EqualTo(expectedExceptionMessage));
         }
 
         [Test]
@@ -338,7 +340,7 @@ namespace NHapi.NUnit.Parser
             var parsed = parser.Parse(message, options);
             var encodedMessage = parser.Encode(parsed);
 
-            Assert.AreEqual(expectedEncodedMessage, encodedMessage);
+            Assert.That(encodedMessage, Is.EqualTo(expectedEncodedMessage));
         }
 
         [Test]
@@ -351,13 +353,14 @@ namespace NHapi.NUnit.Parser
               + "OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r"
               + "OBX|1|BAD|||STValue||||||F\r";
 
+            var expectedExceptionMessage = "'BAD' in record 1 is invalid for version 2.3: Segment: OBX Field #2";
+
             var parser = new PipeParser();
 
-            var exception = Assert.Throws<HL7Exception>(() => parser.Parse(message));
-
-            Assert.AreEqual(
-                "'BAD' in record 1 is invalid for version 2.3: Segment: OBX Field #2",
-                exception?.Message);
+            Assert.That(
+                () => parser.Parse(message),
+                Throws.TypeOf<HL7Exception>()
+                    .With.Message.EqualTo(expectedExceptionMessage));
         }
 
         [Test]
@@ -381,8 +384,11 @@ namespace NHapi.NUnit.Parser
                 parsed.GetRESPONSE(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX
                     .GetObservationValue(0).Data;
 
-            Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
-            Assert.AreEqual("STValue", ((IPrimitive)actualObservationValueType).Value);
+            Assert.Multiple(() =>
+            {
+                Assert.That(actualObservationValueType, Is.AssignableFrom(expectedObservationValueType));
+                Assert.That(((IPrimitive)actualObservationValueType).Value, Is.EqualTo("STValue"));
+            });
         }
 
         /// <summary>
@@ -394,11 +400,14 @@ namespace NHapi.NUnit.Parser
             var parser = new PipeParser();
 
             var parsed = parser.GetCriticalResponseData(GetMessage()) as Model.V231.Segment.MSH;
-            Assert.NotNull(parsed);
-            Assert.AreEqual("|", parsed.FieldSeparator.Value);
-            Assert.AreEqual(@"^~\&", parsed.EncodingCharacters.Value);
-            Assert.AreEqual("P", parsed.ProcessingID.ProcessingID.Value);
-            Assert.AreEqual("EBzH1711114101206", parsed.MessageControlID.Value);
+            Assert.That(parsed, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(parsed.FieldSeparator.Value, Is.EqualTo("|"));
+                Assert.That(parsed.EncodingCharacters.Value, Is.EqualTo(@"^~\&"));
+                Assert.That(parsed.ProcessingID.ProcessingID.Value, Is.EqualTo("P"));
+                Assert.That(parsed.MessageControlID.Value, Is.EqualTo("EBzH1711114101206"));
+            });
         }
 
         /// <summary>
@@ -411,8 +420,12 @@ namespace NHapi.NUnit.Parser
             var invalidMessage = GetMessage().Replace("P", string.Empty);
             var parser = new PipeParser();
 
-            var exception = Assert.Throws<HL7Exception>(() => parser.GetCriticalResponseData(invalidMessage));
-            Assert.True(exception?.Message.Contains("Can't parse critical fields from MSH segment"));
+            var expectedExceptionMessage = "Can't parse critical fields from MSH segment";
+
+            Assert.That(
+                () => parser.GetCriticalResponseData(invalidMessage),
+                Throws.TypeOf<HL7Exception>()
+                    .With.Message.Contains(expectedExceptionMessage));
         }
 
         [Test]
@@ -437,7 +450,7 @@ namespace NHapi.NUnit.Parser
 
             var zfas = msg.GetINSURANCE(2).GetAll("ZFA");
 
-            Assert.AreEqual(1, zfas.Length);
+            Assert.That(zfas.Length, Is.EqualTo(1));
         }
 
         /// <summary>
@@ -470,7 +483,7 @@ namespace NHapi.NUnit.Parser
 
             var zfas = msg.GetINSURANCE(2).GetAll("ZFA");
 
-            Assert.AreEqual(1, zfas.Length);
+            Assert.That(zfas.Length, Is.EqualTo(1));
         }
 
         [Test]
@@ -498,8 +511,11 @@ namespace NHapi.NUnit.Parser
             var zzas = msg.GetAll("ZZA");
             var zfas = msg.GetAll("ZFA");
 
-            Assert.AreEqual(1, zfas.Length);
-            Assert.AreEqual(1, zzas.Length);
+            Assert.Multiple(() =>
+            {
+                Assert.That(zfas.Length, Is.EqualTo(1));
+                Assert.That(zzas.Length, Is.EqualTo(1));
+            });
         }
 
         [Test]
@@ -522,9 +538,12 @@ namespace NHapi.NUnit.Parser
             var options =
                 new ParserOptions { UnexpectedSegmentBehaviour = UnexpectedSegmentBehaviour.ThrowHl7Exception };
 
-            var exception = Assert.Throws<HL7Exception>(() => parser.Parse(message, options));
+            var expectedExceptionMessage = "Found unknown segment: ZFA";
 
-            Assert.AreEqual("Found unknown segment: ZFA", exception?.Message);
+            Assert.That(
+                () => parser.Parse(message, options),
+                Throws.TypeOf<HL7Exception>()
+                    .With.Message.EqualTo(expectedExceptionMessage));
         }
 
         /// <summary>
@@ -547,9 +566,13 @@ namespace NHapi.NUnit.Parser
 
             var parser = new PipeParser();
 
-            Assert.AreEqual("9B38584D", parser.GetAckID(ackMsg));
-            Assert.AreEqual("00000001", parser.GetAckID(nakMsg));
-            Assert.AreEqual("9299381", parser.GetAckID(messageRejection));
+            Assert.Multiple(
+                () =>
+                {
+                    Assert.That(parser.GetAckID(ackMsg), Is.EqualTo("9B38584D"));
+                    Assert.That(parser.GetAckID(nakMsg), Is.EqualTo("00000001"));
+                    Assert.That(parser.GetAckID(messageRejection), Is.EqualTo("9299381"));
+                });
         }
 
         /// <summary>
@@ -565,8 +588,11 @@ namespace NHapi.NUnit.Parser
 
             var parser = new PipeParser();
 
-            Assert.AreEqual(null, parser.GetAckID(missingMSASegment));
-            Assert.AreEqual(null, parser.GetAckID(msaOnly));
+            Assert.Multiple(() =>
+            {
+                Assert.That(parser.GetAckID(missingMSASegment), Is.EqualTo(null));
+                Assert.That(parser.GetAckID(msaOnly), Is.EqualTo(null));
+            });
         }
 
         [Test]
@@ -598,7 +624,7 @@ namespace NHapi.NUnit.Parser
 
             var parser = new PipeParser();
 
-            Assert.DoesNotThrow(() => parser.Parse(message));
+            Assert.That(() => parser.Parse(message), Throws.Nothing);
         }
     }
 }

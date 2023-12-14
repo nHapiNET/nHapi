@@ -29,7 +29,7 @@
             var result = Er7.TryParseMessage(input, pathSpecs, out _);
 
             // Assert
-            Assert.False(result);
+            Assert.That(result, Is.False);
         }
 
         [TestCase(null)]
@@ -44,7 +44,7 @@
             var result = Er7.TryParseMessage(input, pathSpecs, out _);
 
             // Assert
-            Assert.False(result);
+            Assert.That(result, Is.False);
         }
 
         [TestCase("MSH|^~\\&|\rG")]
@@ -58,7 +58,7 @@
             var result = Er7.TryParseMessage(input, pathSpecs, out _);
 
             // Assert
-            Assert.True(result);
+            Assert.That(result, Is.True);
         }
 
         [TestCase("NTE(0)-1", "a")]
@@ -78,9 +78,12 @@
             var parsed = Er7.TryParseMessage(MESSAGE, pathSpecs, out var results);
             var actualResults = results.Select(r => r.Value).ToArray();
 
-            // Assert
-            Assert.True(parsed);
-            Assert.Contains(expectedValue, actualResults);
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(parsed, Is.True);
+                Assert.That(actualResults, Does.Contain(expectedValue));
+            });
         }
     }
 }

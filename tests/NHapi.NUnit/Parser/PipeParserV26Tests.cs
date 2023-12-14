@@ -13,7 +13,7 @@
 
     public class PipeParserV26Tests
     {
-        public string GetMessage()
+        private string GetMessage()
         {
             return "MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.6|||AL|||ASCII\r"
                  + "PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r"
@@ -28,19 +28,18 @@
         public void TestOBR5RepeatingValuesMessage_DataTypesAndRepetitions()
         {
             var parser = new PipeParser();
-            var oru = new ORU_R01();
-            oru = (ORU_R01)parser.Parse(GetMessage());
+            var oru = (ORU_R01)parser.Parse(GetMessage());
 
             var expectedObservationCount = 3;
             var parsedObservations = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBSERVATIONRepetitionsUsed;
-            var parsedCorrectNumberOfObservations = parsedObservations == expectedObservationCount;
-            Assert.IsTrue(
-                parsedCorrectNumberOfObservations,
+            Assert.That(
+                parsedObservations,
+                Is.EqualTo(expectedObservationCount),
                 string.Format("Expected 3 OBX repetitions used for this segment, found {0}", parsedObservations));
 
             foreach (var obs in oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION().OBX.GetObservationValue())
             {
-                Assert.IsTrue(obs.Data is FT);
+                Assert.That(obs.Data, Is.InstanceOf<FT>());
             }
         }
 
@@ -59,31 +58,30 @@
               + "OBX|5|IS|||ISValue||||||F";
 
             var parser = new PipeParser();
-            var oru = new ORU_R01();
-            oru = (ORU_R01)parser.Parse(message);
+            var oru = (ORU_R01)parser.Parse(message);
 
             var expectedObservationCount = 5;
             var parsedObservations = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBSERVATIONRepetitionsUsed;
-            var parsedCorrectNumberOfObservations = parsedObservations == expectedObservationCount;
-            Assert.IsTrue(
-                parsedCorrectNumberOfObservations,
+            Assert.That(
+                parsedObservations,
+                Is.EqualTo(expectedObservationCount),
                 string.Format("Expected {1} OBX repetitions used for this segment, found {0}", parsedObservations, expectedObservationCount));
 
             var index = 0;
             var obs = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(index).OBX.GetObservationValue().FirstOrDefault();
-            Assert.IsTrue(obs.Data is DT);
+            Assert.That(obs.Data, Is.InstanceOf<DT>());
             index++;
             obs = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(index).OBX.GetObservationValue().FirstOrDefault();
-            Assert.IsTrue(obs.Data is ST);
+            Assert.That(obs.Data, Is.InstanceOf<ST>());
             index++;
             obs = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(index).OBX.GetObservationValue().FirstOrDefault();
-            Assert.IsTrue(obs.Data is TM);
+            Assert.That(obs.Data, Is.InstanceOf<TM>());
             index++;
             obs = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(index).OBX.GetObservationValue().FirstOrDefault();
-            Assert.IsTrue(obs.Data is ID);
+            Assert.That(obs.Data, Is.InstanceOf<ID>());
             index++;
             obs = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(index).OBX.GetObservationValue().FirstOrDefault();
-            Assert.IsTrue(obs.Data is IS);
+            Assert.That(obs.Data, Is.InstanceOf<IS>());
         }
 
         [Test]
@@ -98,31 +96,30 @@
             var parser = new PipeParser();
             var msg = parser.Parse(hl7Data);
 
-            Assert.IsNotNull(msg, "Message should not be null");
+            Assert.That(msg, Is.Not.Null, "Message should not be null");
             var a04 = (ADT_A01)msg;
 
-            Assert.AreEqual("A04", a04.MSH.MessageType.TriggerEvent.Value);
-            Assert.AreEqual("1", a04.PID.SetIDPID.Value);
+            Assert.Multiple(() =>
+            {
+                Assert.That(a04.MSH.MessageType.TriggerEvent.Value, Is.EqualTo("A04"));
+                Assert.That(a04.PID.SetIDPID.Value, Is.EqualTo("1"));
+            });
         }
 
         [Test]
         public void TestAdtA04AndA01MessageStructure()
         {
             var result = PipeParser.GetMessageStructureForEvent("ADT_A04", "2.6");
-            var isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
-            Assert.IsTrue(isSame, "ADT_A04 returns ADT_A01");
+            Assert.That(result, Is.EqualTo("ADT_A01").IgnoreCase, "ADT_A04 returns ADT_A01");
 
             result = PipeParser.GetMessageStructureForEvent("ADT_A13", "2.6");
-            isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
-            Assert.IsTrue(isSame, "ADT_A13 returns ADT_A01");
+            Assert.That(result, Is.EqualTo("ADT_A01").IgnoreCase, "ADT_A13 returns ADT_A01");
 
             result = PipeParser.GetMessageStructureForEvent("ADT_A08", "2.6");
-            isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
-            Assert.IsTrue(isSame, "ADT_A08 returns ADT_A01");
+            Assert.That(result, Is.EqualTo("ADT_A01").IgnoreCase, "ADT_A08 returns ADT_A01");
 
             result = PipeParser.GetMessageStructureForEvent("ADT_A01", "2.6");
-            isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
-            Assert.IsTrue(isSame, "ADT_A01 returns ADT_A01");
+            Assert.That(result, Is.EqualTo("ADT_A01").IgnoreCase, "ADT_A01 returns ADT_A01");
         }
 
         [Test]
@@ -138,15 +135,18 @@
             var parser = new PipeParser();
             var msg = parser.Parse(hl7Data);
 
-            Assert.IsNotNull(msg, "Message should not be null");
+            Assert.That(msg, Is.Not.Null, "Message should not be null");
             var oruR01 = (ORU_R01)msg;
 
-            Assert.AreEqual("R01", oruR01.MSH.MessageType.TriggerEvent.Value);
-            Assert.AreEqual(null, oruR01.GetPATIENT_RESULT(0).PATIENT.PID.SetIDPID.Value);
+            Assert.Multiple(() =>
+            {
+                Assert.That(oruR01.MSH.MessageType.TriggerEvent.Value, Is.EqualTo("R01"));
+                Assert.That(oruR01.GetPATIENT_RESULT(0).PATIENT.PID.SetIDPID.Value, Is.EqualTo(null));
+            });
             var knownDTM = oruR01.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType.Value;
-            Assert.AreEqual("DTM", knownDTM);
+            Assert.That(knownDTM, Is.EqualTo("DTM"));
             var knownDTMValue = oruR01.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data as DTM;
-            Assert.AreEqual("20160627041809+0000", knownDTMValue.ToString());
+            Assert.That(knownDTMValue.ToString(), Is.EqualTo("20160627041809+0000"));
         }
 
         [Test]
@@ -164,11 +164,14 @@
             var parser = new PipeParser();
             var msg = parser.Parse(hl7Data);
 
-            Assert.IsNotNull(msg, "Message should not be null");
+            Assert.That(msg, Is.Not.Null, "Message should not be null");
             var oruR01 = (ORU_R01)msg;
 
-            Assert.AreEqual("R01", oruR01.MSH.MessageType.TriggerEvent.Value);
-            Assert.AreEqual(null, oruR01.GetPATIENT_RESULT(0).PATIENT.PID.SetIDPID.Value);
+            Assert.Multiple(() =>
+            {
+                Assert.That(oruR01.MSH.MessageType.TriggerEvent.Value, Is.EqualTo("R01"));
+                Assert.That(oruR01.GetPATIENT_RESULT(0).PATIENT.PID.SetIDPID.Value, Is.EqualTo(null));
+            });
 
             foreach (var result in oruR01.PATIENT_RESULTs)
             {
@@ -179,21 +182,21 @@
                     {
                         if (index == 1)
                         {
-                            Assert.IsTrue(observation.OBX.ValueType.Value == "ST");
+                            Assert.That(observation.OBX.ValueType.Value, Is.EqualTo("ST"));
                         }
                         else if (index == 2)
                         {
-                            Assert.IsTrue(observation.OBX.ValueType.Value == "NM");
+                            Assert.That(observation.OBX.ValueType.Value, Is.EqualTo("NM"));
                         }
                         else if (index == 3)
                         {
-                            Assert.IsTrue(observation.OBX.ValueType.Value == "DTM");
+                            Assert.That(observation.OBX.ValueType.Value, Is.EqualTo("DTM"));
                         }
 
                         index++;
                     }
 
-                    Assert.IsTrue(index == 4);
+                    Assert.That(index, Is.EqualTo(4));
                 }
             }
         }
@@ -213,11 +216,14 @@
             var parser = new PipeParser();
             var msg = parser.Parse(hl7Data);
 
-            Assert.IsNotNull(msg, "Message should not be null");
+            Assert.That(msg, Is.Not.Null, "Message should not be null");
             var oruR01 = (ORU_R01)msg;
 
-            Assert.AreEqual("R01", oruR01.MSH.MessageType.TriggerEvent.Value);
-            Assert.AreEqual(null, oruR01.GetPATIENT_RESULT(0).PATIENT.PID.SetIDPID.Value);
+            Assert.Multiple(() =>
+            {
+                Assert.That(oruR01.MSH.MessageType.TriggerEvent.Value, Is.EqualTo("R01"));
+                Assert.That(oruR01.GetPATIENT_RESULT(0).PATIENT.PID.SetIDPID.Value, Is.EqualTo(null));
+            });
 
             foreach (var result in oruR01.PATIENT_RESULTs)
             {
@@ -228,32 +234,32 @@
                     var newObservation = orderObservation.AddOBSERVATION();
                     newObservation.OBX.ValueType.Value = "NO";
                     var afterAddCount = orderObservation.OBSERVATIONs.Count();
-                    Assert.IsTrue(afterAddCount > beforeCount);
+                    Assert.That(afterAddCount, Is.GreaterThan(beforeCount));
 
                     var last = orderObservation.OBSERVATIONs.Last().OBX.ValueType.Value;
-                    Assert.IsTrue(last == "NO");
+                    Assert.That(last, Is.EqualTo("NO"));
 
                     // Remove added observation of value type 'NO' using object reference and assert that the array reflects the expected state
                     orderObservation.RemoveOBSERVATION(newObservation);
                     var afterRemoveCount = orderObservation.OBSERVATIONs.Count();
-                    Assert.IsTrue(afterRemoveCount == beforeCount);
+                    Assert.That(afterRemoveCount, Is.EqualTo(beforeCount));
 
                     last = orderObservation.OBSERVATIONs.Last().OBX.ValueType.Value;
-                    Assert.IsTrue(last == "DTM");
+                    Assert.That(last, Is.EqualTo("DTM"));
 
                     // Added observation of value type 'NO' using object reference and assert that the array reflects the expected state
                     newObservation = orderObservation.AddOBSERVATION();
                     newObservation.OBX.ValueType.Value = "NO";
                     afterAddCount = orderObservation.OBSERVATIONs.Count();
-                    Assert.IsTrue(afterAddCount > beforeCount);
+                    Assert.That(afterAddCount, Is.GreaterThan(beforeCount));
 
                     // Remove added observation of value type 'NO' using index and assert that the array reflects the expected state
                     orderObservation.RemoveOBSERVATIONAt(orderObservation.OBSERVATIONRepetitionsUsed - 1);
                     afterRemoveCount = orderObservation.OBSERVATIONs.Count();
-                    Assert.IsTrue(afterRemoveCount == beforeCount);
+                    Assert.That(afterRemoveCount, Is.EqualTo(beforeCount));
 
                     last = orderObservation.OBSERVATIONs.Last().OBX.ValueType.Value;
-                    Assert.IsTrue(last == "DTM");
+                    Assert.That(last, Is.EqualTo("DTM"));
 
                     // Assert that the array reflects the expected initial state
                     var index = 1;
@@ -261,21 +267,21 @@
                     {
                         if (index == 1)
                         {
-                            Assert.IsTrue(observation.OBX.ValueType.Value == "ST");
+                            Assert.That(observation.OBX.ValueType.Value, Is.EqualTo("ST"));
                         }
                         else if (index == 2)
                         {
-                            Assert.IsTrue(observation.OBX.ValueType.Value == "NM");
+                            Assert.That(observation.OBX.ValueType.Value, Is.EqualTo("NM"));
                         }
                         else if (index == 3)
                         {
-                            Assert.IsTrue(observation.OBX.ValueType.Value == "DTM");
+                            Assert.That(observation.OBX.ValueType.Value, Is.EqualTo("DTM"));
                         }
 
                         index++;
                     }
 
-                    Assert.IsTrue(index == 4);
+                    Assert.That(index, Is.EqualTo(4));
 
                     // Remove the middle 'NM' Field and assert that the array reflects the expected state
                     orderObservation.RemoveOBSERVATIONAt(1);
@@ -285,25 +291,28 @@
                     {
                         if (index == 1)
                         {
-                            Assert.IsTrue(observation.OBX.ValueType.Value == "ST");
+                            Assert.That(observation.OBX.ValueType.Value, Is.EqualTo("ST"));
                         }
                         else if (index == 2)
                         {
-                            Assert.IsTrue(observation.OBX.ValueType.Value == "DTM");
+                            Assert.That(observation.OBX.ValueType.Value, Is.EqualTo("DTM"));
                         }
 
                         index++;
                     }
 
-                    Assert.IsTrue(index == 3);
+                    Assert.That(index, Is.EqualTo(3));
 
                     // Remove the first Item by object reference and assert that the remaining item is the 'DTM' field
                     orderObservation.RemoveOBSERVATION(orderObservation.OBSERVATIONs.First());
 
                     var lastRemaining = orderObservation.OBSERVATIONs.First();
-                    Assert.IsTrue(lastRemaining.OBX.ValueType.Value == "DTM");
+                    Assert.Multiple(() =>
+                    {
+                        Assert.That(lastRemaining.OBX.ValueType.Value, Is.EqualTo("DTM"));
 
-                    Assert.IsTrue(orderObservation.OBSERVATIONRepetitionsUsed == 1);
+                        Assert.That(orderObservation.OBSERVATIONRepetitionsUsed, Is.EqualTo(1));
+                    });
                 }
             }
         }
@@ -318,15 +327,18 @@
             var parser = new PipeParser();
             var msg = parser.Parse(fileContents);
 
-            Assert.IsNotNull(msg, "Message should not be null");
+            Assert.That(msg, Is.Not.Null, "Message should not be null");
             var oruR01 = (ORU_R01)msg;
 
-            Assert.AreEqual("R01", oruR01.MSH.MessageType.TriggerEvent.Value);
-            Assert.AreEqual(null, oruR01.GetPATIENT_RESULT(0).PATIENT.PID.SetIDPID.Value);
+            Assert.Multiple(() =>
+            {
+                Assert.That(oruR01.MSH.MessageType.TriggerEvent.Value, Is.EqualTo("R01"));
+                Assert.That(oruR01.GetPATIENT_RESULT(0).PATIENT.PID.SetIDPID.Value, Is.EqualTo(null));
+            });
             var knownDTM = oruR01.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType.Value;
-            Assert.AreEqual("DTM", knownDTM);
+            Assert.That(knownDTM, Is.EqualTo("DTM"));
             var knownDTMValue = oruR01.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data as DTM;
-            Assert.AreEqual("20160627041809+0000", knownDTMValue.ToString());
+            Assert.That(knownDTMValue.ToString(), Is.EqualTo("20160627041809+0000"));
         }
 
         /// <summary>
@@ -348,7 +360,7 @@
 
             var actualObservationValueType = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
 
-            Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
+            Assert.That(actualObservationValueType, Is.AssignableFrom(expectedObservationValueType));
         }
 
         [Test]
@@ -371,9 +383,12 @@
             var actualObservationValueType = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
             var obx2 = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType;
 
-            Assert.AreEqual("ST", obx2.Value);
-            Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
-            Assert.AreEqual("STValue", ((ST)actualObservationValueType).Value);
+            Assert.Multiple(() =>
+            {
+                Assert.That(obx2.Value, Is.EqualTo("ST"));
+                Assert.That(actualObservationValueType, Is.AssignableFrom(expectedObservationValueType));
+                Assert.That(((ST)actualObservationValueType).Value, Is.EqualTo("STValue"));
+            });
         }
 
         /// <summary>

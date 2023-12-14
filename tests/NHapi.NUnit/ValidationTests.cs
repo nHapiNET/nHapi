@@ -26,19 +26,19 @@ OBX|1|SI|||-1||||||F";
             var message = MessageSINegativeNumber.Replace(Environment.NewLine, "\r");
 
             var parser = new PipeParser();
-            ORU_R01 oru;
 
             // default validation context should pass with no exceptions
-            oru = (ORU_R01)parser.Parse(message);
+            var oru = (ORU_R01)parser.Parse(message);
             foreach (var obs in oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION().OBX.GetObservationValue())
             {
-                Assert.IsTrue(obs.Data is SI);
+                Assert.That(obs.Data, Is.InstanceOf<SI>());
             }
 
             // strict validation context should throw a DataTypeException for negative number values in a SI field.
             parser.ValidationContext = new StrictValidation();
-            Assert.Throws<DataTypeException>(
-                () => { oru = (ORU_R01)parser.Parse(message); },
+            Assert.That(
+                () => (ORU_R01)parser.Parse(message),
+                Throws.TypeOf<DataTypeException>(),
                 $"Strict validation should throw a {nameof(DataTypeException)} when parsing a SI field with a negative value");
         }
 
@@ -87,7 +87,6 @@ OBX|1|NM|||1.5||||||F";
             testMessage = testMessage.Replace(Environment.NewLine, "\r");
 
             var parser = new PipeParser();
-            ORU_R01 oru;
 
             parser.ValidationContext = new StrictValidation();
             var message =
@@ -95,11 +94,11 @@ OBX|1|NM|||1.5||||||F";
 
             if (shouldThrow)
             {
-                Assert.Throws<DataTypeException>(() => { oru = (ORU_R01)parser.Parse(testMessage); }, message);
+                Assert.That(() => (ORU_R01)parser.Parse(testMessage), Throws.TypeOf<DataTypeException>(), message);
             }
             else
             {
-                Assert.DoesNotThrow(() => { oru = (ORU_R01)parser.Parse(testMessage); }, message);
+                Assert.That(() => (ORU_R01)parser.Parse(testMessage), Throws.Nothing, message);
             }
         }
     }

@@ -36,8 +36,7 @@
             var text = File.ReadAllText(path);
 
             // Assert
-            Assert.DoesNotThrow(
-                () => parser.Parse(text));
+            Assert.That(() => parser.Parse(text), Throws.Nothing);
         }
 
         private static IEnumerable<object[]> TestPaths(string dirName, Type exception)

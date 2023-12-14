@@ -33,7 +33,7 @@ namespace NHapi.Base.NUnit
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone),
                 new DateTime(2014, 12, 1));
 
-            Assert.AreEqual(-800, offset);
+            Assert.That(offset, Is.EqualTo(-800));
         }
 
         [Test]
@@ -45,7 +45,7 @@ namespace NHapi.Base.NUnit
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone),
                 new DateTime(2014, 10, 1));
 
-            Assert.AreEqual(-700, offset);
+            Assert.That(offset, Is.EqualTo(-700));
         }
 
         [Test]
@@ -57,7 +57,7 @@ namespace NHapi.Base.NUnit
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone),
                 new DateTime(2014, 11, 1));
 
-            Assert.AreEqual(630, offset);
+            Assert.That(offset, Is.EqualTo(630));
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace NHapi.Base.NUnit
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone),
                 new DateTime(2014, 11, 1));
 
-            Assert.AreEqual(1400, offset);
+            Assert.That(offset, Is.EqualTo(1400));
         }
 
         private string GetAppropriateTimeZoneId(string timeZoneId)

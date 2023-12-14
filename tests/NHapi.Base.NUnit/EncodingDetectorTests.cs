@@ -14,8 +14,9 @@
         public void AssertEr7Encoded_InvalidInput_ThrowsArgumentException(string input)
         {
             // Arrange / Act / Assert
-            Assert.Throws<ArgumentException>(
-                () => EncodingDetector.AssertEr7Encoded(input));
+            Assert.That(
+                () => EncodingDetector.AssertEr7Encoded(input),
+                Throws.ArgumentException);
         }
 
         [Test]
@@ -25,8 +26,9 @@
             var input = "MSH|^~\\&||\rUNKNOWN|";
 
             // Act / Assert
-            Assert.Throws<InvalidOperationException>(
-                () => EncodingDetector.AssertEr7Encoded(input));
+            Assert.That(
+                () => EncodingDetector.AssertEr7Encoded(input),
+                Throws.InvalidOperationException);
         }
 
         [Test]
@@ -38,8 +40,9 @@
                         + "PV1|||NER|||||||GSU||||||||E||||||||||||||||||||||||||19951002174900|19951006\r";
 
             // Act / Assert
-            Assert.DoesNotThrow(
-                () => EncodingDetector.AssertEr7Encoded(input));
+            Assert.That(
+                () => EncodingDetector.AssertEr7Encoded(input),
+                Throws.Nothing);
         }
 
         [TestCase("asd")]
@@ -50,8 +53,9 @@
         public void AssertXmlEncoded_InValidInput_ThrowsArgumentException(string input)
         {
             // Arrange / Act / Assert
-            Assert.Throws<ArgumentException>(
-                () => EncodingDetector.AssertXmlEncoded(input));
+            Assert.That(
+                () => EncodingDetector.AssertXmlEncoded(input),
+                Throws.ArgumentException);
         }
 
         [Test]
@@ -61,8 +65,9 @@
             var input = "MSH.1>MSH.2>";
 
             // Arrange / Act / Assert
-            Assert.DoesNotThrow(
-                () => EncodingDetector.AssertXmlEncoded(input));
+            Assert.That(
+                () => EncodingDetector.AssertXmlEncoded(input),
+                Throws.Nothing);
         }
 
         [TestCase("asd")]
@@ -70,7 +75,7 @@
         public void IsEr7Encoded_InvalidInput_ReturnsFalse(string input)
         {
             // Arrange / Act / Assert
-            Assert.IsFalse(EncodingDetector.IsEr7Encoded(input));
+            Assert.That(EncodingDetector.IsEr7Encoded(input), Is.False);
         }
 
         [Test]
@@ -82,7 +87,7 @@
                         + "PV1|||NER|||||||GSU||||||||E||||||||||||||||||||||||||19951002174900|19951006\r";
 
             // Act / Assert
-            Assert.IsTrue(EncodingDetector.IsEr7Encoded(input));
+            Assert.That(EncodingDetector.IsEr7Encoded(input), Is.True);
         }
 
         [TestCase("asd")]
@@ -93,7 +98,7 @@
         public void IsXmlEncoded_InvalidInput_ReturnsFalse(string input)
         {
             // Arrange / Act / Assert
-            Assert.IsFalse(EncodingDetector.IsXmlEncoded(input));
+            Assert.That(EncodingDetector.IsXmlEncoded(input), Is.False);
         }
 
         [Test]
@@ -103,7 +108,7 @@
             var input = "MSH.1>MSH.2>";
 
             // Act / Assert
-            Assert.IsTrue(EncodingDetector.IsXmlEncoded(input));
+            Assert.That(EncodingDetector.IsXmlEncoded(input), Is.True);
         }
     }
 }

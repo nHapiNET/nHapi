@@ -35,11 +35,14 @@
             var third = ((ROL)finder.FindSegment("ROL", 0)).ActionCode.Value;
             var fourth = ((ROL)finder.FindSegment("ROL", 0)).ActionCode.Value;
 
-            // Assert
-            Assert.AreEqual("a", first);
-            Assert.AreEqual("b", second);
-            Assert.AreEqual("c", third);
-            Assert.AreEqual("d", fourth);
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(first, Is.EqualTo("a"));
+                Assert.That(second, Is.EqualTo("b"));
+                Assert.That(third, Is.EqualTo("c"));
+                Assert.That(fourth, Is.EqualTo("d"));
+            });
         }
 
         [Test]
@@ -67,10 +70,13 @@
             var sft2 = (SFT)finder.GetSegment("SFT", 1);
             var sft3 = (SFT)finder.GetSegment("SFT", 2);
 
-            // Assert
-            Assert.AreEqual("A", PipeParser.Encode(sft1.SoftwareVendorOrganization, encodingCharacters));
-            Assert.AreEqual("B", PipeParser.Encode(sft2.SoftwareVendorOrganization, encodingCharacters));
-            Assert.AreEqual("C", PipeParser.Encode(sft3.SoftwareVendorOrganization, encodingCharacters));
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(PipeParser.Encode(sft1.SoftwareVendorOrganization, encodingCharacters), Is.EqualTo("A"));
+                Assert.That(PipeParser.Encode(sft2.SoftwareVendorOrganization, encodingCharacters), Is.EqualTo("B"));
+                Assert.That(PipeParser.Encode(sft3.SoftwareVendorOrganization, encodingCharacters), Is.EqualTo("C"));
+            });
         }
 
         [Test]
@@ -101,11 +107,14 @@
 
             var orderObservation = (ORU_R01_ORDER_OBSERVATION)finder.FindGroup("ORDER_OBSERVATION", 0);
 
-            // Assert
-            Assert.AreEqual("1", PipeParser.Encode(pid.SetIDPID, encodingCharacters));
-            Assert.AreEqual("1", PipeParser.Encode(patient.PID.SetIDPID, encodingCharacters));
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(PipeParser.Encode(pid.SetIDPID, encodingCharacters), Is.EqualTo("1"));
+                Assert.That(PipeParser.Encode(patient.PID.SetIDPID, encodingCharacters), Is.EqualTo("1"));
 
-            Assert.AreEqual("2", PipeParser.Encode(orderObservation.OBR.SetIDOBR, encodingCharacters));
+                Assert.That(PipeParser.Encode(orderObservation.OBR.SetIDOBR, encodingCharacters), Is.EqualTo("2"));
+            });
         }
 
         [Test]
@@ -119,7 +128,7 @@
             var segment = finder.FindSegment("PID", 0);
 
             // Assert
-            Assert.AreEqual("1", ((IPrimitive)segment.GetField(1, 0)).Value);
+            Assert.That(((IPrimitive)segment.GetField(1, 0)).Value, Is.EqualTo("1"));
         }
 
         [Test]
@@ -133,7 +142,7 @@
             var segment = finder.FindSegment("PID2", 0);
 
             // Assert
-            Assert.AreEqual("2", ((IPrimitive)segment.GetField(1, 0)).Value);
+            Assert.That(((IPrimitive)segment.GetField(1, 0)).Value, Is.EqualTo("2"));
         }
 
         private static IMessage LoadMessage()

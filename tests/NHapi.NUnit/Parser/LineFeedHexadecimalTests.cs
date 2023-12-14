@@ -13,7 +13,7 @@
             // Arrange
             // Act
             // Assert
-            Assert.AreEqual(expected, $"{sut}");
+            Assert.That($"{sut}", Is.EqualTo(expected));
         }
     }
 }

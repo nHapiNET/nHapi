@@ -27,8 +27,8 @@
 
             var qryR02 = m as QRY_R02;
 
-            Assert.IsNotNull(qryR02);
-            Assert.AreEqual("38923", qryR02.QRD.GetWhoSubjectFilter(0).IDNumber.Value);
+            Assert.That(qryR02, Is.Not.Null);
+            Assert.That(qryR02.QRD.GetWhoSubjectFilter(0).IDNumber.Value, Is.EqualTo("38923"));
         }
 
         [Test]
@@ -47,20 +47,23 @@
 
             var pipeMessage = parser.Encode(a01);
 
-            Assert.IsNotNull(pipeMessage);
+            Assert.That(pipeMessage, Is.Not.Null);
 
             var test = parser.Parse(pipeMessage);
             var a01Test = test as ADT_A01;
-            Assert.IsNotNull(a01Test);
+            Assert.That(a01Test, Is.Not.Null);
 
-            Assert.AreEqual(a01Test.MSH.ReceivingApplication.UniversalID.Value, "COHIE");
-            Assert.AreEqual(a01Test.PID.PatientIDExternalID.ID.Value, "123456");
+            Assert.Multiple(() =>
+            {
+                Assert.That(a01Test.MSH.ReceivingApplication.UniversalID.Value, Is.EqualTo("COHIE"));
+                Assert.That(a01Test.PID.PatientIDExternalID.ID.Value, Is.EqualTo("123456"));
 
-            Assert.AreEqual(a01Test.PID.DateOfBirth.TimeOfAnEvent.GetAsDate().ToShortDateString(), birthDate.ToShortDateString());
+                Assert.That(birthDate.ToShortDateString(), Is.EqualTo(a01Test.PID.DateOfBirth.TimeOfAnEvent.GetAsDate().ToShortDateString()));
 
-            Assert.AreEqual(a01Test.PV1.GetAttendingDoctor(0).FamilyName.Value, "Jones");
-            Assert.AreEqual(a01Test.MSH.MessageType.MessageType.Value, "ADT");
-            Assert.AreEqual(a01Test.MSH.MessageType.TriggerEvent.Value, "A01");
+                Assert.That(a01Test.PV1.GetAttendingDoctor(0).FamilyName.Value, Is.EqualTo("Jones"));
+                Assert.That(a01Test.MSH.MessageType.MessageType.Value, Is.EqualTo("ADT"));
+                Assert.That(a01Test.MSH.MessageType.TriggerEvent.Value, Is.EqualTo("A01"));
+            });
         }
 
         [Test]
@@ -80,10 +83,9 @@
             var m = parser.Parse(message);
 
             var orfR04 = m as ORF_R04;
-            Assert.IsNotNull(orfR04);
-            Assert.AreEqual(
-                "12",
-                orfR04.GetQUERY_RESPONSE().GetORDER().GetOBSERVATION().OBX.GetObservationValue()[0].Data.ToString());
+            Assert.That(orfR04, Is.Not.Null);
+            Assert.That(
+                orfR04.GetQUERY_RESPONSE().GetORDER().GetOBSERVATION().OBX.GetObservationValue()[0].Data.ToString(), Is.EqualTo("12"));
         }
 
         [Test]
@@ -104,14 +106,14 @@
 
             var orfR04 = m as ORF_R04;
 
-            Assert.IsNotNull(orfR04);
+            Assert.That(orfR04, Is.Not.Null);
 
             var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
-            Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(string.Empty.Equals(recoveredMessage));
+            Assert.That(recoveredMessage, Is.Not.Null);
+            Assert.That(recoveredMessage, Is.Not.EqualTo(string.Empty));
         }
 
         [Test]
@@ -124,14 +126,14 @@
 
             var qryR02 = m as QRY_R02;
 
-            Assert.IsNotNull(qryR02);
+            Assert.That(qryR02, Is.Not.Null);
 
             var pipeParser = new LegacyPipeParser();
 
             var pipeOutput = pipeParser.Encode(qryR02);
 
-            Assert.IsNotNull(pipeOutput);
-            Assert.IsFalse(string.Empty.Equals(pipeOutput));
+            Assert.That(pipeOutput, Is.Not.Null);
+            Assert.That(pipeOutput, Is.Not.EqualTo(string.Empty));
         }
 
         [Test]
@@ -152,14 +154,14 @@
 
             var orfR04 = m as ORF_R04;
 
-            Assert.IsNotNull(orfR04);
+            Assert.That(orfR04, Is.Not.Null);
 
             var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
-            Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(recoveredMessage.IndexOf("ORC", StringComparison.Ordinal) > -1, "Returned message added ORC segment.");
+            Assert.That(recoveredMessage, Is.Not.Null);
+            Assert.That(recoveredMessage.IndexOf("ORC", StringComparison.Ordinal), Is.LessThanOrEqualTo(-1), "Returned message added ORC segment.");
         }
 
         [Test]
@@ -192,14 +194,14 @@
 
             var orfR04 = m as ORF_R04;
 
-            Assert.IsNotNull(orfR04);
+            Assert.That(orfR04, Is.Not.Null);
 
             var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
-            Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(string.Empty.Equals(recoveredMessage));
+            Assert.That(recoveredMessage, Is.Not.Null);
+            Assert.That(recoveredMessage, Is.Not.EqualTo(string.Empty));
         }
 
         [Test]
@@ -220,14 +222,14 @@
 
             var orfR04 = m as ORF_R04;
 
-            Assert.IsNotNull(orfR04);
+            Assert.That(orfR04, Is.Not.Null);
 
             var xmlParser = new LegacyDefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
-            Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(recoveredMessage.IndexOf("NTE", StringComparison.Ordinal) > -1, "Returned message added ORC segment.");
+            Assert.That(recoveredMessage, Is.Not.Null);
+            Assert.That(recoveredMessage.IndexOf("NTE", StringComparison.Ordinal), Is.LessThanOrEqualTo(-1), "Returned message added ORC segment.");
         }
 
         private static string GetQRYR02XML()
@@ -356,7 +358,7 @@
 
             var adtA01 = m as ADT_A01; // a08 is mapped to a01
 
-            Assert.IsNotNull(adtA01);
+            Assert.That(adtA01, Is.Not.Null);
 
             for (var rep = 0; rep < adtA01.PID.PatientIDInternalIDRepetitionsUsed; rep++)
             {
@@ -392,90 +394,120 @@
 
             var adtA08 = m as ADT_A01; // a08 is mapped to a01
 
-            Assert.IsNotNull(adtA08);
+            Assert.That(adtA08, Is.Not.Null);
 
             var in1_3 = adtA08.GetINSURANCE().IN1.GetInsuranceCompanyID();
-            Assert.AreEqual(in1_3.Length, 3);
-            Assert.AreEqual(in1_3[0].IdentifierTypeCode.Value, "NII");
-            Assert.AreEqual(in1_3[1].IdentifierTypeCode.Value, "NIIP");
-            Assert.AreEqual(in1_3[2].IdentifierTypeCode.Value, "XX");
+            Assert.That(in1_3.Length, Is.EqualTo(3));
+            Assert.Multiple(() =>
+            {
+                Assert.That(in1_3[0].IdentifierTypeCode.Value, Is.EqualTo("NII"));
+                Assert.That(in1_3[1].IdentifierTypeCode.Value, Is.EqualTo("NIIP"));
+                Assert.That(in1_3[2].IdentifierTypeCode.Value, Is.EqualTo("XX"));
+            });
 
             var in1_4 = adtA08.GetINSURANCE().IN1.GetInsuranceCompanyName();
-            Assert.AreEqual(in1_4.Length, 3);
-            Assert.AreEqual(in1_4[2].OrganizationName.Value, "Comp 3");
+            Assert.That(in1_4.Length, Is.EqualTo(3));
+            Assert.That(in1_4[2].OrganizationName.Value, Is.EqualTo("Comp 3"));
 
             var in1_5 = adtA08.GetINSURANCE().IN1.GetInsuranceCompanyAddress();
-            Assert.AreEqual(in1_5.Length, 3);
-            Assert.AreEqual(in1_5[0].City.Value, "Hannover");
-            Assert.AreEqual(in1_5[1].City.Value, "Berlin");
-            Assert.AreEqual(in1_5[2].City.Value, "Moscow");
+            Assert.That(in1_5.Length, Is.EqualTo(3));
+            Assert.Multiple(() =>
+            {
+                Assert.That(in1_5[0].City.Value, Is.EqualTo("Hannover"));
+                Assert.That(in1_5[1].City.Value, Is.EqualTo("Berlin"));
+                Assert.That(in1_5[2].City.Value, Is.EqualTo("Moscow"));
+            });
 
             var in1_6 = adtA08.GetINSURANCE().IN1.GetInsuranceCoContactPpers();
-            Assert.AreEqual(in1_6.Length, 2);
-            Assert.AreEqual(in1_6[0].GivenName.Value, "Peak");
-            Assert.AreEqual(in1_6[1].GivenName.Value, "Fin");
+            Assert.That(in1_6.Length, Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(in1_6[0].GivenName.Value, Is.EqualTo("Peak"));
+                Assert.That(in1_6[1].GivenName.Value, Is.EqualTo("Fin"));
+            });
 
             var in1_7 = adtA08.GetINSURANCE().IN1.GetInsuranceCoPhoneNumber();
-            Assert.AreEqual(in1_7.Length, 2);
-            Assert.AreEqual(in1_7[0].TelecommunicationEquipmentType.Value, "PH");
-            Assert.AreEqual(in1_7[1].TelecommunicationEquipmentType.Value, "FX");
+            Assert.That(in1_7.Length, Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(in1_7[0].TelecommunicationEquipmentType.Value, Is.EqualTo("PH"));
+                Assert.That(in1_7[1].TelecommunicationEquipmentType.Value, Is.EqualTo("FX"));
+            });
 
             var in1_9 = adtA08.GetINSURANCE().IN1.GetGroupName();
-            Assert.AreEqual(in1_9.Length, 2);
-            Assert.AreEqual(in1_9[0].IdentifierTypeCode.Value, "NII");
-            Assert.AreEqual(in1_9[1].IdentifierTypeCode.Value, "U");
+            Assert.That(in1_9.Length, Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(in1_9[0].IdentifierTypeCode.Value, Is.EqualTo("NII"));
+                Assert.That(in1_9[1].IdentifierTypeCode.Value, Is.EqualTo("U"));
+            });
 
             var in1_10 = adtA08.GetINSURANCE().IN1.GetInsuredSGroupEmployerID();
-            Assert.AreEqual(in1_10.Length, 4);
+            Assert.That(in1_10.Length, Is.EqualTo(4));
 
             var in1_11 = adtA08.GetINSURANCE().IN1.GetInsuredSGroupEmpName();
-            Assert.AreEqual(in1_11.Length, 2);
+            Assert.That(in1_11.Length, Is.EqualTo(2));
 
             var in1_16 = adtA08.GetINSURANCE().IN1.GetNameOfInsured();
-            Assert.AreEqual(in1_16.Length, 4);
-            Assert.AreEqual(in1_16[3].GivenName.Value, "Y");
+            Assert.That(in1_16.Length, Is.EqualTo(4));
+            Assert.That(in1_16[3].GivenName.Value, Is.EqualTo("Y"));
 
             var in1_19 = adtA08.GetINSURANCE().IN1.GetInsuredSAddress();
-            Assert.AreEqual(in1_19.Length, 2);
-            Assert.AreEqual(in1_19[1].City.Value, "Berlin");
+            Assert.That(in1_19.Length, Is.EqualTo(2));
+            Assert.That(in1_19[1].City.Value, Is.EqualTo("Berlin"));
 
             var in1_44 = adtA08.GetINSURANCE().IN1.GetInsuredSEmployerAddress();
-            Assert.AreEqual(in1_44.Length, 2);
-            Assert.AreEqual(in1_44[0].StreetAddress.Value, "Addr1");
-            Assert.AreEqual(in1_44[1].StreetAddress.Value, "Addr2");
+            Assert.That(in1_44.Length, Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(in1_44[0].StreetAddress.Value, Is.EqualTo("Addr1"));
+                Assert.That(in1_44[1].StreetAddress.Value, Is.EqualTo("Addr2"));
+            });
 
             var in1_49 = adtA08.GetINSURANCE().IN1.GetInsuredSIDNumber();
-            Assert.AreEqual(in1_49.Length, 2);
-            Assert.AreEqual(in1_49[0].ID.Value, "S8907");
-            Assert.AreEqual(in1_49[1].ID.Value, "S9999");
+            Assert.That(in1_49.Length, Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(in1_49[0].ID.Value, Is.EqualTo("S8907"));
+                Assert.That(in1_49[1].ID.Value, Is.EqualTo("S9999"));
+            });
 
             var in2_1 = adtA08.GetINSURANCE().IN2.GetInsuredSEmployeeID();
-            Assert.AreEqual(in2_1.Length, 2);
-            Assert.AreEqual(in2_1[0].IdentifierTypeCode.Value, "AMA");
-            Assert.AreEqual(in2_1[1].IdentifierTypeCode.Value, "LANR");
+            Assert.That(in2_1.Length, Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(in2_1[0].IdentifierTypeCode.Value, Is.EqualTo("AMA"));
+                Assert.That(in2_1[1].IdentifierTypeCode.Value, Is.EqualTo("LANR"));
+            });
 
             var in2_3 = adtA08.GetINSURANCE().IN2.GetInsuredSEmployerName();
-            Assert.AreEqual(in2_3.Length, 2);
-            Assert.AreEqual(in2_3[0].FamilyName.Value, "Fam1");
-            Assert.AreEqual(in2_3[1].FamilyName.Value, "Fam2");
+            Assert.That(in2_3.Length, Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(in2_3[0].FamilyName.Value, Is.EqualTo("Fam1"));
+                Assert.That(in2_3[1].FamilyName.Value, Is.EqualTo("Fam2"));
+            });
 
             var in2_5 = adtA08.GetINSURANCE().IN2.GetMailClaimParty();
-            Assert.AreEqual(in2_5.Length, 3);
-            Assert.AreEqual(in2_5[0].Value, "P");
-            Assert.AreEqual(in2_5[1].Value, "G");
-            Assert.AreEqual(in2_5[2].Value, "E");
+            Assert.That(in2_5.Length, Is.EqualTo(3));
+            Assert.Multiple(() =>
+            {
+                Assert.That(in2_5[0].Value, Is.EqualTo("P"));
+                Assert.That(in2_5[1].Value, Is.EqualTo("G"));
+                Assert.That(in2_5[2].Value, Is.EqualTo("E"));
+            });
 
             var in2_7 = adtA08.GetINSURANCE().IN2.GetMedicaidCaseName();
-            Assert.AreEqual(in2_7.Length, 4);
-            Assert.AreEqual(in2_7[3].FamilyName.Value, "FN4");
+            Assert.That(in2_7.Length, Is.EqualTo(4));
+            Assert.That(in2_7[3].FamilyName.Value, Is.EqualTo("FN4"));
 
             var in2_9 = adtA08.GetINSURANCE().IN2.GetChampusSponsorName();
-            Assert.AreEqual(in2_9.Length, 3);
-            Assert.AreEqual(in2_9[2].GivenName.Value, "Tomas");
+            Assert.That(in2_9.Length, Is.EqualTo(3));
+            Assert.That(in2_9[2].GivenName.Value, Is.EqualTo("Tomas"));
 
             var in2_22 = adtA08.GetINSURANCE().IN2.GetSpecialCoverageApprovalName();
-            Assert.AreEqual(in2_22.Length, 2);
-            Assert.AreEqual(in2_22[1].FamilyName.Value, "SpCov2");
+            Assert.That(in2_22.Length, Is.EqualTo(2));
+            Assert.That(in2_22[1].FamilyName.Value, Is.EqualTo("SpCov2"));
         }
 
         /// <summary>
@@ -497,7 +529,7 @@
 
             var actualObservationValueType = parsed.GetRESPONSE(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
 
-            Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
+            Assert.That(actualObservationValueType, Is.AssignableFrom(expectedObservationValueType));
         }
 
         [Test]
@@ -520,9 +552,12 @@
             var actualObservationValueType = parsed.GetRESPONSE(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
             var obx2 = parsed.GetRESPONSE(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType;
 
-            Assert.AreEqual("ST", obx2.Value);
-            Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
-            Assert.AreEqual("STValue", ((ST)actualObservationValueType).Value);
+            Assert.Multiple(() =>
+            {
+                Assert.That(obx2.Value, Is.EqualTo("ST"));
+                Assert.That(actualObservationValueType, Is.AssignableFrom(expectedObservationValueType));
+                Assert.That(((ST)actualObservationValueType).Value, Is.EqualTo("STValue"));
+            });
         }
 
         /// <summary>

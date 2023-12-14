@@ -11,17 +11,14 @@
     [TestFixture]
     public class DatumPathTests
     {
-        [TestCase(1)]
-        [TestCase(20)]
-        [TestCase(6)]
-        [TestCase(0)]
-        public void Add_Int_SizeIsLessThan1_ThrowsInvalidOperationException(int value)
+        [Test]
+        public void Add_Int_SizeIsLessThan1_ThrowsInvalidOperationException()
         {
             // Arrange
             var sut = new DatumPath();
 
             // Act / Assert
-            Assert.Throws<InvalidOperationException>(() => sut.Add(1));
+            Assert.That(() => sut.Add(1), Throws.InvalidOperationException);
         }
 
         [Test]
@@ -38,7 +35,7 @@
                     .Add(1);
 
             // Act / Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => sut.Add(1));
+            Assert.That(() => sut.Add(1), Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
         [Test]
@@ -50,7 +47,7 @@
                     .Add("ZXY");
 
             // Act / Assert
-            Assert.DoesNotThrow(() => sut.Add(1));
+            Assert.That(() => sut.Add(1), Throws.Nothing);
         }
 
         [TestCase("ZXY")]
@@ -65,7 +62,7 @@
                     .Add("ZXY");
 
             // Act / Assert
-            Assert.Throws<InvalidOperationException>(() => sut.Add(input));
+            Assert.That(() => sut.Add(input), Throws.InvalidOperationException);
         }
 
         [Test]
@@ -75,7 +72,7 @@
             var sut = new DatumPath();
 
             // Act / Assert
-            Assert.DoesNotThrow(() => sut.Add("ZXY"));
+            Assert.That(() => sut.Add("ZXY"), Throws.Nothing);
         }
 
         [TestCase(-1)]
@@ -89,8 +86,9 @@
             var sut = new DatumPath();
 
             // Act / Assert
-            Assert.Throws<ArgumentOutOfRangeException>(
-                () => sut.Set(input, 1));
+            Assert.That(
+                () => sut.Set(input, 1),
+                Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
         [TestCase(1)]
@@ -105,8 +103,10 @@
             var sut = new DatumPath();
 
             // Act / Assert
-            Assert.GreaterOrEqual(input, sut.Size);
-            Assert.Throws<ArgumentOutOfRangeException>(() => sut.Set(input, 1));
+            Assert.That(input, Is.GreaterThanOrEqualTo(sut.Size));
+            Assert.That(
+                () => sut.Set(input, 1),
+                Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
         [TestCase(7)]
@@ -120,8 +120,10 @@
             var sut = new DatumPath();
 
             // Act / Assert
-            Assert.GreaterOrEqual(input, 6);
-            Assert.Throws<ArgumentOutOfRangeException>(() => sut.Set(input, 1));
+            Assert.That(input, Is.GreaterThanOrEqualTo(6));
+            Assert.That(
+                () => sut.Set(input, 1),
+                Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
         [Test]
@@ -133,7 +135,7 @@
                     .Add("ZXY");
 
             // Act / Assert
-            Assert.Throws<ArgumentException>(() => sut.Set(0, 1));
+            Assert.That(() => sut.Set(0, 1), Throws.ArgumentException);
         }
 
         [Test]
@@ -146,7 +148,7 @@
                     .Add(2);
 
             // Act / Assert
-            Assert.Throws<ArgumentNullException>(() => sut.Set(1, (int?)null));
+            Assert.That(() => sut.Set(1, (int?)null), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -164,7 +166,7 @@
             sut.Set(index, 10);
 
             // Assert
-            Assert.AreEqual(expected, sut.Get(index));
+            Assert.That(sut.Get(index), Is.EqualTo(expected));
         }
 
         [TestCase(-1)]
@@ -180,8 +182,8 @@
             var sut = new DatumPath();
 
             // Act / Assert
-            Assert.AreNotEqual(0, input);
-            Assert.Throws<ArgumentException>(() => sut.Set(input, "ZXY"));
+            Assert.That(input, Is.Not.EqualTo(0));
+            Assert.That(() => sut.Set(input, "ZXY"), Throws.ArgumentException);
         }
 
         [Test]
@@ -191,7 +193,7 @@
             var sut = new DatumPath();
 
             // Act / Assert
-            Assert.Throws<ArgumentNullException>(() => sut.Set(0, (string)null));
+            Assert.That(() => sut.Set(0, (string)null), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -209,7 +211,7 @@
             sut.Set(index, expectedValue);
 
             // Assert
-            Assert.AreEqual(expectedValue, sut.Get(index));
+            Assert.That(sut.Get(index), Is.EqualTo(expectedValue));
         }
 
         [Test]
@@ -220,7 +222,7 @@
             var sut = new DatumPath();
 
             // Act / Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => sut.ReSize(newSize));
+            Assert.That(() => sut.ReSize(newSize), Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
         [Test]
@@ -240,11 +242,11 @@
                     .Add(1);
 
             // Act
-            Assert.GreaterOrEqual(newSize, sut.Size);
+            Assert.That(newSize, Is.GreaterThanOrEqualTo(sut.Size));
             sut.ReSize(newSize);
 
             // Assert
-            Assert.AreEqual(expected, sut);
+            Assert.That(sut, Is.EqualTo(expected));
         }
 
         [Test]
@@ -267,11 +269,11 @@
                     .Add(0);
 
             // Act
-            Assert.Less(newSize, sut.Size);
+            Assert.That(newSize, Is.LessThan(sut.Size));
             sut.ReSize(newSize);
 
             // Assert
-            Assert.AreEqual(expected, sut);
+            Assert.That(sut, Is.EqualTo(expected));
         }
 
         [TestCaseSource(nameof(equalityTestCases))]
@@ -279,7 +281,7 @@
         {
             // Arrange
             // Act / Assert
-            Assert.AreEqual(expected, inputA.Equals(inputB));
+            Assert.That(inputA.Equals(inputB), Is.EqualTo(expected));
         }
 
         [TestCaseSource(nameof(equalityTestCasesOperator))]
@@ -287,7 +289,7 @@
         {
             // Arrange
             // Act / Assert
-            Assert.AreEqual(expected, inputA == inputB);
+            Assert.That(inputA == inputB, Is.EqualTo(expected));
         }
 
         [TestCaseSource(nameof(equalityTestCasesOperator))]
@@ -295,7 +297,7 @@
         {
             // Arrange
             // Act / Assert
-            Assert.AreEqual(!expected, inputA != inputB);
+            Assert.That(inputA != inputB, Is.EqualTo(!expected));
         }
 
         [TestCaseSource(nameof(toStringTestCases))]
@@ -303,7 +305,7 @@
         {
             // Arrange
             // Act / Assert
-            Assert.AreEqual(expected, input.ToString());
+            Assert.That(input.ToString(), Is.EqualTo(expected));
         }
 
         [Test]
@@ -321,7 +323,7 @@
             var sut = new DatumPath();
 
             // Act / Assert
-            Assert.Throws<InvalidOperationException>(() => sut.Copy(other));
+            Assert.That(() => sut.Copy(other), Throws.InvalidOperationException);
         }
 
         [Test]
@@ -339,7 +341,7 @@
             var sut = new DatumPath();
 
             // Act / Assert
-            Assert.Throws<InvalidOperationException>(() => sut.Copy(other));
+            Assert.That(() => sut.Copy(other), Throws.InvalidOperationException);
         }
 
         [Test]
@@ -355,7 +357,7 @@
             sut.Clear();
 
             // Assert
-            Assert.AreEqual(new DatumPath(), sut);
+            Assert.That(sut, Is.EqualTo(new DatumPath()));
         }
 
 #pragma warning disable SA1201

@@ -34,7 +34,7 @@
                 MessageIterator.Contains(message, name, firstDescendentOnly, upToFirstRequired);
 
             // Assert
-            Assert.AreEqual(expectedResult, actual);
+            Assert.That(actual, Is.EqualTo(expectedResult));
         }
 
         [Test]
@@ -48,7 +48,7 @@
                 MessageIterator.contains(message.GetINSURANCE(), "IN1", true, true);
 
             // Assert
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
         }
 
         [Test]
@@ -63,7 +63,7 @@
                 MessageIterator.GetIndex(message, message.GetDB1(0));
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -77,7 +77,7 @@
                 MessageIterator.GetIndex(message, message.GetPROCEDURE().GetROL());
 
             // Assert
-            Assert.AreEqual(null, actual);
+            Assert.That(actual, Is.EqualTo(null));
         }
 
         [Test]
@@ -88,7 +88,7 @@
             var position = new MessageIterator.Position(message, "PDA", 0);
 
             // Act / Assert
-            Assert.IsTrue(MessageIterator.isLast(position));
+            Assert.That(MessageIterator.isLast(position), Is.True);
         }
 
         [Test]
@@ -99,7 +99,7 @@
             var position = new MessageIterator.Position(message, "ACC", 0);
 
             // Act / Assert
-            Assert.IsFalse(MessageIterator.isLast(position));
+            Assert.That(MessageIterator.isLast(position), Is.False);
         }
 
         /**
@@ -130,7 +130,7 @@
                 MessageIterator.MatchExistsAfterPosition(position, name, firstDescendentOnly, upToFirstRequired);
 
             // Assert
-            Assert.AreEqual(expectedResult, actual);
+            Assert.That(actual, Is.EqualTo(expectedResult));
         }
 
         [Test]
@@ -141,7 +141,7 @@
             var sut = new MessageIterator(message.PDA, "PDA", false);
 
             // Act / Assert
-            Assert.IsFalse(sut.MoveNext());
+            Assert.That(sut.MoveNext(), Is.False);
         }
 
         [Test]
@@ -152,7 +152,7 @@
             var sut = new MessageIterator(message.UB2, "PDA", false);
 
             // Act / Assert
-            Assert.IsTrue(sut.MoveNext());
+            Assert.That(sut.MoveNext(), Is.True);
         }
 
         /**
@@ -171,28 +171,28 @@
         {
             var message = new ADT_A01();
             var sut = new MessageIterator(message.GetROL(), "ROL", false);
-            Assert.AreEqual(message.GetROL(1), sut.Current, "next rep if dir matches repeating segment");
+            Assert.That(sut.Current, Is.EqualTo(message.GetROL(1)), "next rep if dir matches repeating segment");
             sut.Direction = "PDA";
 
-            Assert.AreEqual(message.GetNK1(), sut.Current, "next sibling if dir doesn't match repeating segment");
+            Assert.That(sut.Current, Is.EqualTo(message.GetNK1()), "next sibling if dir doesn't match repeating segment");
             Console.WriteLine(sut.Current);
 
             sut.Direction = "PV1";
-            Assert.AreEqual(message.PV2, sut.Current, "next sibling if dir matches non-repeating segment");
+            Assert.That(sut.Current, Is.EqualTo(message.PV2), "next sibling if dir matches non-repeating segment");
 
             sut = new MessageIterator(message.GetPROCEDURE(), "PDA", false);
-            Assert.AreEqual(message.GetPROCEDURE().PR1, sut.Current, "group to child");
+            Assert.That(sut.Current, Is.EqualTo(message.GetPROCEDURE().PR1), "group to child");
             sut.Direction = "PR1";
 
             Console.WriteLine(sut.Current);
 
-            Assert.AreEqual(message.GetPROCEDURE(1), sut.Current, "next rep of group if 1st child matches dir");
+            Assert.That(sut.Current, Is.EqualTo(message.GetPROCEDURE(1)), "next rep of group if 1st child matches dir");
 
             sut = new MessageIterator(message.GetPROCEDURE().GetROL(), "PDA", false);
-            Assert.AreEqual(message.GetGT1(), sut.Current, "next sibling of parent if group doesn't contain direction");
+            Assert.That(sut.Current, Is.EqualTo(message.GetGT1()), "next sibling of parent if group doesn't contain direction");
 
             sut = new MessageIterator(message.GetINSURANCE().GetROL(), "IN3", false);
-            Assert.AreEqual(message.ACC, sut.Current, "next sib of parent if contains dir after required child");
+            Assert.That(sut.Current, Is.EqualTo(message.ACC), "next sib of parent if contains dir after required child");
 
             sut = new MessageIterator(message.PDA, "FOO", false);
             try
@@ -207,12 +207,15 @@
 
             sut = new MessageIterator(message.PDA, "FOO", true);
             var segment = (ISegment)sut.Current;
-            Assert.AreEqual("FOO", segment.GetStructureName());
+            Assert.That(segment.GetStructureName(), Is.EqualTo("FOO"));
 
             sut = new MessageIterator(message.GetINSURANCE().GetROL(), "BAR", true);
             segment = (ISegment)sut.Current;
-            Assert.AreEqual("BAR", segment.GetStructureName());
-            Assert.AreEqual(5, message.GetINSURANCE().Names.Length, "BAR added as a child of IN1 group");
+            Assert.Multiple(() =>
+            {
+                Assert.That(segment.GetStructureName(), Is.EqualTo("BAR"));
+                Assert.That(message.GetINSURANCE().Names.Length, Is.EqualTo(5), "BAR added as a child of IN1 group");
+            });
         }
     }
 }

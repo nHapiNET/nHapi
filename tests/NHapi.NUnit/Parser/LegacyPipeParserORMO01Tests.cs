@@ -21,7 +21,7 @@ namespace NHapi.NUnit.Parser
             var parser = new LegacyPipeParser();
             var results = (ORM_O01)parser.Parse(MessageORMSample);
 
-            Assert.AreEqual(results.PATIENT.PID.DateTimeOfBirth.Description, @"Date/Time Of Birth");
+            Assert.That(results.PATIENT.PID.DateTimeOfBirth.Description, Is.EqualTo(@"Date/Time Of Birth"));
         }
     }
 }

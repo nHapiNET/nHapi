@@ -26,8 +26,8 @@ namespace NHapi.NUnit.Parser
 
             var qryR02 = m as QRY_R02;
 
-            Assert.IsNotNull(qryR02);
-            Assert.AreEqual("38923", qryR02.QRD.GetWhoSubjectFilter(0).IDNumber.Value);
+            Assert.That(qryR02, Is.Not.Null);
+            Assert.That(qryR02.QRD.GetWhoSubjectFilter(0).IDNumber.Value, Is.EqualTo("38923"));
         }
 
         [Test]
@@ -46,15 +46,17 @@ namespace NHapi.NUnit.Parser
 
             var ormo01 = m as ORM_O01;
 
-            Assert.IsNotNull(ormo01);
-            Assert.AreEqual("TRAINONLYPOE", ormo01.PATIENT.PID.GetPatientName()[0].FamilyLastName.FamilyName.Value);
-            Assert.AreEqual("19770903", ormo01.PATIENT.PID.DateTimeOfBirth.TimeOfAnEvent.Value);
-            Assert.AreEqual("F", ormo01.PATIENT.PID.Sex.Value);
-            Assert.AreEqual("W", ormo01.PATIENT.PID.GetRace()[0].Identifier.Value);
+            Assert.That(ormo01, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(ormo01.PATIENT.PID.GetPatientName()[0].FamilyLastName.FamilyName.Value, Is.EqualTo("TRAINONLYPOE"));
+                Assert.That(ormo01.PATIENT.PID.DateTimeOfBirth.TimeOfAnEvent.Value, Is.EqualTo("19770903"));
+                Assert.That(ormo01.PATIENT.PID.Sex.Value, Is.EqualTo("F"));
+                Assert.That(ormo01.PATIENT.PID.GetRace()[0].Identifier.Value, Is.EqualTo("W"));
 
-            Assert.AreEqual(
-                "ABAZA, MONA M",
-                ormo01.PATIENT.PATIENT_VISIT.PV1.GetAttendingDoctor(0).FamilyLastName.FamilyName.Value);
+                Assert.That(
+                    ormo01.PATIENT.PATIENT_VISIT.PV1.GetAttendingDoctor(0).FamilyLastName.FamilyName.Value, Is.EqualTo("ABAZA, MONA M"));
+            });
         }
 
         [Test]
@@ -77,11 +79,11 @@ namespace NHapi.NUnit.Parser
 
             var recoveredMessage = xmlParser.Encode(ormo01);
 
-            Assert.AreNotEqual(string.Empty, recoveredMessage);
+            Assert.That(recoveredMessage, Is.Not.EqualTo(string.Empty));
 
             var ormDoc = new XmlDocument();
             ormDoc.LoadXml(recoveredMessage);
-            Assert.IsNotNull(ormDoc);
+            Assert.That(ormDoc, Is.Not.Null);
         }
 
         [Test]
@@ -104,11 +106,11 @@ namespace NHapi.NUnit.Parser
 
             var recoveredMessage = xmlParser.Encode(msg);
 
-            Assert.AreNotEqual(string.Empty, recoveredMessage);
+            Assert.That(recoveredMessage, Is.Not.EqualTo(string.Empty));
 
             var orrDoc = new XmlDocument();
             orrDoc.LoadXml(recoveredMessage);
-            Assert.IsNotNull(orrDoc);
+            Assert.That(orrDoc, Is.Not.Null);
         }
 
         [Test]
@@ -149,11 +151,11 @@ namespace NHapi.NUnit.Parser
 
             var recoveredMessage = xmlParser.Encode(msg);
 
-            Assert.AreNotEqual(string.Empty, recoveredMessage);
+            Assert.That(recoveredMessage, Is.Not.EqualTo(string.Empty));
 
             var orrDoc = new XmlDocument();
             orrDoc.LoadXml(recoveredMessage);
-            Assert.IsNotNull(orrDoc);
+            Assert.That(orrDoc, Is.Not.Null);
         }
 
         [Test]
@@ -173,10 +175,9 @@ namespace NHapi.NUnit.Parser
             var m = parser.Parse(message);
 
             var orfR04 = m as ORF_R04;
-            Assert.IsNotNull(orfR04);
-            Assert.AreEqual(
-                "12",
-                orfR04.GetQUERY_RESPONSE().GetORDER().GetOBSERVATION().OBX.GetObservationValue()[0].Data.ToString());
+            Assert.That(orfR04, Is.Not.Null);
+            Assert.That(
+                orfR04.GetQUERY_RESPONSE().GetORDER().GetOBSERVATION().OBX.GetObservationValue()[0].Data.ToString(), Is.EqualTo("12"));
         }
 
         [Test]
@@ -197,14 +198,14 @@ namespace NHapi.NUnit.Parser
 
             var orfR04 = m as ORF_R04;
 
-            Assert.IsNotNull(orfR04);
+            Assert.That(orfR04, Is.Not.Null);
 
             var xmlParser = new DefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
-            Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(string.Empty.Equals(recoveredMessage));
+            Assert.That(recoveredMessage, Is.Not.Null);
+            Assert.That(recoveredMessage, Is.Not.EqualTo(string.Empty));
         }
 
         /// <summary>
@@ -229,14 +230,14 @@ namespace NHapi.NUnit.Parser
 
             var msgObj = m as ORM_O01;
 
-            Assert.IsNotNull(msgObj);
+            Assert.That(msgObj, Is.Not.Null);
 
             XMLParser xmlParser = new DefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(msgObj);
 
-            Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(string.Empty.Equals(recoveredMessage));
+            Assert.That(recoveredMessage, Is.Not.Null);
+            Assert.That(recoveredMessage, Is.Not.EqualTo(string.Empty));
         }
 
         /// <summary>
@@ -262,14 +263,14 @@ namespace NHapi.NUnit.Parser
 
             var msgObj = m as ORM_O01;
 
-            Assert.IsNotNull(msgObj);
+            Assert.That(msgObj, Is.Not.Null);
 
             XMLParser xmlParser = new DefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(msgObj);
 
-            Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(string.Empty.Equals(recoveredMessage));
+            Assert.That(recoveredMessage, Is.Not.Null);
+            Assert.That(recoveredMessage, Is.Not.EqualTo(string.Empty));
         }
 
         [Test]
@@ -282,14 +283,14 @@ namespace NHapi.NUnit.Parser
 
             var qryR02 = m as QRY_R02;
 
-            Assert.IsNotNull(qryR02);
+            Assert.That(qryR02, Is.Not.Null);
 
             var pipeParser = new PipeParser();
 
             var pipeOutput = pipeParser.Encode(qryR02);
 
-            Assert.IsNotNull(pipeOutput);
-            Assert.IsFalse(string.Empty.Equals(pipeOutput));
+            Assert.That(pipeOutput, Is.Not.Null);
+            Assert.That(pipeOutput, Is.Not.EqualTo(string.Empty));
         }
 
         [Test]
@@ -310,14 +311,14 @@ namespace NHapi.NUnit.Parser
 
             var orfR04 = m as ORF_R04;
 
-            Assert.IsNotNull(orfR04);
+            Assert.That(orfR04, Is.Not.Null);
 
             var xmlParser = new DefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
-            Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(recoveredMessage.IndexOf("ORC", StringComparison.Ordinal) > -1, "Returned Message added ORC segment.");
+            Assert.That(recoveredMessage, Is.Not.Null);
+            Assert.That(recoveredMessage.IndexOf("ORC", StringComparison.Ordinal), Is.LessThanOrEqualTo(-1), "Returned Message added ORC segment.");
         }
 
         [Test]
@@ -338,14 +339,14 @@ namespace NHapi.NUnit.Parser
 
             var orfR04 = m as ORF_R04;
 
-            Assert.IsNotNull(orfR04);
+            Assert.That(orfR04, Is.Not.Null);
 
             var xmlParser = new DefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
-            Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(recoveredMessage.IndexOf("NTE", StringComparison.Ordinal) > -1, "Returned Message added ORC segment.");
+            Assert.That(recoveredMessage, Is.Not.Null);
+            Assert.That(recoveredMessage.IndexOf("NTE", StringComparison.Ordinal), Is.LessThanOrEqualTo(-1), "Returned Message added ORC segment.");
         }
 
         [Test]
@@ -434,16 +435,17 @@ namespace NHapi.NUnit.Parser
 
             var orfR04 = m as ORF_R04;
 
-            Assert.IsNotNull(orfR04);
+            Assert.That(orfR04, Is.Not.Null);
 
             var xmlParser = new DefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
-            Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(recoveredMessage.IndexOf("NTE", StringComparison.Ordinal) > -1, "Returned Message added ORC segment.");
+            Assert.That(recoveredMessage, Is.Not.Null);
+            Assert.That(recoveredMessage.IndexOf("NTE", StringComparison.Ordinal), Is.LessThanOrEqualTo(-1), "Returned Message added ORC segment.");
         }
 
+        [Test]
         public void TestDHPatient1111111()
         {
             var parser = new PipeParser();
@@ -452,15 +454,15 @@ namespace NHapi.NUnit.Parser
 
             var orfR04 = m as ORF_R04;
 
-            Assert.IsNotNull(orfR04);
-            object range = orfR04.GetQUERY_RESPONSE().GetORDER().GetOBSERVATION().OBX.GetObservationValue(1);
+            Assert.That(orfR04, Is.Not.Null);
+            _ = orfR04.GetQUERY_RESPONSE().GetORDER().GetOBSERVATION().OBX.GetObservationValue(1);
 
             var xmlParser = new DefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
-            Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(recoveredMessage.IndexOf("NTE", StringComparison.Ordinal) > -1, "Returned Message added ORC segment.");
+            Assert.That(recoveredMessage, Is.Not.Null);
+            Assert.That(recoveredMessage.IndexOf("NTE", StringComparison.Ordinal), Is.LessThanOrEqualTo(-1), "Returned Message added ORC segment.");
         }
 
         private static string GetQRYR02XML()
@@ -564,14 +566,14 @@ namespace NHapi.NUnit.Parser
 
             var orfR04 = m as ORF_R04;
 
-            Assert.IsNotNull(orfR04);
+            Assert.That(orfR04, Is.Not.Null);
 
             var xmlParser = new DefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
-            Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(string.Empty.Equals(recoveredMessage));
+            Assert.That(recoveredMessage, Is.Not.Null);
+            Assert.That(recoveredMessage, Is.Not.EqualTo(string.Empty));
         }
 
         private static string GetDHPatient1111111()
@@ -617,7 +619,7 @@ namespace NHapi.NUnit.Parser
 
             var actualObservationValueType = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
 
-            Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
+            Assert.That(actualObservationValueType, Is.AssignableFrom(expectedObservationValueType));
         }
 
         [Test]
@@ -640,9 +642,12 @@ namespace NHapi.NUnit.Parser
             var actualObservationValueType = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
             var obx2 = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType;
 
-            Assert.AreEqual("ST", obx2.Value);
-            Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
-            Assert.AreEqual("STValue", ((ST)actualObservationValueType).Value);
+            Assert.Multiple(() =>
+            {
+                Assert.That(obx2.Value, Is.EqualTo("ST"));
+                Assert.That(actualObservationValueType, Is.AssignableFrom(expectedObservationValueType));
+                Assert.That(((ST)actualObservationValueType).Value, Is.EqualTo("STValue"));
+            });
         }
 
         /// <summary>

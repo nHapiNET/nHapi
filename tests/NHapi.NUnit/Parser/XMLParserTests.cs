@@ -39,10 +39,13 @@
             var secondIndex = er7Message.IndexOf("PID", firstIndex + 1, StringComparison.Ordinal);
             var thirdIndex = er7Message.IndexOf("PID", secondIndex + 1, StringComparison.Ordinal);
 
-            // Assert
-            Assert.True(firstIndex > 0);
-            Assert.True(secondIndex > firstIndex);
-            Assert.AreEqual(-1, thirdIndex, $"Found third PID {firstIndex} {secondIndex} {thirdIndex}:\r\n{er7Message}");
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(firstIndex, Is.GreaterThan(0));
+                Assert.That(secondIndex, Is.GreaterThan(firstIndex));
+                Assert.That(thirdIndex, Is.EqualTo(-1), $"Found third PID {firstIndex} {secondIndex} {thirdIndex}:\r\n{er7Message}");
+            });
         }
 
         [Test]
@@ -56,8 +59,8 @@
             var message = xmlParser.Parse(xmlMessage);
             var er7Encoded = pipeParser.Encode(message);
 
-            Assert.IsTrue(er7Encoded.Contains("HD.4"));
-            Assert.IsTrue(er7Encoded.Contains("HD.5"));
+            Assert.That(er7Encoded, Does.Contain("HD.4"));
+            Assert.That(er7Encoded, Does.Contain("HD.5"));
         }
 
         [TestCase("<MSA.2>12</MSA.2>", "12")]
@@ -71,7 +74,7 @@
             var parser = new DefaultXMLParser();
 
             // Act / Assert
-            Assert.AreEqual(expected, parser.GetAckID(input));
+            Assert.That(parser.GetAckID(input), Is.EqualTo(expected));
         }
 
         [Test]
@@ -83,7 +86,7 @@
             var parser = new DefaultXMLParser();
 
             // Act / Assert
-            Assert.AreEqual(expected, parser.GetAckID(xmlMessage));
+            Assert.That(parser.GetAckID(xmlMessage), Is.EqualTo(expected));
         }
 
         [TestCase("<MSH>\r<MSH.1>|</MSH.1>\r<MSH.2>^~\\&amp;</MSH.2>\r</MSH>", "XML")]
@@ -94,7 +97,7 @@
             var parser = new DefaultXMLParser();
 
             // Act / Assert
-            Assert.AreEqual(expected, parser.GetEncoding(input));
+            Assert.That(parser.GetEncoding(input), Is.EqualTo(expected));
         }
 
         [Test]
@@ -106,7 +109,7 @@
             var parser = new DefaultXMLParser();
 
             // Act / Assert
-            Assert.AreEqual(expected, parser.GetVersion(xmlMessage));
+            Assert.That(parser.GetVersion(xmlMessage), Is.EqualTo(expected));
         }
 
         [TestCase("\t\r\nhello ", "hello")]
@@ -117,7 +120,7 @@
             var parser = new DefaultXMLParser();
 
             // Act / Assert
-            Assert.AreEqual(expected, parser.RemoveWhitespace(input));
+            Assert.That(parser.RemoveWhitespace(input), Is.EqualTo(expected));
         }
 
         [Test]
@@ -131,9 +134,12 @@
             var message = parser.Parse(xmlMessage);
             var terser = new Terser(message);
 
-            // Act / Assert
-            Assert.AreEqual(expectedVersion, parser.GetVersion(xmlMessage));
-            Assert.AreEqual(expectedMsh7, terser.Get("MSH-7"));
+            Assert.Multiple(() =>
+            {
+                // Act / Assert
+                Assert.That(parser.GetVersion(xmlMessage), Is.EqualTo(expectedVersion));
+                Assert.That(terser.Get("MSH-7"), Is.EqualTo(expectedMsh7));
+            });
         }
 
         [Test]
@@ -147,7 +153,7 @@
             var expected = "^~\\&";
 
             // Act / Assert
-            Assert.AreEqual(expected, actual.ToString());
+            Assert.That(actual.ToString(), Is.EqualTo(expected));
         }
 
         [Test]
@@ -164,7 +170,7 @@
                     .OBX.GetObservationValue(0).Data as ED;
 
             // Assert
-            Assert.True(obx5?.Data.Value.StartsWith("JVBERi0xLjMKJeLjz9MKCjEgMCBvYmoKPDwgL1R5cG"));
+            Assert.That(obx5?.Data.Value.StartsWith("JVBERi0xLjMKJeLjz9MKCjEgMCBvYmoKPDwgL1R5cG"), Is.True);
         }
 
         [Test]
@@ -180,9 +186,12 @@
             xmlParser.Parse(oruR01, xmlMessage);
             var encodedOruR01 = xmlParser.Encode(oruR01);
 
-            // Assert
-            Assert.AreEqual("LABMI1199510101340007", oruR01.MSH.MessageControlID.Value);
-            StringAssert.Contains("<MSH.10>LABMI1199510101340007</MSH.10>", encodedOruR01);
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(oruR01.MSH.MessageControlID.Value, Is.EqualTo("LABMI1199510101340007"));
+                Assert.That(encodedOruR01, Does.Contain("<MSH.10>LABMI1199510101340007</MSH.10>"));
+            });
         }
 
         [Test]
@@ -196,7 +205,7 @@
             var omdO03 = (OMD_O03)xmlParser.Parse(xmlMessage);
 
             // Assert
-            Assert.AreEqual("S", omdO03.GetORDER_DIET().DIET.GetODS().Type.Value);
+            Assert.That(omdO03.GetORDER_DIET().DIET.GetODS().Type.Value, Is.EqualTo("S"));
         }
 
         [Test]
@@ -226,7 +235,7 @@
                     .OBX.GetObservationValue(0).Data).Value;
 
             // Assert
-            Assert.AreEqual($"\\H\\{obx5Value}\\.br\\{obx5Value}\\N\\", parsedObx5Value);
+            Assert.That(parsedObx5Value, Is.EqualTo($"\\H\\{obx5Value}\\.br\\{obx5Value}\\N\\"));
         }
 
         [Test]
@@ -245,9 +254,12 @@
             var adtA01 = parsed as ADT_A01; // a08 is mapped to a01
 
             // Assert
-            Assert.IsNotNull(adtA01);
-            Assert.AreEqual(expectedMessageControlId, adtA01.MSH.MessageControlID.Value);
-            Assert.AreEqual(expectedDob, adtA01.PID.DateOfBirth.TimeOfAnEvent.Value);
+            Assert.That(adtA01, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(adtA01.MSH.MessageControlID.Value, Is.EqualTo(expectedMessageControlId));
+                Assert.That(adtA01.PID.DateOfBirth.TimeOfAnEvent.Value, Is.EqualTo(expectedDob));
+            });
         }
 
         [Test]
@@ -263,7 +275,7 @@
             var xml = xmlParser.Encode(message);
 
             // Assert
-            Assert.IsTrue(xml.Contains("OMD_O03.DIET"));
+            Assert.That(xml, Does.Contain("OMD_O03.DIET"));
         }
 
         [Test]
@@ -293,7 +305,7 @@
                     .OBX.GetObservationValue(0).Data).Value;
 
             // Assert
-            Assert.AreEqual(obx5Value, parsedObx5Value);
+            Assert.That(parsedObx5Value, Is.EqualTo(obx5Value));
         }
 
         [TestCase("ABC\\H\\highlighted\\N\\EFG", "<OBX.5>ABC<escape V=\"H\" />highlighted<escape V=\"N\" />EFG</OBX.5>")]
@@ -322,7 +334,7 @@
             var encoded = xmlParser.Encode(oruR01, parserOptions);
 
             // Assert
-            StringAssert.Contains(expectedXml, encoded);
+            Assert.That(encoded, Does.Contain(expectedXml));
         }
 
         [TestCase("1234", "<MSH.10>1234</MSH.10>")]
@@ -346,7 +358,7 @@
             var encoded = xmlParser.Encode(adtA01, parserOptions);
 
             // Assert
-            StringAssert.Contains(expectedXml, encoded);
+            Assert.That(encoded, Does.Contain(expectedXml));
         }
 
         [TestCase("2.1")]
@@ -375,9 +387,12 @@
             var document = xmlParser.EncodeDocument(message);
 
             // Assert
-            Assert.IsNotNull(document);
-            Assert.AreEqual(expectedElementName, document.DocumentElement?.LocalName);
-            Assert.IsNotNull(xmlParser.Encode(message));
+            Assert.That(document, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(document.DocumentElement?.LocalName, Is.EqualTo(expectedElementName));
+                Assert.That(xmlParser.Encode(message), Is.Not.Null);
+            });
         }
 
         [Test]
@@ -393,7 +408,8 @@
             var document = xmlParser.EncodeDocument(message);
             var decodedMessage = xmlParser.ParseDocument(document, message.Version);
 
-            Console.WriteLine(decodedMessage.ToString());
+            // Assert
+            Assert.That(decodedMessage.ToString(), Is.EqualTo(message.ToString()));
         }
 
         [Test]
@@ -415,7 +431,7 @@
             var encodedMessage = xmlParser.Encode(parsed, options);
 
             // Assert
-            Assert.AreEqual(expectedEncodedMessage, encodedMessage);
+            Assert.That(encodedMessage, Is.EqualTo(expectedEncodedMessage));
         }
 
         private static void SetMessageHeader(IMessage msg, string messageCode, string messageTriggerEvent, string processingId)

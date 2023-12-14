@@ -22,7 +22,7 @@ namespace NHapi.NUnit
             var hl7 = parser.Encode(a01);
 
             var data = hl7.Split('|');
-            Assert.AreEqual("ADT^A01", data[8]);
+            Assert.That(data[8], Is.EqualTo("ADT^A01"));
         }
     }
 }

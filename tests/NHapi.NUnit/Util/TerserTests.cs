@@ -47,7 +47,7 @@
         {
             var actual = sut.Get(path);
 
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -59,7 +59,7 @@
 
             var actual = sut.Get(path);
 
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -72,25 +72,28 @@
 
             p.Value = expected;
 
-            Assert.AreEqual(expected, sut.Get($"MSH-{n}"));
+            Assert.That(sut.Get($"MSH-{n}"), Is.EqualTo(expected));
 
             v.Data = new CE(suiS12);
 
-            Assert.AreEqual(expected, sut.Get($"MSH-{n}"));
+            Assert.That(sut.Get($"MSH-{n}"), Is.EqualTo(expected));
 
             ((CE)v.Data).Text.Value = "text";
-            Assert.AreEqual("text", sut.Get($"MSH-{n}-2"));
+            Assert.That(sut.Get($"MSH-{n}-2"), Is.EqualTo("text"));
         }
 
         [Test]
         public void TestExtraComponents()
         {
             sut.Set("/MSH-9-4", "foo");
-            Assert.AreEqual("foo", sut.Get("/MSH-9-4"));
+            Assert.That(sut.Get("/MSH-9-4"), Is.EqualTo("foo"));
 
             sut.Set("/MSH-9-4-2", "bar");
-            Assert.AreEqual("bar", sut.Get("/MSH-9-4-2"));
-            Assert.AreEqual("foo", sut.Get("/MSH-9-4-1"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(sut.Get("/MSH-9-4-2"), Is.EqualTo("bar"));
+                Assert.That(sut.Get("/MSH-9-4-1"), Is.EqualTo("foo"));
+            });
         }
 
         [Test]
@@ -107,7 +110,7 @@
         {
             var actual = sut.Get(path);
 
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -115,7 +118,7 @@
         [TestCase("?MSH-9-2")]
         public void Get_InValidPathWithWildcards_ThrowsHL7Exception(string path)
         {
-            Assert.Throws<HL7Exception>(() => sut.Get(path));
+            Assert.That(() => sut.Get(path), Throws.TypeOf<HL7Exception>());
         }
 
         /// <summary>
@@ -141,42 +144,42 @@
             var terser = new Terser(message);
 
             var value = terser.Get("/.ORC-2");
-            Assert.AreEqual("RX1", value);
+            Assert.That(value, Is.EqualTo("RX1"));
 
             value = terser.Get("/ORDER*/RXR-1");
-            Assert.AreEqual("PO", value);
+            Assert.That(value, Is.EqualTo("PO"));
             value = terser.Get("/*ORDER*/RXR-1");
-            Assert.AreEqual("PO", value);
+            Assert.That(value, Is.EqualTo("PO"));
             value = terser.Get("/ORDER*/RXE-1-2");
-            Assert.AreEqual("BID", value);
+            Assert.That(value, Is.EqualTo("BID"));
             value = terser.Get("/.ORC-1-1");
-            Assert.AreEqual("NW", value);
+            Assert.That(value, Is.EqualTo("NW"));
 
             // fixed ... original error: yields HL7Exception: End of message reached --
             // this is a peer to ORC, which does work with same syntax
             value = terser.Get("/.RXE-1-2");
-            Assert.AreEqual("BID", value);
+            Assert.That(value, Is.EqualTo("BID"));
 
             // makes sense ... value is in 2nd RXR ... adding segment before RXE to test this
             // ... original error: yields "null" instead of "PO"
             value = terser.Get("/.RXR-1");
-            Assert.AreEqual("XXX", value);
+            Assert.That(value, Is.EqualTo("XXX"));
 
             // makes sense ... value is in 2nd RXR ... original error: yields "null" instead of "PO"
             // value = terser.Get("/.RDE_O11_RXR/RXR-1");
-            // Assert.AreEqual("XXX", value);
+            // Assert.That(value, Is.EqualTo("XXX"));
 
             // as above
             value = terser.Get("/ORDER*/.RXR(0)-1");
-            Assert.AreEqual("XXX", value);
+            Assert.That(value, Is.EqualTo("XXX"));
 
             // as above
             value = terser.Get("/ORDER*/.RXR-1");
-            Assert.AreEqual("XXX", value);
+            Assert.That(value, Is.EqualTo("XXX"));
 
             // try getting to the PO value
             // value = terser.Get("/RDE_O11_ORC*/.RXR-1");
-            // Assert.AreEqual("PO", value);
+            // Assert.That(value, Is.EqualTo("PO"));
 
             // OK (* finds first structure): yields NoSuchElementException
             // value = terser.Get("/RDE_O11_ORC*/*/RXR-1");
@@ -192,19 +195,19 @@
         public void TestEnumerators()
         {
             var segment = sut.GetSegment("MSH");
-            Assert.AreEqual(3, Terser.numComponents(segment.GetField(9, 0)));
+            Assert.That(Terser.numComponents(segment.GetField(9, 0)), Is.EqualTo(3));
 
             segment.GetField(9, 0).ExtraComponents.GetComponent(0);
-            Assert.AreEqual(4, Terser.numComponents(segment.GetField(9, 0)));
+            Assert.That(Terser.numComponents(segment.GetField(9, 0)), Is.EqualTo(4));
 
             segment.GetField(9, 0).ExtraComponents.GetComponent(1);
-            Assert.AreEqual(5, Terser.numComponents(segment.GetField(9, 0)));
+            Assert.That(Terser.numComponents(segment.GetField(9, 0)), Is.EqualTo(5));
 
             segment.GetField(2, 0).ExtraComponents.GetComponent(0);
-            Assert.AreEqual(2, Terser.numComponents(segment.GetField(2, 0)));
+            Assert.That(Terser.numComponents(segment.GetField(2, 0)), Is.EqualTo(2));
 
             ((IPrimitive)((IComposite)segment.GetField(9, 0)).Components[0].ExtraComponents.GetComponent(0).Data).Value = "xxx";
-            Assert.AreEqual(2, Terser.numSubComponents(segment.GetField(9, 0), 1));
+            Assert.That(Terser.numSubComponents(segment.GetField(9, 0), 1), Is.EqualTo(2));
         }
 
         [Test]
@@ -220,12 +223,15 @@
             var terser = new Terser(qryMsg);
             var expected = "QBPQ231177";
 
-            Assert.AreEqual(expected, terser.Get("/.PID-3-1"));
-            Assert.AreEqual(expected, terser.Get("/QUERY_RESPONSE(0)/.PID-3-1"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(terser.Get("/.PID-3-1"), Is.EqualTo(expected));
+                Assert.That(terser.Get("/QUERY_RESPONSE(0)/.PID-3-1"), Is.EqualTo(expected));
+            });
         }
 
         /// <summary>
-        /// https://github.com/nHapiNET/nHapi/issues/319
+        /// https://github.com/nHapiNET/nHapi/issues/319.
         /// </summary>
         [Test]
         public void Get_OMD_O03_ValidTerserPathSpecifaction_ReturnsExpectedResult()
@@ -245,8 +251,11 @@
             var tq17 = terser.Get("/.ORDER_DIET(0)/TIMING_DIET/TQ1-7");
             var ods1 = terser.Get("/.ORDER_DIET(0)/DIET/ODS(0)-1");
 
-            Assert.AreEqual("20210519143000", tq17);
-            Assert.AreEqual("R", ods1);
+            Assert.Multiple(() =>
+            {
+                Assert.That(tq17, Is.EqualTo("20210519143000"));
+                Assert.That(ods1, Is.EqualTo("R"));
+            });
         }
 
         #region Static Methods
@@ -254,8 +263,9 @@
         [Test]
         public void Get_SegmentIsNull_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(
-                () => Terser.Get(null, 0, 0, 0, 0));
+            Assert.That(
+                () => Terser.Get(null, 0, 0, 0, 0),
+                Throws.ArgumentNullException);
         }
 
         [Test]
@@ -263,8 +273,9 @@
         {
             var segment = suiS12.MSH;
 
-            Assert.Throws<ArgumentOutOfRangeException>(
-                () => Terser.Get(segment, 0, 0, -1, 0));
+            Assert.That(
+                () => Terser.Get(segment, 0, 0, -1, 0),
+                Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
         [Test]
@@ -272,8 +283,9 @@
         {
             var segment = suiS12.MSH;
 
-            Assert.Throws<ArgumentOutOfRangeException>(
-                () => Terser.Get(segment, 0, 0, 0, -1));
+            Assert.That(
+                () => Terser.Get(segment, 0, 0, 0, -1),
+                Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
         [Test]
@@ -281,15 +293,17 @@
         {
             var segment = suiS12.MSH;
 
-            Assert.Throws<ArgumentOutOfRangeException>(
-                () => Terser.Get(segment, 0, -1, 0, 0));
+            Assert.That(
+                () => Terser.Get(segment, 0, -1, 0, 0),
+                Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
         [Test]
         public void GetPrimitive_TypeIsNull_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(
-                () => Terser.GetPrimitive(null, 0, 0));
+            Assert.That(
+                () => Terser.GetPrimitive(null, 0, 0),
+                Throws.ArgumentNullException);
         }
 
         [Test]
@@ -297,8 +311,9 @@
         {
             var type = suiS12.MSH.MessageType;
 
-            Assert.Throws<ArgumentOutOfRangeException>(
-                () => Terser.GetPrimitive(type, -1, 0));
+            Assert.That(
+                () => Terser.GetPrimitive(type, -1, 0),
+                Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
         [Test]
@@ -306,8 +321,9 @@
         {
             var type = suiS12.MSH.MessageType;
 
-            Assert.Throws<ArgumentOutOfRangeException>(
-                () => Terser.GetPrimitive(type, 0, -1));
+            Assert.That(
+                () => Terser.GetPrimitive(type, 0, -1),
+                Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
         [Test]
@@ -316,7 +332,7 @@
             var msh = suiS12.MSH;
             var test = Terser.Get(msh, 9, 0, 2, 1);
 
-            Assert.AreEqual("a", test);
+            Assert.That(test, Is.EqualTo("a"));
         }
 
         #endregion

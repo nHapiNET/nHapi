@@ -57,7 +57,7 @@ namespace NHapi.NUnit.SourceGeneration.Generators
             MessageGenerator.MakeAll("basepath", version);
 
             // Assert
-            Assert.IsNotEmpty(results);
+            Assert.That(results, Is.Not.Empty);
 
             await Verifier.Verify(results)
                 .UseTextForParameters(version.Replace(".", string.Empty));

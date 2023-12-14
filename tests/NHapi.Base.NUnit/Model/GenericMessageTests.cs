@@ -27,15 +27,16 @@
             var genericMessageType = GenericMessage.GetGenericMessageClass(version);
 
             // Assert
-            Assert.AreEqual(expected, genericMessageType);
+            Assert.That(genericMessageType, Is.EqualTo(expected));
         }
 
         [Test]
         public void GetGenericMessageClass_InValidVersion_ThrowsArgumentException()
         {
             // Arrange / Act / Assert
-            Assert.Throws<ArgumentException>(
-                () => GenericMessage.GetGenericMessageClass("unknown"));
+            Assert.That(
+                () => GenericMessage.GetGenericMessageClass("unknown"),
+                Throws.ArgumentException);
         }
     }
 }
