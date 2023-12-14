@@ -170,3 +170,6 @@ $RECYCLE.BIN/
 
 # MS Access database
 *.mdb
+
+# Verify received diffs
+.received.txt
