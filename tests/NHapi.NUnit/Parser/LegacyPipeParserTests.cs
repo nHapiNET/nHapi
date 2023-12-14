@@ -13,7 +13,7 @@ namespace NHapi.NUnit.Parser
     [TestFixture]
     public class LegacyPipeParserTests
     {
-        public string GetMessage()
+        private string GetMessage()
         {
             return "MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.3.1|||AL|||ASCII\r"
                 + "PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r"
@@ -30,7 +30,7 @@ namespace NHapi.NUnit.Parser
 
             foreach (var obs in oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION().OBX.GetObservationValue())
             {
-                Assert.IsTrue(obs.Data is FT);
+                Assert.That(obs.Data, Is.InstanceOf<FT>());
             }
         }
 
@@ -38,11 +38,10 @@ namespace NHapi.NUnit.Parser
         public void TestSpecialCharacterEncoding()
         {
             var parser = new LegacyPipeParser();
-            var oru = new ORU_R01();
-            oru = (ORU_R01)parser.Parse(GetMessage());
+            var oru = (ORU_R01)parser.Parse(GetMessage());
 
             var data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
-            Assert.AreEqual(@"This\.br\is\.br\A Test", data.Value);
+            Assert.That(data.Value, Is.EqualTo(@"This\.br\is\.br\A Test"));
         }
 
         [Test]
@@ -68,7 +67,7 @@ namespace NHapi.NUnit.Parser
             Console.WriteLine(msg.GetStructureName());
             oru = (ORU_R01)msg;
             var data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
-            Assert.AreEqual(@"This\.br\is\.br\A Test", data.Value);
+            Assert.That(data.Value, Is.EqualTo(@"This\.br\is\.br\A Test"));
         }
 
         [Test]
@@ -92,7 +91,7 @@ namespace NHapi.NUnit.Parser
             var msg = parser.Parse(encodedData);
             oru = (ORU_R01)msg;
             var data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
-            Assert.AreEqual(@"This\.br\is\.br\A Test~", data.Value);
+            Assert.That(data.Value, Is.EqualTo(@"This\.br\is\.br\A Test~"));
         }
 
         [Test]
@@ -117,7 +116,7 @@ namespace NHapi.NUnit.Parser
             var msg = parser.Parse(encodedData);
             oru = (ORU_R01)msg;
             var data = (FT)oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
-            Assert.AreEqual(@"Th&is\.br\is\.br\A T|e\H\st\", data.Value);
+            Assert.That(data.Value, Is.EqualTo(@"Th&is\.br\is\.br\A T|e\H\st\"));
         }
 
         [Test]
@@ -143,7 +142,7 @@ namespace NHapi.NUnit.Parser
             var fields = segs[2].Split('|');
             var data = fields[5];
 
-            Assert.AreEqual(@"Th\T\is\.br\is\.br\A T\F\est\E\", data);
+            Assert.That(data, Is.EqualTo(@"Th\T\is\.br\is\.br\A T\F\est\E\"));
         }
 
         [Test]
@@ -170,7 +169,7 @@ namespace NHapi.NUnit.Parser
             // \t\ should be un-escaped to &
             const string expectedResult =
                 "&#39;Thirty days have September,\rApril\nJune,\nand November.\nWhen short February is done,\\X0A\\all the rest have&nbsp;31.&#39";
-            Assert.AreEqual(expectedResult, segmentData);
+            Assert.That(segmentData, Is.EqualTo(expectedResult));
         }
     }
 }

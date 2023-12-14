@@ -23,7 +23,7 @@ namespace NHapi.Base.NUnit.Util
             var result = sut["key"];
 
             // Assert
-            Assert.AreEqual("value", result);
+            Assert.That(result, Is.EqualTo("value"));
         }
 
         [Test]
@@ -33,10 +33,7 @@ namespace NHapi.Base.NUnit.Util
             var sut = new SynchronizedCache<string, string>();
 
             // Act / Assert
-            Assert.Throws<KeyNotFoundException>(() =>
-            {
-                var unused = sut["key"];
-            });
+            Assert.That(() => _ = sut["key"], Throws.TypeOf<KeyNotFoundException>());
         }
 
         [Test]
@@ -49,7 +46,7 @@ namespace NHapi.Base.NUnit.Util
             sut["key"] = "new value";
 
             // Assert
-            Assert.AreEqual("new value", sut["key"]);
+            Assert.That(sut["key"], Is.EqualTo("new value"));
         }
 
         [Test]
@@ -62,7 +59,7 @@ namespace NHapi.Base.NUnit.Util
             sut["key"] = "value";
 
             // Assert
-            Assert.AreEqual("value", sut["key"]);
+            Assert.That(sut["key"], Is.EqualTo("value"));
         }
 
         [Test]
@@ -82,7 +79,7 @@ namespace NHapi.Base.NUnit.Util
             }
 
             // Assert
-            Assert.AreEqual(numberOfItemsToAdd, sut.Count);
+            Assert.That(sut, Has.Count.EqualTo(numberOfItemsToAdd));
         }
 
         [Test]
@@ -92,8 +89,12 @@ namespace NHapi.Base.NUnit.Util
             var sut = new SynchronizedCache<string, string> { { "key", "value" } };
 
             // Act / Assert
-            var exception = Assert.Throws<ArgumentException>(() => sut.Add("key", "value"));
-            Assert.AreEqual("An item with the same key has already been added.", exception?.Message);
+            var expectedExceptionMessage = "An item with the same key has already been added.";
+
+            Assert.That(
+                () => sut.Add("key", "value"),
+                Throws.ArgumentException
+                    .With.Message.EqualTo(expectedExceptionMessage));
         }
 
         [Test]
@@ -107,7 +108,7 @@ namespace NHapi.Base.NUnit.Util
             sut.TryAdd("key", "value");
 
             // Assert
-            Assert.AreEqual(1, sut.Count);
+            Assert.That(sut, Has.Count.EqualTo(1));
         }
 
         [Test]
@@ -120,7 +121,7 @@ namespace NHapi.Base.NUnit.Util
             Parallel.For(0, 100, _ => sut.TryAdd("key", "value"));
 
             // Assert
-            Assert.AreEqual(1, sut.Count);
+            Assert.That(sut, Has.Count.EqualTo(1));
         }
 
         [Test]
@@ -132,9 +133,12 @@ namespace NHapi.Base.NUnit.Util
             // Act
             var exists = sut.TryGetValue("key", out var result);
 
-            // Assert
-            Assert.True(exists);
-            Assert.AreEqual("value", result);
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(exists, Is.True);
+                Assert.That(result, Is.EqualTo("value"));
+            });
         }
 
         [Test]
@@ -146,9 +150,12 @@ namespace NHapi.Base.NUnit.Util
             // Act
             var exists = sut.TryGetValue("key", out var result);
 
-            // Assert
-            Assert.False(exists);
-            Assert.AreEqual(default(string), result);
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(exists, Is.False);
+                Assert.That(result, Is.EqualTo(default(string)));
+            });
         }
 
         [Test]
@@ -161,7 +168,7 @@ namespace NHapi.Base.NUnit.Util
             var exists = sut.ContainsKey("key");
 
             // Assert
-            Assert.True(exists);
+            Assert.That(exists, Is.True);
         }
 
         [Test]
@@ -174,7 +181,7 @@ namespace NHapi.Base.NUnit.Util
             var exists = sut.ContainsKey("key");
 
             // Assert
-            Assert.False(exists);
+            Assert.That(exists, Is.False);
         }
 
         [Test]
@@ -188,13 +195,15 @@ namespace NHapi.Base.NUnit.Util
             }
 
             // Act
-            Assert.Throws<LockRecursionException>(() =>
-            {
-                foreach (var unused in sut)
+            Assert.That(
+                () =>
                 {
-                    sut.TryAdd("101", "value");
-                }
-            });
+                    foreach (var unused in sut)
+                    {
+                        sut.TryAdd("101", "value");
+                    }
+                },
+                Throws.TypeOf<LockRecursionException>());
         }
 
         [Test]
@@ -208,34 +217,40 @@ namespace NHapi.Base.NUnit.Util
             }
 
             // Act
-            Assert.Throws<LockRecursionException>(() =>
+            Assert.That(
+            () =>
             {
                 foreach (var unused in sut)
                 {
-                    var dummy = sut["1"];
+                    _ = sut["1"];
                 }
-            });
+            },
+            Throws.TypeOf<LockRecursionException>());
         }
 
         [Test]
         [Repeat(1000)]
-        public async Task ReadingAndWritingToCache_WhilstNoEnumerations_OnMultipleThreads_DoesNotThrowAnException()
+        public void ReadingAndWritingToCache_WhilstNoEnumerations_OnMultipleThreads_DoesNotThrowAnException()
         {
             // Arrange
             var sut = new SynchronizedCache<string, string>();
             var tasks = new List<Task>();
 
-            for (var i = 0; i < 100; i++)
+            Assert.That(
+                async () =>
             {
-                var i1 = i;
-                tasks.Add(Task.Run(() => sut.TryAdd($"{i1}", "value")));
-                tasks.Add(Task.Run(() => sut.TryGetValue($"{i1}", out _)));
-                tasks.Add(Task.Run(() => sut.ContainsKey($"{i1}")));
-                tasks.Add(Task.Run(() => sut[$"{i1}"] = "value"));
-            }
+                for (var i = 0; i < 100; i++)
+                {
+                    var i1 = i;
+                    tasks.Add(Task.Run(() => sut.TryAdd($"{i1}", "value")));
+                    tasks.Add(Task.Run(() => sut.TryGetValue($"{i1}", out _)));
+                    tasks.Add(Task.Run(() => sut.ContainsKey($"{i1}")));
+                    tasks.Add(Task.Run(() => sut[$"{i1}"] = "value"));
+                }
 
-            // Act
-            await Task.WhenAll(tasks);
+                // Act
+                await Task.WhenAll(tasks);
+            }, Throws.Nothing);
         }
     }
 }

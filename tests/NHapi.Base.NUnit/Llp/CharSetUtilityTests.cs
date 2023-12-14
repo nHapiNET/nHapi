@@ -38,7 +38,7 @@
             var result = CharSetUtility.CheckCharset(message);
 
             // Assert
-            Assert.AreEqual("us-ascii", result.BodyName);
+            Assert.That(result.BodyName, Is.EqualTo("us-ascii"));
         }
 
         [TestCase("ISO IR6")]
@@ -57,7 +57,9 @@
                 + "OBX|1||||STValue||||||F\r";
 
             // Act / Assert
-            Assert.Throws<ArgumentException>(() => CharSetUtility.CheckCharset(message));
+            Assert.That(
+                () => CharSetUtility.CheckCharset(message),
+                Throws.ArgumentException);
         }
 
         [TestCase("ASCII", "us-ascii")] // ASCII
@@ -96,7 +98,7 @@
             var result = CharSetUtility.CheckCharset(message);
 
             // Assert
-            Assert.AreEqual(expectedDotnetEncoding, result.BodyName);
+            Assert.That(result.BodyName, Is.EqualTo(expectedDotnetEncoding));
         }
 
         [TestCase("ASCII", "us-ascii")] // ASCII
@@ -140,7 +142,7 @@
             var result = CharSetUtility.CheckCharset(messageBytesWithBom);
 
             // Assert
-            Assert.AreEqual(expectedDotnetEncoding, result.BodyName);
+            Assert.That(result.BodyName, Is.EqualTo(expectedDotnetEncoding));
         }
 
 #pragma warning disable SA1201

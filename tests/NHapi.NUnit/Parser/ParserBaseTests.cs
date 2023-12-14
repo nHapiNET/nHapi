@@ -34,7 +34,7 @@
             var msh = ParserBase.MakeControlMSH(version, factory);
 
             // Assert
-            Assert.IsInstanceOf(expectedType, msh);
+            Assert.That(msh, Is.InstanceOf(expectedType));
         }
 
         [Test]
@@ -45,7 +45,7 @@
             var factory = new DefaultModelClassFactory();
 
             // Act / Assert
-            Assert.Throws<HL7Exception>(() => ParserBase.MakeControlMSH(version, factory));
+            Assert.That(() => ParserBase.MakeControlMSH(version, factory), Throws.TypeOf<HL7Exception>());
         }
 
         [TestCase("MSH|^~\\&|||||||ADT^A04|1|D|2.4\r", "ADT_A01")] // mapped to ADT_A01
@@ -60,7 +60,7 @@
             var message = sut.Parse(input);
 
             // Assert
-            Assert.AreEqual(expectedName, message.GetStructureName());
+            Assert.That(message.GetStructureName(), Is.EqualTo(expectedName));
         }
 
         [TestCase("2.1", typeof(GenericMessage.V21))]
@@ -99,10 +99,13 @@
 
             var terser = new Terser(message);
 
-            // Assert
-            Assert.AreEqual(expectedType, message.GetType());
-            Assert.AreEqual(expectedMsh5, terser.Get("/MSH-5"));
-            Assert.AreEqual(expectedObx2, terser.Get("/OBX-2"));
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(message.GetType(), Is.EqualTo(expectedType));
+                Assert.That(terser.Get("/MSH-5"), Is.EqualTo(expectedMsh5));
+                Assert.That(terser.Get("/OBX-2"), Is.EqualTo(expectedObx2));
+            });
         }
 
         #region Unknown Test Value
@@ -128,7 +131,7 @@
             var encoded = sut.Encode(message);
 
             // Assert
-            Assert.AreEqual(input, encoded);
+            Assert.That(encoded, Is.EqualTo(input));
         }
 
         [Test]
@@ -148,7 +151,7 @@
             var encoded = sut.Encode(message);
 
             // Assert
-            Assert.AreEqual(input, encoded);
+            Assert.That(encoded, Is.EqualTo(input));
         }
 
         [Test]
@@ -168,7 +171,7 @@
             var encoded = sut.Encode(message);
 
             // Assert
-            Assert.AreEqual(input, encoded);
+            Assert.That(encoded, Is.EqualTo(input));
         }
 
         [Test]

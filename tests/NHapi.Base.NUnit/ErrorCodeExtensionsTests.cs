@@ -15,16 +15,17 @@ namespace NHapi.Base.NUnit
         [TestCase(20)]
         public void ToErrorCode_InvalidInput_ThrowsArgumentOutOfRangeException(int sut)
         {
-            var ex = Assert.Throws<ArgumentOutOfRangeException>(() => sut.ToErrorCode());
-
 #if NETCOREAPP
             var expectedMessage = "The integer provided is not a valid ErrorCode value (Parameter 'errorCode')";
 #elif NETFRAMEWORK
-            var expectedMessage = $"The integer provided is not a valid ErrorCode value{Environment.NewLine}Parameter name: errorCode";
+            var expectedMessage =
+                $"The integer provided is not a valid ErrorCode value{Environment.NewLine}Parameter name: errorCode";
 #endif
-
-            Assert.That(ex.Message, Is.EqualTo(expectedMessage));
-            Assert.That(ex.ParamName, Is.EqualTo("errorCode"));
+            Assert.That(
+                () => sut.ToErrorCode(),
+                Throws.TypeOf<ArgumentOutOfRangeException>()
+                    .With.Message.EqualTo(expectedMessage)
+                    .And.Property("ParamName").EqualTo("errorCode"));
         }
 
         [TestCase(0, ErrorCode.MESSAGE_ACCEPTED)]
@@ -36,7 +37,7 @@ namespace NHapi.Base.NUnit
             var actual = sut.ToErrorCode();
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         #endregion
@@ -52,7 +53,7 @@ namespace NHapi.Base.NUnit
             var actual = sut.GetCode();
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         #endregion
@@ -68,7 +69,7 @@ namespace NHapi.Base.NUnit
             var actual = sut.GetName();
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         #endregion

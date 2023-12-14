@@ -61,7 +61,7 @@ namespace NHapi.NUnit.SourceGeneration
 
             builder.Execute();
 
-            Assert.IsNotEmpty(results);
+            Assert.That(results, Is.Not.Empty);
 
             await Verifier.Verify(results);
         }

@@ -23,7 +23,7 @@
             var parsed = Xml.TryParseMessage(message, pathSpecs, out _);
 
             // Assert
-            Assert.False(parsed);
+            Assert.That(parsed, Is.False);
         }
 
         [Test]
@@ -38,7 +38,7 @@
             var parsed = Xml.TryParseMessage(message, pathSpecs, out _);
 
             // Assert
-            Assert.True(parsed);
+            Assert.That(parsed, Is.True);
         }
 
         [Test]
@@ -54,8 +54,8 @@
             var actualResults = results.Select(r => r.Value).ToArray();
 
             // Assert
-            Assert.True(parsed);
-            Assert.Contains(expectedValue, actualResults);
+            Assert.That(parsed, Is.True);
+            Assert.That(actualResults, Does.Contain(expectedValue));
         }
 
         [TestCase("PID-1", "grouped")]
@@ -72,8 +72,8 @@
             var actualResults = results.Select(r => r.Value).ToArray();
 
             // Assert
-            Assert.True(parsed);
-            Assert.Contains(expectedValue, actualResults);
+            Assert.That(parsed, Is.True);
+            Assert.That(actualResults, Does.Contain(expectedValue));
         }
 
         [TestCase("MSH-9", "QBP")]
@@ -91,8 +91,8 @@
             var actualResults = results.Select(r => r.Value).ToArray();
 
             // Assert
-            Assert.True(parsed);
-            Assert.Contains(expectedValue, actualResults);
+            Assert.That(parsed, Is.True);
+            Assert.That(actualResults, Does.Contain(expectedValue));
         }
 
         [TestCase("NTE(0)-1", "a")]
@@ -115,8 +115,8 @@
             var actualResults = results.Select(r => r.Value).ToArray();
 
             // Assert
-            Assert.True(parsed);
-            Assert.Contains(expectedValue, actualResults);
+            Assert.That(parsed, Is.True);
+            Assert.That(actualResults, Does.Contain(expectedValue));
         }
     }
 }

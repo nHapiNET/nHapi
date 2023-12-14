@@ -35,11 +35,14 @@
             sut.NextChild();
             var pd1 = (PD1)sut.GetCurrentStructure(0);
 
-            // Assert
-            Assert.AreEqual("a", in1.CoverageType.Value);
-            Assert.AreEqual("b", msh.CountryCode.Value);
-            Assert.AreEqual("a", in1.CoverageType.Value);
-            Assert.AreEqual("c", pd1.Handicap.Value);
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(in1.CoverageType.Value, Is.EqualTo("a"));
+                Assert.That(msh.CountryCode.Value, Is.EqualTo("b"));
+                Assert.That(in1.CoverageType.Value, Is.EqualTo("a"));
+                Assert.That(pd1.Handicap.Value, Is.EqualTo("c"));
+            });
         }
 
         [Test]
@@ -78,9 +81,12 @@
             sut.ToChild(3);
             var pd1 = (PD1)sut.GetCurrentStructure(0);
 
-            // Assert
-            Assert.AreEqual("a", in1.CoverageType.Value);
-            Assert.AreEqual("c", pd1.Handicap.Value);
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(in1.CoverageType.Value, Is.EqualTo("a"));
+                Assert.That(pd1.Handicap.Value, Is.EqualTo("c"));
+            });
         }
     }
 }

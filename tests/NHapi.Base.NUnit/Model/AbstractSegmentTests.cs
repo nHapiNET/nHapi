@@ -23,10 +23,13 @@
             // Act
             msh.GetField(n + 3, 0);
 
-            // Assert
-            Assert.AreEqual(typeof(Varies), msh.GetField(n + 1, 0).GetType());
-            Assert.AreEqual(typeof(Varies), msh.GetField(n + 2, 0).GetType());
-            Assert.AreEqual(typeof(Varies), msh.GetField(n + 3, 0).GetType());
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(msh.GetField(n + 1, 0).GetType(), Is.EqualTo(typeof(Varies)));
+                Assert.That(msh.GetField(n + 2, 0).GetType(), Is.EqualTo(typeof(Varies)));
+                Assert.That(msh.GetField(n + 3, 0).GetType(), Is.EqualTo(typeof(Varies)));
+            });
         }
 
         [Test]
@@ -41,7 +44,7 @@
             msh.GetField(1, 1);
 
             // Assert
-            Assert.AreEqual(2, msh.GetField(1).Length);
+            Assert.That(msh.GetField(1).Length, Is.EqualTo(2));
         }
 
         [Test]
@@ -61,13 +64,13 @@
             var a01 = new ADT_A01();
             parser.Parse(a01, input);
 
-            Assert.AreEqual(input, parser.Encode(a01));
+            Assert.That(parser.Encode(a01), Is.EqualTo(input));
 
             // Act
             parser.Parse(a01.PID, "PID", EncodingCharacters.FromMessage(a01));
 
             // Assert
-            Assert.AreEqual(expected, parser.Encode(a01));
+            Assert.That(parser.Encode(a01), Is.EqualTo(expected));
         }
 
         [Test]
@@ -85,8 +88,9 @@
             parser.Parse(a01, input);
 
             // Act / Assert
-            Assert.Throws<ArgumentNullException>(
-                () => parser.Parse(a01.PID, null, EncodingCharacters.FromMessage(a01)));
+            Assert.That(
+                () => parser.Parse(a01.PID, null, EncodingCharacters.FromMessage(a01)),
+                Throws.ArgumentNullException);
         }
     }
 }

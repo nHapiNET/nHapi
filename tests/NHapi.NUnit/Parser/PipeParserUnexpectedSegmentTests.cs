@@ -30,14 +30,15 @@
             var adtA01 = (NHapi.Model.V23.Message.ADT_A01)parser.Parse(message);
             var allNextOfKin = adtA01.GetAll("NK12");
 
-            Assert.IsNotNull(allNextOfKin);
-            Assert.IsNotEmpty(allNextOfKin);
-            Assert.AreEqual(
-                "test@test.com",
-                ((Model.V23.Segment.NK1)allNextOfKin[0]).GetPhoneNumber(0).EmailAddress.Value);
-            Assert.AreEqual(
-                "test2@test.com",
-                ((Model.V23.Segment.NK1)allNextOfKin[1]).GetPhoneNumber(0).EmailAddress.Value);
+            Assert.That(allNextOfKin, Is.Not.Null);
+            Assert.That(allNextOfKin, Is.Not.Empty);
+            Assert.Multiple(() =>
+            {
+                Assert.That(
+                            ((Model.V23.Segment.NK1)allNextOfKin[0]).GetPhoneNumber(0).EmailAddress.Value, Is.EqualTo("test@test.com"));
+                Assert.That(
+                    ((Model.V23.Segment.NK1)allNextOfKin[1]).GetPhoneNumber(0).EmailAddress.Value, Is.EqualTo("test2@test.com"));
+            });
         }
 
         [Test]
@@ -56,8 +57,8 @@
 
             var orm = result as NHapi.Model.V23.Message.ORM_O01;
 
-            Assert.IsNotNull(orm);
-            Assert.AreEqual("FirstName", orm.PATIENT.PID.GetPatientName(0).GivenName.Value);
+            Assert.That(orm, Is.Not.Null);
+            Assert.That(orm.PATIENT.PID.GetPatientName(0).GivenName.Value, Is.EqualTo("FirstName"));
         }
 
         [Test]
@@ -77,8 +78,8 @@
 
             var orm = result as NHapi.Model.V23.Message.ORM_O01;
 
-            Assert.IsNotNull(orm);
-            Assert.AreEqual("FirstName", orm.PATIENT.PID.GetPatientName(0).GivenName.Value);
+            Assert.That(orm, Is.Not.Null);
+            Assert.That(orm.PATIENT.PID.GetPatientName(0).GivenName.Value, Is.EqualTo("FirstName"));
         }
 
         #endregion
@@ -101,8 +102,8 @@
 
             var orm = result as NHapi.Model.V24.Message.ORM_O01;
 
-            Assert.IsNotNull(orm);
-            Assert.AreEqual("FirstName", orm.PATIENT.PID.GetPatientName(0).GivenName.Value);
+            Assert.That(orm, Is.Not.Null);
+            Assert.That(orm.PATIENT.PID.GetPatientName(0).GivenName.Value, Is.EqualTo("FirstName"));
         }
 
         [Test]
@@ -122,8 +123,8 @@
 
             var orm = result as NHapi.Model.V24.Message.ORM_O01;
 
-            Assert.IsNotNull(orm);
-            Assert.AreEqual("FirstName", orm.PATIENT.PID.GetPatientName(0).GivenName.Value);
+            Assert.That(orm, Is.Not.Null);
+            Assert.That(orm.PATIENT.PID.GetPatientName(0).GivenName.Value, Is.EqualTo("FirstName"));
         }
 
         #endregion
@@ -170,11 +171,14 @@
 
             var oulR22 = result as NHapi.Model.V25.Message.OUL_R22;
 
-            Assert.IsNotNull(oulR22);
-            Assert.AreEqual(3, oulR22.SPECIMENRepetitionsUsed);
-            Assert.AreEqual(1, oulR22.GetSPECIMEN(0).ORDERRepetitionsUsed);
-            Assert.AreEqual(3, oulR22.GetSPECIMEN(1).ORDERRepetitionsUsed);
-            Assert.AreEqual(1, oulR22.GetSPECIMEN(2).ORDERRepetitionsUsed);
+            Assert.That(oulR22, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(oulR22.SPECIMENRepetitionsUsed, Is.EqualTo(3));
+                Assert.That(oulR22.GetSPECIMEN(0).ORDERRepetitionsUsed, Is.EqualTo(1));
+                Assert.That(oulR22.GetSPECIMEN(1).ORDERRepetitionsUsed, Is.EqualTo(3));
+                Assert.That(oulR22.GetSPECIMEN(2).ORDERRepetitionsUsed, Is.EqualTo(1));
+            });
         }
 
         /// <summary>
@@ -199,10 +203,13 @@
 
             var oulR22 = result as NHapi.Model.V25.Message.OML_O33;
 
-            Assert.IsNotNull(oulR22);
-            Assert.AreEqual(2, oulR22.SPECIMENRepetitionsUsed);
-            Assert.AreEqual(1, oulR22.GetSPECIMEN(0).ORDERRepetitionsUsed);
-            Assert.AreEqual(1, oulR22.GetSPECIMEN(1).ORDERRepetitionsUsed);
+            Assert.That(oulR22, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(oulR22.SPECIMENRepetitionsUsed, Is.EqualTo(2));
+                Assert.That(oulR22.GetSPECIMEN(0).ORDERRepetitionsUsed, Is.EqualTo(1));
+                Assert.That(oulR22.GetSPECIMEN(1).ORDERRepetitionsUsed, Is.EqualTo(1));
+            });
         }
 
         [Test]
@@ -221,8 +228,8 @@
 
             var orm = result as NHapi.Model.V25.Message.ORM_O01;
 
-            Assert.IsNotNull(orm);
-            Assert.AreEqual("FirstName", orm.PATIENT.PID.GetPatientName(0).GivenName.Value);
+            Assert.That(orm, Is.Not.Null);
+            Assert.That(orm.PATIENT.PID.GetPatientName(0).GivenName.Value, Is.EqualTo("FirstName"));
         }
 
         [Test]
@@ -242,8 +249,8 @@
 
             var orm = result as NHapi.Model.V25.Message.ORM_O01;
 
-            Assert.IsNotNull(orm);
-            Assert.AreEqual("FirstName", orm.PATIENT.PID.GetPatientName(0).GivenName.Value);
+            Assert.That(orm, Is.Not.Null);
+            Assert.That(orm.PATIENT.PID.GetPatientName(0).GivenName.Value, Is.EqualTo("FirstName"));
         }
 
         #endregion
@@ -272,9 +279,12 @@
 
             var rdeO11 = result as NHapi.Model.V251.Message.RDE_O11;
 
-            Assert.IsNotNull(rdeO11);
-            Assert.AreEqual("Oral", rdeO11.GetORDER().GetRXR().Route.Text.Value);
-            Assert.AreEqual("HL70162", rdeO11.GetORDER().GetRXR().Route.NameOfCodingSystem.Value);
+            Assert.That(rdeO11, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(rdeO11.GetORDER().GetRXR().Route.Text.Value, Is.EqualTo("Oral"));
+                Assert.That(rdeO11.GetORDER().GetRXR().Route.NameOfCodingSystem.Value, Is.EqualTo("HL70162"));
+            });
         }
 
         [Test]
@@ -293,8 +303,8 @@
 
             var orm = result as NHapi.Model.V251.Message.ORM_O01;
 
-            Assert.IsNotNull(orm);
-            Assert.AreEqual("FirstName", orm.PATIENT.PID.GetPatientName(0).GivenName.Value);
+            Assert.That(orm, Is.Not.Null);
+            Assert.That(orm.PATIENT.PID.GetPatientName(0).GivenName.Value, Is.EqualTo("FirstName"));
         }
 
         [Test]
@@ -314,8 +324,8 @@
 
             var orm = result as NHapi.Model.V251.Message.ORM_O01;
 
-            Assert.IsNotNull(orm);
-            Assert.AreEqual("FirstName", orm.PATIENT.PID.GetPatientName(0).GivenName.Value);
+            Assert.That(orm, Is.Not.Null);
+            Assert.That(orm.PATIENT.PID.GetPatientName(0).GivenName.Value, Is.EqualTo("FirstName"));
         }
 
         #endregion

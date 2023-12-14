@@ -27,8 +27,10 @@ namespace NHapi.Base.NUnit.PreParser
         public void GetFields_MessageIsInvalid_ThrowsHl7Exception(string message, string expectedExceptionMessage)
         {
             // Arrange / Act / Assert
-            var ex = Assert.Throws<HL7Exception>(() => PreParser.GetFields(message));
-            Assert.AreEqual(ex?.Message, expectedExceptionMessage);
+            Assert.That(
+                () => PreParser.GetFields(message),
+                Throws.TypeOf<HL7Exception>()
+                    .With.Message.EqualTo(expectedExceptionMessage));
         }
 
         [TestCase("NTE(0)-1", "a")]
@@ -45,7 +47,7 @@ namespace NHapi.Base.NUnit.PreParser
             var results = PreParser.GetFields(ER7MESSAGE, pathSpec);
 
             // Assert
-            Assert.Contains(expectedValue, results);
+            Assert.That(results, Does.Contain(expectedValue));
         }
 
         [TestCase("NTE(0)-1", "a")]
@@ -62,7 +64,7 @@ namespace NHapi.Base.NUnit.PreParser
             var results = PreParser.GetFields(XMLMESSAGE, pathSpec);
 
             // Assert
-            Assert.Contains(expectedValue, results);
+            Assert.That(results, Does.Contain(expectedValue));
         }
     }
 }

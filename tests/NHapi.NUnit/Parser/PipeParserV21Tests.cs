@@ -29,8 +29,8 @@ namespace NHapi.NUnit.Parser
 
             var parsedMessage = m as ADT_A01;
 
-            Assert.IsNotNull(parsedMessage);
-            Assert.AreEqual("1144270", parsedMessage.PID.PATIENTIDEXTERNALEXTERNALID.IDNumber.Value);
+            Assert.That(parsedMessage, Is.Not.Null);
+            Assert.That(parsedMessage.PID.PATIENTIDEXTERNALEXTERNALID.IDNumber.Value, Is.EqualTo("1144270"));
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace NHapi.NUnit.Parser
 
             var actualObservationValueInstance = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.OBSERVATIONRESULTS.Data;
 
-            Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueInstance);
+            Assert.That(actualObservationValueInstance, Is.AssignableFrom(expectedObservationValueType));
         }
 
         [Test]
@@ -75,9 +75,12 @@ namespace NHapi.NUnit.Parser
             var actualObservationValueType = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.OBSERVATIONRESULTS.Data;
             var obx2 = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.VALUETYPE;
 
-            Assert.AreEqual("ST", obx2.Value);
-            Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
-            Assert.AreEqual("STValue", ((ST)actualObservationValueType).Value);
+            Assert.Multiple(() =>
+            {
+                Assert.That(obx2.Value, Is.EqualTo("ST"));
+                Assert.That(actualObservationValueType, Is.AssignableFrom(expectedObservationValueType));
+                Assert.That(((ST)actualObservationValueType).Value, Is.EqualTo("STValue"));
+            });
         }
 
         /// <summary>

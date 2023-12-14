@@ -22,7 +22,7 @@ namespace NHapi.Base.NUnit
             var actual = SupportClass.CharsAreUnique(input);
 
             // Assert
-            Assert.IsTrue(actual);
+            Assert.That(actual, Is.True);
         }
 
         [TestCase("^^^^")]
@@ -38,7 +38,7 @@ namespace NHapi.Base.NUnit
             var actual = SupportClass.CharsAreUnique(input);
 
             // Assert
-            Assert.IsFalse(actual);
+            Assert.That(actual, Is.False);
         }
 
         [TestCase(null)]
@@ -46,8 +46,9 @@ namespace NHapi.Base.NUnit
         public void CharsAreUnique_InputIsNullOrEmpty_ThrowsArgumentException(string input)
         {
             // Arrange / Act / Assert
-            Assert.Throws<ArgumentException>(
-                () => SupportClass.CharsAreUnique(input));
+            Assert.That(
+                () => SupportClass.CharsAreUnique(input),
+                Throws.ArgumentException);
         }
     }
 }

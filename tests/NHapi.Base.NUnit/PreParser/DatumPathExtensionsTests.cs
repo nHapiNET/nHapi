@@ -13,7 +13,7 @@
         public void StartsWith_ValidInput_ReturnsExpectedResult(DatumPath inputA, DatumPath inputB, bool expected)
         {
             // Arrange / Act / Assert
-            Assert.AreEqual(expected, inputA.StartsWith(inputB));
+            Assert.That(inputA.StartsWith(inputB), Is.EqualTo(expected));
         }
 
         [Test]
@@ -23,7 +23,9 @@
             var other = new DatumPath().Add("ZXY").Add(1).Add(2);
 
             // Act / Assert
-            Assert.Throws<ArgumentNullException>(() => ((DatumPath)null).StartsWith(other));
+            Assert.That(
+                () => ((DatumPath)null).StartsWith(other),
+                Throws.ArgumentNullException);
         }
 
         [Test]
@@ -33,21 +35,25 @@
             var other = new DatumPath().Add("ZXY").Add(1).Add(2);
 
             // Act / Assert
-            Assert.Throws<ArgumentNullException>(() => ((DatumPath)null).NumbersLessThan(other));
+            Assert.That(
+                () => ((DatumPath)null).NumbersLessThan(other),
+                Throws.ArgumentNullException);
         }
 
         [TestCaseSource(nameof(numbersLessThanTestCases))]
         public void NumbersLessThan_ValidInput_ReturnsExpectedResult(DatumPath inputA, DatumPath inputB, bool expected)
         {
             // Arrange / Act / Assert
-            Assert.AreEqual(expected, inputA.NumbersLessThan(inputB), $"{inputA} !< {inputB}");
+            Assert.That(inputA.NumbersLessThan(inputB), Is.EqualTo(expected), $"{inputA} !< {inputB}");
         }
 
         [Test]
         public void FromPathSpec_PathIsNull_ThrowsArgumentNullException()
         {
             // Arrange / Act / Assert
-            Assert.Throws<ArgumentNullException>(() => (null as string).FromPathSpec());
+            Assert.That(
+                () => (null as string).FromPathSpec(),
+                Throws.ArgumentNullException);
         }
 
         [TestCase("not-a-valid-path")]
@@ -58,7 +64,7 @@
         public void FromPathSpec_InValidPath_ThrowsArgumentException(string input)
         {
             // Arrange / Act / Assert
-            Assert.Throws<ArgumentException>(() => input.FromPathSpec());
+            Assert.That(() => input.FromPathSpec(), Throws.ArgumentException);
         }
 
         [TestCaseSource(nameof(fromPathSpecTestCases))]
@@ -68,7 +74,7 @@
             var actual = input.FromPathSpec();
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
 #pragma warning disable SA1313
@@ -80,7 +86,7 @@
             var expected = input.FromPathSpecOriginal();
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 #pragma warning restore SA1313
 #pragma warning disable SA1201

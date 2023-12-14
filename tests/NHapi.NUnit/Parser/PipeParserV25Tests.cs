@@ -29,11 +29,14 @@ namespace NHapi.NUnit.Parser
             var parser = new PipeParser();
             var msg = parser.Parse(hl7Data);
 
-            Assert.IsNotNull(msg, "Message should not be null");
+            Assert.That(msg, Is.Not.Null, "Message should not be null");
             var a05 = (ADT_A05)msg;
 
-            Assert.AreEqual("A28", a05.MSH.MessageType.TriggerEvent.Value);
-            Assert.AreEqual("1", a05.PID.SetIDPID.Value);
+            Assert.Multiple(() =>
+            {
+                Assert.That(a05.MSH.MessageType.TriggerEvent.Value, Is.EqualTo("A28"));
+                Assert.That(a05.PID.SetIDPID.Value, Is.EqualTo("1"));
+            });
         }
 
         [Test]
@@ -48,27 +51,23 @@ namespace NHapi.NUnit.Parser
             var msg = parser.Encode(a05);
 
             var data = msg.Split('|');
-            Assert.AreEqual("ADT^A28^ADT_A05", data[8]);
+            Assert.That(data[8], Is.EqualTo("ADT^A28^ADT_A05"));
         }
 
         [Test]
         public void TestAdtA04AndA01MessageStructure()
         {
             var result = PipeParser.GetMessageStructureForEvent("ADT_A04", "2.5");
-            var isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
-            Assert.IsTrue(isSame, "ADT_A04 returns ADT_A01");
+            Assert.That(result, Is.EqualTo("ADT_A01").IgnoreCase, "ADT_A04 returns ADT_A01");
 
             result = PipeParser.GetMessageStructureForEvent("ADT_A13", "2.5");
-            isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
-            Assert.IsTrue(isSame, "ADT_A13 returns ADT_A01");
+            Assert.That(result, Is.EqualTo("ADT_A01").IgnoreCase, "ADT_A13 returns ADT_A01");
 
             result = PipeParser.GetMessageStructureForEvent("ADT_A08", "2.5");
-            isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
-            Assert.IsTrue(isSame, "ADT_A08 returns ADT_A01");
+            Assert.That(result, Is.EqualTo("ADT_A01").IgnoreCase, "ADT_A08 returns ADT_A01");
 
             result = PipeParser.GetMessageStructureForEvent("ADT_A01", "2.5");
-            isSame = string.Compare("ADT_A01", result, StringComparison.InvariantCultureIgnoreCase) == 0;
-            Assert.IsTrue(isSame, "ADT_A01 returns ADT_A01");
+            Assert.That(result, Is.EqualTo("ADT_A01").IgnoreCase, "ADT_A01 returns ADT_A01");
         }
 
         /// <summary>
@@ -90,7 +89,7 @@ namespace NHapi.NUnit.Parser
 
             var actualObservationValueType = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
 
-            Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
+            Assert.That(actualObservationValueType, Is.AssignableFrom(expectedObservationValueType));
         }
 
         /// <summary>
@@ -109,16 +108,19 @@ namespace NHapi.NUnit.Parser
 
             var qpd3Fields = parsed.QPD.GetField(3).Cast<Varies>().ToList();
 
-            Assert.AreEqual(3, qpd3Fields.Count);
+            Assert.Multiple(() =>
+            {
+                Assert.That(qpd3Fields, Has.Count.EqualTo(3));
 
-            Assert.AreEqual("@PID.5.2", ((GenericPrimitive)((Varies)((GenericComposite)qpd3Fields[0].Data)[0]).Data).Value);
-            Assert.AreEqual("fname", ((GenericPrimitive)((Varies)((GenericComposite)qpd3Fields[0].Data)[1]).Data).Value);
+                Assert.That(((GenericPrimitive)((Varies)((GenericComposite)qpd3Fields[0].Data)[0]).Data).Value, Is.EqualTo("@PID.5.2"));
+                Assert.That(((GenericPrimitive)((Varies)((GenericComposite)qpd3Fields[0].Data)[1]).Data).Value, Is.EqualTo("fname"));
 
-            Assert.AreEqual("@PID.7.1", ((GenericPrimitive)((Varies)((GenericComposite)qpd3Fields[1].Data)[0]).Data).Value);
-            Assert.AreEqual("20220202", ((GenericPrimitive)((Varies)((GenericComposite)qpd3Fields[1].Data)[1]).Data).Value);
+                Assert.That(((GenericPrimitive)((Varies)((GenericComposite)qpd3Fields[1].Data)[0]).Data).Value, Is.EqualTo("@PID.7.1"));
+                Assert.That(((GenericPrimitive)((Varies)((GenericComposite)qpd3Fields[1].Data)[1]).Data).Value, Is.EqualTo("20220202"));
 
-            Assert.AreEqual("@PID.8", ((GenericPrimitive)((Varies)((GenericComposite)qpd3Fields[2].Data)[0]).Data).Value);
-            Assert.AreEqual("M", ((GenericPrimitive)((Varies)((GenericComposite)qpd3Fields[2].Data)[1]).Data).Value);
+                Assert.That(((GenericPrimitive)((Varies)((GenericComposite)qpd3Fields[2].Data)[0]).Data).Value, Is.EqualTo("@PID.8"));
+                Assert.That(((GenericPrimitive)((Varies)((GenericComposite)qpd3Fields[2].Data)[1]).Data).Value, Is.EqualTo("M"));
+            });
         }
 
         [Test]
@@ -141,9 +143,12 @@ namespace NHapi.NUnit.Parser
             var actualObservationValueType = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
             var obx2 = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType;
 
-            Assert.AreEqual("ST", obx2.Value);
-            Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
-            Assert.AreEqual("STValue", ((ST)actualObservationValueType).Value);
+            Assert.Multiple(() =>
+            {
+                Assert.That(obx2.Value, Is.EqualTo("ST"));
+                Assert.That(actualObservationValueType, Is.AssignableFrom(expectedObservationValueType));
+                Assert.That(((ST)actualObservationValueType).Value, Is.EqualTo("STValue"));
+            });
         }
 
         /// <summary>

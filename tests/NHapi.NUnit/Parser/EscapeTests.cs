@@ -31,7 +31,7 @@
             var actual = Escape.EscapeText(input, encodingCharacters);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -45,7 +45,7 @@
             var actual = Escape.EscapeText(input, encodingCharacters);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -59,7 +59,7 @@
             var actual = Escape.EscapeText(input, encodingCharacters);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Repeat(1000)]
@@ -81,7 +81,7 @@
                 actual = Escape.EscapeText(input, encodingCharacters);
 
                 // Assert
-                Assert.AreEqual(expected, actual);
+                Assert.That(actual, Is.EqualTo(expected));
             });
         }
 
@@ -98,7 +98,7 @@
             var actual = Escape.UnescapeText(input, encodingCharacters);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [TestCase("\\F\\", "|")]
@@ -115,7 +115,7 @@
             var actual = Escape.UnescapeText(input, encodingCharacters);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Repeat(1000)]
@@ -137,7 +137,7 @@
                 actual = Escape.UnescapeText(input, encodingCharacters);
 
                 // Assert
-                Assert.AreEqual(expected, actual);
+                Assert.That(actual, Is.EqualTo(expected));
             });
         }
 
@@ -153,7 +153,7 @@
             // Assert
             var actual = Escape.UnescapeText(uuenEncodedEscapeString, encodingCharacters);
 
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         #endregion
@@ -181,7 +181,7 @@
             var actual = parser.Encode(oruR01);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -212,7 +212,7 @@
                 actual = parser.Encode(oruR01);
 
                 // Assert
-                Assert.AreEqual(expected, actual);
+                Assert.That(actual, Is.EqualTo(expected));
             });
         }
 
@@ -225,7 +225,7 @@
             var escaped = Escape.EscapeText(expected, encodingCharacters);
             var actual = Escape.UnescapeText(escaped, encodingCharacters);
 
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -240,14 +240,20 @@
 
             ft.Value = "H \\H\\ N \\N\\ ";
 
-            // Act / Assert
-            Assert.AreEqual("H \\H\\ N \\N\\ ", ft.Value);
-            Assert.AreEqual("H \\H\\ N \\N\\ ", PipeParser.Encode(ft, encodingCharacters));
+            Assert.Multiple(() =>
+            {
+                // Act / Assert
+                Assert.That(ft.Value, Is.EqualTo("H \\H\\ N \\N\\ "));
+                Assert.That(PipeParser.Encode(ft, encodingCharacters), Is.EqualTo("H \\H\\ N \\N\\ "));
+            });
 
             ft.Value = "H \\C00FF\\ N";
 
-            Assert.AreEqual("H \\C00FF\\ N", ft.Value);
-            Assert.AreEqual("H \\C00FF\\ N", PipeParser.Encode(ft, encodingCharacters));
+            Assert.Multiple(() =>
+            {
+                Assert.That(ft.Value, Is.EqualTo("H \\C00FF\\ N"));
+                Assert.That(PipeParser.Encode(ft, encodingCharacters), Is.EqualTo("H \\C00FF\\ N"));
+            });
         }
 
         #endregion

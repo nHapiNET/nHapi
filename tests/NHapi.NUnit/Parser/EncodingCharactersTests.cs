@@ -17,12 +17,15 @@
             // Arrange / Act
             var sut = new EncodingCharacters(fieldSeperator, encodingCharacters);
 
-            // Assert
-            Assert.AreEqual(fieldSeperator, sut.FieldSeparator);
-            Assert.AreEqual(encodingCharacters[0], sut.ComponentSeparator);
-            Assert.AreEqual(encodingCharacters[1], sut.RepetitionSeparator);
-            Assert.AreEqual(encodingCharacters[2], sut.EscapeCharacter);
-            Assert.AreEqual(encodingCharacters[3], sut.SubcomponentSeparator);
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(sut.FieldSeparator, Is.EqualTo(fieldSeperator));
+                Assert.That(sut.ComponentSeparator, Is.EqualTo(encodingCharacters[0]));
+                Assert.That(sut.RepetitionSeparator, Is.EqualTo(encodingCharacters[1]));
+                Assert.That(sut.EscapeCharacter, Is.EqualTo(encodingCharacters[2]));
+                Assert.That(sut.SubcomponentSeparator, Is.EqualTo(encodingCharacters[3]));
+            });
         }
 
         [TestCase(null)]
@@ -36,12 +39,15 @@
             // Arrange / Act
             var sut = new EncodingCharacters('|', encodingCharacters);
 
-            // Assert
-            Assert.AreEqual('|', sut.FieldSeparator);
-            Assert.AreEqual('^', sut.ComponentSeparator);
-            Assert.AreEqual('~', sut.RepetitionSeparator);
-            Assert.AreEqual('\\', sut.EscapeCharacter);
-            Assert.AreEqual('&', sut.SubcomponentSeparator);
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(sut.FieldSeparator, Is.EqualTo('|'));
+                Assert.That(sut.ComponentSeparator, Is.EqualTo('^'));
+                Assert.That(sut.RepetitionSeparator, Is.EqualTo('~'));
+                Assert.That(sut.EscapeCharacter, Is.EqualTo('\\'));
+                Assert.That(sut.SubcomponentSeparator, Is.EqualTo('&'));
+            });
         }
 
         [TestCase("^~\\ ")]
@@ -52,8 +58,9 @@
         public void Constructor_EncodingCharactersContainWhiteSpaceCharactersOrNullCharacter_ThrowsHl7Exception(string encodingCharacters)
         {
             // Arrange / Act / Assert
-            Assert.Throws<HL7Exception>(
-                () => new EncodingCharacters('|', encodingCharacters));
+            Assert.That(
+                () => new EncodingCharacters('|', encodingCharacters),
+                Throws.TypeOf<HL7Exception>());
         }
 
         [TestCase("^^^^")]
@@ -66,8 +73,9 @@
         public void Constructor_EncodingCharactersAreNotUnique_ThrowsHl7Exception(string encodingCharacters)
         {
             // Arrange / Act / Assert
-            Assert.Throws<HL7Exception>(
-                () => new EncodingCharacters('|', encodingCharacters));
+            Assert.That(
+                () => new EncodingCharacters('|', encodingCharacters),
+                Throws.TypeOf<HL7Exception>());
         }
 
         [TestCase(' ')]
@@ -78,8 +86,9 @@
         public void Constructor_FieldSeperatorIsWhiteSpaceOrNullCharacter_ThrowsHl7Exception(char fieldSeperator)
         {
             // Arrange / Act / Assert
-            Assert.Throws<HL7Exception>(
-                () => new EncodingCharacters(fieldSeperator, "^~\\&"));
+            Assert.That(
+                () => new EncodingCharacters(fieldSeperator, "^~\\&"),
+                Throws.TypeOf<HL7Exception>());
         }
 
         [TestCase('|', '^', '~', '\\', '&')]
@@ -91,12 +100,15 @@
             // Arrange / Act
             var sut = new EncodingCharacters(fieldSeperator, componentSeperator, repetitionSeperator, escapeCharacter, subcomponentSeperator);
 
-            // Assert
-            Assert.AreEqual(fieldSeperator, sut.FieldSeparator);
-            Assert.AreEqual(componentSeperator, sut.ComponentSeparator);
-            Assert.AreEqual(repetitionSeperator, sut.RepetitionSeparator);
-            Assert.AreEqual(escapeCharacter, sut.EscapeCharacter);
-            Assert.AreEqual(subcomponentSeperator, sut.SubcomponentSeparator);
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(sut.FieldSeparator, Is.EqualTo(fieldSeperator));
+                Assert.That(sut.ComponentSeparator, Is.EqualTo(componentSeperator));
+                Assert.That(sut.RepetitionSeparator, Is.EqualTo(repetitionSeperator));
+                Assert.That(sut.EscapeCharacter, Is.EqualTo(escapeCharacter));
+                Assert.That(sut.SubcomponentSeparator, Is.EqualTo(subcomponentSeperator));
+            });
         }
 
         [Test]
@@ -106,12 +118,15 @@
             // Arrange / Act
             var sut = new EncodingCharacters(input);
 
-            // Assert
-            Assert.AreEqual(input.FieldSeparator, sut.FieldSeparator);
-            Assert.AreEqual(input.ComponentSeparator, sut.ComponentSeparator);
-            Assert.AreEqual(input.RepetitionSeparator, sut.RepetitionSeparator);
-            Assert.AreEqual(input.EscapeCharacter, sut.EscapeCharacter);
-            Assert.AreEqual(input.SubcomponentSeparator, sut.SubcomponentSeparator);
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(sut.FieldSeparator, Is.EqualTo(input.FieldSeparator));
+                Assert.That(sut.ComponentSeparator, Is.EqualTo(input.ComponentSeparator));
+                Assert.That(sut.RepetitionSeparator, Is.EqualTo(input.RepetitionSeparator));
+                Assert.That(sut.EscapeCharacter, Is.EqualTo(input.EscapeCharacter));
+                Assert.That(sut.SubcomponentSeparator, Is.EqualTo(input.SubcomponentSeparator));
+            });
         }
 
         [Test]
@@ -125,7 +140,7 @@
             var result = sut.ToString();
 
             // Assert
-            Assert.AreEqual(encodingCharacters, result);
+            Assert.That(result, Is.EqualTo(encodingCharacters));
         }
 
         [TestCase('|', "^~\\&")]
@@ -140,7 +155,7 @@
             var clone = sut.Clone();
 
             // Assert
-            Assert.AreEqual(sut, clone);
+            Assert.That(clone, Is.EqualTo(sut));
         }
 
         [Test]
@@ -160,8 +175,9 @@
             terser.Set("MSH-2", null);
 
             // Action / Assert
-            Assert.Throws<HL7Exception>(
-                () => EncodingCharacters.FromMessage(message));
+            Assert.That(
+                () => EncodingCharacters.FromMessage(message),
+                Throws.TypeOf<HL7Exception>());
         }
 
         [Test]
@@ -181,8 +197,9 @@
             terser.Set("MSH-1", null);
 
             // Action / Assert
-            Assert.Throws<HL7Exception>(
-                () => EncodingCharacters.FromMessage(message));
+            Assert.That(
+                () => EncodingCharacters.FromMessage(message),
+                Throws.TypeOf<HL7Exception>());
         }
 
         [TestCase('|', "^~\\&")]
@@ -212,7 +229,7 @@
             var actual = EncodingCharacters.FromMessage(message);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         private static readonly object[] EncodingCharactersConstructorTestData =

@@ -24,7 +24,9 @@
         public void FromHl7Encoding_InputIsNullEmptyOrWhiteSpace_ThrowsArgumentException(string input)
         {
             // Arrange / Act / Assert
-            Assert.Throws<ArgumentException>(() => Hl7CharSets.FromHl7Encoding(input));
+            Assert.That(
+                () => Hl7CharSets.FromHl7Encoding(input),
+                Throws.ArgumentException);
         }
 
         [TestCase("UNKNOWN")]
@@ -33,7 +35,9 @@
         public void FromHl7Encoding_InputIsNotKnownOrMapped_ThrowsEncodingNotSupportedException(string input)
         {
             // Arrange / Act / Assert
-            Assert.Throws<EncodingNotSupportedException>(() => Hl7CharSets.FromHl7Encoding(input));
+            Assert.That(
+                () => Hl7CharSets.FromHl7Encoding(input),
+                Throws.TypeOf<EncodingNotSupportedException>());
         }
 
         [TestCase("ISO IR6")]
@@ -44,7 +48,9 @@
         public void CheckCharset_WhenEncodingNotSupportByPlatform_ThrowsArgumentException(string hl7CharSet)
         {
             // Arrange / Act / Assert
-            Assert.Throws<ArgumentException>(() => Hl7CharSets.FromHl7Encoding(hl7CharSet));
+            Assert.That(
+                () => Hl7CharSets.FromHl7Encoding(hl7CharSet),
+                Throws.ArgumentException);
         }
 
         [TestCase("ASCII", "us-ascii")] // ASCII
@@ -75,7 +81,7 @@
             var result = Hl7CharSets.FromHl7Encoding(hl7CharSet);
 
             // Assert
-            Assert.AreEqual(expectedDotnetEncoding, result.BodyName);
+            Assert.That(result.BodyName, Is.EqualTo(expectedDotnetEncoding));
         }
     }
 }

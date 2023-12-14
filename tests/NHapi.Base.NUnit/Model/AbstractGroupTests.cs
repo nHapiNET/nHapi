@@ -24,7 +24,7 @@
             var result = message.GetStructure(segmentToTest, 1);
 
             // Assert
-            Assert.AreEqual(expectedSegmentType, result.GetType());
+            Assert.That(result.GetType(), Is.EqualTo(expectedSegmentType));
         }
 
         [Test]
@@ -40,7 +40,7 @@
             var result = message.GetStructure(segmentToTest);
 
             // Assert
-            Assert.AreEqual(expectedSegmentType, result.GetType());
+            Assert.That(result.GetType(), Is.EqualTo(expectedSegmentType));
         }
 
         [Test]
@@ -79,7 +79,7 @@
             var result = parser.Encode(oruR01);
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
@@ -114,9 +114,12 @@
 
             var result = parser.Encode(oruR01);
 
-            // Assert
-            Assert.AreEqual("OBX|2", PipeParser.Encode(obx.OBX, EncodingCharacters.FromMessage(oruR01)));
-            Assert.AreEqual(expected, result);
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(PipeParser.Encode(obx.OBX, EncodingCharacters.FromMessage(oruR01)), Is.EqualTo("OBX|2"));
+                Assert.That(result, Is.EqualTo(expected));
+            });
         }
     }
 }

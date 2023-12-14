@@ -49,15 +49,18 @@ ZIN|0164652011399|0164652011399|101|101|45789^Broken bone"
 
             var m = parser.Parse(message, Constants.VERSION);
 
-            Assert.IsNotNull(m);
+            Assert.That(m, Is.Not.Null);
 
             Console.WriteLine($"Type: {m.GetType()}");
 
             var adtA08 = (ADT_A08)m;
 
-            // verify some Z segment data
-            Assert.AreEqual("45789", adtA08.ZIN.AccidentData.Id.Value);
-            Assert.AreEqual("Broken bone", adtA08.ZIN.AccidentData.Text.Value);
+            Assert.Multiple(() =>
+            {
+                // verify some Z segment data
+                Assert.That(adtA08.ZIN.AccidentData.Id.Value, Is.EqualTo("45789"));
+                Assert.That(adtA08.ZIN.AccidentData.Text.Value, Is.EqualTo("Broken bone"));
+            });
         }
     }
 }

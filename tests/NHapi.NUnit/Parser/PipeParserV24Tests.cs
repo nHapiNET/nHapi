@@ -28,8 +28,8 @@ namespace NHapi.NUnit.Parser
 
             var qryR02 = m as QRY_R02;
 
-            Assert.IsNotNull(qryR02);
-            Assert.AreEqual("38923", qryR02.QRD.GetWhoSubjectFilter(0).IDNumber.Value);
+            Assert.That(qryR02, Is.Not.Null);
+            Assert.That(qryR02.QRD.GetWhoSubjectFilter(0).IDNumber.Value, Is.EqualTo("38923"));
         }
 
         [Test]
@@ -49,8 +49,8 @@ namespace NHapi.NUnit.Parser
             var m = parser.Parse(message);
 
             var orfR04 = m as ORF_R04;
-            Assert.IsNotNull(orfR04);
-            Assert.AreEqual("12", orfR04.GetRESPONSE().GetORDER().GetOBSERVATION().OBX.GetObservationValue()[0].Data.ToString());
+            Assert.That(orfR04, Is.Not.Null);
+            Assert.That(orfR04.GetRESPONSE().GetORDER().GetOBSERVATION().OBX.GetObservationValue()[0].Data.ToString(), Is.EqualTo("12"));
         }
 
         [Test]
@@ -71,14 +71,14 @@ namespace NHapi.NUnit.Parser
 
             var orfR04 = m as ORF_R04;
 
-            Assert.IsNotNull(orfR04);
+            Assert.That(orfR04, Is.Not.Null);
 
             var xmlParser = new DefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
-            Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(string.Empty.Equals(recoveredMessage));
+            Assert.That(recoveredMessage, Is.Not.Null);
+            Assert.That(recoveredMessage, Is.Not.EqualTo(string.Empty));
         }
 
         [Test]
@@ -91,14 +91,14 @@ namespace NHapi.NUnit.Parser
 
             var qryR02 = m as QRY_R02;
 
-            Assert.IsNotNull(qryR02);
+            Assert.That(qryR02, Is.Not.Null);
 
             var pipeParser = new PipeParser();
 
             var pipeOutput = pipeParser.Encode(qryR02);
 
-            Assert.IsNotNull(pipeOutput);
-            Assert.IsFalse(string.Empty.Equals(pipeOutput));
+            Assert.That(pipeOutput, Is.Not.Null);
+            Assert.That(pipeOutput, Is.Not.EqualTo(string.Empty));
         }
 
         [Test]
@@ -119,14 +119,14 @@ namespace NHapi.NUnit.Parser
 
             var orfR04 = m as ORF_R04;
 
-            Assert.IsNotNull(orfR04);
+            Assert.That(orfR04, Is.Not.Null);
 
             var xmlParser = new DefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
-            Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(recoveredMessage.IndexOf("ORC") > -1, "Returned message added ORC segment.");
+            Assert.That(recoveredMessage, Is.Not.Null);
+            Assert.That(recoveredMessage.IndexOf("ORC"), Is.LessThanOrEqualTo(-1), "Returned message added ORC segment.");
         }
 
         [Test]
@@ -159,14 +159,14 @@ namespace NHapi.NUnit.Parser
 
             var orfR04 = m as ORF_R04;
 
-            Assert.IsNotNull(orfR04);
+            Assert.That(orfR04, Is.Not.Null);
 
             var xmlParser = new DefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
-            Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(string.Empty.Equals(recoveredMessage));
+            Assert.That(recoveredMessage, Is.Not.Null);
+            Assert.That(recoveredMessage, Is.Not.EqualTo(string.Empty));
         }
 
         [Test]
@@ -187,14 +187,14 @@ namespace NHapi.NUnit.Parser
 
             var orfR04 = m as ORF_R04;
 
-            Assert.IsNotNull(orfR04);
+            Assert.That(orfR04, Is.Not.Null);
 
             var xmlParser = new DefaultXMLParser();
 
             var recoveredMessage = xmlParser.Encode(orfR04);
 
-            Assert.IsNotNull(recoveredMessage);
-            Assert.IsFalse(recoveredMessage.IndexOf("NTE") > -1, "Returned message added ORC segment.");
+            Assert.That(recoveredMessage, Is.Not.Null);
+            Assert.That(recoveredMessage.IndexOf("NTE"), Is.LessThanOrEqualTo(-1), "Returned message added ORC segment.");
         }
 
         private static string GetQRYR02XML()
@@ -289,19 +289,19 @@ namespace NHapi.NUnit.Parser
             var typedMessage = abstractMessage as ADT_A01;
 
             // This is supposed to throw an exception with error 'IN1 does not exist in the group NHapi.Model.V24.Message.ADT_A01'
-            Assert.Throws<HL7Exception>(() =>
-            {
-                var causesException = (IN1)typedMessage.GetStructure("IN1");
-            });
+            Assert.That(() => (IN1)typedMessage.GetStructure("IN1"), Throws.TypeOf<HL7Exception>());
 
             // This will work as the IN1 resides within the insurance group's structure
-            var in1 = (IN1)typedMessage.GetINSURANCE(0).GetStructure("IN1");
+            _ = (IN1)typedMessage.GetINSURANCE(0).GetStructure("IN1");
 
-            // old style of accessing the data
-            Assert.IsTrue(typedMessage.GetINSURANCE(0).IN1.SetIDIN1.Value == "0001");
+            Assert.Multiple(() =>
+            {
+                // old style of accessing the data
+                Assert.That(typedMessage.GetINSURANCE(0).IN1.SetIDIN1.Value, Is.EqualTo("0001"));
 
-            // new style of accessing the data
-            Assert.IsTrue(typedMessage.INSURANCEs.First().IN1.SetIDIN1.Value == "0001");
+                // new style of accessing the data
+                Assert.That(typedMessage.INSURANCEs.First().IN1.SetIDIN1.Value, Is.EqualTo("0001"));
+            });
         }
 
         /// <summary>
@@ -345,8 +345,9 @@ namespace NHapi.NUnit.Parser
                 var resultSet = 1;
 
                 var expectedRepetitions = 3; // 3 orders
-                Assert.IsTrue(
-                    pr.ORDER_OBSERVATIONRepetitionsUsed == expectedRepetitions,
+                Assert.That(
+                    pr.ORDER_OBSERVATIONRepetitionsUsed,
+                    Is.EqualTo(expectedRepetitions),
                     $"Expected {expectedRepetitions} in result {resultSet}");
 
                 foreach (var oo in pr.ORDER_OBSERVATIONs)
@@ -354,72 +355,81 @@ namespace NHapi.NUnit.Parser
                     if (resultSet == 1)
                     {
                         expectedRepetitions = 1;
-                        Assert.IsTrue(
-                            oo.OBSERVATIONRepetitionsUsed == expectedRepetitions,
+                        Assert.That(
+                            oo.OBSERVATIONRepetitionsUsed,
+                            Is.EqualTo(expectedRepetitions),
                             $"Expected {expectedRepetitions} in result {resultSet}");
 
                         var obx = oo.OBSERVATIONs.First().OBX;
                         var valueType = obx.ValueType.Value;
                         var expectedValueType = "FT";
 
-                        Assert.IsTrue(
-                            valueType == expectedValueType,
+                        Assert.That(
+                            valueType,
+                            Is.EqualTo(expectedValueType),
                             $"Expected Value Type of {expectedValueType} but found {valueType} for result set {resultSet}");
 
                         var data = obx.GetObservationValue(0);
                         var value = data.Data.ToString();
                         var toFind = "Allergiepass";
 
-                        Assert.IsTrue(
-                            value.Contains(toFind),
+                        Assert.That(
+                            value,
+                            Does.Contain(toFind),
                             $"Expected to find '{toFind}' in data '{value}' but didn't.");
                     }
 
                     if (resultSet == 2)
                     {
                         expectedRepetitions = 3;
-                        Assert.IsTrue(
-                            oo.OBSERVATIONRepetitionsUsed == expectedRepetitions,
+                        Assert.That(
+                            oo.OBSERVATIONRepetitionsUsed,
+                            Is.EqualTo(expectedRepetitions),
                             $"Expected {expectedRepetitions} in result {resultSet}");
 
                         var obx = oo.OBSERVATIONs.First().OBX;
                         var valueType = obx.ValueType.Value;
                         var expectedValueType = "TX";
 
-                        Assert.IsTrue(
-                            valueType == expectedValueType,
+                        Assert.That(
+                            valueType,
+                            Is.EqualTo(expectedValueType),
                             $"Expected Value Type of {expectedValueType} but found {valueType} for result set {resultSet}");
 
                         var data = obx.GetObservationValue(0);
                         var value = data.Data.ToString();
                         var toFind = "negativ";
 
-                        Assert.IsTrue(
-                            value.Contains(toFind),
+                        Assert.That(
+                            value,
+                            Does.Contain(toFind),
                             $"Expected to find '{toFind}' in data '{value}' but didn't.");
                     }
 
                     if (resultSet == 3)
                     {
                         expectedRepetitions = 5;
-                        Assert.IsTrue(
-                            oo.OBSERVATIONRepetitionsUsed == expectedRepetitions,
+                        Assert.That(
+                            oo.OBSERVATIONRepetitionsUsed,
+                            Is.EqualTo(expectedRepetitions),
                             $"Expected {expectedRepetitions} in result {resultSet}");
 
                         var obx = oo.OBSERVATIONs.First().OBX;
                         var valueType = obx.ValueType.Value;
                         var expectedValueType = "NM";
 
-                        Assert.IsTrue(
-                            valueType == expectedValueType,
+                        Assert.That(
+                            valueType,
+                            Is.EqualTo(expectedValueType),
                             $"Expected Value Type of {expectedValueType} but found {valueType} for result set {resultSet}");
 
                         var data = obx.GetObservationValue(0);
                         var value = data.Data.ToString();
                         var toFind = "1.0";
 
-                        Assert.IsTrue(
-                            value.Contains(toFind),
+                        Assert.That(
+                            value,
+                            Does.Contain(toFind),
                             $"Expected to find '{toFind}' in data '{value}' but didn't.");
                     }
 
@@ -447,7 +457,7 @@ namespace NHapi.NUnit.Parser
 
             var actualObservationValueType = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
 
-            Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
+            Assert.That(actualObservationValueType, Is.AssignableFrom(expectedObservationValueType));
         }
 
         [Test]
@@ -470,9 +480,12 @@ namespace NHapi.NUnit.Parser
             var actualObservationValueType = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.GetObservationValue(0).Data;
             var obx2 = parsed.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION(0).OBX.ValueType;
 
-            Assert.AreEqual("ST", obx2.Value);
-            Assert.IsAssignableFrom(expectedObservationValueType, actualObservationValueType);
-            Assert.AreEqual("STValue", ((ST)actualObservationValueType).Value);
+            Assert.Multiple(() =>
+            {
+                Assert.That(obx2.Value, Is.EqualTo("ST"));
+                Assert.That(actualObservationValueType, Is.AssignableFrom(expectedObservationValueType));
+                Assert.That(((ST)actualObservationValueType).Value, Is.EqualTo("STValue"));
+            });
         }
 
         /// <summary>

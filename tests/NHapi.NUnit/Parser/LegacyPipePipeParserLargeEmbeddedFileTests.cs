@@ -3,9 +3,9 @@
   TODO: these tests will need re-writing at some point to also
   work when test run is targeted against netcoreapp3.1 or above
 */
+#if NET462
 namespace NHapi.NUnit.Parser
 {
-#if NET461
     using System;
 
     using global::NUnit.Framework;
@@ -64,19 +64,19 @@ namespace NHapi.NUnit.Parser
 
                     var expectedObservationCount = 20;
                     var parsedObservations = oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).OBSERVATIONRepetitionsUsed;
-                    var parsedCorrectNumberOfObservations = parsedObservations == expectedObservationCount;
-                    Assert.IsTrue(
-                        parsedCorrectNumberOfObservations,
+                    Assert.That(
+                        parsedObservations == expectedObservationCount,
+                        Is.True,
                         $"Expected 3 OBX repetitions used for this segment, found {parsedObservations}");
 
                     foreach (var obs in oru.GetPATIENT_RESULT(0).GetORDER_OBSERVATION(0).GetOBSERVATION().OBX.GetObservationValue())
                     {
-                        Assert.IsTrue(obs.Data is ED);
+                        Assert.That(obs.Data, Is.InstanceOf<ED>());
                     }
                 },
                 count);
             return testResultSummary;
         }
     }
-#endif
 }
+#endif
