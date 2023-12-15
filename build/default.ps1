@@ -42,33 +42,33 @@ Task Build -depends Clean {
 
 Task BuildModels {
 #    Exec { dotnet build "nHapi.sln" -c Debug -v q }
-#    Exec { ModelGenerator\Bin\Debug\netcoreapp3.1\ModelGenerator.exe /BasePath . /Version 2.1 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-#    Exec { ModelGenerator\Bin\Debug\netcoreapp3.1\ModelGenerator.exe /BasePath . /Version 2.2 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-#    Exec { ModelGenerator\Bin\Debug\netcoreapp3.1\ModelGenerator.exe /BasePath . /Version 2.3 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-#    Exec { ModelGenerator\Bin\Debug\netcoreapp3.1\ModelGenerator.exe /BasePath . /Version 2.3.1 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-#    Exec { ModelGenerator\Bin\Debug\netcoreapp3.1\ModelGenerator.exe /BasePath . /Version 2.4 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-#    Exec { ModelGenerator\Bin\Debug\netcoreapp3.1\ModelGenerator.exe /BasePath . /Version 2.5 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-#    Exec { ModelGenerator\Bin\Debug\netcoreapp3.1\ModelGenerator.exe /BasePath . /Version 2.5.1 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-    Exec { ModelGenerator\Bin\Debug\netcoreapp3.1\ModelGenerator.exe /BasePath . /Version 2.6 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-    Exec { ModelGenerator\Bin\Debug\netcoreapp3.1\ModelGenerator.exe /BasePath . /Version 2.7 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-    Exec { ModelGenerator\Bin\Debug\netcoreapp3.1\ModelGenerator.exe /BasePath . /Version 2.7.1 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-    Exec { ModelGenerator\Bin\Debug\netcoreapp3.1\ModelGenerator.exe /BasePath . /Version 2.8 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-    Exec { ModelGenerator\Bin\Debug\netcoreapp3.1\ModelGenerator.exe /BasePath . /Version 2.8.1 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
+#    Exec { ModelGenerator\Bin\Debug\net8.0\ModelGenerator.exe /BasePath . /Version 2.1 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
+#    Exec { ModelGenerator\Bin\Debug\net8.0\ModelGenerator.exe /BasePath . /Version 2.2 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
+#    Exec { ModelGenerator\Bin\Debug\net8.0\ModelGenerator.exe /BasePath . /Version 2.3 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
+#    Exec { ModelGenerator\Bin\Debug\net8.0\ModelGenerator.exe /BasePath . /Version 2.3.1 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
+#    Exec { ModelGenerator\Bin\Debug\net8.0\ModelGenerator.exe /BasePath . /Version 2.4 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
+#    Exec { ModelGenerator\Bin\Debug\net8.0\ModelGenerator.exe /BasePath . /Version 2.5 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
+#    Exec { ModelGenerator\Bin\Debug\net8.0\ModelGenerator.exe /BasePath . /Version 2.5.1 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
+    Exec { ModelGenerator\Bin\Debug\net8.0\ModelGenerator.exe /BasePath . /Version 2.6 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
+    Exec { ModelGenerator\Bin\Debug\net8.0\ModelGenerator.exe /BasePath . /Version 2.7 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
+    Exec { ModelGenerator\Bin\Debug\net8.0\ModelGenerator.exe /BasePath . /Version 2.7.1 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
+    Exec { ModelGenerator\Bin\Debug\net8.0\ModelGenerator.exe /BasePath . /Version 2.8 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
+    Exec { ModelGenerator\Bin\Debug\net8.0\ModelGenerator.exe /BasePath . /Version 2.8.1 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
 }
 
 task Test {
     # the below nunit runner runs against dotnet framework 461
 	exec {
-		& $nunitPath\nunit3-console.exe $test_dir\net461\$unitTestAssembly --result="$base_dir\TestResult.xml;format=nunit2"
+		& $nunitPath\nunit3-console.exe $test_dir\net462\$unitTestAssembly --result="$base_dir\TestResult.xml;format=nunit2"
 	}
 
     # TODO: Move to using dotnet test to execute the unit tests
     # the below works however the output format needs to be tweeked.
-    exec { dotnet test ..\tests\NHapi.NUnit\NHapi.NUnit.csproj -r TestResults -c Release -f net461 --no-restore --no-build }
-    exec { dotnet test ..\tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj -r TestResults -c Release -f net461 --no-restore --no-build }
-    exec { dotnet test ..\tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj -r TestResults -c Release -f net6.0 --no-restore --no-build }
-    exec { dotnet test ..\tests\NHapi.NUnit\NHapi.NUnit.csproj -r TestResults -c Release -f net6.0 --no-restore --no-build }
-    exec { dotnet test ..\tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj -r TestResults -c Release -f net6.0 --no-restore --no-build }
+    exec { dotnet test ..\tests\NHapi.NUnit\NHapi.NUnit.csproj --results-directory TestResults -c Release -f net462 --no-restore --no-build }
+    exec { dotnet test ..\tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --results-directory TestResults -c Release -f net462 --no-restore --no-build }
+    exec { dotnet test ..\tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --results-directory TestResults -c Release -f net8.0 --no-restore --no-build }
+    exec { dotnet test ..\tests\NHapi.NUnit\NHapi.NUnit.csproj --results-directory TestResults -c Release -f net8.0 --no-restore --no-build }
+    exec { dotnet test ..\tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --results-directory TestResults -c Release -f net8.0 --no-restore --no-build }
 }
 
 Task Package -depends Build {
