@@ -10,54 +10,65 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v4
-      with:
-        global-json-file: global.json
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
 
-    - name: Restore nHapi (Windows)
-      if: matrix.os == 'windows-latest'
-      run: |
-        dotnet restore nHapi.sln --configfile build\.nuget\NuGet.config
+      - name: Restore nHapi (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          dotnet restore nHapi.sln --configfile build\.nuget\NuGet.config
 
-    - name: Restore nHapi (Non-Windows)
-      if: matrix.os != 'windows-latest'
-      run: |
-        dotnet restore nHapi.sln --configfile build/.nuget/NuGet.config
+      - name: Restore nHapi (Non-Windows)
+        if: matrix.os != 'windows-latest'
+        run: |
+          dotnet restore nHapi.sln --configfile build/.nuget/NuGet.config
 
-    - name: Build nHapi
-      run: |
-        dotnet build nHapi.sln -c Release --no-restore
+      - name: Build nHapi
+        run: |
+          dotnet build nHapi.sln -c Release --no-restore
 
-    - name: Run tests for all target frameworks (Windows)
-      if: matrix.os == 'windows-latest'
-      run: |
-         dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" --results-directory TestResults -c Release -f net462 --no-restore --no-build
-         dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
-         dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --logger "trx;LogFilePrefix=TestResults" --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
-         dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" --results-directory TestResults -c Release -f net462 --no-restore --no-build
-         dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" --results-directory TestResults -c Release -f net8.0  --no-restore --no-build
+      - name: Run tests for all target frameworks (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" --results-directory TestResults -c Release -f net462 --no-restore --no-build
+          dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
+          dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --logger "trx;LogFilePrefix=TestResults" --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
+          dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" --results-directory TestResults -c Release -f net462 --no-restore --no-build
+          dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" --results-directory TestResults -c Release -f net8.0  --no-restore --no-build
 
-    - name: Run tests for all target frameworks (Non-Windows)
-      if: matrix.os != 'windows-latest'
-      run: |
-         dotnet test tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
-         dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
-         dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
+      - name: Run Benchmatks (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          dotnet run -c Release --project tests\NHapi.Benchmarks\NHapi.Benchmarks.csproj -f net8.0 --no-restore --no-build
 
-    - name: Upload Unit Test Results
-      if: always() && matrix.os == 'windows-latest'
-      uses: actions/upload-artifact@v3
-      with:
-        name: unit-test-results
-        path: TestResults\*.trx
+      - name: Run tests for all target frameworks (Non-Windows)
+        if: matrix.os != 'windows-latest'
+        run: |
+          dotnet test tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
+          dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
+          dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
 
-    - name: Upload Code Coverage Report
-      if: always() && matrix.os == 'ubuntu-latest'
-      uses: actions/upload-artifact@v3
-      with:
-        name: coverage-reports
-        path: |
-          TestResults/
+      - name: Upload Unit Test Results
+        if: always() && matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-results
+          path: TestResults\*.trx
+
+      - name: Upload Benchmark Results
+        if: always() && matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results
+          path: BenchmarkDotNet.Artifacts\results
+
+      - name: Upload Code Coverage Report
+        if: always() && matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-reports
+          path: TestResults/

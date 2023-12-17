@@ -11,12 +11,12 @@ updates:
       # Check for updates to GitHub Actions every weekday
       interval: "weekly"
 
-  - package-ecosystem: "nuget" 
+  - package-ecosystem: "nuget"
     directory: "/src/NHapi.Base"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "nuget" 
-    directory: "/src/ModelGenerator" 
+  - package-ecosystem: "nuget"
+    directory: "/src/ModelGenerator"
     schedule:
       interval: "weekly"
   - package-ecosystem: "nuget"

@@ -54,6 +54,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHapi.Base.NUnit", "tests\N
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHapi.NUnit.SourceGeneration", "tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj", "{003E674D-F010-4136-AB5A-C3EA6305A99F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHapi.Benchmarks", "tests\NHapi.Benchmarks\NHapi.Benchmarks.csproj", "{866F476C-F363-4556-A2DF-BE75132E590C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -136,6 +138,10 @@ Global
 		{003E674D-F010-4136-AB5A-C3EA6305A99F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{003E674D-F010-4136-AB5A-C3EA6305A99F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{003E674D-F010-4136-AB5A-C3EA6305A99F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{866F476C-F363-4556-A2DF-BE75132E590C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{866F476C-F363-4556-A2DF-BE75132E590C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{866F476C-F363-4556-A2DF-BE75132E590C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{866F476C-F363-4556-A2DF-BE75132E590C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -160,6 +166,7 @@ Global
 		{7C7C99F0-672B-4DB1-A125-5ED7A3ADF95E} = {65FE0FF9-296E-4C9B-A670-05D7AC663569}
 		{C26D8167-FC47-4E37-9F26-130251782761} = {65FE0FF9-296E-4C9B-A670-05D7AC663569}
 		{003E674D-F010-4136-AB5A-C3EA6305A99F} = {65FE0FF9-296E-4C9B-A670-05D7AC663569}
+		{866F476C-F363-4556-A2DF-BE75132E590C} = {65FE0FF9-296E-4C9B-A670-05D7AC663569}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0A748B98-FEF1-4CFB-951E-48F8BE10B5AB}

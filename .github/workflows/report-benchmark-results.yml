@@ -1,4 +1,4 @@
-name: Publish Test Results
+name: Report Benchmark Results
 
 on:
   workflow_run:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   publish-test-results:
-    name: Publish Test Results
+    name: Report Benchmark Results
     runs-on: ubuntu-latest
     # the build-and-test job might be skipped, we don't need to run this job then
     if: >
@@ -16,19 +16,17 @@ jobs:
       ( github.event.workflow_run.conclusion == 'success'  ||
       github.event.workflow_run.conclusion == 'failure' ) }}
     steps:
-
       - name: 'Download artifact'
         uses: actions/download-artifact@v4
         with:
-          name: unit-test-results
+          name: benchmark-results
           run-id: ${{ github.event.workflow_run.id }}
 
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
+      - name: Report benchmark result
+        uses: rhysd/github-action-benchmark@v1
         with:
-          check_name: Unit Test Results
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          commit: ${{ github.event.workflow_run.head_sha }}
-          trx_files: "**/*.trx"
-          report_individual_runs: true
-          check_run_annotations: all tests, skipped tests
+          name: Benchmark.Net Benchmark
+          tool: "benchmarkdotnet"
+          output-file-path: BenchmarkDotNet.Artifacts/results/NHapi.Benchmarks.LargeEmbeddedFileTest-report-full-compressed.json
+          auto-push: false
+          summary-always: true
