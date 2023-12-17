@@ -12,50 +12,61 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v4
-      with:
-        global-json-file: global.json
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
 
-    - name: Restore nHapi (Windows)
-      if: matrix.os == 'windows-latest'
-      run: |
-        dotnet restore nHapi.sln --configfile build\.nuget\NuGet.config
+      - name: Restore nHapi (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          dotnet restore nHapi.sln --configfile build\.nuget\NuGet.config
 
-    - name: Restore nHapi (Non-Windows)
-      if: matrix.os != 'windows-latest'
-      run: |
-        dotnet restore nHapi.sln --configfile build/.nuget/NuGet.config
+      - name: Restore nHapi (Non-Windows)
+        if: matrix.os != 'windows-latest'
+        run: |
+          dotnet restore nHapi.sln --configfile build/.nuget/NuGet.config
 
-    - name: Build nHapi
-      run: |
-        dotnet build nHapi.sln -c Release --no-restore
+      - name: Build nHapi
+        run: |
+          dotnet build nHapi.sln -c Release --no-restore
 
-    - name: Run tests for all target frameworks (Windows)
-      if: matrix.os == 'windows-latest'
-      run: |
-         dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --results-directory TestResults -c Release -f net462 --no-restore --no-build
-         dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
-         dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
-         dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --results-directory TestResults -c Release -f net462 --no-restore --no-build
-         dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --results-directory TestResults -c Release -f net8.0  --no-restore --no-build
+      - name: Run tests for all target frameworks (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --results-directory TestResults -c Release -f net462 --no-restore --no-build
+          dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
+          dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
+          dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --results-directory TestResults -c Release -f net462 --no-restore --no-build
+          dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --results-directory TestResults -c Release -f net8.0  --no-restore --no-build
 
-    - name: Run tests for all target frameworks (Non-Windows)
-      if: matrix.os != 'windows-latest'
-      run: |
-         dotnet test tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
-         dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
-         dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
+      - name: Run Benchmatks (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          dotnet run -c Release --project tests\NHapi.Benchmarks\NHapi.Benchmarks.csproj -f net8.0 --no-restore --no-build
 
-    - name: Upload Code Coverage Report
-      if: always() && matrix.os == 'ubuntu-latest'
-      uses: actions/upload-artifact@v3
-      with:
-        name: coverage-reports
-        path: |
-          TestResults/
+      - name: Run tests for all target frameworks (Non-Windows)
+        if: matrix.os != 'windows-latest'
+        run: |
+          dotnet test tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
+          dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
+          dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
+
+      - name: Upload Benchmark Results
+        if: always() && matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results
+          path: BenchmarkDotNet.Artifacts\results
+
+      - name: Upload Code Coverage Report
+        if: always() && matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-reports
+          path: TestResults/
 
   publish-coverage-results:
     needs: build-and-test
@@ -66,8 +77,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: 'Download artifact'
-        uses: actions/download-artifact@v3
+      - name: "Download artifact"
+        uses: actions/download-artifact@v4
         with:
           name: coverage-reports
 
@@ -83,3 +94,24 @@ jobs:
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: ${{ steps.coverage-paths.outputs.COVERAGE_REPORT_PATHS }}
+
+  report-benchmark-results:
+    needs: build-and-test
+    name: Report Benchmark Results
+    runs-on: ubuntu-latest
+    # the build-and-test job might be skipped, we don't need to run this job then
+    if: always()
+    steps:
+      - name: 'Download artifact'
+        uses: actions/download-artifact@v4
+        with:
+          name: benchmark-results
+
+      - name: Report benchmark result
+        uses: rhysd/github-action-benchmark@v1
+        with:
+          name: Benchmark.Net Benchmark
+          tool: "benchmarkdotnet"
+          output-file-path: BenchmarkDotNet.Artifacts/results/NHapi.Benchmarks.LargeEmbeddedFileTest-report-full-compressed.json
+          auto-push: false
+          summary-always: true
