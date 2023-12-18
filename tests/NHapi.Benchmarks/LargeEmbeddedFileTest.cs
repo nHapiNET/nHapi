@@ -9,6 +9,7 @@ using NHapi.Model.V251.Message;
 
 [MemoryDiagnoser]
 [JsonExporterAttribute.FullCompressed]
+[MarkdownExporterAttribute.GitHub]
 [SimpleJob(RuntimeMoniker.Net462, baseline: true)]
 [SimpleJob(RuntimeMoniker.Net60)]
 [SimpleJob(RuntimeMoniker.Net80)]

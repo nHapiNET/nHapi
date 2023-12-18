@@ -86,14 +86,16 @@ jobs:
         id: coverage-paths
         run: |
           readarray -d '' coveragePathArray < <(find . -name "coverage.cobertura.xml" -print0)
-          coveragePaths=$(printf ",%s" "${coveragePathArray[@]}")
+          coveragePaths=$(printf -- "-r %s " "${coveragePathArray[@]}")
           echo "COVERAGE_REPORT_PATHS=$coveragePaths" >> $GITHUB_OUTPUT
 
       - name: Publish Code Coverage Results
-        uses: codacy/codacy-coverage-reporter-action@v1
-        with:
-          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: ${{ steps.coverage-paths.outputs.COVERAGE_REPORT_PATHS }}
+        run: |
+          auth="--project-token ${{ secrets.CODACY_PROJECT_TOKEN }}"
+
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report $auth \
+          ${{ steps.coverage-paths.outputs.COVERAGE_REPORT_PATHS }} --partial &&\
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) final $auth
 
   report-benchmark-results:
     needs: build-and-test
@@ -107,11 +109,5 @@ jobs:
         with:
           name: benchmark-results
 
-      - name: Report benchmark result
-        uses: rhysd/github-action-benchmark@v1
-        with:
-          name: Benchmark.Net Benchmark
-          tool: "benchmarkdotnet"
-          output-file-path: BenchmarkDotNet.Artifacts/results/NHapi.Benchmarks.LargeEmbeddedFileTest-report-full-compressed.json
-          auto-push: false
-          summary-always: true
+      - name: 'Report benchmark result'
+        run: cat ./NHapi.Benchmarks.LargeEmbeddedFileTest-report-github.md >> $GITHUB_STEP_SUMMARY

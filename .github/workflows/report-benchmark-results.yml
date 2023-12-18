@@ -20,13 +20,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: benchmark-results
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.workflow_run.id }}
 
-      - name: Report benchmark result
-        uses: rhysd/github-action-benchmark@v1
-        with:
-          name: Benchmark.Net Benchmark
-          tool: "benchmarkdotnet"
-          output-file-path: BenchmarkDotNet.Artifacts/results/NHapi.Benchmarks.LargeEmbeddedFileTest-report-full-compressed.json
-          auto-push: false
-          summary-always: true
+      - name: 'Report benchmark result'
+        run: cat ./NHapi.Benchmarks.LargeEmbeddedFileTest-report-github.md >> $GITHUB_STEP_SUMMARY

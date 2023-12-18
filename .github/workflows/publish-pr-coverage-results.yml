@@ -24,17 +24,21 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: coverage-reports
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.workflow_run.id }}
 
       - name: Set Coverage Report Paths
         id: coverage-paths
         run: |
           readarray -d '' coveragePathArray < <(find . -name "coverage.cobertura.xml" -print0)
-          coveragePaths=$(printf ",%s" "${coveragePathArray[@]}")
+          coveragePaths=$(printf -- "-r %s " "${coveragePathArray[@]}")
           echo "COVERAGE_REPORT_PATHS=$coveragePaths" >> $GITHUB_OUTPUT
 
       - name: Publish Code Coverage Results
-        uses: codacy/codacy-coverage-reporter-action@v1
-        with:
-          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: ${{ steps.coverage-paths.outputs.COVERAGE_REPORT_PATHS }}
+        run: |
+          auth="--project-token ${{ secrets.CODACY_PROJECT_TOKEN }}"
+
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report $auth \
+          --commit-uuid ${{ github.event.workflow_run.head_sha }} \
+          ${{ steps.coverage-paths.outputs.COVERAGE_REPORT_PATHS }} --partial &&\
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) final $auth
