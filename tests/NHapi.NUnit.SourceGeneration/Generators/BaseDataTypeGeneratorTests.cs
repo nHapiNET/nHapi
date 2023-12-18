@@ -2,6 +2,7 @@ namespace NHapi.NUnit.SourceGeneration.Generators
 {
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.IO;
     using System.Text;
     using System.Threading.Tasks;
 
@@ -35,6 +36,7 @@ namespace NHapi.NUnit.SourceGeneration.Generators
 
             FileAbstraction.UsingImplementation((filePath, bytes) =>
             {
+                filePath = Path.GetRelativePath(Directory.GetCurrentDirectory(), filePath);
                 results.TryAdd(filePath, Encoding.UTF8.GetString(bytes));
             });
 
