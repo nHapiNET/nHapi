@@ -49,14 +49,14 @@ jobs:
 
     - name: Upload Unit Test Results
       if: always() && matrix.os == 'windows-latest'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: unit-test-results
         path: TestResults\*.trx
 
     - name: Upload Code Coverage Report
       if: always() && matrix.os == 'ubuntu-latest'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: coverage-reports
         path: |

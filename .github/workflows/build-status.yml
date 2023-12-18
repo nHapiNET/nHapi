@@ -51,7 +51,7 @@ jobs:
 
     - name: Upload Code Coverage Report
       if: always() && matrix.os == 'ubuntu-latest'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: coverage-reports
         path: |
