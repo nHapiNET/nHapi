@@ -4,7 +4,6 @@
   work when test run is targeted against netcoreapp3.1 or above
   perhaps move to a separate benchmark project
 */
-#if NET462
 namespace NHapi.NUnit.Parser
 {
     using System;
@@ -64,4 +63,3 @@ OBX|20|ED|PDF^Display format in PDF^AUSPDI||^TX^PDF^Base64^JVBERi0xLjcNJeLjz9MNC
         }
     }
 }
-#endif

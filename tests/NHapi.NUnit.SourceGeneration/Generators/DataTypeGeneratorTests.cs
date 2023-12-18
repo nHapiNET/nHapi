@@ -48,6 +48,7 @@ namespace NHapi.NUnit.SourceGeneration.Generators
 
             FileAbstraction.UsingImplementation((filePath, bytes) =>
             {
+                filePath = Path.GetRelativePath(Directory.GetCurrentDirectory(), filePath);
                 results.TryAdd(filePath, Encoding.UTF8.GetString(bytes));
             });
 

@@ -1,5 +1,5 @@
 ﻿{
-  C:\DEV\nHapiNet\nHapi\tests\NHapi.NUnit.SourceGeneration\bin\Debug\net8.0\basepath\NHapi.Model.V271\EventMapping\EventMap.properties:
+  basepath\NHapi.Model.V271\EventMapping\EventMap.properties:
 #event -> structure map for 2.7.1
 ADT_A01 ADT_A01
 ADT_A02 ADT_A02
