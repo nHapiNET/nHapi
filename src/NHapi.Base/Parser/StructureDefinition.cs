@@ -19,6 +19,10 @@
         // https://github.com/nHapiNET/nHapi/issues/253
         private readonly object allPossibleFirstChildrenLock = new object();
 
+        // TODO: Replace locks with Lazy{T} when support for net35 is dropped.
+        // https://github.com/nHapiNET/nHapi/issues/253
+        private readonly object nextSiblingLock = new object();
+
         private volatile HashSet<string> allChildrenNames;
 
         private volatile HashSet<string> allFirstLeafNames;
@@ -31,7 +35,7 @@
 
         private volatile HashSet<string> namesOfAllPossibleFollowingLeaves;
 
-        private IStructureDefinition nextSibling;
+        private volatile IStructureDefinition nextSibling;
 
         public string Name { get; set; }
 
@@ -105,12 +109,21 @@
                     return nextSibling;
                 }
 
-                if (IsFinalChildOfParent)
+                lock (nextSiblingLock)
                 {
-                    throw new InvalidOperationException("Final child");
+                    if (nextSibling != null)
+                    {
+                        return nextSibling;
+                    }
+
+                    if (IsFinalChildOfParent)
+                    {
+                        throw new InvalidOperationException("Final child");
+                    }
+
+                    nextSibling = Parent.Children[Position + 1];
                 }
 
-                nextSibling = Parent.Children[Position + 1];
                 return nextSibling;
             }
         }
