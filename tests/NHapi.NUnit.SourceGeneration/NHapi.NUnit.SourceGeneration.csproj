@@ -27,7 +27,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.1" />
-    <PackageReference Include="Verify.NUnit" Version="28.10.1" />
+    <PackageReference Include="Verify.NUnit" Version="28.11.0" />
   </ItemGroup>
 
   <ItemGroup>
