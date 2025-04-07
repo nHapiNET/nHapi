@@ -14,7 +14,7 @@ NHapi allows Microsoft .NET developers to easily use an HL7 2.x object model. Th
 This project is NOT affiliated with the HL7 organization. This software just conforms to the HL7 2.x specifications.
 
 This nuget package is just a metapackage for conveniance.</description>
-        <releaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v3.2.2</releaseNotes>
+        <releaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v3.2.3</releaseNotes>
         <tags>HL7 ER7 XML parsing healthcare HAPI</tags>
         <repository type="git" url="https://github.com/nHapiNET/nHapi.git" commit=""/>
         <readme>docs\README.md</readme>
