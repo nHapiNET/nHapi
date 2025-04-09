@@ -1,11 +1,10 @@
 properties {
-    $projectName = "NHapi20"
     $unitTestAssembly = "NHapi.NUnit.dll"
     $projectConfig = "Release"
-    $base_dir = resolve-path .\
+    $base_dir = ".\"
     $test_dir = "$base_dir\..\tests\NHapi.NUnit\bin\$projectConfig"
-    $nunitPath = "$base_dir\packages\NUnit.ConsoleRunner.3.10.0\tools"
-    $projects = (
+    $nunitPath = "$base_dir\packages\NUnit.ConsoleRunner.3.20.0\tools"
+    $projects = @(
         "NHapi.Base",
         "NHapi.Model.V21",
         "NHapi.Model.V22",
@@ -36,7 +35,7 @@ Task Clean {
 }
 
 Task Build -depends Clean {
-	Write-Output "Building nHapi.sln" -ForegroundColor Green
+    Write-Output "Building nHapi.sln" -ForegroundColor Green
     Exec { dotnet build "..\nHapi.sln" -c $projectConfig -v q }
 }
 
@@ -58,14 +57,16 @@ Task BuildModels {
 
 task Test {
     # the below nunit runner runs against dotnet framework 461
-	exec {
-		& $nunitPath\nunit3-console.exe $test_dir\net462\$unitTestAssembly --result="$base_dir\TestResult.xml;format=nunit2"
-	}
+    if ($IsWindows -eq $null -Or $IsWindows){
+        exec {
+            & $nunitPath\nunit3-console.exe $test_dir\net462\$unitTestAssembly --result="$base_dir\TestResult.xml;format=nunit3"
+        }
+    }
 
     # TODO: Move to using dotnet test to execute the unit tests
     # the below works however the output format needs to be tweeked.
-    exec { dotnet test ..\tests\NHapi.NUnit\NHapi.NUnit.csproj --results-directory TestResults -c Release -f net462 --no-restore --no-build }
     exec { dotnet test ..\tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --results-directory TestResults -c Release -f net462 --no-restore --no-build }
+    exec { dotnet test ..\tests\NHapi.NUnit\NHapi.NUnit.csproj --results-directory TestResults -c Release -f net462 --no-restore --no-build }
     exec { dotnet test ..\tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --results-directory TestResults -c Release -f net8.0 --no-restore --no-build }
     exec { dotnet test ..\tests\NHapi.NUnit\NHapi.NUnit.csproj --results-directory TestResults -c Release -f net8.0 --no-restore --no-build }
     exec { dotnet test ..\tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --results-directory TestResults -c Release -f net8.0 --no-restore --no-build }
@@ -83,7 +84,7 @@ Task Package -depends Build {
     }
 
     $commit = (git rev-parse --verify HEAD)
-    $nuspec = ".\nHapi.v3.nuspec"
+    $nuspec = "nHapi.v3.nuspec"
 
     (Get-Content $nuspec).Replace('commit=""', 'commit="' + $commit + '"') | Set-Content $nuspec
 
@@ -92,7 +93,13 @@ Task Package -depends Build {
     New-Item -ItemType file -Path ..\dist\net35 -Name _._
     New-Item -ItemType file -Path ..\dist\netstandard2.0 -Name _._
 
-    Exec { .nuget\nuget pack $nuspec -OutputDirectory ..\dist }
+    if ($IsWindows -eq $null -Or $IsWindows){
+        Exec { .nuget\NuGet.exe pack $nuspec -OutputDirectory ..\dist }
+    }
+    else
+    {
+        Exec { mono .nuget/NuGet.exe pack $nuspec -OutputDirectory "../dist" }
+    }
 
     (Get-Content $nuspec).Replace('commit="' + $commit + '"', 'commit=""') | Set-Content $nuspec
 }

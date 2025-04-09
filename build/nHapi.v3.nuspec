@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
     <metadata>
         <id>nhapi</id>
-        <version>3.2.3</version>
+        <version>3.2.4</version>
         <authors>Chad Chenoweth,Duane Edwards,Jake Aitchison</authors>
         <license type="expression">MPL-2.0</license>
         <projectUrl>https://github.com/nHapiNET/nHapi</projectUrl>
@@ -14,40 +14,38 @@ NHapi allows Microsoft .NET developers to easily use an HL7 2.x object model. Th
 This project is NOT affiliated with the HL7 organization. This software just conforms to the HL7 2.x specifications.
 
 This nuget package is just a metapackage for conveniance.</description>
-        <releaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v3.2.3</releaseNotes>
+        <releaseNotes>https://github.com/nHapiNET/nHapi/releases/tag/v3.2.4</releaseNotes>
         <tags>HL7 ER7 XML parsing healthcare HAPI</tags>
         <repository type="git" url="https://github.com/nHapiNET/nHapi.git" commit=""/>
         <readme>docs\README.md</readme>
         <dependencies>
             <group targetFramework=".NETFramework3.5">
-                <dependency id="nhapi.base" version="3.2.3" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v21" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v22" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v23" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v24" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v25" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v26" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v27" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v28" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v231" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v251" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v271" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v281" version="3.2.0" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v21" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v22" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v23" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v24" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v25" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v26" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v27" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v28" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v231" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v251" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v271" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v281" version="3.2.3" exclude="Build,Analyzers" />
             </group>
             <group targetFramework=".NETStandard2.0">
-                <dependency id="nhapi.base" version="3.2.3" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v21" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v22" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v23" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v24" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v25" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v26" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v27" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v28" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v231" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v251" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v271" version="3.2.0" exclude="Build,Analyzers" />
-                <dependency id="nhapi.model.v281" version="3.2.0" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v21" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v22" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v23" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v24" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v25" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v26" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v27" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v28" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v231" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v251" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v271" version="3.2.3" exclude="Build,Analyzers" />
+                <dependency id="nhapi.model.v281" version="3.2.3" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>

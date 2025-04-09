@@ -8,6 +8,17 @@ All notable changes to this project will be documented in this file.
 
 ## Previous Releases
 
+## [3.2.4] - 2025-04-09
+
+If you reference the single nHapi nuget metapackage then this release is purely superficial and does not add anything, if you reference individual nHapi model packages then this brings you the same fix as the previous release.
+
+### Other
+
+- Updates individual model nuget packages to depend on the `nhapi.base` `3.2.3` which contains the transitive dependency security vulnerability fix
+- Removes direct reference to `nhapi.base` form the nHapi metapackage as there is already a transitive reference from the `nhapi.model.*` dependencies.
+
+By @milkshakeuk
+
 ## [3.2.3] - 2025-04-07
 
 This release fixes a security vulnerability with a transitive dependency.
