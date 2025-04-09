@@ -107,8 +107,8 @@ Task Package -depends Build {
 Task Deploy -depends Package {
 
     foreach($project in $projects) {
-        Exec { dotnet nuget push "..\dist\$project.*.nupkg" -k $apiKey -sk $apiKey -s "https://api.nuget.org/v3/index.json" }
+        Exec { dotnet nuget push "../dist/$($project.ToLower()).*.nupkg" -k $apiKey -sk $apiKey -s "https://api.nuget.org/v3/index.json" --skip-duplicate }
     }
 
-    Exec { dotnet nuget push "..\dist\nhapi.3.*.nupkg" -k $apiKey -sk $apiKey -s "https://api.nuget.org/v3/index.json" }
+    Exec { dotnet nuget push "../dist/nhapi.3.*.nupkg" -k $apiKey -sk $apiKey -s "https://api.nuget.org/v3/index.json" }
 }
