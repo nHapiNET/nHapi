@@ -16,9 +16,6 @@ jobs:
       ( github.event.workflow_run.conclusion == 'success'  ||
       github.event.workflow_run.conclusion == 'failure' ) }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.workflow_run.head_branch }}
 
       - name: 'Download artifact'
         uses: actions/download-artifact@v4
