@@ -89,15 +89,12 @@ namespace NHapi.Base.NUnit.Util
             var sut = new SynchronizedCache<string, string> { { "key", "value" } };
 
             // Act / Assert
-#if WINDOWS
             var expectedExceptionMessage = "An item with the same key has already been added.";
-#else
-            var expectedExceptionMessage = "An item with the same key has already been added. Key: key";
-#endif
+
             Assert.That(
                 () => sut.Add("key", "value"),
                 Throws.ArgumentException
-                    .With.Message.EqualTo(expectedExceptionMessage));
+                    .With.Message.StartsWith(expectedExceptionMessage));
         }
 
         [Test]
