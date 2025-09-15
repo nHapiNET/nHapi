@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.7" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.9" />
     <PackageReference Include="System.Data.OleDb" Version="9.0.7" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
