@@ -3,7 +3,7 @@
   "isRoot": true,
   "tools": {
     "diffenginetray": {
-      "version": "16.6.0",
+      "version": "16.7.1",
       "commands": [
         "DiffEngineTray"
       ]
