@@ -18,7 +18,7 @@ jobs:
     steps:
 
       - name: 'Download artifact'
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: coverage-reports
           github-token: ${{ secrets.GITHUB_TOKEN }}
