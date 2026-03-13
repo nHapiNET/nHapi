@@ -30,16 +30,17 @@ jobs:
     permissions:
       contents: read # for actions/checkout to fetch code
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+
     name: Codacy Security Scan
     runs-on: ubuntu-latest
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       # Execute Codacy Analysis CLI and generate a SARIF output with the security issues identified during the analysis
       - name: Run Codacy Analysis CLI
-        uses: codacy/codacy-analysis-cli-action@v4
+        uses: codacy/codacy-analysis-cli-action@562ee3e92b8e92df8b67e0a5ff8aa8e261919c08 # v4.4.7
         with:
           # Check https://github.com/codacy/codacy-analysis-cli#project-token to get your project token from your Codacy repository
           # You can also omit the token and run the tools that support default configurations
@@ -53,9 +54,19 @@ jobs:
           # This will handover control about PR rejection to the GitHub side
           max-allowed-issues: 2147483647
 
+      # Merge multiple SARIF runs into a single run to comply with GitHub's July 2025
+      # requirement that each upload must have a single run per category.
+      # See: https://github.blog/changelog/2025-07-21-code-scanning-will-stop-combining-multiple-sarif-runs-uploaded-in-the-same-sarif-file/
+      - name: Merge SARIF runs into single run
+        if: hashFiles('results-codacy.sarif') != ''
+        run: |
+          chmod +x ./scripts/merge-sarif-runs.sh
+          ./scripts/merge-sarif-runs.sh results-codacy.sarif
+
       # Upload the SARIF file generated in the previous step
       - name: Upload SARIF results file
-        uses: github/codeql-action/upload-sarif@v4
+        uses: github/codeql-action/upload-sarif@0d579ffd059c29b07949a3cce3983f0780820c98 # v4.32.6
+        if: hashFiles('results-codacy.sarif') != ''
         with:
           sarif_file: results-codacy.sarif
           category: codacy
