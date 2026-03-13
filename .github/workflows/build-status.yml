@@ -56,14 +56,14 @@ jobs:
 
       - name: Upload Benchmark Results
         if: always() && matrix.os == 'windows-latest'
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: benchmark-results
           path: BenchmarkDotNet.Artifacts\results
 
       - name: Upload Code Coverage Report
         if: always() && matrix.os == 'ubuntu-latest'
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-reports
           path: TestResults/
