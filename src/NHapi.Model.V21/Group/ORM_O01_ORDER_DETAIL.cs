@@ -30,7 +30,7 @@ public class ORM_O01_ORDER_DETAIL : AbstractGroup {
 	///</summary>
 	public ORM_O01_ORDER_DETAIL(IGroup parent, IModelClassFactory factory) : base(parent, factory){
 	   try {
-	      this.add(typeof(OBR), true, false);
+	      this.add(typeof(OBR), true, true);
 	      this.add(typeof(ORO), true, false);
 	      this.add(typeof(RX1), true, false);
 	      this.add(typeof(NTE), false, true);
@@ -42,10 +42,9 @@ public class ORM_O01_ORDER_DETAIL : AbstractGroup {
 	}
 
 	///<summary>
-	/// Returns OBR (OBSERVATION REQUEST) - creates it if necessary
+	/// Returns  first repetition of OBR (OBSERVATION REQUEST) - creates it if necessary
 	///</summary>
-	public OBR OBR { 
-get{
+	public OBR GetOBR() {
 	   OBR ret = null;
 	   try {
 	      ret = (OBR)this.GetStructure("OBR");
@@ -55,6 +54,70 @@ get{
 	   }
 	   return ret;
 	}
+
+	///<summary>
+	///Returns a specific repetition of OBR
+	/// * (OBSERVATION REQUEST) - creates it if necessary
+	/// throws HL7Exception if the repetition requested is more than one 
+	///     greater than the number of existing repetitions.
+	///</summary>
+	public OBR GetOBR(int rep) { 
+	   return (OBR)this.GetStructure("OBR", rep);
+	}
+
+	/** 
+	 * Returns the number of existing repetitions of OBR 
+	 */ 
+	public int OBRRepetitionsUsed { 
+get{
+	    int reps = -1; 
+	    try { 
+	        reps = this.GetAll("OBR").Length; 
+	    } catch (HL7Exception e) { 
+	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
+	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
+	        throw new System.Exception(message);
+	    } 
+	    return reps; 
+	}
+	} 
+
+	/** 
+	 * Enumerate over the OBR results 
+	 */ 
+	public IEnumerable<OBR> OBRs 
+	{ 
+		get
+		{
+			for (int rep = 0; rep < OBRRepetitionsUsed; rep++)
+			{
+				yield return (OBR)this.GetStructure("OBR", rep);
+			}
+		}
+	}
+
+	///<summary>
+	///Adds a new OBR
+	///</summary>
+	public OBR AddOBR()
+	{
+		return this.AddStructure("OBR") as OBR;
+	}
+
+	///<summary>
+	///Removes the given OBR
+	///</summary>
+	public void RemoveOBR(OBR toRemove)
+	{
+		this.RemoveStructure("OBR", toRemove);
+	}
+
+	///<summary>
+	///Removes the OBR at the given index
+	///</summary>
+	public void RemoveOBRAt(int index)
+	{
+		this.RemoveRepetition("OBR", index);
 	}
 
 	///<summary>
