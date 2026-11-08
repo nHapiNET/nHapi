@@ -28,6 +28,7 @@ namespace NHapi.Base.Model.Primitive
 {
     using System;
     using System.Globalization;
+    using System.Linq;
     using System.Threading;
 
     /// <summary>
@@ -57,6 +58,26 @@ namespace NHapi.Base.Model.Primitive
     /// </version>
     public class TSComponentOne : AbstractPrimitive
     {
+        /// <summary>
+        /// The remaining DTM precisions, YYYY[MM[DD[HH[MM[SS[.S[S[S[S]]]]]]]]][+/-ZZZZ], that the
+        /// DateTimeFormat properties below do not cover, for example fractional seconds with a time zone offset
+        /// (<c>20230211140114.0000+0800</c>). Tried after those formats, so values that already
+        /// parsed keep their result. A time zone offset is converted to local time, as it already is
+        /// for <see cref="LongDateTimeFormatWithOffset"/>.
+        /// </summary>
+        private static readonly string[] AdditionalDtmFormats =
+        {
+            "yyyy",
+            "yyyyMM",
+            "yyyyMMddHH",
+            "yyyyzzz",
+            "yyyyMMzzz",
+            "yyyyMMddzzz",
+            "yyyyMMddHHzzz",
+            "yyyyMMddHHmmzzz",
+            "yyyyMMddHHmmss.FFFFzzz",
+        };
+
         private CommonTS myDetail;
 
         /// <param name="theMessage">message to which this Type belongs.
@@ -246,7 +267,9 @@ namespace NHapi.Base.Model.Primitive
         {
             try
             {
-                var dateFormats = new string[] { LongDateTimeFormat, ShortDateTimeFormat, LongDateTimeFormatWithSecond, LongDateTimeFormatWithOffset, LongDateTimeFormatWithFractionOfSecond };
+                var dateFormats = new[] { LongDateTimeFormat, ShortDateTimeFormat, LongDateTimeFormatWithSecond, LongDateTimeFormatWithOffset, LongDateTimeFormatWithFractionOfSecond }
+                    .Concat(AdditionalDtmFormats)
+                    .ToArray();
                 var val = DateTime.MinValue;
                 var culture = Thread.CurrentThread.CurrentCulture;
                 if (Value != null && Value.Length > 0)
