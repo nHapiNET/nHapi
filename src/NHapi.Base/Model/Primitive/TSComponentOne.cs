@@ -267,7 +267,7 @@ namespace NHapi.Base.Model.Primitive
         {
             try
             {
-                var dateFormats = new string[] { LongDateTimeFormat, ShortDateTimeFormat, LongDateTimeFormatWithSecond, LongDateTimeFormatWithOffset, LongDateTimeFormatWithFractionOfSecond }
+                var dateFormats = new[] { LongDateTimeFormat, ShortDateTimeFormat, LongDateTimeFormatWithSecond, LongDateTimeFormatWithOffset, LongDateTimeFormatWithFractionOfSecond }
                     .Concat(AdditionalDtmFormats)
                     .ToArray();
                 var val = DateTime.MinValue;
