@@ -73,9 +73,12 @@ namespace NHapi.Base.Model.Primitive
 
         public override string Value
         {
+            // Reading Year, Month, Day and the other parts builds the parsed detail, which adds a
+            // default GMT offset to a value that has none. Return the stored value, so reading a
+            // part never changes it. The detail setters below write their result back here.
             get
             {
-                return (myDetail != null) ? myDetail.Value : base.Value;
+                return base.Value;
             }
 
             set
@@ -94,7 +97,11 @@ namespace NHapi.Base.Model.Primitive
         /// </summary>
         public virtual int Offset
         {
-            set { Detail.Offset = value; }
+            set
+            {
+                Detail.Offset = value;
+                SyncValueFromDetail();
+            }
         }
 
         /// <summary>
@@ -194,6 +201,7 @@ namespace NHapi.Base.Model.Primitive
         public virtual void SetDatePrecision(int yr, int mnth, int dy)
         {
             Detail.SetDatePrecision(yr, mnth, dy);
+            SyncValueFromDetail();
         }
 
         [Obsolete("This method has been replaced by 'SetDateMinutePrecision'.")]
@@ -215,6 +223,7 @@ namespace NHapi.Base.Model.Primitive
         public virtual void SetDateMinutePrecision(int yr, int mnth, int dy, int hr, int min)
         {
             Detail.SetDateMinutePrecision(yr, mnth, dy, hr, min);
+            SyncValueFromDetail();
         }
 
         [Obsolete("This method has been replaced by 'SetDateSecondPrecision'.")]
@@ -236,6 +245,7 @@ namespace NHapi.Base.Model.Primitive
         public virtual void SetDateSecondPrecision(int yr, int mnth, int dy, int hr, int min, float sec)
         {
             Detail.SetDateSecondPrecision(yr, mnth, dy, hr, min, sec);
+            SyncValueFromDetail();
         }
 
         /// <summary>
@@ -314,6 +324,14 @@ namespace NHapi.Base.Model.Primitive
                 throw new HL7Exception(
                     "Could not format the date " + value + " to a long date.  Format must be " + LongDateTimeFormat);
             }
+        }
+
+        /// <summary>
+        /// Stores the detail's value after one of its setters has changed it.
+        /// </summary>
+        private void SyncValueFromDetail()
+        {
+            base.Value = myDetail.Value;
         }
     }
 }
