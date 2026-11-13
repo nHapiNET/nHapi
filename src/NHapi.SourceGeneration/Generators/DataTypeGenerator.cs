@@ -460,8 +460,8 @@ namespace NHapi.SourceGeneration.Generators
             source.Append("\t///<param name=\"index\">The index item to get (zero based)</param>\r\n");
             source.Append("\t///<returns>The data component (as a type) at the requested number (ordinal)</returns>\r\n");
             source.Append("\t///</summary>\r\n");
-            source.Append("\tpublic IType this[int index] { \r\n\r\n");
-            source.Append("get{\r\n");
+            source.Append("\tpublic IType this[int index] { \r\n");
+            source.Append("\tget{\r\n");
             source.Append("\t\ttry { \r\n");
             source.Append("\t\t\treturn this.data[index]; \r\n");
             source.Append("\t\t} catch (System.ArgumentOutOfRangeException) { \r\n");
@@ -497,7 +497,7 @@ namespace NHapi.SourceGeneration.Generators
                 }
 
                 source.Append(" {\r\n");
-                source.Append("get{\r\n");
+                source.Append("\tget{\r\n");
                 source.Append("\t   ");
                 source.Append(dtName);
                 source.Append(" ret = null;\r\n");
@@ -510,16 +510,13 @@ namespace NHapi.SourceGeneration.Generators
                 source.Append("\t   } catch (DataTypeException e) {\r\n");
                 source.Append(
                     "\t      HapiLogFactory.GetHapiLog(this.GetType()).Error(\"Unexpected problem accessing known data type component - this is a bug.\", e);\r\n");
-                source.Append("\t      throw new System.Exception(\"An unexpected error occurred\",e);\r\n");
+                source.Append("\t      throw new DataTypeException(\"An unexpected error occurred\", e);\r\n");
                 source.Append("\t   }\r\n");
                 source.Append("\t   return ret;\r\n");
-                source.Append("}\r\n\r\n");
+                source.Append("\t}\r\n\r\n");
                 source.Append("}\r\n");
             }
 
-            /*if (correspondingControlInterface != null) {
-            source.append(Control.getImplementation(correspondingControlInterface, version));
-            } */
             source.Append("}");
 
             return source.ToString();
