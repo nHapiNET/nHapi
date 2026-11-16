@@ -1,37 +1,27 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+# Dependabot version updates. Each ecosystem raises one grouped PR per week, so PRs
+# no longer pile up per directory and hit the open PR limit.
+# https://docs.github.com/code-security/dependabot/working-with-dependabot/dependabot-options-reference
 
 version: 2
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      # Check for updates to GitHub Actions every weekday
       interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
 
   - package-ecosystem: "nuget"
-    directory: "/src/NHapi.Base"
+    # "/" picks up .config/dotnet-tools.json
+    directories:
+      - "/"
+      - "/src/*"
+      - "/tests/*"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "nuget"
-    directory: "/src/ModelGenerator"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "nuget"
-    directory: "/src/NHapi.SourceGeneration"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "nuget"
-    directory: "/tests/NHapi.Base.NUnit"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "nuget"
-    directory: "/tests/NHapi.NUnit"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "nuget"
-    directory: "/tests/NHapi.NUnit.SourceGeneration"
-    schedule:
-      interval: "weekly"
+    groups:
+      nuget:
+        patterns:
+          - "*"
