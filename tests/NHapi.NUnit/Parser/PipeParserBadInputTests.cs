@@ -27,7 +27,11 @@
             Console.WriteLine(exception);
         }
 
+#if NETFRAMEWORK
         [Timeout(2000)]
+#else
+        [MaxTime(2000)]
+#endif
         [TestCaseSource(nameof(TestPaths), new object[] { "NoException", null })]
         public void TestBadInputsAreHandledGracefully(string path, Type not_required)
         {

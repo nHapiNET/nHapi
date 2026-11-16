@@ -15,9 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.1" />
-    <PackageReference Include="System.Data.OleDb" Version="10.0.1" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="11.0.0" />
+    <PackageReference Include="System.Data.OleDb" Version="11.0.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.3.180">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
