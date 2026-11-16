@@ -67,4 +67,4 @@ jobs:
 
           reporter="$RUNNER_TEMP/codacy/codacy-coverage-reporter"
           "$reporter" report --commit-uuid "$HEAD_SHA" "${reports[@]}" --partial &&\
-          "$reporter" final
+          "$reporter" final --commit-uuid "$HEAD_SHA"
