@@ -1,0 +1,7 @@
+<Project>
+  <!-- Run NUnit tests on Microsoft.Testing.Platform (MTP). The benchmarks project is not a test project. -->
+  <PropertyGroup Condition=" '$(MSBuildProjectName)' != 'NHapi.Benchmarks' ">
+    <OutputType>Exe</OutputType>
+    <EnableNUnitRunner>true</EnableNUnitRunner>
+  </PropertyGroup>
+</Project>

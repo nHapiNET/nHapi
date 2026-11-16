@@ -37,11 +37,11 @@ jobs:
       - name: Run tests for all target frameworks (Windows)
         if: matrix.os == 'windows-latest'
         run: |
-          dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" --results-directory TestResults -c Release -f net462 --no-restore --no-build
-          dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" --results-directory TestResults -c Release -f net10.0 --no-restore --no-build
-          dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --logger "trx;LogFilePrefix=TestResults" --results-directory TestResults -c Release -f net10.0 --no-restore --no-build
-          dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" --results-directory TestResults -c Release -f net462 --no-restore --no-build
-          dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --logger "trx;LogFilePrefix=TestResults" --results-directory TestResults -c Release -f net10.0  --no-restore --no-build
+          dotnet test --project tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --report-trx --results-directory TestResults -c Release -f net462 --no-restore --no-build
+          dotnet test --project tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --report-trx --results-directory TestResults -c Release -f net10.0 --no-restore --no-build
+          dotnet test --project tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --report-trx --results-directory TestResults -c Release -f net10.0 --no-restore --no-build
+          dotnet test --project tests\NHapi.NUnit\NHapi.NUnit.csproj --report-trx --results-directory TestResults -c Release -f net462 --no-restore --no-build
+          dotnet test --project tests\NHapi.NUnit\NHapi.NUnit.csproj --report-trx --results-directory TestResults -c Release -f net10.0 --no-restore --no-build
 
       - name: Run Benchmatks (Windows)
         if: matrix.os == 'windows-latest'
@@ -51,9 +51,9 @@ jobs:
       - name: Run tests for all target frameworks (Non-Windows)
         if: matrix.os != 'windows-latest'
         run: |
-          dotnet test tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net10.0 --no-restore --no-build
-          dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net10.0 --no-restore --no-build
-          dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net10.0 --no-restore --no-build
+          dotnet test --project tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj --results-directory TestResults --results-directory-layout per-module --coverage --coverage-output-format cobertura --coverage-output coverage.cobertura.xml -c Release -f net10.0 --no-restore --no-build
+          dotnet test --project tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj --results-directory TestResults -c Release -f net10.0 --no-restore --no-build
+          dotnet test --project tests/NHapi.NUnit/NHapi.NUnit.csproj --results-directory TestResults --results-directory-layout per-module --coverage --coverage-output-format cobertura --coverage-output coverage.cobertura.xml -c Release -f net10.0 --no-restore --no-build
 
       - name: Upload Unit Test Results
         if: always() && matrix.os == 'windows-latest'

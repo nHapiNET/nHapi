@@ -3,5 +3,8 @@
     "version": "10.0.404",
     "rollForward": "latestFeature"
   },
-  "projects": []
+  "projects": [],
+  "test": {
+    "runner": "Microsoft.Testing.Platform"
+  }
 }
