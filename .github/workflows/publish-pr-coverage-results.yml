@@ -16,31 +16,55 @@ jobs:
     permissions:
       actions: read
     # the build-and-test job might be skipped, we don't need to run this job then
-    if: >
+    if: >-
       ${{ github.event.workflow_run.event == 'pull_request' &&
       ( github.event.workflow_run.conclusion == 'success'  ||
       github.event.workflow_run.conclusion == 'failure' ) }}
     steps:
 
+      # The artifact comes from an untrusted pull request build. It is downloaded
+      # outside the workspace, nothing in it is ever executed, and only regular
+      # coverage.cobertura.xml files are read from it as data.
       - name: 'Download artifact'
         uses: actions/download-artifact@v8
         with:
           name: coverage-reports
+          path: ${{ runner.temp }}/artifacts
           github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.workflow_run.id }}
 
-      - name: Set Coverage Report Paths
-        id: coverage-paths
+      - name: Download Codacy Coverage Reporter
+        env:
+          CODACY_REPORTER_VERSION: 14.1.3
+          CODACY_REPORTER_SHA256: 15c5f052207d27b8501ab5d5910c68c206ea70b0157ee1725132780530580875
         run: |
-          readarray -d '' coveragePathArray < <(find . -name "coverage.cobertura.xml" -print0)
-          coveragePaths=$(printf -- "-r %s " "${coveragePathArray[@]}")
-          echo "COVERAGE_REPORT_PATHS=$coveragePaths" >> $GITHUB_OUTPUT
+          reporter="$RUNNER_TEMP/codacy/codacy-coverage-reporter"
+          mkdir -p "$(dirname "$reporter")"
+          curl -fsSL --retry 3 -o "$reporter" \
+            "https://github.com/codacy/codacy-coverage-reporter/releases/download/${CODACY_REPORTER_VERSION}/codacy-coverage-reporter-linux"
+          echo "${CODACY_REPORTER_SHA256}  ${reporter}" | sha256sum --check --strict
+          chmod +x "$reporter"
 
       - name: Publish Code Coverage Results
+        env:
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
-          auth="--project-token ${{ secrets.CODACY_PROJECT_TOKEN }}"
+          if [[ ! "$HEAD_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "::error::Unexpected head SHA format"
+            exit 1
+          fi
 
-          bash <(curl -Ls https://coverage.codacy.com/get.sh) report $auth \
-          --commit-uuid ${{ github.event.workflow_run.head_sha }} \
-          ${{ steps.coverage-paths.outputs.COVERAGE_REPORT_PATHS }} --partial &&\
-          bash <(curl -Ls https://coverage.codacy.com/get.sh) final $auth
+          reports=()
+          while IFS= read -r -d '' file; do
+            reports+=(-r "$file")
+          done < <(find "$RUNNER_TEMP/artifacts" -type f -name "coverage.cobertura.xml" -print0)
+
+          if [ ${#reports[@]} -eq 0 ]; then
+            echo "::error::No coverage reports found in artifact"
+            exit 1
+          fi
+
+          reporter="$RUNNER_TEMP/codacy/codacy-coverage-reporter"
+          "$reporter" report --commit-uuid "$HEAD_SHA" "${reports[@]}" --partial &&\
+          "$reporter" final

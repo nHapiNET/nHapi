@@ -18,7 +18,7 @@ jobs:
       checks: write
       pull-requests: write
     # the build-and-test job might be skipped, we don't need to run this job then
-    if: >
+    if: >-
       ${{ github.event.workflow_run.event == 'pull_request' &&
       ( github.event.workflow_run.conclusion == 'success'  ||
       github.event.workflow_run.conclusion == 'failure' ) }}
@@ -28,6 +28,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: unit-test-results
+          path: artifacts/unit-test-results
           github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.workflow_run.id }}
 
@@ -37,6 +38,6 @@ jobs:
           check_name: Unit Test Results
           github_token: ${{ secrets.GITHUB_TOKEN }}
           commit: ${{ github.event.workflow_run.head_sha }}
-          trx_files: "**/*.trx"
+          trx_files: "artifacts/unit-test-results/**/*.trx"
           report_individual_runs: true
           check_run_annotations: all tests, skipped tests
