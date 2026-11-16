@@ -6,10 +6,15 @@ on:
     types:
       - completed
 
+permissions:
+  contents: read
+
 jobs:
   publish-test-results:
     name: Publish Code Coverage Results
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
     # the build-and-test job might be skipped, we don't need to run this job then
     if: >
       ${{ github.event.workflow_run.event == 'pull_request' &&
