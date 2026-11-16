@@ -3,9 +3,6 @@
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <IsPackable>false</IsPackable>
-    <!-- Verify maintenance fee: nHapi is a non-revenue open source project. Renew annually. -->
-    <Verify_SponsorshipExemption>OpenSource</Verify_SponsorshipExemption>
-    <Verify_SponsorshipExemptionUntil>2027-10</Verify_SponsorshipExemptionUntil>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

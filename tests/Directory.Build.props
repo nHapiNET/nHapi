@@ -4,4 +4,10 @@
     <OutputType>Exe</OutputType>
     <EnableNUnitRunner>true</EnableNUnitRunner>
   </PropertyGroup>
+
+  <!-- Verify maintenance fee: nHapi is a non-revenue open source project. Renew annually. -->
+  <PropertyGroup>
+    <Verify_SponsorshipExemption>OpenSource</Verify_SponsorshipExemption>
+    <Verify_SponsorshipExemptionUntil>2027-10</Verify_SponsorshipExemptionUntil>
+  </PropertyGroup>
 </Project>
