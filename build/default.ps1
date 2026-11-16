@@ -65,11 +65,11 @@ task Test {
 
     # TODO: Move to using dotnet test to execute the unit tests
     # the below works however the output format needs to be tweeked.
-    exec { dotnet test ..\tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --results-directory TestResults -c Release -f net462 --no-restore --no-build }
-    exec { dotnet test ..\tests\NHapi.NUnit\NHapi.NUnit.csproj --results-directory TestResults -c Release -f net462 --no-restore --no-build }
-    exec { dotnet test ..\tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --results-directory TestResults -c Release -f net10.0 --no-restore --no-build }
-    exec { dotnet test ..\tests\NHapi.NUnit\NHapi.NUnit.csproj --results-directory TestResults -c Release -f net10.0 --no-restore --no-build }
-    exec { dotnet test ..\tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --results-directory TestResults -c Release -f net10.0 --no-restore --no-build }
+    exec { dotnet test --project ..\tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --results-directory TestResults -c Release -f net462 --no-restore --no-build }
+    exec { dotnet test --project ..\tests\NHapi.NUnit\NHapi.NUnit.csproj --results-directory TestResults -c Release -f net462 --no-restore --no-build }
+    exec { dotnet test --project ..\tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --results-directory TestResults -c Release -f net10.0 --no-restore --no-build }
+    exec { dotnet test --project ..\tests\NHapi.NUnit\NHapi.NUnit.csproj --results-directory TestResults -c Release -f net10.0 --no-restore --no-build }
+    exec { dotnet test --project ..\tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --results-directory TestResults -c Release -f net10.0 --no-restore --no-build }
 }
 
 Task Package -depends Build {
