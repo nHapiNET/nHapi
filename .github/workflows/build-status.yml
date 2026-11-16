@@ -4,6 +4,9 @@ on:
     branches:
       - master
 
+permissions:
+  contents: read
+
 jobs:
   build-and-test:
     name: Build And Test ${{matrix.os}}
