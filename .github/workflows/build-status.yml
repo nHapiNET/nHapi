@@ -93,7 +93,7 @@ jobs:
         run: |
           reporter="$RUNNER_TEMP/codacy/codacy-coverage-reporter"
           mkdir -p "$(dirname "$reporter")"
-          curl -fsSL --retry 3 -o "$reporter" \
+          curl --proto "=https" --proto-redir "=https" --tlsv1.2 -fsSL --retry 3 -o "$reporter" \
             "https://github.com/codacy/codacy-coverage-reporter/releases/download/${CODACY_REPORTER_VERSION}/codacy-coverage-reporter-linux"
           echo "${CODACY_REPORTER_SHA256}  ${reporter}" | sha256sum --check --strict
           chmod +x "$reporter"
