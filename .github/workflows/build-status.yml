@@ -37,22 +37,22 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --results-directory TestResults -c Release -f net462 --no-restore --no-build
-          dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
-          dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
+          dotnet test tests\NHapi.Base.NUnit\NHapi.Base.NUnit.csproj --results-directory TestResults -c Release -f net10.0 --no-restore --no-build
+          dotnet test tests\NHapi.NUnit.SourceGeneration\NHapi.NUnit.SourceGeneration.csproj --results-directory TestResults -c Release -f net10.0 --no-restore --no-build
           dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --results-directory TestResults -c Release -f net462 --no-restore --no-build
-          dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --results-directory TestResults -c Release -f net8.0  --no-restore --no-build
+          dotnet test tests\NHapi.NUnit\NHapi.NUnit.csproj --results-directory TestResults -c Release -f net10.0  --no-restore --no-build
 
       - name: Run Benchmatks (Windows)
         if: matrix.os == 'windows-latest'
         run: |
-          dotnet run -c Release --project tests\NHapi.Benchmarks\NHapi.Benchmarks.csproj -f net8.0 --no-restore --no-build
+          dotnet run -c Release --project tests\NHapi.Benchmarks\NHapi.Benchmarks.csproj -f net10.0 --no-restore --no-build
 
       - name: Run tests for all target frameworks (Non-Windows)
         if: matrix.os != 'windows-latest'
         run: |
-          dotnet test tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
-          dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
-          dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net8.0 --no-restore --no-build
+          dotnet test tests/NHapi.Base.NUnit/NHapi.Base.NUnit.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net10.0 --no-restore --no-build
+          dotnet test tests/NHapi.NUnit.SourceGeneration/NHapi.NUnit.SourceGeneration.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net10.0 --no-restore --no-build
+          dotnet test tests/NHapi.NUnit/NHapi.NUnit.csproj --collect:"XPlat Code Coverage" --results-directory TestResults -c Release -f net10.0 --no-restore --no-build
 
       - name: Upload Benchmark Results
         if: always() && matrix.os == 'windows-latest'
