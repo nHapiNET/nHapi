@@ -520,5 +520,31 @@ namespace NHapi.NUnit.Parser
             typeof(XPN),
             typeof(XTN),
         };
+
+        [Test]
+        public void ParseORMO01WithMultipleOBRInOrderDetail()
+        {
+            // ORM^O01 (v2.4) with a single ORC followed by more than one OBR in the order
+            // detail. Regression test for #80: every OBR must be reachable, not just the first.
+            var message =
+                "MSH|^~\\&|HIS|MedCenter|LIS|MedCenter|20060307110114||ORM^O01|MSGID20060307110114|P|2.4\r"
+              + "PID|||12001||Jones^John^^^Mr.||19670824|M|||123 West St.^^Denver^CO^80020^USA\r"
+              + "PV1||O|OP^PAREG^||||2342^Jones^Bob|||OP|||||||||2|||||||||||||||||||||||||20060307110111|\r"
+              + "ORC|NW|20060307110114\r"
+              + "OBR|1|20060307110114||003038^Urinalysis^L|||20060307110114\r"
+              + "OBR|2|20060307110114||003050^BloodCount^L|||20060307110114";
+
+            var parser = new PipeParser();
+
+            var m = parser.Parse(message) as ORM_O01;
+
+            Assert.That(m, Is.Not.Null);
+
+            var orderDetail = m.GetORDER(0).ORDER_DETAIL;
+
+            Assert.That(orderDetail.OBRRepetitionsUsed, Is.EqualTo(2));
+            Assert.That(orderDetail.GetOBR(0).SetIDOBR.Value, Is.EqualTo("1"));
+            Assert.That(orderDetail.GetOBR(1).SetIDOBR.Value, Is.EqualTo("2"));
+        }
     }
 }

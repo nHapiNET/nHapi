@@ -419,5 +419,28 @@
             typeof(XPN),
             typeof(XTN),
         };
+
+        [Test]
+        public void ParseORMO01WithMultipleOBRInOrderDetail()
+        {
+            // Regression test for #80: every OBR in an ORM^O01 order detail must be reachable.
+            var message =
+                "MSH|^~\\&|HIS|MedCenter|LIS|MedCenter|20060307110114||ORM^O01|MSGID20060307110114|P|2.6\r"
+              + "ORC|NW|20060307110114\r"
+              + "OBR|1|20060307110114||003038^Urinalysis^L|||20060307110114\r"
+              + "OBR|2|20060307110114||003050^BloodCount^L|||20060307110114";
+
+            var parser = new PipeParser();
+
+            var m = parser.Parse(message) as ORM_O01;
+
+            Assert.That(m, Is.Not.Null);
+
+            var orderDetail = m.GetORDER(0).ORDER_DETAIL;
+
+            Assert.That(orderDetail.OBRRepetitionsUsed, Is.EqualTo(2));
+            Assert.That(orderDetail.GetOBR(0).SetIDOBR.Value, Is.EqualTo("1"));
+            Assert.That(orderDetail.GetOBR(1).SetIDOBR.Value, Is.EqualTo("2"));
+        }
     }
 }
